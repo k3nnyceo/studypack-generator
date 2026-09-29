@@ -48,15 +48,16 @@ export default function UploadDropzone({ onFile, disabled }) {
       <p className="mt-1 text-sm text-slate-500">
         or <span className="font-medium text-indigo-600 underline-offset-2 group-hover:underline">browse files</span>
       </p>
-      <div className="mt-5 flex gap-2 text-xs font-medium">
+      <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs font-medium">
         <span className="rounded-full bg-rose-50 px-3 py-1 text-rose-700 ring-1 ring-rose-200">PDF</span>
         <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700 ring-1 ring-amber-200">PPTX</span>
+        <span className="rounded-full bg-indigo-50 px-3 py-1 text-indigo-700 ring-1 ring-indigo-200">Study guide JSON</span>
         <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-600">up to 50 MB</span>
       </div>
       <input
         ref={inputRef}
         type="file"
-        accept=".pdf,.pptx,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        accept=".pdf,.pptx,.json,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/json"
         className="hidden"
         onChange={(e) => {
           handleFiles(e.target.files)

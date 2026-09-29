@@ -24,9 +24,13 @@ export default function StudyGuide({
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <button onClick={onBack} className="text-sm font-medium text-slate-500 transition hover:text-slate-800">
-          ← Back to extracted notes
-        </button>
+        {onBack ? (
+          <button onClick={onBack} className="text-sm font-medium text-slate-500 transition hover:text-slate-800">
+            ← Back to extracted notes
+          </button>
+        ) : (
+          <span />
+        )}
         <button
           onClick={onReset}
           className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-300 transition hover:bg-white"

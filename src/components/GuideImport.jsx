@@ -22,8 +22,8 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
   const [errors, setErrors] = useState([])
   const [showFormat, setShowFormat] = useState(false)
 
-  function load() {
-    const result = parseStudyGuide(draft)
+  function load(text = draft) {
+    const result = parseStudyGuide(text)
     if (result.ok) {
       setErrors([])
       onLoad(result.guide)
@@ -32,13 +32,21 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
     }
   }
 
+  // Reads a .json file into the box and loads it straight away.
+  async function loadFile(file) {
+    if (!file) return
+    const text = await file.text()
+    onDraftChange(text)
+    load(text)
+  }
+
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h3 className="font-semibold text-slate-900">Load your study guide</h3>
           <p className="mt-1 text-sm text-slate-500">
-            Paste study guide JSON below and click Load to build the study guide, flashcards and quiz.
+            Paste study guide JSON below or upload a .json file, then click Load to build the study guide, flashcards and quiz.
           </p>
         </div>
         <CopyButton
@@ -80,14 +88,28 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
         >
           {showFormat ? 'Hide expected format' : 'Show expected format'}
         </button>
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-300 transition hover:bg-slate-50 focus-within:ring-2 focus-within:ring-indigo-400">
+            Upload .json
+            <input
+              type="file"
+              accept=".json,application/json"
+              className="sr-only"
+              onChange={(e) => {
+                loadFile(e.target.files?.[0])
+                e.target.value = '' // allow re-selecting the same file
+              }}
+            />
+          </label>
         <button
           type="button"
-          onClick={load}
+          onClick={() => load()}
           disabled={!draft.trim()}
           className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {hasGuide ? 'Load (replaces current guide)' : 'Load'}
         </button>
+        </div>
       </div>
 
       {showFormat && (

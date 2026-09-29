@@ -7,6 +7,9 @@ import UploadDropzone from './components/UploadDropzone.jsx'
 import { AI_GENERATION_ENABLED } from './config.js'
 import { generateStudyGuide } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
+import { parseStudyGuide } from './lib/studyGuideFormat.js'
+
+const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 
 const FEATURES = [
   { title: 'Key concepts', body: 'Pulls out the terms and ideas your lecture actually emphasises.' },
@@ -70,6 +73,8 @@ export default function App() {
   }
 
   async function handleFile(file) {
+    if (file.name.toLowerCase().endsWith('.json')) return handleGuideFile(file)
+
     const validationError = validateFile(file)
     if (validationError) {
       setError(validationError)
@@ -88,6 +93,27 @@ export default function App() {
       setError(err.message || 'Something went wrong reading that file.')
       setStatus('error')
     }
+  }
+
+  // A study guide .json dropped on the landing page loads straight into the
+  // study views, with no lecture file needed.
+  async function handleGuideFile(file) {
+    const fail = (message) => {
+      setError(message)
+      setStatus('error')
+    }
+    if (file.size > MAX_GUIDE_FILE_SIZE) return fail('That JSON file is too large (the limit is 5 MB).')
+
+    const parsed = parseStudyGuide(await file.text())
+    if (!parsed.ok) {
+      const problems = parsed.errors.map((e) => `• ${e}`).join('\n')
+      return fail(`Couldn’t load ${file.name}:\n${problems}`)
+    }
+    setFileName(file.name)
+    setResult(null)
+    setError('')
+    setStatus('done')
+    loadGuide(parsed.guide)
   }
 
   function reset() {
@@ -116,8 +142,8 @@ export default function App() {
         {status === 'done' && guide && showGuide ? (
           <StudyGuide
             guide={guide}
-            fileName={result.fileName}
-            onBack={() => setShowGuide(false)}
+            fileName={fileName}
+            onBack={result ? () => setShowGuide(false) : undefined}
             onReset={reset}
             reviewedCards={reviewedCards}
             onReviewCard={markReviewed}
@@ -153,7 +179,8 @@ export default function App() {
                 <span className="text-indigo-600">Study guide out.</span>
               </h1>
               <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600">
-                Upload your slides or PDF notes and StudyPack builds an interactive study guide from them.
+                Upload your slides or PDF notes and StudyPack builds an interactive study guide from them. Already
+                have a study guide? Drop its .json file below.
               </p>
             </section>
 
@@ -169,7 +196,7 @@ export default function App() {
             )}
 
             {status === 'error' && (
-              <div className="mt-6 rounded-xl bg-rose-50 p-4 text-sm text-rose-800 ring-1 ring-rose-200" role="alert">
+              <div className="mt-6 whitespace-pre-line rounded-xl bg-rose-50 p-4 text-sm text-rose-800 ring-1 ring-rose-200" role="alert">
                 {error}
               </div>
             )}

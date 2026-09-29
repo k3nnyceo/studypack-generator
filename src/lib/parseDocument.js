@@ -17,7 +17,7 @@ export function validateFile(file) {
     return 'Older .ppt files aren’t supported. Save it as .pptx in PowerPoint and try again.'
   }
   if (!detectFileType(file)) {
-    return 'Please upload a PDF or PowerPoint (.pptx) file.'
+    return 'Please upload a PDF or PowerPoint (.pptx) file, or a study guide (.json).'
   }
   if (file.size > MAX_FILE_SIZE) {
     return `That file is too large. The limit is ${MAX_FILE_SIZE / 1024 / 1024} MB.`
