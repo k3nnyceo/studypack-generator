@@ -13,7 +13,7 @@ const FIELDS = [
   ['modules[].definitions', '{ term, definition }[]', 'Required, may be []'],
   ['modules[].workedExamples', '{ title, problem, steps[], answer }[]', 'Required, may be []. Aim for 3-5'],
   ['modules[].quiz', '{ question, options[], correctIndex, explanation }[]', 'Optional. If missing or [], quiz questions are generated from definitions'],
-  ['quiz[].options', 'string[]', 'At least 2 choices'],
+  ['quiz[].options', 'string[]', 'At least 2 choices. Shown in random order, unless one says e.g. "All of the above"'],
   ['quiz[].correctIndex', 'integer', 'Position of the right option, counting from 0'],
   ['quiz[].explanation', 'string', 'Optional'],
 ]

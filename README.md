@@ -62,7 +62,7 @@ Click **Show expected format** in the app for the same reference with a copyable
 | `modules[].sourceRange` | Optional string |
 | `modules[].keyPoints`, `.definitions`, `.workedExamples` | Required arrays, may be `[]`. Aim for 3-5 worked examples |
 | `modules[].quiz` | Optional. If missing or `[]`, questions are generated from the module's definitions |
-| `quiz[].options` | At least 2 strings |
+| `quiz[].options` | At least 2 strings. Shown in random order so the answer isn't always the same letter; questions with a positional option ("All of the above", "Both A and B") keep their order |
 | `quiz[].correctIndex` | Integer position of the right option, counting from 0 |
 | `quiz[].explanation` | Optional string |
 

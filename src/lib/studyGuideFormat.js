@@ -202,7 +202,7 @@ Rules:
 - keyPoints: the facts or ideas a student most needs to remember.
 - definitions: every important term the module introduces, defined precisely in plain language.
 - workedExamples: 3-5 per module, each with the problem, step-by-step reasoning in "steps", and the final answer. Use real calculations for quantitative topics; scenarios or "explain why" questions for conceptual ones.
-- quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Give a one-sentence explanation.
+- quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Make wrong options plausible misconceptions, not obvious throwaways. Give a one-sentence explanation.
 - sourceRange: which pages or slides the module draws from.
 - The notes were extracted automatically from a PDF or slides, so ignore page numbers, headers and other boilerplate.
 - Stay faithful to the notes. Don't invent course-specific facts such as dates, names or exam details.

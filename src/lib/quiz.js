@@ -2,8 +2,13 @@ import { shuffled } from './flashcards.js'
 
 const MAX_OPTIONS = 4
 
+// Options like "All of the above" or "Both A and B" depend on their position,
+// so questions containing one keep the author's order.
+const POSITIONAL_OPTION = /\b(all|none|both|neither) of (the )?(above|these|them)\b|\b[A-D] (and|or|&) [A-D]\b/i
+
 // Builds quiz questions for every module. A module's own `quiz` questions are
-// used when present; otherwise questions are generated from its definitions
+// used when present, with their options shuffled so the right answer isn't
+// always in the same position (AI-written quizzes often favour one letter); otherwise questions are generated from its definitions
 // ("Which term matches this definition?"), with other terms as distractors.
 //
 // `optionNotes` runs parallel to `options`: for generated questions it holds
@@ -13,18 +18,23 @@ export function buildQuiz(guide) {
 
   return guide.modules.flatMap((module, m) => {
     if (module.quiz?.length > 0) {
-      return module.quiz.map((q, i) => ({
-        id: `m${m}-q${i}`,
-        moduleIndex: m,
-        moduleTitle: module.title,
-        generated: false,
-        question: q.question,
-        quote: '',
-        options: q.options,
-        correctIndex: q.correctIndex,
-        explanation: q.explanation,
-        optionNotes: q.options.map(() => ''),
-      }))
+      return module.quiz.map((q, i) => {
+        const keepOrder = q.options.some((option) => POSITIONAL_OPTION.test(option))
+        const order = keepOrder ? q.options.map((_, j) => j) : shuffled(q.options.map((_, j) => j))
+        const options = order.map((j) => q.options[j])
+        return {
+          id: `m${m}-q${i}`,
+          moduleIndex: m,
+          moduleTitle: module.title,
+          generated: false,
+          question: q.question,
+          quote: '',
+          options,
+          correctIndex: order.indexOf(q.correctIndex),
+          explanation: q.explanation,
+          optionNotes: options.map(() => ''),
+        }
+      })
     }
 
     return module.definitions.flatMap((def, i) => {
