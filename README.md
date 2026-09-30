@@ -4,6 +4,8 @@ Upload lecture notes (PDF or PowerPoint `.pptx`) and turn them into an interacti
 
 Built with React 19, Vite and Tailwind CSS v4. An optional Node API server can generate study guides with Claude; it is off by default.
 
+**Design system:** "Grape & Sand": a grape-violet brand scale (`brand-*`) with warm `stone` neutrals and an amber accent, defined as Tailwind tokens in `src/index.css`. Green and rose are reserved for correct/incorrect answers. Type is Plus Jakarta Sans (bundled via Fontsource, no external requests) and icons are Lucide.
+
 ## Getting started
 
 ```bash
@@ -99,16 +101,21 @@ server/
   index.js                    API server (+ static hosting of dist/ in production)
   studyGuide.js               Claude call, prompt and JSON schema (flag-gated)
 src/
-  App.jsx                     upload -> extract -> load guide -> study flow
+  App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION)
+  index.css                   design tokens: palette, font, shadows, animations
   components/
+    AppHeader.jsx             sticky top nav with the study-view tabs
+    Landing.jsx               home page
     UploadDropzone.jsx        drag-and-drop / click-to-browse input
-    ExtractedPreview.jsx      extracted text (by page/slide or full text)
+    ExtractedPreview.jsx      Notes view: extracted text (by page/slide or full text)
     GuideImport.jsx           JSON paste box, Load, format reference
     AiGenerate.jsx            "Generate with Claude" panel (flag-gated)
-    StudyGuide.jsx            Study guide / Flashcards / Quiz tabs
+    GuideHero.jsx             course header above the study views
+    StudyGuide.jsx            modules, key points, definitions, worked examples
     Flashcards.jsx            flip cards, shuffle, filters, progress
     Quiz.jsx                  multiple-choice quiz with scoring
+    ui.jsx, buttonStyles.js   shared Button, Badge, Logo, Eyebrow
     FilterChip.jsx, CopyButton.jsx
   lib/
     parseDocument.js          validation, dispatch, normalisation

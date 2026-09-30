@@ -1,59 +1,68 @@
+import { ArrowRight, ChevronDown, CircleCheck, FileText, Presentation } from 'lucide-react'
 import { useState } from 'react'
 import CopyButton from './CopyButton.jsx'
+import { Button, Eyebrow } from './ui.jsx'
 
-// Shows the extracted text and hosts whatever turns it into a study guide
+// The Notes view: extracted text, plus whatever turns it into a study guide
 // (the JSON import panel, and optionally AI generation) via `children`.
-export default function ExtractedPreview({ result, onReset, hasGuide, onViewGuide, children }) {
+export default function ExtractedPreview({ result, hasGuide, onViewGuide, children }) {
   const [openIndex, setOpenIndex] = useState(0)
   const [view, setView] = useState('sections') // 'sections' | 'raw'
   const unit = result.type === 'pdf' ? 'page' : 'slide'
+  const FileIcon = result.type === 'pdf' ? FileText : Presentation
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:flex-row sm:items-center sm:justify-between">
-        <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600">Text extracted</p>
-          <h2 className="mt-1 truncate text-xl font-bold text-slate-900">{result.fileName}</h2>
-          <p className="mt-1 text-sm text-slate-500">
-            {result.sections.length} {unit}s · {result.wordCount.toLocaleString()} words
-          </p>
-        </div>
-        <div className="flex shrink-0 gap-3">
-          <button
-            onClick={onReset}
-            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-300 transition hover:bg-slate-50"
+      <div className="card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex min-w-0 items-center gap-4">
+          <span
+            className={`flex size-12 shrink-0 items-center justify-center rounded-2xl ring-1 ${
+              result.type === 'pdf' ? 'bg-rose-50 text-rose-600 ring-rose-100' : 'bg-amber-50 text-amber-700 ring-amber-100'
+            }`}
           >
-            Upload another
-          </button>
-          {hasGuide && (
-            <button
-              onClick={onViewGuide}
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
-            >
-              View study guide
-            </button>
-          )}
+            <FileIcon className="size-6" strokeWidth={2} aria-hidden />
+          </span>
+          <div className="min-w-0">
+            <p className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
+              <CircleCheck className="size-3.5" strokeWidth={2.5} aria-hidden />
+              Text extracted
+            </p>
+            <h1 className="mt-0.5 truncate text-xl font-bold tracking-tight text-stone-900">{result.fileName}</h1>
+            <p className="mt-0.5 text-sm text-stone-500">
+              {result.sections.length} {unit}s · {result.wordCount.toLocaleString()} words
+            </p>
+          </div>
         </div>
+        {hasGuide && (
+          <Button variant="primary" onClick={onViewGuide}>
+            Open study guide
+            <ArrowRight className="size-4" strokeWidth={2.25} aria-hidden />
+          </Button>
+        )}
       </div>
 
       {children}
 
-      <div className="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 px-6 py-3">
-          <h3 className="font-semibold text-slate-800">Extracted text</h3>
+      <section className="card overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone-200/80 px-6 py-4">
+          <div>
+            <Eyebrow>Source</Eyebrow>
+            <h2 className="mt-0.5 font-semibold text-stone-900">Extracted text</h2>
+          </div>
           <div className="flex items-center gap-2">
-            <div className="inline-flex rounded-lg bg-slate-100 p-0.5 text-sm" role="radiogroup" aria-label="Text view">
+            <div className="inline-flex rounded-lg bg-stone-100 p-1 text-sm" role="radiogroup" aria-label="Text view">
               {[
                 ['sections', `By ${unit}`],
                 ['raw', 'Full text'],
               ].map(([value, label]) => (
                 <button
                   key={value}
+                  type="button"
                   role="radio"
                   aria-checked={view === value}
                   onClick={() => setView(value)}
-                  className={`rounded-md px-3 py-1 font-medium transition ${
-                    view === value ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                  className={`rounded-md px-3 py-1 font-semibold transition ${
+                    view === value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-500 hover:text-stone-800'
                   }`}
                 >
                   {label}
@@ -64,38 +73,44 @@ export default function ExtractedPreview({ result, onReset, hasGuide, onViewGuid
           </div>
         </div>
         {view === 'raw' ? (
-          <pre className="max-h-[36rem] overflow-auto whitespace-pre-wrap px-6 py-4 font-sans text-sm leading-relaxed text-slate-700">
+          <pre className="max-h-[36rem] overflow-auto px-6 py-5 font-sans text-sm leading-relaxed whitespace-pre-wrap text-stone-700">
             {result.fullText}
           </pre>
         ) : (
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-stone-100">
             {result.sections.map((section, i) => {
               const isOpen = openIndex === i
               return (
                 <li key={section.index}>
                   <button
+                    type="button"
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
-                    className="flex w-full items-center gap-4 px-6 py-3 text-left transition hover:bg-slate-50"
+                    className="flex w-full items-center gap-4 px-6 py-3.5 text-left transition hover:bg-stone-50"
                   >
-                    <span className="w-8 shrink-0 text-sm tabular-nums text-slate-400">{section.index}</span>
-                    <span className="flex-1 truncate font-medium text-slate-800">{section.title}</span>
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className={`h-4 w-4 shrink-0 text-slate-400 transition ${isOpen ? 'rotate-180' : ''}`}
+                    <span
+                      className={`flex size-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold tabular-nums transition ${
+                        isOpen ? 'bg-brand-600 text-white' : 'bg-stone-100 text-stone-500'
+                      }`}
                     >
-                      <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" />
-                    </svg>
+                      {section.index}
+                    </span>
+                    <span className="flex-1 truncate font-medium text-stone-800">{section.title}</span>
+                    <ChevronDown
+                      className={`size-4 shrink-0 text-stone-500 transition duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      aria-hidden
+                    />
                   </button>
                   {isOpen && (
-                    <div className="space-y-3 px-6 pb-5 sm:pl-18">
-                      <p className="whitespace-pre-line text-sm leading-relaxed text-slate-600">
-                        {section.text || <em className="text-slate-400">No text on this {unit}.</em>}
+                    <div className="animate-page-in space-y-3 px-6 pb-5 sm:pl-[4.25rem]">
+                      <p className="text-sm leading-relaxed whitespace-pre-line text-stone-600">
+                        {section.text || <em className="text-stone-500">No text on this {unit}.</em>}
                       </p>
                       {section.notes && (
-                        <div className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900 ring-1 ring-amber-200">
-                          <p className="mb-1 text-xs font-semibold uppercase tracking-wide">Speaker notes</p>
+                        <div className="rounded-xl bg-amber-50 p-4 text-sm text-amber-950 ring-1 ring-amber-200">
+                          <p className="mb-1 text-xs font-semibold tracking-[0.06em] text-amber-800 uppercase">
+                            Speaker notes
+                          </p>
                           <p className="whitespace-pre-line">{section.notes}</p>
                         </div>
                       )}
@@ -106,7 +121,7 @@ export default function ExtractedPreview({ result, onReset, hasGuide, onViewGuid
             })}
           </ul>
         )}
-      </div>
+      </section>
     </div>
   )
 }

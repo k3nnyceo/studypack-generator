@@ -1,4 +1,11 @@
+import { CloudUpload } from 'lucide-react'
 import { useRef, useState } from 'react'
+
+const FORMATS = [
+  { label: 'PDF', className: 'bg-rose-50 text-rose-700 ring-rose-200' },
+  { label: 'PPTX', className: 'bg-amber-50 text-amber-800 ring-amber-200' },
+  { label: 'Study guide JSON', className: 'bg-brand-50 text-brand-700 ring-brand-200' },
+]
 
 export default function UploadDropzone({ onFile, disabled }) {
   const inputRef = useRef(null)
@@ -14,6 +21,7 @@ export default function UploadDropzone({ onFile, disabled }) {
       role="button"
       tabIndex={0}
       aria-disabled={disabled}
+      aria-label="Upload lecture notes or a study guide"
       onClick={() => !disabled && inputRef.current?.click()}
       onKeyDown={(e) => {
         if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
@@ -31,28 +39,38 @@ export default function UploadDropzone({ onFile, disabled }) {
         setIsDragging(false)
         handleFiles(e.dataTransfer.files)
       }}
-      className={`group flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-14 text-center transition focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-200 ${
-        isDragging
-          ? 'border-indigo-500 bg-indigo-50'
-          : 'border-slate-300 bg-white hover:border-indigo-400 hover:bg-indigo-50/40'
+      className={`group relative cursor-pointer overflow-hidden rounded-3xl bg-white p-2 shadow-elevated ring-1 transition duration-300 ${
+        isDragging ? 'scale-[1.01] ring-2 ring-brand-500' : 'ring-stone-200 hover:ring-brand-300'
       } ${disabled ? 'pointer-events-none opacity-60' : ''}`}
     >
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 transition group-hover:scale-105">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-7 w-7">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0-4 4m4-4 4 4M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-        </svg>
-      </div>
-      <p className="text-lg font-semibold text-slate-800">
-        {isDragging ? 'Drop it here' : 'Drag & drop your lecture notes'}
-      </p>
-      <p className="mt-1 text-sm text-slate-500">
-        or <span className="font-medium text-indigo-600 underline-offset-2 group-hover:underline">browse files</span>
-      </p>
-      <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs font-medium">
-        <span className="rounded-full bg-rose-50 px-3 py-1 text-rose-700 ring-1 ring-rose-200">PDF</span>
-        <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700 ring-1 ring-amber-200">PPTX</span>
-        <span className="rounded-full bg-indigo-50 px-3 py-1 text-indigo-700 ring-1 ring-indigo-200">Study guide JSON</span>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-600">up to 50 MB</span>
+      <div
+        className={`flex flex-col items-center justify-center rounded-[1.25rem] border-2 border-dashed px-6 py-12 text-center transition duration-300 sm:py-14 ${
+          isDragging
+            ? 'border-brand-400 bg-brand-50'
+            : 'border-stone-200 bg-stone-50/60 group-hover:border-brand-300 group-hover:bg-brand-50/40'
+        }`}
+      >
+        <span
+          className={`flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-brand transition duration-300 ${
+            isDragging ? '-translate-y-1 scale-110' : 'group-hover:-translate-y-0.5'
+          }`}
+        >
+          <CloudUpload className="size-7" strokeWidth={2} aria-hidden />
+        </span>
+        <p className="mt-5 text-lg font-semibold text-stone-900">
+          {isDragging ? 'Drop to upload' : 'Drag & drop your lecture notes'}
+        </p>
+        <p className="mt-1 text-sm text-stone-500">
+          or <span className="font-semibold text-brand-600 underline-offset-4 group-hover:underline">browse files</span>{' '}
+          · up to 50 MB
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs font-semibold">
+          {FORMATS.map((f) => (
+            <span key={f.label} className={`rounded-full px-3 py-1 ring-1 ring-inset ${f.className}`}>
+              {f.label}
+            </span>
+          ))}
+        </div>
       </div>
       <input
         ref={inputRef}

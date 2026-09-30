@@ -1,147 +1,98 @@
-import { useMemo, useState } from 'react'
-import { buildFlashcards } from '../lib/flashcards.js'
-import { buildQuiz } from '../lib/quiz.js'
-import Flashcards from './Flashcards.jsx'
-import Quiz from './Quiz.jsx'
+import { BookMarked, CircleCheck, Eye, EyeOff, Lightbulb, ListOrdered, Target } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Badge } from './ui.jsx'
 
-export default function StudyGuide({
-  guide,
-  fileName,
-  onBack,
-  onReset,
-  reviewedCards,
-  onReviewCard,
-  onResetReviewed,
-  quizAnswers,
-  onAnswerQuiz,
-  onClearQuizAnswers,
-}) {
-  const [tab, setTab] = useState('guide')
-  const cards = useMemo(() => buildFlashcards(guide), [guide])
-  const questions = useMemo(() => buildQuiz(guide), [guide])
-  const moduleTitles = guide.modules.map((m) => m.title)
+export default function StudyGuide({ guide }) {
+  const active = useActiveModule(guide.modules.length)
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {onBack ? (
-          <button onClick={onBack} className="text-sm font-medium text-slate-500 transition hover:text-slate-800">
-            ← Back to extracted notes
-          </button>
-        ) : (
-          <span />
-        )}
-        <button
-          onClick={onReset}
-          className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-300 transition hover:bg-white"
-        >
-          Upload another
-        </button>
-      </div>
-
-      <header className="rounded-2xl bg-indigo-600 p-6 text-white shadow-sm sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-wide text-indigo-200">Study guide · {fileName}</p>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">{guide.title}</h1>
-        <p className="mt-3 max-w-3xl leading-relaxed text-indigo-100">{guide.overview}</p>
-      </header>
-
-      <div className="flex justify-center">
-        <div className="inline-flex rounded-2xl bg-slate-200/70 p-1" role="tablist" aria-label="Study mode">
-          <TabButton active={tab === 'guide'} onClick={() => setTab('guide')}>
-            Study guide
-          </TabButton>
-          <TabButton active={tab === 'flashcards'} onClick={() => setTab('flashcards')}>
-            Flashcards
-            <TabCount>{cards.length}</TabCount>
-          </TabButton>
-          <TabButton active={tab === 'quiz'} onClick={() => setTab('quiz')}>
-            Quiz
-            <TabCount>{questions.length}</TabCount>
-          </TabButton>
-        </div>
-      </div>
-
-      {tab === 'quiz' ? (
-        <Quiz
-          questions={questions}
-          modules={moduleTitles}
-          answers={quizAnswers}
-          onAnswer={onAnswerQuiz}
-          onClearAnswers={onClearQuizAnswers}
-        />
-      ) : tab === 'flashcards' ? (
-        <Flashcards
-          cards={cards}
-          modules={moduleTitles}
-          reviewed={reviewedCards}
-          onReview={onReviewCard}
-          onResetProgress={onResetReviewed}
-        />
-      ) : (
-        <div className="lg:grid lg:grid-cols-[14rem_1fr] lg:gap-8">
-          <nav aria-label="Modules" className="mb-6 lg:mb-0">
-            <ol className="flex gap-2 overflow-x-auto pb-2 lg:sticky lg:top-6 lg:flex-col lg:overflow-visible lg:pb-0">
-              {guide.modules.map((module, i) => (
-                <li key={i} className="shrink-0">
-                  <a
-                    href={`#module-${i + 1}`}
-                    className="flex items-start gap-2 rounded-lg px-3 py-2 text-sm text-slate-600 ring-1 ring-slate-200 transition hover:bg-white hover:text-indigo-700 lg:ring-0"
+    <div className="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
+      <nav aria-label="Modules" className="mb-6 lg:mb-0">
+        <p className="mb-3 hidden text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase lg:block">
+          Modules
+        </p>
+        <ol className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] lg:sticky lg:top-24 lg:mx-0 lg:flex-col lg:gap-1 lg:overflow-visible lg:px-0 lg:pb-0">
+          {guide.modules.map((module, i) => {
+            const isActive = active === i
+            return (
+              <li key={i} className="shrink-0">
+                <a
+                  href={`#module-${i + 1}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`flex items-start gap-3 rounded-xl px-3 py-2.5 text-sm transition ${
+                    isActive
+                      ? 'bg-white font-semibold text-stone-900 shadow-card ring-1 ring-stone-200/80'
+                      : 'text-stone-600 ring-1 ring-stone-200 hover:bg-white hover:text-stone-900 lg:ring-0'
+                  }`}
+                >
+                  <span
+                    className={`flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-bold tabular-nums transition ${
+                      isActive ? 'bg-brand-600 text-white' : 'bg-stone-100 text-stone-500'
+                    }`}
                   >
-                    <span className="font-semibold tabular-nums text-indigo-500">{i + 1}</span>
-                    <span className="lg:line-clamp-2">{module.title}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
+                    {i + 1}
+                  </span>
+                  <span className="pt-0.5 lg:line-clamp-2">{module.title}</span>
+                </a>
+              </li>
+            )
+          })}
+        </ol>
+      </nav>
 
-          <div className="min-w-0 space-y-10">
-            {guide.modules.map((module, i) => (
-              <Module key={i} module={module} number={i + 1} />
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="min-w-0 space-y-8">
+        {guide.modules.map((module, i) => (
+          <Module key={i} module={module} number={i + 1} />
+        ))}
+      </div>
     </div>
   )
 }
 
-function TabButton({ active, onClick, children }) {
-  return (
-    <button
-      role="tab"
-      aria-selected={active}
-      onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-xl px-3 py-2 sm:px-5 text-sm font-semibold transition ${
-        active ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
-      }`}
-    >
-      {children}
-    </button>
-  )
+// Tracks which module is in view so the sidebar can highlight it.
+function useActiveModule(count) {
+  const [active, setActive] = useState(0)
+  useEffect(() => {
+    const sections = Array.from({ length: count }, (_, i) => document.getElementById(`module-${i + 1}`)).filter(Boolean)
+    if (!('IntersectionObserver' in window) || sections.length === 0) return
+    const visible = new Map()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => visible.set(e.target.id, e.isIntersecting))
+        const first = sections.findIndex((s) => visible.get(s.id))
+        if (first >= 0) setActive(first)
+      },
+      { rootMargin: '-96px 0px -55% 0px' },
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [count])
+  return active
 }
 
 function Module({ module, number }) {
   return (
-    <section id={`module-${number}`} className="scroll-mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
-      <p className="text-xs font-semibold uppercase tracking-wide text-indigo-600">
-        Module {number}
-        {module.sourceRange && <span className="font-normal normal-case text-slate-400"> · {module.sourceRange}</span>}
-      </p>
-      <h2 className="mt-1 text-2xl font-bold text-slate-900">{module.title}</h2>
+    <section id={`module-${number}`} className="card scroll-mt-24 p-6 sm:p-8">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="flex size-9 items-center justify-center rounded-xl bg-brand-50 text-sm font-bold text-brand-700 tabular-nums ring-1 ring-brand-100">
+          {String(number).padStart(2, '0')}
+        </span>
+        {module.sourceRange && <Badge>{module.sourceRange}</Badge>}
+      </div>
+      <h2 className="mt-4 text-2xl font-bold tracking-tight text-balance text-stone-900">{module.title}</h2>
 
-      <div className="mt-4 space-y-3 leading-relaxed text-slate-700">
+      <div className="mt-4 space-y-4 leading-7 text-stone-700">
         {module.summary.split(/\n{2,}/).map((para, i) => (
           <p key={i}>{para}</p>
         ))}
       </div>
 
       {module.keyPoints.length > 0 && (
-        <SubSection title="Key points">
-          <ul className="space-y-2">
+        <SubSection icon={Target} title="Key points">
+          <ul className="space-y-2.5 rounded-2xl bg-stone-50 p-5 ring-1 ring-stone-200/70">
             {module.keyPoints.map((point, i) => (
-              <li key={i} className="flex gap-3 text-slate-700">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-500" />
+              <li key={i} className="flex gap-3 leading-relaxed text-stone-700">
+                <CircleCheck className="mt-0.5 size-5 shrink-0 text-brand-500" strokeWidth={2} aria-hidden />
                 {point}
               </li>
             ))}
@@ -150,12 +101,15 @@ function Module({ module, number }) {
       )}
 
       {module.definitions.length > 0 && (
-        <SubSection title="Key definitions">
+        <SubSection icon={BookMarked} title="Key definitions">
           <dl className="grid gap-3 sm:grid-cols-2">
             {module.definitions.map((def, i) => (
-              <div key={i} className="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200">
-                <dt className="font-semibold text-slate-900">{def.term}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-slate-600">{def.definition}</dd>
+              <div
+                key={i}
+                className="rounded-xl bg-white p-4 ring-1 ring-stone-200 transition hover:shadow-card hover:ring-brand-200"
+              >
+                <dt className="font-semibold text-stone-900">{def.term}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-stone-600">{def.definition}</dd>
               </div>
             ))}
           </dl>
@@ -163,7 +117,7 @@ function Module({ module, number }) {
       )}
 
       {module.workedExamples.length > 0 && (
-        <SubSection title="Worked examples">
+        <SubSection icon={Lightbulb} title="Worked examples">
           <div className="space-y-3">
             {module.workedExamples.map((example, i) => (
               <WorkedExample key={i} example={example} number={i + 1} />
@@ -175,10 +129,13 @@ function Module({ module, number }) {
   )
 }
 
-function SubSection({ title, children }) {
+function SubSection({ icon: Icon, title, children }) {
   return (
-    <div className="mt-8">
-      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{title}</h3>
+    <div className="mt-10">
+      <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold tracking-[0.06em] text-stone-500 uppercase">
+        <Icon className="size-4 text-brand-500" strokeWidth={2.25} aria-hidden />
+        {title}
+      </h3>
       {children}
     </div>
   )
@@ -189,41 +146,56 @@ function WorkedExample({ example, number }) {
   const [revealed, setRevealed] = useState(false)
 
   return (
-    <div className="rounded-xl ring-1 ring-slate-200">
-      <div className="p-4">
-        <p className="text-sm font-semibold text-slate-900">
-          <span className="text-indigo-600">Example {number}.</span> {example.title}
-        </p>
-        <p className="mt-2 whitespace-pre-line text-slate-700">{example.problem}</p>
+    <div className={`overflow-hidden rounded-2xl ring-1 transition ${revealed ? 'ring-brand-200 shadow-card' : 'ring-stone-200'}`}>
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-4">
+          <p className="font-semibold text-stone-900">
+            <span className="mr-2 text-brand-600">Example {number}</span>
+            <span className="text-stone-400" aria-hidden>
+              ·
+            </span>{' '}
+            {example.title}
+          </p>
+        </div>
+        <p className="mt-2 leading-relaxed whitespace-pre-line text-stone-700">{example.problem}</p>
         <button
+          type="button"
           onClick={() => setRevealed((r) => !r)}
           aria-expanded={revealed}
-          className="mt-3 text-sm font-medium text-indigo-600 transition hover:text-indigo-800"
+          className={`mt-4 inline-flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-semibold transition active:scale-[0.98] ${
+            revealed ? 'bg-stone-100 text-stone-700 hover:bg-stone-200' : 'bg-brand-50 text-brand-700 hover:bg-brand-100'
+          }`}
         >
+          {revealed ? <EyeOff className="size-4" aria-hidden /> : <Eye className="size-4" aria-hidden />}
           {revealed ? 'Hide solution' : 'Show solution'}
         </button>
       </div>
+
       {revealed && (
-        <div className="border-t border-slate-200 bg-slate-50 p-4">
-          <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700 marker:font-semibold marker:text-slate-400">
+        <div className="animate-page-in border-t border-stone-200 bg-stone-50/70 p-5">
+          <p className="mb-4 flex items-center gap-2 text-xs font-semibold tracking-[0.06em] text-stone-500 uppercase">
+            <ListOrdered className="size-3.5" aria-hidden />
+            Solution
+          </p>
+          <ol className="relative space-y-4 before:absolute before:top-2 before:bottom-2 before:left-[11px] before:w-px before:bg-stone-200">
             {example.steps.map((step, i) => (
-              <li key={i} className="whitespace-pre-line pl-1">{step}</li>
+              <li key={i} className="relative flex gap-4">
+                <span className="z-10 flex size-6 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-stone-600 tabular-nums ring-1 ring-stone-300">
+                  {i + 1}
+                </span>
+                <span className="pt-0.5 text-sm leading-relaxed whitespace-pre-line text-stone-700">{step}</span>
+              </li>
             ))}
           </ol>
-          <p className="mt-4 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900 ring-1 ring-emerald-200">
-            <span className="font-semibold">Answer: </span>
-            {example.answer}
-          </p>
+          <div className="mt-5 flex gap-3 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-950 ring-1 ring-emerald-200">
+            <CircleCheck className="mt-0.5 size-5 shrink-0 text-emerald-600" strokeWidth={2} aria-hidden />
+            <p>
+              <span className="font-semibold">Answer: </span>
+              {example.answer}
+            </p>
+          </div>
         </div>
       )}
     </div>
-  )
-}
-
-function TabCount({ children }) {
-  return (
-    <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold tabular-nums text-indigo-700">
-      {children}
-    </span>
   )
 }

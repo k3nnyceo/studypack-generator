@@ -1,3 +1,4 @@
+import { Check, ChevronLeft, ChevronRight, PartyPopper, RotateCcw, Shuffle } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { shuffled } from '../lib/flashcards.js'
 import FilterChip from './FilterChip.jsx'
@@ -90,7 +91,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
 
   if (cards.length === 0) {
     return (
-      <p className="rounded-2xl bg-white p-8 text-center text-slate-500 ring-1 ring-slate-200">
+      <p className="rounded-2xl bg-white p-8 text-center text-stone-500 ring-1 ring-stone-200">
         This study guide has no definitions or worked examples to make flashcards from.
       </p>
     )
@@ -99,8 +100,8 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       {/* Filters */}
-      <div className="space-y-3">
-        <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
+      <div className="card space-y-4 overflow-hidden p-4 sm:p-5">
+        <div className="-mr-4 flex gap-2 overflow-x-auto pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,#000_calc(100%-3rem),transparent)] sm:-mr-5">
           <FilterChip active={moduleFilter === 'all'} onClick={() => changeModule('all')}>
             All modules
             <ChipCount reviewed={reviewed} cards={cards} />
@@ -118,15 +119,15 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="inline-flex rounded-xl bg-slate-100 p-1" role="radiogroup" aria-label="Card type">
+          <div className="inline-flex rounded-xl bg-stone-100 p-1" role="radiogroup" aria-label="Card type">
             {KIND_FILTERS.map((f) => (
               <button
                 key={f.value}
                 role="radio"
                 aria-checked={kindFilter === f.value}
                 onClick={() => changeKind(f.value)}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                  kindFilter === f.value ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+                  kindFilter === f.value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-500 hover:text-stone-800'
                 }`}
               >
                 {f.label}
@@ -137,13 +138,13 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
           <button
             onClick={toggleShuffle}
             aria-pressed={Boolean(shuffledIds)}
-            className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium ring-1 transition active:scale-95 ${
+            className={`inline-flex h-9 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold ring-1 transition active:scale-95 ${
               shuffledIds
-                ? 'bg-indigo-600 text-white ring-indigo-600 shadow-sm'
-                : 'bg-white text-slate-700 ring-slate-200 hover:bg-slate-50'
+                ? 'bg-brand-600 text-white shadow-brand ring-brand-600'
+                : 'bg-white text-stone-700 ring-stone-200 hover:bg-stone-50'
             }`}
           >
-            <ShuffleIcon />
+            <Shuffle className="size-4" strokeWidth={2.25} aria-hidden />
             {shuffledIds ? 'Shuffled' : 'Shuffle'}
           </button>
         </div>
@@ -152,15 +153,15 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
       {/* Progress */}
       <div>
         <div className="mb-2 flex items-baseline justify-between text-sm">
-          <span className="font-medium text-slate-700">
+          <span className="font-semibold text-stone-800">
             {deck.length > 0 ? `Card ${index + 1} of ${deck.length}` : 'No cards'}
           </span>
-          <span className="text-slate-500">
-            <span className="font-semibold tabular-nums text-emerald-600">{reviewedInDeck}</span> / {deck.length} reviewed
+          <span className="text-stone-500">
+            <span className="font-bold text-brand-700 tabular-nums">{reviewedInDeck}</span> / {deck.length} reviewed
           </span>
         </div>
         <div
-          className="h-2 overflow-hidden rounded-full bg-slate-200"
+          className="h-2 overflow-hidden rounded-full bg-stone-200/80"
           role="progressbar"
           aria-label="Cards reviewed"
           aria-valuemin={0}
@@ -168,7 +169,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
           aria-valuenow={reviewedInDeck}
         >
           <div
-            className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-[width] duration-500 ease-out"
+            className="h-full rounded-full bg-gradient-to-r from-brand-400 to-brand-600 transition-[width] duration-500 ease-out"
             style={{ width: `${deck.length ? (reviewedInDeck / deck.length) * 100 : 0}%` }}
           />
         </div>
@@ -180,7 +181,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
           <div className="perspective-distant">
             <button
               onClick={flip}
-              className={`relative grid w-full cursor-pointer rounded-3xl text-left transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform-3d focus:outline-none focus-visible:ring-4 focus-visible:ring-indigo-300 motion-reduce:transition-none ${
+              className={`relative grid w-full cursor-pointer rounded-3xl text-left transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform-3d focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300 motion-reduce:transition-none ${
                 flipped ? 'rotate-y-180' : ''
               }`}
             >
@@ -192,7 +193,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 hint="Tap to reveal"
                 isReviewed={reviewed.has(card.id)}
                 hidden={flipped}
-                className="bg-white text-slate-900 ring-1 ring-slate-200"
+                className="bg-white text-stone-900 ring-1 ring-stone-200/80"
               />
               <CardFace
                 label={FACE_LABELS[card.kind].back}
@@ -200,35 +201,34 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 text={card.back}
                 hint="Tap to flip back"
                 hidden={!flipped}
-                className="rotate-y-180 bg-gradient-to-br from-indigo-600 to-violet-600 text-white"
+                className="rotate-y-180 bg-gradient-to-br from-brand-600 via-brand-700 to-brand-900 text-white"
                 dark
               />
             </button>
           </div>
         </div>
       ) : (
-        <p className="rounded-3xl bg-white p-10 text-center text-slate-500 ring-1 ring-slate-200">
+        <p className="card p-10 text-center text-stone-500">
           No cards match these filters.
         </p>
       )}
 
       {/* Navigation */}
       <div className="flex items-center justify-between gap-4">
-        <NavButton onClick={() => go(-1)} disabled={index === 0} label="Previous card">
-          <path d="M12.5 4.5 7 10l5.5 5.5" />
-        </NavButton>
-        <p className="hidden text-xs text-slate-400 sm:block">
+        <NavButton onClick={() => go(-1)} disabled={index === 0} label="Previous card" icon={ChevronLeft} />
+        <p className="hidden text-xs text-stone-500 sm:block">
           <Kbd>Space</Kbd> flip · <Kbd>←</Kbd> <Kbd>→</Kbd> navigate
         </p>
-        <NavButton onClick={() => go(1)} disabled={index >= deck.length - 1} label="Next card">
-          <path d="M7.5 4.5 13 10l-5.5 5.5" />
-        </NavButton>
+        <NavButton onClick={() => go(1)} disabled={index >= deck.length - 1} label="Next card" icon={ChevronRight} />
       </div>
 
       {deckComplete && (
-        <div className="animate-card-next flex flex-col items-center gap-3 rounded-2xl bg-emerald-50 p-5 text-center ring-1 ring-emerald-200 sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-sm text-emerald-900">
-            <span className="font-semibold">Nice work!</span> You’ve reviewed every card in this set.
+        <div className="animate-card-next flex flex-col items-center gap-4 rounded-2xl bg-brand-50 p-5 text-center ring-1 ring-brand-200 sm:flex-row sm:justify-between sm:text-left">
+          <p className="flex items-center gap-3 text-sm text-brand-950">
+            <PartyPopper className="size-5 shrink-0 text-brand-600" aria-hidden />
+            <span>
+              <span className="font-semibold">Nice work!</span> You’ve reviewed every card in this set.
+            </span>
           </p>
           <div className="flex gap-2">
             <button
@@ -237,8 +237,9 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 else setShuffledIds(shuffled(shuffledIds))
                 restart()
               }}
-              className="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-emerald-800 ring-1 ring-emerald-300 transition hover:bg-emerald-100"
+              className="inline-flex h-9 items-center gap-2 rounded-lg bg-white px-3 text-sm font-semibold text-brand-800 shadow-card ring-1 ring-brand-200 transition hover:bg-brand-100"
             >
+              <Shuffle className="size-4" aria-hidden />
               Shuffle &amp; go again
             </button>
             <button
@@ -246,8 +247,9 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 onResetProgress()
                 restart()
               }}
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-emerald-800 transition hover:bg-emerald-100"
+              className="inline-flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-semibold text-brand-800 transition hover:bg-brand-100"
             >
+              <RotateCcw className="size-4" aria-hidden />
               Reset progress
             </button>
           </div>
@@ -261,15 +263,15 @@ function CardFace({ label, moduleTitle, text, emphasis, hint, isReviewed, hidden
   return (
     <div
       aria-hidden={hidden}
-      className={`col-start-1 row-start-1 flex min-h-72 flex-col rounded-3xl p-6 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.25)] backface-hidden sm:min-h-80 sm:p-8 ${className}`}
+      className={`col-start-1 row-start-1 flex min-h-72 flex-col rounded-3xl p-6 shadow-elevated backface-hidden sm:min-h-80 sm:p-8 ${className}`}
     >
-      <div className="flex items-start justify-between gap-4 text-xs font-semibold uppercase tracking-wide">
+      <div className="flex items-start justify-between gap-4 text-xs font-semibold tracking-[0.06em] uppercase">
         <span
-          className={`rounded-full px-2.5 py-1 ${dark ? 'bg-white/15 text-white' : 'bg-indigo-50 text-indigo-700'}`}
+          className={`rounded-full px-2.5 py-1 ${dark ? 'bg-white/15 text-white' : 'bg-brand-50 text-brand-700'}`}
         >
           {label}
         </span>
-        <span className={`truncate normal-case tracking-normal ${dark ? 'text-indigo-100' : 'text-slate-400'}`}>
+        <span className={`truncate normal-case tracking-normal ${dark ? 'text-brand-100' : 'text-stone-500'}`}>
           {moduleTitle}
         </span>
       </div>
@@ -280,13 +282,11 @@ function CardFace({ label, moduleTitle, text, emphasis, hint, isReviewed, hidden
         </p>
       </div>
 
-      <div className={`flex items-center justify-between text-xs ${dark ? 'text-indigo-100' : 'text-slate-400'}`}>
+      <div className={`flex items-center justify-between text-xs ${dark ? 'text-brand-100' : 'text-stone-500'}`}>
         <span>{hint}</span>
         {isReviewed && (
-          <span className="inline-flex items-center gap-1 font-medium text-emerald-600">
-            <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
-              <path d="M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z" />
-            </svg>
+          <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 font-semibold text-brand-700">
+            <Check className="size-3.5" strokeWidth={3} aria-hidden />
             Reviewed
           </span>
         )}
@@ -312,33 +312,23 @@ function ChipCount({ reviewed, cards }) {
   )
 }
 
-function NavButton({ onClick, disabled, label, children }) {
+function NavButton({ onClick, disabled, label, icon: Icon }) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-slate-700 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 hover:text-indigo-600 active:scale-90 disabled:pointer-events-none disabled:opacity-40"
+      className="flex size-12 items-center justify-center rounded-full bg-white text-stone-700 shadow-card ring-1 ring-stone-200 transition hover:text-brand-600 hover:shadow-card-hover active:scale-90 disabled:pointer-events-none disabled:opacity-40"
     >
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-        {children}
-      </svg>
+      <Icon className="size-5" strokeWidth={2.25} aria-hidden />
     </button>
   )
 }
 
 function Kbd({ children }) {
   return (
-    <kbd className="rounded border border-slate-300 bg-white px-1.5 py-0.5 font-sans text-[11px] text-slate-500">
+    <kbd className="rounded-md border border-stone-200 bg-white px-1.5 py-0.5 font-sans text-[11px] font-semibold text-stone-600 shadow-[0_1px_0_rgb(214_211_209)]">
       {children}
     </kbd>
-  )
-}
-
-function ShuffleIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-      <path d="M3 6h2.5c1.4 0 2.6.7 3.4 1.8l2.2 3.4c.8 1.1 2 1.8 3.4 1.8H17M14.5 10.5 17 13l-2.5 2.5M3 14h2.5c1 0 1.9-.4 2.6-1M17 7h-2.5c-1 0-1.9.4-2.6 1M14.5 4.5 17 7l-2.5 2.5" />
-    </svg>
   )
 }

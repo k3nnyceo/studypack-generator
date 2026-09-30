@@ -1,5 +1,7 @@
+import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sparkles, Target, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import FilterChip from './FilterChip.jsx'
+import { Button } from './ui.jsx'
 
 const LETTERS = 'ABCDEFGHIJ'
 
@@ -82,7 +84,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
 
   if (questions.length === 0) {
     return (
-      <p className="rounded-2xl bg-white p-8 text-center text-slate-500 ring-1 ring-slate-200">
+      <p className="rounded-2xl bg-white p-8 text-center text-stone-500 ring-1 ring-stone-200">
         This study guide has no quiz questions, and not enough definitions to generate any.
       </p>
     )
@@ -90,31 +92,34 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
-        <FilterChip active={moduleFilter === 'all' && !retryIds} onClick={() => startRound({ filter: 'all' })}>
-          All modules
-          <Count questions={questions} answers={answers} />
-        </FilterChip>
-        {modules.map((title, m) => {
-          const moduleQuestions = questions.filter((q) => q.moduleIndex === m)
-          if (moduleQuestions.length === 0) return null
-          return (
-            <FilterChip
-              key={m}
-              active={moduleFilter === m && !retryIds}
-              onClick={() => startRound({ filter: m })}
-              title={title}
-            >
-              <span className="max-w-48 truncate">{title}</span>
-              <Count questions={moduleQuestions} answers={answers} />
-            </FilterChip>
-          )
-        })}
+      <div className="card overflow-hidden p-4 sm:p-5">
+        <div className="-mr-4 flex gap-2 overflow-x-auto pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,#000_calc(100%-3rem),transparent)] sm:-mr-5">
+          <FilterChip active={moduleFilter === 'all' && !retryIds} onClick={() => startRound({ filter: 'all' })}>
+            All modules
+            <Count questions={questions} answers={answers} />
+          </FilterChip>
+          {modules.map((title, m) => {
+            const moduleQuestions = questions.filter((q) => q.moduleIndex === m)
+            if (moduleQuestions.length === 0) return null
+            return (
+              <FilterChip
+                key={m}
+                active={moduleFilter === m && !retryIds}
+                onClick={() => startRound({ filter: m })}
+                title={title}
+              >
+                <span className="max-w-48 truncate">{title}</span>
+                <Count questions={moduleQuestions} answers={answers} />
+              </FilterChip>
+            )
+          })}
+        </div>
       </div>
 
       {retryIds && (
-        <div className="flex items-center justify-between gap-3 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-amber-200">
+        <div className="animate-page-in flex items-center justify-between gap-3 rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950 ring-1 ring-amber-200">
           <span>
+            <RotateCcw className="mr-2 inline size-4 text-amber-700" aria-hidden />
             <span className="font-semibold">Retry round:</span> {deck.length} question{deck.length === 1 ? '' : 's'} you
             missed
           </span>
@@ -147,25 +152,20 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
           <QuestionCard key={question.id} question={question} answer={answer} onChoose={choose} />
 
           <div className="flex items-center justify-between gap-4">
-            <button
-              onClick={() => go(-1)}
-              disabled={index === 0}
-              className="rounded-xl px-4 py-2.5 text-sm font-medium text-slate-600 ring-1 ring-slate-200 transition hover:bg-white active:scale-95 disabled:pointer-events-none disabled:opacity-40"
-            >
-              ← Previous
-            </button>
-            <p className="hidden text-xs text-slate-400 sm:block">
+            <Button onClick={() => go(-1)} disabled={index === 0} icon={ArrowLeft}>
+              Previous
+            </Button>
+            <p className="hidden text-xs text-stone-500 sm:block">
               Press 1–{Math.min(question.options.length, 9)} to answer
             </p>
-            <button
+            <Button
+              variant={answer ? 'primary' : 'secondary'}
               onClick={advance}
               disabled={isLast && !complete && firstUnanswered === index}
-              className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition active:scale-95 disabled:pointer-events-none disabled:opacity-40 ${
-                answer ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700' : 'text-slate-600 ring-1 ring-slate-200 hover:bg-white'
-              }`}
             >
-              {!isLast ? 'Next →' : complete ? 'See results →' : 'Go to unanswered →'}
-            </button>
+              {!isLast ? 'Next' : complete ? 'See results' : 'Go to unanswered'}
+              <ArrowRight className="size-4" strokeWidth={2.25} aria-hidden />
+            </Button>
           </div>
         </>
       )}
@@ -177,8 +177,8 @@ function ProgressBar({ label, total, correct, incorrect }) {
   return (
     <div>
       <div className="mb-2 flex items-baseline justify-between text-sm">
-        <span className="font-medium text-slate-700">{label}</span>
-        <span className="flex gap-3 text-slate-500">
+        <span className="font-medium text-stone-700">{label}</span>
+        <span className="flex gap-3 text-stone-500">
           <span>
             <span className="font-semibold tabular-nums text-emerald-600">{correct}</span> correct
           </span>
@@ -188,7 +188,7 @@ function ProgressBar({ label, total, correct, incorrect }) {
         </span>
       </div>
       <div
-        className="flex h-2 overflow-hidden rounded-full bg-slate-200"
+        className="flex h-2 overflow-hidden rounded-full bg-stone-200"
         role="progressbar"
         aria-label="Questions answered"
         aria-valuemin={0}
@@ -204,22 +204,23 @@ function ProgressBar({ label, total, correct, incorrect }) {
 
 function QuestionCard({ question, answer, onChoose }) {
   return (
-    <div className="animate-card-next rounded-3xl bg-white p-6 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.25)] ring-1 ring-slate-200 sm:p-8">
+    <div className="animate-card-next rounded-3xl bg-white p-6 shadow-elevated ring-1 ring-stone-200/80 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-        <span className="font-medium text-slate-400">{question.moduleTitle}</span>
+        <span className="font-medium text-stone-500">{question.moduleTitle}</span>
         {question.generated && (
           <span
-            className="rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-500"
+            className="rounded-full bg-stone-100 px-2.5 py-1 font-medium text-stone-500"
             title="This module had no quiz questions, so this one was generated from its key definitions."
           >
+            <Info className="mr-1 inline size-3 align-[-1px]" strokeWidth={2.5} aria-hidden />
             From definitions
           </span>
         )}
       </div>
 
-      <h2 className="mt-3 text-xl font-semibold leading-snug text-slate-900 sm:text-2xl">{question.question}</h2>
+      <h2 className="mt-3 text-xl font-semibold leading-snug text-stone-900 sm:text-2xl">{question.question}</h2>
       {question.quote && (
-        <blockquote className="mt-4 rounded-xl border-l-4 border-indigo-400 bg-indigo-50/60 px-4 py-3 leading-relaxed text-slate-700">
+        <blockquote className="mt-4 rounded-xl border-l-4 border-brand-400 bg-brand-50/60 px-4 py-3 leading-relaxed text-stone-700">
           {question.quote}
         </blockquote>
       )}
@@ -253,24 +254,29 @@ function Feedback({ question, answer }) {
 
   return (
     <div
-      className={`animate-card-next mt-5 rounded-xl p-4 text-sm leading-relaxed ring-1 ${
+      className={`animate-card-next mt-6 rounded-2xl p-5 text-sm leading-relaxed ring-1 ${
         answer.correct ? 'bg-emerald-50 text-emerald-950 ring-emerald-200' : 'bg-rose-50 text-rose-950 ring-rose-200'
       }`}
       role="status"
     >
-      <p className="text-base font-semibold">
-        {answer.correct ? '✓ Correct!' : `✕ Not quite. The correct answer is “${correctOption}”.`}
+      <p className="flex items-start gap-2 text-base font-semibold">
+        {answer.correct ? (
+          <CircleCheck className="mt-0.5 size-5 shrink-0 text-emerald-600" aria-hidden />
+        ) : (
+          <CircleX className="mt-0.5 size-5 shrink-0 text-rose-600" aria-hidden />
+        )}
+        {answer.correct ? 'Correct!' : `Not quite. The correct answer is “${correctOption}”.`}
       </p>
-      {question.explanation && <p className="mt-2">{question.explanation}</p>}
+      {question.explanation && <p className="mt-2 pl-7">{question.explanation}</p>}
       {otherNotes.length > 0 && (
-        <dl className="mt-3 space-y-2">
+        <dl className="mt-4 space-y-2 pl-7">
           {otherNotes.map(({ option, note, chosen }) => (
-            <div key={option} className={`rounded-lg px-3 py-2 ${chosen ? 'bg-white ring-1 ring-rose-300' : 'bg-white/60'}`}>
+            <div key={option} className={`rounded-xl px-3.5 py-2.5 ${chosen ? 'bg-white ring-1 ring-rose-300' : 'bg-white/70'}`}>
               <dt className="font-semibold">
                 {option}
                 {chosen && <span className="ml-2 text-xs font-medium text-rose-600">your answer</span>}
               </dt>
-              <dd className="text-slate-600">{note}</dd>
+              <dd className="text-stone-600">{note}</dd>
             </div>
           ))}
         </dl>
@@ -295,53 +301,45 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
 
   return (
     <div className="animate-card-next space-y-6">
-      <div className="rounded-3xl bg-white p-8 text-center shadow-[0_10px_40px_-12px_rgba(15,23,42,0.25)] ring-1 ring-slate-200">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-400">
+      <div className="rounded-3xl bg-white p-8 text-center shadow-elevated ring-1 ring-stone-200/80 sm:p-10">
+        <p className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-[0.08em] text-brand-600 uppercase">
+          <Sparkles className="size-3.5" aria-hidden />
           {isRetry ? 'Retry round complete' : 'Quiz complete'}
         </p>
         <ScoreRing percent={percent} />
-        <p className="text-2xl font-bold text-slate-900">{verdict}</p>
-        <p className="mt-1 text-slate-500">
-          You got <span className="font-semibold text-slate-800">{correct}</span> of {deck.length} questions right.
+        <p className="text-2xl font-bold tracking-tight text-stone-900">{verdict}</p>
+        <p className="mt-1 text-stone-500">
+          You got <span className="font-semibold text-stone-800">{correct}</span> of {deck.length} questions right.
         </p>
 
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           {missed.length > 0 && (
-            <button
-              onClick={onRetryIncorrect}
-              className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-95"
-            >
+            <Button variant="primary" size="lg" icon={Target} onClick={onRetryIncorrect}>
               Retry incorrect only ({missed.length})
-            </button>
+            </Button>
           )}
-          <button
-            onClick={onRetakeAll}
-            className="rounded-xl px-5 py-2.5 text-sm font-medium text-slate-700 ring-1 ring-slate-300 transition hover:bg-slate-50 active:scale-95"
-          >
+          <Button size="lg" icon={RotateCcw} onClick={onRetakeAll}>
             {isRetry ? 'Retake these' : 'Retake quiz'}
-          </button>
-          <button
-            onClick={onReview}
-            className="rounded-xl px-5 py-2.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
-          >
+          </Button>
+          <Button size="lg" variant="ghost" onClick={onReview}>
             Review answers
-          </button>
+          </Button>
         </div>
       </div>
 
       {showBreakdown && byModule.length > 1 && (
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">By module</h3>
+        <section className="card p-6 sm:p-8">
+          <h3 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">By module</h3>
           <ul className="space-y-3">
             {byModule.map((row) => (
               <li key={row.title}>
                 <div className="mb-1 flex justify-between gap-4 text-sm">
-                  <span className="truncate text-slate-700">{row.title}</span>
-                  <span className="shrink-0 tabular-nums text-slate-500">
+                  <span className="truncate text-stone-700">{row.title}</span>
+                  <span className="shrink-0 tabular-nums text-stone-500">
                     {row.correct}/{row.total}
                   </span>
                 </div>
-                <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                <div className="h-2 overflow-hidden rounded-full bg-stone-100">
                   <div
                     className={`h-full rounded-full ${row.correct === row.total ? 'bg-emerald-500' : row.correct / row.total >= 0.5 ? 'bg-amber-400' : 'bg-rose-400'}`}
                     style={{ width: `${(row.correct / row.total) * 100}%` }}
@@ -354,15 +352,15 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
       )}
 
       {missed.length > 0 && (
-        <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <section className="card p-6 sm:p-8">
+          <h3 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">
             Questions to review ({missed.length})
           </h3>
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-stone-100">
             {missed.map((q) => (
               <li key={q.id} className="py-4 first:pt-0 last:pb-0">
-                <p className="text-xs text-slate-400">{q.moduleTitle}</p>
-                <p className="mt-1 font-medium text-slate-900">{q.quote ? `“${q.quote}”` : q.question}</p>
+                <p className="text-xs text-stone-500">{q.moduleTitle}</p>
+                <p className="mt-1 font-medium text-stone-900">{q.quote ? `“${q.quote}”` : q.question}</p>
                 <div className="mt-2 space-y-1 text-sm">
                   <p className="text-rose-700">
                     <span className="font-semibold">Your answer:</span> {answers.get(q.id).selected}
@@ -371,7 +369,7 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
                     <span className="font-semibold">Correct answer:</span> {q.options[q.correctIndex]}
                   </p>
                 </div>
-                {q.explanation && !q.generated && <p className="mt-2 text-sm text-slate-600">{q.explanation}</p>}
+                {q.explanation && !q.generated && <p className="mt-2 text-sm text-stone-600">{q.explanation}</p>}
               </li>
             ))}
           </ul>
@@ -388,7 +386,7 @@ function ScoreRing({ percent }) {
   return (
     <div className="relative mx-auto my-5 h-36 w-36">
       <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
-        <circle cx="60" cy="60" r={radius} fill="none" strokeWidth="10" className="stroke-slate-100" />
+        <circle cx="60" cy="60" r={radius} fill="none" strokeWidth="10" className="stroke-stone-100" />
         <circle
           cx="60"
           cy="60"
@@ -405,7 +403,7 @@ function ScoreRing({ percent }) {
           }}
         />
       </svg>
-      <span className="absolute inset-0 flex items-center justify-center text-4xl font-extrabold tabular-nums text-slate-900">
+      <span className="absolute inset-0 flex items-center justify-center text-4xl font-extrabold tabular-nums text-stone-900">
         {percent}%
       </span>
     </div>
@@ -420,17 +418,17 @@ function optionState(question, answer, i) {
 }
 
 const OPTION_STYLES = {
-  idle: 'bg-white ring-slate-200 hover:bg-indigo-50 hover:ring-indigo-300 active:scale-[0.99]',
+  idle: 'bg-white ring-stone-200 hover:bg-brand-50/60 hover:ring-brand-300 hover:shadow-card active:scale-[0.99]',
   correct: 'bg-emerald-50 ring-2 ring-emerald-500 text-emerald-900',
   wrong: 'animate-shake bg-rose-50 ring-2 ring-rose-400 text-rose-900',
-  dimmed: 'bg-white ring-slate-200 opacity-50',
+  dimmed: 'bg-white ring-stone-200 opacity-50',
 }
 
 const LETTER_STYLES = {
-  idle: 'bg-slate-100 text-slate-500 group-hover:bg-indigo-100 group-hover:text-indigo-700',
+  idle: 'bg-stone-100 text-stone-500 group-hover:bg-brand-100 group-hover:text-brand-700',
   correct: 'bg-emerald-500 text-white',
   wrong: 'bg-rose-500 text-white',
-  dimmed: 'bg-slate-100 text-slate-400',
+  dimmed: 'bg-stone-100 text-stone-500',
 }
 
 function OptionButton({ letter, text, state, disabled, onClick }) {
@@ -441,7 +439,13 @@ function OptionButton({ letter, text, state, disabled, onClick }) {
       className={`group flex w-full items-center gap-4 rounded-2xl px-4 py-3.5 text-left ring-1 transition duration-200 disabled:cursor-default ${OPTION_STYLES[state]}`}
     >
       <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold transition ${LETTER_STYLES[state]}`}>
-        {state === 'correct' ? '✓' : state === 'wrong' ? '✕' : letter}
+        {state === 'correct' ? (
+          <Check className="size-4" strokeWidth={3} aria-hidden />
+        ) : state === 'wrong' ? (
+          <X className="size-4" strokeWidth={3} aria-hidden />
+        ) : (
+          letter
+        )}
       </span>
       <span className="leading-snug">{text}</span>
     </button>

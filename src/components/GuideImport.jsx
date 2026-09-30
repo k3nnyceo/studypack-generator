@@ -1,6 +1,9 @@
+import { ChevronDown, FileJson, TriangleAlert, Upload } from 'lucide-react'
 import { useState } from 'react'
 import { buildGenerationPrompt, EXAMPLE_GUIDE_JSON, parseStudyGuide } from '../lib/studyGuideFormat.js'
 import CopyButton from './CopyButton.jsx'
+import { buttonClasses } from './buttonStyles.js'
+import { Button, Eyebrow } from './ui.jsx'
 
 const FIELDS = [
   ['title', 'string', 'Required'],
@@ -41,19 +44,22 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
   }
 
   return (
-    <section className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h3 className="font-semibold text-slate-900">Load your study guide</h3>
-          <p className="mt-1 text-sm text-slate-500">
-            Paste study guide JSON below or upload a .json file, then click Load to build the study guide, flashcards and quiz.
-          </p>
+    <section className="card p-6 sm:p-8">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex gap-4">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+            <FileJson className="size-5" strokeWidth={2} aria-hidden />
+          </span>
+          <div>
+            <Eyebrow>Next step</Eyebrow>
+            <h2 className="mt-0.5 text-lg font-bold tracking-tight text-stone-900">Load your study guide</h2>
+            <p className="mt-1 max-w-xl text-sm leading-relaxed text-stone-500">
+              Paste study guide JSON below or upload a .json file. Need one? Copy the prompt, paste it into your AI
+              tool, then paste its reply here.
+            </p>
+          </div>
         </div>
-        <CopyButton
-          text={() => buildGenerationPrompt(source)}
-          label="Copy AI prompt + notes"
-          copiedLabel="Prompt copied"
-        />
+        <CopyButton text={() => buildGenerationPrompt(source)} label="Copy AI prompt + notes" copiedLabel="Prompt copied" />
       </div>
 
       <textarea
@@ -65,31 +71,36 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
         spellCheck={false}
         placeholder={'{\n  "title": "…",\n  "overview": "…",\n  "modules": [ … ]\n}'}
         aria-label="Study guide JSON"
-        className="mt-4 h-64 w-full resize-y rounded-xl bg-slate-50 p-4 font-mono text-sm leading-relaxed text-slate-800 ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="mt-6 h-64 w-full resize-y rounded-2xl bg-stone-50 p-4 font-mono text-[13px] leading-relaxed text-stone-800 ring-1 ring-stone-200 transition placeholder:text-stone-400 focus:bg-white focus:ring-2 focus:ring-brand-400 focus:outline-none"
       />
 
       {errors.length > 0 && (
-        <div className="mt-3 rounded-xl bg-rose-50 p-4 text-sm text-rose-900 ring-1 ring-rose-200" role="alert">
-          <p className="font-semibold">Couldn’t load this study guide:</p>
-          <ul className="mt-2 space-y-1 font-mono text-xs">
-            {errors.map((error, i) => (
-              <li key={i}>• {error}</li>
-            ))}
-          </ul>
+        <div className="animate-page-in mt-3 flex gap-3 rounded-xl bg-rose-50 p-4 text-sm text-rose-900 ring-1 ring-rose-200" role="alert">
+          <TriangleAlert className="mt-0.5 size-4 shrink-0 text-rose-600" aria-hidden />
+          <div>
+            <p className="font-semibold">Couldn’t load this study guide</p>
+            <ul className="mt-2 space-y-1 font-mono text-xs">
+              {errors.map((error, i) => (
+                <li key={i}>• {error}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
         <button
           type="button"
           onClick={() => setShowFormat(!showFormat)}
           aria-expanded={showFormat}
-          className="text-sm font-medium text-indigo-600 transition hover:text-indigo-800"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition hover:text-brand-800"
         >
           {showFormat ? 'Hide expected format' : 'Show expected format'}
+          <ChevronDown className={`size-4 transition duration-200 ${showFormat ? 'rotate-180' : ''}`} aria-hidden />
         </button>
         <div className="flex flex-wrap items-center gap-3">
-          <label className="cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-300 transition hover:bg-slate-50 focus-within:ring-2 focus-within:ring-indigo-400">
+          <label className={buttonClasses({ className: 'cursor-pointer focus-within:ring-2 focus-within:ring-brand-400' })}>
+            <Upload className="size-4" strokeWidth={2.25} aria-hidden />
             Upload .json
             <input
               type="file"
@@ -101,45 +112,41 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
               }}
             />
           </label>
-        <button
-          type="button"
-          onClick={() => load()}
-          disabled={!draft.trim()}
-          className="rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {hasGuide ? 'Load (replaces current guide)' : 'Load'}
-        </button>
+          <Button variant="primary" onClick={() => load()} disabled={!draft.trim()}>
+            {hasGuide ? 'Load (replaces current guide)' : 'Load study guide'}
+          </Button>
         </div>
       </div>
 
       {showFormat && (
-        <div className="mt-5 space-y-4 border-t border-slate-200 pt-5">
-          <div className="overflow-x-auto">
+        <div className="animate-page-in mt-6 space-y-5 border-t border-stone-200 pt-6">
+          <div className="overflow-x-auto rounded-xl ring-1 ring-stone-200">
             <table className="w-full text-left text-sm">
-              <thead className="text-xs uppercase tracking-wide text-slate-400">
+              <thead className="bg-stone-50 text-xs tracking-[0.06em] text-stone-500 uppercase">
                 <tr>
-                  <th className="pb-2 pr-4 font-semibold">Field</th>
-                  <th className="pb-2 pr-4 font-semibold">Type</th>
-                  <th className="pb-2 font-semibold">Rules</th>
+                  <th className="px-4 py-2.5 font-semibold">Field</th>
+                  <th className="px-4 py-2.5 font-semibold">Type</th>
+                  <th className="px-4 py-2.5 font-semibold">Rules</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-stone-100">
                 {FIELDS.map(([field, type, rule]) => (
                   <tr key={field}>
-                    <td className="py-2 pr-4 font-mono text-xs text-slate-800">{field}</td>
-                    <td className="py-2 pr-4 font-mono text-xs text-indigo-700">{type}</td>
-                    <td className="py-2 text-slate-600">{rule}</td>
+                    <td className="px-4 py-2.5 font-mono text-xs whitespace-nowrap text-stone-800">{field}</td>
+                    <td className="px-4 py-2.5 font-mono text-xs text-brand-700">{type}</td>
+                    <td className="px-4 py-2.5 text-stone-600">{rule}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-slate-500">
-            Extra fields are ignored. A surrounding <code className="text-xs">```json</code> code fence is fine.
+          <p className="text-sm text-stone-500">
+            Extra fields are ignored. A surrounding <code className="rounded bg-stone-100 px-1 text-xs">```json</code> code
+            fence is fine.
           </p>
           <div className="relative">
             <CopyButton text={EXAMPLE_GUIDE_JSON} label="Copy example" className="absolute top-3 right-3" />
-            <pre className="max-h-96 overflow-auto rounded-xl bg-slate-900 p-4 pr-32 text-xs leading-relaxed text-slate-100">
+            <pre className="max-h-96 overflow-auto rounded-2xl bg-stone-900 p-5 pr-32 text-xs leading-relaxed text-stone-100">
               {EXAMPLE_GUIDE_JSON}
             </pre>
           </div>

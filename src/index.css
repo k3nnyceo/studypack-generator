@@ -1,17 +1,56 @@
 @import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
 
+/*
+ * StudyPack design tokens: "Grape & Sand".
+ * brand  - grape violet, for primary actions and highlights
+ * stone  - warm neutrals (Tailwind's stone scale) for text and surfaces
+ * amber  - accent, used sparingly for callouts
+ * emerald / rose stay reserved for correct / incorrect, so no brand colour
+ * is ever mistaken for a quiz verdict.
+ */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  --color-brand-50: #f6f3ff;
+  --color-brand-100: #ede7fe;
+  --color-brand-200: #dcd0fd;
+  --color-brand-300: #c3aefa;
+  --color-brand-400: #a283f5;
+  --color-brand-500: #8759ee;
+  --color-brand-600: #7440df;
+  --color-brand-700: #6231c4;
+  --color-brand-800: #50299e;
+  --color-brand-900: #43257f;
+  --color-brand-950: #2a1452;
+
+  --shadow-card: 0 1px 2px rgb(28 25 23 / 0.04), 0 4px 16px -6px rgb(28 25 23 / 0.08);
+  --shadow-card-hover: 0 2px 4px rgb(28 25 23 / 0.05), 0 12px 32px -12px rgb(28 25 23 / 0.16);
+  --shadow-elevated: 0 2px 6px rgb(28 25 23 / 0.04), 0 24px 48px -20px rgb(42 20 82 / 0.28);
+  --shadow-brand: 0 1px 2px rgb(42 20 82 / 0.2), 0 6px 16px -6px rgb(116 64 223 / 0.55);
+
+  --animate-page-in: page-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --animate-card-next: card-next 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --animate-card-prev: card-prev 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --animate-shake: shake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
   --animate-score-ring: score-ring 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
 
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
   @keyframes card-next {
     from {
       opacity: 0;
       transform: translateX(32px) scale(0.97);
+    }
+  }
+  @keyframes card-prev {
+    from {
+      opacity: 0;
+      transform: translateX(-32px) scale(0.97);
     }
   }
   @keyframes shake {
@@ -30,19 +69,41 @@
       stroke-dashoffset: var(--ring-from);
     }
   }
-  @keyframes card-prev {
-    from {
-      opacity: 0;
-      transform: translateX(-32px) scale(0.97);
-    }
+}
+
+/* A white surface with a hairline border and soft shadow: the base of every panel. */
+@utility card {
+  border-radius: var(--radius-2xl);
+  background-color: var(--color-white);
+  box-shadow:
+    0 0 0 1px rgb(231 229 228 / 0.9),
+    var(--shadow-card);
+}
+
+@layer base {
+  html {
+    @apply bg-stone-50 text-stone-900 antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  body {
+    min-height: 100vh;
+    background-image:
+      radial-gradient(60rem 28rem at 50% -10rem, rgb(237 231 254 / 0.9), transparent 70%),
+      radial-gradient(30rem 20rem at 90% 0rem, rgb(254 243 199 / 0.45), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-brand-950);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
   }
 }
 
-html {
-  @apply bg-slate-50 text-slate-900 antialiased;
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .animate-page-in,
   .animate-card-next,
   .animate-card-prev,
   .animate-shake,
