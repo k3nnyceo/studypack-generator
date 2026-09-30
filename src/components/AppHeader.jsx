@@ -1,10 +1,10 @@
-import { BookOpen, FileText, Layers, ListChecks, Plus } from 'lucide-react'
+import { BookOpen, FileText, Layers, Library, ListChecks, Plus } from 'lucide-react'
 import { Button, Logo } from './ui.jsx'
 
 // Sticky top bar. Once a file is loaded it carries the Notes / Study guide /
 // Flashcards / Quiz tabs, so the study views are always one click apart.
-export default function AppHeader({ view, onNavigate, onReset, fileName, hasNotes, guide, counts }) {
-  const showTabs = view !== 'home' && (hasNotes || guide)
+export default function AppHeader({ view, onNavigate, onReset, fileName, hasNotes, guide, counts, libraryCount }) {
+  const showTabs = !['home', 'library'].includes(view) && (hasNotes || guide)
 
   const tabs = [
     hasNotes && { id: 'notes', label: 'Notes', short: 'Notes', icon: FileText },
@@ -64,8 +64,26 @@ export default function AppHeader({ view, onNavigate, onReset, fileName, hasNote
           </nav>
         )}
 
-        <div className="ml-auto flex items-center gap-3">
-          {view !== 'home' && (
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => onNavigate('library')}
+            aria-current={view === 'library' ? 'page' : undefined}
+            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
+              view === 'library'
+                ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
+                : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
+            }`}
+          >
+            <Library className="size-4" strokeWidth={2.25} aria-hidden />
+            Library
+            {libraryCount > 0 && (
+              <span className="rounded-md bg-stone-200/70 px-1.5 py-0.5 text-[11px] leading-none font-bold text-stone-600 tabular-nums">
+                {libraryCount}
+              </span>
+            )}
+          </button>
+          {view !== 'home' && view !== 'library' && (
             <>
               {fileName && (
                 <span

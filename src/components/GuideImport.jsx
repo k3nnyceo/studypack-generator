@@ -7,6 +7,8 @@ import { Button, Eyebrow } from './ui.jsx'
 
 const FIELDS = [
   ['title', 'string', 'Required'],
+  ['course', 'string', 'Optional. Groups packs in your library, e.g. "MECH 2201 Strength of Materials"'],
+  ['topic', 'string', 'Optional. Library label for this pack; defaults to the title'],
   ['overview', 'string', 'Required'],
   ['modules', 'array', 'Required, at least one module'],
   ['modules[].title', 'string', 'Required'],
@@ -21,7 +23,7 @@ const FIELDS = [
   ['quiz[].explanation', 'string', 'Optional'],
 ]
 
-export default function GuideImport({ draft, onDraftChange, onLoad, source, hasGuide }) {
+export default function GuideImport({ draft, onDraftChange, onLoad, source }) {
   const [errors, setErrors] = useState([])
   const [showFormat, setShowFormat] = useState(false)
 
@@ -113,7 +115,7 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source, hasG
             />
           </label>
           <Button variant="primary" onClick={() => load()} disabled={!draft.trim()}>
-            {hasGuide ? 'Load (replaces current guide)' : 'Load study guide'}
+            Load study guide
           </Button>
         </div>
       </div>

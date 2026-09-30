@@ -4,6 +4,8 @@
 
 export const EXAMPLE_GUIDE = {
   title: 'Introduction to Cell Biology',
+  course: 'BIOL 1010 Cell Biology',
+  topic: 'Cell structure and energy',
   overview: '2-4 sentences on what the material covers and how the modules fit together.',
   modules: [
     {
@@ -108,6 +110,8 @@ export function validateStudyGuide(data) {
 
   const guide = object(data, 'The pasted JSON', (g) => ({
     title: text(g, 'title', ''),
+    course: text(g, 'course', '', { optional: true }).trim(),
+    topic: text(g, 'topic', '', { optional: true }).trim(),
     overview: text(g, 'overview', ''),
     modules: list(g, 'modules', '', (m, path) =>
       object(m, path, (mod) => ({
@@ -203,6 +207,7 @@ Rules:
 - definitions: every important term the module introduces, defined precisely in plain language.
 - workedExamples: 3-5 per module, each with the problem, step-by-step reasoning in "steps", and the final answer. Use real calculations for quantitative topics; scenarios or "explain why" questions for conceptual ones.
 - quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Make wrong options plausible misconceptions, not obvious throwaways. Give a one-sentence explanation.
+- course: the course this lecture belongs to, e.g. "MECH 2201 Strength of Materials". topic: a short name for this lecture's topic.
 - sourceRange: which pages or slides the module draws from.
 - The notes were extracted automatically from a PDF or slides, so ignore page numbers, headers and other boilerplate.
 - Stay faithful to the notes. Don't invent course-specific facts such as dates, names or exam details.

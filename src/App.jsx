@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import AiGenerate from './components/AiGenerate.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import ExtractedPreview from './components/ExtractedPreview.jsx'
@@ -6,19 +6,22 @@ import Flashcards from './components/Flashcards.jsx'
 import GuideHero from './components/GuideHero.jsx'
 import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
+import Library from './components/Library.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
+import Toast from './components/Toast.jsx'
 import { AI_GENERATION_ENABLED } from './config.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
 import { buildQuiz } from './lib/quiz.js'
 import { parseStudyGuide } from './lib/studyGuideFormat.js'
+import { useLibrary } from './lib/useLibrary.js'
 
 const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 
 export default function App() {
-  // view: 'home' | 'notes' | 'guide' | 'flashcards' | 'quiz'
+  // view: 'home' | 'library' | 'notes' | 'guide' | 'flashcards' | 'quiz'
   const [view, setView] = useState('home')
   const [status, setStatus] = useState('idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
@@ -26,6 +29,11 @@ export default function App() {
   const [error, setError] = useState('')
 
   const [guide, setGuide] = useState(null)
+  const [activeEntryId, setActiveEntryId] = useState(null) // library entry currently open
+  const library = useLibrary()
+  const [toast, setToast] = useState(null)
+  const dismissToast = useCallback(() => setToast(null), [])
+  const notify = (message, extra = {}) => setToast({ id: Date.now(), message, ...extra })
   const [jsonDraft, setJsonDraft] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [generateError, setGenerateError] = useState('')
@@ -54,12 +62,45 @@ export default function App() {
     window.scrollTo({ top: 0 })
   }
 
-  // Every guide, pasted, uploaded or generated, arrives here already validated.
-  function loadGuide(newGuide) {
+  // Shows a guide in the study views, starting a fresh session.
+  function openGuide(newGuide, entryId) {
     setGuide(newGuide)
+    setActiveEntryId(entryId)
     setReviewedCards(new Set())
     setQuizAnswers(new Map())
     navigate('guide')
+  }
+
+  // Every guide that's pasted, uploaded or generated arrives here already
+  // validated, and is saved to the library before it's shown.
+  function loadGuide(newGuide, sourceName = fileName) {
+    const saved = library.add(newGuide, sourceName)
+    if (saved.error) notify(`Opened, but not saved: ${saved.error}`, { tone: 'error' })
+    else if (saved.duplicate) notify('Already in your library, so it wasn’t saved again')
+    else notify('Saved to your library')
+    openGuide(newGuide, saved.entry?.id ?? null)
+  }
+
+  function openFromLibrary(entry) {
+    setResult(null) // lecture notes from an earlier upload don't belong to this pack
+    setFileName(entry.sourceName || entry.course)
+    openGuide(entry.guide, entry.id)
+  }
+
+  function deleteFromLibrary(entry) {
+    const removed = library.remove(entry.id)
+    if (!removed) return
+    if (removed.error) return notify(removed.error, { tone: 'error' })
+    if (entry.id === activeEntryId) setActiveEntryId(null)
+    notify(`Deleted “${entry.topic}”`, {
+      action: {
+        label: 'Undo',
+        onClick: () => {
+          const error = library.restore(removed.entry, removed.index)
+          if (error) notify(error, { tone: 'error' })
+        },
+      },
+    })
   }
 
   async function handleGenerate() {
@@ -72,7 +113,7 @@ export default function App() {
         fileName: result.fileName,
         signal: generateAbort.current.signal,
       })
-      loadGuide(data)
+      loadGuide(data, result.fileName)
     } catch (err) {
       if (err.name !== 'AbortError') setGenerateError(err.message)
     } finally {
@@ -118,7 +159,7 @@ export default function App() {
     setResult(null)
     setError('')
     setStatus('idle')
-    loadGuide(parsed.guide)
+    loadGuide(parsed.guide, file.name)
   }
 
   function reset() {
@@ -127,6 +168,7 @@ export default function App() {
     setResult(null)
     setError('')
     setGuide(null)
+    setActiveEntryId(null)
     setGenerateError('')
     setJsonDraft('')
     setReviewedCards(new Set())
@@ -147,13 +189,33 @@ export default function App() {
         hasNotes={Boolean(result)}
         guide={guide}
         counts={{ flashcards: cards.length, quiz: questions.length }}
-        progress={{ reviewed: reviewedCards.size, answered: quizAnswers.size }}
+        libraryCount={library.entries.length}
       />
 
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
         <div key={view} className="animate-page-in">
           {view === 'home' && (
-            <Landing onFile={handleFile} status={status} fileName={fileName} error={error} />
+            <Landing
+              onFile={handleFile}
+              status={status}
+              fileName={fileName}
+              error={error}
+              recent={library.entries.slice(0, 3)}
+              libraryCount={library.entries.length}
+              onOpenPack={openFromLibrary}
+              onDeletePack={deleteFromLibrary}
+              onViewLibrary={() => navigate('library')}
+            />
+          )}
+
+          {view === 'library' && (
+            <Library
+              entries={library.entries}
+              activeId={activeEntryId}
+              onOpen={openFromLibrary}
+              onDelete={deleteFromLibrary}
+              onAddNew={reset}
+            />
           )}
 
           {view === 'notes' && result && (
@@ -161,9 +223,8 @@ export default function App() {
               <GuideImport
                 draft={jsonDraft}
                 onDraftChange={setJsonDraft}
-                onLoad={loadGuide}
+                onLoad={(g) => loadGuide(g, result.fileName)}
                 source={result}
-                hasGuide={Boolean(guide)}
               />
               {AI_GENERATION_ENABLED && (
                 <AiGenerate onGenerate={handleGenerate} isGenerating={isGenerating} error={generateError} />
@@ -203,6 +264,8 @@ export default function App() {
           )}
         </div>
       </main>
+
+      <Toast toast={toast} onDismiss={dismissToast} />
     </div>
   )
 }

@@ -12,9 +12,11 @@ export const MAX_INPUT_CHARS = 800_000
 const STUDY_GUIDE_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['title', 'overview', 'modules'],
+  required: ['title', 'course', 'topic', 'overview', 'modules'],
   properties: {
     title: { type: 'string', description: 'A concise title for the study guide.' },
+    course: { type: 'string', description: 'The course this lecture belongs to, e.g. "MECH 2201 Strength of Materials".' },
+    topic: { type: 'string', description: "A short name for this lecture's topic." },
     overview: {
       type: 'string',
       description: '2-4 sentences on what the material covers and how the modules fit together.',

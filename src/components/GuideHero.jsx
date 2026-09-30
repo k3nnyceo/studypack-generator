@@ -7,7 +7,7 @@ export default function GuideHero({ guide, fileName, compact, counts, onNavigate
   if (compact) {
     return (
       <div className="mx-auto min-w-0 max-w-3xl">
-        <Eyebrow>{fileName}</Eyebrow>
+        <Eyebrow>{guide.course || fileName}</Eyebrow>
         <h1 className="mt-1 truncate text-xl font-bold tracking-tight text-stone-900 sm:text-2xl">{guide.title}</h1>
       </div>
     )
@@ -32,7 +32,7 @@ export default function GuideHero({ guide, fileName, compact, counts, onNavigate
       <div className="relative">
         <p className="flex items-center gap-2 text-xs font-semibold tracking-[0.08em] text-brand-200 uppercase">
           <BookOpen className="size-3.5" strokeWidth={2.5} aria-hidden />
-          Study guide · {fileName}
+          Study guide · {guide.course || fileName}
         </p>
         <h1 className="mt-3 max-w-3xl text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-4xl">
           {guide.title}

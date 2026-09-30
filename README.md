@@ -25,6 +25,16 @@ Other scripts: `npm run dev:web` / `npm run dev:api` (run one half), `npm run li
 2. **Load a study guide.** Paste study guide JSON into the text box and click **Load**. **Copy AI prompt + notes** copies a ready-made prompt (format + rules + your notes) to paste into any AI chat tool.
 3. **Study.** The guide populates three tabs: **Study guide**, **Flashcards** and **Quiz**.
 
+## Study pack library
+
+Every study pack you load (pasted or uploaded in the Load box, dropped on the home page as `.json`, or generated) is saved to a library in the browser's `localStorage` (key `studypack.library.v1`). There's no backend: the library lives on that device and browser.
+
+- **Library** in the top bar lists every pack, grouped by `course` when there's more than one course. Packs without a course go under "Uncategorized", and `topic` defaults to the title.
+- Click a pack to open it in the Study guide, Flashcards and Quiz tabs. The home page also shows your three most recent packs.
+- The bin icon deletes a pack; the confirmation toast has **Undo**.
+- Loading a pack that's already saved (identical content) opens it without saving a duplicate. A different pack with the same title is saved as its own entry.
+- Stored packs are re-validated on load, so a corrupted entry is skipped rather than breaking the app. If storage is full or blocked, the pack still opens and a message explains it wasn't saved.
+
 ## Study guide JSON format
 
 Click **Show expected format** in the app for the same reference with a copyable example. The source of truth is `src/lib/studyGuideFormat.js`.
@@ -32,6 +42,8 @@ Click **Show expected format** in the app for the same reference with a copyable
 ```json
 {
   "title": "Introduction to Cell Biology",
+  "course": "BIOL 1010 Cell Biology",
+  "topic": "Cell structure and energy",
   "overview": "2-4 sentences on what the material covers.",
   "modules": [
     {
@@ -59,6 +71,7 @@ Click **Show expected format** in the app for the same reference with a copyable
 | Field | Rules |
 | ----- | ----- |
 | `title`, `overview` | Required strings |
+| `course`, `topic` | Optional strings. Used to group and label the pack in your library |
 | `modules` | Required, at least one |
 | `modules[].title`, `.summary` | Required strings |
 | `modules[].sourceRange` | Optional string |
@@ -116,12 +129,15 @@ src/
     Flashcards.jsx            flip cards, shuffle, filters, progress
     Quiz.jsx                  multiple-choice quiz with scoring
     ui.jsx, buttonStyles.js   shared Button, Badge, Logo, Eyebrow
+    Library.jsx               saved study packs, grouped by course
+    Toast.jsx                 short confirmations with optional Undo
     FilterChip.jsx, CopyButton.jsx
   lib/
     parseDocument.js          validation, dispatch, normalisation
     parsePdf.js               PDF text extraction
     parsePptx.js              PPTX text extraction
     studyGuideFormat.js       JSON format: example, validator, AI prompt
+    library.js, useLibrary.js study pack library in localStorage
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     calls /api/study-guide (flag-gated)

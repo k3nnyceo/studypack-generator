@@ -1,4 +1,5 @@
-import { BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, TriangleAlert, Upload } from 'lucide-react'
+import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, TriangleAlert, Upload } from 'lucide-react'
+import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
 import { Badge } from './ui.jsx'
 
@@ -38,7 +39,17 @@ const FEATURES = [
   },
 ]
 
-export default function Landing({ onFile, status, fileName, error }) {
+export default function Landing({
+  onFile,
+  status,
+  fileName,
+  error,
+  recent,
+  libraryCount,
+  onOpenPack,
+  onDeletePack,
+  onViewLibrary,
+}) {
   return (
     <div className="space-y-20 sm:space-y-28">
       <section className="mx-auto max-w-3xl text-center">
@@ -79,6 +90,35 @@ export default function Landing({ onFile, status, fileName, error }) {
           </div>
         )}
       </section>
+
+      {recent.length > 0 && (
+        <section aria-labelledby="recent-packs" className="-mt-8 sm:-mt-12">
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 id="recent-packs" className="text-sm font-semibold tracking-[0.08em] text-stone-500 uppercase">
+              Pick up where you left off
+            </h2>
+            <button
+              type="button"
+              onClick={onViewLibrary}
+              className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 transition hover:text-brand-800"
+            >
+              {libraryCount > recent.length ? `View all ${libraryCount}` : 'Open library'}
+              <ArrowRight className="size-4" aria-hidden />
+            </button>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {recent.map((entry) => (
+              <PackCard
+                key={entry.id}
+                entry={entry}
+                showCourse
+                onOpen={() => onOpenPack(entry)}
+                onDelete={() => onDeletePack(entry)}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section aria-labelledby="how-it-works">
         <h2 id="how-it-works" className="text-center text-sm font-semibold tracking-[0.08em] text-stone-500 uppercase">
