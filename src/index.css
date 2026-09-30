@@ -63,6 +63,15 @@
       transform: translateX(5px);
     }
   }
+  /* Indeterminate progress bar sweep (AI generation). */
+  @keyframes indeterminate {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(300%);
+    }
+  }
   /* Draws the results ring from empty; --ring-from is its circumference. */
   @keyframes score-ring {
     from {

@@ -3,7 +3,7 @@ import { Button, Logo } from './ui.jsx'
 
 // Sticky top bar. Once a file is loaded it carries the Notes / Study guide /
 // Flashcards / Quiz tabs, so the study views are always one click apart.
-export default function AppHeader({ view, onNavigate, onReset, fileName, hasNotes, guide, counts, libraryCount }) {
+export default function AppHeader({ view, onNavigate, onReset, hasNotes, guide, counts, libraryCount }) {
   const showTabs = !['home', 'library'].includes(view) && (hasNotes || guide)
 
   const tabs = [
@@ -85,15 +85,6 @@ export default function AppHeader({ view, onNavigate, onReset, fileName, hasNote
           </button>
           {view !== 'home' && view !== 'library' && (
             <>
-              {fileName && (
-                <span
-                  className="hidden max-w-[13rem] items-center gap-2 truncate rounded-lg px-2 py-1 text-sm text-stone-500 lg:flex"
-                  title={fileName}
-                >
-                  <FileText className="size-4 shrink-0 text-stone-500" aria-hidden />
-                  <span className="truncate">{fileName}</span>
-                </span>
-              )}
               <Button size="sm" icon={Plus} onClick={onReset}>
                 New
               </Button>

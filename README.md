@@ -22,7 +22,7 @@ Other scripts: `npm run dev:web` / `npm run dev:api` (run one half), `npm run li
 ## How it works
 
 1. **Parse (browser).** The PDF/PPTX is read in the browser and never uploaded. The extracted text is shown by page/slide or as full text, with a **Copy all text** button.
-2. **Load a study guide.** Paste study guide JSON into the text box and click **Load**. **Copy AI prompt + notes** copies a ready-made prompt (format + rules + your notes) to paste into any AI chat tool.
+2. **Get a study guide.** With AI generation on, click **Generate study pack**. Otherwise (or as well), paste or upload study guide JSON; **Copy AI prompt + notes** copies a ready-made prompt to paste into any AI chat tool.
 3. **Study.** The guide populates three tabs: **Study guide**, **Flashcards** and **Quiz**.
 
 ## Study pack library
@@ -87,32 +87,36 @@ Extra fields are ignored and a surrounding ` ```json ` code fence is accepted. I
 
 **Quiz fallback:** for a module without `quiz`, each definition becomes a "Which term matches this definition?" question. The distractors are other terms (from the same module first), and these questions are marked "From definitions". After answering, each wrong option is shown with its own definition.
 
-## AI generation (optional, off by default)
+## AI generation
 
-The Claude integration is kept but disabled behind a feature flag. To turn it on:
+With AI generation on, "Generate study pack" turns uploaded notes into a full study pack with Claude. It's behind a flag and **off by default**; while off, the Generate UI and API call are compiled out of the bundle and `/api/study-guide` returns `503` without contacting Claude.
 
-```bash
-cp .env.example .env
-# in .env:
-VITE_ENABLE_AI_GENERATION=true
-ANTHROPIC_API_KEY=sk-ant-...
-```
+### Going live on Vercel
 
-Then restart `npm run dev` (and rebuild for production). With the flag on:
+1. **Anthropic:** create an API key at platform.claude.com, and set a **monthly spend limit** in the Console as a hard backstop.
+2. **Upstash:** in the Vercel project, **Storage → Upstash for Redis** (free tier). This adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which the server needs to enforce free-tier limits. Without them, generation is refused rather than unlimited.
+3. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, `ANTHROPIC_API_KEY`, `IP_HASH_SALT` (any random string), and optionally `FREE_GUIDES_PER_VISITOR_PER_DAY`, `GUIDES_PER_DAY_TOTAL`, `MAX_INPUT_CHARS`, `STUDY_GUIDE_MODEL`, `STUDY_GUIDE_EFFORT` (see `.env.example`).
+4. **Redeploy**, since the frontend reads the flag at build time.
 
-- A **Generate with Claude** panel appears under the JSON box. While the flag is off, that UI and the API call are compiled out of the bundle entirely.
-- `POST /api/study-guide` calls Claude (`claude-opus-5`). While the flag is off, it returns `503` without contacting Claude.
-- Claude's response is constrained to a JSON schema matching the format above (with `quiz` always included), then run through the same validator as pasted JSON.
-- Requests opt into server-side refusal fallbacks (`fallbacks: "default"`), so a declined request is retried on the recommended fallback model.
-- Input over ~800K characters (~200K tokens) is rejected rather than truncated.
-- The API key is read only from the environment on the server; it never reaches the browser.
+### How it works
+
+- `api/study-guide.js` is a Vercel Function (`maxDuration: 300`, the Hobby maximum). It and the local dev server (`server/index.js`) share `server/studyGuideHandler.js`.
+- **Limits** (`server/usageLimits.js`): a daily allowance per visitor (default 3) and a site-wide daily cap (default 50), stored in Upstash. Visitors are keyed by a salted hash of their IP, never the IP itself. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
+- **Long requests:** the response starts immediately and a space is written every few seconds while Claude works, so idle connections aren't dropped; the JSON follows (leading whitespace is valid JSON). If the visitor closes the page or clicks Cancel, the Claude request is aborted.
+- **Claude call** (`server/studyGuide.js`): `claude-opus-5` with adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), server-side refusal fallbacks, and the same validator as pasted JSON. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
+- **Cost logging:** every generation logs one line, e.g. `[study-guide] model=claude-opus-5 effort=high chars=… in=… out=… cost≈$… time=…`, in Vercel → Logs, to measure the real cost per guide.
+- The API key is read only from the server's environment; it never reaches the browser. The UI tells visitors that their notes' text is sent to Claude.
 
 ## Project structure
 
 ```
+api/
+  study-guide.js              Vercel Function for POST /api/study-guide
 server/
-  index.js                    API server (+ static hosting of dist/ in production)
-  studyGuide.js               Claude call, prompt and JSON schema (flag-gated)
+  index.js                    local API server (+ static hosting of dist/ when self-hosting)
+  studyGuideHandler.js        shared request handling: flag, validation, limits, keep-alive
+  studyGuide.js               Claude call, prompt, JSON schema, cost logging
+  usageLimits.js              free-tier limits (Upstash / in-memory)
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION)

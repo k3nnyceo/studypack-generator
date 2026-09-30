@@ -10,6 +10,7 @@ import Library from './components/Library.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Toast from './components/Toast.jsx'
+import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED } from './config.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide } from './lib/generateStudyGuide.js'
@@ -108,12 +109,15 @@ export default function App() {
     setIsGenerating(true)
     generateAbort.current = new AbortController()
     try {
-      const data = await generateStudyGuide({
+      const { guide: generated, remaining } = await generateStudyGuide({
         text: result.fullText,
         fileName: result.fileName,
         signal: generateAbort.current.signal,
       })
-      loadGuide(data, result.fileName)
+      loadGuide(generated, result.fileName)
+      if (remaining !== null) {
+        notify(`Study pack ready and saved · ${remaining} free generation${remaining === 1 ? '' : 's'} left today`)
+      }
     } catch (err) {
       if (err.name !== 'AbortError') setGenerateError(err.message)
     } finally {
@@ -198,7 +202,6 @@ export default function App() {
         view={view}
         onNavigate={navigate}
         onReset={reset}
-        fileName={view === 'home' ? '' : fileName}
         hasNotes={Boolean(result)}
         guide={guide}
         counts={{ flashcards: cards.length, quiz: questions.length }}
@@ -234,14 +237,30 @@ export default function App() {
 
           {view === 'notes' && result && (
             <ExtractedPreview result={result} hasGuide={Boolean(guide)} onViewGuide={() => navigate('guide')}>
-              <GuideImport
-                draft={jsonDraft}
-                onDraftChange={setJsonDraft}
-                onLoad={(g) => loadGuide(g, result.fileName)}
-                source={result}
-              />
-              {AI_GENERATION_ENABLED && (
-                <AiGenerate onGenerate={handleGenerate} isGenerating={isGenerating} error={generateError} />
+              {AI_GENERATION_ENABLED ? (
+                <>
+                  <AiGenerate
+                    onGenerate={handleGenerate}
+                    onCancel={() => generateAbort.current?.abort()}
+                    isGenerating={isGenerating}
+                    error={generateError}
+                  />
+                  <Disclosure summary="Already have a study guide JSON? Paste or upload it instead">
+                    <GuideImport
+                      draft={jsonDraft}
+                      onDraftChange={setJsonDraft}
+                      onLoad={(g) => loadGuide(g, result.fileName)}
+                      source={result}
+                    />
+                  </Disclosure>
+                </>
+              ) : (
+                <GuideImport
+                  draft={jsonDraft}
+                  onDraftChange={setJsonDraft}
+                  onLoad={(g) => loadGuide(g, result.fileName)}
+                  source={result}
+                />
               )}
             </ExtractedPreview>
           )}

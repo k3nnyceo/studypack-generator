@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload } from 'lucide-react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
+import { AI_GENERATION_ENABLED } from '../config.js'
 import { Badge, Button } from './ui.jsx'
 
 const STEPS = [
@@ -9,11 +10,17 @@ const STEPS = [
     title: 'Upload your notes',
     body: 'Drop in lecture slides (PPTX) or PDF notes. Text is extracted right in your browser.',
   },
-  {
-    icon: FileJson,
-    title: 'Load your study guide',
-    body: 'Paste or upload a study guide in StudyPack’s JSON format, generated from your notes.',
-  },
+  AI_GENERATION_ENABLED
+    ? {
+        icon: Sparkles,
+        title: 'Generate your study pack',
+        body: 'One click writes summaries, key terms, worked examples, flashcards and a quiz from your notes.',
+      }
+    : {
+        icon: FileJson,
+        title: 'Load your study guide',
+        body: 'Paste or upload a study guide in StudyPack’s JSON format, generated from your notes.',
+      },
   {
     icon: ListChecks,
     title: 'Study and self-test',
@@ -56,7 +63,10 @@ export default function Landing({
       <section className="mx-auto max-w-3xl text-center">
         <Badge tone="brand" className="mb-6 px-3 py-1">
           <Lock className="size-3" strokeWidth={2.75} aria-hidden />
-          Private by design: your files stay on your device
+          {/* With AI on, extracted text goes to Claude, so only claim what stays true. */}
+          {AI_GENERATION_ENABLED
+            ? 'No sign-up needed · your files are read on your device'
+            : 'Private by design: your files stay on your device'}
         </Badge>
         <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tight text-balance text-stone-900 sm:text-6xl">
           Turn lecture notes into a{' '}

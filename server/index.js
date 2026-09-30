@@ -1,14 +1,14 @@
-import Anthropic from '@anthropic-ai/sdk'
+// Local API server for development (`npm run dev`) and self-hosting (`npm start`).
+// On Vercel, api/study-guide.js runs the same handler as a function instead.
 import { createReadStream } from 'node:fs'
 import { stat } from 'node:fs/promises'
 import http from 'node:http'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { generateStudyGuide, MAX_INPUT_CHARS, StudyGuideError } from './studyGuide.js'
+import { aiGenerationEnabled, handleStudyGuideRequest, sendJson } from './studyGuideHandler.js'
+import { storeFromEnv } from './usageLimits.js'
 
 const PORT = Number(process.env.PORT) || 8787
-// Same flag the frontend reads (src/config.js). While it's off, the server never calls Claude.
-const AI_GENERATION_ENABLED = process.env.VITE_ENABLE_AI_GENERATION === 'true'
 const MAX_BODY_BYTES = 5 * 1024 * 1024
 const DIST_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist')
 
@@ -19,13 +19,21 @@ const MIME_TYPES = {
   '.css': 'text/css',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.jpg': 'image/jpeg',
   '.json': 'application/json',
+  '.woff2': 'font/woff2',
 }
 
 const server = http.createServer(async (req, res) => {
   try {
     if (req.url === '/api/study-guide' && req.method === 'POST') {
-      await handleStudyGuide(req, res)
+      let body
+      try {
+        body = JSON.parse(await readBody(req))
+      } catch (err) {
+        return sendJson(res, err.status ?? 400, { error: err.status ? err.message : 'Invalid JSON body.' })
+      }
+      await handleStudyGuideRequest(req, res, body)
     } else if (req.url.startsWith('/api/')) {
       sendJson(res, 404, { error: 'Not found' })
     } else if (req.method === 'GET') {
@@ -36,71 +44,9 @@ const server = http.createServer(async (req, res) => {
   } catch (err) {
     console.error(err)
     if (!res.headersSent) sendJson(res, 500, { error: 'Unexpected server error.' })
+    else res.end()
   }
 })
-
-async function handleStudyGuide(req, res) {
-  if (!AI_GENERATION_ENABLED) {
-    return sendJson(res, 503, {
-      error: 'AI generation is turned off. Set VITE_ENABLE_AI_GENERATION=true in .env to enable it.',
-    })
-  }
-
-  let body
-  try {
-    body = JSON.parse(await readBody(req))
-  } catch (err) {
-    return sendJson(res, err.status ?? 400, { error: err.status ? err.message : 'Invalid JSON body.' })
-  }
-
-  const text = typeof body?.text === 'string' ? body.text.trim() : ''
-  if (!text) {
-    return sendJson(res, 400, { error: 'No text was provided.' })
-  }
-  if (text.length > MAX_INPUT_CHARS) {
-    return sendJson(res, 413, {
-      error: 'These notes are too long to process in one go. Try splitting them into smaller files.',
-    })
-  }
-
-  const started = Date.now()
-  try {
-    const guide = await generateStudyGuide({ text, fileName: body.fileName })
-    console.log(`Generated study guide for "${body.fileName}" in ${((Date.now() - started) / 1000).toFixed(1)}s`)
-    sendJson(res, 200, guide)
-  } catch (err) {
-    const { status, message } = toClientError(err)
-    console.error(`Study guide generation failed (${status}):`, err.message)
-    sendJson(res, status, { error: message })
-  }
-}
-
-// Maps SDK errors to messages that are safe and useful to show a student.
-function toClientError(err) {
-  if (err instanceof StudyGuideError) {
-    return { status: err.status, message: err.message }
-  }
-  if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
-    return { status: 500, message: 'The server’s Claude API key is missing or invalid.' }
-  }
-  if (err instanceof Anthropic.RateLimitError) {
-    return { status: 429, message: 'StudyPack is busy right now. Please try again in a minute.' }
-  }
-  if (err instanceof Anthropic.BadRequestError) {
-    return { status: 400, message: 'Claude couldn’t process this document.' }
-  }
-  if (err instanceof Anthropic.APIConnectionError) {
-    return { status: 502, message: 'Couldn’t reach Claude. Check the server’s network connection.' }
-  }
-  if (err instanceof Anthropic.APIError) {
-    return { status: 502, message: 'Claude is temporarily unavailable. Please try again.' }
-  }
-  // Thrown by the SDK constructor when no credentials are configured.
-  if (err instanceof Anthropic.AnthropicError) {
-    return { status: 500, message: 'The server’s Claude API key is missing or invalid.' }
-  }
-  return { status: 500, message: 'Something went wrong generating the study guide.' }
-}
 
 // Oversized bodies are drained rather than destroyed, so the client still
 // receives the 413 response instead of a reset connection.
@@ -122,12 +68,7 @@ function readBody(req) {
   })
 }
 
-function sendJson(res, status, data) {
-  res.writeHead(status, { 'Content-Type': 'application/json' })
-  res.end(JSON.stringify(data))
-}
-
-// In production the same server hosts the built frontend from dist/.
+// When self-hosting, the same server serves the built frontend from dist/.
 async function serveStatic(req, res) {
   const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname)
   let filePath = path.join(DIST_DIR, urlPath)
@@ -150,9 +91,13 @@ async function serveStatic(req, res) {
 server.requestTimeout = 0 // generation can take a few minutes for long notes
 server.listen(PORT, () => {
   console.log(`StudyPack API listening on http://localhost:${PORT}`)
-  if (!AI_GENERATION_ENABLED) {
+  if (!aiGenerationEnabled()) {
     console.log('AI generation is off (VITE_ENABLE_AI_GENERATION is not "true"); /api/study-guide is disabled.')
-  } else if (!process.env.ANTHROPIC_API_KEY) {
-    console.warn('Warning: ANTHROPIC_API_KEY is not set. Copy .env.example to .env and add your key.')
+    return
+  }
+  if (!process.env.ANTHROPIC_API_KEY) console.warn('Warning: ANTHROPIC_API_KEY is not set. Add it to .env.')
+  const upstash = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
+  if (!upstash) {
+    console.log(storeFromEnv() ? 'Usage limits: in-memory (dev only; resets on restart).' : 'Usage limits: NOT configured, so generation is refused.')
   }
 })

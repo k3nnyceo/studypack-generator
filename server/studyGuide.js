@@ -1,11 +1,23 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { validateStudyGuide } from '../src/lib/studyGuideFormat.js'
 
-const MODEL = 'claude-opus-5'
+// Model and effort can be changed per deployment (e.g. after measuring cost)
+// without a code change.
+const MODEL = process.env.STUDY_GUIDE_MODEL || 'claude-opus-5'
+const EFFORT = process.env.STUDY_GUIDE_EFFORT || 'high'
 
-// Roughly 200K tokens. Longer input is rejected rather than silently truncated,
-// so a student never gets a guide that quietly skips half their lectures.
-export const MAX_INPUT_CHARS = 800_000
+// USD per million tokens, for the cost line in the server log.
+const PRICING = {
+  'claude-opus-5': { input: 5, output: 25 },
+  'claude-opus-4-8': { input: 5, output: 25 },
+  'claude-sonnet-5': { input: 2, output: 10 },
+  'claude-haiku-4-5': { input: 1, output: 5 },
+}
+
+// Longer input is rejected rather than silently truncated, so a student never
+// gets a guide that quietly skips half their lectures. The default (~37K
+// tokens) keeps the free tier's cost per guide bounded.
+export const MAX_INPUT_CHARS = Number(process.env.MAX_INPUT_CHARS) || 150_000
 
 // Structured outputs guarantee the response matches this schema. Every object
 // needs `additionalProperties: false` and an exhaustive `required` list.
@@ -109,29 +121,37 @@ function getClient() {
   return client
 }
 
-export async function generateStudyGuide({ text, fileName }) {
-  const stream = getClient().beta.messages.stream({
-    model: MODEL,
-    max_tokens: 64000,
-    thinking: { type: 'adaptive' },
-    output_config: {
-      effort: 'high',
-      format: { type: 'json_schema', schema: STUDY_GUIDE_SCHEMA },
-    },
-    // If a safety classifier declines the request, retry server-side on the
-    // model Anthropic recommends for that refusal category.
-    betas: ['server-side-fallback-2026-07-01'],
-    fallbacks: 'default',
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: 'user',
-        content: `<lecture_notes filename="${escapeAttr(fileName)}">\n${text}\n</lecture_notes>\n\nCreate the study guide for these notes.`,
+// `signal` cancels the request, e.g. when the visitor closes the page.
+export async function generateStudyGuide({ text, fileName, signal }) {
+  const started = Date.now()
+  // Server-side refusal fallbacks are offered on the Opus/Fable tier: if a safety
+  // classifier declines, the API retries on the model it recommends for that category.
+  const fallback = /^claude-(opus|fable)/.test(MODEL)
+    ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' }
+    : {}
+  const stream = getClient().beta.messages.stream(
+    {
+      model: MODEL,
+      max_tokens: 64000,
+      thinking: { type: 'adaptive' },
+      output_config: {
+        effort: EFFORT,
+        format: { type: 'json_schema', schema: STUDY_GUIDE_SCHEMA },
       },
-    ],
-  })
+      ...fallback,
+      system: SYSTEM_PROMPT,
+      messages: [
+        {
+          role: 'user',
+          content: `<lecture_notes filename="${escapeAttr(fileName)}">\n${text}\n</lecture_notes>\n\nCreate the study guide for these notes.`,
+        },
+      ],
+    },
+    { signal },
+  )
 
   const message = await stream.finalMessage()
+  logUsage(message, text.length, Date.now() - started)
 
   if (message.stop_reason === 'refusal') {
     throw new StudyGuideError('Claude declined to generate a study guide for this document.', 422)
@@ -163,6 +183,21 @@ export async function generateStudyGuide({ text, fileName }) {
     throw new StudyGuideError('Claude returned an incomplete study guide. Please try again.', 502)
   }
   return result.guide
+}
+
+// One line per generation with tokens and estimated cost, which is how the
+// real cost per study guide is measured (Vercel → Logs, or the local console).
+function logUsage(message, inputChars, ms) {
+  const u = message.usage ?? {}
+  const price = PRICING[message.model] ?? PRICING[MODEL]
+  const inputTokens = (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0)
+  const cost = price ? (inputTokens * price.input + (u.output_tokens ?? 0) * price.output) / 1e6 : null
+  const fellBack = (u.iterations ?? []).some((i) => i.type === 'fallback_message')
+  console.log(
+    `[study-guide] model=${message.model} effort=${EFFORT} chars=${inputChars} in=${inputTokens} out=${u.output_tokens ?? 0}` +
+      ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
+      ` stop=${message.stop_reason}${fellBack ? ' (fallback ran)' : ''}`,
+  )
 }
 
 function escapeAttr(value) {

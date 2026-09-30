@@ -1,5 +1,5 @@
 // Shared UI building blocks, so every screen uses the same buttons and badges.
-import { GraduationCap } from 'lucide-react'
+import { ChevronDown, GraduationCap } from 'lucide-react'
 import { buttonClasses } from './buttonStyles.js'
 
 export function Button({ variant, size, className, icon: Icon, children, ...props }) {
@@ -43,4 +43,18 @@ export function Logo() {
 // A small uppercase label that sits above headings.
 export function Eyebrow({ className = '', children }) {
   return <p className={`text-xs font-semibold uppercase tracking-[0.08em] text-brand-600 ${className}`}>{children}</p>
+}
+
+// A collapsible section built on <details>, so it's keyboard and screen-reader
+// friendly without extra state.
+export function Disclosure({ summary, children }) {
+  return (
+    <details className="group card overflow-hidden">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold text-stone-800 transition hover:bg-stone-50 [&::-webkit-details-marker]:hidden">
+        {summary}
+        <ChevronDown className="size-4 shrink-0 text-stone-500 transition duration-200 group-open:rotate-180" aria-hidden />
+      </summary>
+      <div className="border-t border-stone-100 p-2 sm:p-3 [&>section]:shadow-none [&>section]:ring-0">{children}</div>
+    </details>
+  )
 }
