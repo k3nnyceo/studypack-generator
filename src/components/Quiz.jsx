@@ -329,7 +329,7 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
 
       {showBreakdown && byModule.length > 1 && (
         <section className="card p-6 sm:p-8">
-          <h3 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">By module</h3>
+          <h2 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">By module</h2>
           <ul className="space-y-3">
             {byModule.map((row) => (
               <li key={row.title}>
@@ -353,9 +353,9 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
 
       {missed.length > 0 && (
         <section className="card p-6 sm:p-8">
-          <h3 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">
+          <h2 className="mb-5 text-xs font-semibold tracking-[0.08em] text-stone-500 uppercase">
             Questions to review ({missed.length})
-          </h3>
+          </h2>
           <ul className="divide-y divide-stone-100">
             {missed.map((q) => (
               <li key={q.id} className="py-4 first:pt-0 last:pb-0">
@@ -455,7 +455,7 @@ function OptionButton({ letter, text, state, disabled, onClick }) {
 function Count({ questions, answers }) {
   const done = questions.filter((q) => answers.has(q.id)).length
   return (
-    <span className="text-xs tabular-nums opacity-60">
+    <span className="text-xs font-medium text-stone-500 tabular-nums group-aria-pressed:text-stone-300">
       {done}/{questions.length}
     </span>
   )

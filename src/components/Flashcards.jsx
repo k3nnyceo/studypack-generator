@@ -127,7 +127,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 aria-checked={kindFilter === f.value}
                 onClick={() => changeKind(f.value)}
                 className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
-                  kindFilter === f.value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-500 hover:text-stone-800'
+                  kindFilter === f.value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 {f.label}
@@ -306,7 +306,7 @@ function textSize(text, emphasis) {
 function ChipCount({ reviewed, cards }) {
   const done = cards.filter((c) => reviewed.has(c.id)).length
   return (
-    <span className="text-xs tabular-nums opacity-60">
+    <span className="text-xs font-medium text-stone-500 tabular-nums group-aria-pressed:text-stone-300">
       {done}/{cards.length}
     </span>
   )

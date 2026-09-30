@@ -122,7 +122,12 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source }) {
 
       {showFormat && (
         <div className="animate-page-in mt-6 space-y-5 border-t border-stone-200 pt-6">
-          <div className="overflow-x-auto rounded-xl ring-1 ring-stone-200">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Study guide fields"
+            className="overflow-x-auto rounded-xl ring-1 ring-stone-200"
+          >
             <table className="w-full text-left text-sm">
               <thead className="bg-stone-50 text-xs tracking-[0.06em] text-stone-500 uppercase">
                 <tr>
@@ -143,12 +148,16 @@ export default function GuideImport({ draft, onDraftChange, onLoad, source }) {
             </table>
           </div>
           <p className="text-sm text-stone-500">
-            Extra fields are ignored. A surrounding <code className="rounded bg-stone-100 px-1 text-xs">```json</code> code
+            Extra fields are ignored. A surrounding <code className="rounded bg-stone-100 px-1 text-xs text-stone-700">```json</code> code
             fence is fine.
           </p>
           <div className="relative">
             <CopyButton text={EXAMPLE_GUIDE_JSON} label="Copy example" className="absolute top-3 right-3" />
-            <pre className="max-h-96 overflow-auto rounded-2xl bg-stone-900 p-5 pr-32 text-xs leading-relaxed text-stone-100">
+            <pre
+              tabIndex={0}
+              aria-label="Example study guide JSON"
+              className="max-h-96 overflow-auto rounded-2xl bg-stone-900 p-5 pr-32 text-xs leading-relaxed text-stone-100"
+            >
               {EXAMPLE_GUIDE_JSON}
             </pre>
           </div>

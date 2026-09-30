@@ -62,7 +62,7 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
                   aria-checked={view === value}
                   onClick={() => setView(value)}
                   className={`rounded-md px-3 py-1 font-semibold transition ${
-                    view === value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-500 hover:text-stone-800'
+                    view === value ? 'bg-white text-stone-900 shadow-card' : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
                   {label}
@@ -73,7 +73,11 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
           </div>
         </div>
         {view === 'raw' ? (
-          <pre className="max-h-[36rem] overflow-auto px-6 py-5 font-sans text-sm leading-relaxed whitespace-pre-wrap text-stone-700">
+          <pre
+            tabIndex={0}
+            aria-label="Full extracted text"
+            className="max-h-[36rem] overflow-auto px-6 py-5 font-sans text-sm leading-relaxed whitespace-pre-wrap text-stone-700"
+          >
             {result.fullText}
           </pre>
         ) : (

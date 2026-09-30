@@ -38,7 +38,7 @@ export default function AppHeader({ view, onNavigate, onReset, fileName, hasNote
                     className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-40 md:px-4 ${
                       active
                         ? 'bg-white text-stone-900 shadow-card ring-1 ring-stone-200/80'
-                        : 'text-stone-500 hover:text-stone-900'
+                        : 'text-stone-600 hover:text-stone-900'
                     }`}
                   >
                     <tab.icon

@@ -1,7 +1,7 @@
-import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, TriangleAlert, Upload } from 'lucide-react'
+import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload } from 'lucide-react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
-import { Badge } from './ui.jsx'
+import { Badge, Button } from './ui.jsx'
 
 const STEPS = [
   {
@@ -41,6 +41,7 @@ const FEATURES = [
 
 export default function Landing({
   onFile,
+  onTrySample,
   status,
   fileName,
   error,
@@ -71,6 +72,13 @@ export default function Landing({
 
         <div className="mt-10 text-left">
           <UploadDropzone onFile={onFile} disabled={status === 'parsing'} />
+        </div>
+
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <span className="text-sm text-stone-500">No notes handy?</span>
+          <Button variant="soft" icon={Sparkles} onClick={onTrySample} disabled={status === 'parsing'}>
+            Try a sample study pack
+          </Button>
         </div>
 
         {status === 'parsing' && (
@@ -127,7 +135,7 @@ export default function Landing({
         <ol className="mt-8 grid gap-4 sm:grid-cols-3">
           {STEPS.map((step, i) => (
             <li key={step.title} className="card relative p-6">
-              <span className="absolute top-6 right-6 text-sm font-bold text-stone-300 tabular-nums">0{i + 1}</span>
+              <span className="absolute top-6 right-6 text-xs font-semibold text-stone-500 tabular-nums">Step {i + 1}</span>
               <span className="flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
                 <step.icon className="size-5" strokeWidth={2} aria-hidden />
               </span>

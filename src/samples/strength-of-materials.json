@@ -1,0 +1,356 @@
+{
+  "title": "Strength of Materials — Stress, Strain & Beam Bending",
+  "course": "Strength of Materials",
+  "topic": "Stress, Strain, Torsion & Bending",
+  "overview": "This study pack covers the core foundations of Strength of Materials: how solid engineering members respond to axial loading, torsion, and bending. It builds from basic stress-strain relationships up through beam bending theory, giving you the tools to analyze whether a structural member will safely carry a given load.",
+  "modules": [
+    {
+      "title": "Stress and Strain Fundamentals",
+      "sourceRange": "Introductory topic",
+      "summary": "Every solid material deforms when a force is applied to it. Stress describes how much internal force is distributed across a material's cross-section, while strain describes how much the material deforms relative to its original size. Understanding this relationship is the foundation for every other topic in Strength of Materials.\n\nStress is calculated as force divided by the cross-sectional area it acts on (σ = F/A), measured in Pascals (Pa) or N/m². Strain is calculated as the change in length divided by the original length (ε = ΔL/L), and is dimensionless since it's a ratio.\n\nFor most engineering materials within their elastic range, stress and strain are directly proportional — this relationship is described by Hooke's Law, and the constant of proportionality is called the Young's Modulus (E), a measure of a material's stiffness.",
+      "keyPoints": [
+        "Stress (σ) = Force / Area, measured in Pascals (Pa)",
+        "Strain (ε) = Change in length / Original length, dimensionless",
+        "Hooke's Law: σ = E × ε, valid only within the elastic region",
+        "Young's Modulus (E) measures a material's stiffness — higher E means a stiffer material",
+        "Beyond the elastic limit, materials undergo permanent (plastic) deformation"
+      ],
+      "definitions": [
+        {
+          "term": "Stress (σ)",
+          "definition": "Internal resistance force per unit area within a material, calculated as Force ÷ Cross-sectional Area."
+        },
+        {
+          "term": "Strain (ε)",
+          "definition": "The ratio of deformation (change in length) to the original length of a material under load."
+        },
+        {
+          "term": "Young's Modulus (E)",
+          "definition": "A material property describing stiffness — the ratio of stress to strain in the elastic region."
+        },
+        {
+          "term": "Elastic Limit",
+          "definition": "The maximum stress a material can withstand while still returning to its original shape after the load is removed."
+        },
+        {
+          "term": "Plastic Deformation",
+          "definition": "Permanent deformation that remains after a load exceeding the elastic limit is removed."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Stress in a Steel Rod",
+          "problem": "A steel rod with a cross-sectional area of 500 mm² carries an axial tensile load of 100 kN. Calculate the stress in the rod.",
+          "steps": [
+            "Convert units: Area = 500 mm² = 500 × 10⁻⁶ m², Force = 100 kN = 100,000 N",
+            "Apply the stress formula: σ = F / A",
+            "σ = 100,000 N / (500 × 10⁻⁶ m²)",
+            "σ = 200,000,000 Pa = 200 MPa"
+          ],
+          "answer": "The stress in the rod is 200 MPa (megapascals)."
+        },
+        {
+          "title": "Finding Strain and Elongation",
+          "problem": "A 2-meter-long steel wire stretches by 1.5 mm under load. Calculate the strain in the wire.",
+          "steps": [
+            "Identify given values: Original length L = 2 m = 2000 mm, Change in length ΔL = 1.5 mm",
+            "Apply the strain formula: ε = ΔL / L",
+            "ε = 1.5 mm / 2000 mm",
+            "ε = 0.00075"
+          ],
+          "answer": "The strain is 0.00075 (or 0.075%), a dimensionless quantity."
+        },
+        {
+          "title": "Applying Hooke's Law",
+          "problem": "A material has a Young's Modulus of 200 GPa. If the strain measured is 0.001, what is the stress?",
+          "steps": [
+            "Apply Hooke's Law: σ = E × ε",
+            "Convert E: 200 GPa = 200 × 10⁹ Pa",
+            "σ = (200 × 10⁹ Pa) × 0.001",
+            "σ = 200 × 10⁶ Pa = 200 MPa"
+          ],
+          "answer": "The stress is 200 MPa."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the formula for engineering stress?",
+          "options": [
+            "Force × Area",
+            "Force / Area",
+            "Area / Force",
+            "Force / Length"
+          ],
+          "correctIndex": 1,
+          "explanation": "Stress is defined as force divided by the cross-sectional area over which it acts (σ = F/A)."
+        },
+        {
+          "question": "Which of these best describes Young's Modulus?",
+          "options": [
+            "A measure of a material's ultimate strength",
+            "A measure of a material's stiffness",
+            "A measure of how far a material can stretch before it breaks",
+            "A measure of a material's hardness"
+          ],
+          "correctIndex": 1,
+          "explanation": "Young's Modulus (E) quantifies how stiff a material is — the ratio of stress to strain in its elastic region. Strength, ductility and hardness are separate properties."
+        },
+        {
+          "question": "What happens to a material once it passes its elastic limit?",
+          "options": [
+            "It still returns fully to its original shape once unloaded",
+            "It undergoes permanent (plastic) deformation",
+            "It fractures immediately",
+            "Its Young's Modulus increases"
+          ],
+          "correctIndex": 1,
+          "explanation": "Beyond the elastic limit, deformation becomes permanent — this is called plastic deformation. Fracture comes later, at the ultimate strength."
+        }
+      ]
+    },
+    {
+      "title": "Torsion in Circular Shafts",
+      "sourceRange": "Second topic",
+      "summary": "Torsion occurs when a twisting force (torque) is applied to a shaft, causing it to rotate about its longitudinal axis. This is especially relevant for rotating machine components like drive shafts and motor shafts.\n\nThe torsion equation relates the applied torque to the resulting shear stress and angle of twist in a circular shaft: T/J = τ/r = Gθ/L, where T is torque, J is the polar moment of inertia, τ is shear stress, r is the radial distance from the shaft's center, G is the shear modulus, θ is the angle of twist, and L is the shaft length.\n\nUnderstanding torsion is critical for designing shafts that won't fail under twisting loads, particularly in rotating machinery like engines, motors, and drivetrains — directly relevant to Mechatronics applications.",
+      "keyPoints": [
+        "Torque (T) causes shear stress and angular twist in a shaft",
+        "The torsion equation: T/J = τ/r = Gθ/L",
+        "Polar moment of inertia (J) depends on the shaft's cross-sectional geometry",
+        "Maximum shear stress occurs at the outer surface of the shaft",
+        "Hollow shafts can carry the same torque as solid shafts with less material, since material near the center contributes little to torsional strength"
+      ],
+      "definitions": [
+        {
+          "term": "Torque (T)",
+          "definition": "A twisting force that causes rotation about an axis, measured in Newton-meters (Nm)."
+        },
+        {
+          "term": "Polar Moment of Inertia (J)",
+          "definition": "A geometric property of a shaft's cross-section that measures its resistance to torsional deformation."
+        },
+        {
+          "term": "Shear Stress (τ)",
+          "definition": "Internal stress caused by forces acting parallel (rather than perpendicular) to a material's cross-section."
+        },
+        {
+          "term": "Angle of Twist (θ)",
+          "definition": "The angular displacement between two ends of a shaft caused by an applied torque."
+        },
+        {
+          "term": "Shear Modulus (G)",
+          "definition": "A material property describing its stiffness in response to shear stress, analogous to Young's Modulus for shear loading."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Maximum Shear Stress in a Solid Shaft",
+          "problem": "A solid circular shaft of radius 25 mm carries a torque of 500 Nm. The polar moment of inertia J = 6.14 × 10⁻⁷ m⁴. Find the maximum shear stress.",
+          "steps": [
+            "Convert radius to meters: r = 25 mm = 0.025 m",
+            "Apply the torsion formula: τ = T × r / J",
+            "τ = (500 Nm × 0.025 m) / (6.14 × 10⁻⁷ m⁴)",
+            "τ = 12.5 / (6.14 × 10⁻⁷)",
+            "τ ≈ 20.36 × 10⁶ Pa"
+          ],
+          "answer": "The maximum shear stress is approximately 20.36 MPa, occurring at the outer surface of the shaft."
+        },
+        {
+          "title": "Calculating the Angle of Twist",
+          "problem": "The shaft from the previous example (J = 6.14 × 10⁻⁷ m⁴) is 1.5 m long, made of steel with shear modulus G = 80 GPa, and carries a torque of 500 Nm. Find the angle of twist.",
+          "steps": [
+            "Rearrange the torsion equation T/J = Gθ/L to get θ = T × L / (G × J)",
+            "Convert G: 80 GPa = 80 × 10⁹ Pa",
+            "G × J = (80 × 10⁹ Pa) × (6.14 × 10⁻⁷ m⁴) = 49,120 Nm²",
+            "θ = (500 Nm × 1.5 m) / 49,120 Nm² ≈ 0.01527 rad",
+            "Convert to degrees: 0.01527 × (180 / π) ≈ 0.875°"
+          ],
+          "answer": "The shaft twists by about 0.0153 rad (≈ 0.87°) over its 1.5 m length."
+        },
+        {
+          "title": "Comparing Torque Capacity of Solid vs Hollow Shafts",
+          "problem": "Explain conceptually why a hollow shaft can be more material-efficient than a solid shaft of the same outer diameter for carrying torque.",
+          "steps": [
+            "Recall that shear stress is highest at the outer surface and decreases toward the center (τ = Tr/J, stress is proportional to r)",
+            "Material near the shaft's center experiences very little shear stress and contributes little to torque resistance",
+            "Removing this low-stress material (making the shaft hollow) reduces weight with minimal loss in torque capacity",
+            "This is why hollow shafts are common in weight-sensitive applications like aircraft and racing drivetrains"
+          ],
+          "answer": "A hollow shaft removes material that wasn't doing much structural work anyway, making it lighter for a similar torque capacity compared to an equivalent solid shaft."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Where does maximum shear stress occur in a shaft under torsion?",
+          "options": [
+            "At the center",
+            "At the outer surface",
+            "Uniformly throughout",
+            "At the shaft's ends only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Shear stress increases with radial distance from the center, so it's highest at the outer surface of the shaft."
+        },
+        {
+          "question": "What does the polar moment of inertia (J) describe?",
+          "options": [
+            "The shaft material's stiffness in shear",
+            "A shaft cross-section's resistance to torsional deformation",
+            "The maximum rotational speed the shaft can safely reach",
+            "The torque applied to the shaft"
+          ],
+          "correctIndex": 1,
+          "explanation": "J is a geometric property of the cross-section that determines how well a shaft resists twisting. The material's shear stiffness is the shear modulus, G."
+        },
+        {
+          "question": "Why can hollow shafts be more material-efficient than solid shafts for the same torque?",
+          "options": [
+            "A hollow shaft always carries more torque than a solid shaft of the same outer diameter",
+            "Material near the center carries little shear stress and can be removed",
+            "Hollow shafts are made from materials with a higher shear modulus",
+            "Removing the core increases the polar moment of inertia"
+          ],
+          "correctIndex": 1,
+          "explanation": "Since shear stress is lowest near the shaft's center, removing that material saves weight without significantly reducing torque capacity. Removing it slightly reduces J; it doesn't increase it."
+        }
+      ]
+    },
+    {
+      "title": "Bending Stress in Beams",
+      "sourceRange": "Third topic",
+      "summary": "When a beam carries loads perpendicular to its length, it bends. The loads create an internal bending moment (M) that varies along the beam, and this moment produces normal stresses across the beam's cross-section. For a beam sagging under downward loads, the top fibres are squeezed (compression) and the bottom fibres are stretched (tension).\n\nBetween the compression and tension zones lies the neutral axis, a line through the cross-section where bending stress is zero; for a symmetric section it passes through the centroid. Bending stress increases linearly with distance from the neutral axis, so it is highest at the outermost fibres.\n\nThe flexure formula ties these together: σ = M·y / I, where M is the bending moment at the section, y is the distance from the neutral axis, and I is the second moment of area of the cross-section. The maximum stress is often written σ_max = M / Z, where Z = I / y_max is the section modulus. The formula assumes a straight, homogeneous, linear-elastic beam in which plane cross-sections remain plane as it bends.",
+      "keyPoints": [
+        "A bending moment (M) puts one side of the neutral axis in compression and the other in tension",
+        "Bending stress is zero at the neutral axis and maximum at the outermost fibres",
+        "Flexure formula: σ = M·y / I, or σ_max = M / Z with section modulus Z = I / y_max",
+        "For a rectangular section, I = b·h³/12 and Z = b·h²/6, so depth (h) matters far more than width (b)",
+        "Simply supported beam: M_max = P·L/4 for a central point load P, and w·L²/8 for a uniform load w per metre"
+      ],
+      "definitions": [
+        {
+          "term": "Bending Moment (M)",
+          "definition": "The internal moment at a section of a beam that resists the bending effect of the applied loads, measured in newton-metres (Nm)."
+        },
+        {
+          "term": "Neutral Axis",
+          "definition": "The line through a beam's cross-section where bending stress is zero; fibres on one side are in tension and on the other in compression."
+        },
+        {
+          "term": "Second Moment of Area (I)",
+          "definition": "A geometric property describing how a cross-section's area is distributed about the neutral axis, and therefore how strongly it resists bending (units m⁴)."
+        },
+        {
+          "term": "Section Modulus (Z)",
+          "definition": "The second moment of area divided by the distance to the outermost fibre (Z = I / y_max); the maximum bending stress equals M / Z (units m³)."
+        },
+        {
+          "term": "Simply Supported Beam",
+          "definition": "A beam resting on a pin at one end and a roller at the other, so the supports provide vertical reactions but no resisting moment."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Maximum Bending Stress in a Rectangular Beam",
+          "problem": "A rectangular timber beam is 100 mm wide and 200 mm deep. At one section it carries a bending moment of 20 kNm. Find the maximum bending stress.",
+          "steps": [
+            "Convert units: b = 0.1 m, h = 0.2 m, M = 20 kNm = 20,000 Nm",
+            "Second moment of area: I = b·h³/12 = 0.1 × 0.2³ / 12 = 6.667 × 10⁻⁵ m⁴",
+            "The outermost fibre is at y_max = h/2 = 0.1 m",
+            "Apply the flexure formula: σ_max = M·y_max / I = (20,000 × 0.1) / (6.667 × 10⁻⁵)",
+            "σ_max = 30 × 10⁶ Pa = 30 MPa"
+          ],
+          "answer": "The maximum bending stress is 30 MPa: compression on one face and tension on the other."
+        },
+        {
+          "title": "Bending Stress Partway Through the Section",
+          "problem": "For the same beam and the same 20 kNm bending moment, find the bending stress at a point 50 mm from the neutral axis.",
+          "steps": [
+            "Use the flexure formula with y = 50 mm = 0.05 m instead of y_max",
+            "σ = M·y / I = (20,000 × 0.05) / (6.667 × 10⁻⁵)",
+            "σ = 15 × 10⁶ Pa = 15 MPa",
+            "This is exactly half the maximum stress, because the point is half as far from the neutral axis: stress varies linearly with y"
+          ],
+          "answer": "The stress is 15 MPa, half the 30 MPa at the outer fibre."
+        },
+        {
+          "title": "Bending Moment and Stress in a Simply Supported Beam",
+          "problem": "A simply supported beam spans 4 m and carries a 10 kN point load at midspan. It uses the same 100 mm × 200 mm section. Find the maximum bending moment and the maximum bending stress.",
+          "steps": [
+            "By symmetry, each support carries half the load: R = 10 kN / 2 = 5 kN",
+            "The maximum moment occurs under the load at midspan: M_max = R × (L/2) = 5 kN × 2 m = 10 kNm (equivalently P·L/4 = 10 × 4 / 4)",
+            "Section modulus: Z = b·h²/6 = 0.1 × 0.2² / 6 = 6.667 × 10⁻⁴ m³",
+            "σ_max = M_max / Z = 10,000 / (6.667 × 10⁻⁴) = 15 × 10⁶ Pa = 15 MPa"
+          ],
+          "answer": "The maximum bending moment is 10 kNm at midspan, giving a maximum bending stress of 15 MPa."
+        },
+        {
+          "title": "Why Beams Are Installed on Edge",
+          "problem": "The 100 mm × 200 mm beam from the first example is turned to lie flat (200 mm wide, 100 mm deep). For the same 20 kNm bending moment, what is the new maximum bending stress?",
+          "steps": [
+            "Laid flat, b = 0.2 m and h = 0.1 m",
+            "Z = b·h²/6 = 0.2 × 0.1² / 6 = 3.333 × 10⁻⁴ m³, half the on-edge value",
+            "σ_max = M / Z = 20,000 / (3.333 × 10⁻⁴) = 60 × 10⁶ Pa = 60 MPa",
+            "Because Z depends on h², halving the depth halves Z even though the width doubles, so the stress doubles"
+          ],
+          "answer": "The stress rises to 60 MPa, double the on-edge value, which is why joists and rectangular beams are installed on edge."
+        },
+        {
+          "title": "Why I-Beams Are So Efficient",
+          "problem": "Explain why I-beams are so widely used for steel beams.",
+          "steps": [
+            "Bending stress is largest far from the neutral axis, so material there does the most work",
+            "The second moment of area weights each piece of area by the square of its distance from the neutral axis (I = ∫y² dA), so area placed far away adds greatly to I",
+            "An I-beam puts most of its material in the top and bottom flanges, far from the neutral axis, joined by a thin web",
+            "This gives a large I and Z for little material, the same idea as a hollow shaft in torsion"
+          ],
+          "answer": "I-beams place their material where bending stress is highest, giving high bending strength and stiffness for a given weight."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Where is the bending stress zero in a beam's cross-section?",
+          "options": [
+            "At the top surface",
+            "At the bottom surface",
+            "At the neutral axis",
+            "At the supports only"
+          ],
+          "correctIndex": 2,
+          "explanation": "The neutral axis separates the compression and tension zones, so the bending stress there is zero."
+        },
+        {
+          "question": "A simply supported beam sags under a downward load at midspan. What kind of stress acts on its bottom fibres at midspan?",
+          "options": [
+            "Compression",
+            "Tension",
+            "Zero stress",
+            "Pure shear only"
+          ],
+          "correctIndex": 1,
+          "explanation": "A sagging beam is stretched on its bottom face (tension) and squeezed on its top face (compression)."
+        },
+        {
+          "question": "The depth of a rectangular beam is doubled while its width and bending moment stay the same. The maximum bending stress becomes:",
+          "options": [
+            "One quarter of its original value",
+            "Half of its original value",
+            "Double its original value",
+            "Unchanged"
+          ],
+          "correctIndex": 0,
+          "explanation": "Z = b·h²/6, so doubling h makes Z four times larger, and σ_max = M/Z falls to a quarter."
+        },
+        {
+          "question": "Why do I-beams resist bending so efficiently?",
+          "options": [
+            "Their steel has a higher Young's Modulus than other shapes",
+            "Their web carries most of the bending stress",
+            "Their shape removes the neutral axis entirely",
+            "Most of their material sits in the flanges, far from the neutral axis"
+          ],
+          "correctIndex": 3,
+          "explanation": "Material far from the neutral axis contributes most to the second moment of area, so the flanges give a large I and Z for little weight."
+        }
+      ]
+    }
+  ]
+}

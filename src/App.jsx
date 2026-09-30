@@ -126,6 +126,19 @@ export default function App() {
     setStatus('error')
   }
 
+  // The bundled sample, so first-time visitors can try every study view
+  // without making a study guide first. Loaded on demand to keep the home page light.
+  async function loadSample() {
+    const { default: sample } = await import('./samples/strength-of-materials.json')
+    const parsed = parseStudyGuide(JSON.stringify(sample))
+    if (!parsed.ok) return fail('The sample study pack couldn’t be loaded.')
+    setFileName('Sample study pack')
+    setResult(null)
+    setError('')
+    setStatus('idle')
+    loadGuide(parsed.guide, 'Sample study pack')
+  }
+
   async function handleFile(file) {
     if (file.name.toLowerCase().endsWith('.json')) return handleGuideFile(file)
 
@@ -197,6 +210,7 @@ export default function App() {
           {view === 'home' && (
             <Landing
               onFile={handleFile}
+              onTrySample={loadSample}
               status={status}
               fileName={fileName}
               error={error}
