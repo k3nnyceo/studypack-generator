@@ -30,11 +30,6 @@ const PRICING = {
 const priceKey = (model = '') =>
   model.replace(/^(global|us|eu|apac|jp)\./, '').replace(/^anthropic\./, '').replace(/(-v\d+(:\d+)?|-\d{8}(-v\d+:\d+)?)$/, '')
 
-// Longer input is rejected rather than silently truncated, so a student never
-// gets a guide that quietly skips half their lectures. The default (~37K
-// tokens) keeps the free tier's cost per guide bounded.
-export const MAX_INPUT_CHARS = Number(process.env.MAX_INPUT_CHARS) || 150_000
-
 // Generation runs in two stages so long lectures finish well inside a serverless
 // time limit: one call plans the guide (title, course, topic, overview, and the
 // module outline), then one call per module writes that module, all in
@@ -173,7 +168,9 @@ function getClient() {
 }
 
 // `signal` cancels the request, e.g. when the visitor closes the page.
-export async function generateStudyGuide({ text, fileName, signal }) {
+// `onCost` receives the guide's estimated cost in USD (null if the model's
+// price isn't known), which the usage meter charges to the student's plan.
+export async function generateStudyGuide({ text, fileName, signal, onCost }) {
   const started = Date.now()
   // One controller for every call: the visitor leaving, or any one call
   // failing, stops the rest so we aren't billed for work that will be discarded.
@@ -222,7 +219,7 @@ export async function generateStudyGuide({ text, fileName, signal }) {
       throw err
     })
 
-    logUsage(messages, text.length, Date.now() - started, planMs)
+    const cost = logUsage(messages, text.length, Date.now() - started, planMs)
     const { title, course, topic, overview } = plan
     // The schemas guarantee each part's shape; this also checks what JSON Schema
     // can't express here, such as correctIndex being within the options.
@@ -231,6 +228,7 @@ export async function generateStudyGuide({ text, fileName, signal }) {
       console.error('Claude returned an invalid study guide:', result.errors)
       throw new StudyGuideError('Claude returned an incomplete study guide. Please try again.', 502)
     }
+    onCost?.(cost)
     return result.guide
   } catch (err) {
     if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed')
@@ -290,6 +288,7 @@ async function callClaude({ notes, instruction, schema, maxTokens, effort, onSta
 // One line per generation with tokens and estimated cost across all calls,
 // which is how the real cost per study guide is measured (Vercel → Logs, or
 // the local console). Cache writes cost 1.25x input, cache reads 0.1x.
+// Returns the cost in USD, or null if the model's price isn't known.
 function logUsage(messages, inputChars, ms, planMs, outcome = 'ok') {
   const sum = (k) => messages.reduce((n, m) => n + (m.usage?.[k] ?? 0), 0)
   const input = sum('input_tokens')
@@ -307,6 +306,7 @@ function logUsage(messages, inputChars, ms, planMs, outcome = 'ok') {
       ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
       `${planMs ? ` (plan ${(planMs / 1000).toFixed(1)}s)` : ''}${fellBack ? ' (fallback ran)' : ''}`,
   )
+  return cost
 }
 
 function escapeAttr(value) {

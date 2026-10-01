@@ -1,8 +1,9 @@
 // /api/study-guide, shared by the Vercel function (api/study-guide.js) and the
 // local dev server (server/index.js).
 //
-//   POST   { text, fileName }  signed in? -> validate -> reserve a free-tier
-//                              slot -> start a job -> 202 { jobId, remaining }
+//   POST   { text, fileName }  signed in? -> validate -> reserve the pack's
+//                              expected cost on the account's plan -> start a
+//                              job -> 202 { jobId }
 //   GET    ?job=<id>           the job: { status, guide?, error? }
 //   DELETE ?job=<id>           cancel it
 //
@@ -10,17 +11,20 @@
 // local server simply keeps running), so a phone locking its screen or
 // switching apps no longer kills generation. See server/jobs.js.
 //
-// Generating needs a Google sign-in (server/auth.js): free-tier limits count
-// per account, and a job can only be read or cancelled by the account that
-// started it.
+// Generating needs a Google sign-in (server/auth.js): usage is metered per
+// account against its plan (server/usageLimits.js, server/plans.js), and a job
+// can only be read or cancelled by the account that started it. When a pack
+// is done, its real cost replaces the estimate; if it fails, nothing is charged.
 import { randomUUID } from 'node:crypto'
 import Anthropic from '@anthropic-ai/sdk'
 import { waitUntil } from '@vercel/functions'
 import { getSessionUser } from './auth.js'
+import { getDefaults } from './billing.js'
 import { sendJson } from './http.js'
 import { jobStoreFromEnv } from './jobs.js'
-import { generateStudyGuide, MAX_INPUT_CHARS, StudyGuideError } from './studyGuide.js'
-import { createLimiter, limitsFromEnv, storeFromEnv } from './usageLimits.js'
+import { plansFromEnv } from './plans.js'
+import { generateStudyGuide, StudyGuideError } from './studyGuide.js'
+import { activeSubscription, getSubscription } from './subscriptions.js'
 
 export { sendJson }
 
@@ -30,15 +34,6 @@ const CANCEL_CHECK_MS = 5000
 // (300s on Vercel Hobby) without a chance to record it.
 const STALE_JOB_MS = 330_000
 const JOB_ID = /^[0-9a-f-]{36}$/
-
-let defaultLimiter
-function getDefaultLimiter() {
-  if (defaultLimiter === undefined) {
-    const store = storeFromEnv()
-    defaultLimiter = store ? createLimiter(store, limitsFromEnv()) : null
-  }
-  return defaultLimiter
-}
 
 let defaultJobs
 function getDefaultJobs() {
@@ -56,7 +51,8 @@ export async function handleStudyGuideRequest(
   res,
   body,
   {
-    limiter = getDefaultLimiter(),
+    store = getDefaults().store,
+    meter = getDefaults().meter,
     jobs = getDefaultJobs(),
     generate = generateStudyGuide,
     enabled = aiGenerationEnabled(),
@@ -67,7 +63,7 @@ export async function handleStudyGuideRequest(
   if (!enabled) {
     return sendJson(res, 503, { error: 'AI generation is turned off on this server.' })
   }
-  if (!limiter || !jobs) {
+  if (!store || !meter || !jobs) {
     console.error('[study-guide] No Upstash store configured (UPSTASH_REDIS_REST_URL / _TOKEN); refusing to generate.')
     return unavailable(res)
   }
@@ -78,20 +74,20 @@ export async function handleStudyGuideRequest(
   const text = typeof body?.text === 'string' ? body.text.trim() : ''
   const fileName = typeof body?.fileName === 'string' ? body.fileName.slice(0, 200) : ''
   if (!text) return sendJson(res, 400, { error: 'No text was provided.' })
-  if (text.length > MAX_INPUT_CHARS) {
-    return sendJson(res, 413, {
-      error: `These notes are too long for a free study guide (about ${Math.round(MAX_INPUT_CHARS / 1000)}K characters max). Try splitting them into smaller files.`,
-    })
-  }
 
-  let slot
+  let slot, plan
   try {
-    slot = await limiter.reserve(`google:${user.id}`)
+    const subscription = activeSubscription(await getSubscription(store, user.id))
+    plan = plansFromEnv()[subscription?.plan ?? 'free']
+    slot = await meter.reserve(user.id, subscription, text.length)
   } catch (err) {
-    console.error('[study-guide] Usage-limit store failed:', err.message)
+    console.error('[study-guide] Usage store failed:', err.message)
     return unavailable(res)
   }
-  if (!slot.ok) return sendJson(res, 429, { error: slot.message })
+  if (!slot.ok) {
+    const { status, error } = limitMessage(slot.reason, plan)
+    return sendJson(res, status, { error, reason: slot.reason, resetsAt: slot.resetsAt ?? null, plan: plan.id })
+  }
 
   const jobId = randomUUID()
   const startedAt = Date.now()
@@ -104,7 +100,7 @@ export async function handleStudyGuideRequest(
   }
 
   runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, slot, jobs, generate }))
-  sendJson(res, 202, { jobId, remaining: slot.remaining })
+  sendJson(res, 202, { jobId })
 }
 
 async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, generate }) {
@@ -116,7 +112,9 @@ async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, gen
   }, CANCEL_CHECK_MS)
 
   try {
-    const guide = await generate({ text, fileName, signal: abort.signal })
+    let cost = null
+    const guide = await generate({ text, fileName, signal: abort.signal, onCost: (usd) => (cost = usd) })
+    await slot.settle(cost).catch((e) => console.error('[study-guide] Could not record usage:', e.message))
     await jobs.set(jobId, { status: 'done', startedAt, owner, guide })
   } catch (err) {
     await slot.release().catch((e) => console.error('[study-guide] Could not release usage slot:', e.message))
@@ -165,6 +163,28 @@ export async function handleJobRequest(req, res, { jobs = getDefaultJobs(), now 
   }
   const { owner: _owner, ...visible } = job
   sendJson(res, 200, job.status === 'cancelled' ? { status: 'cancelled' } : visible)
+}
+
+// What a student sees when a pack doesn't fit their plan. The client adds when
+// it refills (resetsAt) and an upgrade button.
+function limitMessage(reason, plan) {
+  const pages = Math.round(plan.maxChars / 500)
+  const free = plan.id === 'free'
+  switch (reason) {
+    case 'too-long':
+      return {
+        status: 413,
+        error: free
+          ? `These notes are too long for the Free plan (about ${pages} pages). Upgrade to Pro for longer lectures, or split the file.`
+          : `These notes are too long for one study pack (about ${pages} pages). Try splitting the file.`,
+      }
+    case 'window':
+      return { status: 429, error: `You’ve used this session’s ${plan.name} allowance.` }
+    case 'period':
+      return { status: 429, error: `You’ve used this month’s ${plan.name} allowance.` }
+    default:
+      return { status: 429, error: 'StudyPack has reached today’s limit for free study packs. Try again tomorrow, or upgrade to Pro.' }
+  }
 }
 
 // Maps SDK errors to messages that are safe and useful to show a student.

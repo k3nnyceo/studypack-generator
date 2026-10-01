@@ -1,17 +1,20 @@
-import { LogOut } from 'lucide-react'
+import { Gauge, LogOut } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import GoogleButton from './GoogleButton.jsx'
+import UsageBars from './UsageBars.jsx'
+import { Badge } from './ui.jsx'
 
 // The top bar's account control: Google's sign-in button when signed out (just
 // the "G" on phones, where the bar is tight), or the student's avatar, which
-// opens a small menu with Sign out.
-export default function AccountMenu({ user, onSignOut }) {
+// opens a small menu with their plan, usage, and Sign out.
+export default function AccountMenu({ user, onSignOut, billing, onOpenPlans }) {
   const wide = useMediaQuery('(min-width: 640px)')
   if (!user) return wide ? <GoogleButton size="medium" text="signin" /> : <GoogleButton size="medium" type="icon" />
-  return <SignedIn user={user} onSignOut={onSignOut} />
+  return <SignedIn user={user} onSignOut={onSignOut} billing={billing} onOpenPlans={onOpenPlans} />
 }
 
-function SignedIn({ user, onSignOut }) {
+function SignedIn({ user, onSignOut, billing, onOpenPlans }) {
+  const planName = billing?.plans?.find((p) => p.id === billing.plan)?.name
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -42,12 +45,32 @@ function SignedIn({ user, onSignOut }) {
       {open && (
         <div
           role="menu"
-          className="animate-page-in absolute right-0 z-40 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-2xl bg-white p-2 shadow-elevated ring-1 ring-stone-200"
+          className="animate-page-in absolute right-0 z-40 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-2xl bg-white p-2 shadow-elevated ring-1 ring-stone-200"
         >
           <div className="px-3 py-2">
-            {user.name && <p className="truncate font-semibold text-stone-900">{user.name}</p>}
+            <div className="flex items-center justify-between gap-2">
+              {user.name && <p className="truncate font-semibold text-stone-900">{user.name}</p>}
+              {planName && <Badge tone={billing.plan === 'free' ? 'stone' : 'brand'}>{planName}</Badge>}
+            </div>
             <p className="truncate text-sm text-stone-500">{user.email}</p>
           </div>
+          {billing?.usage && (
+            <div className="border-y border-stone-100 px-3 py-3">
+              <UsageBars billing={billing} compact />
+            </div>
+          )}
+          <button
+            type="button"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false)
+              onOpenPlans()
+            }}
+            className="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-stone-700 transition hover:bg-stone-100"
+          >
+            <Gauge className="size-4" strokeWidth={2.25} aria-hidden />
+            {billing?.plan === 'free' ? 'Upgrade plan' : 'Plans & usage'}
+          </button>
           <button
             type="button"
             role="menuitem"

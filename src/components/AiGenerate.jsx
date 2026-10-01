@@ -1,6 +1,7 @@
-import { BookOpen, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { BookOpen, Gauge, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SIGN_IN_ENABLED } from '../config.js'
+import { formatResetTime } from '../lib/billing.js'
 import GoogleButton from './GoogleButton.jsx'
 import { Button, Eyebrow } from './ui.jsx'
 
@@ -12,9 +13,13 @@ const OUTPUTS = [
 
 // The main "Generate" step after an upload. Only rendered when
 // AI_GENERATION_ENABLED is on. Generating needs a Google sign-in, so signed-out
-// students get Google's button in place of Generate.
-export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady }) {
+// students get Google's button in place of Generate. `error` is null or
+// { message, reason?, resetsAt? }; a plan limit adds when it refills and a way
+// to upgrade.
+export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans }) {
   const needsSignIn = SIGN_IN_ENABLED && !signedIn
+  const usage = signedIn ? billing?.usage : null
+  const canUpgrade = billing?.paymentsEnabled && billing?.plan !== 'max'
 
   return (
     <section className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-elevated ring-1 ring-brand-200 sm:p-8">
@@ -50,14 +55,41 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
             <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>
               Generate study pack
             </Button>
-            <span className="text-sm text-stone-500">Free to try · takes about a minute</span>
+            <span className="text-sm text-stone-500">Takes about a minute</span>
           </div>
         )}
 
+        {usage && !isGenerating && (
+          <button
+            type="button"
+            onClick={onOpenPlans}
+            className="mt-4 flex items-center gap-2 text-sm text-stone-500 transition hover:text-stone-800"
+          >
+            <Gauge className="size-4 shrink-0" strokeWidth={2.25} aria-hidden />
+            <span>
+              This session: <span className="font-semibold tabular-nums">{usage.window.percent}%</span> used · This{' '}
+              {billing.plan === 'free' ? 'month' : 'period'}: <span className="font-semibold tabular-nums">{usage.period.percent}%</span>
+            </span>
+          </button>
+        )}
+
         {error && (
-          <div className="animate-page-in mt-5 flex gap-3 rounded-xl bg-rose-50 p-4 text-sm text-rose-900 ring-1 ring-rose-200" role="alert">
-            <TriangleAlert className="mt-0.5 size-4 shrink-0 text-rose-600" aria-hidden />
-            <p>{error}</p>
+          <div
+            className={`animate-page-in mt-5 flex gap-3 rounded-xl p-4 text-sm ring-1 ${error.reason ? 'bg-amber-50 text-amber-900 ring-amber-200' : 'bg-rose-50 text-rose-900 ring-rose-200'}`}
+            role="alert"
+          >
+            <TriangleAlert className={`mt-0.5 size-4 shrink-0 ${error.reason ? 'text-amber-600' : 'text-rose-600'}`} aria-hidden />
+            <div className="min-w-0">
+              <p>
+                {error.message}
+                {error.resetsAt && ` It refills at ${formatResetTime(error.resetsAt)}.`}
+              </p>
+              {error.reason && (error.reason !== 'too-long' || billing.plan === 'free') && canUpgrade && (
+                <Button size="sm" variant="primary" icon={Sparkles} onClick={onOpenPlans} className="mt-3">
+                  {billing.plan === 'free' ? 'See Pro and Max' : 'Upgrade to Max'}
+                </Button>
+              )}
+            </div>
           </div>
         )}
 

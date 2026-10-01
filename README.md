@@ -92,8 +92,25 @@ Extra fields are ignored and a surrounding ` ```json ` code fence is accepted. I
 With `VITE_GOOGLE_CLIENT_ID` set, students can sign in with Google (the button in the top bar, on the Generate card, or in the Library). **Generating with AI requires it**; the sample pack and JSON paste work without an account.
 
 - **Sign-in** (`server/auth.js`, `src/lib/auth.js`): Google's button (Google Identity Services) returns an ID token; `POST /api/auth` checks it against Google's public keys and your client id, then sets `sp_session`, an HttpOnly, `SameSite=Lax`, 30-day cookie holding a JWT signed with `SESSION_SECRET` (Google account id, name, email, picture). There's no session store. `GET /api/auth` returns the current user; `DELETE` signs out. On Chrome, including Android, the button uses FedCM, a native account sheet over the page, so uploaded notes aren't lost.
-- **Generation** needs a session: free-tier limits count **per Google account** instead of per IP (so students on one campus Wi-Fi no longer share an allowance), and a job can only be polled or cancelled by the account that started it.
+- **Generation** needs a session: usage is metered **per Google account** (see [Plans, usage and payments](#plans-usage-and-payments)), and a job can only be polled or cancelled by the account that started it.
 - **Library sync** (`server/library.js`, `src/lib/librarySync.js`): `/api/library` stores each account's packs in Upstash, as a hash of summaries (`studypack:lib:<account>`) plus one key per guide (`studypack:pack:<account>:<id>`), up to 300 packs of up to 800 KB each. A sync lists the summaries, uploads packs this device has that the account doesn't, downloads only the packs it's missing, drops packs deleted on another device, and merges the same pack loaded on two devices into one. It runs on sign-in and when the app returns to the foreground (at most once a minute); new packs upload as they're saved, and deletes made offline are retried. Signing out removes the account's packs from that device; packs made while signed out stay and upload on the next sign-in.
+
+## Plans, usage and payments
+
+Three plans, with usage counted the way Claude's own app does it: each study pack uses part of an allowance according to what it really cost (Claude's token bill, converted to naira at `USD_TO_NGN`), so a long lecture uses more than a short one.
+
+| | Free | Pro | Max |
+|---|---|---|---|
+| Price | ₦0 | ₦3,500 / month | ₦6,500 / month |
+| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~3 packs) | ₦2,000 (~6 packs) |
+| Each month / 30-day period | ₦1,000 (~3 packs) | ₦2,300 (~7 packs) | ₦4,600 (~14 packs) |
+| Longest notes | 15K characters (~30 pages) | 40K (~80 pages) | 40K (~80 pages) |
+| Site-wide daily cap | applies | skipped | skipped |
+
+All of these are environment variables (`.env.example`). A typical pack (a 23-page, 11K-character lecture) costs about ₦330, so the monthly allowances keep the worst case (a subscriber using everything) at roughly ₦1,000 profit on Pro and ₦1,700 on Max after Paystack's fee.
+
+- **Meter** (`server/usageLimits.js`, `server/plans.js`): per account, a counter for the current 3-hour window (fixed windows from 00:00 UTC, so the refill time is predictable) and one for the period (the calendar month in Lagos time on Free; the paid 30-day period on Pro and Max). Before generating, the pack's cost is estimated from the notes' length and reserved; if it doesn't fit, the student sees which allowance ran out and when it refills. When the pack is done its real cost replaces the estimate; if it fails or is cancelled, nothing is charged. Students only ever see percentages, never naira of cost.
+- **Paying** (`server/billing.js`, `server/paystack.js`, `server/subscriptions.js`): the plans page offers each paid plan as **30 days for a one-time payment** (card, bank transfer or USSD) or **renew monthly by card** (a Paystack plan, created automatically the first time). Checkout is Paystack's hosted page; the student comes back to `/?billing=return&reference=…` and the app verifies the transaction with Paystack before applying it. Paystack's webhook (`/api/paystack-webhook`, signature-checked) applies card renewals and records when auto-renew is turned off. Each payment reference is applied once. Paying again on the same plan adds 30 days to any left; switching plan converts the unused days by price. Switching away from an auto-renewing plan cancels its Paystack subscription. "Manage auto-renew" opens Paystack's page for cancelling or changing the card.
 
 ## AI generation
 
@@ -104,18 +121,18 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 1. **Claude access**, either:
    - **Amazon Bedrock** (current setup): a long-term Bedrock API key in `BEDROCK_API_KEY`, plus `BEDROCK_REGION` (default `us-east-1`). Set an **AWS Budget** alert as a backstop. Or:
    - **Claude API**: `ANTHROPIC_API_KEY` from platform.claude.com, with a **monthly spend limit** in the Console.
-2. **Upstash:** in the Vercel project, **Storage → Upstash for Redis** (free tier). This adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which the server needs to enforce free-tier limits. Without them, generation is refused rather than unlimited.
+2. **Upstash:** in the Vercel project, **Storage → Upstash for Redis** (free tier). This adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which the server needs for usage, plans and jobs. Without them, generation is refused rather than unlimited.
 3. **Google sign-in:** create an OAuth client and set `VITE_GOOGLE_CLIENT_ID` and `SESSION_SECRET` (see `.env.example`). Generation requires sign-in.
-4. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, `ANTHROPIC_API_KEY`, `IP_HASH_SALT` (any random string), and optionally `FREE_GUIDES_PER_VISITOR_PER_DAY`, `GUIDES_PER_DAY_TOTAL`, `MAX_INPUT_CHARS`, `STUDY_GUIDE_MODEL`, `STUDY_GUIDE_EFFORT` (see `.env.example`).
+4. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, the Claude credentials from step 1, `PAYSTACK_SECRET_KEY` for paid plans, and optionally the plan and usage settings, `STUDY_GUIDE_MODEL` and `STUDY_GUIDE_EFFORT` (see `.env.example`).
 5. **Redeploy**, since the frontend reads the flag and client id at build time.
 
 ### How it works
 
 - `api/study-guide.js` is a Vercel Function (`maxDuration: 300`, the Hobby maximum). It and the local dev server (`server/index.js`) share `server/studyGuideHandler.js`.
-- **Limits** (`server/usageLimits.js`): a daily allowance per signed-in account (default 3) and a site-wide daily cap (default 20), stored in Upstash. Accounts are keyed by a salted hash of their Google account id. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
+- **Usage** is metered per account against its plan (see [Plans, usage and payments](#plans-usage-and-payments)), stored in Upstash; local dev without Upstash uses an in-memory store.
 - **Two-stage, parallel generation:** one call plans the guide (title, course, topic, overview, and each module's title, page range and focus) at low effort; then one call per module writes it, in parallel, and the results are assembled and validated. Module 1 starts first and writes the notes to the prompt cache; the other modules start as soon as it begins replying and read the notes from the cache. On a 23-page lecture this took 85s for $0.22 (Sonnet 4.6, medium effort) versus 160s for $0.15 as a single call; total time is roughly the plan plus the slowest module, so it grows much more slowly with lecture length.
 - **Background jobs** (`server/jobs.js`): `POST /api/study-guide` checks the session, reserves a slot, starts a job and answers `202 { jobId, remaining }` at once; the work continues after the response (`waitUntil`) and the result is stored in Upstash for an hour. The browser polls `GET /api/study-guide?job=<id>` every 3s, and immediately when the tab becomes visible again, so a phone can lock its screen or switch apps mid-generation. The job id is kept in `localStorage`, so if the page reloads, the home page shows "Finishing your study pack…" and opens it when ready. Cancel sends `DELETE ?job=<id>`; the job notices within 5s, aborts the Claude calls and releases the slot.
-- **Claude call** (`server/studyGuide.js`): through **Amazon Bedrock** when `BEDROCK_API_KEY` is set (default model `global.anthropic.claude-opus-4-6-v1`, Bedrock's InvokeModel endpoint), otherwise the **Claude API** (`claude-opus-5`, with server-side refusal fallbacks). Both use adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), and the same validator as pasted JSON. Override the model with `STUDY_GUIDE_MODEL`. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
+- **Claude call** (`server/studyGuide.js`): through **Amazon Bedrock** when `BEDROCK_API_KEY` is set (default model `global.anthropic.claude-opus-4-6-v1`, Bedrock's InvokeModel endpoint), otherwise the **Claude API** (`claude-opus-5`, with server-side refusal fallbacks). Both use adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), and the same validator as pasted JSON. Override the model with `STUDY_GUIDE_MODEL`. Notes longer than the plan allows are rejected rather than truncated.
 - **Cost logging:** every generation logs one line, e.g. `[study-guide] model=claude-opus-5 effort=high chars=… in=… out=… cost≈$… time=…`, in Vercel → Logs, to measure the real cost per guide.
 - The API key is read only from the server's environment; it never reaches the browser. The UI tells visitors that their notes' text is sent to Claude.
 
@@ -126,6 +143,8 @@ api/
   study-guide.js              Vercel Function for /api/study-guide (start / poll / cancel a job)
   auth.js                     Vercel Function for /api/auth (Google sign-in, session, sign out)
   library.js                  Vercel Function for /api/library (synced library)
+  billing.js                  Vercel Function for /api/billing (plans, usage, checkout)
+  paystack-webhook.js         Vercel Function for Paystack's events
 server/
   auth.js                     Google ID token check, signed session cookie
   library.js                  synced library storage and API (Upstash / in-memory)
@@ -134,7 +153,11 @@ server/
   studyGuideHandler.js        shared request handling: flag, validation, limits, jobs
   jobs.js                     generation job store (Upstash / in-memory)
   studyGuide.js               Claude call, prompt, JSON schema, cost logging
-  usageLimits.js              free-tier limits (Upstash / in-memory)
+  usageLimits.js              usage meter and key-value store (Upstash / in-memory)
+  plans.js                    plans, allowances, cost estimate
+  billing.js                  /api/billing and the Paystack webhook
+  paystack.js                 Paystack API client, webhook signatures
+  subscriptions.js            paid periods, applying payments once
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION, VITE_GOOGLE_CLIENT_ID)
@@ -154,6 +177,7 @@ src/
     Quiz.jsx                  multiple-choice quiz with scoring
     ui.jsx, buttonStyles.js   shared Button, Badge, Logo, Eyebrow
     Library.jsx               saved study packs, grouped by course
+    Plans.jsx, UsageBars.jsx  plans & usage page, usage bars
     Toast.jsx                 short confirmations with optional Undo
     FilterChip.jsx, CopyButton.jsx
   lib/
@@ -164,6 +188,7 @@ src/
     library.js, useLibrary.js study pack library in localStorage, synced when signed in
     librarySync.js            sync with the account (/api/library)
     auth.js                   useAuth, Google Identity Services loader
+    billing.js                useBilling, checkout, return from Paystack
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)

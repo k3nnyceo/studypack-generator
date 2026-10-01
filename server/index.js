@@ -6,6 +6,7 @@ import http from 'node:http'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { handleAuthRequest } from './auth.js'
+import { handleBillingRequest, handlePaystackWebhook } from './billing.js'
 import { sendJson } from './http.js'
 import { handleLibraryRequest } from './library.js'
 import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest } from './studyGuideHandler.js'
@@ -41,6 +42,11 @@ const server = http.createServer(async (req, res) => {
     } else if (pathname === '/api/library') {
       const body = req.method === 'PUT' ? await readJson(req, res) : null
       if (body !== undefined) await handleLibraryRequest(req, res, body)
+    } else if (pathname === '/api/billing') {
+      const body = req.method === 'POST' ? await readJson(req, res) : null
+      if (body !== undefined) await handleBillingRequest(req, res, body)
+    } else if (pathname === '/api/paystack-webhook' && req.method === 'POST') {
+      await handlePaystackWebhook(req, res, await readBody(req))
     } else if (req.url.startsWith('/api/')) {
       sendJson(res, 404, { error: 'Not found' })
     } else if (req.method === 'GET') {

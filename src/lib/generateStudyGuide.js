@@ -13,10 +13,10 @@ const POLL_MS = 3000
 // Past this, stop waiting: the server gives up on a job after ~5.5 minutes.
 const GIVE_UP_MS = 8 * 60 * 1000
 
-// Resolves to { guide, remaining }: a validated guide in the format defined in
-// studyGuideFormat.js, and how many free guides the visitor has left today.
+// Resolves to { guide }: a validated guide in the format defined in
+// studyGuideFormat.js.
 export async function generateStudyGuide({ text, fileName, signal }) {
-  const { jobId, remaining } = await callApi('/api/study-guide', {
+  const { jobId } = await callApi('/api/study-guide', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text, fileName }),
@@ -24,7 +24,7 @@ export async function generateStudyGuide({ text, fileName, signal }) {
   })
   savePendingJob({ jobId, fileName, startedAt: Date.now() })
   const guide = await waitForJob({ jobId, startedAt: Date.now(), signal })
-  return { guide, remaining: Number.isFinite(remaining) ? remaining : null }
+  return { guide }
 }
 
 // A job started before the page was reloaded, if it could still be running:
@@ -137,6 +137,9 @@ async function callApi(url, options) {
     // polling retries those; 4xx (expired, invalid) is final.
     err.fromServer = res.status < 500
     err.status = res.status
+    // A plan limit: why ('window', 'period', 'too-long', 'site') and when it refills.
+    err.reason = data?.reason
+    err.resetsAt = data?.resetsAt
     throw err
   }
   return data

@@ -7,12 +7,14 @@ import GuideHero from './components/GuideHero.jsx'
 import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
+import Plans from './components/Plans.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Toast from './components/Toast.jsx'
 import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
+import { takePaymentReturn, useBilling } from './lib/billing.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
@@ -30,10 +32,12 @@ const interruptedUploadMessage = takeInterruptedUploadMessage()
 // A study pack that was still being written when the page last closed or
 // reloaded (e.g. the phone unloaded it). It's finished on the home page.
 const pendingJobAtLoad = AI_GENERATION_ENABLED ? getPendingJob() : null
+// A Paystack payment reference, if we've just come back from checkout.
+const paymentReturn = takePaymentReturn()
 
 export default function App() {
-  // view: 'home' | 'library' | 'notes' | 'guide' | 'flashcards' | 'quiz'
-  const [view, setView] = useState('home')
+  // view: 'home' | 'library' | 'plans' | 'notes' | 'guide' | 'flashcards' | 'quiz'
+  const [view, setView] = useState(paymentReturn ? 'plans' : 'home')
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
   const [result, setResult] = useState(null)
@@ -43,6 +47,8 @@ export default function App() {
   const [activeEntryId, setActiveEntryId] = useState(null) // library entry currently open
   const auth = useAuth()
   const library = useLibrary(auth.user, { onSessionExpired: auth.expire })
+  const billing = useBilling(auth.user)
+  const paymentChecked = useRef(false)
   const [toast, setToast] = useState(null)
   const dismissToast = useCallback(() => setToast(null), [])
   const notify = (message, extra = {}) => setToast({ id: Date.now(), message, ...extra })
@@ -53,8 +59,24 @@ export default function App() {
 
   // A "sign in to generate" error is stale once they have.
   useEffect(() => {
-    if (auth.user) setGenerateError('')
+    if (auth.user) setGenerateError(null)
   }, [auth.user])
+
+  // Back from Paystack: apply the payment once we know who's signed in.
+  useEffect(() => {
+    if (!paymentReturn || !auth.ready || paymentChecked.current) return
+    paymentChecked.current = true
+    if (!auth.user) return notify('Sign in with the same Google account to finish your upgrade.', { tone: 'error' })
+    billing
+      .verify(paymentReturn)
+      .then((state) => {
+        const name = state.plans.find((p) => p.id === state.plan)?.name
+        notify(state.plan === 'free' ? 'Payment received.' : `You’re on ${name}. Thank you!`)
+      })
+      .catch((err) => notify(err.message, { tone: 'error' }))
+    // billing.verify is stable; runs once auth is known.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth.ready, auth.user])
 
   function signOut() {
     auth.signOut()
@@ -63,7 +85,8 @@ export default function App() {
   }
   const [jsonDraft, setJsonDraft] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
-  const [generateError, setGenerateError] = useState('')
+  // null, or { message, reason?, resetsAt? } (reason/resetsAt for plan limits)
+  const [generateError, setGenerateError] = useState(null)
   const generateAbort = useRef(null)
   const [resumingJob, setResumingJob] = useState(pendingJobAtLoad)
   const resumeAbort = useRef(null)
@@ -133,24 +156,22 @@ export default function App() {
   }
 
   async function handleGenerate() {
-    setGenerateError('')
+    setGenerateError(null)
     setIsGenerating(true)
     generateAbort.current = new AbortController()
     try {
-      const { guide: generated, remaining } = await generateStudyGuide({
+      const { guide: generated } = await generateStudyGuide({
         text: result.fullText,
         fileName: result.fileName,
         signal: generateAbort.current.signal,
       })
       loadGuide(generated, result.fileName)
-      if (remaining !== null) {
-        notify(`Study pack ready and saved · ${remaining} free generation${remaining === 1 ? '' : 's'} left today`)
-      }
     } catch (err) {
       if (err.status === 401) auth.expire()
-      if (err.name !== 'AbortError') setGenerateError(err.message)
+      if (err.name !== 'AbortError') setGenerateError({ message: err.message, reason: err.reason, resetsAt: err.resetsAt })
     } finally {
       setIsGenerating(false)
+      billing.refresh()
     }
   }
 
@@ -184,7 +205,10 @@ export default function App() {
       .catch((err) => {
         if (err.name !== 'AbortError') fail(err.message)
       })
-      .finally(() => setResumingJob(null))
+      .finally(() => {
+        setResumingJob(null)
+        billing.refresh()
+      })
     // Runs once on load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -245,7 +269,7 @@ export default function App() {
     setError('')
     setGuide(null)
     setActiveEntryId(null)
-    setGenerateError('')
+    setGenerateError(null)
     setJsonDraft('')
     setReviewedCards(new Set())
     setQuizAnswers(new Map())
@@ -268,6 +292,7 @@ export default function App() {
         user={auth.user}
         showSignIn={SIGN_IN_ENABLED && auth.ready}
         onSignOut={signOut}
+        billing={billing.billing}
       />
 
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
@@ -286,6 +311,15 @@ export default function App() {
               onOpenPack={openFromLibrary}
               onDeletePack={deleteFromLibrary}
               onViewLibrary={() => navigate('library')}
+            />
+          )}
+
+          {view === 'plans' && (
+            <Plans
+              billing={billing.billing}
+              user={auth.user}
+              showSignIn={SIGN_IN_ENABLED && auth.ready}
+              onError={(message) => notify(message, { tone: 'error' })}
             />
           )}
 
@@ -314,6 +348,8 @@ export default function App() {
                     error={generateError}
                     signedIn={Boolean(auth.user)}
                     authReady={auth.ready}
+                    billing={billing.billing}
+                    onOpenPlans={() => navigate('plans')}
                   />
                   <Disclosure summary="Already have a study guide JSON? Paste or upload it instead">
                     <GuideImport
