@@ -1,5 +1,6 @@
 import { CloudUpload } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { clearPendingUpload, markPendingUpload } from '../lib/pendingUpload.js'
 
 const FORMATS = [
   { label: 'PDF', className: 'bg-rose-50 text-rose-700 ring-rose-200' },
@@ -10,6 +11,19 @@ const FORMATS = [
 export default function UploadDropzone({ onFile, disabled }) {
   const inputRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
+
+  // Closing the picker without choosing a file isn't an interrupted upload.
+  useEffect(() => {
+    const input = inputRef.current
+    input?.addEventListener('cancel', clearPendingUpload)
+    return () => input?.removeEventListener('cancel', clearPendingUpload)
+  }, [])
+
+  function openPicker() {
+    if (disabled) return
+    markPendingUpload('picking')
+    inputRef.current?.click()
+  }
 
   function handleFiles(files) {
     if (disabled || !files?.length) return
@@ -22,11 +36,11 @@ export default function UploadDropzone({ onFile, disabled }) {
       tabIndex={0}
       aria-disabled={disabled}
       aria-label="Upload lecture notes or a study guide"
-      onClick={() => !disabled && inputRef.current?.click()}
+      onClick={openPicker}
       onKeyDown={(e) => {
         if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
           e.preventDefault()
-          inputRef.current?.click()
+          openPicker()
         }
       }}
       onDragOver={(e) => {
@@ -77,7 +91,11 @@ export default function UploadDropzone({ onFile, disabled }) {
         type="file"
         accept=".pdf,.pptx,.json,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/json"
         className="hidden"
+        // The input sits inside the dropzone: stop its click bubbling back up
+        // and opening the picker a second time.
+        onClick={(e) => e.stopPropagation()}
         onChange={(e) => {
+          clearPendingUpload()
           handleFiles(e.target.files)
           e.target.value = '' // allow re-selecting the same file
         }}

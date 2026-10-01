@@ -16,18 +16,23 @@ import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
 import { buildQuiz } from './lib/quiz.js'
+import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
 import { parseStudyGuide } from './lib/studyGuideFormat.js'
 import { useLibrary } from './lib/useLibrary.js'
 
 const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 
+// Read once per page load (outside the component, so StrictMode's double
+// render can't consume it before it's shown).
+const interruptedUploadMessage = takeInterruptedUploadMessage()
+
 export default function App() {
   // view: 'home' | 'library' | 'notes' | 'guide' | 'flashcards' | 'quiz'
   const [view, setView] = useState('home')
-  const [status, setStatus] = useState('idle') // for the home screen: 'idle' | 'parsing' | 'error'
+  const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
   const [result, setResult] = useState(null)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(interruptedUploadMessage ?? '')
 
   const [guide, setGuide] = useState(null)
   const [activeEntryId, setActiveEntryId] = useState(null) // library entry currently open
@@ -152,6 +157,7 @@ export default function App() {
     setFileName(file.name)
     setError('')
     setStatus('parsing')
+    markPendingUpload('reading')
     try {
       setResult(await parseDocument(file))
       setStatus('idle')
@@ -159,6 +165,8 @@ export default function App() {
     } catch (err) {
       console.error(err)
       fail(err.message || 'Something went wrong reading that file.')
+    } finally {
+      clearPendingUpload()
     }
   }
 
