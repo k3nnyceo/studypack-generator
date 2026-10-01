@@ -27,12 +27,19 @@ export function limitsFromEnv(env = process.env) {
 // development; otherwise null, which means "don't generate" rather than
 // "generate without limits".
 export function storeFromEnv(env = process.env) {
+  const redis = redisFromEnv(env)
+  if (redis) return upstashStore(redis)
+  return isDeployed(env) ? null : memoryStore()
+}
+
+// Shared with the generation job store (server/jobs.js).
+export function redisFromEnv(env = process.env) {
   const url = env.UPSTASH_REDIS_REST_URL || env.KV_REST_API_URL
   const token = env.UPSTASH_REDIS_REST_TOKEN || env.KV_REST_API_TOKEN
-  if (url && token) return upstashStore(new Redis({ url, token }))
-  const deployed = env.VERCEL || env.NODE_ENV === 'production'
-  return deployed ? null : memoryStore()
+  return url && token ? new Redis({ url, token }) : null
 }
+
+export const isDeployed = (env = process.env) => Boolean(env.VERCEL || env.NODE_ENV === 'production')
 
 export function upstashStore(redis) {
   return {

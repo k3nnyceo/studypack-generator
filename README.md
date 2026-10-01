@@ -105,7 +105,7 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 - `api/study-guide.js` is a Vercel Function (`maxDuration: 300`, the Hobby maximum). It and the local dev server (`server/index.js`) share `server/studyGuideHandler.js`.
 - **Limits** (`server/usageLimits.js`): a daily allowance per visitor (default 3) and a site-wide daily cap (default 20), stored in Upstash. Visitors are keyed by a salted hash of their IP, never the IP itself. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
 - **Two-stage, parallel generation:** one call plans the guide (title, course, topic, overview, and each module's title, page range and focus) at low effort; then one call per module writes it, in parallel, and the results are assembled and validated. Module 1 starts first and writes the notes to the prompt cache; the other modules start as soon as it begins replying and read the notes from the cache. On a 23-page lecture this took 85s for $0.22 (Sonnet 4.6, medium effort) versus 160s for $0.15 as a single call; total time is roughly the plan plus the slowest module, so it grows much more slowly with lecture length.
-- **Long requests:** the response starts immediately and a space is written every few seconds while Claude works, so idle connections aren't dropped; the JSON follows (leading whitespace is valid JSON). If the visitor closes the page or clicks Cancel, the Claude request is aborted.
+- **Background jobs** (`server/jobs.js`): `POST /api/study-guide` reserves a slot, starts a job and answers `202 { jobId, remaining }` at once; the work continues after the response (`waitUntil`) and the result is stored in Upstash for an hour. The browser polls `GET /api/study-guide?job=<id>` every 3s, and immediately when the tab becomes visible again, so a phone can lock its screen or switch apps mid-generation. The job id is kept in `localStorage`, so if the page reloads, the home page shows "Finishing your study pack…" and opens it when ready. Cancel sends `DELETE ?job=<id>`; the job notices within 5s, aborts the Claude calls and releases the slot.
 - **Claude call** (`server/studyGuide.js`): through **Amazon Bedrock** when `BEDROCK_API_KEY` is set (default model `global.anthropic.claude-opus-4-6-v1`, Bedrock's InvokeModel endpoint), otherwise the **Claude API** (`claude-opus-5`, with server-side refusal fallbacks). Both use adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), and the same validator as pasted JSON. Override the model with `STUDY_GUIDE_MODEL`. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
 - **Cost logging:** every generation logs one line, e.g. `[study-guide] model=claude-opus-5 effort=high chars=… in=… out=… cost≈$… time=…`, in Vercel → Logs, to measure the real cost per guide.
 - The API key is read only from the server's environment; it never reaches the browser. The UI tells visitors that their notes' text is sent to Claude.
@@ -114,10 +114,11 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 
 ```
 api/
-  study-guide.js              Vercel Function for POST /api/study-guide
+  study-guide.js              Vercel Function for /api/study-guide (start / poll / cancel a job)
 server/
   index.js                    local API server (+ static hosting of dist/ when self-hosting)
-  studyGuideHandler.js        shared request handling: flag, validation, limits, keep-alive
+  studyGuideHandler.js        shared request handling: flag, validation, limits, jobs
+  jobs.js                     generation job store (Upstash / in-memory)
   studyGuide.js               Claude call, prompt, JSON schema, cost logging
   usageLimits.js              free-tier limits (Upstash / in-memory)
 src/
@@ -147,5 +148,5 @@ src/
     library.js, useLibrary.js study pack library in localStorage
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
-    generateStudyGuide.js     calls /api/study-guide (flag-gated)
+    generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)
 ```

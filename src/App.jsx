@@ -13,7 +13,7 @@ import Toast from './components/Toast.jsx'
 import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED } from './config.js'
 import { buildFlashcards } from './lib/flashcards.js'
-import { generateStudyGuide } from './lib/generateStudyGuide.js'
+import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
 import { buildQuiz } from './lib/quiz.js'
 import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
@@ -26,6 +26,9 @@ const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 // Read once per page load (outside the component, so StrictMode's double
 // render can't consume it before it's shown).
 const interruptedUploadMessage = takeInterruptedUploadMessage()
+// A study pack that was still being written when the page last closed or
+// reloaded (e.g. the phone unloaded it). It's finished on the home page.
+const pendingJobAtLoad = AI_GENERATION_ENABLED ? getPendingJob() : null
 
 export default function App() {
   // view: 'home' | 'library' | 'notes' | 'guide' | 'flashcards' | 'quiz'
@@ -45,6 +48,8 @@ export default function App() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [generateError, setGenerateError] = useState('')
   const generateAbort = useRef(null)
+  const [resumingJob, setResumingJob] = useState(pendingJobAtLoad)
+  const resumeAbort = useRef(null)
 
   // Built once per guide, so quiz option order stays put while switching views.
   const cards = useMemo(() => (guide ? buildFlashcards(guide) : []), [guide])
@@ -149,6 +154,23 @@ export default function App() {
     loadGuide(parsed.guide, 'Sample study pack')
   }
 
+  // Pick up a study pack that was being written before the page reloaded.
+  useEffect(() => {
+    if (!pendingJobAtLoad || resumeAbort.current) return // the ref guards StrictMode's second run
+    resumeAbort.current = new AbortController()
+    resumePendingJob(pendingJobAtLoad, { signal: resumeAbort.current.signal })
+      .then((resumed) => {
+        loadGuide(resumed, pendingJobAtLoad.fileName)
+        notify('Your study pack is ready and saved')
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') fail(err.message)
+      })
+      .finally(() => setResumingJob(null))
+    // Runs once on load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // A file shared into the installed app from another app's Share menu.
   useEffect(() => {
     takeSharedFile().then((shared) => {
@@ -156,6 +178,7 @@ export default function App() {
       else if (shared?.error) fail(shared.error)
     })
     // Runs once on load; takeSharedFile clears ?share so it can't repeat.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function handleFile(file) {
@@ -233,6 +256,8 @@ export default function App() {
               onFile={handleFile}
               onTrySample={loadSample}
               status={status}
+              resumingJob={resumingJob}
+              onCancelResume={() => resumeAbort.current?.abort()}
               fileName={fileName}
               error={error}
               recent={library.entries.slice(0, 3)}

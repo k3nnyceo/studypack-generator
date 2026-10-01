@@ -1,16 +1,27 @@
-// POST /api/study-guide, shared by the Vercel function (api/study-guide.js)
-// and the local dev server (server/index.js).
+// /api/study-guide, shared by the Vercel function (api/study-guide.js) and the
+// local dev server (server/index.js).
 //
-// Flow: validate -> reserve a free-tier slot -> stream the response while
-// Claude works. Headers go out immediately with 200 and a space is written
-// every few seconds, so proxies and slow mobile networks don't drop the idle
-// connection; the finished JSON follows. (Leading whitespace is valid JSON.)
-// Errors after that point are sent in the body as { error }.
+//   POST   { text, fileName }  validate -> reserve a free-tier slot -> start a
+//                              job -> 202 { jobId, remaining }
+//   GET    ?job=<id>           the job: { status, guide?, error? }
+//   DELETE ?job=<id>           cancel it
+//
+// The work runs after the POST has been answered (waitUntil on Vercel; the
+// local server simply keeps running), so a phone locking its screen or
+// switching apps no longer kills generation. See server/jobs.js.
+import { randomUUID } from 'node:crypto'
 import Anthropic from '@anthropic-ai/sdk'
+import { waitUntil } from '@vercel/functions'
+import { jobStoreFromEnv } from './jobs.js'
 import { generateStudyGuide, MAX_INPUT_CHARS, StudyGuideError } from './studyGuide.js'
 import { clientIp, createLimiter, limitsFromEnv, storeFromEnv } from './usageLimits.js'
 
-const HEARTBEAT_MS = 8000
+// How often a running job checks whether the visitor cancelled it.
+const CANCEL_CHECK_MS = 5000
+// A job still "running" after this was cut off by the function time limit
+// (300s on Vercel Hobby) without a chance to record it.
+const STALE_JOB_MS = 330_000
+const JOB_ID = /^[0-9a-f-]{36}$/
 
 let defaultLimiter
 function getDefaultLimiter() {
@@ -21,15 +32,35 @@ function getDefaultLimiter() {
   return defaultLimiter
 }
 
+let defaultJobs
+function getDefaultJobs() {
+  if (defaultJobs === undefined) defaultJobs = jobStoreFromEnv()
+  return defaultJobs
+}
+
 export const aiGenerationEnabled = (env = process.env) => env.VITE_ENABLE_AI_GENERATION === 'true'
 
-export async function handleStudyGuideRequest(req, res, body, { limiter = getDefaultLimiter(), generate = generateStudyGuide, enabled = aiGenerationEnabled() } = {}) {
+const unavailable = (res) =>
+  sendJson(res, 503, { error: 'Study guide generation isn’t available right now. Please try again later.' })
+
+export async function handleStudyGuideRequest(
+  req,
+  res,
+  body,
+  {
+    limiter = getDefaultLimiter(),
+    jobs = getDefaultJobs(),
+    generate = generateStudyGuide,
+    enabled = aiGenerationEnabled(),
+    runInBackground = waitUntil,
+  } = {},
+) {
   if (!enabled) {
     return sendJson(res, 503, { error: 'AI generation is turned off on this server.' })
   }
-  if (!limiter) {
-    console.error('[study-guide] No usage-limit store configured (UPSTASH_REDIS_REST_URL / _TOKEN); refusing to generate.')
-    return sendJson(res, 503, { error: 'Study guide generation isn’t available right now. Please try again later.' })
+  if (!limiter || !jobs) {
+    console.error('[study-guide] No Upstash store configured (UPSTASH_REDIS_REST_URL / _TOKEN); refusing to generate.')
+    return unavailable(res)
   }
 
   const text = typeof body?.text === 'string' ? body.text.trim() : ''
@@ -46,39 +77,78 @@ export async function handleStudyGuideRequest(req, res, body, { limiter = getDef
     slot = await limiter.reserve(clientIp(req))
   } catch (err) {
     console.error('[study-guide] Usage-limit store failed:', err.message)
-    return sendJson(res, 503, { error: 'Study guide generation isn’t available right now. Please try again later.' })
+    return unavailable(res)
   }
   if (!slot.ok) return sendJson(res, 429, { error: slot.message })
 
-  res.writeHead(200, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'no-store',
-    'X-Guides-Remaining': String(slot.remaining),
-  })
-  res.flushHeaders?.()
-  const heartbeat = setInterval(() => res.write(' '), HEARTBEAT_MS)
+  const jobId = randomUUID()
+  const startedAt = Date.now()
+  try {
+    await jobs.set(jobId, { status: 'running', startedAt })
+  } catch (err) {
+    console.error('[study-guide] Job store failed:', err.message)
+    await slot.release().catch(() => {})
+    return unavailable(res)
+  }
 
-  // If the visitor leaves, stop generating so we aren't billed for tokens nobody will see.
+  runInBackground(runJob({ jobId, startedAt, text, fileName, slot, jobs, generate }))
+  sendJson(res, 202, { jobId, remaining: slot.remaining })
+}
+
+async function runJob({ jobId, startedAt, text, fileName, slot, jobs, generate }) {
+  // The visitor's Cancel arrives as a separate request, recorded in the store.
   const abort = new AbortController()
-  res.on('close', () => {
-    if (!res.writableEnded) abort.abort()
-  })
+  const cancelCheck = setInterval(async () => {
+    const job = await jobs.get(jobId).catch(() => null)
+    if (job?.status === 'cancelled') abort.abort()
+  }, CANCEL_CHECK_MS)
 
   try {
     const guide = await generate({ text, fileName, signal: abort.signal })
-    res.end(JSON.stringify(guide))
+    await jobs.set(jobId, { status: 'done', startedAt, guide })
   } catch (err) {
     await slot.release().catch((e) => console.error('[study-guide] Could not release usage slot:', e.message))
     if (abort.signal.aborted) {
-      console.log('[study-guide] Visitor left; generation cancelled.')
-      return res.end()
+      console.log('[study-guide] Visitor cancelled; generation stopped.')
+      return
     }
     const { status, message } = toClientError(err)
     console.error(`[study-guide] Generation failed (${status}):`, err.message)
-    res.end(JSON.stringify({ error: message, status }))
+    await jobs
+      .set(jobId, { status: 'error', startedAt, error: message })
+      .catch((e) => console.error('[study-guide] Could not save job error:', e.message))
   } finally {
-    clearInterval(heartbeat)
+    clearInterval(cancelCheck)
   }
+}
+
+// GET ?job=<id> (poll) and DELETE ?job=<id> (cancel).
+export async function handleJobRequest(req, res, { jobs = getDefaultJobs(), now = Date.now } = {}) {
+  const jobId = new URL(req.url, 'http://localhost').searchParams.get('job') ?? ''
+  if (!JOB_ID.test(jobId)) return sendJson(res, 400, { error: 'Missing or invalid job id.' })
+  if (!jobs) return unavailable(res)
+
+  let job
+  try {
+    job = await jobs.get(jobId)
+  } catch (err) {
+    console.error('[study-guide] Job store failed:', err.message)
+    return unavailable(res)
+  }
+  if (!job) return sendJson(res, 404, { error: 'This study pack request has expired. Please generate it again.' })
+
+  if (req.method === 'DELETE') {
+    if (job.status === 'running') await jobs.set(jobId, { ...job, status: 'cancelled' }).catch(() => {})
+    return sendJson(res, 200, { status: 'cancelled' })
+  }
+
+  if (job.status === 'running' && now() - job.startedAt > STALE_JOB_MS) {
+    return sendJson(res, 200, {
+      status: 'error',
+      error: 'This study pack took too long to write. Please try again, or try a shorter file.',
+    })
+  }
+  sendJson(res, 200, job.status === 'cancelled' ? { status: 'cancelled' } : job)
 }
 
 // Maps SDK errors to messages that are safe and useful to show a student.

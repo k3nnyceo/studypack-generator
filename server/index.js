@@ -5,7 +5,7 @@ import { stat } from 'node:fs/promises'
 import http from 'node:http'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { aiGenerationEnabled, handleStudyGuideRequest, sendJson } from './studyGuideHandler.js'
+import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest, sendJson } from './studyGuideHandler.js'
 import { storeFromEnv } from './usageLimits.js'
 
 const PORT = Number(process.env.PORT) || 8787
@@ -26,7 +26,10 @@ const MIME_TYPES = {
 
 const server = http.createServer(async (req, res) => {
   try {
-    if (req.url === '/api/study-guide' && req.method === 'POST') {
+    const pathname = new URL(req.url, 'http://localhost').pathname
+    if (pathname === '/api/study-guide' && (req.method === 'GET' || req.method === 'DELETE')) {
+      await handleJobRequest(req, res)
+    } else if (pathname === '/api/study-guide' && req.method === 'POST') {
       let body
       try {
         body = JSON.parse(await readBody(req))

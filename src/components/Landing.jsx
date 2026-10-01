@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload } from 'lucide-react'
+import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
 import { AI_GENERATION_ENABLED } from '../config.js'
@@ -50,6 +50,8 @@ export default function Landing({
   onFile,
   onTrySample,
   status,
+  resumingJob,
+  onCancelResume,
   fileName,
   error,
   recent,
@@ -90,6 +92,30 @@ export default function Landing({
             Try a sample study pack
           </Button>
         </div>
+
+        {resumingJob && (
+          <div
+            className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-stone-600"
+            role="status"
+          >
+            <span className="flex items-center gap-2.5">
+              <Loader2 className="size-4 animate-spin text-brand-600" aria-hidden />
+              <span>
+                Finishing your study pack
+                {resumingJob.fileName && (
+                  <>
+                    {' '}
+                    for <span className="font-semibold text-stone-800">{resumingJob.fileName}</span>
+                  </>
+                )}
+                …
+              </span>
+            </span>
+            <Button size="sm" variant="ghost" icon={X} onClick={onCancelResume}>
+              Cancel
+            </Button>
+          </div>
+        )}
 
         {status === 'parsing' && (
           <div className="mt-5 flex items-center justify-center gap-2.5 text-sm text-stone-600" role="status">

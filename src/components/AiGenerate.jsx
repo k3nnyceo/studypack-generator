@@ -78,7 +78,7 @@ function GeneratingStatus({ onCancel }) {
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-brand-100">
         <div className="h-full w-1/3 animate-[indeterminate_1.6s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-brand-400 to-brand-600" />
       </div>
-      <p className="mt-3 text-sm text-stone-500">This usually takes 1–2 minutes. You can keep this tab open in the background.</p>
+      <p className="mt-3 text-sm text-stone-500">This usually takes 1–2 minutes. It keeps going if you lock your phone or switch apps; come back here to see it.</p>
     </div>
   )
 }
