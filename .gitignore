@@ -27,3 +27,7 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Lecture files dropped in the project root for testing (course material, not code)
+/*.pdf
+/*.pptx

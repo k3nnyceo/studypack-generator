@@ -18,7 +18,7 @@ const numberFromEnv = (value, fallback) => {
 export function limitsFromEnv(env = process.env) {
   return {
     perVisitor: numberFromEnv(env.FREE_GUIDES_PER_VISITOR_PER_DAY, 3),
-    perDay: numberFromEnv(env.GUIDES_PER_DAY_TOTAL, 50),
+    perDay: numberFromEnv(env.GUIDES_PER_DAY_TOTAL, 20),
     salt: env.IP_HASH_SALT || 'studypack',
   }
 }
