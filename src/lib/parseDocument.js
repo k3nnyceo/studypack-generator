@@ -5,9 +5,16 @@ const PARSERS = {
   pptx: () => import('./parsePptx.js').then((m) => m.parsePptx),
 }
 
+const TYPES_BY_MIME = {
+  'application/pdf': 'pdf',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
+}
+
+// By extension, falling back to the MIME type: files shared from other apps
+// (e.g. WhatsApp) sometimes arrive without one.
 export function detectFileType(file) {
   const ext = file.name.split('.').pop()?.toLowerCase()
-  return ext in PARSERS ? ext : null
+  return ext in PARSERS ? ext : (TYPES_BY_MIME[file.type] ?? null)
 }
 
 // Checks a file before parsing. Returns an error message, or null if it's fine.

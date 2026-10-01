@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import AiGenerate from './components/AiGenerate.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import ExtractedPreview from './components/ExtractedPreview.jsx'
@@ -17,6 +17,7 @@ import { generateStudyGuide } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
 import { buildQuiz } from './lib/quiz.js'
 import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
+import { takeSharedFile } from './lib/sharedFile.js'
 import { parseStudyGuide } from './lib/studyGuideFormat.js'
 import { useLibrary } from './lib/useLibrary.js'
 
@@ -148,8 +149,17 @@ export default function App() {
     loadGuide(parsed.guide, 'Sample study pack')
   }
 
+  // A file shared into the installed app from another app's Share menu.
+  useEffect(() => {
+    takeSharedFile().then((shared) => {
+      if (shared?.file) handleFile(shared.file)
+      else if (shared?.error) fail(shared.error)
+    })
+    // Runs once on load; takeSharedFile clears ?share so it can't repeat.
+  }, [])
+
   async function handleFile(file) {
-    if (file.name.toLowerCase().endsWith('.json')) return handleGuideFile(file)
+    if (file.name.toLowerCase().endsWith('.json') || file.type === 'application/json') return handleGuideFile(file)
 
     const validationError = validateFile(file)
     if (validationError) return fail(validationError)

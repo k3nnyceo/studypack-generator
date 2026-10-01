@@ -38,7 +38,11 @@ export function takeInterruptedUploadMessage() {
     return 'StudyPack stopped while reading your file, probably because it was too big for this phone’s memory. Close other apps and tabs and try again, or try a smaller file.'
   }
   if (pending.stage === 'picking') {
-    return 'Your browser reloaded StudyPack while you were choosing a file, so the file didn’t come through. This usually means the phone was low on memory: close other apps and tabs, then try again.'
+    return [
+      'Your phone reloaded StudyPack while the file picker was open, so the file didn’t come through. Some phones do this to save memory, especially for files picked from WhatsApp. Either of these gets around it:',
+      '• Save the file to your phone first (in WhatsApp, open it, then ⋮ → Save), and pick it from Downloads or My Files.',
+      '• Install StudyPack (Chrome menu ⋮ → Add to Home screen or Install app). Then in WhatsApp, long-press the file, tap Share and choose StudyPack.',
+    ].join('\n')
   }
   return null
 }
