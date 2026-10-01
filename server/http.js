@@ -6,9 +6,11 @@ export function sendJson(res, status, data) {
 }
 
 // Vercel parses JSON bodies; the local server passes a parsed object too. A raw
-// string body is parsed here. Returns undefined if it isn't valid JSON.
+// string body is parsed here; an empty one (a GET or DELETE, on Vercel) is
+// null. Returns undefined if it isn't valid JSON.
 export function parseBody(body) {
   if (typeof body !== 'string') return body
+  if (!body.trim()) return null
   try {
     return JSON.parse(body)
   } catch {
