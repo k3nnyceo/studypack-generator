@@ -1,9 +1,11 @@
 // The study pack library: every loaded guide, saved in the browser's
-// localStorage so it survives refreshes. No backend involved.
+// localStorage so it survives refreshes. When signed in, it's also synced to
+// the account (src/lib/librarySync.js), and this copy works as the cache.
 //
 // Stored as one JSON array under STORAGE_KEY:
-//   [{ id, title, course, topic, sourceName, savedAt, fingerprint, guide }]
-// Newest first. `guide` is the validated study guide itself.
+//   [{ id, title, course, topic, sourceName, savedAt, fingerprint, guide, synced? }]
+// Newest first. `guide` is the validated study guide itself; `synced` marks a
+// pack known to be saved in the signed-in account.
 import { validateStudyGuide } from './studyGuideFormat.js'
 
 export const STORAGE_KEY = 'studypack.library.v1'
@@ -39,7 +41,8 @@ export function readLibrary(storage = defaultStorage()) {
   return items.flatMap((item) => {
     const result = validateStudyGuide(item?.guide)
     if (!result.ok || typeof item.id !== 'string') return []
-    return [describe(result.guide, { id: item.id, sourceName: item.sourceName, savedAt: item.savedAt })]
+    const entry = describe(result.guide, { id: item.id, sourceName: item.sourceName, savedAt: item.savedAt })
+    return [item.synced === true ? { ...entry, synced: true } : entry]
   })
 }
 

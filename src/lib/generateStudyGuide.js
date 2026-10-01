@@ -136,6 +136,7 @@ async function callApi(url, options) {
     // 5xx can be a passing hiccup (e.g. the store briefly unreachable), so
     // polling retries those; 4xx (expired, invalid) is final.
     err.fromServer = res.status < 500
+    err.status = res.status
     throw err
   }
   return data

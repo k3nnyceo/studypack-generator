@@ -5,7 +5,10 @@ import { stat } from 'node:fs/promises'
 import http from 'node:http'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest, sendJson } from './studyGuideHandler.js'
+import { handleAuthRequest } from './auth.js'
+import { sendJson } from './http.js'
+import { handleLibraryRequest } from './library.js'
+import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest } from './studyGuideHandler.js'
 import { storeFromEnv } from './usageLimits.js'
 
 const PORT = Number(process.env.PORT) || 8787
@@ -30,13 +33,14 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/study-guide' && (req.method === 'GET' || req.method === 'DELETE')) {
       await handleJobRequest(req, res)
     } else if (pathname === '/api/study-guide' && req.method === 'POST') {
-      let body
-      try {
-        body = JSON.parse(await readBody(req))
-      } catch (err) {
-        return sendJson(res, err.status ?? 400, { error: err.status ? err.message : 'Invalid JSON body.' })
-      }
-      await handleStudyGuideRequest(req, res, body)
+      const body = await readJson(req, res)
+      if (body !== undefined) await handleStudyGuideRequest(req, res, body)
+    } else if (pathname === '/api/auth') {
+      const body = req.method === 'POST' ? await readJson(req, res) : null
+      if (body !== undefined) await handleAuthRequest(req, res, body)
+    } else if (pathname === '/api/library') {
+      const body = req.method === 'PUT' ? await readJson(req, res) : null
+      if (body !== undefined) await handleLibraryRequest(req, res, body)
     } else if (req.url.startsWith('/api/')) {
       sendJson(res, 404, { error: 'Not found' })
     } else if (req.method === 'GET') {
@@ -50,6 +54,16 @@ const server = http.createServer(async (req, res) => {
     else res.end()
   }
 })
+
+// The parsed JSON body, or undefined after answering 400/413.
+async function readJson(req, res) {
+  try {
+    return JSON.parse(await readBody(req))
+  } catch (err) {
+    sendJson(res, err.status ?? 400, { error: err.status ? err.message : 'Invalid JSON body.' })
+    return undefined
+  }
+}
 
 // Oversized bodies are drained rather than destroyed, so the client still
 // receives the 413 response instead of a reset connection.

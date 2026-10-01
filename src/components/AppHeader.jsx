@@ -1,9 +1,21 @@
 import { BookOpen, FileText, Layers, Library, ListChecks, Plus } from 'lucide-react'
+import AccountMenu from './AccountMenu.jsx'
 import { Button, Logo } from './ui.jsx'
 
 // Sticky top bar. Once a file is loaded it carries the Notes / Study guide /
 // Flashcards / Quiz tabs, so the study views are always one click apart.
-export default function AppHeader({ view, onNavigate, onReset, hasNotes, guide, counts, libraryCount }) {
+export default function AppHeader({
+  view,
+  onNavigate,
+  onReset,
+  hasNotes,
+  guide,
+  counts,
+  libraryCount,
+  user,
+  showSignIn,
+  onSignOut,
+}) {
   const showTabs = !['home', 'library'].includes(view) && (hasNotes || guide)
 
   const tabs = [
@@ -90,6 +102,7 @@ export default function AppHeader({ view, onNavigate, onReset, hasNotes, guide, 
               </Button>
             </>
           )}
+          {showSignIn && <AccountMenu user={user} onSignOut={onSignOut} />}
         </div>
       </div>
     </header>

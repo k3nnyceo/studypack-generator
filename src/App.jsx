@@ -11,7 +11,8 @@ import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Toast from './components/Toast.jsx'
 import { Disclosure } from './components/ui.jsx'
-import { AI_GENERATION_ENABLED } from './config.js'
+import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
+import { useAuth } from './lib/auth.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
@@ -40,10 +41,26 @@ export default function App() {
 
   const [guide, setGuide] = useState(null)
   const [activeEntryId, setActiveEntryId] = useState(null) // library entry currently open
-  const library = useLibrary()
+  const auth = useAuth()
+  const library = useLibrary(auth.user, { onSessionExpired: auth.expire })
   const [toast, setToast] = useState(null)
   const dismissToast = useCallback(() => setToast(null), [])
   const notify = (message, extra = {}) => setToast({ id: Date.now(), message, ...extra })
+
+  useEffect(() => {
+    if (auth.error) setToast({ id: Date.now(), message: auth.error, tone: 'error' })
+  }, [auth.error])
+
+  // A "sign in to generate" error is stale once they have.
+  useEffect(() => {
+    if (auth.user) setGenerateError('')
+  }, [auth.user])
+
+  function signOut() {
+    auth.signOut()
+    library.forgetAccount()
+    notify('Signed out. Your synced packs are safe in your account.')
+  }
   const [jsonDraft, setJsonDraft] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [generateError, setGenerateError] = useState('')
@@ -130,6 +147,7 @@ export default function App() {
         notify(`Study pack ready and saved · ${remaining} free generation${remaining === 1 ? '' : 's'} left today`)
       }
     } catch (err) {
+      if (err.status === 401) auth.expire()
       if (err.name !== 'AbortError') setGenerateError(err.message)
     } finally {
       setIsGenerating(false)
@@ -247,6 +265,9 @@ export default function App() {
         guide={guide}
         counts={{ flashcards: cards.length, quiz: questions.length }}
         libraryCount={library.entries.length}
+        user={auth.user}
+        showSignIn={SIGN_IN_ENABLED && auth.ready}
+        onSignOut={signOut}
       />
 
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
@@ -275,6 +296,10 @@ export default function App() {
               onOpen={openFromLibrary}
               onDelete={deleteFromLibrary}
               onAddNew={reset}
+              user={auth.user}
+              showSignIn={SIGN_IN_ENABLED && auth.ready}
+              sync={library.sync}
+              onSyncNow={library.syncNow}
             />
           )}
 
@@ -287,6 +312,8 @@ export default function App() {
                     onCancel={() => generateAbort.current?.abort()}
                     isGenerating={isGenerating}
                     error={generateError}
+                    signedIn={Boolean(auth.user)}
+                    authReady={auth.ready}
                   />
                   <Disclosure summary="Already have a study guide JSON? Paste or upload it instead">
                     <GuideImport

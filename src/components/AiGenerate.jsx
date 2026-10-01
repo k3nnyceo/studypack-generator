@@ -1,5 +1,7 @@
 import { BookOpen, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { SIGN_IN_ENABLED } from '../config.js'
+import GoogleButton from './GoogleButton.jsx'
 import { Button, Eyebrow } from './ui.jsx'
 
 const OUTPUTS = [
@@ -9,8 +11,11 @@ const OUTPUTS = [
 ]
 
 // The main "Generate" step after an upload. Only rendered when
-// AI_GENERATION_ENABLED is on.
-export default function AiGenerate({ onGenerate, onCancel, isGenerating, error }) {
+// AI_GENERATION_ENABLED is on. Generating needs a Google sign-in, so signed-out
+// students get Google's button in place of Generate.
+export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady }) {
+  const needsSignIn = SIGN_IN_ENABLED && !signedIn
+
   return (
     <section className="relative overflow-hidden rounded-3xl bg-white p-6 shadow-elevated ring-1 ring-brand-200 sm:p-8">
       <div aria-hidden className="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-brand-100/70 blur-3xl" />
@@ -31,6 +36,15 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error }
 
         {isGenerating ? (
           <GeneratingStatus onCancel={onCancel} />
+        ) : needsSignIn ? (
+          <div className="mt-6">
+            <p className="font-semibold text-stone-800">Sign in to generate your study pack</p>
+            <p className="mt-1 text-sm text-stone-500">
+              It’s free. Your packs are saved to your account and appear on all your devices.
+            </p>
+            {/* Stays put while the session check finishes, so the page doesn't jump. */}
+            <div className="mt-4 min-h-10">{authReady && <GoogleButton text="continue_with" />}</div>
+          </div>
         ) : (
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>

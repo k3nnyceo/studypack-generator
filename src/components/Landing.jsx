@@ -2,7 +2,7 @@ import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Spar
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
-import { AI_GENERATION_ENABLED } from '../config.js'
+import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from '../config.js'
 import { Badge, Button } from './ui.jsx'
 
 const STEPS = [
@@ -83,7 +83,7 @@ export default function Landing({
           <Lock className="size-3" strokeWidth={2.75} aria-hidden />
           {/* With AI on, extracted text goes to Claude, so only claim what stays true. */}
           {AI_GENERATION_ENABLED
-            ? 'No sign-up needed · your files are read on your device'
+            ? `${SIGN_IN_ENABLED ? 'Free with Google sign-in' : 'No sign-up needed'} · your files are read on your device`
             : 'Private by design: your files stay on your device'}
         </Badge>
         <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tight text-balance text-stone-900 sm:text-6xl">

@@ -1,13 +1,14 @@
-import { BookMarked, FolderOpen, Layers, Library as LibraryIcon, ListChecks, Plus, Trash2 } from 'lucide-react'
+import { BookMarked, Cloud, CloudAlert, FolderOpen, Layers, Library as LibraryIcon, ListChecks, Loader2, Plus, Trash2 } from 'lucide-react'
 import { buildFlashcards } from '../lib/flashcards.js'
 import { groupByCourse } from '../lib/library.js'
 import { buildQuiz } from '../lib/quiz.js'
+import GoogleButton from './GoogleButton.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
 const savedDate = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
 
 // Every saved study pack, grouped by course when there's more than one.
-export default function Library({ entries, activeId, onOpen, onDelete, onAddNew }) {
+export default function Library({ entries, activeId, onOpen, onDelete, onAddNew, user, showSignIn, sync, onSyncNow }) {
   const groups = groupByCourse(entries)
   const grouped = groups.length > 1
 
@@ -15,7 +16,7 @@ export default function Library({ entries, activeId, onOpen, onDelete, onAddNew 
     <div className="space-y-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <Eyebrow>Saved on this device</Eyebrow>
+          <Eyebrow>{user ? 'Synced to your account' : 'Saved on this device'}</Eyebrow>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-stone-900">Your library</h1>
           <p className="mt-1 text-stone-500">
             {entries.length === 0
@@ -29,6 +30,23 @@ export default function Library({ entries, activeId, onOpen, onDelete, onAddNew 
           Add a study pack
         </Button>
       </div>
+
+      {user ? (
+        <SyncStatus user={user} sync={sync} onSyncNow={onSyncNow} />
+      ) : (
+        showSignIn && (
+          <div className="card flex flex-wrap items-center justify-between gap-4 p-5">
+            <div className="flex min-w-0 items-start gap-3">
+              <Cloud className="mt-0.5 size-5 shrink-0 text-brand-600" strokeWidth={2.25} aria-hidden />
+              <div className="min-w-0">
+                <p className="font-semibold text-stone-900">Keep your library on every device</p>
+                <p className="mt-0.5 text-sm text-stone-500">Sign in and your packs sync between your phone and laptop.</p>
+              </div>
+            </div>
+            <GoogleButton text="signin_with" />
+          </div>
+        )
+      )}
 
       {entries.length === 0 ? (
         <div className="card flex flex-col items-center px-6 py-16 text-center">
@@ -118,5 +136,32 @@ export function PackCard({ entry, isOpen, showCourse, onOpen, onDelete }) {
         <Trash2 className="size-4" strokeWidth={2.25} aria-hidden />
       </button>
     </li>
+  )
+}
+
+function SyncStatus({ user, sync, onSyncNow }) {
+  if (sync.state === 'error') {
+    return (
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl bg-amber-50 p-4 text-sm text-amber-900 ring-1 ring-amber-200" role="alert">
+        <CloudAlert className="size-4 shrink-0 text-amber-600" strokeWidth={2.25} aria-hidden />
+        <p className="min-w-0 flex-1">{sync.error || 'Couldn’t sync your library.'} Your packs are still saved on this device.</p>
+        <Button size="sm" variant="ghost" onClick={onSyncNow}>
+          Try again
+        </Button>
+      </div>
+    )
+  }
+  return (
+    <p className="flex min-w-0 items-center gap-2 text-sm text-stone-500" role="status">
+      {sync.state === 'syncing' ? (
+        <Loader2 className="size-4 shrink-0 animate-spin text-brand-600" aria-hidden />
+      ) : (
+        <Cloud className="size-4 shrink-0 text-brand-600" strokeWidth={2.25} aria-hidden />
+      )}
+      <span className="min-w-0 truncate">
+        {sync.state === 'syncing' ? 'Syncing with ' : 'Synced with '}
+        <span className="font-semibold text-stone-700">{user.email}</span>
+      </span>
+    </p>
   )
 }

@@ -27,7 +27,7 @@ Other scripts: `npm run dev:web` / `npm run dev:api` (run one half), `npm run li
 
 ## Study pack library
 
-Every study pack you load (pasted or uploaded in the Load box, dropped on the home page as `.json`, or generated) is saved to a library in the browser's `localStorage` (key `studypack.library.v1`). There's no backend: the library lives on that device and browser.
+Every study pack you load (pasted or uploaded in the Load box, dropped on the home page as `.json`, or generated) is saved to a library in the browser's `localStorage` (key `studypack.library.v1`). Signed out, the library lives on that device and browser. Signed in with Google, it also syncs to the account, so it's the same on every device (see [Google sign-in and library sync](#google-sign-in-and-library-sync)).
 
 - **Library** in the top bar lists every pack, grouped by `course` when there's more than one course. Packs without a course go under "Uncategorized", and `topic` defaults to the title.
 - Click a pack to open it in the Study guide, Flashcards and Quiz tabs. The home page also shows your three most recent packs.
@@ -87,6 +87,14 @@ Extra fields are ignored and a surrounding ` ```json ` code fence is accepted. I
 
 **Quiz fallback:** for a module without `quiz`, each definition becomes a "Which term matches this definition?" question. The distractors are other terms (from the same module first), and these questions are marked "From definitions". After answering, each wrong option is shown with its own definition.
 
+## Google sign-in and library sync
+
+With `VITE_GOOGLE_CLIENT_ID` set, students can sign in with Google (the button in the top bar, on the Generate card, or in the Library). **Generating with AI requires it**; the sample pack and JSON paste work without an account.
+
+- **Sign-in** (`server/auth.js`, `src/lib/auth.js`): Google's button (Google Identity Services) returns an ID token; `POST /api/auth` checks it against Google's public keys and your client id, then sets `sp_session`, an HttpOnly, `SameSite=Lax`, 30-day cookie holding a JWT signed with `SESSION_SECRET` (Google account id, name, email, picture). There's no session store. `GET /api/auth` returns the current user; `DELETE` signs out. On Chrome, including Android, the button uses FedCM, a native account sheet over the page, so uploaded notes aren't lost.
+- **Generation** needs a session: free-tier limits count **per Google account** instead of per IP (so students on one campus Wi-Fi no longer share an allowance), and a job can only be polled or cancelled by the account that started it.
+- **Library sync** (`server/library.js`, `src/lib/librarySync.js`): `/api/library` stores each account's packs in Upstash, as a hash of summaries (`studypack:lib:<account>`) plus one key per guide (`studypack:pack:<account>:<id>`), up to 300 packs of up to 800 KB each. A sync lists the summaries, uploads packs this device has that the account doesn't, downloads only the packs it's missing, drops packs deleted on another device, and merges the same pack loaded on two devices into one. It runs on sign-in and when the app returns to the foreground (at most once a minute); new packs upload as they're saved, and deletes made offline are retried. Signing out removes the account's packs from that device; packs made while signed out stay and upload on the next sign-in.
+
 ## AI generation
 
 With AI generation on, "Generate study pack" turns uploaded notes into a full study pack with Claude. It's behind a flag and **off by default**; while off, the Generate UI and API call are compiled out of the bundle and `/api/study-guide` returns `503` without contacting Claude.
@@ -97,15 +105,16 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
    - **Amazon Bedrock** (current setup): a long-term Bedrock API key in `BEDROCK_API_KEY`, plus `BEDROCK_REGION` (default `us-east-1`). Set an **AWS Budget** alert as a backstop. Or:
    - **Claude API**: `ANTHROPIC_API_KEY` from platform.claude.com, with a **monthly spend limit** in the Console.
 2. **Upstash:** in the Vercel project, **Storage → Upstash for Redis** (free tier). This adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which the server needs to enforce free-tier limits. Without them, generation is refused rather than unlimited.
-3. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, `ANTHROPIC_API_KEY`, `IP_HASH_SALT` (any random string), and optionally `FREE_GUIDES_PER_VISITOR_PER_DAY`, `GUIDES_PER_DAY_TOTAL`, `MAX_INPUT_CHARS`, `STUDY_GUIDE_MODEL`, `STUDY_GUIDE_EFFORT` (see `.env.example`).
-4. **Redeploy**, since the frontend reads the flag at build time.
+3. **Google sign-in:** create an OAuth client and set `VITE_GOOGLE_CLIENT_ID` and `SESSION_SECRET` (see `.env.example`). Generation requires sign-in.
+4. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, `ANTHROPIC_API_KEY`, `IP_HASH_SALT` (any random string), and optionally `FREE_GUIDES_PER_VISITOR_PER_DAY`, `GUIDES_PER_DAY_TOTAL`, `MAX_INPUT_CHARS`, `STUDY_GUIDE_MODEL`, `STUDY_GUIDE_EFFORT` (see `.env.example`).
+5. **Redeploy**, since the frontend reads the flag and client id at build time.
 
 ### How it works
 
 - `api/study-guide.js` is a Vercel Function (`maxDuration: 300`, the Hobby maximum). It and the local dev server (`server/index.js`) share `server/studyGuideHandler.js`.
-- **Limits** (`server/usageLimits.js`): a daily allowance per visitor (default 3) and a site-wide daily cap (default 20), stored in Upstash. Visitors are keyed by a salted hash of their IP, never the IP itself. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
+- **Limits** (`server/usageLimits.js`): a daily allowance per signed-in account (default 3) and a site-wide daily cap (default 20), stored in Upstash. Accounts are keyed by a salted hash of their Google account id. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
 - **Two-stage, parallel generation:** one call plans the guide (title, course, topic, overview, and each module's title, page range and focus) at low effort; then one call per module writes it, in parallel, and the results are assembled and validated. Module 1 starts first and writes the notes to the prompt cache; the other modules start as soon as it begins replying and read the notes from the cache. On a 23-page lecture this took 85s for $0.22 (Sonnet 4.6, medium effort) versus 160s for $0.15 as a single call; total time is roughly the plan plus the slowest module, so it grows much more slowly with lecture length.
-- **Background jobs** (`server/jobs.js`): `POST /api/study-guide` reserves a slot, starts a job and answers `202 { jobId, remaining }` at once; the work continues after the response (`waitUntil`) and the result is stored in Upstash for an hour. The browser polls `GET /api/study-guide?job=<id>` every 3s, and immediately when the tab becomes visible again, so a phone can lock its screen or switch apps mid-generation. The job id is kept in `localStorage`, so if the page reloads, the home page shows "Finishing your study pack…" and opens it when ready. Cancel sends `DELETE ?job=<id>`; the job notices within 5s, aborts the Claude calls and releases the slot.
+- **Background jobs** (`server/jobs.js`): `POST /api/study-guide` checks the session, reserves a slot, starts a job and answers `202 { jobId, remaining }` at once; the work continues after the response (`waitUntil`) and the result is stored in Upstash for an hour. The browser polls `GET /api/study-guide?job=<id>` every 3s, and immediately when the tab becomes visible again, so a phone can lock its screen or switch apps mid-generation. The job id is kept in `localStorage`, so if the page reloads, the home page shows "Finishing your study pack…" and opens it when ready. Cancel sends `DELETE ?job=<id>`; the job notices within 5s, aborts the Claude calls and releases the slot.
 - **Claude call** (`server/studyGuide.js`): through **Amazon Bedrock** when `BEDROCK_API_KEY` is set (default model `global.anthropic.claude-opus-4-6-v1`, Bedrock's InvokeModel endpoint), otherwise the **Claude API** (`claude-opus-5`, with server-side refusal fallbacks). Both use adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), and the same validator as pasted JSON. Override the model with `STUDY_GUIDE_MODEL`. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
 - **Cost logging:** every generation logs one line, e.g. `[study-guide] model=claude-opus-5 effort=high chars=… in=… out=… cost≈$… time=…`, in Vercel → Logs, to measure the real cost per guide.
 - The API key is read only from the server's environment; it never reaches the browser. The UI tells visitors that their notes' text is sent to Claude.
@@ -115,7 +124,12 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 ```
 api/
   study-guide.js              Vercel Function for /api/study-guide (start / poll / cancel a job)
+  auth.js                     Vercel Function for /api/auth (Google sign-in, session, sign out)
+  library.js                  Vercel Function for /api/library (synced library)
 server/
+  auth.js                     Google ID token check, signed session cookie
+  library.js                  synced library storage and API (Upstash / in-memory)
+  http.js                     sendJson, body parsing
   index.js                    local API server (+ static hosting of dist/ when self-hosting)
   studyGuideHandler.js        shared request handling: flag, validation, limits, jobs
   jobs.js                     generation job store (Upstash / in-memory)
@@ -123,10 +137,12 @@ server/
   usageLimits.js              free-tier limits (Upstash / in-memory)
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
-  config.js                   feature flags (VITE_ENABLE_AI_GENERATION)
+  config.js                   feature flags (VITE_ENABLE_AI_GENERATION, VITE_GOOGLE_CLIENT_ID)
   index.css                   design tokens: palette, font, shadows, animations
   components/
     AppHeader.jsx             sticky top nav with the study-view tabs
+    AccountMenu.jsx           sign-in button / avatar with Sign out
+    GoogleButton.jsx          Google's "Sign in with Google" button
     Landing.jsx               home page
     UploadDropzone.jsx        drag-and-drop / click-to-browse input
     ExtractedPreview.jsx      Notes view: extracted text (by page/slide or full text)
@@ -145,7 +161,9 @@ src/
     parsePdf.js               PDF text extraction
     parsePptx.js              PPTX text extraction
     studyGuideFormat.js       JSON format: example, validator, AI prompt
-    library.js, useLibrary.js study pack library in localStorage
+    library.js, useLibrary.js study pack library in localStorage, synced when signed in
+    librarySync.js            sync with the account (/api/library)
+    auth.js                   useAuth, Google Identity Services loader
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)

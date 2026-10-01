@@ -1,8 +1,8 @@
 // Free-tier limits for AI generation, enforced on the server so a visitor
 // can't reset them by clearing their browser.
 //
-// Two daily counters per UTC day: one per visitor (keyed by a salted hash of
-// their IP, never the IP itself) and one for the whole site, as a budget cap.
+// Two daily counters per UTC day: one per signed-in account (keyed by a salted
+// hash of its Google account id) and one for the whole site, as a budget cap.
 // A slot is reserved before calling Claude and released if generation fails,
 // so errors don't use up anyone's allowance.
 import { createHash } from 'node:crypto'
@@ -69,9 +69,9 @@ export function memoryStore() {
 export function createLimiter(store, { perVisitor, perDay, salt }, now = () => new Date()) {
   return {
     // Resolves to { ok: true, remaining, release } or { ok: false, message }.
-    async reserve(ip) {
+    async reserve(visitorId) {
       const day = now().toISOString().slice(0, 10)
-      const visitor = createHash('sha256').update(`${salt}:${ip}`).digest('hex').slice(0, 32)
+      const visitor = createHash('sha256').update(`${salt}:${visitorId}`).digest('hex').slice(0, 32)
       const visitorKey = `studypack:guides:${day}:v:${visitor}`
       const siteKey = `studypack:guides:${day}:all`
 
@@ -101,11 +101,4 @@ export function createLimiter(store, { perVisitor, perDay, salt }, now = () => n
       }
     },
   }
-}
-
-// The visitor's IP as seen through Vercel's proxy (or directly in local dev).
-export function clientIp(req) {
-  const forwarded = req.headers['x-forwarded-for']
-  const first = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(',')[0]?.trim()
-  return req.headers['x-vercel-forwarded-for'] || req.headers['x-real-ip'] || first || req.socket?.remoteAddress || 'unknown'
 }
