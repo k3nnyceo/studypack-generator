@@ -95,7 +95,11 @@ server.listen(PORT, () => {
     console.log('AI generation is off (VITE_ENABLE_AI_GENERATION is not "true"); /api/study-guide is disabled.')
     return
   }
-  if (!process.env.ANTHROPIC_API_KEY) console.warn('Warning: ANTHROPIC_API_KEY is not set. Add it to .env.')
+  if (process.env.BEDROCK_API_KEY) {
+    console.log(`Claude via Amazon Bedrock (${process.env.BEDROCK_REGION || 'us-east-1'}).`)
+  } else if (!process.env.ANTHROPIC_API_KEY) {
+    console.warn('Warning: no BEDROCK_API_KEY or ANTHROPIC_API_KEY is set. Add one to .env.')
+  }
   const upstash = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
   if (!upstash) {
     console.log(storeFromEnv() ? 'Usage limits: in-memory (dev only; resets on restart).' : 'Usage limits: NOT configured, so generation is refused.')

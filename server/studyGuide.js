@@ -1,18 +1,32 @@
+import AnthropicBedrock from '@anthropic-ai/bedrock-sdk'
 import Anthropic from '@anthropic-ai/sdk'
 import { validateStudyGuide } from '../src/lib/studyGuideFormat.js'
 
-// Model and effort can be changed per deployment (e.g. after measuring cost)
-// without a code change.
-const MODEL = process.env.STUDY_GUIDE_MODEL || 'claude-opus-5'
+// Claude is reached through Amazon Bedrock when BEDROCK_API_KEY is set, and
+// through the Claude API (ANTHROPIC_API_KEY) otherwise. Keys are read only from
+// the server's environment and never reach the browser.
+export const PROVIDER = process.env.BEDROCK_API_KEY ? 'bedrock' : 'anthropic'
+const BEDROCK_REGION = process.env.BEDROCK_REGION || 'us-east-1'
+
+// Model and effort can be changed per deployment without a code change.
+// The Bedrock default is the most capable Claude model this account can use
+// (Opus 4.6 on Bedrock's InvokeModel endpoint; newer models aren't enabled).
+const MODEL = process.env.STUDY_GUIDE_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-opus-4-6-v1' : 'claude-opus-5')
 const EFFORT = process.env.STUDY_GUIDE_EFFORT || 'high'
 
-// USD per million tokens, for the cost line in the server log.
+// USD per million tokens at Anthropic's list prices, for the cost line in the
+// server log. Bedrock bills through AWS; its global endpoints match these rates.
 const PRICING = {
   'claude-opus-5': { input: 5, output: 25 },
   'claude-opus-4-8': { input: 5, output: 25 },
+  'claude-opus-4-6': { input: 5, output: 25 },
   'claude-sonnet-5': { input: 2, output: 10 },
+  'claude-sonnet-4-6': { input: 3, output: 15 },
   'claude-haiku-4-5': { input: 1, output: 5 },
 }
+// "global.anthropic.claude-opus-4-6-v1" / "claude-haiku-4-5-20251001" -> "claude-opus-4-6" / "claude-haiku-4-5"
+const priceKey = (model = '') =>
+  model.replace(/^(global|us|eu|apac|jp)\./, '').replace(/^anthropic\./, '').replace(/(-v\d+(:\d+)?|-\d{8}(-v\d+:\d+)?)$/, '')
 
 // Longer input is rejected rather than silently truncated, so a student never
 // gets a guide that quietly skips half their lectures. The default (~37K
@@ -113,23 +127,27 @@ export class StudyGuideError extends Error {
   }
 }
 
-// The client reads ANTHROPIC_API_KEY from the environment; the key never
-// appears in source and never reaches the browser.
 let client
 function getClient() {
-  client ??= new Anthropic()
+  client ??=
+    PROVIDER === 'bedrock'
+      ? new AnthropicBedrock({ apiKey: process.env.BEDROCK_API_KEY, awsRegion: BEDROCK_REGION })
+      : new Anthropic()
   return client
 }
 
 // `signal` cancels the request, e.g. when the visitor closes the page.
 export async function generateStudyGuide({ text, fileName, signal }) {
   const started = Date.now()
-  // Server-side refusal fallbacks are offered on the Opus/Fable tier: if a safety
-  // classifier declines, the API retries on the model it recommends for that category.
-  const fallback = /^claude-(opus|fable)/.test(MODEL)
-    ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' }
-    : {}
-  const stream = getClient().beta.messages.stream(
+  // Server-side refusal fallbacks exist only on the Claude API (Opus/Fable tier):
+  // if a safety classifier declines, it retries on the recommended model. Bedrock
+  // doesn't offer them, so a refusal there is reported to the student instead.
+  const fallback =
+    PROVIDER === 'anthropic' && /^claude-(opus|fable)/.test(MODEL)
+      ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' }
+      : null
+  const messagesApi = fallback ? getClient().beta.messages : getClient().messages
+  const stream = messagesApi.stream(
     {
       model: MODEL,
       max_tokens: 64000,
@@ -189,12 +207,12 @@ export async function generateStudyGuide({ text, fileName, signal }) {
 // real cost per study guide is measured (Vercel → Logs, or the local console).
 function logUsage(message, inputChars, ms) {
   const u = message.usage ?? {}
-  const price = PRICING[message.model] ?? PRICING[MODEL]
+  const price = PRICING[priceKey(message.model)] ?? PRICING[priceKey(MODEL)]
   const inputTokens = (u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0) + (u.cache_read_input_tokens ?? 0)
   const cost = price ? (inputTokens * price.input + (u.output_tokens ?? 0) * price.output) / 1e6 : null
   const fellBack = (u.iterations ?? []).some((i) => i.type === 'fallback_message')
   console.log(
-    `[study-guide] model=${message.model} effort=${EFFORT} chars=${inputChars} in=${inputTokens} out=${u.output_tokens ?? 0}` +
+    `[study-guide] via=${PROVIDER} model=${message.model} effort=${EFFORT} chars=${inputChars} in=${inputTokens} out=${u.output_tokens ?? 0}` +
       ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
       ` stop=${message.stop_reason}${fellBack ? ' (fallback ran)' : ''}`,
   )

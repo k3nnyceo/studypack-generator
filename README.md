@@ -93,7 +93,9 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 
 ### Going live on Vercel
 
-1. **Anthropic:** create an API key at platform.claude.com, and set a **monthly spend limit** in the Console as a hard backstop.
+1. **Claude access**, either:
+   - **Amazon Bedrock** (current setup): a long-term Bedrock API key in `BEDROCK_API_KEY`, plus `BEDROCK_REGION` (default `us-east-1`). Set an **AWS Budget** alert as a backstop. Or:
+   - **Claude API**: `ANTHROPIC_API_KEY` from platform.claude.com, with a **monthly spend limit** in the Console.
 2. **Upstash:** in the Vercel project, **Storage → Upstash for Redis** (free tier). This adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`, which the server needs to enforce free-tier limits. Without them, generation is refused rather than unlimited.
 3. **Environment variables** (Project → Settings → Environment Variables): `VITE_ENABLE_AI_GENERATION=true`, `ANTHROPIC_API_KEY`, `IP_HASH_SALT` (any random string), and optionally `FREE_GUIDES_PER_VISITOR_PER_DAY`, `GUIDES_PER_DAY_TOTAL`, `MAX_INPUT_CHARS`, `STUDY_GUIDE_MODEL`, `STUDY_GUIDE_EFFORT` (see `.env.example`).
 4. **Redeploy**, since the frontend reads the flag at build time.
@@ -103,7 +105,7 @@ With AI generation on, "Generate study pack" turns uploaded notes into a full st
 - `api/study-guide.js` is a Vercel Function (`maxDuration: 300`, the Hobby maximum). It and the local dev server (`server/index.js`) share `server/studyGuideHandler.js`.
 - **Limits** (`server/usageLimits.js`): a daily allowance per visitor (default 3) and a site-wide daily cap (default 50), stored in Upstash. Visitors are keyed by a salted hash of their IP, never the IP itself. A slot is reserved before calling Claude and released if generation fails or the visitor cancels, so errors don't use up allowances. Local dev without Upstash uses an in-memory store.
 - **Long requests:** the response starts immediately and a space is written every few seconds while Claude works, so idle connections aren't dropped; the JSON follows (leading whitespace is valid JSON). If the visitor closes the page or clicks Cancel, the Claude request is aborted.
-- **Claude call** (`server/studyGuide.js`): `claude-opus-5` with adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), server-side refusal fallbacks, and the same validator as pasted JSON. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
+- **Claude call** (`server/studyGuide.js`): through **Amazon Bedrock** when `BEDROCK_API_KEY` is set (default model `global.anthropic.claude-opus-4-6-v1`, Bedrock's InvokeModel endpoint), otherwise the **Claude API** (`claude-opus-5`, with server-side refusal fallbacks). Both use adaptive thinking, a JSON schema matching the format above (`quiz`, `course` and `topic` always included), and the same validator as pasted JSON. Override the model with `STUDY_GUIDE_MODEL`. Notes longer than `MAX_INPUT_CHARS` (default 150K characters) are rejected rather than truncated.
 - **Cost logging:** every generation logs one line, e.g. `[study-guide] model=claude-opus-5 effort=high chars=… in=… out=… cost≈$… time=…`, in Vercel → Logs, to measure the real cost per guide.
 - The API key is read only from the server's environment; it never reaches the browser. The UI tells visitors that their notes' text is sent to Claude.
 
