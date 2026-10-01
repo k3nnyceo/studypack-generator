@@ -1,4 +1,5 @@
 import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
 import { AI_GENERATION_ENABLED } from '../config.js'
@@ -60,6 +61,21 @@ export default function Landing({
   onDeletePack,
   onViewLibrary,
 }) {
+  // On a phone, messages under the dropzone are below the fold; bring a new
+  // one into view, or it looks like nothing happened.
+  const messageRef = useRef(null)
+  const message = resumingJob ? 'resuming' : status === 'error' ? error : ''
+  useEffect(() => {
+    const el = messageRef.current
+    if (!message || !el) return
+    // After the first paint, so it isn't undone by the browser restoring scroll on reload.
+    const frame = requestAnimationFrame(() => {
+      const { top, bottom } = el.getBoundingClientRect()
+      if (top < 0 || bottom > window.innerHeight) el.scrollIntoView({ block: 'center' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [message])
+
   return (
     <div className="space-y-20 sm:space-y-28">
       <section className="mx-auto max-w-3xl text-center">
@@ -93,46 +109,42 @@ export default function Landing({
           </Button>
         </div>
 
-        {resumingJob && (
-          <div
-            className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-stone-600"
-            role="status"
-          >
-            <span className="flex items-center gap-2.5">
+        <div ref={messageRef}>
+          {resumingJob && (
+            <div
+              className="mt-5 flex items-start gap-3 rounded-xl bg-brand-50 p-4 text-left text-sm text-brand-900 ring-1 ring-brand-200"
+              role="status"
+            >
+              <Loader2 className="mt-0.5 size-4 shrink-0 animate-spin text-brand-600" aria-hidden />
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold">Finishing your study pack…</p>
+                <p className="mt-0.5 break-words text-brand-800/80">
+                  {resumingJob.fileName ? `${resumingJob.fileName} · it opens` : 'It opens'} here as soon as it’s ready.
+                </p>
+                <Button size="sm" variant="ghost" icon={X} onClick={onCancelResume} className="mt-2 -ml-3">
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {status === 'parsing' && (
+            <div className="mt-5 flex items-center justify-center gap-2.5 text-sm text-stone-600" role="status">
               <Loader2 className="size-4 animate-spin text-brand-600" aria-hidden />
-              <span>
-                Finishing your study pack
-                {resumingJob.fileName && (
-                  <>
-                    {' '}
-                    for <span className="font-semibold text-stone-800">{resumingJob.fileName}</span>
-                  </>
-                )}
-                …
-              </span>
-            </span>
-            <Button size="sm" variant="ghost" icon={X} onClick={onCancelResume}>
-              Cancel
-            </Button>
-          </div>
-        )}
+              Reading <span className="font-semibold text-stone-800">{fileName}</span>…
+            </div>
+          )}
 
-        {status === 'parsing' && (
-          <div className="mt-5 flex items-center justify-center gap-2.5 text-sm text-stone-600" role="status">
-            <Loader2 className="size-4 animate-spin text-brand-600" aria-hidden />
-            Reading <span className="font-semibold text-stone-800">{fileName}</span>…
-          </div>
-        )}
-
-        {status === 'error' && (
-          <div
-            className="mt-5 flex gap-3 rounded-xl bg-rose-50 p-4 text-left text-sm whitespace-pre-line text-rose-900 ring-1 ring-rose-200"
-            role="alert"
-          >
-            <TriangleAlert className="mt-0.5 size-4 shrink-0 text-rose-600" aria-hidden />
-            <div>{error}</div>
-          </div>
-        )}
+          {status === 'error' && (
+            <div
+              className="mt-5 flex gap-3 rounded-xl bg-rose-50 p-4 text-left text-sm whitespace-pre-line text-rose-900 ring-1 ring-rose-200"
+              role="alert"
+            >
+              <TriangleAlert className="mt-0.5 size-4 shrink-0 text-rose-600" aria-hidden />
+              <div>{error}</div>
+            </div>
+          )}
+        </div>
       </section>
 
       {recent.length > 0 && (
