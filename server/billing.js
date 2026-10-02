@@ -5,12 +5,14 @@
 //   POST /api/billing { action: 'checkout', plan, autoRenew }  -> { url } of Paystack's checkout
 //   POST /api/billing { action: 'verify', reference }          after returning from checkout
 //   POST /api/billing { action: 'manage' }       -> { url } to cancel auto-renew or change card
+//   POST /api/billing { action: 'redeem', key }  a Gumroad license key (server/gumroad.js)
 //   POST /api/paystack-webhook                   Paystack's events (renewals, cancellations)
 //
 // A payment is applied when either the student returns from checkout (verify)
 // or Paystack's webhook arrives, whichever is first; both check the
 // transaction with Paystack's API rather than trusting what they're told.
 import { getSessionUser } from './auth.js'
+import { cleanLicenseKey, gumroadProducts, purchaseNaira, purchaseProblem, verifyGumroadKey } from './gumroad.js'
 import { recordPayment } from './referrals.js'
 import { sendJson } from './http.js'
 import { ensurePaystackPlan, paystack, paystackKey, validSignature } from './paystack.js'
@@ -40,7 +42,15 @@ export function getDefaults() {
 }
 
 export async function handleBillingRequest(req, res, body, deps = {}) {
-  const { store = getDefaults().store, meter = getDefaults().meter, getUser = getSessionUser, env = process.env, api = paystack, now = Date.now } = deps
+  const {
+    store = getDefaults().store,
+    meter = getDefaults().meter,
+    getUser = getSessionUser,
+    env = process.env,
+    api = paystack,
+    gumroad = verifyGumroadKey,
+    now = Date.now,
+  } = deps
   const user = await getUser(req)
   // Signed out, the plans can still be shown; buying needs an account.
   if (!user && req.method === 'GET') return sendJson(res, 200, publicState(env))
@@ -84,6 +94,12 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
       return sendJson(res, 200, await billingState({ store, meter, user, env, now }))
     }
 
+    if (body?.action === 'redeem') {
+      const result = await redeemGumroadKey({ store, user, key: body.key, env, gumroad, plans, now })
+      if (result.error) return sendJson(res, result.status, { error: result.error })
+      return sendJson(res, 200, await billingState({ store, meter, user, env, now }))
+    }
+
     if (body?.action === 'manage') {
       const renew = await getAutoRenew(store, user.id)
       if (!renew?.active || !renew.subscriptionCode) return sendJson(res, 400, { error: 'You don’t have auto-renew turned on.' })
@@ -99,8 +115,11 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
 
 function publicState(env) {
   const typical = toNaira(estimateCostUsd(TYPICAL_PACK_CHARS), env)
+  const gumroad = gumroadProducts(env)
   return {
     paymentsEnabled: Boolean(paystackKey(env)),
+    // Gumroad product pages (for paying in dollars), by plan.
+    gumroad: Object.fromEntries(Object.entries(gumroad).map(([plan, p]) => [plan, p.url])),
     plans: Object.values(plansFromEnv(env)).map((p) => ({
       id: p.id,
       name: p.name,
@@ -109,6 +128,7 @@ function publicState(env) {
       packsPerWindow: Math.max(1, Math.floor(p.windowNaira / typical)),
       packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typical)),
       maxPages: Math.round(p.maxChars / 500),
+      libraryPerDay: p.libraryPerDay,
     })),
   }
 }
@@ -168,6 +188,45 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
       )
       await setAutoRenew(store, userId, { active: false })
     }
+  }
+  return {}
+}
+
+// Checks a Gumroad key against each plan's product and grants that plan.
+// Resolves to {} or { status, error }.
+async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, now }) {
+  const products = gumroadProducts(env)
+  if (!Object.keys(products).length) return { status: 503, error: 'Gumroad keys aren’t set up yet.' }
+  const key = cleanLicenseKey(raw)
+  if (!key) return { status: 400, error: 'That doesn’t look like a Gumroad license key.' }
+
+  let planId = null
+  let purchase = null
+  for (const [plan, { productId }] of Object.entries(products)) {
+    purchase = await gumroad(productId, key)
+    if (purchase) {
+      planId = plan
+      break
+    }
+  }
+  if (!purchase) return { status: 404, error: 'That key isn’t valid for StudyPack. Check it against your Gumroad receipt.' }
+  const problem = purchaseProblem(purchase, env)
+  if (problem) return { status: 402, error: problem }
+
+  // One account per key: the first to redeem it keeps it. Redeeming again on
+  // the same account is harmless (the payment is applied once).
+  const ownerKey = `studypack:gumroad:${key}`
+  if (await store.claim(`${ownerKey}:claimed`, 10 * 365 * 24 * 60 * 60)) {
+    await store.setJson(ownerKey, user.id)
+  } else if ((await store.getJson(ownerKey)) !== user.id) {
+    return { status: 409, error: 'This key has already been used by another StudyPack account.' }
+  }
+
+  const reference = `gumroad:${purchase.sale_id || key}`
+  const { applied, record } = await applyPayment(store, { userId: user.id, planId, reference }, plans, now())
+  if (applied) {
+    await recordPayment(store, user.id, purchaseNaira(purchase, env)).catch((err) => console.error('[billing] Could not record referral:', err.message))
+    console.log(`[billing] ${reference}: ${user.id} on ${planId} until ${new Date(record.periodEnd).toISOString()} (Gumroad)`)
   }
   return {}
 }

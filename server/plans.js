@@ -6,6 +6,8 @@
 //   - a 3-hour window, which refills at fixed times (00:00, 03:00, … UTC), so
 //     one sitting can't use up the month, and
 //   - a monthly allowance, which is what keeps a plan's cost below its price.
+// Separately, each plan can add a number of ready-made packs a day from the
+// shared Pack library (server/shared.js); those cost nothing to open.
 // Every number can be changed with an environment variable (see .env.example).
 
 export const WINDOW_MS = 3 * 60 * 60 * 1000
@@ -29,6 +31,7 @@ export function plansFromEnv(env = process.env) {
       windowNaira: num(env.FREE_WINDOW_NGN, 400),
       periodNaira: num(env.FREE_MONTH_NGN, 1000),
       maxChars: num(env.FREE_MAX_INPUT_CHARS, 13_000),
+      libraryPerDay: num(env.FREE_LIBRARY_PER_DAY, 5),
     },
     pro: {
       id: 'pro',
@@ -37,6 +40,7 @@ export function plansFromEnv(env = process.env) {
       windowNaira: num(env.PRO_WINDOW_NGN, 1000),
       periodNaira: num(env.PRO_MONTH_NGN, 2300),
       maxChars: paidMaxChars,
+      libraryPerDay: num(env.PRO_LIBRARY_PER_DAY, 15),
     },
     max: {
       id: 'max',
@@ -45,6 +49,7 @@ export function plansFromEnv(env = process.env) {
       windowNaira: num(env.MAX_WINDOW_NGN, 2000),
       periodNaira: num(env.MAX_MONTH_NGN, 4600),
       maxChars: paidMaxChars,
+      libraryPerDay: num(env.MAX_LIBRARY_PER_DAY, 40),
     },
   }
   // A plan can't accept notes whose expected cost wouldn't fit in one window

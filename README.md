@@ -112,6 +112,18 @@ All of these are environment variables (`.env.example`). The pack counts are for
 - **Meter** (`server/usageLimits.js`, `server/plans.js`): per account, a counter for the current 3-hour window (fixed windows from 00:00 UTC, so the refill time is predictable) and one for the period (the calendar month in Lagos time on Free; the paid 30-day period on Pro and Max). Before generating, the pack's cost is estimated from the notes' length and reserved; if it doesn't fit, the student sees which allowance ran out and when it refills. When the pack is done its real cost replaces the estimate; if it fails or is cancelled, nothing is charged. Students only ever see percentages, never naira of cost.
 - **Paying** (`server/billing.js`, `server/paystack.js`, `server/subscriptions.js`): the plans page offers each paid plan as **30 days for a one-time payment** (card, bank transfer or USSD) or **renew monthly by card** (a Paystack plan, created automatically the first time). Checkout is Paystack's hosted page; the student comes back to `/?billing=return&reference=…` and the app verifies the transaction with Paystack before applying it. Paystack's webhook (`/api/paystack-webhook`, signature-checked) applies card renewals and records when auto-renew is turned off. Each payment reference is applied once. Paying again on the same plan adds 30 days to any left; switching plan converts the unused days by price. Switching away from an auto-renewing plan cancels its Paystack subscription. "Manage auto-renew" opens Paystack's page for cancelling or changing the card.
 
+## Pack library
+
+Ready-made packs any student can add to their own library (`server/shared.js`, `src/components/PackLibrary.jsx`), reached from the home page ("Browse ready-made packs") and the Library.
+
+- **Who adds packs:** admins (`ADMIN_EMAILS`) share packs from their library as **Verified**; signed-in students can share packs from theirs (the Share icon on a pack, with a confirmation). Shared packs never show who shared them. The same pack is only listed once (by content). Whoever shared a pack, or an admin, can remove it. Students can share up to 20 a day.
+- **Adding** a pack copies it into the student's library (and so to all their devices) and opens it. It uses one of the day's adds: Free 5, Pro 15, Max 40 (`*_LIBRARY_PER_DAY`), resetting at midnight Lagos time; adding the same pack again that day is free, and a pack already in the student's library just opens. Library packs cost no Claude usage, so this is separate from the generation allowance.
+- **Browsing** is public, so the library also works as a showcase for visitors who haven't signed in.
+
+## Gumroad
+
+For students paying in dollars from outside Nigeria (`server/gumroad.js`): create one Gumroad product per plan ("30 days of StudyPack Pro"/"Max") with **license keys** turned on, and set `GUMROAD_PRO_PRODUCT_ID`/`GUMROAD_PRO_URL` (and the `MAX` pair). The plans page then links to the products and has a **Redeem key** box. A key is checked with Gumroad's license API (product id + key, no secret needed), grants 30 days of its plan like a Paystack payment, and works for one StudyPack account only; refunded, disputed and test purchases are refused (`GUMROAD_ALLOW_TEST=true` to try it out). Gumroad sales count in the referral stats at `USD_TO_NGN`.
+
 ## Share links and referral stats
 
 Links like `/?ref=tiktok`, `/?ref=whatsapp-eee` or `/?ref=ada` (an ambassador) show which channels bring paying students. `utm_source` works too, for ad platforms that add it.
@@ -153,6 +165,7 @@ api/
   billing.js                  Vercel Function for /api/billing (plans, usage, checkout)
   paystack-webhook.js         Vercel Function for Paystack's events
   referrals.js                Vercel Function for /api/referrals (visits, admin stats)
+  shared.js                   Vercel Function for /api/shared (Pack library)
 server/
   auth.js                     Google ID token check, signed session cookie
   library.js                  synced library storage and API (Upstash / in-memory)
@@ -167,6 +180,8 @@ server/
   paystack.js                 Paystack API client, webhook signatures
   subscriptions.js            paid periods, applying payments once
   referrals.js                share-link visits, sign-ups and payments
+  shared.js                   Pack library: browse, add (daily allowance), share, remove
+  gumroad.js                  Gumroad license keys for Pro and Max
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION, VITE_GOOGLE_CLIENT_ID)
@@ -188,6 +203,7 @@ src/
     Library.jsx               saved study packs, grouped by course
     Plans.jsx, UsageBars.jsx  plans & usage page, usage bars
     ReferralStats.jsx         admin: stats per share link, link builder
+    PackLibrary.jsx           the Pack library page
     Toast.jsx                 short confirmations with optional Undo
     FilterChip.jsx, CopyButton.jsx
   lib/
@@ -200,6 +216,7 @@ src/
     auth.js                   useAuth, Google Identity Services loader
     billing.js                useBilling, checkout, return from Paystack
     referral.js               captures ?ref= links, first-touch
+    shared.js                 Pack library API client
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)

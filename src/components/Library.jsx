@@ -1,4 +1,5 @@
-import { BookMarked, Cloud, CloudAlert, FolderOpen, Layers, Library as LibraryIcon, ListChecks, Loader2, Plus, Trash2 } from 'lucide-react'
+import { BookMarked, Check, Cloud, CloudAlert, FolderOpen, Layers, Library as LibraryIcon, LibraryBig, ListChecks, Loader2, Plus, Share2, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import { buildFlashcards } from '../lib/flashcards.js'
 import { groupByCourse } from '../lib/library.js'
 import { buildQuiz } from '../lib/quiz.js'
@@ -8,7 +9,20 @@ import { Badge, Button, Eyebrow } from './ui.jsx'
 const savedDate = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
 
 // Every saved study pack, grouped by course when there's more than one.
-export default function Library({ entries, activeId, onOpen, onDelete, onAddNew, user, showSignIn, sync, onSyncNow }) {
+export default function Library({
+  entries,
+  activeId,
+  onOpen,
+  onDelete,
+  onAddNew,
+  user,
+  showSignIn,
+  sync,
+  onSyncNow,
+  onBrowseShared,
+  sharedPrints,
+  onShare,
+}) {
   const groups = groupByCourse(entries)
   const grouped = groups.length > 1
 
@@ -26,9 +40,14 @@ export default function Library({ entries, activeId, onOpen, onDelete, onAddNew,
                 }. Click one to study it.`}
           </p>
         </div>
-        <Button variant="primary" icon={Plus} onClick={onAddNew}>
-          Add a study pack
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button icon={LibraryBig} onClick={onBrowseShared}>
+            Pack library
+          </Button>
+          <Button variant="primary" icon={Plus} onClick={onAddNew}>
+            Add a study pack
+          </Button>
+        </div>
       </div>
 
       {user ? (
@@ -77,6 +96,8 @@ export default function Library({ entries, activeId, onOpen, onDelete, onAddNew,
                   showCourse={!grouped}
                   onOpen={() => onOpen(entry)}
                   onDelete={() => onDelete(entry)}
+                  onShare={user ? () => onShare(entry) : undefined}
+                  isShared={sharedPrints.has(entry.fingerprint)}
                 />
               ))}
             </ul>
@@ -87,16 +108,20 @@ export default function Library({ entries, activeId, onOpen, onDelete, onAddNew,
   )
 }
 
-export function PackCard({ entry, isOpen, showCourse, onOpen, onDelete }) {
+// `onShare` (signed in, in the Library) adds a Share action with a
+// confirmation, since a shared pack becomes visible to other students.
+export function PackCard({ entry, isOpen, showCourse, onOpen, onDelete, onShare, isShared }) {
   const cards = buildFlashcards(entry.guide).length
   const questions = buildQuiz(entry.guide).length
+  const [confirming, setConfirming] = useState(false)
+  const [sharing, setSharing] = useState(false)
 
   return (
     <li className="card group relative flex transition duration-200 hover:-translate-y-0.5 hover:shadow-card-hover">
       <button
         type="button"
         onClick={onOpen}
-        className="flex w-full flex-col rounded-2xl p-5 pr-14 text-left focus-visible:outline-offset-0"
+        className={`flex w-full flex-col rounded-2xl p-5 text-left focus-visible:outline-offset-0 ${onShare ? 'pr-24' : 'pr-14'}`}
       >
         <span className="flex flex-wrap items-center gap-2">
           {showCourse && <Badge tone="brand">{entry.course}</Badge>}
@@ -125,7 +150,50 @@ export function PackCard({ entry, isOpen, showCourse, onOpen, onDelete }) {
           </span>
           <span className="ml-auto">Saved {savedDate.format(entry.savedAt)}</span>
         </span>
+        {isShared && (
+          <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-emerald-700">
+            <Check className="size-3.5" aria-hidden /> In the Pack library
+          </span>
+        )}
       </button>
+      {confirming && (
+        <div className="absolute inset-0 z-10 flex flex-col justify-center gap-3 rounded-2xl bg-white p-5 text-sm ring-1 ring-brand-200" role="dialog" aria-label="Share this pack">
+          <p className="font-semibold text-stone-900">Share “{entry.topic}” with other students?</p>
+          <p className="text-stone-500">
+            It appears in the Pack library without your name. Only share packs from notes you’re allowed to share.
+          </p>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="primary"
+              icon={Share2}
+              disabled={sharing}
+              onClick={async () => {
+                setSharing(true)
+                await onShare()
+                setSharing(false)
+                setConfirming(false)
+              }}
+            >
+              {sharing ? 'Sharing…' : 'Share'}
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setConfirming(false)} disabled={sharing}>
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
+      {onShare && !isShared && (
+        <button
+          type="button"
+          onClick={() => setConfirming(true)}
+          aria-label={`Share ${entry.topic} to the Pack library`}
+          title="Share to the Pack library"
+          className="absolute top-3 right-12 flex size-9 items-center justify-center rounded-xl text-stone-500 transition hover:bg-brand-50 hover:text-brand-700"
+        >
+          <Share2 className="size-4" strokeWidth={2.25} aria-hidden />
+        </button>
+      )}
       <button
         type="button"
         onClick={onDelete}

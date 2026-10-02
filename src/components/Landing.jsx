@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
+import { ArrowRight, BookOpen, LibraryBig, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
@@ -50,6 +50,7 @@ const FEATURES = [
 export default function Landing({
   onFile,
   onTrySample,
+  onBrowseShared,
   status,
   resumingJob,
   onCancelResume,
@@ -106,6 +107,9 @@ export default function Landing({
           <span className="text-sm text-stone-500">No notes handy?</span>
           <Button variant="soft" icon={Sparkles} onClick={onTrySample} disabled={status === 'parsing'}>
             Try a sample study pack
+          </Button>
+          <Button variant="ghost" icon={LibraryBig} onClick={onBrowseShared} disabled={status === 'parsing'}>
+            Browse ready-made packs
           </Button>
         </div>
 

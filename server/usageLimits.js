@@ -50,6 +50,13 @@ export function upstashStore(redis) {
     claim: async (key, ttlSeconds) => (await redis.set(key, 1, { nx: true, ex: ttlSeconds })) === 'OK',
     addMember: (key, member) => redis.sadd(key, member),
     members: async (key) => (await redis.smembers(key)) ?? [],
+    // Hashes of JSON records (the Pack library's index).
+    hset: (key, field, value) => redis.hset(key, { [field]: value }),
+    hget: (key, field) => redis.hget(key, field),
+    hgetall: async (key) => (await redis.hgetall(key)) ?? {},
+    hdel: (key, field) => redis.hdel(key, field),
+    del: (key) => redis.del(key),
+    unclaim: (key) => redis.del(key),
   }
 }
 
@@ -74,6 +81,15 @@ export function memoryStore() {
       values.get(key).add(member)
     },
     members: async (key) => [...(values.get(key) ?? [])],
+    async hset(key, field, value) {
+      if (!values.has(key)) values.set(key, new Map())
+      values.get(key).set(field, value)
+    },
+    hget: async (key, field) => values.get(key)?.get(field) ?? null,
+    hgetall: async (key) => Object.fromEntries(values.get(key) ?? []),
+    hdel: async (key, field) => void values.get(key)?.delete(field),
+    del: async (key) => void values.delete(key),
+    unclaim: async (key) => void values.delete(key),
   }
 }
 

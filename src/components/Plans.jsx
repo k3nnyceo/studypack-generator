@@ -1,14 +1,15 @@
-import { Check, CreditCard, Loader2, RefreshCw, Sparkles } from 'lucide-react'
+import { Check, CreditCard, ExternalLink, KeyRound, Loader2, RefreshCw, Sparkles } from 'lucide-react'
 import { useState } from 'react'
-import { formatDate, formatNaira, manageAutoRenew, startCheckout } from '../lib/billing.js'
+import { formatDate, formatNaira, manageAutoRenew, redeemGumroadKey, startCheckout } from '../lib/billing.js'
 import GoogleButton from './GoogleButton.jsx'
 import UsageBars from './UsageBars.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
 // Plans & usage: the account's usage bars, and the Free / Pro / Max cards
 // with Paystack checkout.
-export default function Plans({ billing, user, showSignIn, onError }) {
+export default function Plans({ billing, user, showSignIn, onError, onRedeemed }) {
   const [busy, setBusy] = useState(null) // `${plan}:${autoRenew}` while heading to checkout
+  const [licenseKey, setLicenseKey] = useState('')
 
   if (!billing) {
     return (
@@ -28,6 +29,19 @@ export default function Plans({ billing, user, showSignIn, onError }) {
     } catch (err) {
       setBusy(null)
       onError(err.message)
+    }
+  }
+
+  async function redeem(e) {
+    e.preventDefault()
+    setBusy('redeem')
+    try {
+      onRedeemed(await redeemGumroadKey(licenseKey))
+      setLicenseKey('')
+    } catch (err) {
+      onError(err.message)
+    } finally {
+      setBusy(null)
     }
   }
 
@@ -102,6 +116,9 @@ export default function Plans({ billing, user, showSignIn, onError }) {
                 <Feature>About {plan.packsPerWindow} study pack{plan.packsPerWindow === 1 ? '' : 's'} every 3 hours</Feature>
                 <Feature>About {plan.packsPerMonth} study packs a month</Feature>
                 <Feature>Lectures up to about {plan.maxPages} pages</Feature>
+                <Feature>
+                  Add {plan.libraryPerDay} ready-made pack{plan.libraryPerDay === 1 ? '' : 's'} a day from the Pack library
+                </Feature>
                 {paid ? <Feature>Never turned away on busy days</Feature> : <Feature>Study guide, flashcards and quiz</Feature>}
                 <Feature>Library synced across your devices</Feature>
               </ul>
@@ -150,6 +167,54 @@ export default function Plans({ billing, user, showSignIn, onError }) {
 
       {user && !billing.paymentsEnabled && (
         <p className="text-sm text-stone-500">Paid plans are coming soon.</p>
+      )}
+
+      {billing.gumroad && Object.keys(billing.gumroad).length > 0 && (
+        <section className="card space-y-4 p-6" aria-label="Pay in dollars with Gumroad">
+          <div>
+            <h2 className="font-bold text-stone-900">Paying from outside Nigeria?</h2>
+            <p className="mt-1 text-sm text-stone-500">
+              Buy 30 days on Gumroad in dollars, then enter the license key from your receipt here.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(billing.gumroad)
+              .filter(([, url]) => url)
+              .map(([planId, url]) => (
+                <a
+                  key={planId}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-9 items-center gap-2 rounded-lg px-3 text-sm font-semibold text-brand-700 ring-1 ring-brand-200 transition hover:bg-brand-50"
+                >
+                  {billing.plans.find((p) => p.id === planId)?.name} on Gumroad
+                  <ExternalLink className="size-3.5" aria-hidden />
+                </a>
+              ))}
+          </div>
+          {user ? (
+            <form onSubmit={redeem} className="flex flex-wrap gap-2">
+              <label htmlFor="license-key" className="sr-only">
+                Gumroad license key
+              </label>
+              <input
+                id="license-key"
+                value={licenseKey}
+                onChange={(e) => setLicenseKey(e.target.value)}
+                placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
+                autoComplete="off"
+                spellCheck={false}
+                className="h-10 min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-3 font-mono text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none sm:max-w-md"
+              />
+              <Button type="submit" icon={KeyRound} disabled={!licenseKey.trim() || busy !== null}>
+                {busy === 'redeem' ? 'Checking…' : 'Redeem key'}
+              </Button>
+            </form>
+          ) : (
+            <p className="text-sm text-stone-500">Sign in first, then redeem your key here.</p>
+          )}
+        </section>
       )}
     </div>
   )

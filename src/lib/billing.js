@@ -34,6 +34,9 @@ export async function startCheckout(plan, autoRenew) {
   window.location.assign(url)
 }
 
+// Applies a Gumroad license key. Resolves to the new billing state.
+export const redeemGumroadKey = (key) => billingApi('POST', { action: 'redeem', key })
+
 // Paystack's page for cancelling auto-renew or changing the card.
 export async function manageAutoRenew() {
   const { url } = await billingApi('POST', { action: 'manage' })

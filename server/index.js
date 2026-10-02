@@ -10,6 +10,7 @@ import { getDefaults, handleBillingRequest, handlePaystackWebhook } from './bill
 import { sendJson } from './http.js'
 import { handleLibraryRequest } from './library.js'
 import { handleReferralRequest } from './referrals.js'
+import { handleSharedRequest } from './shared.js'
 import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest } from './studyGuideHandler.js'
 import { storeFromEnv } from './usageLimits.js'
 
@@ -46,6 +47,9 @@ const server = http.createServer(async (req, res) => {
     } else if (pathname === '/api/billing') {
       const body = req.method === 'POST' ? await readJson(req, res) : null
       if (body !== undefined) await handleBillingRequest(req, res, body)
+    } else if (pathname === '/api/shared') {
+      const body = req.method === 'POST' ? await readJson(req, res) : null
+      if (body !== undefined) await handleSharedRequest(req, res, body, { store: getDefaults().store })
     } else if (pathname === '/api/referrals') {
       const body = req.method === 'POST' ? await readJson(req, res) : null
       if (body !== undefined) await handleReferralRequest(req, res, body, { store: getDefaults().store })

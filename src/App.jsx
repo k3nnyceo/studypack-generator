@@ -7,6 +7,7 @@ import GuideHero from './components/GuideHero.jsx'
 import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
+import PackLibrary from './components/PackLibrary.jsx'
 import Plans from './components/Plans.jsx'
 import ReferralStats from './components/ReferralStats.jsx'
 import Quiz from './components/Quiz.jsx'
@@ -17,6 +18,7 @@ import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
 import { takePaymentReturn, useBilling } from './lib/billing.js'
 import { captureReferral } from './lib/referral.js'
+import { fetchShared, listShared, removeShared, sharePack } from './lib/shared.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
@@ -40,7 +42,7 @@ const paymentReturn = takePaymentReturn()
 captureReferral()
 
 export default function App() {
-  // view: 'home' | 'library' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz'
+  // view: 'home' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz'
   const [view, setView] = useState(paymentReturn ? 'plans' : 'home')
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
@@ -53,6 +55,12 @@ export default function App() {
   const library = useLibrary(auth.user, { onSessionExpired: auth.expire })
   const billing = useBilling(auth.user)
   const paymentChecked = useRef(false)
+  // The Pack library: { packs, allowance, canModerate } once loaded.
+  const [shared, setShared] = useState(null)
+  const [sharedBusy, setSharedBusy] = useState(null) // pack id being added/removed
+  const [sharedError, setSharedError] = useState(null)
+  const ownPrints = useMemo(() => new Set(library.entries.map((e) => e.fingerprint)), [library.entries])
+  const sharedPrints = useMemo(() => new Set((shared?.packs ?? []).map((p) => p.fingerprint)), [shared])
   const [toast, setToast] = useState(null)
   const dismissToast = useCallback(() => setToast(null), [])
   const notify = (message, extra = {}) => setToast({ id: Date.now(), message, ...extra })
@@ -135,6 +143,60 @@ export default function App() {
     else if (saved.duplicate) notify('Already in your library, so it wasn’t saved again')
     else notify('Saved to your library')
     openGuide(newGuide, saved.entry?.id ?? null)
+  }
+
+  const loadShared = useCallback(() => {
+    listShared()
+      .then(setShared)
+      .catch(() => {}) // the page shows what it has; a retry happens on the next visit
+  }, [])
+
+  // Fresh when the Pack library or the Library (for "In the Pack library") is
+  // shown, and when the account changes (allowance, "Shared by you").
+  useEffect(() => {
+    if (view === 'explore' || view === 'library') loadShared()
+  }, [view, auth.user?.id, loadShared])
+
+  async function addFromShared(pack) {
+    const owned = library.entries.find((e) => e.fingerprint === pack.fingerprint)
+    if (owned) return openFromLibrary(owned)
+    setSharedBusy(pack.id)
+    setSharedError(null)
+    try {
+      const { entry, allowance } = await fetchShared(pack.id)
+      setShared((s) => s && { ...s, allowance })
+      setResult(null)
+      setFileName('Pack library')
+      loadGuide(entry.guide, 'Pack library')
+    } catch (err) {
+      if (err.status === 401) auth.expire()
+      setSharedError({ message: err.message, reason: err.reason, resetsAt: err.resetsAt })
+    } finally {
+      setSharedBusy(null)
+    }
+  }
+
+  async function shareToLibrary(entry) {
+    try {
+      const { alreadyShared } = await sharePack(entry)
+      notify(alreadyShared ? 'That pack is already in the Pack library' : 'Shared to the Pack library. Thank you!')
+      loadShared()
+    } catch (err) {
+      notify(err.message, { tone: 'error' })
+    }
+  }
+
+  async function removeFromShared(pack) {
+    setSharedBusy(pack.id)
+    try {
+      await removeShared(pack.id)
+      notify(`Removed “${pack.topic}” from the Pack library`)
+      loadShared()
+    } catch (err) {
+      notify(err.message, { tone: 'error' })
+    } finally {
+      setSharedBusy(null)
+    }
   }
 
   function openFromLibrary(entry) {
@@ -305,6 +367,7 @@ export default function App() {
             <Landing
               onFile={handleFile}
               onTrySample={loadSample}
+              onBrowseShared={() => navigate('explore')}
               status={status}
               resumingJob={resumingJob}
               onCancelResume={() => resumeAbort.current?.abort()}
@@ -324,6 +387,25 @@ export default function App() {
               user={auth.user}
               showSignIn={SIGN_IN_ENABLED && auth.ready}
               onError={(message) => notify(message, { tone: 'error' })}
+              onRedeemed={(state) => {
+                billing.refresh()
+                notify(`You’re on ${state.plans.find((p) => p.id === state.plan)?.name}. Thank you!`)
+              }}
+            />
+          )}
+
+          {view === 'explore' && (
+            <PackLibrary
+              shared={shared}
+              user={auth.user}
+              showSignIn={SIGN_IN_ENABLED && auth.ready}
+              ownPrints={ownPrints}
+              busyId={sharedBusy}
+              error={sharedError}
+              onAdd={addFromShared}
+              onRemove={removeFromShared}
+              onOpenPlans={() => navigate('plans')}
+              canUpgrade={Boolean(billing.billing?.paymentsEnabled) && billing.billing?.plan !== 'max'}
             />
           )}
 
@@ -340,6 +422,9 @@ export default function App() {
               showSignIn={SIGN_IN_ENABLED && auth.ready}
               sync={library.sync}
               onSyncNow={library.syncNow}
+              onBrowseShared={() => navigate('explore')}
+              sharedPrints={sharedPrints}
+              onShare={shareToLibrary}
             />
           )}
 
