@@ -48,6 +48,8 @@ export function upstashStore(redis) {
     setJson: (key, value) => redis.set(key, value),
     // true the first time a key is claimed, false after that.
     claim: async (key, ttlSeconds) => (await redis.set(key, 1, { nx: true, ex: ttlSeconds })) === 'OK',
+    addMember: (key, member) => redis.sadd(key, member),
+    members: async (key) => (await redis.smembers(key)) ?? [],
   }
 }
 
@@ -67,6 +69,11 @@ export function memoryStore() {
       values.set(key, 1)
       return true
     },
+    async addMember(key, member) {
+      if (!values.has(key)) values.set(key, new Set())
+      values.get(key).add(member)
+    },
+    members: async (key) => [...(values.get(key) ?? [])],
   }
 }
 

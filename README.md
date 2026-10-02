@@ -102,15 +102,22 @@ Three plans, with usage counted the way Claude's own app does it: each study pac
 | | Free | Pro | Max |
 |---|---|---|---|
 | Price | ₦0 | ₦3,500 / month | ₦6,500 / month |
-| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~3 packs) | ₦2,000 (~6 packs) |
-| Each month / 30-day period | ₦1,000 (~3 packs) | ₦2,300 (~7 packs) | ₦4,600 (~14 packs) |
-| Longest notes | 15K characters (~30 pages) | 40K (~80 pages) | 40K (~80 pages) |
+| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~2 packs) | ₦2,000 (~5 packs) |
+| Each month / 30-day period | ₦1,000 (~2 packs) | ₦2,300 (~6 packs) | ₦4,600 (~13 packs) |
+| Longest notes | 13K characters (~26 pages) | 39K (~78 pages) | 40K (~80 pages) |
 | Site-wide daily cap | applies | skipped | skipped |
 
-All of these are environment variables (`.env.example`). A typical pack (a 23-page, 11K-character lecture) costs about ₦330, so the monthly allowances keep the worst case (a subscriber using everything) at roughly ₦1,000 profit on Pro and ₦1,700 on Max after Paystack's fee.
+All of these are environment variables (`.env.example`). The pack counts are for a typical 23-page, 11K-character lecture, which costs about ₦340; long lectures cost more (about ₦700 for 27K characters and ₦1,000 for 40K, each finishing in about 2½ minutes), so they use more of the allowance. Because usage is charged at real cost, the worst case (a subscriber using everything) stays at roughly ₦1,000 profit on Pro and ₦1,700 on Max after Paystack's fee.
 
 - **Meter** (`server/usageLimits.js`, `server/plans.js`): per account, a counter for the current 3-hour window (fixed windows from 00:00 UTC, so the refill time is predictable) and one for the period (the calendar month in Lagos time on Free; the paid 30-day period on Pro and Max). Before generating, the pack's cost is estimated from the notes' length and reserved; if it doesn't fit, the student sees which allowance ran out and when it refills. When the pack is done its real cost replaces the estimate; if it fails or is cancelled, nothing is charged. Students only ever see percentages, never naira of cost.
 - **Paying** (`server/billing.js`, `server/paystack.js`, `server/subscriptions.js`): the plans page offers each paid plan as **30 days for a one-time payment** (card, bank transfer or USSD) or **renew monthly by card** (a Paystack plan, created automatically the first time). Checkout is Paystack's hosted page; the student comes back to `/?billing=return&reference=…` and the app verifies the transaction with Paystack before applying it. Paystack's webhook (`/api/paystack-webhook`, signature-checked) applies card renewals and records when auto-renew is turned off. Each payment reference is applied once. Paying again on the same plan adds 30 days to any left; switching plan converts the unused days by price. Switching away from an auto-renewing plan cancels its Paystack subscription. "Manage auto-renew" opens Paystack's page for cancelling or changing the card.
+
+## Share links and referral stats
+
+Links like `/?ref=tiktok`, `/?ref=whatsapp-eee` or `/?ref=ada` (an ambassador) show which channels bring paying students. `utm_source` works too, for ad platforms that add it.
+
+- **Attribution is first-touch** (`src/lib/referral.js`, `server/referrals.js`): the first link a browser arrives through is remembered for 30 days and removed from the address bar; each browser counts once as a visit per link. It's sent with the student's first sign-in and kept on the account, so their later payments are credited to it. Students without a link count as "direct". Accounts that existed before this feature count as new sign-ups the next time they sign in.
+- **Referral stats** (account menu, only for `ADMIN_EMAILS`): visits, sign-ups, paying students, payments and revenue per link, and a builder for new links. Counters live in Upstash.
 
 ## AI generation
 
@@ -145,6 +152,7 @@ api/
   library.js                  Vercel Function for /api/library (synced library)
   billing.js                  Vercel Function for /api/billing (plans, usage, checkout)
   paystack-webhook.js         Vercel Function for Paystack's events
+  referrals.js                Vercel Function for /api/referrals (visits, admin stats)
 server/
   auth.js                     Google ID token check, signed session cookie
   library.js                  synced library storage and API (Upstash / in-memory)
@@ -158,6 +166,7 @@ server/
   billing.js                  /api/billing and the Paystack webhook
   paystack.js                 Paystack API client, webhook signatures
   subscriptions.js            paid periods, applying payments once
+  referrals.js                share-link visits, sign-ups and payments
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION, VITE_GOOGLE_CLIENT_ID)
@@ -178,6 +187,7 @@ src/
     ui.jsx, buttonStyles.js   shared Button, Badge, Logo, Eyebrow
     Library.jsx               saved study packs, grouped by course
     Plans.jsx, UsageBars.jsx  plans & usage page, usage bars
+    ReferralStats.jsx         admin: stats per share link, link builder
     Toast.jsx                 short confirmations with optional Undo
     FilterChip.jsx, CopyButton.jsx
   lib/
@@ -189,6 +199,7 @@ src/
     librarySync.js            sync with the account (/api/library)
     auth.js                   useAuth, Google Identity Services loader
     billing.js                useBilling, checkout, return from Paystack
+    referral.js               captures ?ref= links, first-touch
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)

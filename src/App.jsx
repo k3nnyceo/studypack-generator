@@ -8,6 +8,7 @@ import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
 import Plans from './components/Plans.jsx'
+import ReferralStats from './components/ReferralStats.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Toast from './components/Toast.jsx'
@@ -15,6 +16,7 @@ import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
 import { takePaymentReturn, useBilling } from './lib/billing.js'
+import { captureReferral } from './lib/referral.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, validateFile } from './lib/parseDocument.js'
@@ -34,9 +36,11 @@ const interruptedUploadMessage = takeInterruptedUploadMessage()
 const pendingJobAtLoad = AI_GENERATION_ENABLED ? getPendingJob() : null
 // A Paystack payment reference, if we've just come back from checkout.
 const paymentReturn = takePaymentReturn()
+// A share link (?ref=…) this visit came through.
+captureReferral()
 
 export default function App() {
-  // view: 'home' | 'library' | 'plans' | 'notes' | 'guide' | 'flashcards' | 'quiz'
+  // view: 'home' | 'library' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz'
   const [view, setView] = useState(paymentReturn ? 'plans' : 'home')
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
@@ -322,6 +326,8 @@ export default function App() {
               onError={(message) => notify(message, { tone: 'error' })}
             />
           )}
+
+          {view === 'stats' && auth.user?.isAdmin && <ReferralStats />}
 
           {view === 'library' && (
             <Library

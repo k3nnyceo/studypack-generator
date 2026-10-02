@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { GOOGLE_CLIENT_ID, SIGN_IN_ENABLED } from '../config.js'
+import { storedReferral } from './referral.js'
 
 // Google sign-in. Google's button gives us an ID token, which /api/auth
 // verifies and turns into an HttpOnly session cookie (server/auth.js). The
@@ -39,7 +40,7 @@ export function loadGoogle() {
 }
 
 // { user, ready, signIn, signOut, expire, error }. `user` is { id, email,
-// name, picture } or null; `ready` is false until the server has answered.
+// name, picture, isAdmin } or null; `ready` is false until the server has answered.
 export function useAuth() {
   const [user, setUser] = useState(null)
   const [ready, setReady] = useState(!SIGN_IN_ENABLED)
@@ -56,7 +57,8 @@ export function useAuth() {
   const signIn = useCallback(async (credential) => {
     setError('')
     try {
-      const data = await authFetch('POST', { credential })
+      // The link that brought them, counted if this is their first sign-in.
+      const data = await authFetch('POST', { credential, ref: storedReferral() })
       setUser(data.user)
     } catch (err) {
       setError(err.message)

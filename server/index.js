@@ -6,9 +6,10 @@ import http from 'node:http'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { handleAuthRequest } from './auth.js'
-import { handleBillingRequest, handlePaystackWebhook } from './billing.js'
+import { getDefaults, handleBillingRequest, handlePaystackWebhook } from './billing.js'
 import { sendJson } from './http.js'
 import { handleLibraryRequest } from './library.js'
+import { handleReferralRequest } from './referrals.js'
 import { aiGenerationEnabled, handleJobRequest, handleStudyGuideRequest } from './studyGuideHandler.js'
 import { storeFromEnv } from './usageLimits.js'
 
@@ -45,6 +46,9 @@ const server = http.createServer(async (req, res) => {
     } else if (pathname === '/api/billing') {
       const body = req.method === 'POST' ? await readJson(req, res) : null
       if (body !== undefined) await handleBillingRequest(req, res, body)
+    } else if (pathname === '/api/referrals') {
+      const body = req.method === 'POST' ? await readJson(req, res) : null
+      if (body !== undefined) await handleReferralRequest(req, res, body, { store: getDefaults().store })
     } else if (pathname === '/api/paystack-webhook' && req.method === 'POST') {
       await handlePaystackWebhook(req, res, await readBody(req))
     } else if (req.url.startsWith('/api/')) {

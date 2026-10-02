@@ -1,8 +1,10 @@
 // Google sign-in, shared by the Vercel function (api/auth.js) and the local
 // dev server (server/index.js).
 //
-//   POST   { credential }  a Google ID token from the "Sign in with Google"
-//                          button -> verify it -> set the session cookie -> { user }
+//   POST   { credential, ref? }  a Google ID token from the "Sign in with
+//                          Google" button -> verify it -> set the session cookie
+//                          -> { user }. `ref` is the link that brought a new
+//                          student (server/referrals.js).
 //   GET                    { user } for the current session, or { user: null }
 //   DELETE                 sign out (clear the cookie)
 //
@@ -11,7 +13,8 @@
 // account id (`sub`), name, email and picture.
 import { createRemoteJWKSet, jwtVerify, SignJWT } from 'jose'
 import { sendJson } from './http.js'
-import { isDeployed } from './usageLimits.js'
+import { isAdmin, recordSignup } from './referrals.js'
+import { isDeployed, storeFromEnv } from './usageLimits.js'
 
 const COOKIE = 'sp_session'
 const SESSION_DAYS = 30
@@ -54,8 +57,19 @@ export async function getSessionUser(req, env = process.env) {
   }
 }
 
-export async function handleAuthRequest(req, res, body, { env = process.env, verify = verifyGoogleCredential } = {}) {
-  if (req.method === 'GET') return sendJson(res, 200, { user: await getSessionUser(req, env) })
+let defaultStore
+const getStore = () => (defaultStore === undefined ? (defaultStore = storeFromEnv()) : defaultStore)
+
+// What the browser is told about the user; `isAdmin` shows the referral stats.
+const forClient = (user, env) => (user ? { ...user, isAdmin: isAdmin(user, env) } : null)
+
+export async function handleAuthRequest(
+  req,
+  res,
+  body,
+  { env = process.env, verify = verifyGoogleCredential, onSignIn = (user, ref) => recordSignup(getStore(), user.id, ref) } = {},
+) {
+  if (req.method === 'GET') return sendJson(res, 200, { user: forClient(await getSessionUser(req, env), env) })
 
   if (req.method === 'DELETE') {
     res.setHeader('Set-Cookie', cookie('', 0, env))
@@ -88,7 +102,9 @@ export async function handleAuthRequest(req, res, body, { env = process.env, ver
     .setExpirationTime(`${SESSION_DAYS}d`)
     .sign(key)
   res.setHeader('Set-Cookie', cookie(token, SESSION_DAYS * 24 * 60 * 60, env))
-  sendJson(res, 200, { user })
+  // Tracking never gets in the way of signing in.
+  await Promise.resolve(onSignIn(user, body?.ref)).catch((err) => console.error('[auth] Could not record sign-up:', err.message))
+  sendJson(res, 200, { user: forClient(user, env) })
 }
 
 // SameSite=Lax: the cookie isn't sent on cross-site POSTs, which covers CSRF

@@ -11,6 +11,7 @@
 // or Paystack's webhook arrives, whichever is first; both check the
 // transaction with Paystack's API rather than trusting what they're told.
 import { getSessionUser } from './auth.js'
+import { recordPayment } from './referrals.js'
 import { sendJson } from './http.js'
 import { ensurePaystackPlan, paystack, paystackKey, validSignature } from './paystack.js'
 import { estimateCostUsd, PAID_PLANS, plansFromEnv, toNaira } from './plans.js'
@@ -104,6 +105,7 @@ function publicState(env) {
       id: p.id,
       name: p.name,
       price: p.price,
+      // Whole packs that really fit, so the plans page never promises more.
       packsPerWindow: Math.max(1, Math.floor(p.windowNaira / typical)),
       packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typical)),
       maxPages: Math.round(p.maxChars / 500),
@@ -156,6 +158,7 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const autoRenew = Boolean(planCode)
   const { applied, record, previous } = await applyPayment(store, { userId, planId, reference, autoRenew }, plans, now())
   if (applied) {
+    await recordPayment(store, userId, tx.amount / 100).catch((err) => console.error('[billing] Could not record referral:', err.message))
     console.log(`[billing] ${reference}: ${userId} on ${planId} until ${new Date(record.periodEnd).toISOString()}${autoRenew ? ' (auto-renew)' : ''}`)
     // A plan change ends the old plan's card subscription, so it isn't charged again.
     const renew = await getAutoRenew(store, userId)

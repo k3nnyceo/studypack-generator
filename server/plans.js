@@ -21,14 +21,14 @@ const num = (value, fallback) => {
 
 export function plansFromEnv(env = process.env) {
   const paidMaxChars = num(env.PAID_MAX_INPUT_CHARS, 40_000)
-  return {
+  const plans = {
     free: {
       id: 'free',
       name: 'Free',
       price: 0,
       windowNaira: num(env.FREE_WINDOW_NGN, 400),
       periodNaira: num(env.FREE_MONTH_NGN, 1000),
-      maxChars: num(env.FREE_MAX_INPUT_CHARS, 15_000),
+      maxChars: num(env.FREE_MAX_INPUT_CHARS, 13_000),
     },
     pro: {
       id: 'pro',
@@ -47,6 +47,12 @@ export function plansFromEnv(env = process.env) {
       maxChars: paidMaxChars,
     },
   }
+  // A plan can't accept notes whose expected cost wouldn't fit in one window
+  // (or its whole period): they'd be refused however long the student waited.
+  for (const plan of Object.values(plans)) {
+    plan.maxChars = Math.min(plan.maxChars, maxCharsWithin(Math.min(plan.windowNaira, plan.periodNaira), env))
+  }
+  return plans
 }
 
 export const PAID_PLANS = ['pro', 'max']
@@ -56,10 +62,16 @@ export const PAID_PLANS = ['pro', 'max']
 export const nairaPerUsd = (env = process.env) => num(env.USD_TO_NGN, 1600)
 
 // What a pack is expected to cost before it's written, from the length of the
-// notes. Fitted to measured runs (a 23-page, 11K-character lecture cost about
-// $0.22 on Sonnet 4.6); the real cost replaces it once the pack is done.
+// notes. Fitted to measured runs on Sonnet 4.6 at medium effort: 11K
+// characters cost $0.22, 27K $0.45 and 40K $0.64. The real cost replaces it
+// once the pack is done. Refit if the model or effort changes.
 export function estimateCostUsd(chars) {
-  return 0.1 + chars * 0.0000095
+  return 0.051 + chars * 0.0000147
 }
 
 export const toNaira = (usd, env = process.env) => Math.ceil(usd * nairaPerUsd(env))
+
+// The longest notes whose estimate is at most `naira` (the inverse of the above).
+function maxCharsWithin(naira, env) {
+  return Math.max(0, Math.floor((naira / nairaPerUsd(env) - 0.051) / 0.0000147))
+}

@@ -17,7 +17,7 @@ export default function AppHeader({
   onSignOut,
   billing,
 }) {
-  const showTabs = !['home', 'library', 'plans'].includes(view) && (hasNotes || guide)
+  const showTabs = !['home', 'library', 'plans', 'stats'].includes(view) && (hasNotes || guide)
 
   const tabs = [
     hasNotes && { id: 'notes', label: 'Notes', short: 'Notes', icon: FileText },
@@ -96,14 +96,14 @@ export default function AppHeader({
               </span>
             )}
           </button>
-          {!['home', 'library', 'plans'].includes(view) && (
+          {!['home', 'library', 'plans', 'stats'].includes(view) && (
             <>
               <Button size="sm" icon={Plus} onClick={onReset}>
                 New
               </Button>
             </>
           )}
-          {showSignIn && <AccountMenu user={user} onSignOut={onSignOut} billing={billing} onOpenPlans={() => onNavigate('plans')} />}
+          {showSignIn && <AccountMenu user={user} onSignOut={onSignOut} billing={billing} onOpenPlans={() => onNavigate('plans')} onOpenStats={() => onNavigate('stats')} />}
         </div>
       </div>
     </header>
