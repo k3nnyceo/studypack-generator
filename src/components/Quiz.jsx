@@ -1,5 +1,6 @@
-import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sparkles, Target, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sparkles, Target, Timer, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import ExamMode from './ExamMode.jsx'
 import FilterChip from './FilterChip.jsx'
 import { Button } from './ui.jsx'
 
@@ -13,6 +14,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
   const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" round
   const [index, setIndex] = useState(0)
   const [showResults, setShowResults] = useState(false)
+  const [examOpen, setExamOpen] = useState(false)
 
   const deck = questions.filter(
     (q) => (moduleFilter === 'all' || q.moduleIndex === moduleFilter) && (!retryIds || retryIds.has(q.id)),
@@ -90,8 +92,24 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
     )
   }
 
+  if (examOpen) return <ExamMode questions={questions} modules={modules} onExit={() => setExamOpen(false)} />
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
+      <button
+        type="button"
+        onClick={() => setExamOpen(true)}
+        className="card flex w-full items-center gap-4 p-4 text-left transition hover:-translate-y-0.5 hover:shadow-card-hover sm:p-5"
+      >
+        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+          <Timer className="size-5" strokeWidth={2.25} aria-hidden />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-stone-900">Exam mode</span>
+          <span className="block text-sm text-stone-500">A timed mock exam, marked at the end and graded A–F.</span>
+        </span>
+        <ArrowRight className="size-5 shrink-0 text-stone-400" aria-hidden />
+      </button>
       <div className="card overflow-hidden p-4 sm:p-5">
         <div className="-mr-4 flex gap-2 overflow-x-auto pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,#000_calc(100%-3rem),transparent)] sm:-mr-5">
           <FilterChip active={moduleFilter === 'all' && !retryIds} onClick={() => startRound({ filter: 'all' })}>

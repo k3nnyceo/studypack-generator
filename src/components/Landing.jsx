@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, LibraryBig, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
+import { ArrowRight, BookOpen, ClipboardType, LibraryBig, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
@@ -51,6 +51,8 @@ export default function Landing({
   onFile,
   onTrySample,
   onBrowseShared,
+  onPaste,
+  panel,
   status,
   resumingJob,
   onCancelResume,
@@ -111,7 +113,13 @@ export default function Landing({
           <Button variant="ghost" icon={LibraryBig} onClick={onBrowseShared} disabled={status === 'parsing'}>
             Browse ready-made packs
           </Button>
+          <Button variant="ghost" icon={ClipboardType} onClick={onPaste} disabled={status === 'parsing'}>
+            Paste text
+          </Button>
         </div>
+
+        {/* Scanned notes to read, or text to paste (src/components/ScanPanel.jsx). */}
+        {panel}
 
         <div ref={messageRef}>
           {resumingJob && (

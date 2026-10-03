@@ -119,7 +119,11 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 <Feature>
                   Add {plan.libraryPerDay} ready-made pack{plan.libraryPerDay === 1 ? '' : 's'} a day from the Pack library
                 </Feature>
-                {paid ? <Feature>Never turned away on busy days</Feature> : <Feature>Study guide, flashcards and quiz</Feature>}
+                <Feature>Study guide, flashcards, quiz and timed exam mode</Feature>
+                {plan.theory && <Feature highlight>Theory questions with model answers</Feature>}
+                {paid && <Feature>Never turned away on busy days</Feature>}
+                {plan.scans && <Feature highlight>Reads scanned, photographed and handwritten notes</Feature>}
+                {plan.paste && <Feature highlight>Paste notes from anywhere</Feature>}
                 <Feature>Library synced across your devices</Feature>
               </ul>
 
@@ -220,11 +224,11 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
   )
 }
 
-function Feature({ children }) {
+function Feature({ highlight = false, children }) {
   return (
     <li className="flex gap-2.5">
       <Check className="mt-0.5 size-4 shrink-0 text-brand-600" strokeWidth={2.5} aria-hidden />
-      <span>{children}</span>
+      <span className={highlight ? 'font-semibold text-stone-900' : undefined}>{children}</span>
     </li>
   )
 }

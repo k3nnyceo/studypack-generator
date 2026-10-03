@@ -114,7 +114,7 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
 }
 
 function publicState(env) {
-  const typical = toNaira(estimateCostUsd(TYPICAL_PACK_CHARS), env)
+  const typicalFor = (p) => toNaira(estimateCostUsd(TYPICAL_PACK_CHARS, p.theory), env)
   const gumroad = gumroadProducts(env)
   return {
     paymentsEnabled: Boolean(paystackKey(env)),
@@ -125,10 +125,13 @@ function publicState(env) {
       name: p.name,
       price: p.price,
       // Whole packs that really fit, so the plans page never promises more.
-      packsPerWindow: Math.max(1, Math.floor(p.windowNaira / typical)),
-      packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typical)),
+      packsPerWindow: Math.max(1, Math.floor(p.windowNaira / typicalFor(p))),
+      packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typicalFor(p))),
       maxPages: Math.round(p.maxChars / 500),
       libraryPerDay: p.libraryPerDay,
+      theory: p.theory,
+      scans: p.scans,
+      paste: p.paste,
     })),
   }
 }

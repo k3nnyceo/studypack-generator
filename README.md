@@ -101,16 +101,26 @@ Three plans, with usage counted the way Claude's own app does it: each study pac
 
 | | Free | Pro | Max |
 |---|---|---|---|
-| Price | ₦0 | ₦3,500 / month | ₦6,500 / month |
-| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~2 packs) | ₦2,000 (~5 packs) |
-| Each month / 30-day period | ₦1,000 (~2 packs) | ₦2,300 (~6 packs) | ₦4,600 (~13 packs) |
-| Longest notes | 13K characters (~26 pages) | 39K (~78 pages) | 40K (~80 pages) |
+| Price | ₦0 | ₦3,500 / month | ₦10,500 / month |
+| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~1 pack with theory) | ₦2,000 (~3 packs) |
+| Each month / 30-day period | ₦1,000 (~2 packs) | ₦2,300 (~4 packs) | ₦4,600 (~8 packs) |
+| Longest notes | 13K characters (~26 pages) | 40K (~80 pages) | 40K (~80 pages) |
 | Site-wide daily cap | applies | skipped | skipped |
+| Theory questions | no | yes | yes |
+| Scanned & photographed notes, pasted text | no | no | yes |
 
 All of these are environment variables (`.env.example`). The pack counts are for a typical 23-page, 11K-character lecture, which costs about ₦340; long lectures cost more (about ₦700 for 27K characters and ₦1,000 for 40K, each finishing in about 2½ minutes), so they use more of the allowance. Because usage is charged at real cost, the worst case (a subscriber using everything) stays at roughly ₦1,000 profit on Pro and ₦1,700 on Max after Paystack's fee.
 
 - **Meter** (`server/usageLimits.js`, `server/plans.js`): per account, a counter for the current 3-hour window (fixed windows from 00:00 UTC, so the refill time is predictable) and one for the period (the calendar month in Lagos time on Free; the paid 30-day period on Pro and Max). Before generating, the pack's cost is estimated from the notes' length and reserved; if it doesn't fit, the student sees which allowance ran out and when it refills. When the pack is done its real cost replaces the estimate; if it fails or is cancelled, nothing is charged. Students only ever see percentages, never naira of cost.
 - **Paying** (`server/billing.js`, `server/paystack.js`, `server/subscriptions.js`): the plans page offers each paid plan as **30 days for a one-time payment** (card, bank transfer or USSD) or **renew monthly by card** (a Paystack plan, created automatically the first time). Checkout is Paystack's hosted page; the student comes back to `/?billing=return&reference=…` and the app verifies the transaction with Paystack before applying it. Paystack's webhook (`/api/paystack-webhook`, signature-checked) applies card renewals and records when auto-renew is turned off. Each payment reference is applied once. Paying again on the same plan adds 30 days to any left; switching plan converts the unused days by price. Switching away from an auto-renewing plan cancels its Paystack subscription. "Manage auto-renew" opens Paystack's page for cancelling or changing the card.
+
+## Exam mode, theory questions, scanned notes
+
+- **Exam mode** (`src/components/ExamMode.jsx`, every plan): from the Quiz, a timed mock exam of 10, 20 or 30 of the pack's questions at 45 s, 1 min or 1½ min each. No feedback until it's submitted; answers can be changed and questions flagged; it submits itself when time runs out (the clock runs from a fixed end time, so a locked phone doesn't pause it). Results give a percentage and a grade on the Nigerian A–F scale, a per-module breakdown and a review of every answer.
+- **Theory questions** (`src/components/Theory.jsx`, Pro and Max, `THEORY_PLANS`): each module gets 2 exam-style written questions ("Explain…", "Calculate…") with marks, a model answer and the examiner's marking points. In the **Theory** tab students can draft an answer, reveal the model answer and tick the points they covered for a self-marked score. Theory adds a roughly fixed cost per module (a 23-page lecture: about $0.22 → $0.35), so cost estimates use separate formulas with and without it (`server/plans.js`). The field is optional in the JSON format; older packs have no Theory tab.
+- **Scanned and photographed notes** (`src/lib/scanPages.js`, `server/transcribe.js`, Max, `SCAN_PLANS`): a PDF where most pages have no text, or photos of pages (JPG/PNG/WEBP, several at once), is offered for reading instead of being rejected. The browser renders each page to a ~1600 px JPEG and sends 5 at a time to `/api/transcribe`, where Claude Haiku 4.5 transcribes them (handwriting, tables and equations as text, diagrams described in brackets). Measured: 40 handwritten pages in 95 s for about $0.09, charged to the usage allowance at real cost. The first 40 pages of a file are read. Files up to 100 MB are accepted (scans are large; they stay on the device).
+- **Pasted text** (Max, `PASTE_PLANS`): "Paste text" on the home page turns pasted notes into the Notes screen.
+- **Reliability:** each Claude call has a stall watchdog. A call that sends nothing for 45 s, or whose stream breaks, is retried once if there's time before Vercel's 300 s limit, and every call's duration is logged (`[study-guide] module 3 55.2s`).
 
 ## Pack library
 
@@ -166,6 +176,7 @@ api/
   paystack-webhook.js         Vercel Function for Paystack's events
   referrals.js                Vercel Function for /api/referrals (visits, admin stats)
   shared.js                   Vercel Function for /api/shared (Pack library)
+  transcribe.js               Vercel Function for /api/transcribe (scanned pages, Max)
 server/
   auth.js                     Google ID token check, signed session cookie
   library.js                  synced library storage and API (Upstash / in-memory)
@@ -182,6 +193,7 @@ server/
   referrals.js                share-link visits, sign-ups and payments
   shared.js                   Pack library: browse, add (daily allowance), share, remove
   gumroad.js                  Gumroad license keys for Pro and Max
+  transcribe.js               reads scanned/photographed pages with Claude Haiku
 src/
   App.jsx                     views (home / notes / guide / flashcards / quiz) and state
   config.js                   feature flags (VITE_ENABLE_AI_GENERATION, VITE_GOOGLE_CLIENT_ID)
@@ -204,6 +216,9 @@ src/
     Plans.jsx, UsageBars.jsx  plans & usage page, usage bars
     ReferralStats.jsx         admin: stats per share link, link builder
     PackLibrary.jsx           the Pack library page
+    ExamMode.jsx              timed mock exam (from the Quiz)
+    Theory.jsx                theory questions with model answers
+    ScanPanel.jsx             scanned notes and pasted text panels
     Toast.jsx                 short confirmations with optional Undo
     FilterChip.jsx, CopyButton.jsx
   lib/
@@ -217,6 +232,7 @@ src/
     billing.js                useBilling, checkout, return from Paystack
     referral.js               captures ?ref= links, first-touch
     shared.js                 Pack library API client
+    scanPages.js              renders scanned pages/photos and reads them
     flashcards.js             builds flashcards from a guide
     quiz.js                   builds quiz questions (+ definition fallback)
     generateStudyGuide.js     starts a generation job and polls it; resumes after a reload (flag-gated)

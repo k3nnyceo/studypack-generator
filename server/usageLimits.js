@@ -137,52 +137,63 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
     // or { ok: false, reason: 'too-long' | 'window' | 'period' | 'site', resetsAt? }.
     async reserve(userId, subscription, chars) {
       const s = scope(userId, subscription)
-      const expected = toNaira(estimateCostUsd(chars), env)
+      const expected = toNaira(estimateCostUsd(chars, s.plan.theory), env)
       if (chars > s.plan.maxChars || expected > s.plan.windowNaira || expected > s.plan.periodNaira) {
         return { ok: false, reason: 'too-long' }
       }
-
-      const windowUsed = await store.add(s.windowKey, expected, WINDOW_MS / 1000 + 3600)
-      const periodUsed = await store.add(s.periodKey, expected, s.periodTtl)
-      const undo = () =>
-        Promise.all([store.add(s.windowKey, -expected, WINDOW_MS / 1000 + 3600), store.add(s.periodKey, -expected, s.periodTtl)])
-      if (windowUsed > s.plan.windowNaira || periodUsed > s.plan.periodNaira) {
-        await undo()
-        // The month running out matters more: the window refilling won't help.
-        return periodUsed > s.plan.periodNaira
-          ? { ok: false, reason: 'period', resetsAt: s.period.endsAt }
-          : { ok: false, reason: 'window', resetsAt: s.windowEndsAt }
-      }
-
-      const free = s.plan.id === 'free'
-      if (free && (await store.add(s.siteKey, 1, 2 * DAY_SECONDS)) > siteDailyCap) {
-        await Promise.all([undo(), store.add(s.siteKey, -1, 2 * DAY_SECONDS)])
-        return { ok: false, reason: 'site' }
-      }
-
-      let finished = false
-      return {
-        ok: true,
-        // The pack is done: charge its real cost (USD, or null if unknown)
-        // instead of the estimate.
-        async settle(costUsd) {
-          if (finished) return
-          finished = true
-          const diff = costUsd === null || costUsd === undefined ? 0 : toNaira(costUsd, env) - expected
-          if (diff) {
-            await Promise.all([
-              store.add(s.windowKey, diff, WINDOW_MS / 1000 + 3600),
-              store.add(s.periodKey, diff, s.periodTtl),
-            ])
-          }
-        },
-        // Generation failed or was cancelled: nothing is charged.
-        async release() {
-          if (finished) return
-          finished = true
-          await Promise.all([undo(), free && store.add(s.siteKey, -1, 2 * DAY_SECONDS)])
-        },
-      }
+      return reserveIn(s, expected, { countPack: true })
     },
+
+    // Reserves a known expected cost in naira for other Claude work (reading
+    // scanned pages). Same allowances; doesn't count as a pack.
+    async reserveCost(userId, subscription, expected) {
+      const s = scope(userId, subscription)
+      if (expected > s.plan.windowNaira || expected > s.plan.periodNaira) return { ok: false, reason: 'too-long' }
+      return reserveIn(s, expected, { countPack: false })
+    },
+  }
+
+  // Adds `expected` to both allowances, backing out if either is exceeded.
+  // (A function declaration, so it's available to the methods above.)
+  async function reserveIn(s, expected, { countPack }) {
+    const windowUsed = await store.add(s.windowKey, expected, WINDOW_MS / 1000 + 3600)
+    const periodUsed = await store.add(s.periodKey, expected, s.periodTtl)
+    const undo = () =>
+      Promise.all([store.add(s.windowKey, -expected, WINDOW_MS / 1000 + 3600), store.add(s.periodKey, -expected, s.periodTtl)])
+    if (windowUsed > s.plan.windowNaira || periodUsed > s.plan.periodNaira) {
+      await undo()
+      // The month running out matters more: the window refilling won't help.
+      return periodUsed > s.plan.periodNaira
+        ? { ok: false, reason: 'period', resetsAt: s.period.endsAt }
+        : { ok: false, reason: 'window', resetsAt: s.windowEndsAt }
+    }
+
+    // Only packs on Free count toward the site-wide daily cap.
+    const free = s.plan.id === 'free' && countPack
+    if (free && (await store.add(s.siteKey, 1, 2 * DAY_SECONDS)) > siteDailyCap) {
+      await Promise.all([undo(), store.add(s.siteKey, -1, 2 * DAY_SECONDS)])
+      return { ok: false, reason: 'site' }
+    }
+
+    let finished = false
+    return {
+      ok: true,
+      // The work is done: charge its real cost (USD, or null if unknown)
+      // instead of the estimate.
+      async settle(costUsd) {
+        if (finished) return
+        finished = true
+        const diff = costUsd === null || costUsd === undefined ? 0 : toNaira(costUsd, env) - expected
+        if (diff) {
+          await Promise.all([store.add(s.windowKey, diff, WINDOW_MS / 1000 + 3600), store.add(s.periodKey, diff, s.periodTtl)])
+        }
+      },
+      // It failed or was cancelled: nothing is charged.
+      async release() {
+        if (finished) return
+        finished = true
+        await Promise.all([undo(), free && store.add(s.siteKey, -1, 2 * DAY_SECONDS)])
+      },
+    }
   }
 }

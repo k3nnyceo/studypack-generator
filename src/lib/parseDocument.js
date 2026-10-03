@@ -1,4 +1,6 @@
-export const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50 MB
+// Scanned PDFs are large (every page is a picture). Files are read on the
+// device, so this only guards against running out of memory.
+export const MAX_FILE_SIZE = 100 * 1024 * 1024 // 100 MB
 
 const PARSERS = {
   pdf: () => import('./parsePdf.js').then((m) => m.parsePdf),
@@ -35,6 +37,15 @@ export function validateFile(file) {
   return null
 }
 
+// A PDF that's mostly pictures of pages (a scan or phone photos saved as PDF):
+// there's no text to extract, but it can be read (src/lib/scanPages.js).
+export class ScannedPdfError extends Error {
+  constructor(pageCount) {
+    super('This PDF is scanned: its pages are pictures, with no text to copy.')
+    this.pageCount = pageCount
+  }
+}
+
 // Parses a PDF or PPTX entirely in the browser. Parsers are lazy-loaded so the
 // landing page doesn't pay for pdf.js up front.
 export async function parseDocument(file) {
@@ -49,13 +60,14 @@ export async function parseDocument(file) {
     .split(/\s+/)
     .filter(Boolean).length
 
-  if (wordCount === 0) {
-    throw new Error(
-      type === 'pdf'
-        ? 'No text found. This PDF may be scanned images — try a PDF with selectable text.'
-        : 'No text found in these slides.',
-    )
+  // Scanned: no text at all, or most pages have next to none (a typed cover
+  // page in front of scanned handouts is common).
+  const wordsOn = (s) => `${s.title} ${s.text}`.split(/\s+/).filter(Boolean).length
+  const pictureOnly = rawSections.filter((s) => wordsOn(s) < 8).length
+  if (type === 'pdf' && (wordCount === 0 || pictureOnly / rawSections.length >= 0.6)) {
+    throw new ScannedPdfError(rawSections.length)
   }
+  if (wordCount === 0) throw new Error('No text found in these slides.')
 
   const label = type === 'pdf' ? 'Page' : 'Slide'
   const sections = rawSections.map((s) => ({

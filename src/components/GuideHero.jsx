@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Layers, ListChecks } from 'lucide-react'
+import { ArrowRight, BookOpen, Layers, ListChecks, PenLine } from 'lucide-react'
 import { Button, Eyebrow } from './ui.jsx'
 
 // Course header shown above the study views: full on the guide, compact on
@@ -66,6 +66,16 @@ export default function GuideHero({ guide, fileName, compact, counts, onNavigate
             Take the {counts.quiz}-question quiz
             <ArrowRight className="size-4" strokeWidth={2.25} aria-hidden />
           </Button>
+          {counts.theory > 0 && (
+            <Button
+              onClick={() => onNavigate('theory')}
+              className="bg-white/10 text-white ring-1 ring-white/25 hover:bg-white/15"
+              variant="ghost"
+            >
+              <PenLine className="size-4" strokeWidth={2.25} aria-hidden />
+              Practise {counts.theory} theory questions
+            </Button>
+          )}
         </div>
       </div>
     </header>

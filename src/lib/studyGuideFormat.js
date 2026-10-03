@@ -35,6 +35,14 @@ export const EXAMPLE_GUIDE = {
           explanation: 'The electron transport chain in the mitochondria produces most ATP.',
         },
       ],
+      theory: [
+        {
+          question: 'Explain how the mitochondrion produces most of the cell’s ATP.',
+          marks: 10,
+          modelAnswer: 'Glucose is first broken down in glycolysis… (a complete answer a student could write in an exam).',
+          markingPoints: ['Glycolysis in the cytoplasm', 'Krebs cycle in the matrix', 'Electron transport chain and ATP synthase'],
+        },
+      ],
     },
   ],
 }
@@ -142,6 +150,23 @@ export function validateStudyGuide(data) {
         quiz: list(mod, 'quiz', path, (q, p) => object(q, p, (question) => readQuizQuestion(question, p)), {
           optional: true,
         }),
+        // Exam-style written questions. Optional: older packs don't have them.
+        theory: list(
+          mod,
+          'theory',
+          path,
+          (t, p) =>
+            object(t, p, (tq) => ({
+              question: text(tq, 'question', p),
+              marks: Number.isInteger(tq.marks) && tq.marks > 0 ? tq.marks : null,
+              modelAnswer: text(tq, 'modelAnswer', p),
+              markingPoints: list(tq, 'markingPoints', p, (point, pp) => {
+                if (!isText(point)) fail(pp, `must be a non-empty string (got ${describe(point)})`)
+                return String(point ?? '')
+              }),
+            })),
+          { optional: true },
+        ),
       })),
     ),
   }))
@@ -207,6 +232,7 @@ Rules:
 - definitions: every important term the module introduces, defined precisely in plain language.
 - workedExamples: 3-5 per module, each with the problem, step-by-step reasoning in "steps", and the final answer. Use real calculations for quantitative topics; scenarios or "explain why" questions for conceptual ones.
 - quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Make wrong options plausible misconceptions, not obvious throwaways. Give a one-sentence explanation.
+- theory: 2-3 exam-style written questions per module ("Explain…", "Derive…", "Calculate…", "Distinguish between…"), each with the marks an examiner might award, a complete modelAnswer a student could write in the exam (with working for calculations), and the 3-6 markingPoints an examiner would look for.
 - course: the course this lecture belongs to, e.g. "MECH 2201 Strength of Materials". topic: a short name for this lecture's topic.
 - sourceRange: which pages or slides the module draws from.
 - The notes were extracted automatically from a PDF or slides, so ignore page numbers, headers and other boilerplate.

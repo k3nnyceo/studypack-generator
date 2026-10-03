@@ -18,7 +18,7 @@ const PLAN_EFFORT = process.env.STUDY_GUIDE_PLAN_EFFORT || 'low'
 
 // USD per million tokens at Anthropic's list prices, for the cost line in the
 // server log. Bedrock bills through AWS; its global endpoints match these rates.
-const PRICING = {
+export const PRICING = {
   'claude-opus-5': { input: 5, output: 25 },
   'claude-opus-4-8': { input: 5, output: 25 },
   'claude-opus-4-6': { input: 5, output: 25 },
@@ -27,7 +27,7 @@ const PRICING = {
   'claude-haiku-4-5': { input: 1, output: 5 },
 }
 // "global.anthropic.claude-opus-4-6-v1" / "claude-haiku-4-5-20251001" -> "claude-opus-4-6" / "claude-haiku-4-5"
-const priceKey = (model = '') =>
+export const priceKey = (model = '') =>
   model.replace(/^(global|us|eu|apac|jp)\./, '').replace(/^anthropic\./, '').replace(/(-v\d+(:\d+)?|-\d{8}(-v\d+:\d+)?)$/, '')
 
 // Generation runs in two stages so long lectures finish well inside a serverless
@@ -42,7 +42,7 @@ const priceKey = (model = '') =>
 const MODULE_SCHEMA = {
   type: 'object',
   additionalProperties: false,
-  required: ['title', 'sourceRange', 'summary', 'keyPoints', 'definitions', 'workedExamples', 'quiz'],
+  required: ['title', 'sourceRange', 'summary', 'keyPoints', 'definitions', 'workedExamples', 'quiz', 'theory'],
   properties: {
     title: { type: 'string' },
     sourceRange: { type: 'string', description: 'Which pages or slides this module draws from, e.g. "Slides 4-11".' },
@@ -85,7 +85,29 @@ const MODULE_SCHEMA = {
         },
       },
     },
+    theory: {
+      type: 'array',
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['question', 'marks', 'modelAnswer', 'markingPoints'],
+        properties: {
+          question: { type: 'string' },
+          marks: { type: 'integer', description: 'Marks an examiner might award, e.g. 5-15.' },
+          modelAnswer: { type: 'string' },
+          markingPoints: { type: 'array', items: { type: 'string' } },
+        },
+      },
+    },
   },
+}
+
+// The same module without theory questions, for plans that don't include them.
+const { theory: _theory, ...plainModuleProperties } = MODULE_SCHEMA.properties
+const MODULE_SCHEMA_PLAIN = {
+  ...MODULE_SCHEMA,
+  required: MODULE_SCHEMA.required.filter((key) => key !== 'theory'),
+  properties: plainModuleProperties,
 }
 
 const PLAN_SCHEMA = {
@@ -120,7 +142,12 @@ const MAX_MODULES = 10
 
 // Identical for every call so the cached prefix is shared; the stage-specific
 // instruction comes after the notes.
-const SYSTEM_PROMPT = `You turn a student's lecture notes into a study guide they can revise from.
+const THEORY_RULE = `
+- theory: exactly 2 exam-style written questions of the kind set in university exams, such as "Explain…", "Derive…", "Calculate…" or "Distinguish between…". Give the marks an examiner might award (typically 5-10), a concise modelAnswer a strong student could write in the exam (about 120-250 words, with the working for calculations), and 3-5 markingPoints: short phrases naming what an examiner would look for.`
+
+// The same for every call of one pack, so they share the cached prefix.
+// Theory questions are only written for plans that include them.
+const systemPrompt = (theory) => `You turn a student's lecture notes into a study guide they can revise from.
 
 The notes were extracted automatically from a PDF or PowerPoint, so expect broken line wraps, stray headers and footers, and slide fragments. Reconstruct the intended meaning; ignore boilerplate such as page numbers and course codes.
 
@@ -129,7 +156,7 @@ The guide is organised into modules that follow the lecture's own topic boundari
 - keyPoints: the facts or ideas a student most needs to remember.
 - definitions: every important term the module introduces, defined precisely in plain language.
 - workedExamples: 3 examples (up to 5 for a long, dense module) that apply the module's ideas, each with the problem, numbered reasoning steps, and the final answer. For quantitative topics use real calculations; for conceptual topics use scenarios, case analyses or "explain why" questions worked through step by step.
-- quiz: 3-4 multiple-choice questions with 4 plausible options each, testing understanding rather than wording. correctIndex counts from 0. Give a one-sentence explanation of the right answer.
+- quiz: 3-4 multiple-choice questions with 4 plausible options each, testing understanding rather than wording. correctIndex counts from 0. Give a one-sentence explanation of the right answer.${theory ? THEORY_RULE : ''}
 
 Stay faithful to the notes. You may add standard background knowledge to make an explanation or example clearer, but don't contradict the source or invent course-specific facts such as dates, names or exam details.`
 
@@ -151,6 +178,15 @@ Focus: ${m.focus}
 Write only this module. The other modules are written separately, so don't cover their material. Use exactly this title and sourceRange.`
 }
 
+// A call that sends nothing for this long is treated as stuck. Responses
+// stream continuously (thinking, then JSON), so a long silence means trouble.
+const STALL_MS = 45_000
+// Only retry a stuck call if there's time for a second attempt within
+// Vercel's 300-second limit.
+const RETRY_BEFORE_MS = 170_000
+
+class StreamStalledError extends Error {}
+
 export class StudyGuideError extends Error {
   constructor(message, status = 500) {
     super(message)
@@ -159,7 +195,7 @@ export class StudyGuideError extends Error {
 }
 
 let client
-function getClient() {
+export function getClient() {
   client ??=
     PROVIDER === 'bedrock'
       ? new AnthropicBedrock({ apiKey: process.env.BEDROCK_API_KEY, awsRegion: BEDROCK_REGION })
@@ -170,7 +206,9 @@ function getClient() {
 // `signal` cancels the request, e.g. when the visitor closes the page.
 // `onCost` receives the guide's estimated cost in USD (null if the model's
 // price isn't known), which the usage meter charges to the student's plan.
-export async function generateStudyGuide({ text, fileName, signal, onCost }) {
+// `theory` adds exam-style written questions to each module (paid plans).
+export async function generateStudyGuide({ text, fileName, signal, onCost, theory = false }) {
+  const system = systemPrompt(theory)
   const started = Date.now()
   // One controller for every call: the visitor leaving, or any one call
   // failing, stops the rest so we aren't billed for work that will be discarded.
@@ -179,17 +217,30 @@ export async function generateStudyGuide({ text, fileName, signal, onCost }) {
   signal?.addEventListener('abort', onAbort, { once: true })
   const messages = []
   const notesText = `<lecture_notes filename="${escapeAttr(fileName)}">\n${text}\n</lecture_notes>`
-  const ask = async ({ instruction, schema, maxTokens, effort, cache = false, onStart }) => {
+  // One call, retried once if its stream stalls or breaks, while there's still
+  // time to finish inside the serverless limit. Bedrock occasionally stops
+  // sending mid-response; without this, one stuck module failed the whole pack.
+  const ask = async ({ label, instruction, schema, maxTokens, effort, cache = false, onStart }) => {
     const notes = { type: 'text', text: notesText, ...(cache && { cache_control: { type: 'ephemeral' } }) }
-    const { data, message } = await callClaude({ notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
-    messages.push(message)
-    return data
+    for (let attempt = 1; ; attempt++) {
+      const callStarted = Date.now()
+      try {
+        const { data, message } = await callClaude({ system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
+        messages.push(message)
+        console.log(`[study-guide] ${label} ${((Date.now() - callStarted) / 1000).toFixed(1)}s out=${message.usage?.output_tokens}${attempt > 1 ? ' (retry)' : ''}`)
+        return data
+      } catch (err) {
+        const retryable = err instanceof StreamStalledError || /Unexpected event order|terminated|ECONNRESET|socket hang up/i.test(err.message)
+        if (!retryable || attempt > 1 || controller.signal.aborted || Date.now() - started > RETRY_BEFORE_MS) throw err
+        console.warn(`[study-guide] ${label} failed after ${((Date.now() - callStarted) / 1000).toFixed(1)}s (${err.message}); retrying`)
+      }
+    }
   }
 
   try {
     // The plan is a short outline, so it runs at low effort. It isn't cached:
     // its schema differs from the module calls', so they couldn't reuse it.
-    const plan = await ask({ instruction: PLAN_INSTRUCTION, schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
+    const plan = await ask({ label: 'plan', instruction: PLAN_INSTRUCTION, schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
     if (!Array.isArray(plan.modules) || plan.modules.length === 0) {
       throw new StudyGuideError('Claude couldn’t find any topics in these notes.', 422)
     }
@@ -202,7 +253,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost }) {
     let firstStarted
     const cacheReady = new Promise((resolve) => (firstStarted = resolve))
     const writeModule = (i, onStart) =>
-      ask({ instruction: moduleInstruction(plan, i), schema: MODULE_SCHEMA, maxTokens: 16000, effort: EFFORT, cache: true, onStart }).then(
+      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
       )
     const modules = await Promise.all(
@@ -238,7 +289,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost }) {
   }
 }
 
-async function callClaude({ notes, instruction, schema, maxTokens, effort, onStart, signal }) {
+async function callClaude({ system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
   // Server-side refusal fallbacks exist only on the Claude API (Opus/Fable tier):
   // if a safety classifier declines, it retries on the recommended model. Bedrock
   // doesn't offer them, so a refusal there is reported to the student instead.
@@ -255,13 +306,30 @@ async function callClaude({ notes, instruction, schema, maxTokens, effort, onSta
       thinking: { type: 'adaptive' },
       output_config: { effort, format: { type: 'json_schema', schema } },
       ...fallback,
-      system: SYSTEM_PROMPT,
+      system,
       messages: [{ role: 'user', content: [notes, { type: 'text', text: instruction }] }],
     },
     { signal },
   )
   if (onStart) stream.once('streamEvent', onStart)
-  const message = await stream.finalMessage()
+  let lastEvent = Date.now()
+  let stalled = false
+  stream.on('streamEvent', () => (lastEvent = Date.now()))
+  const watchdog = setInterval(() => {
+    if (Date.now() - lastEvent > STALL_MS) {
+      stalled = true
+      stream.abort()
+    }
+  }, 5000)
+  let message
+  try {
+    message = await stream.finalMessage()
+  } catch (err) {
+    if (stalled) throw new StreamStalledError(`no data for ${STALL_MS / 1000}s`)
+    throw err
+  } finally {
+    clearInterval(watchdog)
+  }
 
   if (message.stop_reason === 'refusal') {
     throw new StudyGuideError('Claude declined to generate a study guide for this document.', 422)

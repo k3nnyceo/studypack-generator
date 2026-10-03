@@ -99,11 +99,11 @@ export async function handleStudyGuideRequest(
     return unavailable(res)
   }
 
-  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, slot, jobs, generate }))
+  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, slot, jobs, generate, theory: plan.theory }))
   sendJson(res, 202, { jobId })
 }
 
-async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, generate }) {
+async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, generate, theory }) {
   // The visitor's Cancel arrives as a separate request, recorded in the store.
   const abort = new AbortController()
   const cancelCheck = setInterval(async () => {
@@ -113,7 +113,7 @@ async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, gen
 
   try {
     let cost = null
-    const guide = await generate({ text, fileName, signal: abort.signal, onCost: (usd) => (cost = usd) })
+    const guide = await generate({ text, fileName, theory, signal: abort.signal, onCost: (usd) => (cost = usd) })
     await slot.settle(cost).catch((e) => console.error('[study-guide] Could not record usage:', e.message))
     await jobs.set(jobId, { status: 'done', startedAt, owner, guide })
   } catch (err) {

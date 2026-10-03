@@ -8,10 +8,12 @@ import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
 import PackLibrary from './components/PackLibrary.jsx'
+import { PastePanel, ScanPanel } from './components/ScanPanel.jsx'
 import Plans from './components/Plans.jsx'
 import ReferralStats from './components/ReferralStats.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
+import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
 import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
@@ -21,7 +23,8 @@ import { captureReferral } from './lib/referral.js'
 import { fetchShared, listShared, removeShared, sharePack } from './lib/shared.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
-import { parseDocument, validateFile } from './lib/parseDocument.js'
+import { parseDocument, ScannedPdfError, validateFile } from './lib/parseDocument.js'
+import { isImageFile, pastedResult, photos, readScan, scannedPdf } from './lib/scanPages.js'
 import { buildQuiz } from './lib/quiz.js'
 import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
 import { takeSharedFile } from './lib/sharedFile.js'
@@ -45,8 +48,8 @@ captureReferral()
 // so the browser's Back and Forward buttons (and Android's back gesture) move
 // between screens. Study screens need a pack in memory, so after a reload
 // they fall back to the home page.
-const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz']
-const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz']
+const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz', 'theory']
+const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz', 'theory']
 const viewFromUrl = () => {
   const view = window.location.hash.replace(/^#\/?/, '')
   return VIEWS.includes(view) ? view : 'home'
@@ -56,7 +59,7 @@ const initialView = paymentReturn ? 'plans' : NEEDS_PACK.includes(viewFromUrl())
 window.history.replaceState({ view: initialView }, '', urlFor(initialView))
 
 export default function App() {
-  // view: 'home' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz'
+  // view: 'home' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz' | 'theory'
   const [view, setView] = useState(initialView)
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
@@ -120,6 +123,13 @@ export default function App() {
   // Built once per guide, so quiz option order stays put while switching views.
   const cards = useMemo(() => (guide ? buildFlashcards(guide) : []), [guide])
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
+  const theoryItems = useMemo(
+    () =>
+      (guide?.modules ?? []).flatMap((module, m) =>
+        (module.theory ?? []).map((t, i) => ({ ...t, id: `m${m}-t${i}`, moduleIndex: m, moduleTitle: module.title })),
+      ),
+    [guide],
+  )
 
   // Flashcards reviewed this session; cleared when a new guide is loaded.
   const [reviewedCards, setReviewedCards] = useState(() => new Set())
@@ -143,7 +153,7 @@ export default function App() {
 
   // Back and Forward. Read through a ref, since the listener outlives renders.
   const hasPack = useRef({})
-  hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide) }
+  hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide), theory: Boolean(guide) }
   useEffect(() => {
     function onPopState(e) {
       let next = VIEWS.includes(e.state?.view) ? e.state.view : viewFromUrl()
@@ -321,7 +331,59 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  async function handleFile(file) {
+  // Scanned or photographed notes, and pasted text (Max): see ScanPanel.
+  const [scan, setScan] = useState(null) // { kind, fileName, pageCount, getPage, close }
+  const [scanProgress, setScanProgress] = useState(null)
+  const [scanError, setScanError] = useState(null)
+  const [pasting, setPasting] = useState(false)
+  const scanAbort = useRef(null)
+  const currentPlan = billing.billing?.plans?.find((p) => p.id === billing.billing?.plan)
+  const canScan = auth.user ? (currentPlan ? Boolean(currentPlan.scans) : null) : null
+  const canPaste = auth.user ? (currentPlan ? Boolean(currentPlan.paste) : null) : null
+
+  function showScan(next) {
+    Promise.resolve()
+      .then(() => scan?.close())
+      .catch(() => {})
+    setPasting(false)
+    setScanError(null)
+    setError('')
+    setStatus('idle')
+    setScan(next)
+  }
+
+  async function readScanned() {
+    scanAbort.current = new AbortController()
+    setScanError(null)
+    setScanProgress({ done: 0, total: Math.min(scan.pageCount, 40) })
+    try {
+      const notes = await readScan(scan, { onProgress: setScanProgress, signal: scanAbort.current.signal })
+      setScan(null)
+      setFileName(notes.fileName)
+      setResult(notes)
+      navigate('notes')
+    } catch (err) {
+      if (err.status === 401) auth.expire()
+      if (err.name !== 'AbortError') setScanError({ message: err.message, reason: err.reason, resetsAt: err.resetsAt })
+    } finally {
+      setScanProgress(null)
+      billing.refresh()
+    }
+  }
+
+  function openPasted(text) {
+    setPasting(false)
+    const notes = pastedResult(text)
+    setFileName(notes.fileName)
+    setResult(notes)
+    navigate('notes')
+  }
+
+  async function handleFile(fileOrFiles) {
+    const files = Array.isArray(fileOrFiles) ? fileOrFiles : [fileOrFiles]
+    if (files.every(isImageFile)) return showScan(photos(files))
+    if (files.length > 1) return fail('Choose one PDF or PowerPoint file, or several photos of your notes.')
+    const file = files[0]
     if (file.name.toLowerCase().endsWith('.json') || file.type === 'application/json') return handleGuideFile(file)
 
     const validationError = validateFile(file)
@@ -336,6 +398,11 @@ export default function App() {
       setStatus('idle')
       navigate('notes')
     } catch (err) {
+      if (err instanceof ScannedPdfError) {
+        return scannedPdf(file)
+          .then(showScan)
+          .catch(() => fail('This PDF is scanned, and it couldn’t be opened for reading.'))
+      }
       console.error(err)
       fail(err.message || 'Something went wrong reading that file.')
     } finally {
@@ -375,7 +442,7 @@ export default function App() {
   }
 
   const moduleTitles = guide?.modules.map((m) => m.title) ?? []
-  const isStudyView = guide && ['guide', 'flashcards', 'quiz'].includes(view)
+  const isStudyView = guide && ['guide', 'flashcards', 'quiz', 'theory'].includes(view)
 
   return (
     <div className="min-h-screen">
@@ -385,7 +452,7 @@ export default function App() {
         onReset={reset}
         hasNotes={Boolean(result)}
         guide={guide}
-        counts={{ flashcards: cards.length, quiz: questions.length }}
+        counts={{ flashcards: cards.length, quiz: questions.length, theory: theoryItems.length }}
         libraryCount={library.entries.length}
         user={auth.user}
         showSignIn={SIGN_IN_ENABLED && auth.ready}
@@ -400,6 +467,33 @@ export default function App() {
               onFile={handleFile}
               onTrySample={loadSample}
               onBrowseShared={() => navigate('explore')}
+              onPaste={() => {
+                showScan(null)
+                setPasting(true)
+              }}
+              panel={
+                scan ? (
+                  <ScanPanel
+                    scan={scan}
+                    progress={scanProgress}
+                    error={scanError}
+                    allowed={canScan}
+                    signedIn={Boolean(auth.user)}
+                    onRead={readScanned}
+                    onCancel={() => scanAbort.current?.abort()}
+                    onClose={() => showScan(null)}
+                    onOpenPlans={() => navigate('plans')}
+                  />
+                ) : pasting ? (
+                  <PastePanel
+                    allowed={canPaste}
+                    signedIn={Boolean(auth.user)}
+                    onSubmit={openPasted}
+                    onClose={() => setPasting(false)}
+                    onOpenPlans={() => navigate('plans')}
+                  />
+                ) : null
+              }
               status={status}
               resumingJob={resumingJob}
               onCancelResume={() => resumeAbort.current?.abort()}
@@ -500,7 +594,7 @@ export default function App() {
                 guide={guide}
                 fileName={fileName}
                 compact={view !== 'guide'}
-                counts={{ flashcards: cards.length, quiz: questions.length }}
+                counts={{ flashcards: cards.length, quiz: questions.length, theory: theoryItems.length }}
                 onNavigate={navigate}
               />
               {view === 'guide' && <StudyGuide guide={guide} />}
@@ -513,6 +607,7 @@ export default function App() {
                   onResetProgress={() => setReviewedCards(new Set())}
                 />
               )}
+              {view === 'theory' && <Theory items={theoryItems} modules={moduleTitles} />}
               {view === 'quiz' && (
                 <Quiz
                   questions={questions}

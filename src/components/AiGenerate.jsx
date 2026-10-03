@@ -55,7 +55,7 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
             <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>
               Generate study pack
             </Button>
-            <span className="text-sm text-stone-500">Takes about a minute</span>
+            <span className="text-sm text-stone-500">Takes 2–3 minutes</span>
           </div>
         )}
 
@@ -124,7 +124,7 @@ function GeneratingStatus({ onCancel }) {
       <div className="mt-3 h-2 overflow-hidden rounded-full bg-brand-100">
         <div className="h-full w-1/3 animate-[indeterminate_1.6s_ease-in-out_infinite] rounded-full bg-gradient-to-r from-brand-400 to-brand-600" />
       </div>
-      <p className="mt-3 text-sm text-stone-500">This usually takes 1–2 minutes. It keeps going if you lock your phone or switch apps; come back here to see it.</p>
+      <p className="mt-3 text-sm text-stone-500">This usually takes 2–3 minutes. It keeps going if you lock your phone or switch apps; come back here to see it.</p>
     </div>
   )
 }

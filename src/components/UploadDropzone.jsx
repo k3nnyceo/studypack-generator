@@ -5,6 +5,7 @@ import { clearPendingUpload, markPendingUpload } from '../lib/pendingUpload.js'
 const FORMATS = [
   { label: 'PDF', className: 'bg-rose-50 text-rose-700 ring-rose-200' },
   { label: 'PPTX', className: 'bg-amber-50 text-amber-800 ring-amber-200' },
+  { label: 'Photos & scans', className: 'bg-sky-50 text-sky-700 ring-sky-200' },
   { label: 'Study guide JSON', className: 'bg-brand-50 text-brand-700 ring-brand-200' },
 ]
 
@@ -25,9 +26,10 @@ export default function UploadDropzone({ onFile, disabled }) {
     inputRef.current?.click()
   }
 
+  // Several files only make sense as photos of pages; App sorts that out.
   function handleFiles(files) {
     if (disabled || !files?.length) return
-    onFile(files[0])
+    onFile(files.length === 1 ? files[0] : [...files])
   }
 
   return (
@@ -76,7 +78,7 @@ export default function UploadDropzone({ onFile, disabled }) {
         </p>
         <p className="mt-1 text-sm text-stone-500">
           or <span className="font-semibold text-brand-600 underline-offset-4 group-hover:underline">browse files</span>{' '}
-          · up to 50 MB
+          · up to 100 MB
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs font-semibold">
           {FORMATS.map((f) => (
@@ -89,7 +91,8 @@ export default function UploadDropzone({ onFile, disabled }) {
       <input
         ref={inputRef}
         type="file"
-        accept=".pdf,.pptx,.json,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/json"
+        accept=".pdf,.pptx,.json,.jpg,.jpeg,.png,.webp,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/json,image/jpeg,image/png,image/webp"
+        multiple
         className="hidden"
         // The input sits inside the dropzone: stop its click bubbling back up
         // and opening the picker a second time.

@@ -1,4 +1,4 @@
-import { BookOpen, FileText, Layers, Library, ListChecks, Plus } from 'lucide-react'
+import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus } from 'lucide-react'
 import AccountMenu from './AccountMenu.jsx'
 import { Button, Logo } from './ui.jsx'
 
@@ -24,6 +24,8 @@ export default function AppHeader({
     { id: 'guide', label: 'Study guide', short: 'Guide', icon: BookOpen },
     { id: 'flashcards', label: 'Flashcards', short: 'Cards', icon: Layers, count: counts.flashcards },
     { id: 'quiz', label: 'Quiz', short: 'Quiz', icon: ListChecks, count: counts.quiz },
+    // Only packs generated with theory questions have this tab.
+    counts.theory > 0 && { id: 'theory', label: 'Theory', short: 'Theory', icon: PenLine, count: counts.theory },
   ].filter(Boolean)
 
   return (
