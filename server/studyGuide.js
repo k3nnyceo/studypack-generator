@@ -178,14 +178,25 @@ Focus: ${m.focus}
 Write only this module. The other modules are written separately, so don't cover their material. Use exactly this title and sourceRange.`
 }
 
-// A call that sends nothing for this long is treated as stuck. Responses
-// stream continuously (thinking, then JSON), so a long silence means trouble.
+// A call is treated as stuck if its first output takes longer than
+// FIRST_OUTPUT_MS, or it then goes silent for STALL_MS. Bedrock's wait before
+// the first output varies a lot (measured 2-36 s for the same request), but
+// once a response starts it streams steadily.
+const FIRST_OUTPUT_MS = 90_000
 const STALL_MS = 45_000
+// Other modules wait for module 1 to start (so they can read its prompt
+// cache), but not longer than this: a slow start mustn't hold them all up.
+const CACHE_WAIT_MS = 20_000
 // Only retry a stuck call if there's time for a second attempt within
 // Vercel's 300-second limit.
 const RETRY_BEFORE_MS = 170_000
 
 class StreamStalledError extends Error {}
+
+// On Bedrock, a retry goes to the other cross-region version of the model
+// (global <-> US-only), which tends to be slow at different moments.
+const otherProfile = (model) =>
+  PROVIDER !== 'bedrock' ? model : model.startsWith('global.') ? model.replace(/^global\./, 'us.') : model.replace(/^us\./, 'global.')
 
 export class StudyGuideError extends Error {
   constructor(message, status = 500) {
@@ -225,7 +236,8 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     for (let attempt = 1; ; attempt++) {
       const callStarted = Date.now()
       try {
-        const { data, message } = await callClaude({ system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
+        const model = attempt === 1 ? MODEL : otherProfile(MODEL)
+        const { data, message } = await callClaude({ model, system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
         messages.push(message)
         console.log(`[study-guide] ${label} ${((Date.now() - callStarted) / 1000).toFixed(1)}s out=${message.usage?.output_tokens}${attempt > 1 ? ' (retry)' : ''}`)
         return data
@@ -251,7 +263,10 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     // module 1 goes first and writes it; the others start the moment module 1
     // begins replying, and read the notes from the cache.
     let firstStarted
-    const cacheReady = new Promise((resolve) => (firstStarted = resolve))
+    const cacheReady = Promise.race([
+      new Promise((resolve) => (firstStarted = resolve)),
+      new Promise((resolve) => setTimeout(resolve, CACHE_WAIT_MS)),
+    ])
     const writeModule = (i, onStart) =>
       ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
@@ -289,7 +304,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
   }
 }
 
-async function callClaude({ system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
+async function callClaude({ model = MODEL, system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
   // Server-side refusal fallbacks exist only on the Claude API (Opus/Fable tier):
   // if a safety classifier declines, it retries on the recommended model. Bedrock
   // doesn't offer them, so a refusal there is reported to the student instead.
@@ -300,7 +315,7 @@ async function callClaude({ system, notes, instruction, schema, maxTokens, effor
   const messagesApi = fallback ? getClient().beta.messages : getClient().messages
   const stream = messagesApi.stream(
     {
-      model: MODEL,
+      model,
       max_tokens: maxTokens,
       // Calls that share a cache must use the same thinking and effort settings.
       thinking: { type: 'adaptive' },
@@ -312,12 +327,14 @@ async function callClaude({ system, notes, instruction, schema, maxTokens, effor
     { signal },
   )
   if (onStart) stream.once('streamEvent', onStart)
-  let lastEvent = Date.now()
-  let stalled = false
+  const callStarted = Date.now()
+  let lastEvent = null
+  let stalled = null
   stream.on('streamEvent', () => (lastEvent = Date.now()))
   const watchdog = setInterval(() => {
-    if (Date.now() - lastEvent > STALL_MS) {
-      stalled = true
+    const now = Date.now()
+    if (lastEvent === null ? now - callStarted > FIRST_OUTPUT_MS : now - lastEvent > STALL_MS) {
+      stalled = lastEvent === null ? `no output after ${FIRST_OUTPUT_MS / 1000}s` : `no data for ${STALL_MS / 1000}s`
       stream.abort()
     }
   }, 5000)
@@ -325,7 +342,7 @@ async function callClaude({ system, notes, instruction, schema, maxTokens, effor
   try {
     message = await stream.finalMessage()
   } catch (err) {
-    if (stalled) throw new StreamStalledError(`no data for ${STALL_MS / 1000}s`)
+    if (stalled) throw new StreamStalledError(stalled)
     throw err
   } finally {
     clearInterval(watchdog)
