@@ -41,9 +41,23 @@ const paymentReturn = takePaymentReturn()
 // A share link (?ref=…) this visit came through.
 captureReferral()
 
+// Each screen has its own address (#/library, #/plans, …) and history entry,
+// so the browser's Back and Forward buttons (and Android's back gesture) move
+// between screens. Study screens need a pack in memory, so after a reload
+// they fall back to the home page.
+const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz']
+const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz']
+const viewFromUrl = () => {
+  const view = window.location.hash.replace(/^#\/?/, '')
+  return VIEWS.includes(view) ? view : 'home'
+}
+const urlFor = (view) => (view === 'home' ? window.location.pathname + window.location.search : `#/${view}`)
+const initialView = paymentReturn ? 'plans' : NEEDS_PACK.includes(viewFromUrl()) ? 'home' : viewFromUrl()
+window.history.replaceState({ view: initialView }, '', urlFor(initialView))
+
 export default function App() {
   // view: 'home' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz'
-  const [view, setView] = useState(paymentReturn ? 'plans' : 'home')
+  const [view, setView] = useState(initialView)
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
   const [result, setResult] = useState(null)
@@ -122,9 +136,27 @@ export default function App() {
     })
 
   function navigate(next) {
+    if (next !== view) window.history.pushState({ view: next }, '', urlFor(next))
     setView(next)
     window.scrollTo({ top: 0 })
   }
+
+  // Back and Forward. Read through a ref, since the listener outlives renders.
+  const hasPack = useRef({})
+  hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide) }
+  useEffect(() => {
+    function onPopState(e) {
+      let next = VIEWS.includes(e.state?.view) ? e.state.view : viewFromUrl()
+      if (NEEDS_PACK.includes(next) && !hasPack.current[next]) {
+        next = 'home'
+        window.history.replaceState({ view: next }, '', urlFor(next))
+      }
+      setView(next)
+      window.scrollTo({ top: 0 })
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   // Shows a guide in the study views, starting a fresh session.
   function openGuide(newGuide, entryId) {

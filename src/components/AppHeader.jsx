@@ -29,7 +29,14 @@ export default function AppHeader({
   return (
     <header className="sticky top-0 z-30 border-b border-stone-200/80 bg-white/75 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6">
-        <Logo />
+        <button
+          type="button"
+          onClick={() => onNavigate('home')}
+          aria-label="StudyPack home"
+          className="-m-1 rounded-xl p-1 transition hover:opacity-85"
+        >
+          <Logo />
+        </button>
 
         {showTabs && (
           <nav
