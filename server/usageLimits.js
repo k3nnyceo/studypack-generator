@@ -151,6 +151,37 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
       if (expected > s.plan.windowNaira || expected > s.plan.periodNaira) return { ok: false, reason: 'too-long' }
       return reserveIn(s, expected, { countPack: false })
     },
+
+    // Counts one use of something with its own limits per 3-hour window and
+    // per period (e.g. YouTube imports), using the same windows and periods.
+    // Resolves to { ok: true, release } or { ok: false, reason, resetsAt }.
+    async reserveCount(userId, subscription, kind, { perWindow, perPeriod }) {
+      const s = scope(userId, subscription)
+      const windowKey = s.windowKey.replace(':use:', `:${kind}:`)
+      const periodKey = s.periodKey.replace(':use:', `:${kind}:`)
+      const windowTtl = WINDOW_MS / 1000 + 3600
+      const inWindow = await store.add(windowKey, 1, windowTtl)
+      const inPeriod = await store.add(periodKey, 1, s.periodTtl)
+      const undo = () => Promise.all([store.add(windowKey, -1, windowTtl), store.add(periodKey, -1, s.periodTtl)])
+      if (inPeriod > perPeriod) {
+        await undo()
+        return { ok: false, reason: 'period', resetsAt: s.period.endsAt }
+      }
+      if (inWindow > perWindow) {
+        await undo()
+        return { ok: false, reason: 'window', resetsAt: s.windowEndsAt }
+      }
+      let released = false
+      return {
+        ok: true,
+        left: { window: perWindow - inWindow, period: perPeriod - inPeriod },
+        async release() {
+          if (released) return
+          released = true
+          await undo()
+        },
+      }
+    },
   }
 
   // Adds `expected` to both allowances, backing out if either is exceeded.

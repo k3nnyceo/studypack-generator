@@ -7,7 +7,9 @@
 //     one sitting can't use up the month, and
 //   - a monthly allowance, which is what keeps a plan's cost below its price.
 // Separately, each plan can add a number of ready-made packs a day from the
-// shared Pack library (server/shared.js); those cost nothing to open.
+// shared Pack library (server/shared.js), which cost nothing to open, and
+// import a number of YouTube lectures (server/youtube.js) per 3-hour window
+// and per month (Free) or paid period.
 // Every number can be changed with an environment variable (see .env.example).
 
 export const WINDOW_MS = 3 * 60 * 60 * 1000
@@ -32,6 +34,8 @@ export function plansFromEnv(env = process.env) {
       periodNaira: num(env.FREE_MONTH_NGN, 1000),
       maxChars: num(env.FREE_MAX_INPUT_CHARS, 13_000),
       libraryPerDay: num(env.FREE_LIBRARY_PER_DAY, 5),
+      youtubePerWindow: num(env.FREE_YOUTUBE_PER_WINDOW, 1),
+      youtubePerMonth: num(env.FREE_YOUTUBE_PER_MONTH, 3),
     },
     pro: {
       id: 'pro',
@@ -41,6 +45,8 @@ export function plansFromEnv(env = process.env) {
       periodNaira: num(env.PRO_MONTH_NGN, 2300),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.PRO_LIBRARY_PER_DAY, 15),
+      youtubePerWindow: num(env.PRO_YOUTUBE_PER_WINDOW, 5),
+      youtubePerMonth: num(env.PRO_YOUTUBE_PER_MONTH, 15),
     },
     max: {
       id: 'max',
@@ -50,6 +56,8 @@ export function plansFromEnv(env = process.env) {
       periodNaira: num(env.MAX_MONTH_NGN, 7000),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.MAX_LIBRARY_PER_DAY, 40),
+      youtubePerWindow: num(env.MAX_YOUTUBE_PER_WINDOW, 10),
+      youtubePerMonth: num(env.MAX_YOUTUBE_PER_MONTH, 30),
     },
   }
   // Features by plan. Theory questions add about ₦200 to a typical pack, so

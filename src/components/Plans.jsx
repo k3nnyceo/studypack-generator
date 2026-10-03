@@ -119,6 +119,11 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 <Feature>
                   Add {plan.libraryPerDay} ready-made pack{plan.libraryPerDay === 1 ? '' : 's'} a day from the Pack library
                 </Feature>
+                {plan.youtubePerMonth > 0 && (
+                  <Feature>
+                    {plan.youtubePerMonth} YouTube lectures a month ({plan.youtubePerWindow} every 3 hours)
+                  </Feature>
+                )}
                 <Feature>Study guide, flashcards, quiz and timed exam mode</Feature>
                 {plan.theory && <Feature highlight>Theory questions with model answers</Feature>}
                 {paid && <Feature>Never turned away on busy days</Feature>}

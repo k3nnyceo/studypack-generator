@@ -8,7 +8,8 @@ import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
 import PackLibrary from './components/PackLibrary.jsx'
-import { PastePanel, ScanPanel } from './components/ScanPanel.jsx'
+import { PastePanel, ScanPanel, YoutubePanel } from './components/ScanPanel.jsx'
+import { youtubeNotes } from './lib/youtube.js'
 import Plans from './components/Plans.jsx'
 import ReferralStats from './components/ReferralStats.jsx'
 import Quiz from './components/Quiz.jsx'
@@ -349,6 +350,7 @@ export default function App() {
   const [scanProgress, setScanProgress] = useState(null)
   const [scanError, setScanError] = useState(null)
   const [pasting, setPasting] = useState(false)
+  const [youtube, setYoutube] = useState(null) // null, or { busy, error } while the YouTube panel is open
   const scanAbort = useRef(null)
   const currentPlan = billing.billing?.plans?.find((p) => p.id === billing.billing?.plan)
   const canScan = auth.user ? (currentPlan ? Boolean(currentPlan.scans) : null) : null
@@ -359,6 +361,7 @@ export default function App() {
       .then(() => scan?.close())
       .catch(() => {})
     setPasting(false)
+    setYoutube(null)
     setScanError(null)
     setError('')
     setStatus('idle')
@@ -381,6 +384,20 @@ export default function App() {
     } finally {
       setScanProgress(null)
       billing.refresh()
+    }
+  }
+
+  async function openYoutube(url) {
+    setYoutube({ busy: true, error: null })
+    try {
+      const notes = await youtubeNotes(url)
+      setYoutube(null)
+      setFileName(notes.fileName)
+      setResult(notes)
+      navigate('notes')
+    } catch (err) {
+      if (err.status === 401) auth.expire()
+      setYoutube({ busy: false, error: { message: err.message, reason: err.reason, resetsAt: err.resetsAt } })
     }
   }
 
@@ -491,6 +508,10 @@ export default function App() {
                 showScan(null)
                 setPasting(true)
               }}
+              onYoutube={() => {
+                showScan(null)
+                setYoutube({ busy: false, error: null })
+              }}
               panel={
                 scan ? (
                   <ScanPanel
@@ -502,6 +523,16 @@ export default function App() {
                     onRead={readScanned}
                     onCancel={() => scanAbort.current?.abort()}
                     onClose={() => showScan(null)}
+                    onOpenPlans={() => navigate('plans')}
+                  />
+                ) : youtube ? (
+                  <YoutubePanel
+                    signedIn={Boolean(auth.user)}
+                    limits={currentPlan && { perWindow: currentPlan.youtubePerWindow, perMonth: currentPlan.youtubePerMonth }}
+                    busy={youtube.busy}
+                    error={youtube.error}
+                    onSubmit={openYoutube}
+                    onClose={() => setYoutube(null)}
                     onOpenPlans={() => navigate('plans')}
                   />
                 ) : pasting ? (

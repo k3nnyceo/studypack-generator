@@ -149,7 +149,7 @@ const THEORY_RULE = `
 // Theory questions are only written for plans that include them.
 const systemPrompt = (theory) => `You turn a student's lecture notes into a study guide they can revise from.
 
-The notes were extracted automatically from a PDF or PowerPoint, so expect broken line wraps, stray headers and footers, and slide fragments. Reconstruct the intended meaning; ignore boilerplate such as page numbers and course codes.
+The notes were extracted automatically from a PDF or PowerPoint, so expect broken line wraps, stray headers and footers, and slide fragments; or they are the captions of a lecture video, labelled with time ranges such as [10:00–15:00], so expect spoken language, repetition and caption errors (use the time ranges as the sourceRange). Reconstruct the intended meaning; ignore boilerplate such as page numbers and course codes.
 
 The guide is organised into modules that follow the lecture's own topic boundaries. Each module has:
 - summary: the ideas explained the way a good tutor would, not a list of slide titles.

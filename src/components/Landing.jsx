@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, ClipboardType, LibraryBig, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
+import { ArrowRight, BookOpen, ClipboardType, LibraryBig, MonitorPlay, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
@@ -52,6 +52,7 @@ export default function Landing({
   onTrySample,
   onBrowseShared,
   onPaste,
+  onYoutube,
   panel,
   status,
   resumingJob,
@@ -112,6 +113,9 @@ export default function Landing({
           </Button>
           <Button variant="ghost" icon={LibraryBig} onClick={onBrowseShared} disabled={status === 'parsing'}>
             Browse ready-made packs
+          </Button>
+          <Button variant="ghost" icon={MonitorPlay} onClick={onYoutube} disabled={status === 'parsing'}>
+            YouTube link
           </Button>
           <Button variant="ghost" icon={ClipboardType} onClick={onPaste} disabled={status === 'parsing'}>
             Paste text

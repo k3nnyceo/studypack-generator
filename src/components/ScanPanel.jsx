@@ -1,4 +1,4 @@
-import { ClipboardType, Loader2, ScanText, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { ClipboardType, Loader2, MonitorPlay, ScanText, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useState } from 'react'
 import { formatResetTime } from '../lib/billing.js'
 import { MAX_SCAN_PAGES } from '../lib/scanPages.js'
@@ -90,6 +90,47 @@ export function PastePanel({ allowed, signedIn, onSubmit, onClose, onOpenPlans }
   )
 }
 
+// A YouTube lecture's link. Every plan can import a few videos per 3 hours
+// and per month; `limits` is { perWindow, perMonth } for the student's plan.
+export function YoutubePanel({ signedIn, limits, busy, error, onSubmit, onClose, onOpenPlans }) {
+  const [url, setUrl] = useState('')
+  return (
+    <Panel icon={MonitorPlay} title="A YouTube lecture" onClose={busy ? null : onClose}>
+      {!signedIn ? (
+        <p className="text-sm text-stone-600">Sign in to turn a YouTube lecture into a study pack. It’s free to try.</p>
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            onSubmit(url)
+          }}
+        >
+          <p className="mb-3 text-sm text-stone-600">
+            Paste the link to a lecture video with captions. StudyPack turns what’s said into notes, then you can generate your pack.
+            {limits && ` Your plan includes ${limits.perMonth} videos a month (${limits.perWindow} every 3 hours).`}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <input
+              type="url"
+              inputMode="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://youtu.be/…"
+              aria-label="YouTube link"
+              disabled={busy}
+              className="h-10 min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-3 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none"
+            />
+            <Button type="submit" variant="primary" icon={busy ? Loader2 : MonitorPlay} disabled={busy || !url.trim()}>
+              {busy ? 'Getting captions…' : 'Get notes'}
+            </Button>
+          </div>
+        </form>
+      )}
+      {error && <ErrorNote error={error} onOpenPlans={onOpenPlans} upgradeOn={['window', 'period']} />}
+    </Panel>
+  )
+}
+
 function Panel({ icon: Icon, title, onClose, children }) {
   return (
     <section className="animate-page-in card mt-5 p-5 text-left" aria-label={title}>
@@ -120,7 +161,7 @@ function Upsell({ onOpenPlans, children }) {
   )
 }
 
-function ErrorNote({ error, onOpenPlans }) {
+function ErrorNote({ error, onOpenPlans, upgradeOn = ['plan'] }) {
   return (
     <div className="mt-4 flex gap-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-900 ring-1 ring-amber-200" role="alert">
       <TriangleAlert className="mt-0.5 size-4 shrink-0 text-amber-600" aria-hidden />
@@ -129,9 +170,9 @@ function ErrorNote({ error, onOpenPlans }) {
           {error.message}
           {error.resetsAt && ` It refills at ${formatResetTime(error.resetsAt)}.`}
         </p>
-        {error.reason === 'plan' && (
+        {upgradeOn.includes(error.reason) && (
           <Button size="sm" variant="primary" icon={Sparkles} onClick={onOpenPlans} className="mt-2">
-            See Max
+            {error.reason === 'plan' ? 'See Max' : 'See plans'}
           </Button>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown, CircleCheck, FileText, Presentation } from 'lucide-react'
+import { ArrowRight, ChevronDown, CircleCheck, FileText, MonitorPlay, Presentation } from 'lucide-react'
 import { useState } from 'react'
 import CopyButton from './CopyButton.jsx'
 import { Button, Eyebrow } from './ui.jsx'
@@ -8,8 +8,8 @@ import { Button, Eyebrow } from './ui.jsx'
 export default function ExtractedPreview({ result, hasGuide, onViewGuide, children }) {
   const [openIndex, setOpenIndex] = useState(0)
   const [view, setView] = useState('sections') // 'sections' | 'raw'
-  const unit = result.type === 'pdf' ? 'page' : 'slide'
-  const FileIcon = result.type === 'pdf' ? FileText : Presentation
+  const unit = result.type === 'video' ? 'section' : result.type === 'pdf' ? 'page' : 'slide'
+  const FileIcon = result.type === 'video' ? MonitorPlay : result.type === 'pdf' ? FileText : Presentation
 
   return (
     <div className="space-y-6">
@@ -17,7 +17,11 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
         <div className="flex min-w-0 items-center gap-4">
           <span
             className={`flex size-12 shrink-0 items-center justify-center rounded-2xl ring-1 ${
-              result.type === 'pdf' ? 'bg-rose-50 text-rose-600 ring-rose-100' : 'bg-amber-50 text-amber-700 ring-amber-100'
+              result.type === 'video'
+                ? 'bg-red-50 text-red-600 ring-red-100'
+                : result.type === 'pdf'
+                  ? 'bg-rose-50 text-rose-600 ring-rose-100'
+                  : 'bg-amber-50 text-amber-700 ring-amber-100'
             }`}
           >
             <FileIcon className="size-6" strokeWidth={2} aria-hidden />
@@ -31,6 +35,11 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
             <p className="mt-0.5 text-sm text-stone-500">
               {result.sections.length} {unit}s · {result.wordCount.toLocaleString()} words
             </p>
+            {result.youtube?.truncated && (
+              <p className="mt-1 text-sm text-amber-700">
+                Covers the first {result.youtube.coveredMinutes} of {result.youtube.minutes} minutes, the most one study pack can hold.
+              </p>
+            )}
           </div>
         </div>
         {hasGuide && (

@@ -129,6 +129,8 @@ function publicState(env) {
       packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typicalFor(p))),
       maxPages: Math.round(p.maxChars / 500),
       libraryPerDay: p.libraryPerDay,
+      youtubePerWindow: p.youtubePerWindow,
+      youtubePerMonth: p.youtubePerMonth,
       theory: p.theory,
       scans: p.scans,
       paste: p.paste,
