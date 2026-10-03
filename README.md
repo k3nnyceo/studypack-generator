@@ -122,6 +122,12 @@ All of these are environment variables (`.env.example`). The pack counts are for
 - **Pasted text** (Max, `PASTE_PLANS`): "Paste text" on the home page turns pasted notes into the Notes screen.
 - **Reliability:** each Claude call has a stall watchdog. A call that sends nothing for 45 s, or whose stream breaks, is retried once if there's time before Vercel's 300 s limit, and every call's duration is logged (`[study-guide] module 3 55.2s`).
 
+## Flashcard memory, streaks and offline use
+
+- **Flashcards that remember** (`src/lib/cardMemory.js`): after flipping a card, **Still learning** or **Got it**. Got it moves the card up a box and schedules its next review 1, 3, 7, 16, then 35 days later; Still learning sends it back to the start. The deck opens with missed cards, then cards due for review, then new ones, then learned ones (soonest first), and each card shows its status. Kept per pack (by content) in this browser's `localStorage` (`studypack.cards.v1`); not synced between devices.
+- **Daily streak** (`src/lib/streak.js`): consecutive days (Lagos time) with any studying (marking a flashcard, answering a quiz question, finishing an exam, checking a theory answer), shown on the flashcards and in the Library.
+- **Offline** (`public/sw.js`): the service worker saves the app (the home page and every script and stylesheet it loads) when it installs, serves pages network-first with the saved copy as a fallback, and hashed `/assets/` files cache-first. Saved packs live in `localStorage`, so studying works with no connection; a notice says so. The API is never cached. Bump `APP_CACHE` in `sw.js` to clear old saved files.
+
 ## Pack library
 
 Ready-made packs any student can add to their own library (`server/shared.js`, `src/components/PackLibrary.jsx`), reached from the home page ("Browse ready-made packs") and the Library.
@@ -231,6 +237,8 @@ src/
     auth.js                   useAuth, Google Identity Services loader
     billing.js                useBilling, checkout, return from Paystack
     referral.js               captures ?ref= links, first-touch
+    cardMemory.js, streak.js  flashcard review schedule; daily study streak
+    useOnline.js              online/offline state for the offline notice
     shared.js                 Pack library API client
     scanPages.js              renders scanned pages/photos and reads them
     flashcards.js             builds flashcards from a guide

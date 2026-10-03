@@ -105,7 +105,7 @@ export function groupByCourse(entries) {
 
 // FNV-1a over the guide's JSON. Guides are normalised by the validator, so
 // the same pack always serialises the same way.
-function fingerprint(guide) {
+export function fingerprint(guide) {
   const text = JSON.stringify(guide)
   let hash = 0x811c9dc5
   for (let i = 0; i < text.length; i++) {

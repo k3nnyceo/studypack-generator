@@ -27,11 +27,11 @@ const gradeFor = (percent) => GRADES.find(([min]) => percent >= min)[1]
 // until the end, answers can be changed and questions flagged, and it submits
 // itself when time runs out. The clock runs from a fixed end time, so it stays
 // right even if the phone locks mid-exam.
-export default function ExamMode({ questions, modules, onExit }) {
+export default function ExamMode({ questions, modules, onExit, onSubmitted }) {
   const [exam, setExam] = useState(null) // { deck, endsAt, startedAt, answers: Map, flagged: Set, index, submittedAt }
 
   if (!exam) return <ExamSetup questions={questions} modules={modules} onStart={setExam} onExit={onExit} />
-  if (exam.submittedAt) return <ExamResults exam={exam} modules={modules} onRestart={() => setExam(null)} onExit={onExit} />
+  if (exam.submittedAt) return <ExamResults exam={exam} modules={modules} onRestart={() => setExam(null)} onExit={onExit} onShown={onSubmitted} />
   return <ExamRunning exam={exam} setExam={setExam} />
 }
 
@@ -268,8 +268,12 @@ function ExamRunning({ exam, setExam }) {
   )
 }
 
-function ExamResults({ exam, modules, onRestart, onExit }) {
+function ExamResults({ exam, modules, onRestart, onExit, onShown }) {
   const { deck, answers, startedAt, submittedAt, timedOut } = exam
+  // Finishing an exam counts toward the daily streak.
+  useEffect(() => {
+    onShown?.()
+  }, [onShown])
   const [onlyWrong, setOnlyWrong] = useState(false)
   const marked = useMemo(
     () => deck.map((q) => ({ q, chosen: answers.get(q.id), correct: answers.get(q.id) === q.options[q.correctIndex] })),

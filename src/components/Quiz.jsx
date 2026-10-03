@@ -9,7 +9,7 @@ const LETTERS = 'ABCDEFGHIJ'
 // `answers` is a Map of question id -> { selected, correct }, owned by the
 // parent so results survive switching tabs. `selected` is the option text,
 // because generated questions reshuffle their options when the quiz is rebuilt.
-export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers }) {
+export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" round
   const [index, setIndex] = useState(0)
@@ -92,7 +92,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
     )
   }
 
-  if (examOpen) return <ExamMode questions={questions} modules={modules} onExit={() => setExamOpen(false)} />
+  if (examOpen) return <ExamMode questions={questions} modules={modules} onExit={() => setExamOpen(false)} onSubmitted={onStudied} />
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">

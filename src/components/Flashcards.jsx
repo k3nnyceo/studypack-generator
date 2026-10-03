@@ -1,7 +1,10 @@
-import { Check, ChevronLeft, ChevronRight, PartyPopper, RotateCcw, Shuffle } from 'lucide-react'
+import { Check, ChevronLeft, ChevronRight, Flame, PartyPopper, RotateCcw, Shuffle, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import { cardStatus, studyOrder } from '../lib/cardMemory.js'
 import { shuffled } from '../lib/flashcards.js'
 import FilterChip from './FilterChip.jsx'
+
+const dueDate = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short' })
 
 const KIND_FILTERS = [
   { value: 'all', label: 'All cards' },
@@ -16,24 +19,32 @@ const FACE_LABELS = {
 
 // A card counts as reviewed once its back has been seen. `reviewed` is a Set of
 // card ids owned by the parent, so progress survives switching tabs.
-export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress }) {
+//
+// `memory` ({ records, mark }, src/lib/cardMemory.js) remembers each card
+// across visits: after flipping, "Got it" or "Still learning" schedules its
+// next review, and the deck starts with the cards that need it most. Marking
+// a card counts toward the daily `streak`.
+export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress, memory, streak, onStudied }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [kindFilter, setKindFilter] = useState('all')
   const [shuffledIds, setShuffledIds] = useState(null)
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [direction, setDirection] = useState('next')
+  // The order is fixed from the memory as it was when the round started, so
+  // marking cards doesn't reshuffle the deck under the student.
+  const [orderFrom, setOrderFrom] = useState(memory.records)
 
   const deck = useMemo(() => {
     const ordered = shuffledIds
       ? shuffledIds.map((id) => cards.find((c) => c.id === id))
-      : cards
+      : studyOrder(cards, orderFrom)
     return ordered.filter(
       (c) =>
         (moduleFilter === 'all' || c.moduleIndex === moduleFilter) &&
         (kindFilter === 'all' || c.kind === kindFilter),
     )
-  }, [cards, shuffledIds, moduleFilter, kindFilter])
+  }, [cards, shuffledIds, orderFrom, moduleFilter, kindFilter])
 
   const card = deck[index]
   const reviewedInDeck = deck.filter((c) => reviewed.has(c.id)).length
@@ -43,7 +54,23 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
     setIndex(0)
     setFlipped(false)
     setDirection('next')
+    setOrderFrom(memory.records)
   }
+
+  // After flipping: record how it went, then move on.
+  function rate(knewIt) {
+    if (!card) return
+    memory.mark(card.id, knewIt)
+    onStudied()
+    if (index < deck.length - 1) go(1)
+    else setFlipped(false)
+  }
+
+  const counts = deck.reduce((n, c) => {
+    const status = cardStatus(memory.records[c.id])
+    n[status === 'learned' ? 'learned' : status === 'new' ? 'fresh' : 'review'] += 1
+    return n
+  }, { review: 0, learned: 0, fresh: 0 })
 
   function changeModule(value) {
     setModuleFilter(value)
@@ -160,6 +187,27 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
             <span className="font-bold text-brand-700 tabular-nums">{reviewedInDeck}</span> / {deck.length} reviewed
           </span>
         </div>
+        <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-stone-500">
+          {counts.review > 0 && (
+            <span>
+              <span className="font-semibold text-amber-700 tabular-nums">{counts.review}</span> to review
+            </span>
+          )}
+          <span>
+            <span className="font-semibold text-emerald-700 tabular-nums">{counts.learned}</span> learned
+          </span>
+          {counts.fresh > 0 && (
+            <span>
+              <span className="font-semibold text-stone-700 tabular-nums">{counts.fresh}</span> new
+            </span>
+          )}
+          {streak.count > 0 && (
+            <span className="ml-auto inline-flex items-center gap-1 font-semibold text-orange-600" title={`Best: ${streak.best} days`}>
+              <Flame className="size-3.5" aria-hidden />
+              {streak.count}-day streak{streak.studiedToday ? '' : ' · study today to keep it'}
+            </span>
+          )}
+        </div>
         <div
           className="h-2 overflow-hidden rounded-full bg-stone-200/80"
           role="progressbar"
@@ -191,7 +239,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
                 text={card.front}
                 emphasis={card.kind === 'definition'}
                 hint="Tap to reveal"
-                isReviewed={reviewed.has(card.id)}
+                record={memory.records[card.id]}
                 hidden={flipped}
                 className="bg-white text-stone-900 ring-1 ring-stone-200/80"
               />
@@ -211,6 +259,27 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
         <p className="card p-10 text-center text-stone-500">
           No cards match these filters.
         </p>
+      )}
+
+      {card && flipped && (
+        <div className="animate-card-next grid grid-cols-2 gap-3" role="group" aria-label="How did you do?">
+          <button
+            type="button"
+            onClick={() => rate(false)}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-white font-semibold text-rose-700 shadow-card ring-1 ring-rose-200 transition hover:bg-rose-50 active:scale-[0.98]"
+          >
+            <X className="size-5" strokeWidth={2.5} aria-hidden />
+            Still learning
+          </button>
+          <button
+            type="button"
+            onClick={() => rate(true)}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-emerald-600 font-semibold text-white shadow-card transition hover:bg-emerald-700 active:scale-[0.98]"
+          >
+            <Check className="size-5" strokeWidth={2.5} aria-hidden />
+            Got it
+          </button>
+        </div>
       )}
 
       {/* Navigation */}
@@ -259,7 +328,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
   )
 }
 
-function CardFace({ label, moduleTitle, text, emphasis, hint, isReviewed, hidden, className, dark }) {
+function CardFace({ label, moduleTitle, text, emphasis, hint, record, hidden, className, dark }) {
   return (
     <div
       aria-hidden={hidden}
@@ -284,15 +353,23 @@ function CardFace({ label, moduleTitle, text, emphasis, hint, isReviewed, hidden
 
       <div className={`flex items-center justify-between text-xs ${dark ? 'text-brand-100' : 'text-stone-500'}`}>
         <span>{hint}</span>
-        {isReviewed && (
-          <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 font-semibold text-brand-700">
-            <Check className="size-3.5" strokeWidth={3} aria-hidden />
-            Reviewed
-          </span>
-        )}
+        {!dark && <StatusChip record={record} />}
       </div>
     </div>
   )
+}
+
+// Where a card stands in the student's memory of it.
+function StatusChip({ record }) {
+  const status = cardStatus(record)
+  const styles = {
+    new: ['bg-stone-100 text-stone-600', 'New'],
+    learning: ['bg-rose-50 text-rose-700', 'Still learning'],
+    due: ['bg-amber-50 text-amber-800', 'Time to review'],
+    learned: ['bg-emerald-50 text-emerald-700', record ? `Learned · next ${dueDate.format(record.due)}` : ''],
+  }
+  const [className, text] = styles[status]
+  return <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-semibold ${className}`}>{text}</span>
 }
 
 // Short terms read best large; long problems and answers need to stay legible.

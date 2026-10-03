@@ -7,7 +7,7 @@ import { Badge, Button } from './ui.jsx'
 // and the points an examiner looks for. The student can draft an answer, then
 // reveal the model answer and tick the marking points they covered, which
 // gives a self-marked score.
-export default function Theory({ items, modules }) {
+export default function Theory({ items, modules, onStudied }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const shown = items.filter((t) => moduleFilter === 'all' || t.moduleIndex === moduleFilter)
 
@@ -40,14 +40,14 @@ export default function Theory({ items, modules }) {
 
       <ol className="space-y-4">
         {shown.map((item) => (
-          <TheoryQuestion key={item.id} item={item} number={items.indexOf(item) + 1} />
+          <TheoryQuestion key={item.id} item={item} number={items.indexOf(item) + 1} onStudied={onStudied} />
         ))}
       </ol>
     </div>
   )
 }
 
-function TheoryQuestion({ item, number }) {
+function TheoryQuestion({ item, number, onStudied }) {
   const [draft, setDraft] = useState('')
   const [writing, setWriting] = useState(false)
   const [revealed, setRevealed] = useState(false)
@@ -91,7 +91,15 @@ function TheoryQuestion({ item, number }) {
               Write my answer
             </Button>
           )}
-          <Button size="sm" variant="primary" icon={Eye} onClick={() => setRevealed(true)}>
+          <Button
+            size="sm"
+            variant="primary"
+            icon={Eye}
+            onClick={() => {
+              setRevealed(true)
+              onStudied()
+            }}
+          >
             Show model answer
           </Button>
         </div>

@@ -30,6 +30,11 @@ import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } f
 import { takeSharedFile } from './lib/sharedFile.js'
 import { parseStudyGuide } from './lib/studyGuideFormat.js'
 import { useLibrary } from './lib/useLibrary.js'
+import { useCardMemory } from './lib/cardMemory.js'
+import { fingerprint } from './lib/library.js'
+import { useStreak } from './lib/streak.js'
+import { useOnline } from './lib/useOnline.js'
+import { WifiOff } from 'lucide-react'
 
 const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 
@@ -122,6 +127,11 @@ export default function App() {
 
   // Built once per guide, so quiz option order stays put while switching views.
   const cards = useMemo(() => (guide ? buildFlashcards(guide) : []), [guide])
+  // Flashcard memory is kept per pack (by its content), plus a daily streak.
+  const packKey = useMemo(() => (guide ? fingerprint(guide) : null), [guide])
+  const cardMemory = useCardMemory(packKey)
+  const streak = useStreak()
+  const online = useOnline()
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
   const theoryItems = useMemo(
     () =>
@@ -137,7 +147,10 @@ export default function App() {
 
   // Quiz answers this session: question id -> { selected, correct }.
   const [quizAnswers, setQuizAnswers] = useState(() => new Map())
-  const recordAnswer = (id, answer) => setQuizAnswers((prev) => new Map(prev).set(id, answer))
+  const recordAnswer = (id, answer) => {
+    setQuizAnswers((prev) => new Map(prev).set(id, answer))
+    streak.studied()
+  }
   const clearAnswers = (ids) =>
     setQuizAnswers((prev) => {
       const next = new Map(prev)
@@ -460,6 +473,13 @@ export default function App() {
         billing={billing.billing}
       />
 
+      {!online && (
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-sm text-amber-900" role="status">
+          <WifiOff className="mr-1.5 inline size-4 align-[-3px]" aria-hidden />
+          You’re offline. Your saved packs still work; generating and syncing need internet.
+        </div>
+      )}
+
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
         <div key={view} className="animate-page-in">
           {view === 'home' && (
@@ -551,6 +571,7 @@ export default function App() {
               onBrowseShared={() => navigate('explore')}
               sharedPrints={sharedPrints}
               onShare={shareToLibrary}
+              streak={streak}
             />
           )}
 
@@ -605,9 +626,12 @@ export default function App() {
                   reviewed={reviewedCards}
                   onReview={markReviewed}
                   onResetProgress={() => setReviewedCards(new Set())}
+                  memory={cardMemory}
+                  streak={streak}
+                  onStudied={streak.studied}
                 />
               )}
-              {view === 'theory' && <Theory items={theoryItems} modules={moduleTitles} />}
+              {view === 'theory' && <Theory items={theoryItems} modules={moduleTitles} onStudied={streak.studied} />}
               {view === 'quiz' && (
                 <Quiz
                   questions={questions}
@@ -615,6 +639,7 @@ export default function App() {
                   answers={quizAnswers}
                   onAnswer={recordAnswer}
                   onClearAnswers={clearAnswers}
+                  onStudied={streak.studied}
                 />
               )}
             </div>

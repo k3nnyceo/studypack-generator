@@ -1,4 +1,4 @@
-import { BookMarked, Check, Cloud, CloudAlert, FolderOpen, Layers, Library as LibraryIcon, LibraryBig, ListChecks, Loader2, Plus, Share2, Trash2 } from 'lucide-react'
+import { BookMarked, Check, Cloud, CloudAlert, Flame, FolderOpen, Layers, Library as LibraryIcon, LibraryBig, ListChecks, Loader2, Plus, Share2, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { buildFlashcards } from '../lib/flashcards.js'
 import { groupByCourse } from '../lib/library.js'
@@ -22,6 +22,7 @@ export default function Library({
   onBrowseShared,
   sharedPrints,
   onShare,
+  streak,
 }) {
   const groups = groupByCourse(entries)
   const grouped = groups.length > 1
@@ -39,6 +40,14 @@ export default function Library({
                   grouped ? ` across ${groups.length} courses` : ''
                 }. Click one to study it.`}
           </p>
+          {streak?.count > 0 && (
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-orange-50 px-3 py-1 text-sm font-semibold text-orange-700 ring-1 ring-orange-200">
+              <Flame className="size-4" aria-hidden />
+              {streak.count}-day study streak
+              {streak.best > streak.count && <span className="font-medium text-orange-600/80">· best {streak.best}</span>}
+              {!streak.studiedToday && <span className="font-medium text-orange-600/80">· study today to keep it</span>}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           <Button icon={LibraryBig} onClick={onBrowseShared}>
