@@ -22,12 +22,12 @@ export async function paystack(path, { method = 'GET', body, env = process.env }
   return data.data
 }
 
-// The Paystack plan code for auto-renewing a StarterPack plan, creating the
+// The Paystack plan code for auto-renewing a StudyPack plan, creating the
 // Paystack plan the first time it's needed (separately in test and live
 // mode). Matched by name and price, so changing a price makes a new plan.
 const planCodes = new Map()
 export async function ensurePaystackPlan(plan, env = process.env, api = paystack) {
-  const name = `StarterPack ${plan.name}`
+  const name = `StudyPack ${plan.name}`
   const amount = plan.price * 100
   const cacheKey = `${paystackKey(env).slice(0, 8)}:${name}:${amount}`
   if (planCodes.has(cacheKey)) return planCodes.get(cacheKey)

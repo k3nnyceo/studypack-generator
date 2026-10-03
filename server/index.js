@@ -129,7 +129,7 @@ async function serveStatic(req, res) {
 
 server.requestTimeout = 0 // generation can take a few minutes for long notes
 server.listen(PORT, () => {
-  console.log(`StarterPack API listening on http://localhost:${PORT}`)
+  console.log(`StudyPack API listening on http://localhost:${PORT}`)
   if (!aiGenerationEnabled()) {
     console.log('AI generation is off (VITE_ENABLE_AI_GENERATION is not "true"); /api/study-guide is disabled.')
     return

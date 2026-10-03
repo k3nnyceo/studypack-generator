@@ -1,5 +1,5 @@
 // /api/shared: the Pack library, ready-made study packs any student can add
-// to their own library. StarterPack's admins publish "verified" packs; students
+// to their own library. StudyPack's admins publish "verified" packs; students
 // can choose to share packs from their own library (anonymously).
 //
 //   GET                       every pack's summary (public), plus the signed-in

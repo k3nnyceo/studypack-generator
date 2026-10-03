@@ -34,7 +34,7 @@ export default function AppHeader({
         <button
           type="button"
           onClick={() => onNavigate('home')}
-          aria-label="StarterPack home"
+          aria-label="StudyPack home"
           className="-m-1 rounded-xl p-1 transition hover:opacity-85"
         >
           <Logo />

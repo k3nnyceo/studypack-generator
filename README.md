@@ -1,4 +1,4 @@
-# StarterPack
+# StudyPack
 
 Upload lecture notes (PDF or PowerPoint `.pptx`) and turn them into an interactive study guide with flashcards and a quiz.
 
@@ -139,7 +139,7 @@ Ready-made packs any student can add to their own library (`server/shared.js`, `
 
 ## Gumroad
 
-For students paying in dollars from outside Nigeria (`server/gumroad.js`): create one Gumroad product per plan ("30 days of StarterPack Pro"/"Max") with **license keys** turned on, and set `GUMROAD_PRO_PRODUCT_ID`/`GUMROAD_PRO_URL` (and the `MAX` pair). The plans page then links to the products and has a **Redeem key** box. A key is checked with Gumroad's license API (product id + key, no secret needed), grants 30 days of its plan like a Paystack payment, and works for one StarterPack account only; refunded, disputed and test purchases are refused (`GUMROAD_ALLOW_TEST=true` to try it out). Gumroad sales count in the referral stats at `USD_TO_NGN`.
+For students paying in dollars from outside Nigeria (`server/gumroad.js`): create one Gumroad product per plan ("30 days of StudyPack Pro"/"Max") with **license keys** turned on, and set `GUMROAD_PRO_PRODUCT_ID`/`GUMROAD_PRO_URL` (and the `MAX` pair). The plans page then links to the products and has a **Redeem key** box. A key is checked with Gumroad's license API (product id + key, no secret needed), grants 30 days of its plan like a Paystack payment, and works for one StudyPack account only; refunded, disputed and test purchases are refused (`GUMROAD_ALLOW_TEST=true` to try it out). Gumroad sales count in the referral stats at `USD_TO_NGN`.
 
 ## Share links and referral stats
 

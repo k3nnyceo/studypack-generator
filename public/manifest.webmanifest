@@ -1,6 +1,6 @@
 {
-  "name": "StarterPack",
-  "short_name": "StarterPack",
+  "name": "StudyPack",
+  "short_name": "StudyPack",
   "description": "Turn lecture notes into study guides, flashcards and quizzes.",
   "id": "/",
   "start_url": "/",

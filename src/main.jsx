@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-// The service worker makes StarterPack installable and lets it appear in other
+// The service worker makes StudyPack installable and lets it appear in other
 // apps' Share menus (public/sw.js). Production only, so it never caches dev builds.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {

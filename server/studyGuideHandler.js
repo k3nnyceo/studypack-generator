@@ -183,7 +183,7 @@ function limitMessage(reason, plan) {
     case 'period':
       return { status: 429, error: `You’ve used this month’s ${plan.name} allowance.` }
     default:
-      return { status: 429, error: 'StarterPack has reached today’s limit for free study packs. Try again tomorrow, or upgrade to Pro.' }
+      return { status: 429, error: 'StudyPack has reached today’s limit for free study packs. Try again tomorrow, or upgrade to Pro.' }
   }
 }
 
@@ -196,7 +196,7 @@ export function toClientError(err) {
     return { status: 500, message: 'Study guide generation isn’t set up correctly on the server.' }
   }
   if (err instanceof Anthropic.RateLimitError) {
-    return { status: 429, message: 'StarterPack is busy right now. Please try again in a minute.' }
+    return { status: 429, message: 'StudyPack is busy right now. Please try again in a minute.' }
   }
   if (err instanceof Anthropic.BadRequestError) {
     return { status: 400, message: 'Claude couldn’t process this document.' }

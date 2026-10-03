@@ -4,7 +4,7 @@ import { formatNaira } from '../lib/billing.js'
 import CopyButton from './CopyButton.jsx'
 import { Button, Eyebrow } from './ui.jsx'
 
-// For StarterPack's admins (ADMIN_EMAILS): which share links bring visits,
+// For StudyPack's admins (ADMIN_EMAILS): which share links bring visits,
 // sign-ups and paying students, plus a builder for new links.
 export default function ReferralStats() {
   const [rows, setRows] = useState(null)

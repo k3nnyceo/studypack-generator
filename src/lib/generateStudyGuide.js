@@ -120,7 +120,7 @@ async function callApi(url, options) {
     res = await fetch(url, options)
   } catch (err) {
     if (err.name === 'AbortError') throw err
-    throw new Error('Couldn’t reach StarterPack. Check your connection and try again.')
+    throw new Error('Couldn’t reach StudyPack. Check your connection and try again.')
   }
   let data = null
   try {

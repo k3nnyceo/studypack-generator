@@ -90,7 +90,7 @@ export async function handleYoutubeRequest(req, res, body, deps = {}) {
     if (!captions) {
       await slot.release()
       return sendJson(res, 422, {
-        error: 'This video has no captions, so StarterPack can’t read it. Try another video, or upload the lecture slides.',
+        error: 'This video has no captions, so StudyPack can’t read it. Try another video, or upload the lecture slides.',
       })
     }
     const notes = toSections(captions, plan.maxChars)

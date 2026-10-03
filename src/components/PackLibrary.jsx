@@ -5,7 +5,7 @@ import { groupByCourse } from '../lib/library.js'
 import GoogleButton from './GoogleButton.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
-// The Pack library: ready-made packs from StarterPack (verified) and from
+// The Pack library: ready-made packs from StudyPack (verified) and from
 // students who chose to share. Adding one copies it into the student's own
 // library, using one of the day's adds (Free 5, Pro 15, Max 40).
 export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyId, error, onAdd, onRemove, onOpenPlans, canUpgrade }) {
@@ -29,7 +29,7 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
         <h1 className="mt-1 text-3xl font-bold tracking-tight text-stone-900">Ready-made study packs</h1>
         <p className="mt-1 max-w-2xl text-stone-500">
           Add a pack to your library and study it straight away: guide, flashcards and quiz. Verified packs are published by
-          StarterPack; others were shared by students.
+          StudyPack; others were shared by students.
         </p>
       </div>
 
