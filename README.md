@@ -102,14 +102,14 @@ Three plans, with usage counted the way Claude's own app does it: each study pac
 | | Free | Pro | Max |
 |---|---|---|---|
 | Price | ₦0 | ₦3,500 / month | ₦10,500 / month |
-| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~1 pack with theory) | ₦2,000 (~3 packs) |
-| Each month / 30-day period | ₦1,000 (~2 packs) | ₦2,300 (~4 packs) | ₦4,600 (~8 packs) |
+| Every 3 hours | ₦400 of cost (~1 pack) | ₦1,000 (~1 pack with theory) | ₦2,800 (~5 packs) |
+| Each month / 30-day period | ₦1,000 (~2 packs) | ₦2,300 (~4 packs) | ₦7,000 (~12 packs) |
 | Longest notes | 13K characters (~26 pages) | 40K (~80 pages) | 40K (~80 pages) |
 | Site-wide daily cap | applies | skipped | skipped |
 | Theory questions | no | yes | yes |
 | Scanned & photographed notes, pasted text | no | no | yes |
 
-All of these are environment variables (`.env.example`). The pack counts are for a typical 23-page, 11K-character lecture, which costs about ₦340; long lectures cost more (about ₦700 for 27K characters and ₦1,000 for 40K, each finishing in about 2½ minutes), so they use more of the allowance. Because usage is charged at real cost, the worst case (a subscriber using everything) stays at roughly ₦1,000 profit on Pro and ₦1,700 on Max after Paystack's fee.
+All of these are environment variables (`.env.example`). The pack counts are for a typical 23-page, 11K-character lecture, which costs about ₦340; long lectures cost more (about ₦700 for 27K characters and ₦1,000 for 40K, each finishing in about 2½ minutes), so they use more of the allowance. Because usage is charged at real cost, the worst case (a subscriber using everything) stays at roughly ₦1,000 profit on Pro and ₦3,200 on Max after Paystack's fee.
 
 - **Meter** (`server/usageLimits.js`, `server/plans.js`): per account, a counter for the current 3-hour window (fixed windows from 00:00 UTC, so the refill time is predictable) and one for the period (the calendar month in Lagos time on Free; the paid 30-day period on Pro and Max). Before generating, the pack's cost is estimated from the notes' length and reserved; if it doesn't fit, the student sees which allowance ran out and when it refills. When the pack is done its real cost replaces the estimate; if it fails or is cancelled, nothing is charged. Students only ever see percentages, never naira of cost.
 - **Paying** (`server/billing.js`, `server/paystack.js`, `server/subscriptions.js`): the plans page offers each paid plan as **30 days for a one-time payment** (card, bank transfer or USSD) or **renew monthly by card** (a Paystack plan, created automatically the first time). Checkout is Paystack's hosted page; the student comes back to `/?billing=return&reference=…` and the app verifies the transaction with Paystack before applying it. Paystack's webhook (`/api/paystack-webhook`, signature-checked) applies card renewals and records when auto-renew is turned off. Each payment reference is applied once. Paying again on the same plan adds 30 days to any left; switching plan converts the unused days by price. Switching away from an auto-renewing plan cancels its Paystack subscription. "Manage auto-renew" opens Paystack's page for cancelling or changing the card.
