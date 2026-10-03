@@ -33,7 +33,7 @@ async function api(method, { id, body } = {}) {
       cache: 'no-store',
     })
   } catch {
-    throw new SyncError('Couldn’t reach StudyPack to sync your library.', 0)
+    throw new SyncError('Couldn’t reach StarterPack to sync your library.', 0)
   }
   const data = await res.json().catch(() => null)
   if (!res.ok || !data) throw new SyncError(data?.error || `Library sync failed (${res.status}).`, res.status)

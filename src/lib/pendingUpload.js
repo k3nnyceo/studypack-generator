@@ -35,13 +35,13 @@ export function takeInterruptedUploadMessage() {
   }
   if (!pending || !(Date.now() - pending.at < MAX_AGE_MS)) return null
   if (pending.stage === 'reading') {
-    return 'StudyPack stopped while reading your file, probably because it was too big for this phone’s memory. Close other apps and tabs and try again, or try a smaller file.'
+    return 'StarterPack stopped while reading your file, probably because it was too big for this phone’s memory. Close other apps and tabs and try again, or try a smaller file.'
   }
   if (pending.stage === 'picking') {
     return [
-      'Your phone reloaded StudyPack while the file picker was open, so the file didn’t come through. Some phones do this to save memory, especially for files picked from WhatsApp. Either of these gets around it:',
+      'Your phone reloaded StarterPack while the file picker was open, so the file didn’t come through. Some phones do this to save memory, especially for files picked from WhatsApp. Either of these gets around it:',
       '• Save the file to your phone first (in WhatsApp, open it, then ⋮ → Save), and pick it from Downloads or My Files.',
-      '• Install StudyPack (Chrome menu ⋮ → Add to Home screen or Install app). Then in WhatsApp, long-press the file, tap Share and choose StudyPack.',
+      '• Install StarterPack (Chrome menu ⋮ → Add to Home screen or Install app). Then in WhatsApp, long-press the file, tap Share and choose StarterPack.',
     ].join('\n')
   }
   return null

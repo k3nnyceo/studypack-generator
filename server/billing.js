@@ -166,8 +166,8 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const email = tx.customer?.email
   const userId = meta?.userId || (await findUser(store, { customerCode, email }))
   if (!userId) {
-    console.error(`[billing] Payment ${reference} has no StudyPack account.`)
-    return { status: 404, error: 'This payment isn’t linked to a StudyPack account.' }
+    console.error(`[billing] Payment ${reference} has no StarterPack account.`)
+    return { status: 404, error: 'This payment isn’t linked to a StarterPack account.' }
   }
   if (expectUser && userId !== expectUser) return { status: 403, error: 'This payment belongs to another account.' }
 
@@ -176,7 +176,7 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const plan = plans[planId]
   if (!PAID_PLANS.includes(planId) || tx.currency !== 'NGN' || tx.amount < plan.price * 100) {
     console.error(`[billing] Payment ${reference} doesn't match a plan (plan=${planId} amount=${tx.amount} ${tx.currency}).`)
-    return { status: 400, error: 'This payment doesn’t match a StudyPack plan.' }
+    return { status: 400, error: 'This payment doesn’t match a StarterPack plan.' }
   }
 
   await rememberCustomer(store, { email, customerCode }, userId)
@@ -214,7 +214,7 @@ async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, no
       break
     }
   }
-  if (!purchase) return { status: 404, error: 'That key isn’t valid for StudyPack. Check it against your Gumroad receipt.' }
+  if (!purchase) return { status: 404, error: 'That key isn’t valid for StarterPack. Check it against your Gumroad receipt.' }
   const problem = purchaseProblem(purchase, env)
   if (problem) return { status: 402, error: problem }
 
@@ -224,7 +224,7 @@ async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, no
   if (await store.claim(`${ownerKey}:claimed`, 10 * 365 * 24 * 60 * 60)) {
     await store.setJson(ownerKey, user.id)
   } else if ((await store.getJson(ownerKey)) !== user.id) {
-    return { status: 409, error: 'This key has already been used by another StudyPack account.' }
+    return { status: 409, error: 'This key has already been used by another StarterPack account.' }
   }
 
   const reference = `gumroad:${purchase.sale_id || key}`
@@ -236,12 +236,14 @@ async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, no
   return {}
 }
 
+// Which of our plans a Paystack plan code is, from the Paystack plan's name
+// ("StarterPack Pro", or "StudyPack Pro" from before the rename), so renewals
+// of older subscriptions still count.
 async function planIdForCode(planCode, plans, env, api) {
   if (!planCode) return null
-  for (const id of PAID_PLANS) {
-    if ((await ensurePaystackPlan(plans[id], env, api).catch(() => null)) === planCode) return id
-  }
-  return null
+  const paystackPlan = await api(`/plan/${encodeURIComponent(planCode)}`, { env }).catch(() => null)
+  const name = String(paystackPlan?.name ?? '')
+  return PAID_PLANS.find((id) => name === `StarterPack ${plans[id].name}` || name === `StudyPack ${plans[id].name}`) ?? null
 }
 
 // Paystack's events. Payments are re-checked with the API; subscription events

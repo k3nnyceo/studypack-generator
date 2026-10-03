@@ -16,7 +16,7 @@ export async function youtubeNotes(url) {
   try {
     res = await fetch('/api/youtube', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) })
   } catch {
-    throw new Error('Couldn’t reach StudyPack. Check your connection and try again.')
+    throw new Error('Couldn’t reach StarterPack. Check your connection and try again.')
   }
   const data = await res.json().catch(() => null)
   if (!res.ok || !data) {

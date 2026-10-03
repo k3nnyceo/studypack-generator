@@ -20,7 +20,7 @@ const STEPS = [
     : {
         icon: FileJson,
         title: 'Load your study guide',
-        body: 'Paste or upload a study guide in StudyPack’s JSON format, generated from your notes.',
+        body: 'Paste or upload a study guide in StarterPack’s JSON format, generated from your notes.',
       },
   {
     icon: ListChecks,
@@ -231,7 +231,7 @@ export default function Landing({
       </section>
 
       <footer className="border-t border-stone-200 pt-8 text-center text-sm text-stone-500">
-        StudyPack · Built for students who’d rather understand than cram.
+        StarterPack · Built for students who’d rather understand than cram.
       </footer>
     </div>
   )

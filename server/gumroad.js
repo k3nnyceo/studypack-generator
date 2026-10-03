@@ -1,5 +1,5 @@
 // Pro and Max sold on Gumroad, for students paying in dollars from outside
-// Nigeria. Each Gumroad product ("30 days of StudyPack Pro") has license keys
+// Nigeria. Each Gumroad product ("30 days of StarterPack Pro") has license keys
 // turned on; the buyer gets a key in their receipt and redeems it on the plans
 // page, which grants 30 days of the plan. A key works for one account, once.
 //

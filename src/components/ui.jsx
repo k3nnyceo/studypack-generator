@@ -35,7 +35,7 @@ export function Logo() {
       <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-800 text-white shadow-brand">
         <GraduationCap className="size-5" strokeWidth={2.25} aria-hidden />
       </span>
-      <span className="text-lg font-bold tracking-tight text-stone-900">StudyPack</span>
+      <span className="text-lg font-bold tracking-tight text-stone-900">StarterPack</span>
     </span>
   )
 }

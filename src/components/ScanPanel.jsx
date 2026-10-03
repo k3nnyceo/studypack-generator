@@ -27,7 +27,7 @@ export function ScanPanel({ scan, progress, error, allowed, signedIn, onRead, on
         </div>
       ) : !signedIn ? (
         <p className="text-sm text-stone-600">
-          {scan.kind === 'photos' ? 'These are photos' : 'Its pages are pictures, with no text to copy'}. StudyPack can read scanned and
+          {scan.kind === 'photos' ? 'These are photos' : 'Its pages are pictures, with no text to copy'}. StarterPack can read scanned and
           handwritten notes on the Max plan. Sign in to continue.
         </p>
       ) : allowed === false ? (
@@ -39,7 +39,7 @@ export function ScanPanel({ scan, progress, error, allowed, signedIn, onRead, on
         <>
           <p className="text-sm text-stone-600">
             {scan.kind === 'photos' ? `${scan.pageCount} photo${scan.pageCount === 1 ? '' : 's'}` : `${scan.pageCount} scanned pages`}.
-            StudyPack will read {scan.pageCount > pages ? `the first ${pages} pages` : 'them'}, handwriting included, then you can
+            StarterPack will read {scan.pageCount > pages ? `the first ${pages} pages` : 'them'}, handwriting included, then you can
             generate your study pack.
             {scan.pageCount > pages && ` For the rest, split the file and read it in parts.`}
           </p>
@@ -106,7 +106,7 @@ export function YoutubePanel({ signedIn, limits, busy, error, onSubmit, onClose,
           }}
         >
           <p className="mb-3 text-sm text-stone-600">
-            Paste the link to a lecture video with captions. StudyPack turns what’s said into notes, then you can generate your pack.
+            Paste the link to a lecture video with captions. StarterPack turns what’s said into notes, then you can generate your pack.
             {limits && ` Your plan includes ${limits.perMonth} videos a month (${limits.perWindow} every 3 hours).`}
           </p>
           <div className="flex flex-wrap gap-2">

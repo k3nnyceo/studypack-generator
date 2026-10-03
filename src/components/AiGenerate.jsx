@@ -28,7 +28,7 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
         <Eyebrow>Next step</Eyebrow>
         <h2 className="mt-1 text-xl font-bold tracking-tight text-stone-900 sm:text-2xl">Generate your study pack</h2>
         <p className="mt-2 max-w-xl text-stone-600">
-          StudyPack writes module summaries, key definitions, worked examples, flashcards and a quiz from your notes.
+          StarterPack writes module summaries, key definitions, worked examples, flashcards and a quiz from your notes.
         </p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {OUTPUTS.map((o) => (

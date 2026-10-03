@@ -74,7 +74,7 @@ export async function handleReferralRequest(req, res, body, { store, getUser = g
     }
     if (req.method === 'GET') {
       const user = await getUser(req)
-      if (!isAdmin(user, env)) return sendJson(res, 403, { error: 'Only StudyPack’s admins can see this.' })
+      if (!isAdmin(user, env)) return sendJson(res, 403, { error: 'Only StarterPack’s admins can see this.' })
       return sendJson(res, 200, { rows: await referralStats(store) })
     }
   } catch (err) {

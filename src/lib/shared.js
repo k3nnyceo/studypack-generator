@@ -12,7 +12,7 @@ async function sharedApi(method, { id, body } = {}) {
       cache: 'no-store',
     })
   } catch {
-    throw new Error('Couldn’t reach StudyPack. Check your connection and try again.')
+    throw new Error('Couldn’t reach StarterPack. Check your connection and try again.')
   }
   const data = await res.json().catch(() => null)
   if (!res.ok || !data) {

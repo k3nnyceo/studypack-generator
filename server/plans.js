@@ -1,4 +1,4 @@
-// StudyPack's plans, and how a study pack's cost is counted against them.
+// StarterPack's plans, and how a study pack's cost is counted against them.
 //
 // Usage works like Claude's own app: each pack uses part of an allowance in
 // proportion to what it really cost (Claude's token bill, converted to naira),

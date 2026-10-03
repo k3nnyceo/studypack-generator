@@ -1,7 +1,7 @@
-// StudyPack service worker. Two jobs:
+// StarterPack service worker. Two jobs:
 //
 // 1. Offline use. The app's code, styles and fonts are kept in the Cache API,
-//    so StudyPack opens without internet and saved packs can be studied
+//    so StarterPack opens without internet and saved packs can be studied
 //    (they live in localStorage). Pages are network-first, falling back to
 //    the cached copy; /assets/* files have content hashes in their names, so
 //    they're cache-first. The API is never cached: generating, syncing and
