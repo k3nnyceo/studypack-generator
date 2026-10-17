@@ -198,9 +198,15 @@ Write only this module. The other modules are written separately, so don't cover
 // once a response starts it streams steadily.
 const FIRST_OUTPUT_MS = 90_000
 const STALL_MS = 45_000
-// Other modules wait for module 1 to start (so they can read its prompt
-// cache), but not longer than this: a slow start mustn't hold them all up.
-const CACHE_WAIT_MS = 20_000
+// Other modules wait for module 1 to start, so they can read its prompt cache
+// (an entry is only readable once its writer's response begins). If module 1
+// hasn't started after CACHE_HEDGE_MS, module 2 is sent too as a second
+// writer, and the rest go as soon as either starts. After CACHE_WAIT_MS they
+// go regardless: a slow start mustn't hold the whole pack up. Releasing them
+// all on a timer instead meant a slow module 1 made every call write the cache
+// and none read it.
+const CACHE_HEDGE_MS = 20_000
+const CACHE_WAIT_MS = 45_000
 // Only retry a stuck call if there's time for a second attempt within
 // Vercel's 300-second limit.
 const RETRY_BEFORE_MS = 170_000
@@ -232,7 +238,9 @@ export function getClient() {
 // `onCost` receives the guide's estimated cost in USD (null if the model's
 // price isn't known), which the usage meter charges to the student's plan.
 // `theory` adds exam-style written questions to each module (paid plans).
-export async function generateStudyGuide({ text, fileName, signal, onCost, theory = false }) {
+// `client` and `timing` are for tests.
+export async function generateStudyGuide({ text, fileName, signal, onCost, theory = false, client = getClient(), timing = {} }) {
+  const { cacheHedgeMs = CACHE_HEDGE_MS, cacheWaitMs = CACHE_WAIT_MS } = timing
   const system = systemPrompt(theory)
   const started = Date.now()
   // One controller for every call: the visitor leaving, or any one call
@@ -251,9 +259,13 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
       const callStarted = Date.now()
       try {
         const model = attempt === 1 ? MODEL : otherProfile(MODEL)
-        const { data, message } = await callClaude({ model, system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
+        const { data, message, firstEventMs } = await callClaude({ client, model, system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
         messages.push(message)
-        console.log(`[study-guide] ${label} ${((Date.now() - callStarted) / 1000).toFixed(1)}s out=${message.usage?.output_tokens}${attempt > 1 ? ' (retry)' : ''}`)
+        const u = message.usage ?? {}
+        console.log(
+          `[study-guide] ${label} ${((Date.now() - callStarted) / 1000).toFixed(1)}s (started ${(firstEventMs / 1000).toFixed(1)}s)` +
+            ` in=${u.input_tokens} cache_write=${u.cache_creation_input_tokens ?? 0} cache_read=${u.cache_read_input_tokens ?? 0} out=${u.output_tokens}${attempt > 1 ? ' (retry)' : ''}`,
+        )
         return data
       } catch (err) {
         const retryable = err instanceof StreamStalledError || /Unexpected event order|terminated|ECONNRESET|socket hang up/i.test(err.message)
@@ -274,30 +286,47 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     const planMs = Date.now() - started
 
     // A cache entry is readable only once its writer's response starts, so
-    // module 1 goes first and writes it; the others start the moment module 1
-    // begins replying, and read the notes from the cache.
-    let firstStarted
-    const cacheReady = Promise.race([
-      new Promise((resolve) => (firstStarted = resolve)),
-      new Promise((resolve) => setTimeout(resolve, CACHE_WAIT_MS)),
-    ])
+    // module 1 goes first and writes it; the others start the moment it begins
+    // replying, and read the notes from the cache (see CACHE_HEDGE_MS).
     const writeModule = (i, onStart) =>
       ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
       )
-    const modules = await Promise.all(
-      plan.modules.map((_, i) =>
-        i === 0
-          ? writeModule(0, firstStarted)
-          : cacheReady.then(() => {
-              if (controller.signal.aborted) throw new StudyGuideError('Generation was cancelled.', 499)
-              return writeModule(i)
-            }),
-      ),
-    ).catch((err) => {
+    const count = plan.modules.length
+    const runs = []
+    let fail
+    const failed = new Promise((_, reject) => (fail = reject))
+    failed.catch(() => {})
+    const launch = (i, onStart) => {
+      if (runs[i]) return
+      runs[i] = writeModule(i, onStart)
+      runs[i].catch(fail)
+    }
+    let writerStarted
+    const cacheReady = new Promise((resolve) => (writerStarted = resolve))
+    const modulesStarted = Date.now()
+    launch(0, () => writerStarted('module 1 started'))
+    const timers = [
+      setTimeout(() => {
+        if (count < 2) return
+        console.log(`[study-guide] module 1 not started after ${cacheHedgeMs / 1000}s; sending module 2 as a second cache writer`)
+        launch(1, () => writerStarted('module 2 started'))
+      }, cacheHedgeMs),
+      setTimeout(() => writerStarted(`gave up waiting for a cache writer after ${cacheWaitMs / 1000}s`), cacheWaitMs),
+    ]
+    let modules
+    try {
+      const why = await Promise.race([cacheReady, failed])
+      if (controller.signal.aborted) throw new StudyGuideError('Generation was cancelled.', 499)
+      if (count > 1) console.log(`[study-guide] ${why}; sending the other modules after ${((Date.now() - modulesStarted) / 1000).toFixed(1)}s`)
+      for (let i = 1; i < count; i++) launch(i)
+      modules = await Promise.all(runs)
+    } catch (err) {
       controller.abort()
       throw err
-    })
+    } finally {
+      timers.forEach(clearTimeout)
+    }
 
     const cost = logUsage(messages, text.length, Date.now() - started, planMs)
     const { title, course, topic, overview } = plan
@@ -318,7 +347,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
   }
 }
 
-async function callClaude({ model = MODEL, system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
+async function callClaude({ client, model = MODEL, system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
   // Server-side refusal fallbacks exist only on the Claude API (Opus/Fable tier):
   // if a safety classifier declines, it retries on the recommended model. Bedrock
   // doesn't offer them, so a refusal there is reported to the student instead.
@@ -326,7 +355,7 @@ async function callClaude({ model = MODEL, system, notes, instruction, schema, m
     PROVIDER === 'anthropic' && /^claude-(opus|fable)/.test(MODEL)
       ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' }
       : null
-  const messagesApi = fallback ? getClient().beta.messages : getClient().messages
+  const messagesApi = fallback ? client.beta.messages : client.messages
   const stream = messagesApi.stream(
     {
       model,
@@ -342,9 +371,13 @@ async function callClaude({ model = MODEL, system, notes, instruction, schema, m
   )
   if (onStart) stream.once('streamEvent', onStart)
   const callStarted = Date.now()
+  let firstEvent = null
   let lastEvent = null
   let stalled = null
-  stream.on('streamEvent', () => (lastEvent = Date.now()))
+  stream.on('streamEvent', () => {
+    lastEvent = Date.now()
+    firstEvent ??= lastEvent
+  })
   const watchdog = setInterval(() => {
     const now = Date.now()
     if (lastEvent === null ? now - callStarted > FIRST_OUTPUT_MS : now - lastEvent > STALL_MS) {
@@ -378,7 +411,7 @@ async function callClaude({ model = MODEL, system, notes, instruction, schema, m
     .map((block) => block.text)
     .join('')
   try {
-    return { data: JSON.parse(json), message }
+    return { data: JSON.parse(json), message, firstEventMs: lastEvent === null ? null : firstEvent - callStarted }
   } catch {
     throw new StudyGuideError('Claude returned a response that could not be read. Please try again.', 502)
   }
