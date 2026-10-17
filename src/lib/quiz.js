@@ -33,6 +33,7 @@ export function buildQuiz(guide) {
           correctIndex: order.indexOf(q.correctIndex),
           explanation: q.explanation,
           optionNotes: options.map(() => ''),
+          sourcePages: q.sourcePages,
         }
       })
     }
@@ -54,6 +55,7 @@ export function buildQuiz(guide) {
           correctIndex: options.indexOf(def.term),
           explanation: `This is the definition of “${def.term}”. The other options are related terms from your notes that mean something different:`,
           optionNotes: options.map((term) => distractors.find((d) => d.term === term)?.definition ?? ''),
+          sourcePages: def.sourcePages,
         },
       ]
     })

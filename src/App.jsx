@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import AiGenerate from './components/AiGenerate.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import ExtractedPreview from './components/ExtractedPreview.jsx'
@@ -16,6 +16,7 @@ import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
+import { SourceContext } from './lib/sourceContext.js'
 import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
@@ -34,10 +35,14 @@ import { useLibrary } from './lib/useLibrary.js'
 import { useCardMemory } from './lib/cardMemory.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
+import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
 import { useOnline } from './lib/useOnline.js'
 import { WifiOff } from 'lucide-react'
 
 const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
+
+// The source viewer (pdf.js, KaTeX, JSZip) loads the first time it's opened.
+const SourceSheet = lazy(() => import('./components/source/SourceSheet.jsx'))
 
 // Read once per page load (outside the component, so StrictMode's double
 // render can't consume it before it's shown).
@@ -134,6 +139,32 @@ export default function App() {
   const streak = useStreak()
   const online = useOnline()
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
+
+  // The lecture behind the open pack, for the source viewer: linked when the
+  // pack is made from notes, or read back from this device (src/lib/sourceStore.js).
+  const [packSource, setPackSource] = useState(null) // { key, fileName, type, sections, file?, photos? }
+  const guideSource = packSource && packSource.key === packKey ? packSource : null
+  const notesSource = useMemo(() => sourceFromResult(result), [result])
+  useEffect(() => {
+    if (!packKey || packSource?.key === packKey) return
+    let alive = true
+    loadSource(packKey).then((record) => alive && record && setPackSource({ ...record, key: packKey }))
+    return () => {
+      alive = false
+    }
+    // Only a new pack needs a lookup; packSource is read to skip one already linked.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packKey])
+
+  // The source viewer: null, or { source, target: { refs, nonce } }.
+  const [viewer, setViewer] = useState(null)
+  const openViewer = useCallback((source, refs = []) => {
+    if (source) setViewer({ source, target: { refs, nonce: Date.now() } })
+  }, [])
+  const sourceContext = useMemo(
+    () => ({ source: guideSource, open: (refs) => openViewer(guideSource, refs) }),
+    [guideSource, openViewer],
+  )
   const theoryItems = useMemo(
     () =>
       (guide?.modules ?? []).flatMap((module, m) =>
@@ -165,7 +196,9 @@ export default function App() {
     window.scrollTo({ top: 0 })
   }
 
-  // Back and Forward. Read through a ref, since the listener outlives renders.
+  // Back and Forward. Read through refs, since the listener outlives renders.
+  const viewRef = useRef(view)
+  viewRef.current = view
   const hasPack = useRef({})
   hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide), theory: Boolean(guide) }
   useEffect(() => {
@@ -175,6 +208,8 @@ export default function App() {
         next = 'home'
         window.history.replaceState({ view: next }, '', urlFor(next))
       }
+      // Closing the source viewer steps back within the same screen.
+      if (next === viewRef.current) return
       setView(next)
       window.scrollTo({ top: 0 })
     }
@@ -192,9 +227,16 @@ export default function App() {
   }
 
   // Every guide that's pasted, uploaded or generated arrives here already
-  // validated, and is saved to the library before it's shown.
-  function loadGuide(newGuide, sourceName = fileName) {
+  // validated, and is saved to the library before it's shown. `notes` is the
+  // lecture it was made from, kept on this device for the source viewer.
+  function loadGuide(newGuide, sourceName = fileName, notes = null) {
     const saved = library.add(newGuide, sourceName)
+    const source = sourceFromResult(notes)
+    if (source) {
+      const key = fingerprint(newGuide)
+      setPackSource({ ...source, key })
+      saveSource(key, source)
+    }
     if (saved.error) notify(`Opened, but not saved: ${saved.error}`, { tone: 'error' })
     else if (saved.duplicate) notify('Already in your library, so it wasn’t saved again')
     else notify('Saved to your library')
@@ -266,12 +308,15 @@ export default function App() {
     if (!removed) return
     if (removed.error) return notify(removed.error, { tone: 'error' })
     if (entry.id === activeEntryId) setActiveEntryId(null)
+    // Its lecture file goes too, but is held until Undo is no longer offered.
+    const lecture = takeSource(fingerprint(entry.guide))
     notify(`Deleted “${entry.topic}”`, {
       action: {
         label: 'Undo',
         onClick: () => {
           const error = library.restore(removed.entry, removed.index)
           if (error) notify(error, { tone: 'error' })
+          else lecture.then(restoreSource)
         },
       },
     })
@@ -287,7 +332,7 @@ export default function App() {
         fileName: result.fileName,
         signal: generateAbort.current.signal,
       })
-      loadGuide(generated, result.fileName)
+      loadGuide(generated, result.fileName, result)
     } catch (err) {
       if (err.status === 401) auth.expire()
       if (err.name !== 'AbortError') setGenerateError({ message: err.message, reason: err.reason, resetsAt: err.resetsAt })
@@ -468,6 +513,7 @@ export default function App() {
     setJsonDraft('')
     setReviewedCards(new Set())
     setQuizAnswers(new Map())
+    setPackSource(null)
     navigate('home')
   }
 
@@ -607,7 +653,12 @@ export default function App() {
           )}
 
           {view === 'notes' && result && (
-            <ExtractedPreview result={result} hasGuide={Boolean(guide)} onViewGuide={() => navigate('guide')}>
+            <ExtractedPreview
+              result={result}
+              hasGuide={Boolean(guide)}
+              onViewGuide={() => navigate('guide')}
+              onOpenSource={(refs) => openViewer(notesSource, refs)}
+            >
               {AI_GENERATION_ENABLED ? (
                 <>
                   <AiGenerate
@@ -624,7 +675,7 @@ export default function App() {
                     <GuideImport
                       draft={jsonDraft}
                       onDraftChange={setJsonDraft}
-                      onLoad={(g) => loadGuide(g, result.fileName)}
+                      onLoad={(g) => loadGuide(g, result.fileName, result)}
                       source={result}
                     />
                   </Disclosure>
@@ -633,7 +684,7 @@ export default function App() {
                 <GuideImport
                   draft={jsonDraft}
                   onDraftChange={setJsonDraft}
-                  onLoad={(g) => loadGuide(g, result.fileName)}
+                  onLoad={(g) => loadGuide(g, result.fileName, result)}
                   source={result}
                 />
               )}
@@ -641,6 +692,7 @@ export default function App() {
           )}
 
           {isStudyView && (
+            <SourceContext value={sourceContext}>
             <div className="space-y-8">
               <GuideHero
                 guide={guide}
@@ -674,9 +726,16 @@ export default function App() {
                 />
               )}
             </div>
+            </SourceContext>
           )}
         </div>
       </main>
+
+      {viewer && (
+        <Suspense fallback={null}>
+          <SourceSheet key={viewer.target.nonce} source={viewer.source} target={viewer.target} onClose={() => setViewer(null)} />
+        </Suspense>
+      )}
 
       <Toast toast={toast} onDismiss={dismissToast} />
     </div>

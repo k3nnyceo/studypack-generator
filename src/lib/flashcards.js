@@ -1,5 +1,6 @@
 // Turns a generated study guide into flashcards: one card per definition
-// (term -> definition) and one per worked example (problem -> answer).
+// (term -> definition) and one per worked example (problem -> answer). Each
+// card keeps where it came from (sourcePages, else its module's sourceRange).
 export function buildFlashcards(guide) {
   return guide.modules.flatMap((module, m) => [
     ...module.definitions.map((def, i) => ({
@@ -9,6 +10,7 @@ export function buildFlashcards(guide) {
       kind: 'definition',
       front: def.term,
       back: def.definition,
+      sourcePages: def.sourcePages,
     })),
     ...module.workedExamples.map((example, i) => ({
       id: `m${m}-e${i}`,
@@ -17,6 +19,7 @@ export function buildFlashcards(guide) {
       kind: 'example',
       front: example.problem,
       back: example.answer,
+      sourcePages: example.sourcePages,
     })),
   ])
 }

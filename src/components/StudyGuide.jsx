@@ -1,5 +1,7 @@
 import { BookMarked, CircleCheck, Eye, EyeOff, Lightbulb, ListOrdered, Target } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { SourceContext } from '../lib/sourceContext.js'
+import SourceLink from './SourceLink.jsx'
 import { Badge } from './ui.jsx'
 
 export default function StudyGuide({ guide }) {
@@ -71,13 +73,14 @@ function useActiveModule(count) {
 }
 
 function Module({ module, number }) {
+  const { source } = useContext(SourceContext)
   return (
     <section id={`module-${number}`} className="card scroll-mt-24 p-6 sm:p-8">
       <div className="flex flex-wrap items-center gap-3">
         <span className="flex size-9 items-center justify-center rounded-xl bg-brand-50 text-sm font-bold text-brand-700 tabular-nums ring-1 ring-brand-100">
           {String(number).padStart(2, '0')}
         </span>
-        {module.sourceRange && <Badge>{module.sourceRange}</Badge>}
+        {source ? <SourceLink chip sourceRange={module.sourceRange} /> : module.sourceRange && <Badge>{module.sourceRange}</Badge>}
       </div>
       <h2 className="mt-4 text-2xl font-bold tracking-tight text-balance text-stone-900">{module.title}</h2>
 
@@ -110,6 +113,11 @@ function Module({ module, number }) {
               >
                 <dt className="font-semibold text-stone-900">{def.term}</dt>
                 <dd className="mt-1 text-sm leading-relaxed text-stone-600">{def.definition}</dd>
+                {def.sourcePages && (
+                  <dd className="mt-2">
+                    <SourceLink sourcePages={def.sourcePages} />
+                  </dd>
+                )}
               </div>
             ))}
           </dl>
@@ -156,6 +164,7 @@ function WorkedExample({ example, number }) {
             </span>{' '}
             {example.title}
           </p>
+          <SourceLink sourcePages={example.sourcePages} />
         </div>
         <p className="mt-2 leading-relaxed whitespace-pre-line text-stone-700">{example.problem}</p>
         <button

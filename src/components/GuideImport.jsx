@@ -21,6 +21,11 @@ const FIELDS = [
   ['quiz[].options', 'string[]', 'At least 2 choices. Shown in random order, unless one says e.g. "All of the above"'],
   ['quiz[].correctIndex', 'integer', 'Position of the right option, counting from 0'],
   ['quiz[].explanation', 'string', 'Optional'],
+  [
+    '…[].sourcePages',
+    'integer[]',
+    'Optional, on definitions, worked examples, quiz and theory questions: the page or slide numbers it comes from, e.g. [4, 5]. Adds a “View in source” link',
+  ],
 ]
 
 export default function GuideImport({ draft, onDraftChange, onLoad, source }) {

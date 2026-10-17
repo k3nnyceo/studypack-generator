@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sp
 import { useEffect, useState } from 'react'
 import ExamMode from './ExamMode.jsx'
 import FilterChip from './FilterChip.jsx'
+import SourceLink from './SourceLink.jsx'
 import { Button } from './ui.jsx'
 
 const LETTERS = 'ABCDEFGHIJ'
@@ -286,6 +287,9 @@ function Feedback({ question, answer }) {
         {answer.correct ? 'Correct!' : `Not quite. The correct answer is “${correctOption}”.`}
       </p>
       {question.explanation && <p className="mt-2 pl-7">{question.explanation}</p>}
+      <div className="mt-3 pl-7">
+        <SourceLink sourcePages={question.sourcePages} />
+      </div>
       {otherNotes.length > 0 && (
         <dl className="mt-4 space-y-2 pl-7">
           {otherNotes.map(({ option, note, chosen }) => (
@@ -388,6 +392,7 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
                   </p>
                 </div>
                 {q.explanation && !q.generated && <p className="mt-2 text-sm text-stone-600">{q.explanation}</p>}
+                <SourceLink sourcePages={q.sourcePages} className="mt-2" />
               </li>
             ))}
           </ul>

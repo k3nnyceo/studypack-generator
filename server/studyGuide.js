@@ -39,13 +39,22 @@ export const priceKey = (model = '') =>
 //
 // Structured outputs constrain each response to its schema. Every object needs
 // `additionalProperties: false` and an exhaustive `required` list.
+//
+// Every item records the slides or pages it came from, so the app can open
+// the source viewer at them.
+const SOURCE_PAGES = {
+  type: 'array',
+  items: { type: 'integer' },
+  description: 'The slide or page numbers, from the [[Slide N]] / [[Page N]] markers in the notes, that this is based on. Empty for notes labelled with time ranges.',
+}
+
 const MODULE_SCHEMA = {
   type: 'object',
   additionalProperties: false,
   required: ['title', 'sourceRange', 'summary', 'keyPoints', 'definitions', 'workedExamples', 'quiz', 'theory'],
   properties: {
     title: { type: 'string' },
-    sourceRange: { type: 'string', description: 'Which pages or slides this module draws from, e.g. "Slides 4-11".' },
+    sourceRange: { type: 'string', description: 'Which pages or slides this module draws from, from the [[Slide N]] / [[Page N]] markers, e.g. "Slides 4-11".' },
     summary: { type: 'string', description: 'A clear explanatory summary of the module, 1-3 paragraphs.' },
     keyPoints: { type: 'array', items: { type: 'string' } },
     definitions: {
@@ -53,8 +62,8 @@ const MODULE_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['term', 'definition'],
-        properties: { term: { type: 'string' }, definition: { type: 'string' } },
+        required: ['term', 'definition', 'sourcePages'],
+        properties: { term: { type: 'string' }, definition: { type: 'string' }, sourcePages: SOURCE_PAGES },
       },
     },
     workedExamples: {
@@ -62,12 +71,13 @@ const MODULE_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['title', 'problem', 'steps', 'answer'],
+        required: ['title', 'problem', 'steps', 'answer', 'sourcePages'],
         properties: {
           title: { type: 'string' },
           problem: { type: 'string' },
           steps: { type: 'array', items: { type: 'string' } },
           answer: { type: 'string' },
+          sourcePages: SOURCE_PAGES,
         },
       },
     },
@@ -76,12 +86,13 @@ const MODULE_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['question', 'options', 'correctIndex', 'explanation'],
+        required: ['question', 'options', 'correctIndex', 'explanation', 'sourcePages'],
         properties: {
           question: { type: 'string' },
           options: { type: 'array', items: { type: 'string' } },
           correctIndex: { type: 'integer', description: 'Position of the correct option, counting from 0.' },
           explanation: { type: 'string' },
+          sourcePages: SOURCE_PAGES,
         },
       },
     },
@@ -90,12 +101,13 @@ const MODULE_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['question', 'marks', 'modelAnswer', 'markingPoints'],
+        required: ['question', 'marks', 'modelAnswer', 'markingPoints', 'sourcePages'],
         properties: {
           question: { type: 'string' },
           marks: { type: 'integer', description: 'Marks an examiner might award, e.g. 5-15.' },
           modelAnswer: { type: 'string' },
           markingPoints: { type: 'array', items: { type: 'string' } },
+          sourcePages: SOURCE_PAGES,
         },
       },
     },
@@ -127,7 +139,7 @@ const PLAN_SCHEMA = {
         required: ['title', 'sourceRange', 'focus'],
         properties: {
           title: { type: 'string' },
-          sourceRange: { type: 'string', description: 'Which pages or slides the module draws from.' },
+          sourceRange: { type: 'string', description: 'Which pages or slides the module draws from, from the [[Slide N]] / [[Page N]] markers, e.g. "Slides 4-11".' },
           focus: {
             type: 'string',
             description: 'Exactly which concepts, terms, formulas and examples from the notes belong in this module.',
@@ -149,7 +161,7 @@ const THEORY_RULE = `
 // Theory questions are only written for plans that include them.
 const systemPrompt = (theory) => `You turn a student's lecture notes into a study guide they can revise from.
 
-The notes were extracted automatically from a PDF or PowerPoint, so expect broken line wraps, stray headers and footers, and slide fragments; or they are the captions of a lecture video, labelled with time ranges such as [10:00–15:00], so expect spoken language, repetition and caption errors (use the time ranges as the sourceRange). Reconstruct the intended meaning; ignore boilerplate such as page numbers and course codes.
+The notes were extracted automatically from a PDF or PowerPoint, with each page or slide starting with a marker such as [[Page 4]] or [[Slide 4]], so expect broken line wraps, stray headers and footers, and slide fragments; or they are the captions of a lecture video, labelled with time ranges such as [10:00–15:00], so expect spoken language, repetition and caption errors (use the time ranges as the sourceRange). Reconstruct the intended meaning; ignore boilerplate such as page numbers and course codes.
 
 The guide is organised into modules that follow the lecture's own topic boundaries. Each module has:
 - summary: the ideas explained the way a good tutor would, not a list of slide titles.
@@ -157,6 +169,8 @@ The guide is organised into modules that follow the lecture's own topic boundari
 - definitions: every important term the module introduces, defined precisely in plain language.
 - workedExamples: 3 examples (up to 5 for a long, dense module) that apply the module's ideas, each with the problem, numbered reasoning steps, and the final answer. For quantitative topics use real calculations; for conceptual topics use scenarios, case analyses or "explain why" questions worked through step by step.
 - quiz: 3-4 multiple-choice questions with 4 plausible options each, testing understanding rather than wording. correctIndex counts from 0. Give a one-sentence explanation of the right answer.${theory ? THEORY_RULE : ''}
+
+Page and slide numbers always come from those markers, never from numbers printed in the text, so the app can open the exact page: a module's sourceRange names the pages or slides it draws from (e.g. "Slides 4-9"), and every definition, worked example and question lists its sourcePages, the slide or page numbers where the material it's based on appears. Be specific (usually 1-3 numbers, not the whole module's range), so a student can look up the exact slide. For notes labelled with time ranges, leave sourcePages empty.
 
 Stay faithful to the notes. You may add standard background knowledge to make an explanation or example clearer, but don't contradict the source or invent course-specific facts such as dates, names or exam details.`
 

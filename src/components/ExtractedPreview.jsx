@@ -1,11 +1,14 @@
-import { ArrowRight, ChevronDown, CircleCheck, FileText, MonitorPlay, Presentation } from 'lucide-react'
+import { ArrowRight, BookOpenText, ChevronDown, CircleCheck, FileText, Image, MonitorPlay, Presentation } from 'lucide-react'
 import { useState } from 'react'
+import { blocksOf } from '../lib/sourceBlocks.js'
 import CopyButton from './CopyButton.jsx'
+import { Blocks } from './source/Blocks.jsx'
 import { Button, Eyebrow } from './ui.jsx'
 
 // The Notes view: extracted text, plus whatever turns it into a study guide
 // (the JSON import panel, and optionally AI generation) via `children`.
-export default function ExtractedPreview({ result, hasGuide, onViewGuide, children }) {
+// `onOpenSource(refs)` shows the lecture in the source viewer.
+export default function ExtractedPreview({ result, hasGuide, onViewGuide, onOpenSource, children }) {
   const [openIndex, setOpenIndex] = useState(0)
   const [view, setView] = useState('sections') // 'sections' | 'raw'
   const unit = result.type === 'video' ? 'section' : result.type === 'pdf' ? 'page' : 'slide'
@@ -58,7 +61,10 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
             <Eyebrow>Source</Eyebrow>
             <h2 className="mt-0.5 font-semibold text-stone-900">Extracted text</h2>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button size="sm" icon={BookOpenText} onClick={() => onOpenSource([])}>
+              Open viewer
+            </Button>
             <div className="inline-flex rounded-lg bg-stone-100 p-1 text-sm" role="radiogroup" aria-label="Text view">
               {[
                 ['sections', `By ${unit}`],
@@ -93,6 +99,8 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
           <ul className="divide-y divide-stone-100">
             {result.sections.map((section, i) => {
               const isOpen = openIndex === i
+              const blocks = blocksOf(section)
+              const pictures = blocks.filter((b) => b.type === 'image').length
               return (
                 <li key={section.index}>
                   <button
@@ -116,9 +124,11 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
                   </button>
                   {isOpen && (
                     <div className="animate-page-in space-y-3 px-6 pb-5 sm:pl-[4.25rem]">
-                      <p className="text-sm leading-relaxed whitespace-pre-line text-stone-600">
-                        {section.text || <em className="text-stone-500">No text on this {unit}.</em>}
-                      </p>
+                      {blocks.length ? (
+                        <Blocks blocks={blocks} />
+                      ) : (
+                        <p className="text-sm text-stone-500 italic">No text on this {unit}.</p>
+                      )}
                       {section.notes && (
                         <div className="rounded-xl bg-amber-50 p-4 text-sm text-amber-950 ring-1 ring-amber-200">
                           <p className="mb-1 text-xs font-semibold tracking-[0.06em] text-amber-800 uppercase">
@@ -127,6 +137,17 @@ export default function ExtractedPreview({ result, hasGuide, onViewGuide, childr
                           <p className="whitespace-pre-line">{section.notes}</p>
                         </div>
                       )}
+                      <div className="flex flex-wrap items-center gap-3 pt-1">
+                        <Button size="sm" icon={BookOpenText} onClick={() => onOpenSource([section.index])}>
+                          {result.type === 'pdf' && result.file ? `See page ${section.index}` : `View ${unit}`}
+                        </Button>
+                        {pictures > 0 && (
+                          <span className="inline-flex items-center gap-1.5 text-xs text-stone-500">
+                            <Image className="size-3.5" aria-hidden />
+                            {pictures} picture{pictures === 1 ? '' : 's'} in the viewer
+                          </span>
+                        )}
+                      </div>
                     </div>
                   )}
                 </li>

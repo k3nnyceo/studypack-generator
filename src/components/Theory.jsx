@@ -1,6 +1,7 @@
 import { Check, Eye, PenLine } from 'lucide-react'
 import { useState } from 'react'
 import FilterChip from './FilterChip.jsx'
+import SourceLink from './SourceLink.jsx'
 import { Badge, Button } from './ui.jsx'
 
 // Exam-style written questions ("Explain…", "Calculate…") with model answers
@@ -68,6 +69,7 @@ function TheoryQuestion({ item, number, onStudied }) {
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-semibold tracking-wide text-stone-500 uppercase">{item.moduleTitle}</span>
         {item.marks && <Badge tone="brand">{item.marks} marks</Badge>}
+        <SourceLink sourcePages={item.sourcePages} className="ml-auto" />
       </div>
       <h3 className="mt-2 text-lg leading-snug font-semibold text-stone-900">
         {number}. {item.question}

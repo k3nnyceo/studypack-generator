@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { cardStatus, studyOrder } from '../lib/cardMemory.js'
 import { shuffled } from '../lib/flashcards.js'
 import FilterChip from './FilterChip.jsx'
+import SourceLink from './SourceLink.jsx'
 
 const dueDate = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short' })
 
@@ -259,6 +260,12 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
         <p className="card p-10 text-center text-stone-500">
           No cards match these filters.
         </p>
+      )}
+
+      {card && (
+        <div className="-mt-2 flex justify-center">
+          <SourceLink key={card.id} sourcePages={card.sourcePages} />
+        </div>
       )}
 
       {card && flipped && (

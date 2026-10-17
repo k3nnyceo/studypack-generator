@@ -29,8 +29,9 @@ const SYSTEM = `You transcribe scanned or photographed pages of a student's lect
 const INSTRUCTION = `Transcribe every page above, in order. Start each page with a line "=== Page N ===" using the page numbers given.
 
 - Copy all text faithfully, including handwriting, headings, bullet points and numbered lists. Keep the original wording; don't summarise or correct it.
+- Write headings on their own line starting with "# ", and bullet points as lines starting with "- " (indent sub-points by two spaces).
 - Write tables as plain-text rows, one row per line, with cells separated by " | ".
-- Write equations and formulas in plain text, e.g. σ = F / A, or E = σ / ε.
+- Write equations and formulas in LaTeX between dollar signs, e.g. $\\sigma = \\frac{F}{A}$. An equation on a line of its own goes between double dollar signs.
 - For a diagram, graph or figure, write a short description in square brackets, e.g. [Diagram: simply supported beam with a point load at mid-span].
 - Leave out page numbers, running headers and watermarks.
 - If a page is blank or can't be read, write [Unreadable] for it.

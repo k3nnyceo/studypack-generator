@@ -106,8 +106,9 @@ export default function Landing({
           <UploadDropzone onFile={onFile} disabled={status === 'parsing'} />
         </div>
 
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <span className="text-sm text-stone-500">No notes handy?</span>
+        {/* Wraps onto more lines instead of running off a narrow screen. */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-2.5">
+          <span className="w-full text-sm text-stone-500 sm:w-auto sm:pr-1">No notes handy?</span>
           <Button variant="soft" icon={Sparkles} onClick={onTrySample} disabled={status === 'parsing'}>
             Try a sample study pack
           </Button>

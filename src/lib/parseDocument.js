@@ -53,16 +53,13 @@ export async function parseDocument(file) {
   const parse = await PARSERS[type]()
   const rawSections = await parse(file)
 
-  // Count only real content, so a scanned PDF isn't rescued by "Page 1" labels.
-  const wordCount = rawSections
-    .map((s) => `${s.title} ${s.text} ${s.notes}`)
-    .join(' ')
-    .split(/\s+/)
-    .filter(Boolean).length
+  // Count only real content, so a scanned PDF isn't rescued by "Page 1" labels
+  // (or bullet markers).
+  const wordCount = countWords(rawSections.map((s) => `${s.title} ${s.text} ${s.notes}`).join(' '))
 
   // Scanned: no text at all, or most pages have next to none (a typed cover
   // page in front of scanned handouts is common).
-  const wordsOn = (s) => `${s.title} ${s.text}`.split(/\s+/).filter(Boolean).length
+  const wordsOn = (s) => countWords(`${s.title} ${s.text}`)
   const pictureOnly = rawSections.filter((s) => wordsOn(s) < 8).length
   if (type === 'pdf' && (wordCount === 0 || pictureOnly / rawSections.length >= 0.6)) {
     throw new ScannedPdfError(rawSections.length)
@@ -74,12 +71,13 @@ export async function parseDocument(file) {
     ...s,
     title: s.title || headingFrom(s.text) || `${label} ${s.index}`,
   }))
-  // Each section is labelled "[Slide 3] Title" so a reader (human or AI) can
-  // cite where material came from. Only real titles are included; a heading
+  // Each section starts with a marker, "[[Slide 3]] Title", so a reader (human
+  // or AI) can cite exactly where material came from: the model copies these
+  // numbers into sourceRange and sourcePages, which open the source viewer. Only real titles are included; a heading
   // derived from the first line would just repeat it.
   const fullText = rawSections
     .map((s) =>
-      [`[${label} ${s.index}]${s.title ? ` ${s.title}` : ''}`, s.text, s.notes && `Speaker notes: ${s.notes}`]
+      [`[[${label} ${s.index}]]${s.title ? ` ${s.title}` : ''}`, s.text, s.notes && `Speaker notes: ${s.notes}`]
         .filter(Boolean)
         .join('\n'),
     )
@@ -91,11 +89,17 @@ export async function parseDocument(file) {
     sections,
     fullText,
     wordCount,
+    // Kept for the source viewer, which renders the pages (PDF) or reads the
+    // pictures (PowerPoint) from it. It never leaves the device.
+    file,
   }
 }
 
+export const countWords = (text) => text.split(/\s+/).filter((w) => /[\p{L}\p{N}]/u.test(w)).length
+
 // Use a short first line as a heading when the source has no explicit title.
+// A picture's description ("[Image: …]") isn't a heading.
 function headingFrom(text) {
-  const firstLine = text.split('\n', 1)[0].trim()
+  const firstLine = text.split('\n').find((line) => line.trim() && !line.startsWith('[Image:'))?.trim() ?? ''
   return firstLine.length > 0 && firstLine.length <= 80 ? firstLine : ''
 }

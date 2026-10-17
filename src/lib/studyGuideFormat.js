@@ -17,6 +17,7 @@ export const EXAMPLE_GUIDE = {
         {
           term: 'ATP',
           definition: 'Adenosine triphosphate: the molecule cells use to store and transfer energy.',
+          sourcePages: [8],
         },
       ],
       workedExamples: [
@@ -25,6 +26,7 @@ export const EXAMPLE_GUIDE = {
           problem: 'If one glucose molecule yields about 30 ATP, how many do 4 yield?',
           steps: ['Each glucose gives ~30 ATP.', 'Multiply: 30 x 4.'],
           answer: 'About 120 ATP.',
+          sourcePages: [10, 11],
         },
       ],
       quiz: [
@@ -33,6 +35,7 @@ export const EXAMPLE_GUIDE = {
           options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Golgi apparatus'],
           correctIndex: 1,
           explanation: 'The electron transport chain in the mitochondria produces most ATP.',
+          sourcePages: [9],
         },
       ],
       theory: [
@@ -41,6 +44,7 @@ export const EXAMPLE_GUIDE = {
           marks: 10,
           modelAnswer: 'Glucose is first broken down in glycolysis… (a complete answer a student could write in an exam).',
           markingPoints: ['Glycolysis in the cytoplasm', 'Krebs cycle in the matrix', 'Electron transport chain and ATP synthase'],
+          sourcePages: [9, 10],
         },
       ],
     },
@@ -134,6 +138,7 @@ export function validateStudyGuide(data) {
           object(d, p, (def) => ({
             term: text(def, 'term', p),
             definition: text(def, 'definition', p),
+            ...sourcePages(def),
           })),
         ),
         workedExamples: list(mod, 'workedExamples', path, (e, p) =>
@@ -145,6 +150,7 @@ export function validateStudyGuide(data) {
               return String(step ?? '')
             }),
             answer: text(ex, 'answer', p),
+            ...sourcePages(ex),
           })),
         ),
         quiz: list(mod, 'quiz', path, (q, p) => object(q, p, (question) => readQuizQuestion(question, p)), {
@@ -164,6 +170,7 @@ export function validateStudyGuide(data) {
                 if (!isText(point)) fail(pp, `must be a non-empty string (got ${describe(point)})`)
                 return String(point ?? '')
               }),
+              ...sourcePages(tq),
             })),
           { optional: true },
         ),
@@ -195,6 +202,7 @@ export function validateStudyGuide(data) {
       options,
       correctIndex,
       explanation: text(q, 'explanation', path, { optional: true }),
+      ...sourcePages(q),
     }
   }
 
@@ -208,6 +216,15 @@ export function validateStudyGuide(data) {
     return { ok: false, errors: shown }
   }
   return { ok: true, guide }
+}
+
+// The slide or page numbers an item is based on. Optional and forgiving
+// (stray values are dropped, not reported), and left out entirely when empty
+// so packs made before it existed keep the same fingerprint.
+function sourcePages(item) {
+  if (!Array.isArray(item.sourcePages)) return {}
+  const pages = [...new Set(item.sourcePages.filter((n) => Number.isInteger(n) && n > 0 && n < 10000))]
+  return pages.length ? { sourcePages: pages.sort((a, b) => a - b).slice(0, 12) } : {}
 }
 
 function describe(value) {
@@ -234,7 +251,8 @@ Rules:
 - quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Make wrong options plausible misconceptions, not obvious throwaways. Give a one-sentence explanation.
 - theory: 2-3 exam-style written questions per module ("Explain…", "Derive…", "Calculate…", "Distinguish between…"), each with the marks an examiner might award, a complete modelAnswer a student could write in the exam (with working for calculations), and the 3-6 markingPoints an examiner would look for.
 - course: the course this lecture belongs to, e.g. "MECH 2201 Strength of Materials". topic: a short name for this lecture's topic.
-- sourceRange: which pages or slides the module draws from.
+- sourceRange: which pages or slides the module draws from, read from the [[Slide N]] / [[Page N]] markers, e.g. "Slides 4-9".
+- sourcePages: on every definition, worked example, quiz and theory question, the slide or page numbers (from the [[Slide N]] / [[Page N]] markers in the notes) its material comes from, usually 1-3 numbers. Use [] if the notes have no such markers.
 - The notes were extracted automatically from a PDF or slides, so ignore page numbers, headers and other boilerplate.
 - Stay faithful to the notes. Don't invent course-specific facts such as dates, names or exam details.
 

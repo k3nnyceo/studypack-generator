@@ -1,0 +1,128 @@
+/* The source viewer's own styles: pdf.js's text layer (the parts of
+   pdfjs-dist/web/pdf_viewer.css it needs), search marks and motion. */
+
+.pdf-page {
+  --user-unit: 1;
+  --total-scale-factor: calc(var(--scale-factor) * var(--user-unit));
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
+}
+
+.pdf-page .textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  line-height: 1;
+  text-align: initial;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  caret-color: CanvasText;
+  z-index: 0;
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+
+.pdf-page .textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+  user-select: text;
+}
+
+.pdf-page .textLayer > :not(.markedContent),
+.pdf-page .textLayer .markedContent span:not(.markedContent) {
+  z-index: 1;
+  --font-height: 0;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1;
+  --rotate: 0deg;
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+}
+
+.pdf-page .textLayer .markedContent {
+  display: contents;
+}
+
+.pdf-page .textLayer ::selection {
+  background: rgb(116 64 223 / 0.25);
+  color: transparent;
+}
+
+.pdf-page .textLayer mark {
+  color: transparent;
+  background: rgb(250 204 21 / 0.5);
+  border-radius: 2px;
+  padding: 0;
+}
+
+.source-viewer mark[data-current] {
+  background: rgb(249 115 22 / 0.65);
+  outline: 2px solid rgb(234 88 12);
+  outline-offset: 1px;
+}
+
+/* The slides a flashcard or question came from pulse once when shown. */
+.source-flash {
+  animation: source-flash 1.6s ease-out 1;
+}
+
+@keyframes source-flash {
+  0%,
+  40% {
+    box-shadow: 0 0 0 8px rgb(162 131 245 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(162 131 245 / 0);
+  }
+}
+
+.animate-sheet-up {
+  animation: sheet-up 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-sheet-fade {
+  animation: sheet-fade 240ms ease-out;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .source-flash,
+  .animate-sheet-up,
+  .animate-sheet-fade {
+    animation: none;
+  }
+}
+
+/* The desktop drawer slides in from the right. */
+.animate-drawer-in {
+  animation: drawer-in 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-drawer-in {
+    animation: none;
+  }
+}

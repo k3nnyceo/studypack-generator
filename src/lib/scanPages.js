@@ -23,6 +23,7 @@ export async function scannedPdf(file) {
   const doc = await task.promise
   return {
     kind: 'pdf',
+    file,
     fileName: file.name,
     pageCount: doc.numPages,
     async getPage(i) {
@@ -47,6 +48,7 @@ export function photos(files) {
   const sorted = [...files].sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
   return {
     kind: 'photos',
+    files: sorted,
     fileName: sorted.length === 1 ? sorted[0].name : `${sorted.length} photos of notes`,
     pageCount: sorted.length,
     async getPage(i) {
@@ -97,7 +99,8 @@ export async function readScan(scan, { pageCount = Math.min(scan.pageCount, MAX_
       .then(() => scan.close())
       .catch(() => {})
   }
-  return scanResult(scan.fileName, pages)
+  // The source viewer shows the pages themselves: the PDF, or the photos.
+  return { ...scanResult(scan.fileName, pages), ...(scan.kind === 'pdf' ? { file: scan.file } : { photos: scan.files }) }
 }
 
 async function transcribe(pages, signal) {
@@ -128,7 +131,7 @@ export function scanResult(fileName, pages) {
     .filter((p) => p.text && p.text !== '[Unreadable]')
     .map((p) => ({ index: p.page, title: firstLine(p.text) || `Page ${p.page}`, text: p.text, notes: '' }))
   if (sections.length === 0) throw new Error('No readable text was found on these pages. Try clearer photos.')
-  const fullText = sections.map((s) => `[Page ${s.index}]\n${s.text}`).join('\n\n')
+  const fullText = sections.map((s) => `[[Page ${s.index}]]\n${s.text}`).join('\n\n')
   return { fileName, type: 'pdf', scanned: true, sections, fullText, wordCount: fullText.split(/\s+/).filter(Boolean).length }
 }
 
