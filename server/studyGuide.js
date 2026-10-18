@@ -317,6 +317,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     let modules
     try {
       const why = await Promise.race([cacheReady, failed])
+      timers.forEach(clearTimeout) // a writer started: the hedge isn't needed
       if (controller.signal.aborted) throw new StudyGuideError('Generation was cancelled.', 499)
       if (count > 1) console.log(`[study-guide] ${why}; sending the other modules after ${((Date.now() - modulesStarted) / 1000).toFixed(1)}s`)
       for (let i = 1; i < count; i++) launch(i)
