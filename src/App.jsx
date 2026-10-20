@@ -22,7 +22,7 @@ import { takePaymentReturn, useBilling } from './lib/billing.js'
 import { captureReferral } from './lib/referral.js'
 import { fetchShared, listShared, removeShared, sharePack } from './lib/shared.js'
 import { buildFlashcards } from './lib/flashcards.js'
-import { generateStudyGuide, getPendingJob, resumePendingJob } from './lib/generateStudyGuide.js'
+import { generateStudyGuide, getPendingJobs, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, ScannedPdfError, validateFile } from './lib/parseDocument.js'
 import { isImageFile, pastedResult, photos, readScan, scannedPdf } from './lib/scanPages.js'
 import { buildQuiz } from './lib/quiz.js'
@@ -42,12 +42,18 @@ import { WifiOff } from 'lucide-react'
 // The source viewer (pdf.js, KaTeX, JSZip) loads the first time it's opened.
 const SourceSheet = lazy(() => import('./components/source/SourceSheet.jsx'))
 
+// How many parts of a long lecture are written at the same time when they're
+// all made at once. Each part is several Claude calls, so more would risk
+// Bedrock's rate limits.
+const PARALLEL_PARTS = 2
+
 // Read once per page load (outside the component, so StrictMode's double
 // render can't consume it before it's shown).
 const interruptedUploadMessage = takeInterruptedUploadMessage()
-// A study pack that was still being written when the page last closed or
-// reloaded (e.g. the phone unloaded it). It's finished on the home page.
-const pendingJobAtLoad = AI_GENERATION_ENABLED ? getPendingJob() : null
+// Study packs that were still being written when the page last closed or
+// reloaded (e.g. the phone unloaded it), possibly several parts of a long
+// lecture. They're finished on the home page.
+const pendingJobsAtLoad = AI_GENERATION_ENABLED ? getPendingJobs() : []
 // A Paystack payment reference, if we've just come back from checkout.
 const paymentReturn = takePaymentReturn()
 // A share link (?ref=…) this visit came through.
@@ -141,7 +147,18 @@ export default function App() {
   )
   const [doneParts, setDoneParts] = useState({ result: null, numbers: new Set() })
   const [generatingPart, setGeneratingPart] = useState(null)
-  const [resumingJob, setResumingJob] = useState(pendingJobAtLoad)
+  const partSuffix = (part) => ` (Part ${part.number} of ${parts.length})`
+  const markPartDone = (forResult, number) =>
+    setDoneParts((done) => ({ result: forResult, numbers: new Set(done.result === forResult ? done.numbers : []).add(number) }))
+  // Making every part at once (generateAllParts): null, or { result, running,
+  // statuses: { [part number]: { state, message?, resetsAt? } } } with state
+  // 'queued' | 'writing' | 'done' | 'failed' | 'waiting' (for the allowance).
+  const [batch, setBatch] = useState(null)
+  const batchAbort = useRef(null)
+  // { fileName, count } while packs from before a reload are being finished.
+  const [resumingJob, setResumingJob] = useState(
+    pendingJobsAtLoad.length ? { fileName: pendingJobsAtLoad[0].fileName, count: pendingJobsAtLoad.length } : null,
+  )
   const resumeAbort = useRef(null)
 
   // Built once per guide, so quiz option order stays put while switching views.
@@ -242,14 +259,19 @@ export default function App() {
   // Every guide that's pasted, uploaded or generated arrives here already
   // validated, and is saved to the library before it's shown. `notes` is the
   // lecture it was made from, kept on this device for the source viewer.
-  function loadGuide(newGuide, sourceName = fileName, notes = null) {
+  // Saves a pack to the library, with the lecture it was made from (kept on
+  // this device for the source viewer). Returns library.add's result.
+  function saveToLibrary(newGuide, sourceName, notes = null) {
     const saved = library.add(newGuide, sourceName)
     const source = sourceFromResult(notes)
-    if (source) {
-      const key = fingerprint(newGuide)
-      setPackSource({ ...source, key })
-      saveSource(key, source)
-    }
+    if (source) saveSource(fingerprint(newGuide), source)
+    return saved
+  }
+
+  function loadGuide(newGuide, sourceName = fileName, notes = null) {
+    const saved = saveToLibrary(newGuide, sourceName, notes)
+    const source = sourceFromResult(notes)
+    if (source) setPackSource({ ...source, key: fingerprint(newGuide) })
     if (saved.error) notify(`Opened, but not saved: ${saved.error}`, { tone: 'error' })
     else if (saved.duplicate) notify('Already in your library, so it wasn’t saved again')
     else notify('Saved to your library')
@@ -335,6 +357,72 @@ export default function App() {
     })
   }
 
+  // Makes every part not made yet, PARALLEL_PARTS at a time, saving each to
+  // the library as it's ready (without opening it). If the plan's allowance
+  // runs out, the parts left wait for it to refill instead of failing.
+  async function generateAllParts() {
+    const forResult = result
+    const made = doneParts.result === forResult ? doneParts.numbers : new Set()
+    const todo = parts.filter((p) => !made.has(p.number))
+    if (!todo.length) return
+    const controller = new AbortController()
+    batchAbort.current = controller
+    const update = (number, status) =>
+      setBatch((b) => (b?.result === forResult ? { ...b, statuses: { ...b.statuses, [number]: status } } : b))
+    setGenerateError(null)
+    setBatch({ result: forResult, running: true, statuses: Object.fromEntries(todo.map((p) => [p.number, { state: 'queued' }])) })
+
+    const queue = [...todo]
+    let allowanceOut = null // { message, resetsAt } once the plan's allowance runs out
+    let saved = 0
+    // One part's pictures are rendered at a time: each render opens the whole
+    // file, and phones run out of memory quickly.
+    let rendering = Promise.resolve()
+    const worker = async () => {
+      for (let part = queue.shift(); part; part = queue.shift()) {
+        if (controller.signal.aborted) return
+        if (allowanceOut) {
+          update(part.number, { state: 'waiting', ...allowanceOut })
+          continue
+        }
+        update(part.number, { state: 'writing' })
+        try {
+          const inPart = part.from ? diagramPages?.filter((p) => p.ref >= part.from && p.ref <= part.to) : diagramPages
+          const images = sendDiagrams
+            ? await (rendering = rendering
+                .catch(() => {})
+                .then(() => prepareDiagramPages(forResult, inPart, diagramLimit, { signal: controller.signal })))
+            : []
+          const { guide: generated } = await generateStudyGuide({
+            text: part.text,
+            fileName: forResult.fileName,
+            images,
+            titleSuffix: partSuffix(part),
+            signal: controller.signal,
+          })
+          saveToLibrary(generated, forResult.fileName, forResult)
+          saved++
+          markPartDone(forResult, part.number)
+          update(part.number, { state: 'done' })
+        } catch (err) {
+          if (err.name === 'AbortError') return update(part.number, { state: 'queued' })
+          if (err.status === 401) auth.expire()
+          if (err.reason && err.reason !== 'too-long') {
+            allowanceOut = { message: err.message, resetsAt: err.resetsAt }
+            update(part.number, { state: 'waiting', ...allowanceOut })
+          } else update(part.number, { state: 'failed', message: err.message })
+        }
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(PARALLEL_PARTS, todo.length) }, worker))
+    batchAbort.current = null
+    billing.refresh()
+    if (controller.signal.aborted) return setBatch(null)
+    setBatch((b) => (b?.result === forResult ? { ...b, running: false } : b))
+    if (saved) notify(`${saved} of ${todo.length} parts made and saved to your library`)
+    else notify('No parts were made', { tone: 'error' })
+  }
+
   // `part` (from `parts`) makes a pack from that part of the notes only.
   async function handleGenerate(part = null) {
     setGenerateError(null)
@@ -350,13 +438,10 @@ export default function App() {
         text: part?.text ?? result.fullText,
         fileName: result.fileName,
         images,
+        titleSuffix: part ? partSuffix(part) : '',
         signal,
       })
-      if (part) {
-        // Each part is its own pack: say which, so they're told apart in the library.
-        generated.title = `${generated.title} (Part ${part.number} of ${parts.length})`
-        setDoneParts((done) => ({ result, numbers: new Set(done.result === result ? done.numbers : []).add(part.number) }))
-      }
+      if (part) markPartDone(result, part.number)
       loadGuide(generated, result.fileName, result)
     } catch (err) {
       if (err.status === 401) auth.expire()
@@ -385,22 +470,34 @@ export default function App() {
     loadGuide(parsed.guide, 'Sample study pack')
   }
 
-  // Pick up a study pack that was being written before the page reloaded.
+  // Pick up study packs that were being written before the page reloaded.
+  // One opens when it's ready; several (a long lecture's parts) are saved to
+  // the library.
   useEffect(() => {
-    if (!pendingJobAtLoad || resumeAbort.current) return // the ref guards StrictMode's second run
+    if (!pendingJobsAtLoad.length || resumeAbort.current) return // the ref guards StrictMode's second run
     resumeAbort.current = new AbortController()
-    resumePendingJob(pendingJobAtLoad, { signal: resumeAbort.current.signal })
-      .then((resumed) => {
-        loadGuide(resumed, pendingJobAtLoad.fileName)
-        notify('Your study pack is ready and saved')
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') fail(err.message)
-      })
-      .finally(() => {
-        setResumingJob(null)
-        billing.refresh()
-      })
+    const single = pendingJobsAtLoad.length === 1
+    let saved = 0
+    let failure = null
+    Promise.all(
+      pendingJobsAtLoad.map((job) =>
+        resumePendingJob(job, { signal: resumeAbort.current.signal })
+          .then((resumed) => {
+            if (single) {
+              loadGuide(resumed, job.fileName)
+              notify('Your study pack is ready and saved')
+            } else if (!saveToLibrary(resumed, job.fileName).error) saved++
+          })
+          .catch((err) => {
+            if (err.name !== 'AbortError') failure ??= err
+          }),
+      ),
+    ).finally(() => {
+      if (!single && saved) notify(`${saved} study pack${saved === 1 ? '' : 's'} finished and saved to your library`)
+      if (failure && (single || !saved)) fail(failure.message)
+      setResumingJob(null)
+      billing.refresh()
+    })
     // Runs once on load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -511,6 +608,7 @@ export default function App() {
 
   function reset() {
     generateAbort.current?.abort()
+    batchAbort.current?.abort()
     setStatus('idle')
     setResult(null)
     setError('')
@@ -674,6 +772,10 @@ export default function App() {
                     done: doneParts.result === result ? doneParts.numbers : new Set(),
                     generating: generatingPart,
                     onGenerate: handleGenerate,
+                    batch: batch?.result === result ? batch : null,
+                    onGenerateAll: generateAllParts,
+                    onCancelAll: () => batchAbort.current?.abort(),
+                    onOpenLibrary: () => navigate('library'),
                   }}
                   onCancel={() => generateAbort.current?.abort()}
                   isGenerating={isGenerating}

@@ -1,4 +1,4 @@
-import { BookOpen, ChartArea, Check, Gauge, Layers, ListChecks, Lock, RotateCcw, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { BookOpen, ChartArea, Check, Gauge, Layers, LibraryBig, ListChecks, Loader2, Lock, RotateCcw, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SIGN_IN_ENABLED } from '../config.js'
 import { formatResetTime } from '../lib/billing.js'
@@ -18,7 +18,8 @@ const OUTPUTS = [
 // to upgrade. `diagrams` is { pages, limit, unit, send, onToggle }: the diagram
 // pages found in the notes (null while looking), how many the plan lets Claude
 // see, and whether to send them. `split` is set when the notes are too long
-// for one pack: { parts, unit, done, generating, onGenerate(part) }.
+// for one pack: { parts, unit, done, generating, onGenerate(part), batch,
+// onGenerateAll, onCancelAll, onOpenLibrary } (see PartsList).
 export default function AiGenerate({ onGenerate, split, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans, diagrams }) {
   const needsSignIn = SIGN_IN_ENABLED && !signedIn
   const usage = signedIn ? billing?.usage : null
@@ -170,43 +171,98 @@ function DiagramOption({ diagrams, perPart, canUpgrade, onOpenPlans }) {
   )
 }
 
-// Notes too long for one pack: one row per part, each made into its own pack
-// on demand. Parts already made from these notes are ticked.
+// Notes too long for one pack: one row per part, each made into its own pack,
+// one at a time or all at once (two running together). Parts already made
+// from these notes are ticked; while making them all, each row shows how its
+// part is going.
 function PartsList({ split }) {
-  const { parts, unit, done, onGenerate } = split
-  const next = parts.find((p) => !done.has(p.number))
+  const { parts, unit, done, onGenerate, batch, onGenerateAll, onCancelAll, onOpenLibrary } = split
+  const running = Boolean(batch?.running)
+  const left = parts.filter((p) => !done.has(p.number))
+  const next = left[0]
+  const statusOf = (part) => (done.has(part.number) ? 'done' : (batch?.statuses[part.number]?.state ?? null))
+  const writing = parts.filter((p) => statusOf(p) === 'writing').length
+  const waiting = parts.map((p) => batch?.statuses[p.number]).find((s) => s?.state === 'waiting')
+
   return (
     <div className="mt-6">
       <p className="font-semibold text-stone-800">This lecture is long, so it’s made into {parts.length} study packs</p>
       <p className="mt-1 text-sm text-stone-500">
-        Each part is a full pack of its own, about 2–3 minutes each. “View in source” still opens the right {unit.toLowerCase()} of the whole file.
+        Each part is a full pack of its own, about 2–3 minutes each. “View in source” still opens the right {unit.toLowerCase()} of
+        the whole file.
       </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        {running ? (
+          <>
+            <p className="flex items-center gap-2 text-sm font-semibold text-stone-800" role="status" aria-live="polite">
+              <Loader2 className="size-4 animate-spin text-brand-600" aria-hidden />
+              Writing {writing} of {left.length} remaining… they’re saved to your library as they’re ready
+            </p>
+            <Button size="sm" variant="ghost" icon={X} onClick={onCancelAll}>
+              Cancel
+            </Button>
+          </>
+        ) : left.length > 1 ? (
+          <Button variant="primary" icon={Sparkles} onClick={onGenerateAll}>
+            Generate all {left.length === parts.length ? parts.length : `${left.length} remaining`} parts
+          </Button>
+        ) : null}
+        {!running && done.size > 0 && (
+          <Button size="sm" variant="ghost" icon={LibraryBig} onClick={onOpenLibrary}>
+            Open your library
+          </Button>
+        )}
+      </div>
+      {waiting && !running && (
+        <p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-900 ring-1 ring-amber-200" role="alert">
+          {waiting.message}
+          {waiting.resetsAt && ` It refills at ${formatResetTime(waiting.resetsAt)}; make the rest then.`}
+        </p>
+      )}
+
       <ol className="mt-4 divide-y divide-stone-100 overflow-hidden rounded-2xl ring-1 ring-stone-200">
         {parts.map((part) => {
-          const made = done.has(part.number)
+          const status = statusOf(part)
+          const made = status === 'done'
           const range = part.from === null ? '' : part.from === part.to ? `${unit.slice(0, -1)} ${part.from}` : `${unit} ${part.from}–${part.to}`
+          const note = batch?.statuses[part.number]
           return (
             <li key={part.number} className="flex flex-wrap items-center gap-3 bg-white px-4 py-3">
               <span
                 className={`flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold tabular-nums ${
-                  made ? 'bg-emerald-100 text-emerald-700' : 'bg-brand-50 text-brand-700'
+                  made ? 'bg-emerald-100 text-emerald-700' : status === 'failed' ? 'bg-rose-100 text-rose-700' : 'bg-brand-50 text-brand-700'
                 }`}
               >
-                {made ? <Check className="size-4" strokeWidth={3} aria-label="Made" /> : part.number}
+                {made ? (
+                  <Check className="size-4" strokeWidth={3} aria-label="Made" />
+                ) : status === 'writing' ? (
+                  <Loader2 className="size-4 animate-spin" aria-label="Writing" />
+                ) : (
+                  part.number
+                )}
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-sm font-semibold text-stone-800">Part {part.number}</span>
-                {range && <span className="block text-xs text-stone-500 tabular-nums">{range}</span>}
+                <span className="block text-xs text-stone-500 tabular-nums">
+                  {range}
+                  {status === 'writing' && ' · writing…'}
+                  {status === 'queued' && ' · waiting its turn'}
+                  {status === 'waiting' && ' · waits for your allowance'}
+                </span>
+                {status === 'failed' && note?.message && <span className="mt-0.5 block text-xs text-rose-700">{note.message}</span>}
               </span>
-              <Button
-                size="sm"
-                variant={part === next ? 'primary' : 'soft'}
-                icon={made ? RotateCcw : Sparkles}
-                onClick={() => onGenerate(part)}
-                aria-label={`${made ? 'Make again' : 'Generate'}: part ${part.number}${range ? `, ${range}` : ''}`}
-              >
-                {made ? 'Make again' : 'Generate'}
-              </Button>
+              {!running && (
+                <Button
+                  size="sm"
+                  variant={part === next && left.length === 1 ? 'primary' : 'soft'}
+                  icon={made ? RotateCcw : Sparkles}
+                  onClick={() => onGenerate(part)}
+                  aria-label={`${made ? 'Make again' : status === 'failed' ? 'Try again' : 'Generate'}: part ${part.number}${range ? `, ${range}` : ''}`}
+                >
+                  {made ? 'Make again' : status === 'failed' ? 'Try again' : 'Generate'}
+                </Button>
+              )}
             </li>
           )
         })}

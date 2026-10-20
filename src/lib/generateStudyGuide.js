@@ -4,50 +4,50 @@ import { validateStudyGuide } from './studyGuideFormat.js'
 //
 // Generation runs as a job on the server (server/studyGuideHandler.js): we
 // start it, then poll until it's done. Nothing depends on one connection
-// staying open, so a phone can lock its screen or switch apps mid-way. The job
-// id is kept in localStorage, so if the page is reloaded (or the phone unloads
-// it), the app picks the job back up on the next load (see resumePendingJob).
+// staying open, so a phone can lock its screen or switch apps mid-way. Job
+// ids are kept in localStorage, so if the page is reloaded (or the phone
+// unloads it), the app picks the jobs back up on the next load (see
+// resumePendingJob); several run at once when a long lecture's parts are
+// made together.
 
-const PENDING_KEY = 'studypack.pendingJob.v1'
+const PENDING_KEY = 'studypack.pendingJobs.v2'
+const OLD_PENDING_KEY = 'studypack.pendingJob.v1'
 const POLL_MS = 3000
 // Past this, stop waiting: the server gives up on a job after ~5.5 minutes.
 const GIVE_UP_MS = 8 * 60 * 1000
 
 // Resolves to { guide }: a validated guide in the format defined in
 // studyGuideFormat.js. `images` are diagram pages (src/lib/diagramPages.js),
-// best first; the server keeps as many as the plan allows.
-export async function generateStudyGuide({ text, fileName, images = [], signal }) {
+// best first; the server keeps as many as the plan allows. `titleSuffix`
+// (e.g. " (Part 2 of 7)") is added to the guide's title, also when the job is
+// picked up again after a reload.
+export async function generateStudyGuide({ text, fileName, images = [], titleSuffix = '', signal }) {
   const { jobId } = await callApi('/api/study-guide', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text, fileName, ...(images.length && { images }) }),
     signal,
   })
-  savePendingJob({ jobId, fileName, startedAt: Date.now() })
-  const guide = await waitForJob({ jobId, startedAt: Date.now(), signal })
+  savePendingJob({ jobId, fileName, titleSuffix, startedAt: Date.now() })
+  const guide = await waitForJob({ jobId, startedAt: Date.now(), titleSuffix, signal })
   return { guide }
 }
 
-// A job started before the page was reloaded, if it could still be running:
-// { jobId, fileName, startedAt } or null.
-export function getPendingJob() {
-  try {
-    const job = JSON.parse(localStorage.getItem(PENDING_KEY) ?? 'null')
-    if (job?.jobId && Date.now() - job.startedAt < GIVE_UP_MS) return job
-    localStorage.removeItem(PENDING_KEY)
-  } catch {
-    // storage blocked or corrupt: nothing to resume
-  }
-  return null
+// Jobs started before the page was reloaded that could still be running:
+// [{ jobId, fileName, titleSuffix, startedAt }], oldest first.
+export function getPendingJobs() {
+  const jobs = readPending().filter((job) => job?.jobId && Date.now() - job.startedAt < GIVE_UP_MS)
+  writePending(jobs)
+  return jobs
 }
 
-// Waits for a job from getPendingJob(). Resolves to the guide.
-export function resumePendingJob({ jobId, startedAt }, { signal } = {}) {
-  return waitForJob({ jobId, startedAt, signal })
+// Waits for a job from getPendingJobs(). Resolves to the guide.
+export function resumePendingJob({ jobId, startedAt, titleSuffix }, { signal } = {}) {
+  return waitForJob({ jobId, startedAt, titleSuffix, signal })
 }
 
 // Polls until the job finishes. Aborting `signal` cancels the job on the server.
-async function waitForJob({ jobId, startedAt, signal }) {
+async function waitForJob({ jobId, startedAt, titleSuffix = '', signal }) {
   const url = `/api/study-guide?job=${encodeURIComponent(jobId)}`
   try {
     for (;;) {
@@ -60,8 +60,8 @@ async function waitForJob({ jobId, startedAt, signal }) {
         if (err.name === 'AbortError' || err.fromServer) throw err
       }
       if (job?.status === 'done') {
-        clearPendingJob()
-        const result = validateStudyGuide(job.guide)
+        clearPendingJob(jobId)
+        const result = validateStudyGuide(titleSuffix ? { ...job.guide, title: `${job.guide.title}${titleSuffix}` } : job.guide)
         if (!result.ok) {
           console.error('Invalid study guide from server:', result.errors)
           throw new Error('The study guide came back in an unexpected format. Please try again.')
@@ -81,7 +81,7 @@ async function waitForJob({ jobId, startedAt, signal }) {
       // keepalive lets the cancel go through even if the page is closing.
       fetch(url, { method: 'DELETE', keepalive: true }).catch(() => {})
     }
-    clearPendingJob()
+    clearPendingJob(jobId)
     throw err
   }
 }
@@ -146,18 +146,34 @@ async function callApi(url, options) {
   return data
 }
 
-function savePendingJob(job) {
+function readPending() {
   try {
-    localStorage.setItem(PENDING_KEY, JSON.stringify(job))
+    const jobs = JSON.parse(localStorage.getItem(PENDING_KEY) ?? '[]')
+    // A job saved by the version that kept only one.
+    const old = JSON.parse(localStorage.getItem(OLD_PENDING_KEY) ?? 'null')
+    if (old?.jobId) {
+      localStorage.removeItem(OLD_PENDING_KEY)
+      jobs.push(old)
+    }
+    return Array.isArray(jobs) ? jobs : []
+  } catch {
+    return [] // storage blocked or corrupt: nothing to resume
+  }
+}
+
+function writePending(jobs) {
+  try {
+    if (jobs.length) localStorage.setItem(PENDING_KEY, JSON.stringify(jobs))
+    else localStorage.removeItem(PENDING_KEY)
   } catch {
     // Without storage we can't resume after a reload, but polling still works.
   }
 }
 
-function clearPendingJob() {
-  try {
-    localStorage.removeItem(PENDING_KEY)
-  } catch {
-    // ignore
-  }
+function savePendingJob(job) {
+  writePending([...readPending().filter((j) => j.jobId !== job.jobId), job])
+}
+
+function clearPendingJob(jobId) {
+  writePending(readPending().filter((j) => j.jobId !== jobId))
 }

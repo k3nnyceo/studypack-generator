@@ -128,10 +128,22 @@ export default function Landing({
             >
               <Loader2 className="mt-0.5 size-4 shrink-0 animate-spin text-brand-600" aria-hidden />
               <div className="min-w-0 flex-1">
-                <p className="font-semibold">Finishing your study pack…</p>
-                <p className="mt-0.5 break-words text-brand-800/80">
-                  {resumingJob.fileName ? `${resumingJob.fileName} · it opens` : 'It opens'} here as soon as it’s ready.
-                </p>
+                {resumingJob.count > 1 ? (
+                  <>
+                    <p className="font-semibold">Finishing {resumingJob.count} study packs…</p>
+                    <p className="mt-0.5 break-words text-brand-800/80">
+                      {resumingJob.fileName ? `${resumingJob.fileName} · they’re` : 'They’re'} saved to your library as they’re
+                      ready.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-semibold">Finishing your study pack…</p>
+                    <p className="mt-0.5 break-words text-brand-800/80">
+                      {resumingJob.fileName ? `${resumingJob.fileName} · it opens` : 'It opens'} here as soon as it’s ready.
+                    </p>
+                  </>
+                )}
                 <Button size="sm" variant="ghost" icon={X} onClick={onCancelResume} className="mt-2 -ml-3">
                   Cancel
                 </Button>
