@@ -6,7 +6,6 @@ const FORMATS = [
   { label: 'PDF', className: 'bg-rose-50 text-rose-700 ring-rose-200' },
   { label: 'PPTX', className: 'bg-amber-50 text-amber-800 ring-amber-200' },
   { label: 'Photos & scans', className: 'bg-sky-50 text-sky-700 ring-sky-200' },
-  { label: 'Study guide JSON', className: 'bg-brand-50 text-brand-700 ring-brand-200' },
 ]
 
 export default function UploadDropzone({ onFile, disabled }) {
@@ -91,7 +90,7 @@ export default function UploadDropzone({ onFile, disabled }) {
       <input
         ref={inputRef}
         type="file"
-        accept=".pdf,.pptx,.json,.jpg,.jpeg,.png,.webp,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/json,image/jpeg,image/png,image/webp"
+        accept=".pdf,.pptx,.jpg,.jpeg,.png,.webp,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation,image/jpeg,image/png,image/webp"
         multiple
         className="hidden"
         // The input sits inside the dropzone: stop its click bubbling back up

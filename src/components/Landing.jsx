@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, ClipboardType, LibraryBig, MonitorPlay, FileJson, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
+import { ArrowRight, BookOpen, ClipboardType, LibraryBig, MonitorPlay, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
@@ -11,17 +11,11 @@ const STEPS = [
     title: 'Upload your notes',
     body: 'Drop in lecture slides (PPTX) or PDF notes. Text is extracted right in your browser.',
   },
-  AI_GENERATION_ENABLED
-    ? {
-        icon: Sparkles,
-        title: 'Generate your study pack',
-        body: 'One click writes summaries, key terms, worked examples, flashcards and a quiz from your notes.',
-      }
-    : {
-        icon: FileJson,
-        title: 'Load your study guide',
-        body: 'Paste or upload a study guide in StudyPack’s JSON format, generated from your notes.',
-      },
+  {
+    icon: Sparkles,
+    title: 'Generate your study pack',
+    body: 'One click writes summaries, key terms, worked examples, flashcards and a quiz from your notes.',
+  },
   {
     icon: ListChecks,
     title: 'Study and self-test',

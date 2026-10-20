@@ -1,85 +1,11 @@
-// The study guide JSON format: an example, a validator, and a prompt for
-// generating it with an external AI tool. Plain JS with no browser APIs, so the
-// server can reuse the validator on Claude's output.
-
-export const EXAMPLE_GUIDE = {
-  title: 'Introduction to Cell Biology',
-  course: 'BIOL 1010 Cell Biology',
-  topic: 'Cell structure and energy',
-  overview: '2-4 sentences on what the material covers and how the modules fit together.',
-  modules: [
-    {
-      title: 'Mitochondria & Cellular Respiration',
-      sourceRange: 'Slides 7-12',
-      summary: 'One or more paragraphs. Separate paragraphs with a blank line.\n\nLike this.',
-      keyPoints: ["ATP is the cell's energy currency", 'Respiration needs oxygen and produces CO2 and water'],
-      definitions: [
-        {
-          term: 'ATP',
-          definition: 'Adenosine triphosphate: the molecule cells use to store and transfer energy.',
-          sourcePages: [8],
-        },
-      ],
-      workedExamples: [
-        {
-          title: 'ATP yield',
-          problem: 'If one glucose molecule yields about 30 ATP, how many do 4 yield?',
-          steps: ['Each glucose gives ~30 ATP.', 'Multiply: 30 x 4.'],
-          answer: 'About 120 ATP.',
-          sourcePages: [10, 11],
-        },
-      ],
-      quiz: [
-        {
-          question: 'Where does most ATP production happen?',
-          options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Golgi apparatus'],
-          correctIndex: 1,
-          explanation: 'The electron transport chain in the mitochondria produces most ATP.',
-          sourcePages: [9],
-        },
-      ],
-      theory: [
-        {
-          question: 'Explain how the mitochondrion produces most of the cell’s ATP.',
-          marks: 10,
-          modelAnswer: 'Glucose is first broken down in glycolysis… (a complete answer a student could write in an exam).',
-          markingPoints: ['Glycolysis in the cytoplasm', 'Krebs cycle in the matrix', 'Electron transport chain and ATP synthase'],
-          sourcePages: [9, 10],
-        },
-      ],
-    },
-  ],
-}
-
-export const EXAMPLE_GUIDE_JSON = JSON.stringify(EXAMPLE_GUIDE, null, 2)
+// The study guide format's validator. Plain JS with no browser APIs, so the
+// server can reuse it on Claude's output and on packs in the Pack library.
 
 const MAX_ERRORS = 15
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
 const isText = (v) => typeof v === 'string' && v.trim() !== ''
 
-// Parses pasted text and validates it. Tolerates a surrounding ```json fence,
-// since that's how most AI chat tools present JSON.
-export function parseStudyGuide(text) {
-  const cleaned = text
-    .trim()
-    .replace(/^```(?:json)?\s*\n?/i, '')
-    .replace(/\n?```\s*$/, '')
-    .trim()
-  if (!cleaned) return { ok: false, errors: ['Paste your study guide JSON first.'] }
-
-  let data
-  try {
-    data = JSON.parse(cleaned)
-  } catch (err) {
-    return { ok: false, errors: [`This isn’t valid JSON: ${err.message}`] }
-  }
-  return validateStudyGuide(data)
-}
-
-// Checks the shape and returns a normalised copy containing only known fields.
-// Returns { ok: true, guide } or { ok: false, errors: [...] } where each error
-// names the exact path, e.g. "modules[2].definitions[0].term is missing".
 export function validateStudyGuide(data) {
   const errors = []
   const fail = (path, problem) => errors.push(`${path} ${problem}`)
@@ -232,31 +158,4 @@ function describe(value) {
   if (Array.isArray(value)) return 'an array'
   if (typeof value === 'string') return value.trim() ? 'a string' : 'an empty string'
   return typeof value === 'object' ? 'an object' : `${typeof value} ${JSON.stringify(value)}`
-}
-
-// A ready-to-paste prompt for generating the guide with any AI chat tool.
-export function buildGenerationPrompt({ fileName, fullText }) {
-  return `Create a study guide from the lecture notes below.
-
-Respond with ONLY a JSON object (no commentary, no markdown) that matches this structure exactly:
-
-${EXAMPLE_GUIDE_JSON}
-
-Rules:
-- Organise the material into modules that follow the lecture's own topic boundaries (usually 3-8 modules).
-- summary: explain the ideas the way a good tutor would, 1-3 paragraphs separated by a blank line.
-- keyPoints: the facts or ideas a student most needs to remember.
-- definitions: every important term the module introduces, defined precisely in plain language.
-- workedExamples: 3-5 per module, each with the problem, step-by-step reasoning in "steps", and the final answer. Use real calculations for quantitative topics; scenarios or "explain why" questions for conceptual ones.
-- quiz: 3-5 multiple-choice questions per module with 4 options each. correctIndex is the position of the right option, counting from 0. Make wrong options plausible misconceptions, not obvious throwaways. Give a one-sentence explanation.
-- theory: 2-3 exam-style written questions per module ("Explain…", "Derive…", "Calculate…", "Distinguish between…"), each with the marks an examiner might award, a complete modelAnswer a student could write in the exam (with working for calculations), and the 3-6 markingPoints an examiner would look for.
-- course: the course this lecture belongs to, e.g. "MECH 2201 Strength of Materials". topic: a short name for this lecture's topic.
-- sourceRange: which pages or slides the module draws from, read from the [[Slide N]] / [[Page N]] markers, e.g. "Slides 4-9".
-- sourcePages: on every definition, worked example, quiz and theory question, the slide or page numbers (from the [[Slide N]] / [[Page N]] markers in the notes) its material comes from, usually 1-3 numbers. Use [] if the notes have no such markers.
-- The notes were extracted automatically from a PDF or slides, so ignore page numbers, headers and other boilerplate.
-- Stay faithful to the notes. Don't invent course-specific facts such as dates, names or exam details.
-
-<lecture_notes filename="${fileName}">
-${fullText}
-</lecture_notes>`
 }

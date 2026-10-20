@@ -128,6 +128,8 @@ function publicState(env) {
       packsPerWindow: Math.max(1, Math.floor(p.windowNaira / typicalFor(p))),
       packsPerMonth: Math.max(1, Math.floor(p.periodNaira / typicalFor(p))),
       maxPages: Math.round(p.maxChars / 500),
+      // The longest notes for one pack; longer ones are split into parts.
+      maxChars: p.maxChars,
       libraryPerDay: p.libraryPerDay,
       youtubePerWindow: p.youtubePerWindow,
       youtubePerMonth: p.youtubePerMonth,

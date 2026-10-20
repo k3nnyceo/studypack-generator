@@ -25,9 +25,7 @@
             "application/pdf",
             ".pdf",
             "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            ".pptx",
-            "application/json",
-            ".json"
+            ".pptx"
           ]
         }
       ]

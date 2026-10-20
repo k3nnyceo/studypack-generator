@@ -1,4 +1,4 @@
-import { BookOpen, ChartArea, Gauge, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { BookOpen, ChartArea, Check, Gauge, Layers, ListChecks, Lock, RotateCcw, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SIGN_IN_ENABLED } from '../config.js'
 import { formatResetTime } from '../lib/billing.js'
@@ -17,8 +17,9 @@ const OUTPUTS = [
 // { message, reason?, resetsAt? }; a plan limit adds when it refills and a way
 // to upgrade. `diagrams` is { pages, limit, unit, send, onToggle }: the diagram
 // pages found in the notes (null while looking), how many the plan lets Claude
-// see, and whether to send them.
-export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans, diagrams }) {
+// see, and whether to send them. `split` is set when the notes are too long
+// for one pack: { parts, unit, done, generating, onGenerate(part) }.
+export default function AiGenerate({ onGenerate, split, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans, diagrams }) {
   const needsSignIn = SIGN_IN_ENABLED && !signedIn
   const usage = signedIn ? billing?.usage : null
   const canUpgrade = billing?.paymentsEnabled && billing?.plan !== 'max'
@@ -42,7 +43,10 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
         </ul>
 
         {isGenerating ? (
-          <GeneratingStatus onCancel={onCancel} />
+          <GeneratingStatus
+            onCancel={onCancel}
+            label={split?.generating ? `Writing part ${split.generating} of ${split.parts.length}…` : 'Writing your study pack…'}
+          />
         ) : needsSignIn ? (
           <div className="mt-6">
             <p className="font-semibold text-stone-800">Sign in to generate your study pack</p>
@@ -54,13 +58,17 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
           </div>
         ) : (
           <>
-          <DiagramOption diagrams={diagrams} canUpgrade={canUpgrade} onOpenPlans={onOpenPlans} />
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>
-              Generate study pack
-            </Button>
-            <span className="text-sm text-stone-500">Takes 2–3 minutes</span>
-          </div>
+            <DiagramOption diagrams={diagrams} perPart={Boolean(split)} canUpgrade={canUpgrade} onOpenPlans={onOpenPlans} />
+            {split ? (
+              <PartsList split={split} />
+            ) : (
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>
+                  Generate study pack
+                </Button>
+                <span className="text-sm text-stone-500">Takes 2–3 minutes</span>
+              </div>
+            )}
           </>
         )}
 
@@ -110,7 +118,7 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
 
 // Paid plans: which diagram pages Claude will see as pictures, with a switch.
 // Free: a note that Pro and Max include them. Nothing when there are none.
-function DiagramOption({ diagrams, canUpgrade, onOpenPlans }) {
+function DiagramOption({ diagrams, perPart, canUpgrade, onOpenPlans }) {
   const refs = [...new Set((diagrams?.pages ?? []).slice(0, diagrams?.limit || undefined).map((p) => p.ref))].sort((a, b) => a - b)
   if (!diagrams || !refs.length) return null
   const { unit, limit, send, onToggle } = diagrams
@@ -143,18 +151,72 @@ function DiagramOption({ diagrams, canUpgrade, onOpenPlans }) {
         className="mt-0.5 size-4 shrink-0 accent-brand-600"
       />
       <span className="min-w-0">
-        <span className="font-semibold text-stone-800">Let Claude see the {label}</span>
-        <span className="mt-0.5 block text-stone-600">
-          {unit === 'slide' ? 'Slides' : 'Pages'} {refs.join(', ')}, sent as pictures so your pack can explain the diagrams and graphs.
-          {found > refs.length && ` Your plan includes up to ${limit} per pack.`}
+        <span className="font-semibold text-stone-800">
+          {perPart ? `Let Claude see each part’s diagram ${unit}s` : `Let Claude see the ${label}`}
         </span>
+        {perPart ? (
+          <span className="mt-0.5 block text-stone-600">
+            {found} found in this file. Each part sends its own, up to {limit}, as pictures so its pack can explain the diagrams
+            and graphs.
+          </span>
+        ) : (
+          <span className="mt-0.5 block text-stone-600">
+            {unit === 'slide' ? 'Slides' : 'Pages'} {refs.join(', ')}, sent as pictures so your pack can explain the diagrams and graphs.
+            {found > refs.length && ` Your plan includes up to ${limit} per pack.`}
+          </span>
+        )}
       </span>
     </label>
   )
 }
 
+// Notes too long for one pack: one row per part, each made into its own pack
+// on demand. Parts already made from these notes are ticked.
+function PartsList({ split }) {
+  const { parts, unit, done, onGenerate } = split
+  const next = parts.find((p) => !done.has(p.number))
+  return (
+    <div className="mt-6">
+      <p className="font-semibold text-stone-800">This lecture is long, so it’s made into {parts.length} study packs</p>
+      <p className="mt-1 text-sm text-stone-500">
+        Each part is a full pack of its own, about 2–3 minutes each. “View in source” still opens the right {unit.toLowerCase()} of the whole file.
+      </p>
+      <ol className="mt-4 divide-y divide-stone-100 overflow-hidden rounded-2xl ring-1 ring-stone-200">
+        {parts.map((part) => {
+          const made = done.has(part.number)
+          const range = part.from === null ? '' : part.from === part.to ? `${unit.slice(0, -1)} ${part.from}` : `${unit} ${part.from}–${part.to}`
+          return (
+            <li key={part.number} className="flex flex-wrap items-center gap-3 bg-white px-4 py-3">
+              <span
+                className={`flex size-7 shrink-0 items-center justify-center rounded-full text-xs font-bold tabular-nums ${
+                  made ? 'bg-emerald-100 text-emerald-700' : 'bg-brand-50 text-brand-700'
+                }`}
+              >
+                {made ? <Check className="size-4" strokeWidth={3} aria-label="Made" /> : part.number}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-stone-800">Part {part.number}</span>
+                {range && <span className="block text-xs text-stone-500 tabular-nums">{range}</span>}
+              </span>
+              <Button
+                size="sm"
+                variant={part === next ? 'primary' : 'soft'}
+                icon={made ? RotateCcw : Sparkles}
+                onClick={() => onGenerate(part)}
+                aria-label={`${made ? 'Make again' : 'Generate'}: part ${part.number}${range ? `, ${range}` : ''}`}
+              >
+                {made ? 'Make again' : 'Generate'}
+              </Button>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
+  )
+}
+
 // Mounted only while generating, so its timer starts from zero each time.
-function GeneratingStatus({ onCancel }) {
+function GeneratingStatus({ onCancel, label }) {
   const [seconds, setSeconds] = useState(0)
   useEffect(() => {
     const started = Date.now()
@@ -166,7 +228,7 @@ function GeneratingStatus({ onCancel }) {
     <div className="mt-6" role="status" aria-live="polite">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="font-semibold text-stone-800">
-          Writing your study pack… <span className="font-medium text-stone-500 tabular-nums">{formatTime(seconds)}</span>
+          {label} <span className="font-medium text-stone-500 tabular-nums">{formatTime(seconds)}</span>
         </p>
         <Button size="sm" variant="ghost" icon={X} onClick={onCancel}>
           Cancel

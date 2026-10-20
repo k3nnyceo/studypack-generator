@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 // Plans, usage and Paystack checkout (/api/billing, server/billing.js).
 //
-// Billing state: { paymentsEnabled, plans: [{ id, name, price, packsPerWindow,
+// Billing state: { paymentsEnabled, plans: [{ id, name, price, maxChars, packsPerWindow,
 // packsPerMonth, maxPages }], plan, periodEnd, autoRenew, usage: { window:
 // { percent, resetsAt }, period: { percent, resetsAt } } }.
 

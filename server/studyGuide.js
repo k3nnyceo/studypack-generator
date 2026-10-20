@@ -13,8 +13,13 @@ const BEDROCK_REGION = process.env.BEDROCK_REGION || 'us-east-1'
 // (Opus 4.6 on Bedrock's InvokeModel endpoint; newer models aren't enabled).
 const MODEL = process.env.STUDY_GUIDE_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-opus-4-6-v1' : 'claude-opus-5')
 const EFFORT = process.env.STUDY_GUIDE_EFFORT || 'high'
-// The planning call only writes a short outline, so it doesn't need deep thinking.
+// The planning call only writes a short outline, so it runs on a fast model:
+// on Bedrock, Sonnet often waits 25-30 s before it starts replying, Haiku 3-4 s.
+const PLAN_MODEL =
+  process.env.STUDY_GUIDE_PLAN_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-haiku-4-5-20251001-v1:0' : 'claude-haiku-4-5')
 const PLAN_EFFORT = process.env.STUDY_GUIDE_PLAN_EFFORT || 'low'
+// Haiku 4.5 takes neither adaptive thinking nor the effort setting.
+const thinks = (model) => !/haiku/.test(model)
 
 // USD per million tokens at Anthropic's list prices, for the cost line in the
 // server log. Bedrock bills through AWS; its global endpoints match these rates.
@@ -177,7 +182,18 @@ Stay faithful to the notes. You may add standard background knowledge to make an
 // Comes before the diagram pages (paid plans), which follow the notes.
 const PICTURES_INTRO = `Below are pictures of the pages or slides in these notes that are mostly diagrams, graphs, charts, tables or photos. Each is labelled with its [[Page N]] or [[Slide N]] marker. The text above only has whatever words were on those pages, so use the pictures: explain what a diagram or graph shows when it's part of the module you are writing, read values and labels from it for definitions, worked examples and questions (e.g. "In the block diagram on page 9, which element…"), and cite its page in sourcePages. Ignore pictures that are only decoration.`
 
-const PLAN_INSTRUCTION = `Stage 1 of 2: plan the study guide. Give its title, course, topic and overview, and divide the notes into modules that follow the lecture's own topic boundaries: usually 3-8, fewer for short notes, never more than ${MAX_MODULES}. Every substantive part of the notes must belong to exactly one module. For each module give its title, sourceRange, and focus: 2-4 sentences naming exactly which concepts, terms, formulas and examples from the notes it covers. Each module will be written by a separate writer who sees only this outline, so the focus must make the boundaries between modules unambiguous.`
+// The one-token call that writes the module calls' prompt cache while the plan
+// is made. Its reply is cut off after a token and thrown away.
+const WARM_UP_INSTRUCTION = 'Stage 2 of 2 will follow. Reply with an empty module for now.'
+
+// How many modules the plan may use: about one per CHARS_PER_MODULE of notes.
+// The planner is a fast model that splits too finely when left to judge;
+// more modules write faster in parallel but each adds its own examples and
+// questions, so the cap keeps a pack's cost where it was.
+const CHARS_PER_MODULE = 2500
+const moduleCap = (chars) => Math.min(MAX_MODULES, Math.max(3, Math.ceil(chars / CHARS_PER_MODULE)))
+
+const planInstruction = (chars) => `Stage 1 of 2: plan the study guide. Give its title, course, topic and overview, and divide the notes into modules that follow the lecture's own topic boundaries: at most ${moduleCap(chars)} modules, fewer if the lecture has fewer distinct topics. Every substantive part of the notes must belong to exactly one module. For each module give its title, sourceRange, and focus: 2-4 sentences naming exactly which concepts, terms, formulas and examples from the notes it covers. Each module will be written by a separate writer who sees only this outline, so the focus must make the boundaries between modules unambiguous.`
 
 function moduleInstruction(plan, index) {
   const outline = plan.modules.map((m, i) => `${i + 1}. ${m.title} (${m.sourceRange})`).join('\n')
@@ -269,15 +285,15 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
         ]),
       ]
     : []
-  const ask = async ({ label, instruction, schema, maxTokens, effort, cache = false, withPictures = false, onStart }) => {
+  const ask = async ({ label, model: baseModel = MODEL, instruction, schema, maxTokens, effort, cache = false, withPictures = false, onStart, raw = false }) => {
     const notes = [{ type: 'text', text: notesText }, ...(withPictures ? pictures : [])]
     // The cache covers everything up to and including the last notes block.
     if (cache) notes[notes.length - 1] = { ...notes.at(-1), cache_control: { type: 'ephemeral' } }
     for (let attempt = 1; ; attempt++) {
       const callStarted = Date.now()
       try {
-        const model = attempt === 1 ? MODEL : otherProfile(MODEL)
-        const { data, message, firstEventMs } = await callClaude({ client, model, system, notes, instruction, schema, maxTokens, effort, onStart, signal: controller.signal })
+        const model = attempt === 1 ? baseModel : otherProfile(baseModel)
+        const { data, message, firstEventMs } = await callClaude({ client, model, system, notes, instruction, schema, maxTokens, effort, onStart, raw, signal: controller.signal })
         messages.push(message)
         const u = message.usage ?? {}
         console.log(
@@ -293,21 +309,44 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
     }
   }
 
+  const moduleSchema = theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN
+  // A cache entry is readable only once its writer's response starts. While
+  // the plan is being made, a one-token call with exactly the module calls'
+  // prefix writes the cache, so every module can start (and read it) the
+  // moment the plan is ready instead of waiting for module 1 to begin.
+  let writerStarted
+  const cacheReady = new Promise((resolve) => (writerStarted = resolve))
+  const warm = ask({
+    label: 'cache warm-up',
+    instruction: WARM_UP_INSTRUCTION,
+    schema: moduleSchema,
+    maxTokens: 1,
+    effort: EFFORT,
+    cache: true,
+    withPictures: true,
+    raw: true,
+  }).then(
+    () => writerStarted('cache warmed while planning'),
+    (err) => {
+      if (!controller.signal.aborted) console.warn(`[study-guide] cache warm-up failed (${err.message}); module 1 will write the cache`)
+    },
+  )
+
   try {
-    // The plan is a short outline, so it runs at low effort. It isn't cached:
-    // its schema differs from the module calls', so they couldn't reuse it.
-    const plan = await ask({ label: 'plan', instruction: PLAN_INSTRUCTION, schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
+    // The plan is a short outline. It isn't cached: its model and schema differ
+    // from the module calls', so they couldn't reuse it.
+    const plan = await ask({ label: 'plan', model: PLAN_MODEL, instruction: planInstruction(text.length), schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
     if (!Array.isArray(plan.modules) || plan.modules.length === 0) {
       throw new StudyGuideError('Claude couldn’t find any topics in these notes.', 422)
     }
     plan.modules = plan.modules.slice(0, MAX_MODULES)
     const planMs = Date.now() - started
 
-    // A cache entry is readable only once its writer's response starts, so
-    // module 1 goes first and writes it; the others start the moment it begins
-    // replying, and read the notes from the cache (see CACHE_HEDGE_MS).
+    // If the warm-up hasn't started replying yet, module 1 goes first as a
+    // second writer; the others start the moment either begins (see
+    // CACHE_HEDGE_MS).
     const writeModule = (i, onStart) =>
-      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, withPictures: true, onStart }).then(
+      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: moduleSchema, maxTokens: 16000, effort: EFFORT, cache: true, withPictures: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
       )
     const count = plan.modules.length
@@ -320,8 +359,6 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
       runs[i] = writeModule(i, onStart)
       runs[i].catch(fail)
     }
-    let writerStarted
-    const cacheReady = new Promise((resolve) => (writerStarted = resolve))
     const modulesStarted = Date.now()
     launch(0, () => writerStarted('module 1 started'))
     const timers = [
@@ -347,6 +384,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
       timers.forEach(clearTimeout)
     }
 
+    await warm // long finished by now; its usage is part of the cost
     const cost = logUsage(messages, text.length, Date.now() - started, planMs, 'ok', images.length)
     const { title, course, topic, overview } = plan
     // The schemas guarantee each part's shape; this also checks what JSON Schema
@@ -359,6 +397,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
     onCost?.(cost)
     return result.guide
   } catch (err) {
+    controller.abort() // e.g. the warm-up, if the plan failed
     if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed', images.length)
     throw err
   } finally {
@@ -366,7 +405,8 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
   }
 }
 
-async function callClaude({ client, model = MODEL, system, notes, instruction, schema, maxTokens, effort, onStart, signal }) {
+// `raw`: return the message without checking or parsing it (the cache warm-up).
+async function callClaude({ client, model = MODEL, system, notes, instruction, schema, maxTokens, effort, onStart, raw = false, signal }) {
   // Server-side refusal fallbacks exist only on the Claude API (Opus/Fable tier):
   // if a safety classifier declines, it retries on the recommended model. Bedrock
   // doesn't offer them, so a refusal there is reported to the student instead.
@@ -380,8 +420,8 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
       model,
       max_tokens: maxTokens,
       // Calls that share a cache must use the same thinking and effort settings.
-      thinking: { type: 'adaptive' },
-      output_config: { effort, format: { type: 'json_schema', schema } },
+      ...(thinks(model) && { thinking: { type: 'adaptive' } }),
+      output_config: { ...(thinks(model) && { effort }), format: { type: 'json_schema', schema } },
       ...fallback,
       system,
       messages: [{ role: 'user', content: [...notes, { type: 'text', text: instruction }] }],
@@ -414,6 +454,8 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
     clearInterval(watchdog)
   }
 
+  const firstEventMs = lastEvent === null ? null : firstEvent - callStarted
+  if (raw) return { data: null, message, firstEventMs }
   if (message.stop_reason === 'refusal') {
     throw new StudyGuideError('Claude declined to generate a study guide for this document.', 422)
   }
@@ -430,7 +472,7 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
     .map((block) => block.text)
     .join('')
   try {
-    return { data: JSON.parse(json), message, firstEventMs: lastEvent === null ? null : firstEvent - callStarted }
+    return { data: JSON.parse(json), message, firstEventMs }
   } catch {
     throw new StudyGuideError('Claude returned a response that could not be read. Please try again.', 502)
   }
@@ -446,13 +488,23 @@ function logUsage(messages, inputChars, ms, planMs, outcome = 'ok', pictures = 0
   const cacheWrite = sum('cache_creation_input_tokens')
   const cacheRead = sum('cache_read_input_tokens')
   const output = sum('output_tokens')
-  const price = PRICING[priceKey(messages[0].model)] ?? PRICING[priceKey(MODEL)]
-  const cost = price
-    ? ((input + cacheWrite * 1.25 + cacheRead * 0.1) * price.input + output * price.output) / 1e6
-    : null
+  // Each call at its own model's price (the plan runs on a cheaper model).
+  let cost = 0
+  for (const m of messages) {
+    const price = PRICING[priceKey(m.model)]
+    if (!price) {
+      cost = null
+      break
+    }
+    const u = m.usage ?? {}
+    cost +=
+      (((u.input_tokens ?? 0) + (u.cache_creation_input_tokens ?? 0) * 1.25 + (u.cache_read_input_tokens ?? 0) * 0.1) * price.input +
+        (u.output_tokens ?? 0) * price.output) /
+      1e6
+  }
   const fellBack = messages.some((m) => (m.usage?.iterations ?? []).some((i) => i.type === 'fallback_message'))
   console.log(
-    `[study-guide] ${outcome} via=${PROVIDER} model=${messages[0].model} effort=${EFFORT} calls=${messages.length} chars=${inputChars}${pictures ? ` pictures=${pictures}` : ''}` +
+    `[study-guide] ${outcome} via=${PROVIDER} model=${MODEL} plan_model=${PLAN_MODEL} effort=${EFFORT} calls=${messages.length} chars=${inputChars}${pictures ? ` pictures=${pictures}` : ''}` +
       ` in=${input} cache_write=${cacheWrite} cache_read=${cacheRead} out=${output}` +
       ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
       `${planMs ? ` (plan ${(planMs / 1000).toFixed(1)}s)` : ''}${fellBack ? ' (fallback ran)' : ''}`,

@@ -4,7 +4,6 @@ import AppHeader from './components/AppHeader.jsx'
 import ExtractedPreview from './components/ExtractedPreview.jsx'
 import Flashcards from './components/Flashcards.jsx'
 import GuideHero from './components/GuideHero.jsx'
-import GuideImport from './components/GuideImport.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
 import PackLibrary from './components/PackLibrary.jsx'
@@ -17,7 +16,6 @@ import StudyGuide from './components/StudyGuide.jsx'
 import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
 import { SourceContext } from './lib/sourceContext.js'
-import { Disclosure } from './components/ui.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
 import { takePaymentReturn, useBilling } from './lib/billing.js'
@@ -30,17 +28,16 @@ import { isImageFile, pastedResult, photos, readScan, scannedPdf } from './lib/s
 import { buildQuiz } from './lib/quiz.js'
 import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
 import { takeSharedFile } from './lib/sharedFile.js'
-import { parseStudyGuide } from './lib/studyGuideFormat.js'
+import { validateStudyGuide } from './lib/studyGuideFormat.js'
 import { useLibrary } from './lib/useLibrary.js'
 import { useCardMemory } from './lib/cardMemory.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
+import { splitIntoParts } from './lib/splitNotes.js'
 import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
 import { useOnline } from './lib/useOnline.js'
 import { WifiOff } from 'lucide-react'
-
-const MAX_GUIDE_FILE_SIZE = 5 * 1024 * 1024
 
 // The source viewer (pdf.js, KaTeX, JSZip) loads the first time it's opened.
 const SourceSheet = lazy(() => import('./components/source/SourceSheet.jsx'))
@@ -124,7 +121,6 @@ export default function App() {
     library.forgetAccount()
     notify('Signed out. Your synced packs are safe in your account.')
   }
-  const [jsonDraft, setJsonDraft] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   // null, or { message, reason?, resetsAt? } (reason/resetsAt for plan limits)
   const [generateError, setGenerateError] = useState(null)
@@ -135,6 +131,16 @@ export default function App() {
   const currentPlan = billing.billing?.plans?.find((p) => p.id === billing.billing?.plan)
   const diagramLimit = auth.user ? (currentPlan?.diagramPages ?? 0) : 0
   const [sendDiagrams, setSendDiagrams] = useState(true)
+  // Notes too long for one pack on this plan are split into parts, each its
+  // own pack (src/lib/splitNotes.js). doneParts: part numbers already made
+  // from these notes, so the student can see what's left.
+  const maxChars = auth.user ? currentPlan?.maxChars : null
+  const parts = useMemo(
+    () => (result && maxChars && result.fullText.length > maxChars ? splitIntoParts(result.fullText, maxChars) : null),
+    [result, maxChars],
+  )
+  const [doneParts, setDoneParts] = useState({ result: null, numbers: new Set() })
+  const [generatingPart, setGeneratingPart] = useState(null)
   const [resumingJob, setResumingJob] = useState(pendingJobAtLoad)
   const resumeAbort = useRef(null)
 
@@ -329,19 +335,28 @@ export default function App() {
     })
   }
 
-  async function handleGenerate() {
+  // `part` (from `parts`) makes a pack from that part of the notes only.
+  async function handleGenerate(part = null) {
     setGenerateError(null)
     setIsGenerating(true)
+    setGeneratingPart(part?.number ?? null)
     generateAbort.current = new AbortController()
     try {
       const signal = generateAbort.current.signal
-      const images = sendDiagrams ? await prepareDiagramPages(result, diagramPages, diagramLimit, { signal }) : []
+      // A part's own diagram pages only; their numbers stay the whole file's.
+      const inPart = part?.from ? diagramPages?.filter((p) => p.ref >= part.from && p.ref <= part.to) : diagramPages
+      const images = sendDiagrams ? await prepareDiagramPages(result, inPart, diagramLimit, { signal }) : []
       const { guide: generated } = await generateStudyGuide({
-        text: result.fullText,
+        text: part?.text ?? result.fullText,
         fileName: result.fileName,
         images,
         signal,
       })
+      if (part) {
+        // Each part is its own pack: say which, so they're told apart in the library.
+        generated.title = `${generated.title} (Part ${part.number} of ${parts.length})`
+        setDoneParts((done) => ({ result, numbers: new Set(done.result === result ? done.numbers : []).add(part.number) }))
+      }
       loadGuide(generated, result.fileName, result)
     } catch (err) {
       if (err.status === 401) auth.expire()
@@ -361,7 +376,7 @@ export default function App() {
   // without making a study guide first. Loaded on demand to keep the home page light.
   async function loadSample() {
     const { default: sample } = await import('./samples/strength-of-materials.json')
-    const parsed = parseStudyGuide(JSON.stringify(sample))
+    const parsed = validateStudyGuide(sample)
     if (!parsed.ok) return fail('The sample study pack couldn’t be loaded.')
     setFileName('Sample study pack')
     setResult(null)
@@ -468,7 +483,6 @@ export default function App() {
     if (files.every(isImageFile)) return showScan(photos(files))
     if (files.length > 1) return fail('Choose one PDF or PowerPoint file, or several photos of your notes.')
     const file = files[0]
-    if (file.name.toLowerCase().endsWith('.json') || file.type === 'application/json') return handleGuideFile(file)
 
     const validationError = validateFile(file)
     if (validationError) return fail(validationError)
@@ -494,22 +508,6 @@ export default function App() {
     }
   }
 
-  // A study guide .json dropped on the home page opens straight into the
-  // study views, with no lecture file needed.
-  async function handleGuideFile(file) {
-    if (file.size > MAX_GUIDE_FILE_SIZE) return fail('That JSON file is too large (the limit is 5 MB).')
-
-    const parsed = parseStudyGuide(await file.text())
-    if (!parsed.ok) {
-      const problems = parsed.errors.map((e) => `• ${e}`).join('\n')
-      return fail(`Couldn’t load ${file.name}:\n${problems}`)
-    }
-    setFileName(file.name)
-    setResult(null)
-    setError('')
-    setStatus('idle')
-    loadGuide(parsed.guide, file.name)
-  }
 
   function reset() {
     generateAbort.current?.abort()
@@ -519,7 +517,6 @@ export default function App() {
     setGuide(null)
     setActiveEntryId(null)
     setGenerateError(null)
-    setJsonDraft('')
     setReviewedCards(new Set())
     setQuizAnswers(new Map())
     setPackSource(null)
@@ -669,40 +666,32 @@ export default function App() {
               onOpenSource={(refs) => openViewer(notesSource, refs)}
             >
               {AI_GENERATION_ENABLED ? (
-                <>
-                  <AiGenerate
-                    onGenerate={handleGenerate}
-                    onCancel={() => generateAbort.current?.abort()}
-                    isGenerating={isGenerating}
-                    error={generateError}
-                    signedIn={Boolean(auth.user)}
-                    authReady={auth.ready}
-                    billing={billing.billing}
-                    onOpenPlans={() => navigate('plans')}
-                    diagrams={{
-                      pages: diagramPages,
-                      limit: diagramLimit,
-                      unit: result.type === 'pptx' ? 'slide' : 'page',
-                      send: sendDiagrams,
-                      onToggle: setSendDiagrams,
-                    }}
-                  />
-                  <Disclosure summary="Already have a study guide JSON? Paste or upload it instead">
-                    <GuideImport
-                      draft={jsonDraft}
-                      onDraftChange={setJsonDraft}
-                      onLoad={(g) => loadGuide(g, result.fileName, result)}
-                      source={result}
-                    />
-                  </Disclosure>
-                </>
-              ) : (
-                <GuideImport
-                  draft={jsonDraft}
-                  onDraftChange={setJsonDraft}
-                  onLoad={(g) => loadGuide(g, result.fileName, result)}
-                  source={result}
+                <AiGenerate
+                  onGenerate={() => handleGenerate()}
+                  split={parts && {
+                    parts,
+                    unit: result.type === 'pptx' ? 'Slides' : 'Pages',
+                    done: doneParts.result === result ? doneParts.numbers : new Set(),
+                    generating: generatingPart,
+                    onGenerate: handleGenerate,
+                  }}
+                  onCancel={() => generateAbort.current?.abort()}
+                  isGenerating={isGenerating}
+                  error={generateError}
+                  signedIn={Boolean(auth.user)}
+                  authReady={auth.ready}
+                  billing={billing.billing}
+                  onOpenPlans={() => navigate('plans')}
+                  diagrams={{
+                    pages: diagramPages,
+                    limit: diagramLimit,
+                    unit: result.type === 'pptx' ? 'slide' : 'page',
+                    send: sendDiagrams,
+                    onToggle: setSendDiagrams,
+                  }}
                 />
+              ) : (
+                <p className="card p-6 text-sm text-stone-600">Generating study packs is turned off on this server.</p>
               )}
             </ExtractedPreview>
           )}
