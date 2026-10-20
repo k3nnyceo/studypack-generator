@@ -1,0 +1,167 @@
+{
+  "title": "PHY 101 — General Physics I: Mechanics",
+  "course": "PHY 101 General Physics I",
+  "topic": "Newton's Laws of Motion & Work, Energy, and Momentum",
+  "overview": "This study pack covers foundational mechanics: Newton's laws of motion, work and energy, and momentum conservation — core concepts underlying all engineering mechanics.",
+  "modules": [
+    {
+      "title": "Newton's Laws of Motion",
+      "sourceRange": "Introductory topic",
+      "summary": "Newton's three laws of motion form the foundation of classical mechanics. The First Law (inertia) states that an object remains at rest or in uniform motion unless acted on by a net external force. The Second Law states that force equals mass times acceleration (F = ma). The Third Law states that for every action, there is an equal and opposite reaction.\n\nThese laws together explain how and why objects move the way they do, and are directly applicable to analyzing forces on structures, vehicles, and machines in engineering contexts.\n\nUnderstanding free-body diagrams — visual representations of all forces acting on an object — is essential for correctly applying Newton's laws to solve real problems.",
+      "keyPoints": [
+        "First Law (Inertia): objects resist changes to their state of motion",
+        "Second Law: F = ma (net force equals mass times acceleration)",
+        "Third Law: every action has an equal and opposite reaction",
+        "Free-body diagrams show all forces acting on an object, essential for problem-solving",
+        "Net force is the vector sum of all forces acting on an object"
+      ],
+      "definitions": [
+        {
+          "term": "Inertia",
+          "definition": "The tendency of an object to resist changes in its state of motion."
+        },
+        {
+          "term": "Net Force",
+          "definition": "The vector sum of all individual forces acting on an object."
+        },
+        {
+          "term": "Free-Body Diagram",
+          "definition": "A diagram showing all the forces acting on a single object, used to analyze motion and equilibrium."
+        },
+        {
+          "term": "Newton (N)",
+          "definition": "The SI unit of force, equal to the force required to accelerate 1 kg of mass at 1 m/s²."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Newton's Second Law",
+          "problem": "A 10 kg box is pushed with a net force of 30 N. Find its acceleration.",
+          "steps": [
+            "Apply F = ma",
+            "Rearrange: a = F / m",
+            "a = 30 N / 10 kg",
+            "a = 3 m/s²"
+          ],
+          "answer": "The box accelerates at 3 m/s²."
+        },
+        {
+          "title": "Identifying Action-Reaction Pairs",
+          "problem": "A person stands on the ground. Identify the action-reaction force pair according to Newton's Third Law.",
+          "steps": [
+            "The person exerts a downward force on the ground due to their weight (action)",
+            "By Newton's Third Law, the ground exerts an equal, upward force on the person (reaction)",
+            "These two forces are equal in magnitude, opposite in direction, and act on different objects"
+          ],
+          "answer": "Action: person pushes down on the ground. Reaction: ground pushes up on the person with equal force (the normal force)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does Newton's First Law describe?",
+          "options": [
+            "The relationship between force and acceleration",
+            "An object's tendency to resist changes in motion (inertia)",
+            "Action-reaction force pairs",
+            "Gravitational force"
+          ],
+          "correctIndex": 1,
+          "explanation": "Newton's First Law, the law of inertia, states an object stays at rest or in uniform motion unless acted upon by a net force."
+        },
+        {
+          "question": "According to Newton's Third Law, if object A exerts a force on object B, what happens?",
+          "options": [
+            "Object B exerts no force back",
+            "Object B exerts an equal and opposite force on object A",
+            "Object A stops moving",
+            "The forces cancel and nothing moves"
+          ],
+          "correctIndex": 1,
+          "explanation": "Newton's Third Law states that forces always occur in equal and opposite pairs between two objects."
+        }
+      ]
+    },
+    {
+      "title": "Work, Energy, and Momentum",
+      "sourceRange": "Second topic",
+      "summary": "Work is done when a force causes displacement in the direction of the force, calculated as W = F × d × cos θ, where θ is the angle between the force and displacement direction. Energy exists in various forms, with kinetic energy (KE = ½mv²) and gravitational potential energy (PE = mgh) being the most fundamental in mechanics.\n\nThe work-energy theorem states that the net work done on an object equals its change in kinetic energy. The law of conservation of energy states that energy cannot be created or destroyed, only transformed from one form to another.\n\nMomentum (p = mv) is conserved in isolated systems — this principle, conservation of momentum, is crucial for analyzing collisions between objects.",
+      "keyPoints": [
+        "Work: W = F × d × cos θ, where θ is the angle between force and displacement",
+        "Kinetic Energy: KE = ½mv²",
+        "Gravitational Potential Energy: PE = mgh",
+        "Conservation of Energy: energy cannot be created or destroyed, only transformed",
+        "Conservation of Momentum: total momentum before a collision equals total momentum after, in an isolated system"
+      ],
+      "definitions": [
+        {
+          "term": "Work (W)",
+          "definition": "Energy transferred when a force causes displacement, calculated as W = Fd cos θ."
+        },
+        {
+          "term": "Kinetic Energy (KE)",
+          "definition": "Energy an object possesses due to its motion, calculated as KE = ½mv²."
+        },
+        {
+          "term": "Potential Energy (PE)",
+          "definition": "Stored energy due to an object's position, such as gravitational PE = mgh."
+        },
+        {
+          "term": "Momentum (p)",
+          "definition": "The product of an object's mass and velocity (p = mv), a vector quantity."
+        },
+        {
+          "term": "Conservation of Momentum",
+          "definition": "The principle that the total momentum of an isolated system remains constant before and after a collision or interaction."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Kinetic Energy",
+          "problem": "A 2 kg object moves at 5 m/s. Calculate its kinetic energy.",
+          "steps": [
+            "Apply the formula: KE = ½mv²",
+            "KE = ½ × 2 × (5)²",
+            "KE = ½ × 2 × 25",
+            "KE = 25 J"
+          ],
+          "answer": "The kinetic energy is 25 Joules."
+        },
+        {
+          "title": "Applying Conservation of Momentum",
+          "problem": "A 3 kg ball moving at 4 m/s collides with a stationary 2 kg ball, and they stick together. Find their combined velocity after collision.",
+          "steps": [
+            "Apply conservation of momentum: momentum before = momentum after",
+            "Initial momentum = (3 kg × 4 m/s) + (2 kg × 0 m/s) = 12 kg·m/s",
+            "After collision, combined mass = 3 + 2 = 5 kg",
+            "Final velocity: v = total momentum / total mass = 12 / 5 = 2.4 m/s"
+          ],
+          "answer": "The combined velocity after collision is 2.4 m/s."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the formula for kinetic energy?",
+          "options": [
+            "KE = mgh",
+            "KE = ½mv²",
+            "KE = mv",
+            "KE = Fd"
+          ],
+          "correctIndex": 1,
+          "explanation": "Kinetic energy is calculated as one-half times mass times velocity squared: KE = ½mv²."
+        },
+        {
+          "question": "What does the law of conservation of momentum state?",
+          "options": [
+            "Momentum always increases in collisions",
+            "Total momentum in an isolated system remains constant",
+            "Momentum is always lost in collisions",
+            "Momentum equals kinetic energy"
+          ],
+          "correctIndex": 1,
+          "explanation": "In an isolated system, total momentum before an interaction equals total momentum after, regardless of internal forces."
+        }
+      ]
+    }
+  ]
+}

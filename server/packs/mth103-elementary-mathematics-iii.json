@@ -1,0 +1,162 @@
+{
+  "title": "MTH 103 — Elementary Mathematics III: Vectors, Geometry and Dynamics",
+  "course": "MTH 103 Elementary Mathematics III",
+  "topic": "Vector Fundamentals and Operations & Introduction to Dynamics",
+  "overview": "This study pack covers vector operations, coordinate geometry, and basic dynamics — the mathematical foundation for later mechanics and engineering analysis courses.",
+  "modules": [
+    {
+      "title": "Vector Fundamentals and Operations",
+      "sourceRange": "Introductory topic",
+      "summary": "A vector is a quantity with both magnitude and direction, distinguishing it from a scalar (magnitude only). Vectors are essential in engineering for representing forces, velocities, and displacements.\n\nVectors can be added using the triangle or parallelogram law, and can be broken down into components along perpendicular axes (typically x and y) using trigonometry: the x-component is magnitude × cos θ, and the y-component is magnitude × sin θ, where θ is the angle from the x-axis.\n\nThe magnitude of a vector from its components is found using the Pythagorean theorem: |V| = √(Vx² + Vy²).",
+      "keyPoints": [
+        "A vector has both magnitude and direction; a scalar has magnitude only",
+        "Vectors can be resolved into perpendicular components (typically x and y)",
+        "x-component = magnitude × cos θ; y-component = magnitude × sin θ",
+        "Vector magnitude from components: |V| = √(Vx² + Vy²)",
+        "Vectors add according to the triangle or parallelogram law, not simple arithmetic addition"
+      ],
+      "definitions": [
+        {
+          "term": "Vector",
+          "definition": "A quantity possessing both magnitude and direction, such as force, velocity, or displacement."
+        },
+        {
+          "term": "Scalar",
+          "definition": "A quantity possessing only magnitude, with no direction, such as mass or temperature."
+        },
+        {
+          "term": "Resultant Vector",
+          "definition": "The single vector that represents the combined effect of two or more vectors added together."
+        },
+        {
+          "term": "Vector Component",
+          "definition": "The projection of a vector along a specific axis (typically x or y)."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Resolving a Vector into Components",
+          "problem": "A force of 50 N acts at an angle of 40° above the horizontal. Find its horizontal (x) and vertical (y) components.",
+          "steps": [
+            "x-component = magnitude × cos θ = 50 × cos(40°)",
+            "cos(40°) ≈ 0.766, so x-component ≈ 50 × 0.766 = 38.3 N",
+            "y-component = magnitude × sin θ = 50 × sin(40°)",
+            "sin(40°) ≈ 0.643, so y-component ≈ 50 × 0.643 = 32.1 N"
+          ],
+          "answer": "Horizontal component ≈ 38.3 N, vertical component ≈ 32.1 N."
+        },
+        {
+          "title": "Finding the Magnitude of a Resultant Vector",
+          "problem": "Two perpendicular vector components are Vx = 6 units and Vy = 8 units. Find the magnitude of the resultant vector.",
+          "steps": [
+            "Apply the Pythagorean theorem: |V| = √(Vx² + Vy²)",
+            "|V| = √(6² + 8²) = √(36 + 64) = √100",
+            "|V| = 10"
+          ],
+          "answer": "The resultant vector has a magnitude of 10 units."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What distinguishes a vector from a scalar?",
+          "options": [
+            "Vectors are always larger",
+            "Vectors have both magnitude and direction; scalars have magnitude only",
+            "Scalars can be negative, vectors cannot",
+            "There is no difference"
+          ],
+          "correctIndex": 1,
+          "explanation": "The defining feature of a vector is that it carries direction information in addition to magnitude, unlike a scalar."
+        },
+        {
+          "question": "How is the x-component of a vector calculated?",
+          "options": [
+            "Magnitude × sin θ",
+            "Magnitude × cos θ",
+            "Magnitude / cos θ",
+            "Magnitude + cos θ"
+          ],
+          "correctIndex": 1,
+          "explanation": "The x-component of a vector is found by multiplying its magnitude by the cosine of its angle from the x-axis."
+        }
+      ]
+    },
+    {
+      "title": "Introduction to Dynamics",
+      "sourceRange": "Second topic",
+      "summary": "Dynamics is the study of motion and the forces that cause it. The foundational equations of motion (for constant acceleration) relate displacement, velocity, acceleration, and time: v = u + at, s = ut + ½at², and v² = u² + 2as, where u is initial velocity, v is final velocity, a is acceleration, s is displacement, and t is time.\n\nNewton's Second Law, F = ma, connects force, mass, and acceleration, forming the basis for analyzing how forces cause changes in motion.\n\nThese equations allow engineers to predict and analyze the motion of objects under constant acceleration, forming the foundation for later courses in mechanics and control systems.",
+      "keyPoints": [
+        "Equations of motion (constant acceleration): v = u + at, s = ut + ½at², v² = u² + 2as",
+        "u = initial velocity, v = final velocity, a = acceleration, s = displacement, t = time",
+        "Newton's Second Law: F = ma (force equals mass times acceleration)",
+        "These equations only apply under constant acceleration conditions",
+        "Dynamics connects mathematical description of motion with the physical forces causing it"
+      ],
+      "definitions": [
+        {
+          "term": "Displacement (s)",
+          "definition": "The change in position of an object, a vector quantity with both magnitude and direction."
+        },
+        {
+          "term": "Acceleration (a)",
+          "definition": "The rate of change of velocity with respect to time."
+        },
+        {
+          "term": "Newton's Second Law",
+          "definition": "The principle stating that force equals mass times acceleration (F = ma)."
+        },
+        {
+          "term": "Initial Velocity (u)",
+          "definition": "The velocity of an object at the start of the time period being considered."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Equations of Motion",
+          "problem": "A car starts from rest and accelerates at 4 m/s² for 5 seconds. Find its final velocity and the distance traveled.",
+          "steps": [
+            "Given: u = 0 m/s (starts from rest), a = 4 m/s², t = 5 s",
+            "Find final velocity: v = u + at = 0 + (4 × 5) = 20 m/s",
+            "Find distance: s = ut + ½at² = (0 × 5) + ½(4)(5²) = 0 + ½(4)(25) = 50 m"
+          ],
+          "answer": "Final velocity = 20 m/s, distance traveled = 50 m."
+        },
+        {
+          "title": "Applying Newton's Second Law",
+          "problem": "A net force of 200 N is applied to an object with a mass of 50 kg. Find its acceleration.",
+          "steps": [
+            "Apply Newton's Second Law: F = ma",
+            "Rearrange: a = F / m",
+            "a = 200 N / 50 kg",
+            "a = 4 m/s²"
+          ],
+          "answer": "The acceleration is 4 m/s²."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which equation of motion relates displacement, initial velocity, time, and acceleration (without final velocity)?",
+          "options": [
+            "v = u + at",
+            "s = ut + ½at²",
+            "v² = u² + 2as",
+            "F = ma"
+          ],
+          "correctIndex": 1,
+          "explanation": "s = ut + ½at² calculates displacement using initial velocity, time, and acceleration, without needing final velocity."
+        },
+        {
+          "question": "What does Newton's Second Law state?",
+          "options": [
+            "Force equals mass divided by acceleration",
+            "Force equals mass times acceleration",
+            "Force equals mass plus acceleration",
+            "Mass equals force times acceleration"
+          ],
+          "correctIndex": 1,
+          "explanation": "Newton's Second Law states F = ma — force is the product of mass and acceleration."
+        }
+      ]
+    }
+  ]
+}

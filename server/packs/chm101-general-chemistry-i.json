@@ -1,0 +1,181 @@
+{
+  "title": "CHM 101 — General Chemistry I",
+  "course": "CHM 101 General Chemistry I",
+  "topic": "Atomic Structure and the Periodic Table & Chemical Bonding",
+  "overview": "This study pack covers the foundational chemistry concepts for engineering students: atomic structure, periodic trends, chemical bonding, and stoichiometry. These concepts underpin later materials science and engineering chemistry courses.",
+  "modules": [
+    {
+      "title": "Atomic Structure and the Periodic Table",
+      "sourceRange": "Introductory topic",
+      "summary": "Atoms are composed of protons, neutrons, and electrons, with electrons arranged in energy levels (shells) around the nucleus. The arrangement of electrons, particularly in the outermost shell, determines how an atom behaves chemically.\n\nThe periodic table organizes elements by increasing atomic number, and elements in the same column (group) share similar chemical properties because they have the same number of valence (outermost) electrons. Moving across a period, atomic radius decreases and ionization energy generally increases as nuclear charge increases.\n\nUnderstanding these trends allows prediction of how elements will react and bond with each other, which is the foundation for all of chemistry.",
+      "keyPoints": [
+        "Atoms consist of protons (positive), neutrons (neutral), and electrons (negative)",
+        "Electron configuration determines chemical behavior, especially valence electrons",
+        "Elements in the same periodic table group share similar chemical properties",
+        "Atomic radius decreases and ionization energy increases across a period (left to right)",
+        "Atomic number = number of protons; mass number = protons + neutrons"
+      ],
+      "definitions": [
+        {
+          "term": "Atomic Number",
+          "definition": "The number of protons in an atom's nucleus, which defines the element."
+        },
+        {
+          "term": "Valence Electrons",
+          "definition": "Electrons in the outermost shell of an atom, responsible for chemical bonding behavior."
+        },
+        {
+          "term": "Ionization Energy",
+          "definition": "The energy required to remove an electron from a gaseous atom or ion."
+        },
+        {
+          "term": "Isotope",
+          "definition": "Atoms of the same element with the same number of protons but different numbers of neutrons."
+        },
+        {
+          "term": "Period (Periodic Table)",
+          "definition": "A horizontal row in the periodic table, representing elements with the same number of electron shells."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Determining Number of Subatomic Particles",
+          "problem": "An atom of Chlorine has an atomic number of 17 and a mass number of 35. Determine the number of protons, neutrons, and electrons.",
+          "steps": [
+            "Protons = atomic number = 17",
+            "Electrons = protons (for a neutral atom) = 17",
+            "Neutrons = mass number − atomic number = 35 − 17 = 18"
+          ],
+          "answer": "17 protons, 17 electrons, 18 neutrons."
+        },
+        {
+          "title": "Predicting Periodic Trend",
+          "problem": "Between Sodium (Na, atomic number 11) and Chlorine (Cl, atomic number 17), which has the larger atomic radius?",
+          "steps": [
+            "Both elements are in Period 3 of the periodic table",
+            "Atomic radius decreases as you move left to right across a period due to increasing nuclear charge pulling electrons closer",
+            "Sodium is further left than Chlorine in the same period"
+          ],
+          "answer": "Sodium has the larger atomic radius."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What determines an atom's chemical behavior most directly?",
+          "options": [
+            "Number of neutrons",
+            "Number of valence electrons",
+            "Total mass number",
+            "Atomic radius"
+          ],
+          "correctIndex": 1,
+          "explanation": "Valence electrons, found in the outermost shell, determine how an atom bonds and reacts with others."
+        },
+        {
+          "question": "How does atomic radius change across a period (left to right)?",
+          "options": [
+            "It increases",
+            "It decreases",
+            "It stays constant",
+            "It fluctuates randomly"
+          ],
+          "correctIndex": 1,
+          "explanation": "Atomic radius decreases across a period because increasing nuclear charge pulls electrons closer to the nucleus."
+        }
+      ]
+    },
+    {
+      "title": "Chemical Bonding",
+      "sourceRange": "Second topic",
+      "summary": "Chemical bonds form when atoms interact to achieve a more stable electron configuration, typically by gaining, losing, or sharing electrons. The three main types of bonding are ionic, covalent, and metallic.\n\nIonic bonds form between a metal and a non-metal, where electrons are transferred from one atom to another, creating oppositely charged ions that attract each other. Covalent bonds form between non-metals, where atoms share electron pairs. Metallic bonding occurs in metals, where electrons are delocalized across a lattice of metal cations.\n\nThe type of bonding present in a substance directly determines its physical properties — melting point, conductivity, and solubility all trace back to bonding type, which is directly relevant to engineering material selection.",
+      "keyPoints": [
+        "Ionic bonds: electron transfer between metal and non-metal, forming charged ions",
+        "Covalent bonds: electron sharing between non-metal atoms",
+        "Metallic bonds: delocalized electrons shared across a lattice of metal cations",
+        "Bonding type determines melting point, electrical conductivity, and solubility",
+        "Electronegativity difference between atoms helps predict bond type"
+      ],
+      "definitions": [
+        {
+          "term": "Ionic Bond",
+          "definition": "A chemical bond formed by the electrostatic attraction between oppositely charged ions, typically between a metal and non-metal."
+        },
+        {
+          "term": "Covalent Bond",
+          "definition": "A chemical bond formed when two atoms share one or more pairs of electrons."
+        },
+        {
+          "term": "Metallic Bond",
+          "definition": "A bond in which electrons are delocalized and shared across a lattice of metal cations."
+        },
+        {
+          "term": "Electronegativity",
+          "definition": "A measure of an atom's ability to attract shared electrons in a chemical bond."
+        },
+        {
+          "term": "Lattice",
+          "definition": "A regular, repeating three-dimensional arrangement of atoms or ions in a solid."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Predicting Bond Type",
+          "problem": "Determine the type of bond formed between Sodium (Na) and Chlorine (Cl) in NaCl.",
+          "steps": [
+            "Sodium is a metal (Group 1), Chlorine is a non-metal (Group 17)",
+            "Metal + non-metal combinations typically form ionic bonds",
+            "Sodium loses one electron to become Na⁺; Chlorine gains that electron to become Cl⁻",
+            "The oppositely charged ions attract electrostatically"
+          ],
+          "answer": "NaCl forms an ionic bond, with Na⁺ and Cl⁻ ions held together by electrostatic attraction."
+        },
+        {
+          "title": "Explaining Conductivity Differences",
+          "problem": "Explain why metals conduct electricity well, but ionic solids (like NaCl) do not conduct electricity in solid form.",
+          "steps": [
+            "In metals, delocalized electrons are free to move throughout the lattice, carrying electric current",
+            "In ionic solids, ions are held in fixed positions within a rigid lattice structure",
+            "Since ions cannot move freely in the solid state, no charge carriers are available to conduct current",
+            "Ionic solids only conduct electricity when melted or dissolved in water, where ions become mobile"
+          ],
+          "answer": "Metals conduct due to freely moving delocalized electrons; solid ionic compounds don't conduct because their ions are fixed in place, unlike in molten or dissolved states."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which type of bond involves the transfer of electrons between a metal and a non-metal?",
+          "options": [
+            "Covalent bond",
+            "Ionic bond",
+            "Metallic bond",
+            "Hydrogen bond"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ionic bonds form through electron transfer, typically between a metal (which loses electrons) and a non-metal (which gains them)."
+        },
+        {
+          "question": "Why do metals conduct electricity well?",
+          "options": [
+            "They have rigid lattice structures",
+            "They contain delocalized electrons free to move",
+            "They have high melting points",
+            "They contain ionic bonds"
+          ],
+          "correctIndex": 1,
+          "explanation": "Metallic bonding involves delocalized electrons that move freely through the metal lattice, enabling electrical conductivity."
+        },
+        {
+          "question": "What determines whether a bond is ionic or covalent?",
+          "options": [
+            "Atomic mass",
+            "Electronegativity difference between the atoms",
+            "Number of neutrons",
+            "Physical state of the element"
+          ],
+          "correctIndex": 1,
+          "explanation": "A large electronegativity difference favors ionic bonding (electron transfer), while a small difference favors covalent bonding (electron sharing)."
+        }
+      ]
+    }
+  ]
+}

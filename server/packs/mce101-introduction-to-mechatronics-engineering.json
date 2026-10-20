@@ -1,0 +1,142 @@
+{
+  "title": "MCE 101 — Introduction to Mechatronics Engineering",
+  "course": "MCE 101 Introduction to Mechatronics Engineering",
+  "topic": "What is Mechatronics? Core Disciplines and Integration & Applications and the Mechatronics Design Process",
+  "overview": "This study pack introduces the field of Mechatronics Engineering: its core disciplines, the systems integration mindset, and real-world applications combining mechanical, electrical, and computer engineering.",
+  "modules": [
+    {
+      "title": "What is Mechatronics? Core Disciplines and Integration",
+      "sourceRange": "Introductory topic",
+      "summary": "Mechatronics is the synergistic combination of mechanical engineering, electrical engineering, computer science, and control systems engineering to design and create smart, automated products and systems. Unlike traditional engineering disciplines that work in isolation, mechatronics emphasizes integrated design from the start.\n\nA typical mechatronic system consists of four key subsystems working together: a mechanical structure (the physical body/mechanism), sensors (which gather information about the system and environment), actuators (which produce physical motion or action), and a control system (typically a microcontroller or computer, which processes sensor data and commands the actuators).\n\nThis integrated approach allows the design of smart systems — like robots, automated manufacturing equipment, and smart appliances — that could not be achieved by any single traditional engineering discipline alone.",
+      "keyPoints": [
+        "Mechatronics integrates mechanical, electrical, computer, and control engineering",
+        "Four key subsystems: mechanical structure, sensors, actuators, and control system",
+        "Sensors gather information; actuators produce physical action; controllers process and decide",
+        "Integrated design from the start distinguishes mechatronics from traditional single-discipline engineering",
+        "Examples of mechatronic systems: robots, CNC machines, automotive systems, smart appliances"
+      ],
+      "definitions": [
+        {
+          "term": "Mechatronics",
+          "definition": "The interdisciplinary field combining mechanical, electrical, computer, and control engineering to design smart, integrated systems."
+        },
+        {
+          "term": "Sensor",
+          "definition": "A device that detects and measures a physical property (like temperature, position, or light) and converts it into a signal."
+        },
+        {
+          "term": "Actuator",
+          "definition": "A device that converts a control signal into physical motion or action, such as a motor or solenoid."
+        },
+        {
+          "term": "Control System",
+          "definition": "The component (often a microcontroller) that processes sensor input and generates commands to actuators to achieve desired system behavior."
+        },
+        {
+          "term": "Feedback Loop",
+          "definition": "A system structure where output information (from sensors) is used to adjust future actions, forming the basis of automated control."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying Subsystems in a Real Mechatronic System",
+          "problem": "An automatic sliding door opens when someone approaches and closes after they pass through. Identify the mechanical, sensor, actuator, and control components.",
+          "steps": [
+            "Mechanical structure: the door itself and its sliding track mechanism",
+            "Sensor: a motion or infrared sensor that detects an approaching person",
+            "Actuator: an electric motor that physically slides the door open or closed",
+            "Control system: a microcontroller that receives the sensor signal and commands the motor accordingly"
+          ],
+          "answer": "Mechanical = door and track; Sensor = motion/infrared detector; Actuator = motor; Control system = microcontroller coordinating sensor input and motor output."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What are the four key subsystems of a typical mechatronic system?",
+          "options": [
+            "Only mechanical and electrical parts",
+            "Mechanical structure, sensors, actuators, and control system",
+            "Only software and hardware",
+            "Only sensors and motors"
+          ],
+          "correctIndex": 1,
+          "explanation": "A complete mechatronic system integrates a mechanical structure, sensors, actuators, and a control system working together."
+        },
+        {
+          "question": "What is the role of an actuator in a mechatronic system?",
+          "options": [
+            "To measure physical properties",
+            "To convert a control signal into physical motion or action",
+            "To store data",
+            "To generate electricity"
+          ],
+          "correctIndex": 1,
+          "explanation": "Actuators take a control signal and produce physical action, such as a motor turning or a valve opening."
+        }
+      ]
+    },
+    {
+      "title": "Applications and the Mechatronics Design Process",
+      "sourceRange": "Second topic",
+      "summary": "Mechatronics engineers design systems across a wide range of applications: industrial robotics, automotive systems (anti-lock brakes, electronic fuel injection), consumer electronics (smart appliances, drones), and medical devices (robotic surgery systems, prosthetics).\n\nThe mechatronics design process typically begins with defining system requirements, followed by concurrent design of mechanical, electrical, and control elements — rather than designing each in isolation and integrating them later. This concurrent approach helps avoid costly redesigns and ensures the subsystems work together efficiently from the start.\n\nModern mechatronics increasingly incorporates artificial intelligence and machine learning for more adaptive, intelligent system behavior, extending beyond simple fixed-response control.",
+      "keyPoints": [
+        "Mechatronics applications span robotics, automotive, consumer electronics, and medical devices",
+        "The mechatronics design process uses concurrent design, not sequential single-discipline design",
+        "Concurrent design reduces costly redesigns by considering all subsystems from the start",
+        "Modern mechatronics increasingly incorporates AI/ML for adaptive, intelligent behavior",
+        "Real-world examples: industrial robots, anti-lock braking systems, robotic surgery systems"
+      ],
+      "definitions": [
+        {
+          "term": "Concurrent Design",
+          "definition": "A design approach where mechanical, electrical, and control aspects of a system are developed together and simultaneously, rather than sequentially."
+        },
+        {
+          "term": "System Requirements",
+          "definition": "The functional and performance specifications a system must meet, defined at the start of the design process."
+        },
+        {
+          "term": "Anti-lock Braking System (ABS)",
+          "definition": "An automotive mechatronic system that prevents wheel lock-up during braking by rapidly modulating brake pressure using sensors and actuators."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Explaining the Benefit of Concurrent Design",
+          "problem": "Explain why designing the mechanical, electrical, and control aspects of a robotic arm concurrently (rather than one after another) leads to a better final product.",
+          "steps": [
+            "If mechanical design is finished first without considering sensor placement, sensors may not fit or may give poor readings due to the finalized structure",
+            "If electrical/control design is finalized without considering mechanical constraints, the control system may not properly account for the arm's actual movement limitations",
+            "Concurrent design allows engineers to catch these conflicts early, adjusting the mechanical structure to accommodate sensor needs and vice versa",
+            "This reduces the need for costly redesigns after subsystems are already built"
+          ],
+          "answer": "Concurrent design identifies conflicts between subsystems early, avoiding expensive rework and producing a more cohesive, better-integrated final system."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is 'concurrent design' in mechatronics?",
+          "options": [
+            "Designing one subsystem at a time in sequence",
+            "Designing mechanical, electrical, and control aspects together simultaneously",
+            "Only designing the mechanical parts",
+            "Skipping the design phase entirely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Concurrent design develops all subsystems together from the start, avoiding conflicts and costly redesigns later."
+        },
+        {
+          "question": "Which of these is an example of an automotive mechatronic system?",
+          "options": [
+            "Anti-lock Braking System (ABS)",
+            "A simple mechanical door hinge",
+            "A wooden chair",
+            "A manual hand tool"
+          ],
+          "correctIndex": 0,
+          "explanation": "ABS uses sensors, a control system, and actuators together to modulate brake pressure — a classic mechatronic system."
+        }
+      ]
+    }
+  ]
+}

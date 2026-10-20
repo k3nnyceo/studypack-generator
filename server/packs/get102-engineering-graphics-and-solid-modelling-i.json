@@ -1,0 +1,157 @@
+{
+  "title": "GET 102 — Engineering Graphics and Solid Modelling I",
+  "course": "GET 102 Engineering Graphics and Solid Modelling I",
+  "topic": "Orthographic Projection & Dimensioning and Introduction to Solid Modelling",
+  "overview": "This study pack covers foundational technical drawing skills: orthographic projection, dimensioning conventions, and an introduction to solid modelling concepts used throughout engineering design.",
+  "modules": [
+    {
+      "title": "Orthographic Projection",
+      "sourceRange": "Introductory topic",
+      "summary": "Orthographic projection represents a three-dimensional object using multiple two-dimensional views, typically the front view, top view, and side view, each showing the object from a different perpendicular angle. This allows a complete, unambiguous representation of an object's shape and dimensions on a flat drawing.\n\nTwo main conventions exist: First Angle Projection (common in Europe and most of the world, including Nigeria) and Third Angle Projection (common in North America). In First Angle Projection, the top view is placed below the front view, and the side view is placed to the side opposite the viewing direction.\n\nConsistent line types are used in technical drawings: solid thick lines for visible edges, dashed lines for hidden edges, and thin center lines for axes of symmetry.",
+      "keyPoints": [
+        "Orthographic projection shows an object using front, top, and side views",
+        "First Angle Projection is the standard convention in Nigeria and most of the world",
+        "In First Angle Projection, the top view is placed below the front view",
+        "Solid thick lines represent visible edges; dashed lines represent hidden edges",
+        "Center lines (thin, dashed-dot) mark axes of symmetry"
+      ],
+      "definitions": [
+        {
+          "term": "Orthographic Projection",
+          "definition": "A method of representing a 3D object using multiple 2D views, each taken perpendicular to a specific face."
+        },
+        {
+          "term": "First Angle Projection",
+          "definition": "A projection convention where the object is placed between the observer and the projection plane; standard in most countries outside North America."
+        },
+        {
+          "term": "Hidden Line",
+          "definition": "A dashed line in a technical drawing representing an edge or surface not visible from the current viewing angle."
+        },
+        {
+          "term": "Center Line",
+          "definition": "A thin line with alternating long and short dashes, marking the axis of symmetry of a circular or symmetric feature."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying View Placement in First Angle Projection",
+          "problem": "In First Angle Projection, if the front view of an object is drawn, where should the top view be placed on the drawing sheet?",
+          "steps": [
+            "Recall the First Angle Projection convention: the object is imagined between the observer and the projection plane",
+            "This results in the top view being projected downward onto the plane below the front view",
+            "Therefore, the top view is placed directly below the front view on the drawing sheet"
+          ],
+          "answer": "In First Angle Projection, the top view is placed directly below the front view."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which projection convention is standard in Nigeria and most of the world (excluding North America)?",
+          "options": [
+            "Third Angle Projection",
+            "First Angle Projection",
+            "Isometric Projection",
+            "Oblique Projection"
+          ],
+          "correctIndex": 1,
+          "explanation": "First Angle Projection is the standard convention used in Nigeria, Europe, and most countries outside North America."
+        },
+        {
+          "question": "What type of line represents a hidden edge in a technical drawing?",
+          "options": [
+            "Solid thick line",
+            "Dashed line",
+            "Thin solid line",
+            "Wavy line"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hidden edges, not visible from the current viewing angle, are represented using dashed lines."
+        }
+      ]
+    },
+    {
+      "title": "Dimensioning and Introduction to Solid Modelling",
+      "sourceRange": "Second topic",
+      "summary": "Dimensioning provides the precise size information needed to manufacture a part correctly, using dimension lines, extension lines, and arrowheads to indicate measurements clearly and unambiguously. Rules for good dimensioning include avoiding duplicate dimensions and placing dimensions outside the object outline where possible for clarity.\n\nSolid modelling is the digital creation of a three-dimensional representation of an object using CAD (Computer-Aided Design) software. Unlike simple wireframe or surface models, solid models contain complete information about an object's volume, mass properties, and geometry, enabling engineering analysis directly from the digital model.\n\nBasic solid modelling operations include extrusion (extending a 2D profile into 3D), revolution (rotating a profile around an axis), and Boolean operations (combining or subtracting solid shapes).",
+      "keyPoints": [
+        "Dimension lines, extension lines, and arrowheads together indicate precise measurements",
+        "Avoid duplicate dimensions; place dimensions outside the object outline where possible",
+        "Solid models contain complete geometric information, including volume and mass properties",
+        "Extrusion extends a 2D profile into a 3D shape",
+        "Revolution creates a 3D shape by rotating a 2D profile around an axis",
+        "Boolean operations combine (union) or subtract (difference) solid shapes to create complex geometry"
+      ],
+      "definitions": [
+        {
+          "term": "Dimension Line",
+          "definition": "A line with arrowheads indicating the extent and value of a measurement in a technical drawing."
+        },
+        {
+          "term": "Extrusion",
+          "definition": "A solid modelling operation that extends a 2D profile along a path or direction to create a 3D solid."
+        },
+        {
+          "term": "Revolution (Solid Modelling)",
+          "definition": "A solid modelling operation that creates a 3D shape by rotating a 2D profile around a specified axis."
+        },
+        {
+          "term": "Boolean Operation",
+          "definition": "An operation in solid modelling that combines (union), subtracts (difference), or intersects two solid shapes."
+        },
+        {
+          "term": "CAD (Computer-Aided Design)",
+          "definition": "Software used to create precise digital drawings and 3D models for engineering design."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Choosing the Right Solid Modelling Operation",
+          "problem": "You need to model a solid cylinder in CAD software, starting from a 2D circular profile. Which solid modelling operation should you use?",
+          "steps": [
+            "Consider the shape needed: a cylinder is a circular profile extended along a straight axis",
+            "Extrusion extends a 2D profile in a straight direction to create a 3D solid",
+            "Revolution would be more appropriate for shapes formed by rotating a profile (like a sphere or a vase shape)",
+            "Since a cylinder results from straight extension, extrusion is the correct operation"
+          ],
+          "answer": "Use extrusion — extending the circular 2D profile along a straight path creates the 3D cylinder."
+        },
+        {
+          "title": "Applying a Boolean Operation",
+          "problem": "You have a solid cube and need to create a cylindrical hole through its center. Which Boolean operation should you use, and with what shape?",
+          "steps": [
+            "Model a solid cylinder that matches the size and position of the desired hole",
+            "Use the Boolean 'subtract' (difference) operation",
+            "Subtract the cylinder solid from the cube solid",
+            "The result is the cube with a cylindrical hole removed from it"
+          ],
+          "answer": "Use the Boolean subtract (difference) operation, removing a cylinder solid from the cube to create the hole."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What solid modelling operation extends a 2D profile in a straight direction to create a 3D shape?",
+          "options": [
+            "Revolution",
+            "Extrusion",
+            "Boolean union",
+            "Boolean difference"
+          ],
+          "correctIndex": 1,
+          "explanation": "Extrusion extends a 2D profile along a straight path to form a 3D solid, such as turning a circle into a cylinder."
+        },
+        {
+          "question": "Which Boolean operation would you use to create a hole by removing one solid from another?",
+          "options": [
+            "Union",
+            "Difference (subtraction)",
+            "Intersection",
+            "Extrusion"
+          ],
+          "correctIndex": 1,
+          "explanation": "The Boolean difference (subtraction) operation removes the volume of one solid from another, commonly used to create holes or cutouts."
+        }
+      ]
+    }
+  ]
+}

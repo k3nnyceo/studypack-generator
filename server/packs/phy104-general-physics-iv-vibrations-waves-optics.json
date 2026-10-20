@@ -1,0 +1,171 @@
+{
+  "title": "PHY 104 — General Physics IV: Vibrations, Waves and Optics",
+  "course": "PHY 104 General Physics IV",
+  "topic": "Simple Harmonic Motion and Wave Properties & Basic Optics: Reflection and Refraction",
+  "overview": "This study pack covers simple harmonic motion, wave properties, and basic optics — foundational concepts relevant to later courses in vibration engineering, signals, and sensor systems.",
+  "modules": [
+    {
+      "title": "Simple Harmonic Motion and Wave Properties",
+      "sourceRange": "Introductory topic",
+      "summary": "Simple Harmonic Motion (SHM) describes oscillatory motion where the restoring force is directly proportional to displacement and acts toward equilibrium, such as a mass on a spring or a simple pendulum. The period (T) is the time for one complete oscillation, and frequency (f = 1/T) is the number of oscillations per second.\n\nWaves transfer energy without transferring matter, characterized by wavelength (λ, distance between successive crests), frequency (f), and amplitude (maximum displacement from equilibrium). The wave equation relates these: v = fλ, where v is wave speed.\n\nWaves are classified as transverse (oscillation perpendicular to travel direction, like light) or longitudinal (oscillation parallel to travel direction, like sound).",
+      "keyPoints": [
+        "SHM: restoring force is proportional to displacement, directed toward equilibrium",
+        "Period (T) = time for one oscillation; Frequency (f) = 1/T",
+        "Wave equation: v = fλ (speed = frequency × wavelength)",
+        "Transverse waves: oscillation perpendicular to direction of travel (e.g., light)",
+        "Longitudinal waves: oscillation parallel to direction of travel (e.g., sound)"
+      ],
+      "definitions": [
+        {
+          "term": "Simple Harmonic Motion (SHM)",
+          "definition": "Oscillatory motion where the restoring force is proportional to displacement and directed toward equilibrium."
+        },
+        {
+          "term": "Period (T)",
+          "definition": "The time taken to complete one full oscillation or wave cycle."
+        },
+        {
+          "term": "Frequency (f)",
+          "definition": "The number of oscillations or wave cycles per second, measured in Hertz (Hz), equal to 1/T."
+        },
+        {
+          "term": "Wavelength (λ)",
+          "definition": "The distance between two successive corresponding points on a wave, such as crest to crest."
+        },
+        {
+          "term": "Amplitude",
+          "definition": "The maximum displacement of a wave or oscillation from its equilibrium position."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying the Wave Equation",
+          "problem": "A wave has a frequency of 50 Hz and a wavelength of 2 m. Find its speed.",
+          "steps": [
+            "Apply the wave equation: v = fλ",
+            "v = 50 Hz × 2 m",
+            "v = 100 m/s"
+          ],
+          "answer": "The wave speed is 100 m/s."
+        },
+        {
+          "title": "Finding Frequency from Period",
+          "problem": "A pendulum completes one full oscillation every 0.5 seconds. Find its frequency.",
+          "steps": [
+            "Apply the relationship: f = 1/T",
+            "f = 1 / 0.5 s",
+            "f = 2 Hz"
+          ],
+          "answer": "The frequency is 2 Hz."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the relationship between wave speed, frequency, and wavelength?",
+          "options": [
+            "v = f/λ",
+            "v = fλ",
+            "v = f + λ",
+            "v = λ/f"
+          ],
+          "correctIndex": 1,
+          "explanation": "The wave equation states that speed equals frequency multiplied by wavelength: v = fλ."
+        },
+        {
+          "question": "In a transverse wave, how does the oscillation direction relate to the wave's travel direction?",
+          "options": [
+            "Parallel",
+            "Perpendicular",
+            "There is no relationship",
+            "They are always opposite"
+          ],
+          "correctIndex": 1,
+          "explanation": "In transverse waves, particles oscillate perpendicular to the direction the wave travels, unlike longitudinal waves."
+        }
+      ]
+    },
+    {
+      "title": "Basic Optics: Reflection and Refraction",
+      "sourceRange": "Second topic",
+      "summary": "Reflection occurs when light bounces off a surface, following the law of reflection: the angle of incidence equals the angle of reflection, both measured from the normal (a line perpendicular to the surface).\n\nRefraction occurs when light passes from one medium into another with a different optical density, causing it to bend. This is described by Snell's Law: n1 sin θ1 = n2 sin θ2, where n1 and n2 are the refractive indices of the two media, and θ1 and θ2 are the angles of incidence and refraction.\n\nTotal internal reflection occurs when light traveling from a denser to a less dense medium hits the boundary at an angle greater than the critical angle, causing all light to reflect back rather than refract — the principle behind fiber optic communication.",
+      "keyPoints": [
+        "Law of Reflection: angle of incidence equals angle of reflection",
+        "Snell's Law: n1 sin θ1 = n2 sin θ2",
+        "Refraction occurs when light changes speed crossing between media of different densities",
+        "Total internal reflection occurs beyond the critical angle when going from denser to less dense medium",
+        "Total internal reflection is the working principle behind fiber optic cables"
+      ],
+      "definitions": [
+        {
+          "term": "Angle of Incidence",
+          "definition": "The angle between an incoming light ray and the normal (perpendicular) to a surface."
+        },
+        {
+          "term": "Refractive Index (n)",
+          "definition": "A measure of how much a medium slows down and bends light compared to a vacuum."
+        },
+        {
+          "term": "Snell's Law",
+          "definition": "The law describing the relationship between angles of incidence and refraction as light passes between media: n1 sin θ1 = n2 sin θ2."
+        },
+        {
+          "term": "Critical Angle",
+          "definition": "The angle of incidence beyond which light undergoes total internal reflection instead of refracting."
+        },
+        {
+          "term": "Total Internal Reflection",
+          "definition": "The complete reflection of light at a boundary when it strikes at an angle greater than the critical angle, going from a denser to a less dense medium."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Snell's Law",
+          "problem": "Light travels from air (n1 = 1.00) into glass (n2 = 1.5) at an angle of incidence of 30°. Find the angle of refraction.",
+          "steps": [
+            "Apply Snell's Law: n1 sin θ1 = n2 sin θ2",
+            "1.00 × sin(30°) = 1.5 × sin θ2",
+            "1.00 × 0.5 = 1.5 × sin θ2",
+            "sin θ2 = 0.5 / 1.5 = 0.333",
+            "θ2 = sin⁻¹(0.333) ≈ 19.5°"
+          ],
+          "answer": "The angle of refraction is approximately 19.5°."
+        },
+        {
+          "title": "Explaining Fiber Optic Operation",
+          "problem": "Explain, using total internal reflection, how a fiber optic cable transmits light over long distances with minimal loss.",
+          "steps": [
+            "The fiber optic core has a higher refractive index than its outer cladding",
+            "Light entering the fiber hits the core-cladding boundary at an angle greater than the critical angle",
+            "This causes total internal reflection, with all the light reflecting back into the core rather than escaping",
+            "The light continues bouncing along the length of the fiber via repeated total internal reflections, preserving signal strength"
+          ],
+          "answer": "Light is trapped inside the fiber's core via repeated total internal reflection at the core-cladding boundary, allowing it to travel long distances with minimal loss."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does the Law of Reflection state?",
+          "options": [
+            "Angle of incidence is always 90°",
+            "Angle of incidence equals angle of reflection",
+            "Light always bends toward the normal",
+            "Reflection only occurs in water"
+          ],
+          "correctIndex": 1,
+          "explanation": "The Law of Reflection states that the angle of incidence equals the angle of reflection, both measured from the normal."
+        },
+        {
+          "question": "What phenomenon allows fiber optic cables to transmit light over long distances?",
+          "options": [
+            "Refraction only",
+            "Total internal reflection",
+            "Diffraction",
+            "Polarization"
+          ],
+          "correctIndex": 1,
+          "explanation": "Total internal reflection keeps light trapped within the fiber's core, allowing efficient long-distance transmission."
+        }
+      ]
+    }
+  ]
+}

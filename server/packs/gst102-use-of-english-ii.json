@@ -1,0 +1,141 @@
+{
+  "title": "GST 102 — Use of English II",
+  "course": "GST 102 Use of English II",
+  "topic": "Summarizing and Comprehension Skills & Technical Report Writing and Referencing",
+  "overview": "This study pack covers technical and academic writing skills, including summarizing, report structure, and referencing — essential skills for engineering coursework and professional communication.",
+  "modules": [
+    {
+      "title": "Summarizing and Comprehension Skills",
+      "sourceRange": "Introductory topic",
+      "summary": "Summarizing condenses a longer text into its essential points while preserving the original meaning, without adding personal opinions or unnecessary detail. Effective summarizing requires identifying the main idea, distinguishing it from supporting details, and expressing it concisely in your own words.\n\nA common approach is the SQ3R method for comprehension: Survey (skim for structure), Question (form questions about content), Read (read actively for answers), Recite (summarize in your own words), and Review (revisit key points).\n\nParaphrasing — restating information in different words while preserving meaning — is closely related to summarizing but focuses on rewording rather than condensing.",
+      "keyPoints": [
+        "A good summary preserves the original meaning without adding personal opinion",
+        "Summarizing requires distinguishing main ideas from supporting details",
+        "SQ3R method: Survey, Question, Read, Recite, Review",
+        "Paraphrasing rewords content without necessarily shortening it",
+        "Effective summaries express ideas in the writer's own words, not copied phrases"
+      ],
+      "definitions": [
+        {
+          "term": "Summary",
+          "definition": "A condensed version of a text that captures its essential main points without unnecessary detail."
+        },
+        {
+          "term": "Paraphrase",
+          "definition": "Restating a passage in different words while preserving its original meaning."
+        },
+        {
+          "term": "Main Idea",
+          "definition": "The central point or argument that a text is primarily conveying."
+        },
+        {
+          "term": "Supporting Detail",
+          "definition": "Information that explains, illustrates, or provides evidence for the main idea."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying Main Idea vs Supporting Detail",
+          "problem": "In the sentence 'Mechatronics engineers are in high demand because industries increasingly rely on automated systems, robotics, and smart manufacturing,' identify the main idea and the supporting details.",
+          "steps": [
+            "The main idea is the core claim being made: 'Mechatronics engineers are in high demand'",
+            "The supporting details explain why: 'because industries increasingly rely on automated systems, robotics, and smart manufacturing'",
+            "A good summary would focus primarily on the main idea, mentioning supporting details only briefly if needed"
+          ],
+          "answer": "Main idea: Mechatronics engineers are in high demand. Supporting details: due to industry reliance on automation, robotics, and smart manufacturing."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What should a good summary avoid including?",
+          "options": [
+            "The main idea",
+            "Personal opinions not present in the original text",
+            "Key facts",
+            "Proper grammar"
+          ],
+          "correctIndex": 1,
+          "explanation": "A summary should faithfully represent the original text's content, not introduce the summarizer's own opinions or interpretations."
+        },
+        {
+          "question": "What does the 'R' steps in SQ3R stand for?",
+          "options": [
+            "Read, Recite, Review",
+            "Repeat, Recall, Report",
+            "Research, Record, Reflect",
+            "Read, Report, Reject"
+          ],
+          "correctIndex": 0,
+          "explanation": "SQ3R stands for Survey, Question, Read, Recite, Review — the three 'R' steps are Read, Recite, and Review."
+        }
+      ]
+    },
+    {
+      "title": "Technical Report Writing and Referencing",
+      "sourceRange": "Second topic",
+      "summary": "Technical reports follow a standard structure: title page, abstract/summary, introduction, methodology, results, discussion, conclusion, and references. Each section serves a specific purpose — the abstract gives a brief overview, the methodology explains how the work was done, and the discussion interprets what the results mean.\n\nProper referencing gives credit to original sources and allows readers to verify claims. Common referencing styles include APA and IEEE, each with specific formatting rules for in-text citations and reference lists. Engineering reports commonly use IEEE style, which uses numbered citations in brackets [1] corresponding to a numbered reference list.\n\nPlagiarism — presenting someone else's work or ideas as your own without proper credit — is a serious academic and professional offense that proper referencing helps avoid.",
+      "keyPoints": [
+        "Standard technical report structure: title, abstract, introduction, methodology, results, discussion, conclusion, references",
+        "The abstract provides a brief overview of the entire report's content",
+        "IEEE referencing style uses numbered bracketed citations [1] common in engineering reports",
+        "Proper referencing gives credit to sources and enables verification of claims",
+        "Plagiarism is presenting others' work as your own and is a serious academic offense"
+      ],
+      "definitions": [
+        {
+          "term": "Abstract",
+          "definition": "A brief summary at the start of a report that outlines its purpose, methods, and key findings."
+        },
+        {
+          "term": "IEEE Referencing Style",
+          "definition": "A citation format commonly used in engineering, using numbered bracketed in-text citations corresponding to a numbered reference list."
+        },
+        {
+          "term": "Plagiarism",
+          "definition": "Presenting someone else's work, ideas, or words as your own without proper acknowledgment."
+        },
+        {
+          "term": "Methodology",
+          "definition": "The section of a report describing the methods and procedures used to conduct the work or experiment."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Structuring a Technical Report Section",
+          "problem": "You are writing a lab report on a titration experiment. What should go in the 'Methodology' section?",
+          "steps": [
+            "The methodology should describe exactly how the experiment was conducted",
+            "Include: equipment used, step-by-step procedure followed, and any relevant conditions (temperature, concentrations)",
+            "Write in past tense, describing what was done, not what should be done",
+            "Avoid including results or interpretations here — those belong in later sections"
+          ],
+          "answer": "The Methodology section should describe the equipment, step-by-step procedure, and experimental conditions used, written in past tense, without including results or conclusions."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What referencing style is commonly used in engineering reports, using numbered bracketed citations?",
+          "options": [
+            "MLA",
+            "APA",
+            "IEEE",
+            "Harvard"
+          ],
+          "correctIndex": 2,
+          "explanation": "IEEE style uses numbered citations in brackets [1], [2], etc., matched to a numbered reference list — standard in engineering writing."
+        },
+        {
+          "question": "What is plagiarism?",
+          "options": [
+            "Writing a long report",
+            "Presenting someone else's work as your own without credit",
+            "Using proper citations",
+            "Summarizing a text accurately"
+          ],
+          "correctIndex": 1,
+          "explanation": "Plagiarism is the act of using someone else's work or ideas without giving proper credit, treating it as if it were one's own."
+        }
+      ]
+    }
+  ]
+}

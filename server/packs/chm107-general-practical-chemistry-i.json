@@ -1,0 +1,173 @@
+{
+  "title": "CHM 107 — General Practical Chemistry I",
+  "course": "CHM 107 General Practical Chemistry I",
+  "topic": "Laboratory Safety and Equipment & Titration Technique and Calculations",
+  "overview": "This study pack covers essential laboratory skills for first-year chemistry practicals: lab safety, measurement techniques, and titration. These skills are foundational for accurate experimental work throughout your engineering studies.",
+  "modules": [
+    {
+      "title": "Laboratory Safety and Equipment",
+      "sourceRange": "Introductory topic",
+      "summary": "Laboratory safety is the first priority in any practical chemistry course. Understanding proper handling of chemicals, glassware, and equipment prevents accidents and ensures accurate, repeatable results.\n\nCommon lab equipment includes beakers (approximate volume measurement), burettes and pipettes (precise volume measurement), and Bunsen burners (heating). Each piece of equipment has a specific accuracy level and appropriate use case — using a beaker where a pipette is needed introduces unacceptable error into quantitative work.\n\nProper technique also includes reading measurements at eye level to avoid parallax error, and understanding meniscus reading (for water-based solutions, read the bottom of the curve; for mercury, read the top).",
+      "keyPoints": [
+        "Always wear appropriate PPE (safety goggles, lab coat, gloves) before starting any experiment",
+        "Beakers give approximate volumes; burettes and pipettes give precise volumes",
+        "Read liquid measurements at eye level to avoid parallax error",
+        "For water-based solutions, read the meniscus at the bottom of the curve",
+        "Know the location of safety equipment (eyewash station, fire extinguisher) before starting work"
+      ],
+      "definitions": [
+        {
+          "term": "Meniscus",
+          "definition": "The curved upper surface of a liquid in a container, used as the reference point for accurate volume readings."
+        },
+        {
+          "term": "Parallax Error",
+          "definition": "A measurement error caused by viewing a scale from an angle rather than straight-on (at eye level)."
+        },
+        {
+          "term": "Burette",
+          "definition": "A graduated glass tube with a tap, used to dispense precise, variable volumes of liquid, commonly used in titrations."
+        },
+        {
+          "term": "Pipette",
+          "definition": "A laboratory instrument used to transfer a precise, fixed or measured volume of liquid."
+        },
+        {
+          "term": "PPE (Personal Protective Equipment)",
+          "definition": "Protective gear such as goggles, gloves, and lab coats worn to prevent injury or contamination during lab work."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Choosing the Right Equipment",
+          "problem": "You need to measure exactly 25.00 mL of a solution for a titration. Which piece of equipment should you use: a beaker, a graduated cylinder, or a pipette?",
+          "steps": [
+            "Beakers only give rough volume estimates, unsuitable for precise work",
+            "Graduated cylinders are more precise than beakers but less accurate than pipettes",
+            "A pipette is designed specifically for delivering a precise, fixed volume with minimal error"
+          ],
+          "answer": "Use a pipette, since it provides the accuracy required for quantitative titration work."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Why should liquid measurements be read at eye level?",
+          "options": [
+            "It looks more professional",
+            "To avoid parallax error",
+            "It's required by law",
+            "To speed up the experiment"
+          ],
+          "correctIndex": 1,
+          "explanation": "Reading at eye level avoids parallax error, which occurs when viewing a scale from an angle, leading to inaccurate readings."
+        },
+        {
+          "question": "Which piece of equipment provides the most precise, fixed-volume liquid transfer?",
+          "options": [
+            "Beaker",
+            "Pipette",
+            "Bunsen burner",
+            "Test tube"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pipettes are specifically designed to transfer a precise, known volume of liquid, unlike beakers which only give rough estimates."
+        }
+      ]
+    },
+    {
+      "title": "Titration Technique and Calculations",
+      "sourceRange": "Second topic",
+      "summary": "Titration is a technique used to determine the unknown concentration of a solution by reacting it with a solution of known concentration (the titrant) until the reaction reaches its endpoint, typically signaled by a color change from an indicator.\n\nThe key calculation in titration relies on the relationship: moles of acid = moles of base at the equivalence point (for a 1:1 reaction), using the formula C₁V₁ = C₂V₂ where C is concentration and V is volume. This allows calculation of an unknown concentration once the volumes and one known concentration are recorded.\n\nAccurate titration requires careful technique: adding titrant dropwise near the expected endpoint, swirling the flask continuously, and stopping at the first permanent color change of the indicator.",
+      "keyPoints": [
+        "Titration determines unknown concentration by reaction with a known concentration solution",
+        "The equivalence point is where moles of acid equal moles of base (for 1:1 reactions)",
+        "Key formula: C₁V₁ = C₂V₂",
+        "Indicators signal the endpoint through a visible color change",
+        "Add titrant dropwise near the expected endpoint for accuracy"
+      ],
+      "definitions": [
+        {
+          "term": "Titrant",
+          "definition": "The solution of known concentration added from the burette during a titration."
+        },
+        {
+          "term": "Equivalence Point",
+          "definition": "The point in a titration where the amount of titrant added is chemically equivalent to the amount of substance being analyzed."
+        },
+        {
+          "term": "Endpoint",
+          "definition": "The point during titration where the indicator changes color, ideally very close to the equivalence point."
+        },
+        {
+          "term": "Indicator",
+          "definition": "A substance that changes color at or near the equivalence point of a titration, signaling when to stop adding titrant."
+        },
+        {
+          "term": "Molarity (C)",
+          "definition": "A measure of concentration expressed as moles of solute per liter of solution (mol/L)."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Unknown Concentration",
+          "problem": "25.0 mL of an unknown HCl solution is titrated with 0.100 mol/L NaOH. It takes 30.0 mL of NaOH to reach the endpoint. Calculate the concentration of the HCl solution (1:1 reaction).",
+          "steps": [
+            "Apply the formula: C₁V₁ = C₂V₂",
+            "Let C₁ = unknown HCl concentration, V₁ = 25.0 mL, C₂ = 0.100 mol/L, V₂ = 30.0 mL",
+            "Rearrange: C₁ = (C₂ × V₂) / V₁",
+            "C₁ = (0.100 mol/L × 30.0 mL) / 25.0 mL",
+            "C₁ = 3.0 / 25.0 = 0.12 mol/L"
+          ],
+          "answer": "The concentration of the HCl solution is 0.12 mol/L."
+        },
+        {
+          "title": "Determining Volume Needed",
+          "problem": "How many mL of 0.200 mol/L NaOH are needed to exactly neutralize 20.0 mL of 0.150 mol/L HCl?",
+          "steps": [
+            "Apply the formula: C₁V₁ = C₂V₂",
+            "C₁ = 0.150 mol/L (HCl), V₁ = 20.0 mL, C₂ = 0.200 mol/L (NaOH)",
+            "Rearrange: V₂ = (C₁ × V₁) / C₂",
+            "V₂ = (0.150 × 20.0) / 0.200",
+            "V₂ = 3.0 / 0.200 = 15.0 mL"
+          ],
+          "answer": "15.0 mL of NaOH is needed to neutralize the HCl."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does the equivalence point in a titration represent?",
+          "options": [
+            "When the solution changes temperature",
+            "When moles of acid equal moles of base (for 1:1 reactions)",
+            "When the burette is empty",
+            "When the indicator is added"
+          ],
+          "correctIndex": 1,
+          "explanation": "The equivalence point occurs when the reacting species are present in stoichiometrically equal amounts."
+        },
+        {
+          "question": "What formula is used to calculate an unknown concentration in a simple titration?",
+          "options": [
+            "C₁V₁ = C₂V₂",
+            "PV = nRT",
+            "F = ma",
+            "E = mc²"
+          ],
+          "correctIndex": 0,
+          "explanation": "C₁V₁ = C₂V₂ relates the concentrations and volumes of the two reacting solutions in a titration."
+        },
+        {
+          "question": "What is the role of an indicator in a titration?",
+          "options": [
+            "To speed up the reaction",
+            "To signal the endpoint through a color change",
+            "To increase the concentration",
+            "To cool the solution"
+          ],
+          "correctIndex": 1,
+          "explanation": "An indicator changes color at or near the equivalence point, visually signaling when to stop titrating."
+        }
+      ]
+    }
+  ]
+}

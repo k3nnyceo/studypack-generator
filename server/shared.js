@@ -13,7 +13,7 @@
 // Opening a pack that's already written costs no Claude usage, so this is a
 // separate allowance from generation. In Upstash: one hash of summaries
 // (studypack:shared) and one key per guide (studypack:shared:pack:<id>).
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import { getSessionUser } from './auth.js'
 import { sendJson } from './http.js'
 import { plansFromEnv } from './plans.js'
@@ -21,6 +21,7 @@ import { isAdmin } from './referrals.js'
 import { activeSubscription, getSubscription } from './subscriptions.js'
 import { describe } from '../src/lib/library.js'
 import { validateStudyGuide } from '../src/lib/studyGuideFormat.js'
+import { READY_MADE_PACKS } from './packs/index.js'
 
 const INDEX = 'studypack:shared'
 const packKey = (id) => `studypack:shared:pack:${id}`
@@ -37,6 +38,32 @@ function lagosDay(t) {
   return { id: local.toISOString().slice(0, 10), endsAt: start + DAY_SECONDS * 1000 }
 }
 
+// The ready-made packs that ship with the app (server/packs/): verified, always
+// in the library, and not removable from it. Each id is derived from the
+// pack, so it stays the same across deploys.
+const READY_MADE = new Map(
+  READY_MADE_PACKS.map((raw) => {
+    // Validated like any pack a student loads, so the fingerprints match.
+    const { guide } = validateStudyGuide(raw)
+    const pack = describe(guide, { sourceName: '' })
+    const hex = createHash('sha256').update(pack.fingerprint).digest('hex')
+    const id = `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`
+    const summary = {
+      id,
+      title: pack.title,
+      course: pack.course,
+      topic: pack.topic,
+      fingerprint: pack.fingerprint,
+      modules: guide.modules.length,
+      verified: true,
+      readyMade: true,
+      sharedBy: null,
+      sharedAt: 0,
+    }
+    return [id, { summary, guide }]
+  }),
+)
+
 // What students see: no record of who shared it, just whether it's theirs.
 const forClient = (summary, user) => {
   const { sharedBy, ...rest } = summary
@@ -51,7 +78,10 @@ export async function handleSharedRequest(req, res, body, deps = {}) {
 
   try {
     if (req.method === 'GET' && id === null) {
-      const packs = Object.values((await store.hgetall(INDEX)) ?? {})
+      const shared = Object.values((await store.hgetall(INDEX)) ?? {})
+      const sharedPrints = new Set(shared.map((s) => s.fingerprint))
+      const readyMade = [...READY_MADE.values()].map((p) => p.summary).filter((s) => !sharedPrints.has(s.fingerprint))
+      const packs = [...shared, ...readyMade]
         .map((s) => forClient(s, user))
         .sort((a, b) => Number(b.verified) - Number(a.verified) || b.sharedAt - a.sharedAt)
       return sendJson(res, 200, {
@@ -65,7 +95,9 @@ export async function handleSharedRequest(req, res, body, deps = {}) {
 
     if (req.method === 'GET') {
       if (!ID.test(id)) return sendJson(res, 400, { error: 'Invalid pack id.' })
-      const [summary, guide] = await Promise.all([store.hget(INDEX, id), store.getJson(packKey(id))])
+      const [summary, guide] = READY_MADE.has(id)
+        ? [READY_MADE.get(id).summary, READY_MADE.get(id).guide]
+        : await Promise.all([store.hget(INDEX, id), store.getJson(packKey(id))])
       if (!summary || !guide) return sendJson(res, 404, { error: 'That pack has been removed from the library.' })
 
       const limits = await allowance(store, user, env, now())
@@ -91,6 +123,7 @@ export async function handleSharedRequest(req, res, body, deps = {}) {
     if (req.method === 'POST' && body?.action === 'share') return await share(res, store, user, body.entry, env, now())
 
     if (req.method === 'POST' && body?.action === 'remove') {
+      if (READY_MADE.has(body.id)) return sendJson(res, 400, { error: 'Ready-made packs are part of StudyPack and can’t be removed here.' })
       const summary = ID.test(body.id ?? '') ? await store.hget(INDEX, body.id) : null
       if (!summary) return sendJson(res, 404, { error: 'That pack isn’t in the library.' })
       if (summary.sharedBy !== user.id && !isAdmin(user, env)) return sendJson(res, 403, { error: 'Only whoever shared a pack can remove it.' })
@@ -123,7 +156,9 @@ async function share(res, store, user, entry, env, t) {
   if (!result.ok) return sendJson(res, 400, { error: 'This pack isn’t a valid study guide.' })
 
   const pack = describe(result.guide, { sourceName: '' })
-  const existing = Object.values((await store.hgetall(INDEX)) ?? {}).find((s) => s.fingerprint === pack.fingerprint)
+  const existing =
+    [...READY_MADE.values()].map((p) => p.summary).find((s) => s.fingerprint === pack.fingerprint) ??
+    Object.values((await store.hgetall(INDEX)) ?? {}).find((s) => s.fingerprint === pack.fingerprint)
   if (existing) return sendJson(res, 200, { pack: forClient(existing, user), alreadyShared: true })
 
   const day = lagosDay(t)

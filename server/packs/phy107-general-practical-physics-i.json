@@ -1,0 +1,167 @@
+{
+  "title": "PHY 107 — General Practical Physics I",
+  "course": "PHY 107 General Practical Physics I",
+  "topic": "Measurement, Precision, and Error Analysis & Graphing and Data Analysis in Experiments",
+  "overview": "This study pack covers essential physics laboratory skills: measurement and error analysis, and conducting simple mechanics experiments with proper data recording and graphing.",
+  "modules": [
+    {
+      "title": "Measurement, Precision, and Error Analysis",
+      "sourceRange": "Introductory topic",
+      "summary": "Every physical measurement carries some degree of uncertainty. Understanding the difference between accuracy (how close a measurement is to the true value) and precision (how repeatable a measurement is) is fundamental to good experimental practice.\n\nErrors are classified as systematic (consistent, often due to instrument calibration issues, affecting accuracy) or random (unpredictable variations, affecting precision). Percentage error quantifies how far a measured value deviates from an accepted or theoretical value: % error = |measured − actual| / actual × 100%.\n\nSignificant figures indicate the precision of a measurement, and calculations should not report more significant figures than the least precise measurement used.",
+      "keyPoints": [
+        "Accuracy: closeness to the true value. Precision: repeatability of measurements",
+        "Systematic errors are consistent and affect accuracy; random errors are unpredictable and affect precision",
+        "Percentage error: |measured − actual| / actual × 100%",
+        "Significant figures reflect measurement precision and limit calculation reporting",
+        "Repeating measurements and averaging reduces the impact of random error"
+      ],
+      "definitions": [
+        {
+          "term": "Accuracy",
+          "definition": "How close a measured value is to the true or accepted value."
+        },
+        {
+          "term": "Precision",
+          "definition": "How consistent or repeatable a set of measurements is, regardless of their accuracy."
+        },
+        {
+          "term": "Systematic Error",
+          "definition": "A consistent, repeatable error, often due to a flaw in equipment calibration, that affects accuracy."
+        },
+        {
+          "term": "Random Error",
+          "definition": "An unpredictable variation in measurements, often due to environmental factors or observer limitations, that affects precision."
+        },
+        {
+          "term": "Percentage Error",
+          "definition": "A measure of how far a measured value deviates from the true value, expressed as a percentage."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Percentage Error",
+          "problem": "A student measures the acceleration due to gravity as 9.65 m/s², while the accepted value is 9.81 m/s². Calculate the percentage error.",
+          "steps": [
+            "Apply the formula: % error = |measured − actual| / actual × 100%",
+            "% error = |9.65 − 9.81| / 9.81 × 100%",
+            "% error = 0.16 / 9.81 × 100%",
+            "% error ≈ 1.63%"
+          ],
+          "answer": "The percentage error is approximately 1.63%."
+        },
+        {
+          "title": "Distinguishing Accuracy from Precision",
+          "problem": "A set of measurements are: 9.79, 9.80, 9.79, 9.80 m/s² (accepted value: 9.81 m/s²). Are these measurements accurate, precise, both, or neither?",
+          "steps": [
+            "Check precision: the values are very close to each other (9.79-9.80), indicating high precision",
+            "Check accuracy: the values are also very close to the accepted value of 9.81, indicating high accuracy",
+            "Since both conditions are met, the measurements are both accurate and precise"
+          ],
+          "answer": "The measurements are both accurate and precise — consistent with each other and close to the true value."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the difference between accuracy and precision?",
+          "options": [
+            "They mean the same thing",
+            "Accuracy is closeness to the true value; precision is repeatability",
+            "Precision is closeness to the true value; accuracy is repeatability",
+            "Accuracy only applies to digital instruments"
+          ],
+          "correctIndex": 1,
+          "explanation": "Accuracy measures closeness to the true value, while precision measures how consistent repeated measurements are with each other."
+        },
+        {
+          "question": "What type of error is caused by a miscalibrated instrument?",
+          "options": [
+            "Random error",
+            "Systematic error",
+            "Human error only",
+            "No error occurs"
+          ],
+          "correctIndex": 1,
+          "explanation": "Systematic errors are consistent and repeatable, often stemming from calibration issues in equipment, affecting the accuracy of all measurements taken."
+        }
+      ]
+    },
+    {
+      "title": "Graphing and Data Analysis in Experiments",
+      "sourceRange": "Second topic",
+      "summary": "Graphs are essential tools for visualizing relationships between physical quantities and extracting meaningful information, such as the gradient (slope) of a line, which often represents a physically meaningful constant.\n\nWhen plotting experimental data, choosing appropriate scales, labeling axes with units, and drawing a best-fit line (rather than connecting dots) are essential practices. The gradient of a straight-line graph is calculated as Δy/Δx (change in y divided by change in x).\n\nFor a linear relationship like Hooke's Law (F = kx), plotting force against extension yields a straight line whose gradient equals the spring constant k — a practical way to determine physical constants experimentally.",
+      "keyPoints": [
+        "Graphs should have labeled axes with units, an appropriate scale, and a title",
+        "A best-fit line should be drawn through data points, not a simple dot-to-dot connection",
+        "Gradient of a straight-line graph: Δy/Δx (change in y over change in x)",
+        "For F = kx, plotting F vs x gives a straight line with gradient equal to k",
+        "Outlier data points should be identified and, if justified, excluded from the best-fit line"
+      ],
+      "definitions": [
+        {
+          "term": "Gradient (Slope)",
+          "definition": "The steepness of a line on a graph, calculated as the change in y divided by the change in x (Δy/Δx)."
+        },
+        {
+          "term": "Best-Fit Line",
+          "definition": "A straight or curved line drawn through a set of data points that best represents the overall trend, minimizing overall deviation."
+        },
+        {
+          "term": "Outlier",
+          "definition": "A data point that differs significantly from the other observed values, potentially due to experimental error."
+        },
+        {
+          "term": "Linear Relationship",
+          "definition": "A relationship between two variables that produces a straight line when graphed."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Gradient from a Graph",
+          "problem": "A graph of Force (N) vs Extension (m) passes through points (0, 0) and (0.1, 20). Find the gradient, which represents the spring constant k.",
+          "steps": [
+            "Apply the gradient formula: gradient = Δy/Δx",
+            "Δy = 20 − 0 = 20 (change in Force)",
+            "Δx = 0.1 − 0 = 0.1 (change in Extension)",
+            "gradient = 20 / 0.1 = 200"
+          ],
+          "answer": "The gradient (spring constant k) is 200 N/m."
+        },
+        {
+          "title": "Identifying What a Graph Should Include",
+          "problem": "List the essential elements that must be included when plotting a graph of experimental data for a physics report.",
+          "steps": [
+            "Both axes must be labeled with the quantity being measured and its unit",
+            "An appropriate, evenly spaced scale must be chosen to use the available graph space efficiently",
+            "A clear title describing what the graph shows should be included",
+            "A best-fit line (not dot-to-dot) should be drawn through the data points"
+          ],
+          "answer": "A properly presented graph includes: labeled axes with units, an appropriate scale, a descriptive title, and a best-fit line through the data."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "How is the gradient of a straight-line graph calculated?",
+          "options": [
+            "Δx/Δy",
+            "Δy/Δx",
+            "Δy × Δx",
+            "Δy + Δx"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gradient (slope) is calculated as the change in y divided by the change in x: Δy/Δx."
+        },
+        {
+          "question": "When plotting F vs x for Hooke's Law data, what does the gradient of the line represent?",
+          "options": [
+            "The mass of the object",
+            "The spring constant, k",
+            "The applied force",
+            "The extension"
+          ],
+          "correctIndex": 1,
+          "explanation": "Since F = kx, plotting F against x gives a straight line whose gradient directly equals the spring constant k."
+        }
+      ]
+    }
+  ]
+}

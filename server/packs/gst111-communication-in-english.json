@@ -1,0 +1,150 @@
+{
+  "title": "GST 111 — Communication in English",
+  "course": "GST 111 Communication in English",
+  "topic": "Grammar and Sentence Structure & Effective Academic Writing and Presentation",
+  "overview": "This study pack covers effective written and oral communication skills for academic and professional contexts, including grammar fundamentals, structuring clear writing, and effective presentation techniques.",
+  "modules": [
+    {
+      "title": "Grammar and Sentence Structure",
+      "sourceRange": "Introductory topic",
+      "summary": "Clear communication starts with correct grammar and well-structured sentences. A complete sentence requires a subject and a predicate (verb), and understanding sentence types — simple, compound, and complex — helps vary writing style while maintaining clarity.\n\nCommon grammar issues include subject-verb agreement (the subject and verb must match in number), incorrect tense usage, and run-on sentences (multiple independent clauses joined without proper punctuation or conjunctions).\n\nPunctuation, particularly commas and semicolons, plays a critical role in sentence clarity — a misplaced comma can completely change a sentence's meaning.",
+      "keyPoints": [
+        "A complete sentence needs a subject and a predicate (verb)",
+        "Simple sentences have one independent clause; compound sentences join two; complex sentences include a dependent clause",
+        "Subject-verb agreement: singular subjects take singular verbs, plural subjects take plural verbs",
+        "Run-on sentences occur when independent clauses are joined without proper punctuation",
+        "Semicolons join two related independent clauses without a conjunction"
+      ],
+      "definitions": [
+        {
+          "term": "Independent Clause",
+          "definition": "A group of words containing a subject and verb that can stand alone as a complete sentence."
+        },
+        {
+          "term": "Dependent Clause",
+          "definition": "A group of words with a subject and verb that cannot stand alone as a sentence, relying on an independent clause for meaning."
+        },
+        {
+          "term": "Subject-Verb Agreement",
+          "definition": "The grammatical rule requiring a sentence's subject and verb to match in number (singular or plural)."
+        },
+        {
+          "term": "Run-on Sentence",
+          "definition": "A sentence in which two or more independent clauses are joined without appropriate punctuation or conjunctions."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Correcting a Run-on Sentence",
+          "problem": "Correct this run-on sentence: 'The experiment failed the students were disappointed.'",
+          "steps": [
+            "Identify the two independent clauses: 'The experiment failed' and 'the students were disappointed'",
+            "These need proper punctuation or a conjunction to be correctly joined",
+            "Options: use a period, a semicolon, or a comma with a conjunction like 'and' or 'so'"
+          ],
+          "answer": "Corrected: 'The experiment failed, so the students were disappointed.' (or as two separate sentences with a period)"
+        },
+        {
+          "title": "Fixing Subject-Verb Agreement",
+          "problem": "Correct this sentence: 'The list of items are on the table.'",
+          "steps": [
+            "Identify the true subject: 'list' (singular), not 'items' which is part of a prepositional phrase",
+            "The verb must agree with 'list', not 'items'",
+            "'list' requires the singular verb 'is', not 'are'"
+          ],
+          "answer": "Corrected: 'The list of items is on the table.'"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is required for a sentence to be considered complete?",
+          "options": [
+            "Only a verb",
+            "A subject and a predicate (verb)",
+            "At least 10 words",
+            "A comma"
+          ],
+          "correctIndex": 1,
+          "explanation": "A complete sentence must have both a subject and a predicate to express a complete thought."
+        },
+        {
+          "question": "What causes a run-on sentence?",
+          "options": [
+            "Using too many adjectives",
+            "Joining independent clauses without proper punctuation",
+            "Using short sentences",
+            "Starting a sentence with 'and'"
+          ],
+          "correctIndex": 1,
+          "explanation": "A run-on sentence occurs when two or more independent clauses are combined without correct punctuation or conjunctions."
+        }
+      ]
+    },
+    {
+      "title": "Effective Academic Writing and Presentation",
+      "sourceRange": "Second topic",
+      "summary": "Effective academic writing requires clear organization: an introduction that states the main idea, body paragraphs that develop supporting points with evidence, and a conclusion that summarizes key takeaways. Each paragraph should focus on a single main idea, supported by relevant details.\n\nOral presentation skills complement written communication — clarity, appropriate pacing, and audience awareness are key. Effective presenters organize their material logically, use visual aids purposefully, and maintain eye contact and confident body language.\n\nBoth written and oral communication benefit from revision: reviewing for clarity, conciseness, and correctness before finalizing any piece of communication.",
+      "keyPoints": [
+        "Academic writing follows a structure: introduction, body paragraphs, conclusion",
+        "Each paragraph should focus on one main idea supported by evidence",
+        "Effective presentations require clear organization and audience awareness",
+        "Visual aids should support, not distract from, the spoken message",
+        "Revision for clarity and conciseness is an essential final step in any communication"
+      ],
+      "definitions": [
+        {
+          "term": "Thesis Statement",
+          "definition": "A sentence, usually in the introduction, that states the main argument or point of a piece of writing."
+        },
+        {
+          "term": "Topic Sentence",
+          "definition": "The sentence in a paragraph that states its main idea, usually placed at the beginning."
+        },
+        {
+          "term": "Conciseness",
+          "definition": "The quality of expressing ideas clearly using the fewest necessary words."
+        },
+        {
+          "term": "Audience Awareness",
+          "definition": "Understanding and adapting communication to the knowledge level, interests, and expectations of the intended audience."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying a Weak Topic Sentence",
+          "problem": "Evaluate this topic sentence: 'This paragraph is about engineering.' How can it be improved?",
+          "steps": [
+            "The sentence is too vague — it doesn't state a specific, arguable point",
+            "A strong topic sentence should indicate the paragraph's specific focus",
+            "Revise to state a clear, specific idea the paragraph will develop"
+          ],
+          "answer": "Improved: 'Mechatronics engineering combines mechanical, electrical, and computer engineering principles to design intelligent automated systems.'"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the purpose of a topic sentence in a paragraph?",
+          "options": [
+            "To end the paragraph",
+            "To state the paragraph's main idea",
+            "To list references",
+            "To ask a question"
+          ],
+          "correctIndex": 1,
+          "explanation": "A topic sentence introduces the main idea that the rest of the paragraph will develop and support."
+        },
+        {
+          "question": "In an effective presentation, what role should visual aids play?",
+          "options": [
+            "Replace the spoken content entirely",
+            "Support and reinforce the spoken message",
+            "Distract the audience",
+            "Be avoided completely"
+          ],
+          "correctIndex": 1,
+          "explanation": "Visual aids should complement and reinforce what the speaker is saying, not replace or distract from it."
+        }
+      ]
+    }
+  ]
+}

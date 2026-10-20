@@ -1,0 +1,160 @@
+{
+  "title": "PHY 108 — General Practical Physics II",
+  "course": "PHY 108 General Practical Physics II",
+  "topic": "Electrical Circuit Measurement Techniques & Simple Pendulum and Oscillation Experiments",
+  "overview": "This study pack covers laboratory techniques for electrical circuit experiments and simple pendulum/oscillation experiments, building practical skills in measurement and data analysis for electricity and waves.",
+  "modules": [
+    {
+      "title": "Electrical Circuit Measurement Techniques",
+      "sourceRange": "Introductory topic",
+      "summary": "Accurate electrical measurements require correct instrument connection: ammeters (measuring current) must be connected in series with the component being measured, while voltmeters (measuring voltage) must be connected in parallel across the component.\n\nIncorrect connection can damage instruments or give meaningless readings — connecting an ammeter in parallel, for example, creates a near-short-circuit path since ammeters have very low internal resistance.\n\nWhen verifying Ohm's Law experimentally, a common approach is to vary the voltage across a resistor, record corresponding current values, then plot V against I — the resulting straight-line graph's gradient gives the resistance value.",
+      "keyPoints": [
+        "Ammeters must be connected in series with the component being measured",
+        "Voltmeters must be connected in parallel across the component being measured",
+        "Connecting an ammeter in parallel can damage it due to very low internal resistance",
+        "Verifying Ohm's Law: plot V vs I, and the gradient of the resulting line gives resistance",
+        "Always check circuit connections before switching on power to avoid equipment damage"
+      ],
+      "definitions": [
+        {
+          "term": "Ammeter",
+          "definition": "An instrument used to measure electric current, connected in series in a circuit."
+        },
+        {
+          "term": "Voltmeter",
+          "definition": "An instrument used to measure voltage (potential difference), connected in parallel across a component."
+        },
+        {
+          "term": "Series Connection",
+          "definition": "A circuit arrangement where components are connected end-to-end, so the same current flows through each."
+        },
+        {
+          "term": "Internal Resistance",
+          "definition": "The small inherent resistance within a measuring instrument or power source that can affect circuit measurements."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Determining Correct Instrument Connection",
+          "problem": "You need to measure both the current through and the voltage across a resistor in a circuit. Describe how to correctly connect an ammeter and voltmeter.",
+          "steps": [
+            "The ammeter must be connected in series with the resistor, so all the current flowing through the resistor also flows through the ammeter",
+            "The voltmeter must be connected in parallel across the resistor, measuring the potential difference between its two terminals",
+            "Connecting these incorrectly (ammeter in parallel, voltmeter in series) would give inaccurate readings or potentially damage the instruments"
+          ],
+          "answer": "Connect the ammeter in series with the resistor, and the voltmeter in parallel across the resistor's terminals."
+        },
+        {
+          "title": "Determining Resistance from a V-I Graph",
+          "problem": "A graph of Voltage (V) vs Current (I) for a resistor is a straight line passing through (0, 0) and (2 A, 8 V). Find the resistance.",
+          "steps": [
+            "Recall that for Ohm's Law, V = IR, so plotting V vs I gives a line whose gradient equals R",
+            "Calculate gradient: ΔV/ΔI = (8 - 0) / (2 - 0)",
+            "Gradient = 8 / 2 = 4"
+          ],
+          "answer": "The resistance is 4 Ω."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "How should an ammeter be connected in a circuit?",
+          "options": [
+            "In parallel with the component",
+            "In series with the component",
+            "It doesn't matter",
+            "Only connected when the circuit is off"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ammeters must be connected in series so that the full current flowing through the component also flows through the ammeter."
+        },
+        {
+          "question": "When verifying Ohm's Law by plotting V vs I, what does the gradient of the line represent?",
+          "options": [
+            "The power dissipated",
+            "The resistance",
+            "The current",
+            "The voltage"
+          ],
+          "correctIndex": 1,
+          "explanation": "Since V = IR, plotting V against I gives a line whose gradient directly equals the resistance R."
+        }
+      ]
+    },
+    {
+      "title": "Simple Pendulum and Oscillation Experiments",
+      "sourceRange": "Second topic",
+      "summary": "The simple pendulum experiment investigates the relationship between a pendulum's length and its period of oscillation. For small angle oscillations, the period is given by T = 2π√(L/g), where L is the pendulum's length and g is gravitational acceleration.\n\nTo experimentally determine g, students typically measure the period for several different pendulum lengths, then plot T² against L — this produces a straight line, since T² = (4π²/g)L, meaning the gradient of this graph equals 4π²/g, allowing g to be calculated.\n\nGood experimental practice includes timing multiple oscillations (e.g., 20 swings) and dividing by that number to reduce timing error, rather than timing a single oscillation.",
+      "keyPoints": [
+        "Simple pendulum period formula: T = 2π√(L/g), valid for small angle oscillations",
+        "Plotting T² vs L gives a straight line with gradient 4π²/g",
+        "Timing multiple oscillations and dividing reduces relative timing error",
+        "The pendulum experiment is a classic method for experimentally determining g",
+        "Small angle approximation (typically under 15°) is required for the formula to be accurate"
+      ],
+      "definitions": [
+        {
+          "term": "Simple Pendulum",
+          "definition": "An idealized model consisting of a point mass attached to a light, inextensible string, swinging under gravity."
+        },
+        {
+          "term": "Period (of a Pendulum)",
+          "definition": "The time taken for one complete swing back and forth, given by T = 2π√(L/g) for small angles."
+        },
+        {
+          "term": "Small Angle Approximation",
+          "definition": "An approximation valid for oscillation angles under about 15°, where the pendulum formula T = 2π√(L/g) holds accurately."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Period from Length",
+          "problem": "A simple pendulum has a length of 1.0 m. Calculate its period, assuming g = 9.8 m/s².",
+          "steps": [
+            "Apply the formula: T = 2π√(L/g)",
+            "T = 2π√(1.0 / 9.8)",
+            "T = 2π√(0.102)",
+            "T = 2π × 0.3194",
+            "T ≈ 2.01 s"
+          ],
+          "answer": "The period is approximately 2.01 seconds."
+        },
+        {
+          "title": "Determining g from Experimental Data",
+          "problem": "A graph of T² vs L for a pendulum experiment has a gradient of 4.05 s²/m. Calculate the experimental value of g.",
+          "steps": [
+            "Recall: gradient = 4π²/g",
+            "Rearrange: g = 4π² / gradient",
+            "g = 4 × (3.1416)² / 4.05",
+            "g = 39.48 / 4.05",
+            "g ≈ 9.75 m/s²"
+          ],
+          "answer": "The experimental value of g is approximately 9.75 m/s², close to the accepted value of 9.81 m/s²."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the formula for the period of a simple pendulum (small angles)?",
+          "options": [
+            "T = 2π√(g/L)",
+            "T = 2π√(L/g)",
+            "T = 2πL/g",
+            "T = L/2πg"
+          ],
+          "correctIndex": 1,
+          "explanation": "The simple pendulum period formula is T = 2π√(L/g), valid for small oscillation angles."
+        },
+        {
+          "question": "Why do experimenters typically time multiple oscillations rather than just one?",
+          "options": [
+            "It's faster",
+            "It reduces the relative impact of timing error",
+            "It's required by law",
+            "Single oscillations cannot be timed"
+          ],
+          "correctIndex": 1,
+          "explanation": "Timing multiple oscillations and dividing by the count reduces the relative effect of human reaction time error on the measurement."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "title": "MTH 102 — Elementary Mathematics II: Calculus",
+  "course": "MTH 102 Elementary Mathematics II",
+  "topic": "Limits and Differentiation & Basic Integration",
+  "overview": "This study pack covers foundational differential and integral calculus — limits, derivatives, and basic integration — essential mathematical tools used throughout engineering analysis.",
+  "modules": [
+    {
+      "title": "Limits and Differentiation",
+      "sourceRange": "Introductory topic",
+      "summary": "A limit describes the value a function approaches as its input approaches a certain value, forming the conceptual foundation of calculus. Derivatives measure the instantaneous rate of change of a function — geometrically, the slope of the tangent line at a given point.\n\nBasic differentiation rules include the power rule (d/dx[xⁿ] = nxⁿ⁻¹), the constant rule (derivative of a constant is zero), and the sum rule (derivative of a sum is the sum of derivatives). These rules allow differentiation of polynomial functions directly, without needing to compute limits from first principles each time.\n\nDerivatives have direct engineering applications: velocity is the derivative of displacement with respect to time, and acceleration is the derivative of velocity with respect to time.",
+      "keyPoints": [
+        "A limit describes the value a function approaches as input approaches a specific value",
+        "A derivative measures the instantaneous rate of change (slope of the tangent line)",
+        "Power Rule: d/dx[xⁿ] = nxⁿ⁻¹",
+        "Constant Rule: the derivative of a constant is zero",
+        "Velocity = derivative of displacement; Acceleration = derivative of velocity"
+      ],
+      "definitions": [
+        {
+          "term": "Limit",
+          "definition": "The value that a function approaches as its input approaches a specific value."
+        },
+        {
+          "term": "Derivative",
+          "definition": "A measure of how a function's output changes as its input changes; geometrically, the slope of the tangent line at a point."
+        },
+        {
+          "term": "Power Rule",
+          "definition": "The differentiation rule stating that d/dx[xⁿ] = nxⁿ⁻¹."
+        },
+        {
+          "term": "Tangent Line",
+          "definition": "A straight line that touches a curve at a single point, having the same slope as the curve at that point."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying the Power Rule",
+          "problem": "Find the derivative of f(x) = 3x⁴ + 2x² - 5x + 7",
+          "steps": [
+            "Differentiate each term separately using the power rule",
+            "d/dx[3x⁴] = 3 × 4x³ = 12x³",
+            "d/dx[2x²] = 2 × 2x = 4x",
+            "d/dx[-5x] = -5 (power rule with n=1)",
+            "d/dx[7] = 0 (constant rule)"
+          ],
+          "answer": "f'(x) = 12x³ + 4x - 5"
+        },
+        {
+          "title": "Finding Velocity from a Displacement Function",
+          "problem": "The displacement of a particle is given by s(t) = 2t³ - 3t² + 4t. Find the velocity function.",
+          "steps": [
+            "Velocity is the derivative of displacement with respect to time: v(t) = ds/dt",
+            "Differentiate: d/dt[2t³] = 6t²",
+            "d/dt[-3t²] = -6t",
+            "d/dt[4t] = 4"
+          ],
+          "answer": "v(t) = 6t² - 6t + 4"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does a derivative measure geometrically?",
+          "options": [
+            "The area under a curve",
+            "The slope of the tangent line at a point",
+            "The total distance traveled",
+            "The y-intercept of a function"
+          ],
+          "correctIndex": 1,
+          "explanation": "A derivative represents the instantaneous rate of change, which geometrically corresponds to the slope of the tangent line at that point."
+        },
+        {
+          "question": "According to the Power Rule, what is d/dx[x⁵]?",
+          "options": [
+            "x⁴",
+            "5x⁴",
+            "5x⁵",
+            "x⁶/6"
+          ],
+          "correctIndex": 1,
+          "explanation": "The Power Rule states d/dx[xⁿ] = nxⁿ⁻¹, so d/dx[x⁵] = 5x⁴."
+        }
+      ]
+    },
+    {
+      "title": "Basic Integration",
+      "sourceRange": "Second topic",
+      "summary": "Integration is the reverse process of differentiation, used to find a function given its derivative, and to calculate quantities like area under a curve. Indefinite integration produces a general function plus a constant of integration (C), since the derivative of any constant is zero.\n\nThe power rule for integration states: ∫xⁿ dx = xⁿ⁺¹/(n+1) + C, valid for n ≠ -1. Definite integrals, evaluated between two limits, calculate the exact area under a curve between those bounds, and don't include a constant of integration since it cancels out.\n\nIntegration has direct engineering applications: displacement is the integral of velocity with respect to time, connecting back to the differentiation relationships covered earlier.",
+      "keyPoints": [
+        "Integration is the reverse process of differentiation",
+        "Indefinite integration includes a constant of integration, C",
+        "Power Rule for integration: ∫xⁿ dx = xⁿ⁺¹/(n+1) + C (for n ≠ -1)",
+        "Definite integrals calculate the exact area under a curve between two bounds",
+        "Displacement = integral of velocity with respect to time"
+      ],
+      "definitions": [
+        {
+          "term": "Integration",
+          "definition": "The mathematical process of finding a function from its derivative, or calculating area under a curve."
+        },
+        {
+          "term": "Constant of Integration (C)",
+          "definition": "An arbitrary constant added to the result of an indefinite integral, since differentiation of any constant yields zero."
+        },
+        {
+          "term": "Indefinite Integral",
+          "definition": "The general antiderivative of a function, expressed with a constant of integration C."
+        },
+        {
+          "term": "Definite Integral",
+          "definition": "An integral evaluated between two specific limits, giving a numerical value representing area under a curve."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding an Indefinite Integral",
+          "problem": "Find ∫(4x³ + 2x) dx",
+          "steps": [
+            "Apply the power rule for integration to each term",
+            "∫4x³ dx = 4 × x⁴/4 = x⁴",
+            "∫2x dx = 2 × x²/2 = x²",
+            "Add the constant of integration"
+          ],
+          "answer": "∫(4x³ + 2x) dx = x⁴ + x² + C"
+        },
+        {
+          "title": "Evaluating a Definite Integral",
+          "problem": "Evaluate ∫ from 0 to 2 of (3x²) dx",
+          "steps": [
+            "Find the indefinite integral: ∫3x² dx = x³",
+            "Apply the limits: [x³] from 0 to 2",
+            "Substitute upper limit: (2)³ = 8",
+            "Substitute lower limit: (0)³ = 0",
+            "Subtract: 8 - 0 = 8"
+          ],
+          "answer": "The definite integral evaluates to 8."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is added to the result of an indefinite integral, and why?",
+          "options": [
+            "A variable, because the answer is incomplete",
+            "A constant of integration (C), since the derivative of a constant is zero",
+            "Nothing is added",
+            "A coefficient based on the power"
+          ],
+          "correctIndex": 1,
+          "explanation": "Since differentiating any constant gives zero, the original function could have had any constant term — this is represented by C."
+        },
+        {
+          "question": "What does a definite integral calculate?",
+          "options": [
+            "The derivative of a function",
+            "The exact area under a curve between two limits",
+            "The slope at a single point",
+            "The constant of integration"
+          ],
+          "correctIndex": 1,
+          "explanation": "A definite integral, evaluated between two bounds, gives the exact numerical area under the curve within those limits."
+        }
+      ]
+    }
+  ]
+}

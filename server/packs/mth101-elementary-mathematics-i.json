@@ -1,0 +1,180 @@
+{
+  "title": "MTH 101 — Elementary Mathematics I: Algebra and Trigonometry",
+  "course": "MTH 101 Elementary Mathematics I",
+  "topic": "Algebraic Equations and Functions & Trigonometric Ratios and Identities",
+  "overview": "This study pack covers foundational algebra and trigonometry needed for engineering mathematics: solving equations, working with functions, and applying trigonometric ratios and identities.",
+  "modules": [
+    {
+      "title": "Algebraic Equations and Functions",
+      "sourceRange": "Introductory topic",
+      "summary": "Algebra provides the tools to represent and solve problems involving unknown quantities. Linear equations (ax + b = c) and quadratic equations (ax² + bx + c = 0) are the most common forms encountered in engineering contexts.\n\nQuadratic equations can be solved by factoring, completing the square, or using the quadratic formula: x = (-b ± √(b² - 4ac)) / 2a. The discriminant (b² - 4ac) tells us how many real solutions exist: positive means two real solutions, zero means one repeated solution, and negative means no real solutions (complex solutions instead).\n\nFunctions describe relationships between variables, and understanding function notation f(x) is essential for later calculus topics.",
+      "keyPoints": [
+        "Linear equations have the form ax + b = c and one solution",
+        "Quadratic equations have the form ax² + bx + c = 0 and up to two real solutions",
+        "The quadratic formula: x = (-b ± √(b² - 4ac)) / 2a",
+        "The discriminant (b² - 4ac) determines the number and type of solutions",
+        "Function notation f(x) describes how output values depend on input values"
+      ],
+      "definitions": [
+        {
+          "term": "Discriminant",
+          "definition": "The expression b² - 4ac in the quadratic formula, which determines the nature of a quadratic equation's roots."
+        },
+        {
+          "term": "Quadratic Equation",
+          "definition": "A polynomial equation of degree 2, in the form ax² + bx + c = 0."
+        },
+        {
+          "term": "Function",
+          "definition": "A relationship where each input value corresponds to exactly one output value, denoted f(x)."
+        },
+        {
+          "term": "Root (of an equation)",
+          "definition": "A value of the variable that makes the equation true (satisfies the equation)."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Solving a Quadratic Equation",
+          "problem": "Solve: x² - 5x + 6 = 0",
+          "steps": [
+            "Try factoring: find two numbers that multiply to 6 and add to -5",
+            "Those numbers are -2 and -3",
+            "Factor: (x - 2)(x - 3) = 0",
+            "Set each factor to zero: x - 2 = 0 or x - 3 = 0"
+          ],
+          "answer": "x = 2 or x = 3"
+        },
+        {
+          "title": "Using the Quadratic Formula",
+          "problem": "Solve: 2x² + 3x - 5 = 0 using the quadratic formula",
+          "steps": [
+            "Identify a = 2, b = 3, c = -5",
+            "Calculate discriminant: b² - 4ac = 9 - 4(2)(-5) = 9 + 40 = 49",
+            "Apply formula: x = (-3 ± √49) / (2×2) = (-3 ± 7) / 4",
+            "Two solutions: x = (−3+7)/4 = 1, or x = (−3−7)/4 = −2.5"
+          ],
+          "answer": "x = 1 or x = -2.5"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does a negative discriminant indicate about a quadratic equation's solutions?",
+          "options": [
+            "Two real solutions",
+            "One repeated real solution",
+            "No real solutions (complex solutions)",
+            "Infinite solutions"
+          ],
+          "correctIndex": 2,
+          "explanation": "A negative discriminant means the square root involves a negative number, giving complex (non-real) solutions."
+        },
+        {
+          "question": "What is the standard form of a quadratic equation?",
+          "options": [
+            "ax + b = c",
+            "ax² + bx + c = 0",
+            "a/x + b = c",
+            "ax³ + bx² + c = 0"
+          ],
+          "correctIndex": 1,
+          "explanation": "A quadratic equation has degree 2, written in the standard form ax² + bx + c = 0."
+        }
+      ]
+    },
+    {
+      "title": "Trigonometric Ratios and Identities",
+      "sourceRange": "Second topic",
+      "summary": "Trigonometry describes the relationships between angles and sides in triangles, essential for engineering applications involving angles, forces, and periodic motion. The three primary ratios — sine, cosine, and tangent — are defined for a right triangle in terms of the opposite, adjacent, and hypotenuse sides.\n\nSOH-CAH-TOA is the standard mnemonic: Sine = Opposite/Hypotenuse, Cosine = Adjacent/Hypotenuse, Tangent = Opposite/Adjacent.\n\nThe Pythagorean identity, sin²θ + cos²θ = 1, is one of the most frequently used trigonometric identities, derived directly from the Pythagorean theorem applied to a unit circle.",
+      "keyPoints": [
+        "SOH-CAH-TOA: Sine = Opp/Hyp, Cosine = Adj/Hyp, Tangent = Opp/Adj",
+        "The Pythagorean identity: sin²θ + cos²θ = 1",
+        "Trigonometric ratios apply directly to right-angled triangles",
+        "Angles can be measured in degrees or radians (2π radians = 360°)",
+        "The unit circle extends trigonometric functions beyond right triangles to all angles"
+      ],
+      "definitions": [
+        {
+          "term": "Sine (sin θ)",
+          "definition": "The ratio of the length of the side opposite an angle to the hypotenuse in a right triangle."
+        },
+        {
+          "term": "Cosine (cos θ)",
+          "definition": "The ratio of the length of the side adjacent to an angle to the hypotenuse in a right triangle."
+        },
+        {
+          "term": "Tangent (tan θ)",
+          "definition": "The ratio of the length of the side opposite an angle to the side adjacent to it."
+        },
+        {
+          "term": "Radian",
+          "definition": "A unit of angular measure where one full circle equals 2π radians (equivalent to 360°)."
+        },
+        {
+          "term": "Pythagorean Identity",
+          "definition": "The trigonometric identity sin²θ + cos²θ = 1, valid for all angles θ."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding a Missing Side Using Trigonometry",
+          "problem": "In a right triangle, one angle is 30°, and the hypotenuse is 10 cm. Find the length of the side opposite the 30° angle.",
+          "steps": [
+            "Recall: sin θ = Opposite / Hypotenuse",
+            "sin(30°) = Opposite / 10",
+            "sin(30°) = 0.5",
+            "Opposite = 0.5 × 10 = 5"
+          ],
+          "answer": "The opposite side is 5 cm."
+        },
+        {
+          "title": "Applying the Pythagorean Identity",
+          "problem": "If sin θ = 0.6, find cos θ using the Pythagorean identity.",
+          "steps": [
+            "Apply the identity: sin²θ + cos²θ = 1",
+            "(0.6)² + cos²θ = 1",
+            "0.36 + cos²θ = 1",
+            "cos²θ = 0.64",
+            "cos θ = √0.64 = 0.8"
+          ],
+          "answer": "cos θ = 0.8 (taking the positive root, assuming θ is in the first quadrant)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does SOH-CAH-TOA help you remember?",
+          "options": [
+            "Quadratic formula steps",
+            "The three basic trigonometric ratios",
+            "Algebraic factoring rules",
+            "Differentiation rules"
+          ],
+          "correctIndex": 1,
+          "explanation": "SOH-CAH-TOA is a mnemonic for Sine, Cosine, and Tangent ratios in a right triangle."
+        },
+        {
+          "question": "What is the Pythagorean trigonometric identity?",
+          "options": [
+            "sin θ + cos θ = 1",
+            "sin²θ + cos²θ = 1",
+            "sin θ × cos θ = 1",
+            "tan θ = sin θ + cos θ"
+          ],
+          "correctIndex": 1,
+          "explanation": "sin²θ + cos²θ = 1 holds true for all angles θ, derived from the Pythagorean theorem on the unit circle."
+        },
+        {
+          "question": "How many radians are in a full circle (360°)?",
+          "options": [
+            "π",
+            "2π",
+            "π/2",
+            "4π"
+          ],
+          "correctIndex": 1,
+          "explanation": "A full circle equals 2π radians, equivalent to 360 degrees."
+        }
+      ]
+    }
+  ]
+}

@@ -131,7 +131,7 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
                       >
                         {owned ? 'In your library · Open' : busyId === pack.id ? 'Adding…' : 'Add to my library'}
                       </Button>
-                      {(pack.mine || shared.canModerate) && (
+                      {(pack.mine || shared.canModerate) && !pack.readyMade && (
                         <button
                           type="button"
                           onClick={() => onRemove(pack)}

@@ -1,0 +1,145 @@
+{
+  "title": "GET 101 — Engineer in Society",
+  "course": "GET 101 Engineer in Society",
+  "topic": "The Engineer's Role and Professional Responsibility & Engineering's Impact on Society and Environment",
+  "overview": "This study pack covers the role of engineers in society, professional ethics, and the impact of engineering decisions on public welfare, safety, and the environment.",
+  "modules": [
+    {
+      "title": "The Engineer's Role and Professional Responsibility",
+      "sourceRange": "Introductory topic",
+      "summary": "Engineers hold a unique position in society: their technical decisions directly affect public safety, economic development, and quality of life. Unlike many other professions, engineering errors can have immediate, severe, and sometimes irreversible consequences — a collapsed bridge, a failed dam, or a malfunctioning medical device.\n\nProfessional engineering bodies (like COREN in Nigeria) establish codes of conduct requiring engineers to prioritize public safety above client or employer interests, maintain competence in their area of practice, and take responsibility for their designs and decisions.\n\nEngineering ethics also requires honesty in reporting results, avoiding conflicts of interest, and continuing professional education to stay current with evolving standards and technology.",
+      "keyPoints": [
+        "Engineers have a professional duty to prioritize public safety above other interests",
+        "COREN (Council for the Regulation of Engineering in Nigeria) regulates the profession locally",
+        "Engineering codes of ethics require honesty, competence, and accountability",
+        "Engineering failures can have severe, sometimes irreversible public consequences",
+        "Continuing professional development is an ethical obligation, not optional"
+      ],
+      "definitions": [
+        {
+          "term": "COREN",
+          "definition": "The Council for the Regulation of Engineering in Nigeria, the body that registers and regulates professional engineers."
+        },
+        {
+          "term": "Code of Ethics",
+          "definition": "A formal set of principles guiding professional conduct, prioritizing public safety, honesty, and competence."
+        },
+        {
+          "term": "Professional Negligence",
+          "definition": "Failure to exercise the standard level of skill and care expected of a competent professional, resulting in harm."
+        },
+        {
+          "term": "Conflict of Interest",
+          "definition": "A situation where personal or financial interests could improperly influence professional judgment."
+        },
+        {
+          "term": "Public Welfare",
+          "definition": "The general health, safety, and well-being of the population, which engineers are ethically bound to protect."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying an Ethical Dilemma",
+          "problem": "An engineer discovers a minor design flaw in a nearly completed building that would cost significant money and time to fix, but poses only a very small long-term safety risk. What should the engineer do, based on professional ethics principles?",
+          "steps": [
+            "Recall the core ethical principle: public safety takes priority over cost or schedule concerns",
+            "Even a small safety risk must be disclosed and addressed, since engineers are accountable for their designs",
+            "The engineer should report the flaw to relevant stakeholders and recommend a fix, regardless of cost implications"
+          ],
+          "answer": "The engineer is ethically obligated to disclose the flaw and recommend corrective action, since public safety cannot be compromised for cost or convenience."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the primary ethical obligation of a professional engineer, above client or employer interests?",
+          "options": [
+            "Maximizing profit",
+            "Prioritizing public safety",
+            "Completing projects quickly",
+            "Minimizing personal liability"
+          ],
+          "correctIndex": 1,
+          "explanation": "Engineering codes of ethics consistently place public safety above all other professional considerations."
+        },
+        {
+          "question": "What body regulates professional engineering practice in Nigeria?",
+          "options": [
+            "NUC",
+            "COREN",
+            "WAEC",
+            "JAMB"
+          ],
+          "correctIndex": 1,
+          "explanation": "COREN (Council for the Regulation of Engineering in Nigeria) is responsible for registering and regulating engineers in Nigeria."
+        }
+      ]
+    },
+    {
+      "title": "Engineering's Impact on Society and Environment",
+      "sourceRange": "Second topic",
+      "summary": "Engineering decisions extend beyond technical function — they shape economic development, environmental sustainability, and social equity. Infrastructure projects like roads, power plants, and water systems can transform communities, but poorly planned projects can also cause environmental harm or displace populations.\n\nSustainable engineering practice considers the full lifecycle impact of a project: resource extraction, construction, operation, and eventual decommissioning or disposal. Engineers are increasingly expected to minimize environmental footprint and consider long-term societal impact, not just immediate technical requirements.\n\nUnderstanding this broader context helps engineers make decisions that balance technical feasibility, economic viability, and social/environmental responsibility.",
+      "keyPoints": [
+        "Engineering projects have economic, social, and environmental impacts beyond pure technical function",
+        "Sustainable engineering considers a project's full lifecycle impact",
+        "Poorly planned infrastructure can cause environmental harm or social disruption",
+        "Engineers must balance technical feasibility with broader societal responsibility",
+        "Modern engineering practice increasingly emphasizes sustainability and minimal environmental footprint"
+      ],
+      "definitions": [
+        {
+          "term": "Sustainable Engineering",
+          "definition": "Engineering practice that meets present needs without compromising the ability of future generations to meet their own needs."
+        },
+        {
+          "term": "Lifecycle Impact",
+          "definition": "The total environmental and social effect of a project across all its phases — from resource extraction to disposal."
+        },
+        {
+          "term": "Environmental Footprint",
+          "definition": "The total impact of an activity or project on the natural environment, including resource use and pollution."
+        },
+        {
+          "term": "Infrastructure",
+          "definition": "The basic physical systems (roads, power, water) that support a society's economic and social functioning."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Evaluating a Project's Broader Impact",
+          "problem": "A company proposes building a dam that will provide electricity to 50,000 homes, but will require relocating a small riverside community. What broader factors should an engineer consider beyond the technical design?",
+          "steps": [
+            "Consider the social impact: the community being displaced needs fair compensation and resettlement support",
+            "Consider the environmental impact: changes to river flow may affect downstream ecosystems and agriculture",
+            "Consider the economic trade-off: weigh the benefit to 50,000 homes against the cost to the displaced community",
+            "Recommend stakeholder engagement with the affected community before proceeding"
+          ],
+          "answer": "The engineer should factor in social displacement, environmental effects on the ecosystem, and ensure affected communities are properly consulted and compensated — not just evaluate the dam's technical feasibility."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does 'lifecycle impact' refer to in engineering?",
+          "options": [
+            "Only the construction phase of a project",
+            "The total impact across all phases, from resource extraction to disposal",
+            "Only the cost of a project",
+            "The engineer's personal career impact"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lifecycle impact considers every phase of a project's existence, not just its immediate construction or operation."
+        },
+        {
+          "question": "Why must engineers consider factors beyond pure technical feasibility?",
+          "options": [
+            "It's legally required in all cases",
+            "Engineering decisions have real social and environmental consequences",
+            "Technical feasibility is never important",
+            "It makes projects cheaper"
+          ],
+          "correctIndex": 1,
+          "explanation": "Engineering projects affect real communities and environments, so responsible practice requires considering these broader impacts."
+        }
+      ]
+    }
+  ]
+}

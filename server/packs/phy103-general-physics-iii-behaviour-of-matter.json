@@ -1,0 +1,163 @@
+{
+  "title": "PHY 103 — General Physics III: Behaviour of Matter",
+  "course": "PHY 103 General Physics III",
+  "topic": "Elasticity and Properties of Solids & States of Matter and Fluid Behavior",
+  "overview": "This study pack covers the mechanical properties of matter, including elasticity, states of matter, and fluid behavior — foundational concepts for later materials and fluid mechanics courses.",
+  "modules": [
+    {
+      "title": "Elasticity and Properties of Solids",
+      "sourceRange": "Introductory topic",
+      "summary": "When a force is applied to a solid material, it deforms. If the material returns to its original shape once the force is removed, the deformation is elastic; if it doesn't, the deformation is plastic. Hooke's Law describes elastic behavior: the extension of a material is directly proportional to the applied force, within the elastic limit.\n\nHooke's Law is expressed as F = kx, where F is the applied force, k is the spring constant (stiffness), and x is the extension. Beyond the elastic limit, a material undergoes permanent deformation and no longer obeys Hooke's Law.\n\nThis behavior directly connects to later Strength of Materials coursework, where stress-strain relationships are explored in more depth.",
+      "keyPoints": [
+        "Elastic deformation: material returns to original shape after force is removed",
+        "Plastic deformation: permanent shape change remains after force is removed",
+        "Hooke's Law: F = kx (force equals spring constant times extension)",
+        "The elastic limit is the point beyond which Hooke's Law no longer applies",
+        "The spring constant (k) measures a material's stiffness — higher k means stiffer material"
+      ],
+      "definitions": [
+        {
+          "term": "Hooke's Law",
+          "definition": "The principle that the extension of an elastic material is directly proportional to the applied force, within the elastic limit (F = kx)."
+        },
+        {
+          "term": "Spring Constant (k)",
+          "definition": "A measure of a material's stiffness, representing the force needed to produce a unit extension."
+        },
+        {
+          "term": "Elastic Limit",
+          "definition": "The maximum force or stress a material can withstand while still returning to its original shape."
+        },
+        {
+          "term": "Plastic Deformation",
+          "definition": "Permanent deformation of a material that remains after the applied force is removed."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Hooke's Law",
+          "problem": "A spring with a spring constant of 200 N/m is stretched by 0.05 m. Find the force applied.",
+          "steps": [
+            "Apply Hooke's Law: F = kx",
+            "F = 200 N/m × 0.05 m",
+            "F = 10 N"
+          ],
+          "answer": "The applied force is 10 N."
+        },
+        {
+          "title": "Finding Extension from Force",
+          "problem": "A force of 15 N is applied to a spring with a spring constant of 300 N/m. Find the extension.",
+          "steps": [
+            "Apply Hooke's Law: F = kx",
+            "Rearrange: x = F / k",
+            "x = 15 N / 300 N/m",
+            "x = 0.05 m"
+          ],
+          "answer": "The extension is 0.05 m (5 cm)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does Hooke's Law state?",
+          "options": [
+            "Force equals mass times acceleration",
+            "Extension is directly proportional to applied force, within the elastic limit",
+            "Energy cannot be created or destroyed",
+            "Pressure equals force divided by area"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hooke's Law (F = kx) states that extension is proportional to applied force, as long as the material remains within its elastic limit."
+        },
+        {
+          "question": "What happens to a material once it passes its elastic limit?",
+          "options": [
+            "It returns to its original shape",
+            "It undergoes permanent (plastic) deformation",
+            "It becomes stronger",
+            "Hooke's Law still applies normally"
+          ],
+          "correctIndex": 1,
+          "explanation": "Beyond the elastic limit, a material no longer returns to its original shape — it undergoes permanent plastic deformation."
+        }
+      ]
+    },
+    {
+      "title": "States of Matter and Fluid Behavior",
+      "sourceRange": "Second topic",
+      "summary": "Matter exists primarily in three states — solid, liquid, and gas — distinguished by the arrangement and movement of their particles. Solids have fixed shape and volume; liquids have fixed volume but take the shape of their container; gases have neither fixed shape nor volume.\n\nPressure in fluids is defined as force per unit area (P = F/A), and in a static fluid, pressure increases with depth according to P = ρgh, where ρ is fluid density, g is gravitational acceleration, and h is depth.\n\nPascal's Principle states that pressure applied to an enclosed fluid is transmitted equally in all directions — this is the working principle behind hydraulic systems, directly relevant to engineering applications like hydraulic brakes and lifts.",
+      "keyPoints": [
+        "Three states of matter: solid (fixed shape/volume), liquid (fixed volume, variable shape), gas (neither fixed)",
+        "Pressure: P = F/A (force per unit area)",
+        "Pressure in a static fluid: P = ρgh (density × gravity × depth)",
+        "Pascal's Principle: pressure applied to an enclosed fluid transmits equally in all directions",
+        "Pascal's Principle is the basis for hydraulic systems like car brakes and lifts"
+      ],
+      "definitions": [
+        {
+          "term": "Pressure (P)",
+          "definition": "Force applied per unit area, calculated as P = F/A, measured in Pascals (Pa)."
+        },
+        {
+          "term": "Fluid Density (ρ)",
+          "definition": "The mass of a fluid per unit volume, a key factor in determining pressure at depth."
+        },
+        {
+          "term": "Pascal's Principle",
+          "definition": "The principle that pressure applied to an enclosed fluid is transmitted equally throughout the fluid in all directions."
+        },
+        {
+          "term": "Hydraulic System",
+          "definition": "A system that uses fluid pressure, based on Pascal's Principle, to transmit force and do mechanical work."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Pressure at Depth",
+          "problem": "Find the pressure at a depth of 10 m in water (density = 1000 kg/m³, g = 9.8 m/s²).",
+          "steps": [
+            "Apply the formula: P = ρgh",
+            "P = 1000 kg/m³ × 9.8 m/s² × 10 m",
+            "P = 98,000 Pa",
+            "P = 98 kPa"
+          ],
+          "answer": "The pressure at 10 m depth is 98,000 Pa (98 kPa)."
+        },
+        {
+          "title": "Applying Pascal's Principle to a Hydraulic Lift",
+          "problem": "A hydraulic lift has a small piston of area 0.01 m² and a large piston of area 0.5 m². If a force of 50 N is applied to the small piston, find the force generated on the large piston.",
+          "steps": [
+            "Apply Pascal's Principle: pressure is equal throughout the fluid, so P1 = P2",
+            "P1 = F1/A1 = 50 N / 0.01 m² = 5000 Pa",
+            "Since P2 = P1, F2 = P2 × A2 = 5000 Pa × 0.5 m²",
+            "F2 = 2500 N"
+          ],
+          "answer": "The large piston generates a force of 2500 N — a 50x amplification, illustrating how hydraulic systems multiply force."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the formula for pressure in a static fluid at depth h?",
+          "options": [
+            "P = F/A",
+            "P = ρgh",
+            "P = ma",
+            "P = mv"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pressure at depth in a static fluid is calculated as P = ρgh (density × gravitational acceleration × depth)."
+        },
+        {
+          "question": "What does Pascal's Principle state?",
+          "options": [
+            "Pressure decreases with depth",
+            "Pressure applied to an enclosed fluid is transmitted equally in all directions",
+            "Fluids cannot transmit force",
+            "Pressure only acts downward"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pascal's Principle explains that pressure in an enclosed fluid is distributed equally in every direction, enabling hydraulic force multiplication."
+        }
+      ]
+    }
+  ]
+}

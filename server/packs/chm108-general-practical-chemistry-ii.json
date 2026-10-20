@@ -1,0 +1,155 @@
+{
+  "title": "CHM 108 — General Practical Chemistry II",
+  "course": "CHM 108 General Practical Chemistry II",
+  "topic": "Qualitative Analysis and Ion Identification & Separation and Purification Techniques",
+  "overview": "This study pack builds on first-semester lab skills with qualitative analysis techniques and organic chemistry laboratory basics, including separation and purification methods.",
+  "modules": [
+    {
+      "title": "Qualitative Analysis and Ion Identification",
+      "sourceRange": "Introductory topic",
+      "summary": "Qualitative analysis identifies which ions or compounds are present in an unknown sample, using characteristic chemical reactions that produce observable results — color changes, precipitate formation, or gas evolution.\n\nCommon tests include the flame test (different metal ions produce characteristic flame colors when heated), precipitate tests (adding a reagent that forms an insoluble solid with specific ions), and gas tests (identifying gases produced by their distinct properties, such as testing for CO₂ using limewater, which turns cloudy).\n\nSystematic qualitative analysis follows a logical sequence of tests, narrowing down possibilities based on each result, rather than guessing randomly.",
+      "keyPoints": [
+        "Flame tests identify metal ions by characteristic flame colors (e.g., sodium = yellow, potassium = lilac)",
+        "Precipitate tests use reagents that form insoluble solids with specific ions",
+        "Gas tests identify evolved gases by their distinct chemical properties",
+        "CO₂ is identified by turning limewater cloudy",
+        "Qualitative analysis follows a systematic, logical sequence of tests"
+      ],
+      "definitions": [
+        {
+          "term": "Qualitative Analysis",
+          "definition": "The chemical process of determining what substances (ions or compounds) are present in a sample, without measuring amounts."
+        },
+        {
+          "term": "Precipitate",
+          "definition": "An insoluble solid that forms and separates out of a liquid solution during a chemical reaction."
+        },
+        {
+          "term": "Flame Test",
+          "definition": "A technique used to identify metal ions based on the characteristic color they produce when heated in a flame."
+        },
+        {
+          "term": "Limewater",
+          "definition": "A solution of calcium hydroxide, used to test for carbon dioxide gas, which turns it cloudy due to calcium carbonate formation."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Interpreting a Precipitate Test",
+          "problem": "Adding silver nitrate solution to an unknown sample produces a white precipitate that dissolves in dilute ammonia. What ion is likely present?",
+          "steps": [
+            "Silver nitrate is commonly used to test for halide ions (chloride, bromide, iodide)",
+            "A white precipitate that dissolves in dilute ammonia is characteristic of silver chloride (AgCl)",
+            "This indicates the sample contains chloride ions"
+          ],
+          "answer": "The sample likely contains chloride ions (Cl⁻), based on the formation of white AgCl precipitate that dissolves in dilute ammonia."
+        },
+        {
+          "title": "Testing for Carbon Dioxide",
+          "problem": "Describe how to test for the presence of CO₂ gas and what a positive result looks like.",
+          "steps": [
+            "Bubble the gas produced through a test tube containing limewater (calcium hydroxide solution)",
+            "If CO₂ is present, it reacts with the calcium hydroxide to form insoluble calcium carbonate",
+            "This causes the previously clear limewater to turn cloudy/milky"
+          ],
+          "answer": "A positive test for CO₂ is indicated by limewater turning cloudy due to calcium carbonate formation."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does a positive limewater test indicate?",
+          "options": [
+            "Presence of oxygen gas",
+            "Presence of carbon dioxide gas",
+            "Presence of hydrogen gas",
+            "Presence of nitrogen gas"
+          ],
+          "correctIndex": 1,
+          "explanation": "Limewater turns cloudy in the presence of CO₂, due to the formation of insoluble calcium carbonate."
+        },
+        {
+          "question": "What is a precipitate?",
+          "options": [
+            "A type of gas",
+            "An insoluble solid formed during a reaction in solution",
+            "A colored flame",
+            "A type of acid"
+          ],
+          "correctIndex": 1,
+          "explanation": "A precipitate is a solid that forms and separates from a solution as a result of a chemical reaction."
+        }
+      ]
+    },
+    {
+      "title": "Separation and Purification Techniques",
+      "sourceRange": "Second topic",
+      "summary": "Separation techniques isolate individual components from mixtures based on differences in physical or chemical properties. Filtration separates insoluble solids from liquids, while evaporation and crystallization separate dissolved solids from solutions by removing the solvent.\n\nDistillation separates liquids with different boiling points by heating the mixture and condensing the vapor produced — simple distillation works for widely differing boiling points, while fractional distillation handles closer boiling points using a fractionating column.\n\nChromatography separates components based on differing rates of movement through a stationary medium (like paper) carried by a mobile solvent phase — useful for separating and identifying components in complex mixtures.",
+      "keyPoints": [
+        "Filtration separates insoluble solids from liquids",
+        "Evaporation/crystallization separates dissolved solids from solutions",
+        "Simple distillation separates liquids with widely different boiling points",
+        "Fractional distillation separates liquids with closer boiling points using a fractionating column",
+        "Chromatography separates mixture components based on differing movement rates through a medium"
+      ],
+      "definitions": [
+        {
+          "term": "Filtration",
+          "definition": "A separation technique that removes insoluble solid particles from a liquid using a porous barrier (filter paper)."
+        },
+        {
+          "term": "Distillation",
+          "definition": "A separation technique that isolates liquids based on differences in boiling point, using heating and condensation."
+        },
+        {
+          "term": "Fractional Distillation",
+          "definition": "A more refined distillation process using a fractionating column to separate liquids with closely similar boiling points."
+        },
+        {
+          "term": "Chromatography",
+          "definition": "A technique that separates mixture components based on their different rates of movement through a stationary medium."
+        },
+        {
+          "term": "Crystallization",
+          "definition": "A purification technique in which a dissolved solid separates out of solution as pure crystals, often as the solvent evaporates or cools."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Choosing the Right Separation Technique",
+          "problem": "You have a mixture of sand and salt dissolved in water. Describe how to separate all three components.",
+          "steps": [
+            "First, filter the mixture to separate the insoluble sand from the salt solution",
+            "The sand remains on the filter paper; the salt solution (filtrate) passes through",
+            "Next, evaporate the water from the filtrate (or crystallize by cooling a saturated solution) to recover solid salt",
+            "This leaves you with sand (from filtration) and salt (from evaporation/crystallization) as separate components"
+          ],
+          "answer": "Filter to separate sand from the salt solution, then evaporate/crystallize the filtrate to recover solid salt, separating all three components (sand, salt, water)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which technique is best for separating liquids with closely similar boiling points?",
+          "options": [
+            "Simple filtration",
+            "Fractional distillation",
+            "Evaporation",
+            "Crystallization"
+          ],
+          "correctIndex": 1,
+          "explanation": "Fractional distillation uses a fractionating column to achieve the finer separation needed when boiling points are close together."
+        },
+        {
+          "question": "What does chromatography separate mixtures based on?",
+          "options": [
+            "Boiling point differences",
+            "Differing rates of movement through a stationary medium",
+            "Density differences only",
+            "Color alone"
+          ],
+          "correctIndex": 1,
+          "explanation": "Chromatography separates components based on how fast they move through a stationary medium, carried by a mobile solvent."
+        }
+      ]
+    }
+  ]
+}

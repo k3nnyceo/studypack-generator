@@ -1,0 +1,166 @@
+{
+  "title": "PHY 102 — General Physics II: Electricity & Magnetism",
+  "course": "PHY 102 General Physics II",
+  "topic": "Electric Circuits and Ohm's Law & Magnetism and Electromagnetic Induction",
+  "overview": "This study pack covers foundational electricity and magnetism: electric circuits, Ohm's Law, and magnetic fields — directly preparing students for later Circuit Theory coursework.",
+  "modules": [
+    {
+      "title": "Electric Circuits and Ohm's Law",
+      "sourceRange": "Introductory topic",
+      "summary": "Electric current is the flow of electric charge through a conductor, measured in Amperes (A). Ohm's Law describes the relationship between voltage, current, and resistance: V = IR, where V is voltage (volts), I is current (amperes), and R is resistance (ohms).\n\nResistors can be connected in series (same current flows through each, total resistance adds: R_total = R1 + R2 + ...) or in parallel (same voltage across each, total resistance found by 1/R_total = 1/R1 + 1/R2 + ...).\n\nElectrical power is calculated as P = VI, or equivalently P = I²R or P = V²/R, connecting circuit quantities to energy consumption.",
+      "keyPoints": [
+        "Ohm's Law: V = IR (Voltage = Current × Resistance)",
+        "Series resistors: total resistance adds directly (R_total = R1 + R2 + ...)",
+        "Parallel resistors: 1/R_total = 1/R1 + 1/R2 + ...",
+        "Electrical power: P = VI = I²R = V²/R",
+        "Current is measured in Amperes, voltage in Volts, resistance in Ohms"
+      ],
+      "definitions": [
+        {
+          "term": "Ohm's Law",
+          "definition": "The relationship V = IR between voltage, current, and resistance in an electrical circuit."
+        },
+        {
+          "term": "Series Circuit",
+          "definition": "A circuit configuration where components are connected end-to-end, so the same current flows through each."
+        },
+        {
+          "term": "Parallel Circuit",
+          "definition": "A circuit configuration where components are connected across the same two points, so the same voltage is applied to each."
+        },
+        {
+          "term": "Electrical Power (P)",
+          "definition": "The rate of energy transfer in a circuit, calculated as P = VI, measured in Watts."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Ohm's Law",
+          "problem": "A resistor has a resistance of 20 Ω and a current of 3 A flows through it. Find the voltage across the resistor.",
+          "steps": [
+            "Apply Ohm's Law: V = IR",
+            "V = 3 A × 20 Ω",
+            "V = 60 V"
+          ],
+          "answer": "The voltage across the resistor is 60 V."
+        },
+        {
+          "title": "Calculating Total Resistance in Parallel",
+          "problem": "Two resistors of 6 Ω and 3 Ω are connected in parallel. Find the total resistance.",
+          "steps": [
+            "Apply the parallel resistance formula: 1/R_total = 1/R1 + 1/R2",
+            "1/R_total = 1/6 + 1/3 = 1/6 + 2/6 = 3/6",
+            "1/R_total = 1/2",
+            "R_total = 2 Ω"
+          ],
+          "answer": "The total resistance is 2 Ω."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does Ohm's Law state?",
+          "options": [
+            "V = I/R",
+            "V = IR",
+            "V = I + R",
+            "I = VR"
+          ],
+          "correctIndex": 1,
+          "explanation": "Ohm's Law states that voltage equals current multiplied by resistance: V = IR."
+        },
+        {
+          "question": "In a series circuit, how do you find total resistance?",
+          "options": [
+            "Add the resistances directly",
+            "Use 1/R_total = 1/R1 + 1/R2",
+            "Multiply the resistances",
+            "Subtract the resistances"
+          ],
+          "correctIndex": 0,
+          "explanation": "In series circuits, resistances simply add together: R_total = R1 + R2 + ..."
+        }
+      ]
+    },
+    {
+      "title": "Magnetism and Electromagnetic Induction",
+      "sourceRange": "Second topic",
+      "summary": "Magnetic fields are produced by moving electric charges (currents) and by permanent magnets. A current-carrying wire generates a circular magnetic field around it, and the direction can be found using the right-hand rule: if the thumb points in the direction of current flow, the curled fingers show the direction of the magnetic field.\n\nElectromagnetic induction, described by Faraday's Law, states that a changing magnetic field through a coil induces an electromotive force (EMF) in that coil. This principle underlies the operation of generators, transformers, and many sensors.\n\nLenz's Law adds that the induced current opposes the change in magnetic flux that created it — a consequence of energy conservation, ensuring induced currents don't create energy from nothing.",
+      "keyPoints": [
+        "Current-carrying wires produce circular magnetic fields around them",
+        "Right-hand rule: thumb in current direction, curled fingers show magnetic field direction",
+        "Faraday's Law: a changing magnetic field through a coil induces an EMF",
+        "Lenz's Law: induced current opposes the change in magnetic flux that caused it",
+        "Electromagnetic induction is the working principle behind generators and transformers"
+      ],
+      "definitions": [
+        {
+          "term": "Magnetic Field",
+          "definition": "A field produced by moving electric charges or magnetic materials, exerting force on other moving charges or magnetic materials."
+        },
+        {
+          "term": "Electromagnetic Induction",
+          "definition": "The process by which a changing magnetic field induces an electromotive force (EMF) in a conductor."
+        },
+        {
+          "term": "Faraday's Law",
+          "definition": "The law stating that the induced EMF in a coil is proportional to the rate of change of magnetic flux through it."
+        },
+        {
+          "term": "Lenz's Law",
+          "definition": "The law stating that an induced current flows in a direction that opposes the change in magnetic flux that produced it."
+        },
+        {
+          "term": "Electromotive Force (EMF)",
+          "definition": "The voltage generated by a source (like a battery or induction), driving current through a circuit."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying the Right-Hand Rule",
+          "problem": "Current flows upward through a straight vertical wire. Using the right-hand rule, describe the direction of the magnetic field around the wire.",
+          "steps": [
+            "Point the right thumb in the direction of current flow (upward)",
+            "The curled fingers indicate the direction of the magnetic field",
+            "This produces a magnetic field circling around the wire in a counterclockwise direction when viewed from above"
+          ],
+          "answer": "The magnetic field circles around the wire counterclockwise when viewed from above (looking down along the direction of current flow)."
+        },
+        {
+          "title": "Explaining Lenz's Law in a Practical Scenario",
+          "problem": "A magnet is pushed into a coil of wire, inducing a current. Explain, using Lenz's Law, the direction of the induced current's magnetic effect.",
+          "steps": [
+            "Lenz's Law states the induced current opposes the change in magnetic flux causing it",
+            "Since the magnet is being pushed in (increasing flux), the induced current creates its own magnetic field to oppose this increase",
+            "This means the induced current's magnetic field will repel the incoming magnet",
+            "This opposition is why work must be done to push the magnet into the coil — the induced field resists the motion"
+          ],
+          "answer": "The induced current creates a magnetic field that opposes the magnet's motion (repels it), consistent with Lenz's Law and the conservation of energy."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does Faraday's Law describe?",
+          "options": [
+            "The force between two magnets",
+            "How a changing magnetic field induces an EMF in a coil",
+            "Ohm's Law for magnetic circuits",
+            "The speed of light in a vacuum"
+          ],
+          "correctIndex": 1,
+          "explanation": "Faraday's Law states that a changing magnetic field through a coil induces an electromotive force (EMF) in that coil."
+        },
+        {
+          "question": "What does Lenz's Law state about induced current?",
+          "options": [
+            "It flows in the same direction as the change causing it",
+            "It opposes the change in magnetic flux that produced it",
+            "It has no direction",
+            "It only occurs in permanent magnets"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lenz's Law states the induced current always opposes the change in flux that created it, consistent with energy conservation."
+        }
+      ]
+    }
+  ]
+}

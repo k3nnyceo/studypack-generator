@@ -1,0 +1,160 @@
+{
+  "title": "CHM 102 — General Chemistry II",
+  "course": "CHM 102 General Chemistry II",
+  "topic": "Gas Laws & Basic Thermodynamics and Energy Changes",
+  "overview": "This study pack covers states of matter, gas laws, and chemical thermodynamics fundamentals — building on General Chemistry I toward more advanced physical chemistry concepts relevant to engineering.",
+  "modules": [
+    {
+      "title": "Gas Laws",
+      "sourceRange": "Introductory topic",
+      "summary": "Gases behave predictably under changes in pressure, volume, and temperature, described by several fundamental gas laws. Boyle's Law states that at constant temperature, pressure and volume are inversely proportional (P1V1 = P2V2). Charles's Law states that at constant pressure, volume and temperature are directly proportional (V1/T1 = V2/T2).\n\nThese individual laws combine into the Ideal Gas Law: PV = nRT, where P is pressure, V is volume, n is moles of gas, R is the universal gas constant, and T is absolute temperature (in Kelvin).\n\nUnderstanding gas behavior is essential for engineering applications involving compressed gases, combustion, and thermodynamic cycles.",
+      "keyPoints": [
+        "Boyle's Law: P1V1 = P2V2 (constant temperature)",
+        "Charles's Law: V1/T1 = V2/T2 (constant pressure)",
+        "Ideal Gas Law: PV = nRT",
+        "Temperature must be in Kelvin (K = °C + 273) for gas law calculations",
+        "Real gases deviate from ideal behavior at high pressure and low temperature"
+      ],
+      "definitions": [
+        {
+          "term": "Boyle's Law",
+          "definition": "The law stating that at constant temperature, the pressure and volume of a gas are inversely proportional."
+        },
+        {
+          "term": "Charles's Law",
+          "definition": "The law stating that at constant pressure, the volume and temperature of a gas are directly proportional."
+        },
+        {
+          "term": "Ideal Gas Law",
+          "definition": "The equation PV = nRT relating pressure, volume, moles, and temperature of an ideal gas."
+        },
+        {
+          "term": "Absolute Temperature",
+          "definition": "Temperature measured in Kelvin, starting from absolute zero, used in all gas law calculations."
+        },
+        {
+          "term": "Universal Gas Constant (R)",
+          "definition": "A constant (8.314 J/(mol·K)) that relates the units in the Ideal Gas Law."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Boyle's Law",
+          "problem": "A gas occupies 4.0 L at a pressure of 100 kPa. If the pressure is increased to 200 kPa at constant temperature, find the new volume.",
+          "steps": [
+            "Apply Boyle's Law: P1V1 = P2V2",
+            "100 kPa × 4.0 L = 200 kPa × V2",
+            "400 = 200 × V2",
+            "V2 = 400 / 200 = 2.0 L"
+          ],
+          "answer": "The new volume is 2.0 L."
+        },
+        {
+          "title": "Applying the Ideal Gas Law",
+          "problem": "Find the volume occupied by 2 moles of an ideal gas at a pressure of 101.3 kPa and temperature of 300 K. (R = 8.314 J/(mol·K))",
+          "steps": [
+            "Apply PV = nRT, rearranged: V = nRT / P",
+            "Convert pressure to Pa: 101.3 kPa = 101,300 Pa",
+            "V = (2 × 8.314 × 300) / 101,300",
+            "V = 4988.4 / 101,300 ≈ 0.0492 m³"
+          ],
+          "answer": "The volume is approximately 0.0492 m³ (49.2 L)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What does Boyle's Law describe?",
+          "options": [
+            "The relationship between volume and temperature at constant pressure",
+            "The relationship between pressure and volume at constant temperature",
+            "The relationship between moles and pressure",
+            "The relationship between temperature and moles"
+          ],
+          "correctIndex": 1,
+          "explanation": "Boyle's Law states that at constant temperature, pressure and volume of a gas are inversely proportional."
+        },
+        {
+          "question": "In the Ideal Gas Law (PV = nRT), what unit must temperature be measured in?",
+          "options": [
+            "Celsius",
+            "Fahrenheit",
+            "Kelvin",
+            "Any unit works"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gas law calculations require absolute temperature in Kelvin, since the relationship breaks down with Celsius or Fahrenheit scales."
+        }
+      ]
+    },
+    {
+      "title": "Basic Thermodynamics and Energy Changes",
+      "sourceRange": "Second topic",
+      "summary": "Thermodynamics studies energy changes in chemical and physical processes. Reactions can be exothermic (releasing heat to surroundings) or endothermic (absorbing heat from surroundings), determined by whether the products have lower or higher energy than the reactants.\n\nEnthalpy (H) is a measure of total heat content in a system, and enthalpy change (ΔH) during a reaction indicates whether it's exothermic (ΔH negative) or endothermic (ΔH positive).\n\nThe First Law of Thermodynamics states that energy cannot be created or destroyed, only converted from one form to another — a principle that underlies all energy balance calculations in engineering.",
+      "keyPoints": [
+        "Exothermic reactions release heat to surroundings (ΔH negative)",
+        "Endothermic reactions absorb heat from surroundings (ΔH positive)",
+        "Enthalpy (H) measures the total heat content of a system",
+        "First Law of Thermodynamics: energy cannot be created or destroyed, only transformed",
+        "Energy changes in reactions can be measured experimentally using calorimetry"
+      ],
+      "definitions": [
+        {
+          "term": "Exothermic Reaction",
+          "definition": "A chemical reaction that releases heat energy to its surroundings, resulting in a negative enthalpy change."
+        },
+        {
+          "term": "Endothermic Reaction",
+          "definition": "A chemical reaction that absorbs heat energy from its surroundings, resulting in a positive enthalpy change."
+        },
+        {
+          "term": "Enthalpy (H)",
+          "definition": "A measure of the total heat content of a system at constant pressure."
+        },
+        {
+          "term": "First Law of Thermodynamics",
+          "definition": "The principle stating that energy cannot be created or destroyed, only converted between forms."
+        },
+        {
+          "term": "Calorimetry",
+          "definition": "The experimental technique used to measure heat changes during chemical or physical processes."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Classifying a Reaction",
+          "problem": "A reaction releases 150 kJ of heat to its surroundings. Is this reaction exothermic or endothermic, and what is the sign of ΔH?",
+          "steps": [
+            "The reaction releases heat, meaning energy leaves the system",
+            "Reactions that release heat are classified as exothermic",
+            "For exothermic reactions, the enthalpy change (ΔH) is negative, since the system's energy content has decreased"
+          ],
+          "answer": "The reaction is exothermic, with ΔH = -150 kJ."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the sign of ΔH for an exothermic reaction?",
+          "options": [
+            "Positive",
+            "Negative",
+            "Zero",
+            "Cannot be determined"
+          ],
+          "correctIndex": 1,
+          "explanation": "Exothermic reactions release heat, resulting in a decrease in the system's energy content and thus a negative ΔH."
+        },
+        {
+          "question": "What does the First Law of Thermodynamics state?",
+          "options": [
+            "Energy always increases over time",
+            "Energy cannot be created or destroyed, only transformed",
+            "Heat always flows from cold to hot",
+            "All reactions are exothermic"
+          ],
+          "correctIndex": 1,
+          "explanation": "The First Law of Thermodynamics is a statement of energy conservation — energy changes form but is never created or destroyed."
+        }
+      ]
+    }
+  ]
+}
