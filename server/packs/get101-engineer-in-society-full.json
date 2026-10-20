@@ -1,0 +1,692 @@
+{
+  "title": "GET 101 — Engineer in Society (full course)",
+  "course": "GET 101 Engineer in Society",
+  "topic": "Full course: 5 modules",
+  "overview": "This course introduces first-year engineering students to the breadth of the engineering profession, its history and philosophy, and the ethical and professional responsibilities that define engineering practice. It covers the diversity of engineering disciplines and career paths, the regulatory framework in Nigeria, the principles of ethical decision-making and safety, and the role of engineers in economic development and sustainable change. Together these modules establish what it means to be an engineer in the modern world and in the Nigerian context.",
+  "modules": [
+    {
+      "title": "History, Philosophy and Practice of Engineering",
+      "sourceRange": "Topic 1",
+      "summary": "Engineering is one of humanity's oldest intellectual activities. Long before anyone wrote down a scientific theory, people were building irrigation canals in Mesopotamia, raising pyramids in Egypt, and constructing aqueducts in Rome. These achievements show that engineering—the purposeful application of knowledge and ingenuity to solve practical problems—predates formal science by thousands of years. From ancient earthworks to the steam-powered mills of the Industrial Revolution, and onward to the microprocessors and internet infrastructure of the Digital Age, engineering has been the primary engine by which human societies transform natural resources and ideas into usable systems and structures.\n\nA crucial insight of this module is that science, technology and engineering are related but distinct. Science seeks to understand and explain the natural world; technology is the accumulated body of tools and techniques that result from human ingenuity; engineering is the disciplined process of applying both to design solutions to specific human problems, always within real-world constraints of cost, time, performance, safety and environmental impact. This constraint-driven character is what makes engineering a profession rather than merely applied science—every engineering decision involves trade-offs, and good engineers navigate those trade-offs systematically and responsibly.\n\nFor Nigeria, engineering sits at the heart of the national development agenda. Persistent deficits in roads, power, water supply, housing and sanitation represent both a challenge and an enormous opportunity for Nigerian engineers. Realising that opportunity requires not only technical skill but an understanding of the historical, philosophical and socioeconomic context in which engineering is practised—which is precisely what this module provides.",
+      "keyPoints": [
+        "Engineering is the oldest application of human problem-solving to material challenges; ancient examples include the Egyptian pyramids, Roman aqueducts, and the Great Wall of China.",
+        "The Industrial Revolution (c. 1760–1840) transformed engineering from craft-based practice into a science-informed profession, powered by steam engines, mechanised factories and railway networks.",
+        "The Digital Age (post-1970) introduced computing, microelectronics and the internet, creating entirely new engineering disciplines and making information processing central to nearly every field of engineering.",
+        "Science, technology and engineering are distinct: science explains natural phenomena; technology is the body of tools and techniques humans have developed; engineering is the systematic design process that creates new technology to meet specified human needs.",
+        "Every engineering solution operates under constraints—performance requirements, budget, time, safety regulations, environmental standards and social acceptability—and the engineer's task is to find the best feasible solution within all active constraints simultaneously.",
+        "The engineering problem-solving method follows a recognisable cycle: define the problem, gather data, generate candidate solutions, evaluate each against the constraints, select and implement the best option, then review outcomes and iterate.",
+        "Nigeria faces significant infrastructure deficits (power supply, roads, water, housing) that represent both a development challenge and a massive engineering opportunity requiring well-trained local engineers.",
+        "Key challenges for engineering in Nigeria include inadequate funding, policy instability, brain drain of skilled engineers, and the need to develop local capacity and content rather than relying on imported solutions."
+      ],
+      "definitions": [
+        {
+          "term": "Engineering",
+          "definition": "The systematic application of scientific knowledge, mathematics and creative ingenuity to design, build, operate and maintain structures, machines, systems and processes that meet specified human needs, always within practical constraints such as cost, safety, time and available materials."
+        },
+        {
+          "term": "Science",
+          "definition": "The organised intellectual activity by which humans study the natural world through observation, hypothesis formation, controlled experimentation and the derivation of general laws and principles—its primary goal is understanding, not making things."
+        },
+        {
+          "term": "Technology",
+          "definition": "The cumulative body of tools, techniques, materials, methods and processes that human societies have developed and use to achieve practical purposes; technology is typically the product or output of engineering activity and applied science accumulated over time."
+        },
+        {
+          "term": "Industrial Revolution",
+          "definition": "The period of rapid industrialisation beginning in Britain around 1760 and spreading globally through the early 19th century, during which the invention and refinement of the steam engine enabled mechanised factory production, railway transport and large-scale civil engineering works, fundamentally changing the scale and nature of engineering practice."
+        },
+        {
+          "term": "Digital Age",
+          "definition": "The era beginning in the latter half of the 20th century, characterised by the invention of the transistor and integrated circuit, the proliferation of computers and the internet, and the use of digital information processing as a foundation for almost every engineering discipline."
+        },
+        {
+          "term": "Engineering constraints",
+          "definition": "The set of requirements and limitations within which a valid engineering design must fall, including performance specifications, financial budget, completion schedule, safety regulations, legal standards, environmental impact limits and social or cultural acceptability; satisfying all active constraints simultaneously defines the feasible design space."
+        },
+        {
+          "term": "Infrastructure",
+          "definition": "The fundamental physical networks and facilities—such as roads, bridges, railways, electrical grids, water-supply systems, drainage and telecommunications—that underpin a society's economy and the daily functioning of its communities."
+        },
+        {
+          "term": "Engineering problem-solving method",
+          "definition": "The structured, iterative approach engineers use to address challenges: (1) clearly define the problem and its constraints; (2) gather relevant data and information; (3) generate multiple candidate solutions; (4) evaluate each against the constraints; (5) select the best feasible solution; (6) implement it; and (7) review performance and iterate if necessary."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Distinguishing Science, Technology and Engineering: The Case of Electric Motors",
+          "problem": "A student claims that the electric motor is a scientific discovery. Using the distinctions between science, technology and engineering, explain whether this claim is correct and classify the contributions of (a) Michael Faraday's 1831 discovery of electromagnetic induction, (b) the development of commercial AC power systems in the 1880s, and (c) the design of a specific 15 kW motor for a water-pumping station.",
+          "steps": [
+            "Step 1 – Define the three categories. Science produces knowledge about how nature works. Technology is the body of techniques and artefacts that result from human ingenuity. Engineering is the disciplined design process that creates specific solutions to meet defined requirements within constraints.",
+            "Step 2 – Classify Faraday's discovery. Faraday observed that a changing magnetic field induces an electric current. He was investigating a natural phenomenon and formulating a general law (Faraday's Law of Induction). This is science: its goal was understanding, not making a product.",
+            "Step 3 – Classify AC power systems. Edison, Tesla and Westinghouse took Faraday's law and the accumulated knowledge of electrical behaviour and developed transformers, generators and distribution networks that could deliver electricity reliably at scale. These systems became part of the standard toolkit of electrical practice—this is technology: the practical body of techniques and devices derived from scientific knowledge.",
+            "Step 4 – Classify the pump-station motor design. An engineer is given a specific requirement (deliver 15 kW of shaft power to drive a pump, operating on a 415 V three-phase supply, within a ₦180,000 budget, installed within 3 months). The engineer selects materials, calculates winding dimensions, checks thermal limits, specifies insulation class and verifies that the design meets all constraints before signing off. This is engineering: a purposeful, constraint-bounded design process applied to a particular problem.",
+            "Step 5 – Assess the student's claim. Calling the electric motor a 'scientific discovery' is incorrect. The science (electromagnetic induction) underlies it, but the motor itself is a technological artefact produced through engineering design."
+          ],
+          "answer": "The student's claim is incorrect. Faraday's work was science; AC power systems represent technology; and designing a specific motor for a defined application is engineering. All three are related but distinct activities."
+        },
+        {
+          "title": "Applying Engineering Constraints: Choosing a Footbridge Material",
+          "problem": "A rural community needs a footbridge spanning 12 m. The bridge must safely carry a maximum load of 60 kN (including crowd loading). Two structural options are available: Option A (treated timber) has a safe load capacity of 50 kN and costs ₦280,000; Option B (mild-steel frame) has a safe load capacity of 90 kN and costs ₦370,000. The project budget is ₦400,000 and the bridge must be completed within 10 weeks. Both options can be completed within the time constraint. Determine which option(s) are feasible and state the preferred engineering choice.",
+          "steps": [
+            "Step 1 – List all active constraints. Performance: safe load capacity ≥ 60 kN. Budget: total cost ≤ ₦400,000. Time: construction ≤ 10 weeks (both options meet this; no further calculation needed).",
+            "Step 2 – Check Option A against the performance constraint. Option A capacity = 50 kN. Required capacity = 60 kN. Since 50 kN < 60 kN, Option A fails the performance (safety) constraint. It is eliminated regardless of cost.",
+            "Step 3 – Check Option B against the performance constraint. Option B capacity = 90 kN ≥ 60 kN. ✓ Performance constraint satisfied.",
+            "Step 4 – Check Option B against the budget constraint. Option B cost = ₦370,000 ≤ ₦400,000. ✓ Budget constraint satisfied.",
+            "Step 5 – Identify the feasible set. Only Option B satisfies all constraints. Even though it is more expensive than Option A, Option A is not a valid engineering solution because it would be unsafe.",
+            "Step 6 – State the preferred choice. Option B (mild-steel frame) is the engineering choice. An engineer may not trade safety for cost savings; the performance constraint is non-negotiable."
+          ],
+          "answer": "Option B (mild-steel frame, ₦370,000, capacity 90 kN) is the only feasible solution. It satisfies every active constraint. Option A is disqualified because its 50 kN capacity is insufficient for the 60 kN design load."
+        },
+        {
+          "title": "Applying the Engineering Problem-Solving Method: Rural Water Supply in Nigeria",
+          "problem": "A Nigerian rural community of 4,000 people currently has no pipe-borne water. The minimum recommended water supply is 20 litres per person per day. An engineer has a budget of ₦12 million and a 5-month project window. A reliable aquifer has been identified 60 m below the surface. Walk through the engineering problem-solving method to move from community need to a defined, feasible engineering brief.",
+          "steps": [
+            "Step 1 – Define the problem. The community lacks safe water. The engineer quantifies the need: daily demand = 4,000 persons × 20 L/person/day = 80,000 L/day = 80 m³/day. The problem is now expressed in measurable engineering terms.",
+            "Step 2 – Identify all constraints. Performance: the system must reliably deliver ≥ 80 m³/day of potable water. Budget: ≤ ₦12,000,000. Time: operational within 5 months. Environmental: borehole must not deplete aquifer or cause land subsidence. Social: community must be able to operate and maintain the system.",
+            "Step 3 – Generate candidate solutions. (a) Solar-powered borehole with elevated storage tank and gravity-fed distribution pipes. (b) Diesel-powered borehole pump with on-ground storage. (c) Rainwater harvesting network across rooftops. The engineer sketches each and estimates rough costs and outputs.",
+            "Step 4 – Evaluate options against constraints. Option (c) is eliminated: seasonal rainfall in many Nigerian zones cannot guarantee 80 m³/day year-round—it fails the performance constraint. Option (b) meets output requirements but diesel fuel costs make long-run operation expensive, and fuel supply may be unreliable—it is marginal. Option (a): solar pumping system (borehole 60 m deep, 2.2 kW solar pump, 50 m³ elevated tank, 1.2 km of distribution piping) is estimated at ₦9.8 million, completable in 4 months, with low running costs and community-manageable maintenance. It satisfies all constraints.",
+            "Step 5 – Select and plan implementation. Option (a) is selected. The engineer produces detailed drawings, a bill of quantities and a 4-month work programme, allocating the ₦9.8 million across drilling (₦3.5 m), solar and pump equipment (₦3.2 m), tank and pipework (₦2.4 m), and contingency (₦0.7 m).",
+            "Step 6 – Review. The engineer schedules water-quality testing and flow measurement at commissioning, and trains two community technicians, ensuring the system can be monitored and maintained—closing the problem-solving cycle."
+          ],
+          "answer": "Applying the six-step engineering method converts a vague community need into a fully defined brief: deliver ≥ 80 m³/day of potable water via a solar-powered borehole system costing ₦9.8 million, completed in 4 months, within the ₦12 million budget and 5-month window. The method ensures the chosen solution is both technically sound and practically feasible."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following statements best captures the difference between science and engineering?",
+          "options": [
+            "Science and engineering are the same activity because both rely on mathematics.",
+            "Science seeks to understand natural phenomena by establishing general laws; engineering applies knowledge to design specific solutions to human problems within practical constraints.",
+            "Engineering is simply applied science and therefore produces no knowledge of its own.",
+            "Science is more important than engineering because engineering depends entirely on scientific discoveries."
+          ],
+          "correctIndex": 1,
+          "explanation": "Science and engineering share tools such as mathematics and experimentation, but their goals differ: science aims at understanding and explanation, while engineering aims at purposeful design within constraints—a distinction the module establishes as fundamental."
+        },
+        {
+          "question": "A structural engineer is designing a water tower. The tower must hold 200,000 litres, cost no more than ₦25 million, be completed in 8 months, and comply with Nigerian building codes. These requirements are collectively called:",
+          "options": [
+            "Scientific laws",
+            "Engineering judgements",
+            "Engineering constraints",
+            "Technological specifications"
+          ],
+          "correctIndex": 2,
+          "explanation": "Engineering constraints are the full set of requirements and limitations—performance, budget, time, legal standards and safety—within which a valid design must fall; all four requirements listed are examples of constraints."
+        },
+        {
+          "question": "Which era in engineering history is most directly associated with the steam engine, mechanised factory production and the large-scale construction of railways and iron bridges?",
+          "options": [
+            "Ancient engineering (before 500 AD)",
+            "The Renaissance (14th–17th century)",
+            "The Industrial Revolution (c. 1760–1840)",
+            "The Digital Age (post-1970)"
+          ],
+          "correctIndex": 2,
+          "explanation": "The Industrial Revolution, beginning in Britain around 1760, was defined by the harnessing of steam power, which enabled mechanised manufacturing and large infrastructure projects that transformed the scale and character of engineering practice."
+        },
+        {
+          "question": "Nigeria's engineering development is most constrained by which combination of factors?",
+          "options": [
+            "Excess of trained engineers and too many infrastructure projects",
+            "Inadequate funding and policy instability, brain drain of skilled engineers, and over-reliance on imported solutions rather than local capacity",
+            "A complete absence of universities offering engineering education",
+            "Lack of natural resources needed for construction projects"
+          ],
+          "correctIndex": 1,
+          "explanation": "The module identifies inadequate funding, policy instability, emigration of skilled engineers (brain drain) and insufficient local content and capacity as the principal barriers to engineering-led development in Nigeria."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "The Engineering Disciplines and Professional Roles",
+      "sourceRange": "Topic 2",
+      "summary": "Engineering is not a single profession but a large family of closely related disciplines, each addressing a distinct domain of the physical and technological world. Before exploring those disciplines, however, it is important to understand the hierarchy of roles that exists within the broader engineering workforce. At the top sits the engineer, a university-graduate professional who analyses, designs and takes technical responsibility for systems. Below the engineer are engineering technologists, technicians and craftsmen, each playing an indispensable but different role. Together these four groups form the team that conceives, designs, builds and maintains everything from a village borehole to a national power grid.\n\nThe major engineering disciplines—civil, mechanical, electrical and electronic, chemical, computer, agricultural, petroleum, mechatronics, and biomedical—each apply mathematical, scientific and technical knowledge to solve problems in a specific area of human need. Civil engineers shape the built environment; mechanical engineers harness energy and motion; electrical and electronic engineers control power and signals; chemical engineers transform materials at the molecular level; computer engineers design computing hardware and software systems; agricultural engineers improve food production and rural infrastructure; petroleum engineers extract and process hydrocarbons; mechatronics engineers integrate mechanical, electronic and computing elements into intelligent machines; and biomedical engineers apply engineering principles to medicine and healthcare. Nigeria's development agenda touches every one of these fields.\n\nIn practice, large engineering projects nearly always require collaboration across several disciplines simultaneously. A hydroelectric dam project, for example, demands civil engineers for the structure, mechanical engineers for the turbines, electrical engineers for the generators and transmission lines, environmental engineers for impact assessments, and computer engineers for the control systems. Understanding both the boundaries and the overlaps of each discipline—and knowing how to work effectively in multidisciplinary teams—is one of the most important competencies a graduate engineer can develop.",
+      "keyPoints": [
+        "The engineering workforce is organised into four levels: engineer, engineering technologist, engineering technician and craftsman, distinguished primarily by their level of education, scope of independent judgement and design responsibility.",
+        "An engineer (minimum Bachelor's degree) creates original designs and takes professional responsibility; a technologist (Higher National Diploma or equivalent) applies established techniques; a technician (technical college or OND) operates and maintains equipment; a craftsman (trade certificate) performs skilled manual work.",
+        "Civil engineering deals with the design and construction of infrastructure such as roads, bridges, dams and buildings.",
+        "Mechanical engineering applies the principles of mechanics, thermodynamics and materials science to machines, vehicles, power systems and manufacturing.",
+        "Electrical and electronic engineering covers power generation and distribution (electrical) as well as signals, communications and microelectronics (electronic).",
+        "Chemical engineering transforms raw materials into useful products through chemical and physical processes, covering industries from petroleum refining to pharmaceuticals.",
+        "Computer engineering combines hardware design with software development, enabling embedded systems, networks and computing infrastructure.",
+        "Mechatronics engineering integrates mechanical, electrical, electronic and computing systems into automated, intelligent machines such as robots and smart manufacturing lines.",
+        "Multidisciplinary teamwork is essential in modern engineering: major projects routinely require engineers from several disciplines collaborating alongside technologists, technicians and craftsmen."
+      ],
+      "definitions": [
+        {
+          "term": "Engineer",
+          "definition": "A professionally educated individual (minimum Bachelor of Engineering or Bachelor of Science in Engineering) who applies mathematical, scientific and engineering principles to analyse problems, create original designs, evaluate solutions and bear technical and ethical responsibility for the outcomes of projects."
+        },
+        {
+          "term": "Engineering Technologist",
+          "definition": "A member of the engineering workforce, typically holding a Higher National Diploma (HND) or equivalent qualification, who applies well-established engineering techniques and procedures under the general direction of an engineer, often focusing on implementation rather than original design."
+        },
+        {
+          "term": "Engineering Technician",
+          "definition": "A worker with an Ordinary National Diploma (OND) or technical-college qualification who operates, maintains, tests and repairs engineering equipment and systems, working within defined procedures and under the supervision of engineers or technologists."
+        },
+        {
+          "term": "Craftsman (Artisan)",
+          "definition": "A skilled manual worker trained through an apprenticeship or trade certificate programme who performs specific hands-on tasks—such as welding, plumbing, bricklaying or electrical installation—according to instructions and specifications provided by engineers or technicians."
+        },
+        {
+          "term": "Civil Engineering",
+          "definition": "The branch of engineering concerned with the planning, design, construction and maintenance of the physical infrastructure of society, including roads, railways, bridges, tunnels, dams, water supply systems, drainage and buildings."
+        },
+        {
+          "term": "Mechatronics Engineering",
+          "definition": "An interdisciplinary engineering field that integrates mechanical engineering, electrical and electronic engineering, and computer/control engineering to design intelligent machines, robotic systems and automated industrial equipment."
+        },
+        {
+          "term": "Biomedical Engineering",
+          "definition": "The application of engineering principles and design concepts to medicine and biology, encompassing the development of medical devices, diagnostic instruments, prosthetics, imaging systems and biocompatible materials to improve patient care."
+        },
+        {
+          "term": "Multidisciplinary Team",
+          "definition": "A project team composed of engineers and technical staff drawn from two or more engineering disciplines, assembled because the scope of the project is too broad or complex for a single discipline to handle effectively alone."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying Roles in an Engineering Workforce",
+          "problem": "A construction company is building a large reinforced-concrete road bridge. Listed below are four members of the project team. Identify the engineering role (engineer, technologist, technician or craftsman) that best fits each person, and justify each choice.\n(A) Amaka holds a B.Eng. in Civil Engineering. She produces the structural drawings, specifies the concrete mix design and signs off the load calculations.\n(B) Bello holds an HND in Civil Engineering. He interprets Amaka's drawings on site, supervises the pour sequences and ensures the formwork is set to the correct tolerances.\n(C) Chioma holds an OND in Civil Engineering Technology. She operates the concrete-cube-testing machine, records compressive-strength results and flags any out-of-spec results to Bello.\n(D) Danjuma completed a three-year trade apprenticeship. He mixes concrete by hand for small sections, ties reinforcement bars and places shuttering planks as directed.",
+          "steps": [
+            "Step 1 – Recall the distinguishing criteria: level of qualification, scope of independent judgement, and design versus implementation versus manual work.",
+            "Step 2 – Analyse Amaka: she holds a B.Eng., creates original structural designs, performs load calculations and bears professional sign-off responsibility. This matches the definition of an Engineer.",
+            "Step 3 – Analyse Bello: he holds an HND, applies established techniques (interpreting approved drawings, managing pour sequences) without generating original designs, and supervises on behalf of the engineer. This matches Engineering Technologist.",
+            "Step 4 – Analyse Chioma: she holds an OND, operates specific test equipment, follows a set procedure, records results and escalates findings rather than interpreting them independently. This matches Engineering Technician.",
+            "Step 5 – Analyse Danjuma: he is trade-certificate trained and performs skilled manual tasks (mixing, bar-tying, shuttering) entirely to instructions from the levels above. This matches Craftsman (Artisan).",
+            "Step 6 – Confirm the hierarchy is consistent: Engineer → Technologist → Technician → Craftsman, each level requiring progressively less formal education but still providing an essential contribution."
+          ],
+          "answer": "(A) Amaka – Engineer; (B) Bello – Engineering Technologist; (C) Chioma – Engineering Technician; (D) Danjuma – Craftsman. The key discriminator is the combination of qualification level and the degree of independent judgement and design responsibility each person exercises."
+        },
+        {
+          "title": "Matching Engineering Disciplines to Project Requirements",
+          "problem": "Nigeria's government approves a new petroleum refinery complex. List at least five engineering disciplines that will be required, state the primary function each will perform on the project, and explain why no single discipline could deliver the entire project alone.",
+          "steps": [
+            "Step 1 – Identify the core process function: crude oil must be separated into products (petrol, kerosene, diesel, LPG) through distillation, cracking and treating. This is the domain of Chemical Engineering—chemical engineers design the process flow, reactors, distillation columns and process controls.",
+            "Step 2 – Identify structural and civil needs: the refinery requires buildings, pipe-rack foundations, tank farms, access roads and drainage. Civil Engineering is needed to design and construct all of these.",
+            "Step 3 – Identify mechanical needs: pumps, compressors, heat exchangers, valves and piping systems must be selected, designed and maintained. Mechanical Engineering covers rotating equipment and piping integrity.",
+            "Step 4 – Identify electrical and power needs: the refinery consumes enormous electrical power for motors, lighting, instrumentation and safety systems. Electrical Engineering handles power distribution and protection.",
+            "Step 5 – Identify instrumentation and automation needs: modern refineries are controlled by Distributed Control Systems (DCS) that read hundreds of sensors and actuate valves automatically. Computer Engineering (and elements of Mechatronics/Electronics) is needed for the control hardware and software.",
+            "Step 6 – Identify petroleum-specific needs: reservoir and well data may feed the refinery's crude supply; Petroleum Engineering expertise guides crude-quality specifications and pipeline connections from the wellhead.",
+            "Step 7 – Explain the impossibility of a single discipline: each discipline has a different mathematical toolkit and body of knowledge. A civil engineer is not trained in reaction kinetics; a chemical engineer is not trained in power-system protection. Only a multidisciplinary team, working to an integrated project plan, can deliver a functional refinery safely."
+          ],
+          "answer": "At minimum: Chemical Engineering (process design), Civil Engineering (structures and civil works), Mechanical Engineering (rotating equipment and piping), Electrical Engineering (power and instrumentation), Computer Engineering (control systems), and Petroleum Engineering (crude supply and specifications). No single discipline possesses the full range of knowledge required, making multidisciplinary collaboration essential."
+        },
+        {
+          "title": "Comparing Two Engineering Disciplines Through Their Core Tools and Outputs",
+          "problem": "A student is choosing between Mechanical Engineering and Electrical/Electronic Engineering. Describe the core knowledge base, a typical design task, and a real-world Nigerian application for each discipline, then identify one area where the two disciplines must collaborate.",
+          "steps": [
+            "Step 1 – Characterise Mechanical Engineering's knowledge base: it is founded on classical mechanics (statics, dynamics), thermodynamics, fluid mechanics and materials science. Mechanical engineers analyse forces, energy transformations and material behaviour.",
+            "Step 2 – Give a typical mechanical design task: designing a diesel generating set—selecting the engine displacement, coupling it to the alternator shaft, sizing the cooling radiator and fuel system, and specifying the structural skid. All of this involves force, energy and materials calculations.",
+            "Step 3 – State a Nigerian mechanical application: the design and maintenance of gas turbines at the Egbin Thermal Power Station, or the manufacture of vehicle chassis at Innoson Vehicle Manufacturing, Nnewi.",
+            "Step 4 – Characterise Electrical/Electronic Engineering's knowledge base: it is founded on electromagnetic theory, circuit analysis, signal processing and semiconductor physics. Electrical engineers deal with power; electronic engineers deal with low-power signals and devices.",
+            "Step 5 – Give a typical electrical/electronic design task: designing the 132 kV transmission line protection scheme for a substation—selecting current transformers, relay settings and circuit-breaker specifications to isolate faults within milliseconds.",
+            "Step 6 – State a Nigerian electrical application: the expansion of the national grid by the Transmission Company of Nigeria (TCN), or the design of a GSM base-station power supply for a rural area.",
+            "Step 7 – Identify collaboration: in any motorised machine—such as an industrial conveyor or an electric vehicle—the mechanical engineer designs the drive train, frame and thermal management while the electrical/electronic engineer designs the motor drive, sensors and control electronics. Neither can complete the product without the other."
+          ],
+          "answer": "Mechanical Engineering is grounded in mechanics, thermodynamics and materials, producing designs such as engines, turbines and manufacturing machinery (e.g., Innoson vehicles). Electrical/Electronic Engineering is grounded in circuit theory, electromagnetics and signal processing, producing designs such as power-distribution systems and communication networks (e.g., national grid substations). The two disciplines collaborate wherever intelligent or powered machines are involved—motor drives, electric vehicles and automated production lines all require both."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following most clearly distinguishes an engineer from an engineering technologist in the Nigerian context?",
+          "options": [
+            "The engineer works outdoors on construction sites while the technologist works in an office.",
+            "The engineer holds at least a B.Eng. degree, creates original designs and bears professional responsibility, while the technologist typically holds an HND and applies established techniques.",
+            "The engineer earns a higher salary but performs essentially the same technical tasks as the technologist.",
+            "The engineer specialises in a single discipline while the technologist is trained across all disciplines."
+          ],
+          "correctIndex": 1,
+          "explanation": "The primary distinction is qualification level combined with the scope of independent judgement and design responsibility: engineers (B.Eng. minimum) generate original solutions and are professionally accountable, whereas technologists (HND) implement and apply established methods under engineering direction."
+        },
+        {
+          "question": "A company needs to design a bionic prosthetic arm that senses muscle signals, actuates motorised joints and is made from a body-compatible lightweight alloy. Which combination of engineering disciplines is most directly relevant?",
+          "options": [
+            "Civil, Petroleum and Agricultural Engineering",
+            "Biomedical, Mechanical and Electrical/Electronic Engineering",
+            "Chemical, Computer and Agricultural Engineering",
+            "Petroleum, Civil and Mechatronics Engineering"
+          ],
+          "correctIndex": 1,
+          "explanation": "Biomedical engineering addresses the medical interface and biocompatible materials, mechanical engineering covers the structural joints and lightweight alloy selection, and electrical/electronic engineering handles the signal sensing and motor actuation—together these three disciplines cover all the stated requirements."
+        },
+        {
+          "question": "Which statement best describes the role of Chemical Engineering?",
+          "options": [
+            "It focuses exclusively on the exploration and drilling of petroleum reservoirs.",
+            "It applies chemistry and physics to transform raw materials into useful products through industrial processes such as refining, reaction and separation.",
+            "It is concerned mainly with the design of chemical laboratories and research facilities.",
+            "It deals with the chemical composition of construction materials such as concrete and steel."
+          ],
+          "correctIndex": 1,
+          "explanation": "Chemical engineering uses chemical reactions, separation processes (distillation, absorption, etc.) and heat and mass transfer to convert raw materials—from crude oil to agricultural produce—into useful products at industrial scale; it is not limited to petroleum or to laboratory or construction contexts."
+        },
+        {
+          "question": "Why is multidisciplinary teamwork considered essential in modern engineering projects rather than merely desirable?",
+          "options": [
+            "Because engineering professional bodies legally require a minimum number of disciplines on every project.",
+            "Because complex projects involve technical problems that span multiple knowledge domains, and no single discipline commands all the required expertise.",
+            "Because it reduces the total salary bill by allowing engineers to share tasks across departments.",
+            "Because clients prefer to deal with larger teams for contractual and insurance reasons."
+          ],
+          "correctIndex": 1,
+          "explanation": "Major projects such as refineries, hospitals or smart-city infrastructure involve structural, mechanical, electrical, environmental, computing and other challenges simultaneously; no single discipline's training covers all these domains, so collaboration is a technical necessity, not merely a procedural or financial choice."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Professional Regulation and Continuing Development",
+      "sourceRange": "Topic 3",
+      "summary": "Engineering is not merely a technical occupation; it is a regulated profession, and that regulation exists to protect the public. In Nigeria, two bodies sit at the centre of this system. The Council for the Regulation of Engineering in Nigeria (COREN) is a statutory body created by law to control who may legally practise engineering, to accredit engineering programmes, and to discipline those who fall short of required standards. The Nigerian Society of Engineers (NSE) is a voluntary professional association that complements COREN by building community, advocating for the profession, and supporting members' development throughout their careers. Both bodies together define what it means to be a professional engineer in Nigeria.\n\nBecoming a registered engineer is a structured journey that begins at university and unfolds over several years of supervised practice. A graduate must accumulate verified engineering experience under the mentorship of a registered engineer, demonstrate competence through a professional interview, and only then receive the title of Registered Engineer. This pathway ensures that the public can trust that anyone bearing the title has met a consistent, independently verified standard—not merely passed examinations.\n\nOnce registered, an engineer's obligations do not end. Codes of conduct set out the ethical and technical standards required at every stage of a career, and continuing professional development (CPD) keeps a practitioner's knowledge current in a world where technology, regulation, and best practice are constantly evolving. Taken together, the registration pathway, the code of conduct, and the CPD requirement form a continuous quality-assurance system that runs from graduation to retirement.",
+      "keyPoints": [
+        "COREN (established by the COREN Act, originally Decree No. 55 of 1970) is the statutory body with legal authority to regulate engineering practice in Nigeria; practice without COREN registration is unlawful.",
+        "NSE, founded in 1958, is the voluntary professional society for engineers in Nigeria; it provides networking, advocacy, and peer support but does not confer the legal right to practise.",
+        "The route to registration passes through four main stages: accredited degree, registration as a Graduate Engineer, a minimum of three years of supervised post-graduation experience, and a successful COREN Professional Interview.",
+        "COREN registers engineers at several grades: Graduate Engineer, Registered Engineer (R.Eng.), Registered Engineering Technologist (R.Eng.T.), Registered Engineering Technician (R.Eng.Tn.), and Registered Craftsman.",
+        "A COREN Annual Practising Licence (APL) must be renewed each year; it is evidence that the holder is currently fit to practise.",
+        "The COREN Code of Conduct requires engineers to prioritise public safety, act with honesty and integrity, maintain competence, avoid conflicts of interest, and respect confidentiality.",
+        "Continuing professional development (CPD) is the ongoing acquisition of knowledge and skills after registration; COREN and the NSE require registered engineers to record and report CPD activities to maintain their licence.",
+        "CPD activities include formal courses and conferences, on-the-job technical training, writing technical papers, mentoring junior engineers, and participation in professional committees."
+      ],
+      "definitions": [
+        {
+          "term": "Council for the Regulation of Engineering in Nigeria (COREN)",
+          "definition": "The statutory government-backed body established by the COREN Act to regulate engineering practice in Nigeria. Its functions include accrediting engineering programmes, registering qualified engineers and related practitioners, issuing Annual Practising Licences, and disciplining those who violate professional standards. Only COREN-registered practitioners may legally offer engineering services in Nigeria."
+        },
+        {
+          "term": "Nigerian Society of Engineers (NSE)",
+          "definition": "A voluntary, non-statutory professional association founded in 1958 that represents engineers across all disciplines in Nigeria. The NSE organises technical conferences, publishes journals, advocates for engineering-friendly policies, and supports members' careers and development. Membership grades include Student, Graduate, Member (MNSE), and Fellow (FNSE). Joining the NSE does not on its own authorise anyone to practise as a registered engineer."
+        },
+        {
+          "term": "Graduate Engineer",
+          "definition": "The entry-level COREN registration grade awarded to a holder of an accredited B.Eng. or B.Tech. degree who has formally enrolled with COREN but has not yet completed the supervised experience and Professional Interview required for full registration. A Graduate Engineer may practise only under the supervision of a Registered Engineer."
+        },
+        {
+          "term": "Registered Engineer (R.Eng.)",
+          "definition": "The full professional grade conferred by COREN on an engineer who has completed an accredited degree, at least three years of satisfactory supervised post-graduation experience, and a successful Professional Interview. A Registered Engineer holds an Annual Practising Licence, may practise independently, and may supervise Graduate Engineers."
+        },
+        {
+          "term": "Annual Practising Licence (APL)",
+          "definition": "A licence issued by COREN each calendar year to registered engineers and other registered practitioners. Holding a current APL is the legal proof that a practitioner remains fit, competent, and up to date; it must be renewed annually and can be withheld or revoked for disciplinary or CPD non-compliance reasons."
+        },
+        {
+          "term": "Code of Conduct",
+          "definition": "A formal written set of rules and standards that governs the professional behaviour of registered engineers. The COREN Code of Conduct specifies duties to the public (especially safety), to clients, to employers, and to the profession itself. Breaches can result in sanctions including suspension or removal from the register."
+        },
+        {
+          "term": "Continuing Professional Development (CPD)",
+          "definition": "The systematic process by which a registered engineer maintains, updates, and broadens their knowledge, skills, and competence throughout their working life. CPD is not optional: COREN requires registered practitioners to undertake and record a minimum level of CPD activity each year as a condition of APL renewal. Activities include courses, seminars, technical publications, and mentoring."
+        },
+        {
+          "term": "Professional Interview (Competency Assessment)",
+          "definition": "A structured assessment conducted by a panel of senior COREN-registered engineers to evaluate whether a Graduate Engineer's supervised experience, technical knowledge, and professional judgement meet the standard required for full registration. The candidate typically submits an engineering report or experience log and then defends it before the panel."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Mapping the Full Registration Pathway",
+          "problem": "Amina graduates in June 2024 with a B.Eng. in Civil Engineering from a COREN-accredited university. She wants to become a fully Registered Engineer as efficiently as possible. Trace every step she must take, identifying the key requirements and approximate timeline.",
+          "steps": [
+            "Step 1 – Verify degree accreditation. Amina confirms that her university programme is on COREN's list of accredited programmes. Only graduates of accredited programmes are eligible for COREN registration. If her programme were not accredited, she would need to apply for an individual assessment of her qualifications before proceeding.",
+            "Step 2 – Register as a Graduate Engineer. Within the first year after graduation, Amina applies to COREN, submits her academic transcripts and certificates, pays the registration fee, and is enrolled on the register as a Graduate Engineer. She receives a COREN Graduate Engineer number. At this stage she may work in engineering roles but must be supervised by a Registered Engineer.",
+            "Step 3 – Secure a supervised engineering post. Amina joins a consulting civil-engineering firm where her direct line manager is a Registered Engineer who agrees to act as her supervising engineer and sign off on her experience log. The quality of the supervision matters: COREN expects the work to involve genuine engineering decision-making, not merely routine administration.",
+            "Step 4 – Accumulate and document supervised experience. Over the next three years (2024–2027) Amina keeps a detailed engineering logbook recording projects worked on, her specific responsibilities, technical problems solved, and competencies demonstrated across the areas COREN specifies for civil engineers (e.g., design, project management, site supervision, client interaction). Her supervisor countersigns the log periodically.",
+            "Step 5 – Prepare the engineering experience report. After three years, Amina compiles her logbook entries into a formal Engineering Experience Report, typically 3,000–5,000 words, summarising her competence development against COREN's criteria. This document is submitted to COREN as the primary evidence for the Professional Interview.",
+            "Step 6 – Attend and pass the Professional Interview. COREN convenes a panel of at least two senior Registered Engineers. Amina presents and defends her experience report, answering technical and ethical questions. If the panel is satisfied she has met the competency standard, they recommend her for full registration.",
+            "Step 7 – Full registration and APL. COREN approves the recommendation, Amina pays the registration fee, and she is entered on the register as a Registered Engineer (R.Eng.) with a unique registration number. She receives her first Annual Practising Licence, which she must renew every subsequent year by meeting CPD requirements and paying the renewal fee.",
+            "Step 8 – Parallel NSE membership (optional but strongly advisable). Throughout this period Amina also joins the NSE as a Graduate Member and, after full COREN registration, upgrades to Corporate Member (MNSE). NSE membership gives her access to technical events, a professional network, and CPD opportunities that help her meet COREN's annual CPD requirement."
+          ],
+          "answer": "Amina's pathway takes approximately three to four years from graduation: (1) verify accreditation, (2) register as Graduate Engineer, (3) undertake at least three years of COREN-supervised practice with a logbook, (4) submit an experience report and pass the Professional Interview, (5) receive Registered Engineer status and an Annual Practising Licence, renewed yearly alongside ongoing CPD. Joining the NSE runs in parallel and supports every stage."
+        },
+        {
+          "title": "Applying the Code of Conduct to a Real Dilemma",
+          "problem": "Emeka is a Registered Engineer employed by a construction company. His manager instructs him to sign a structural completion certificate for a reinforced-concrete building whose column reinforcement he knows was installed at 60 % of the design specification, because fixing it would delay the project and cost the client money. Analyse Emeka's duties under the COREN Code of Conduct and determine the correct course of action.",
+          "steps": [
+            "Step 1 – Identify the competing pressures. Emeka faces a conflict between: (a) his employer's commercial interest (avoid delay and cost), (b) his client's short-term financial interest (same), and (c) his duty to the public (future occupants of the building) and to the profession. The Code of Conduct requires him to rank these in a specific order.",
+            "Step 2 – Apply the primacy-of-public-safety principle. The COREN Code of Conduct, in common with all major engineering codes worldwide, places public health and safety above the interests of the employer or client. An under-reinforced column can fail under load, causing building collapse and loss of life. Emeka therefore cannot subordinate this safety issue to commercial convenience.",
+            "Step 3 – Recognise that signing would constitute a false certification. A completion certificate is a professional document certifying that work meets specifications. Signing it when Emeka knows it does not would be a deliberate misrepresentation—a serious breach of the code's honesty and integrity clauses and potentially a criminal act under Nigerian law.",
+            "Step 4 – Determine the required action. Emeka must refuse to sign the certificate and document his refusal in writing to his manager, clearly stating the technical deficiency. He should simultaneously recommend the corrective action (bringing the reinforcement up to specification and having it inspected before further work proceeds). This written record protects both Emeka and the public.",
+            "Step 5 – Escalate if the employer persists. If management overrules him or threatens disciplinary action, Emeka has a duty to escalate. He should first exhaust internal channels (senior management, the company's own safety officer). If the hazard remains unresolved and the building is to be occupied, the Code of Conduct permits—and in some circumstances requires—reporting to COREN or the relevant building-control authority. This is the principle of whistle-blowing in the public interest.",
+            "Step 6 – Understand the professional protection. COREN's code recognises that engineers may face pressure from employers and provides that acting in accordance with professional duty is a valid defence against employer retaliation. Emeka's registration and reputation depend on upholding the code; signing the false certificate would risk his removal from the register."
+          ],
+          "answer": "Emeka must refuse to sign the certificate, document his refusal formally, recommend the remedial work, and escalate to higher authority or COREN if the employer persists. The Code of Conduct is unambiguous: public safety takes precedence over employer or client interest, and signing a false certification would breach both the code and potentially the law. His correct action is refusal and escalation, not compliance."
+        },
+        {
+          "title": "Planning and Calculating a CPD Programme",
+          "problem": "Kolade is a Registered Mechanical Engineer. COREN requires him to accumulate 40 CPD hours (or equivalent points) in a calendar year to qualify for APL renewal. By October he has recorded: two one-day technical workshops (7 hours each), one NSE Annual Conference (12 hours), and four monthly branch technical lectures (1.5 hours each). (a) How many CPD hours has Kolade accumulated so far? (b) How many hours remain? (c) Suggest specific CPD activities he could use to close the gap before December 31.",
+          "steps": [
+            "Step 1 – List and total the hours already recorded. Two one-day workshops: 2 × 7 = 14 hours. NSE Annual Conference: 12 hours. Four technical lectures: 4 × 1.5 = 6 hours. Total so far = 14 + 12 + 6 = 32 hours.",
+            "Step 2 – Calculate the remaining requirement. COREN target = 40 hours. Hours accumulated = 32 hours. Shortfall = 40 − 32 = 8 hours.",
+            "Step 3 – Assess the time available. It is October, so Kolade has approximately two months (November and December) to close the 8-hour gap. This is a manageable shortfall if planned promptly.",
+            "Step 4 – Identify suitable CPD activities. COREN and the NSE recognise a wide range of activities. Kolade could choose from: (a) An online or in-person short course in a relevant area such as condition monitoring, energy efficiency, or engineering management (typically 6–8 hours for a one-day course—this alone would close the gap). (b) Writing and submitting a technical paper to the NSE Journal or presenting at a seminar (often credited as 4–6 hours of CPD). (c) Attending two further branch technical lectures before year-end (2 × 1.5 = 3 hours, which combined with one other half-day activity would also suffice). (d) Formal mentoring of a Graduate Engineer, if COREN credits this activity in Kolade's registration category (typically 1–2 hours per session, with a cap on the total mentoring hours that count).",
+            "Step 5 – Recommend a specific plan. The most efficient single action is to enrol on a one-day short course (7–8 hours) in November. This would bring his total to 39–40 hours, meeting the requirement. As a backup, attending two more branch lectures (3 hours) plus submitting a short technical note to the NSE newsletter (credited at ~3–5 hours) achieves the same result with activities spread across November and December.",
+            "Step 6 – Stress the recording obligation. Accumulating the hours is not enough; Kolade must retain evidence (certificates of attendance, acceptance letters for publications, signed mentor logs) and enter them in COREN's CPD recording system or the NSE's CPD portal before submitting his APL renewal application."
+          ],
+          "answer": "(a) Kolade has accumulated 32 CPD hours by October. (b) He needs 8 more hours before December 31. (c) The simplest route is a single one-day technical short course (7–8 hours); alternatively, two branch lectures plus a short technical publication achieves the same total. All activities must be documented with evidence for the APL renewal submission."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the principal legal basis that makes COREN registration a requirement for engineering practice in Nigeria, rather than merely a recommendation?",
+          "options": [
+            "The NSE constitution, which all practising engineers must sign",
+            "The COREN Act (originally Decree No. 55 of 1970), which is an Act of the Nigerian legislature",
+            "A bilateral agreement between Nigerian universities and the Federal Ministry of Works",
+            "The Building and Construction Regulations issued by state governments"
+          ],
+          "correctIndex": 1,
+          "explanation": "COREN was established by an Act of the Nigerian legislature, giving it statutory authority; practising engineering without COREN registration therefore violates the law, not merely a professional norm."
+        },
+        {
+          "question": "A B.Eng. graduate registers with COREN immediately after finishing her degree. Which statement best describes her status at that point?",
+          "options": [
+            "She is a fully Registered Engineer and may practise independently on any project",
+            "She is a Graduate Engineer who may work in engineering but must do so under the supervision of a Registered Engineer",
+            "She has no official status until she also joins the NSE",
+            "She is automatically a Registered Engineer because her degree is from an accredited university"
+          ],
+          "correctIndex": 1,
+          "explanation": "A fresh graduate who registers with COREN receives Graduate Engineer status; full independent registration as R.Eng. requires at least three years of supervised experience followed by a successful Professional Interview."
+        },
+        {
+          "question": "Under the COREN Code of Conduct, when an engineer discovers that a completed structure has a serious hidden defect that threatens public safety, but the client asks them to keep quiet to avoid scandal, what is the engineer's primary obligation?",
+          "options": [
+            "Respect client confidentiality and say nothing, because the client is paying for the service",
+            "Report the defect to the appropriate authority, because the duty to protect public safety overrides client confidentiality",
+            "Seek a second professional opinion and only act if both engineers agree there is a risk",
+            "Resign from the project and leave the decision to the next engineer appointed"
+          ],
+          "correctIndex": 1,
+          "explanation": "All reputable engineering codes of conduct, including COREN's, place the safety and welfare of the public at the top of the hierarchy of duties; an engineer must report a life-threatening defect even when a client wishes otherwise."
+        },
+        {
+          "question": "Why is Continuing Professional Development (CPD) required annually as a condition of COREN Annual Practising Licence renewal, rather than being treated as optional self-improvement?",
+          "options": [
+            "Because engineering knowledge never changes, and CPD simply confirms that an engineer still remembers their degree content",
+            "Because technology, codes of practice, materials, and regulations change continuously, so a practitioner who stops learning may become dangerously out of date",
+            "Because the NSE needs attendance numbers to justify running its conferences and lectures",
+            "Because CPD replaces the need for engineers to hold university degrees"
+          ],
+          "correctIndex": 1,
+          "explanation": "Engineering best practice, standards, materials, software, and regulations evolve constantly; mandatory CPD ensures that registered engineers remain competent throughout their careers, protecting the public from practitioners whose knowledge has become obsolete."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Ethics, Responsibility and Safety in Engineering Practice",
+      "sourceRange": "Topic 4",
+      "summary": "Engineering ethics is not simply a set of rules but the foundation on which public trust in the profession rests. Every engineer carries duties to four parties: the public, the client, the employer and the profession itself. When these duties conflict — as they frequently do in real practice — the cardinal principle shared by virtually every national engineering code is that the safety, health and welfare of the public comes first. This module explores how that hierarchy plays out in practice: through conflicts of interest that must be declared rather than hidden, through whistle-blowing obligations when wrongdoing endangers lives, and through resistance to bribery and corruption that otherwise corrode both structures and institutions. High-profile disasters, particularly the 1986 Challenger Space Shuttle tragedy and recurring building collapses in Nigeria, demonstrate with devastating clarity what happens when economic or political pressures are allowed to silence legitimate technical objections.\n\nThe second half of the module extends ethical responsibility beyond people to the built and natural environment. Occupational health and safety (OHS) practice gives engineers the tools to identify and control workplace hazards before injuries occur, using systematic risk assessment to prioritise action. Environmental Impact Assessment (EIA) performs the same function at project scale, requiring engineers to forecast and mitigate harm to ecosystems and communities before construction begins. Together, OHS and EIA embody the engineer's duty of care as a forward-looking practice rather than a reactive one.\n\nFinally, the module situates engineering within the global challenge of sustainable development. The United Nations' 17 Sustainable Development Goals (SDGs) provide a concrete framework linking engineering decisions — about materials, energy, infrastructure and waste — to the long-term welfare of human societies and the natural systems that support them. Designing for climate resilience, reducing pollution and managing waste responsibly are not optional extras; they are integral to professional engineering practice in the twenty-first century.",
+      "keyPoints": [
+        "The primary duty of every engineer is to protect the health, safety and welfare of the public; duties to employers and clients are real but subordinate to this obligation.",
+        "A conflict of interest — any personal, financial or family interest that could distort professional judgment — must be declared immediately and the engineer must withdraw from the affected decision.",
+        "Whistle-blowing, the formal reporting of dangerous or unethical conduct, is a professional duty; engineers should document concerns in writing, exhaust internal channels first, and escalate externally if those channels fail.",
+        "Bribery and corruption in engineering procurement and inspection lead directly to substandard construction, structural failures and loss of life; they are prohibited by engineering codes and Nigerian law.",
+        "The Challenger disaster is the definitive case study showing that suppressing a qualified engineer's safety objection for schedule or political reasons can be fatal; formal written dissent and escalation are both ethical and professional obligations.",
+        "Risk is assessed quantitatively as Risk Score = Likelihood × Severity; hazards are then prioritised and controlled using the hierarchy of controls (elimination, substitution, engineering controls, administrative controls, PPE).",
+        "Environmental Impact Assessment (EIA) is a legally required pre-project study in Nigeria that identifies, predicts and mitigates adverse effects on the physical, biological and socio-economic environment.",
+        "Sustainable development — meeting present needs without compromising future generations' ability to meet theirs — is operationalised through the 17 UN Sustainable Development Goals, several of which depend directly on sound engineering practice."
+      ],
+      "definitions": [
+        {
+          "term": "Engineering ethics",
+          "definition": "The branch of applied ethics that defines the moral duties and professional standards governing engineers' conduct, balancing responsibilities to the public, clients, employers and the profession, with public safety as the supreme obligation."
+        },
+        {
+          "term": "Conflict of interest",
+          "definition": "A situation in which a personal, financial, family or other private interest is capable of improperly influencing an engineer's professional judgment or the appearance of impartiality; it must be disclosed and managed by recusal or other transparent means."
+        },
+        {
+          "term": "Whistle-blowing",
+          "definition": "The act of reporting an employer's, client's or colleague's illegal, unsafe or seriously unethical conduct to an appropriate higher authority — internal management, a regulatory body such as COREN, or if necessary the public — when normal channels have been exhausted or are themselves compromised."
+        },
+        {
+          "term": "Hazard",
+          "definition": "Any source, condition or act with potential to cause harm to people, property or the environment; the starting point of every risk assessment."
+        },
+        {
+          "term": "Risk assessment",
+          "definition": "The systematic process of identifying hazards in a workplace or project, estimating the probability that harm will occur and the severity of that harm, calculating a risk score (Likelihood × Severity), and selecting controls proportionate to the score."
+        },
+        {
+          "term": "Hierarchy of controls",
+          "definition": "A ranked set of strategies for reducing risk, in decreasing order of effectiveness: (1) elimination of the hazard, (2) substitution with something less dangerous, (3) engineering controls such as guards or ventilation, (4) administrative controls such as procedures and training, and (5) personal protective equipment (PPE)."
+        },
+        {
+          "term": "Environmental Impact Assessment (EIA)",
+          "definition": "A formal, legally required study conducted before a major project is approved, which predicts, evaluates and proposes mitigation for the project's likely effects on the physical environment (air, water, soil), biological environment (flora and fauna) and socio-economic environment (communities, livelihoods)."
+        },
+        {
+          "term": "Sustainable development",
+          "definition": "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs (Brundtland Commission, 1987); in engineering it requires balancing economic, social and environmental impacts across the full life cycle of a project."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Case Analysis: The Challenger Disaster and the Engineer's Duty to the Public",
+          "problem": "The Space Shuttle Challenger broke apart 73 seconds after launch on 28 January 1986, killing all seven crew members. The night before launch, engineers at Morton Thiokol formally warned that the O-ring seals joining sections of the solid rocket booster could fail at the forecast launch temperature of approximately −1 °C, well below the 12 °C minimum at which the seals had been shown to function reliably. Thiokol management, under pressure from NASA to proceed with the launch, overruled the engineers. One manager told an engineer to 'take off your engineering hat and put on your management hat.' Using the ethical framework of an engineer's duties, analyse what went wrong and what the engineers should have done.",
+          "steps": [
+            "Step 1 — Identify the primary duty: Engineers' overriding professional obligation is to protect public safety. The seven crew members were the public in this context; their lives depended on the integrity of the engineering decision.",
+            "Step 2 — Identify the technical warning: The engineers had data showing a strong correlation between low temperature and O-ring damage on previous flights. At −1 °C, the seals would be too stiff to expand and seal the joint; hot combustion gases could escape and ignite the external fuel tank. This was a credible, data-backed safety objection, not mere caution.",
+            "Step 3 — Identify the conflicting pressure: NASA faced schedule pressure and public-relations imperatives. Management translated this into pressure on engineers to certify the launch as safe. This is a textbook conflict between the duty to the employer or client and the duty to the public.",
+            "Step 4 — Identify the ethical failure: Management asked the engineers to subordinate their technical judgment to business convenience. The engineers did not formally document their dissent in a way that created an unavoidable paper trail reaching senior NASA decision-makers. The result was that the decision was made as if no objection had been raised.",
+            "Step 5 — Determine what should have happened: The engineers should have (a) formally submitted their objection in writing, ensuring it was recorded and distributed to decision-makers; (b) refused to sign the launch-readiness certificate in good conscience; (c) if overruled through improper pressure, escalated to higher authority outside their immediate management chain — and, as a last resort, reported to the relevant safety authority (whistle-blowing). Resigning without reporting would not have been sufficient, as it would not have protected the crew."
+          ],
+          "answer": "The Challenger disaster demonstrates that an engineer who possesses safety-critical information must not allow employer or client pressure to suppress it. Formal written dissent, escalation through proper channels and, if those fail, external reporting are professional obligations, not optional choices. The disaster directly caused a redesign of the O-rings and a fundamental overhaul of NASA's safety culture — lessons that came too late for seven lives."
+        },
+        {
+          "title": "Quantitative Risk Assessment on a Construction Site",
+          "problem": "A site safety officer on a Nigerian construction project identifies three hazards and rates each on a scale of 1 (lowest) to 5 (highest) for both Likelihood and Severity. The ratings are: Hazard A (workers falling from scaffolding at 5 m) — Likelihood 3, Severity 5; Hazard B (inhalation of cement and silica dust) — Likelihood 4, Severity 2; Hazard C (electrocution from temporary site wiring) — Likelihood 2, Severity 5. (i) Calculate the risk score for each hazard using Risk Score = Likelihood × Severity. (ii) Rank the hazards from highest to lowest priority. (iii) Propose a control measure for the top-priority hazard, following the hierarchy of controls.",
+          "steps": [
+            "Step 1 — Calculate risk scores: Hazard A: 3 × 5 = 15. Hazard B: 4 × 2 = 8. Hazard C: 2 × 5 = 10.",
+            "Step 2 — Rank by score: Hazard A (15) > Hazard C (10) > Hazard B (8). Falls from scaffolding is the highest-priority risk.",
+            "Step 3 — Apply the hierarchy of controls to Hazard A (falls from height): Elimination — if work can be redesigned to avoid working at height, do so. Substitution — use a mobile elevated work platform rather than traditional scaffolding where feasible. Engineering controls — install full-height guardrails (minimum 950 mm), mid-rails and toe-boards on all scaffolding; ensure scaffold boards are properly secured and inspected daily. Administrative controls — permit-to-work system for tasks at height; mandatory toolbox talk before each shift; restrict access to authorised and trained workers only. PPE — workers must wear a full-body harness clipped to a certified anchor point rated to absorb fall-arrest forces.",
+            "Step 4 — Note on Hazard C: Although it scores second (10), its Severity of 5 (potentially fatal) means it should be addressed alongside Hazard A without delay. Electrocution risk demands residual current devices (RCDs) on all temporary supplies and regular insulation testing — these are engineering controls near the top of the hierarchy."
+          ],
+          "answer": "Risk scores: A = 15, C = 10, B = 8. Falls from height is the top priority and requires engineering controls (guardrails) and PPE (harness) as the primary response. Electrocution, despite lower likelihood, warrants equally urgent attention because of its fatal severity."
+        },
+        {
+          "title": "Ethical Scenario: Conflict of Interest and Bribery in Project Evaluation",
+          "problem": "A registered engineer employed by a state government is assigned to evaluate three bridge designs submitted by competing contractors. She discovers two problems: (a) the managing director of Contractor 1 is her brother-in-law; and (b) she checks her bank statement and finds that Contractor 2 has deposited ₦600,000 into her account, described as a 'research consultancy fee' — she was never engaged as a consultant and did not request the payment. What must she do in each situation, and why?",
+          "steps": [
+            "Step 1 — Situation (a): Analyse whether a conflict of interest exists. A family relationship with the owner of a bidding company creates a direct personal interest that could — or could reasonably appear to — distort her professional judgment in favour of that contractor. Under engineering codes of conduct and general principles of public procurement, even the appearance of bias is sufficient to require action.",
+            "Step 2 — Required action for (a): She must immediately declare the relationship in writing to her supervisor and to the evaluation panel. She must recuse herself completely from assessing or scoring Contractor 1's submission. She should not discuss the competing bids with her brother-in-law under any circumstances. This is mandatory, not optional, regardless of whether she believes she could be objective.",
+            "Step 3 — Situation (b): Analyse the ₦600,000 payment. This is an unsolicited payment from a party who stands to gain from her professional decision. It meets every definition of a bribe: it is a financial benefit offered to a public official to influence or reward the exercise of her duties. It is prohibited by the COREN Code of Conduct, the NSE Code of Ethics, the Corrupt Practices and Other Related Offences Act (Nigeria, 2000), and the Criminal Code.",
+            "Step 4 — Required action for (b): She must not spend, return or silently refund the money without documentation, as returning it privately could be seen as concealment. She must immediately report the payment in writing to her employer and file a formal report with the Independent Corrupt Practices and Other Related Offences Commission (ICPC). She should preserve all bank records as evidence. Contractor 2 must be reported to the procuring authority; depending on the investigation outcome, that contractor may be disqualified.",
+            "Step 5 — Underlying principle: Both situations illustrate that engineering integrity is not merely about technical competence. Financial independence and freedom from personal entanglement are prerequisites for decisions that affect public safety and the use of public resources. An engineer who compromises these standards faces disciplinary proceedings by COREN (including suspension or cancellation of licence), criminal prosecution and civil liability."
+          ],
+          "answer": "She must recuse herself from evaluating Contractor 1 (conflict of interest) and report the ₦600,000 payment to her employer and the ICPC (bribery). Failure to do so violates her professional code, Nigerian law and her fundamental duty to the integrity of the procurement process."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "When an engineer's employer instructs them to approve a structure the engineer sincerely believes is unsafe for public use, the correct course of action is to:",
+          "options": [
+            "Follow the instruction because the employer holds contractual authority over the engineer's professional decisions",
+            "Complete the project and raise concerns informally with colleagues afterwards",
+            "Formally refuse to certify the structure as safe, document the objection in writing, and escalate to higher authority if overruled",
+            "Resign from the project immediately without notifying any regulatory body"
+          ],
+          "correctIndex": 2,
+          "explanation": "Engineering codes worldwide establish that public safety supersedes employer authority; the engineer must formally record dissent and escalate rather than either comply silently or simply resign without ensuring the danger is flagged."
+        },
+        {
+          "question": "The proximate technical cause of the 1986 Challenger Space Shuttle disaster was:",
+          "options": [
+            "A software fault in the onboard guidance computer",
+            "Failure of O-ring seals that could not expand properly at the low pre-launch temperature, allowing hot gases to escape",
+            "Metal fatigue in the external fuel tank caused by repeated pressurisation cycles",
+            "A communication error between the launch director and the flight crew"
+          ],
+          "correctIndex": 1,
+          "explanation": "Post-accident investigation confirmed that the O-ring seals on the right solid rocket booster failed at the low launch temperature, permitting hot combustion gases to breach the joint and ignite the external tank; engineers had warned of this exact risk the night before."
+        },
+        {
+          "question": "A safety officer rates three hazards as follows — Hazard P: Likelihood 2, Severity 4; Hazard Q: Likelihood 5, Severity 3; Hazard R: Likelihood 3, Severity 3 — using Risk Score = Likelihood × Severity. Which hazard has the highest risk score and therefore demands the most urgent attention?",
+          "options": [
+            "Hazard P with a score of 8",
+            "Hazard Q with a score of 15",
+            "Hazard R with a score of 9",
+            "All three have the same priority because the differences are small"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hazard Q scores 5 × 3 = 15, compared with Hazard R at 3 × 3 = 9 and Hazard P at 2 × 4 = 8; the highest score indicates the greatest overall risk and the highest control priority."
+        },
+        {
+          "question": "The primary purpose of an Environmental Impact Assessment (EIA) carried out before a major engineering project begins is to:",
+          "options": [
+            "Calculate the financial net present value of the project for investor approval",
+            "Identify, predict and evaluate the project's likely environmental consequences so that harmful effects can be avoided or reduced before work starts",
+            "Certify that the completed project has met all environmental standards during construction",
+            "Provide the contractor with a legal shield against future pollution liability claims"
+          ],
+          "correctIndex": 1,
+          "explanation": "An EIA is a forward-looking study conducted at the planning stage to foresee and mitigate environmental harm; it is a preventive instrument, not a financial tool, a post-construction audit or a liability waiver."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Engineering, Innovation and National Development",
+      "sourceRange": "Topic 5",
+      "summary": "Engineering does not end with a design on paper; it is realised through a structured sequence of activities called the project life cycle, which takes an idea from the first recognition of a need all the way through planning, design, construction, operation and eventual decommissioning. Understanding this cycle helps engineers manage time, cost and quality, and it shows how every phase generates decisions that affect the final outcome. Feasibility analysis early in the cycle—comparing projected benefits against projected costs—is the discipline's primary tool for deciding whether a project is worth pursuing at all.\n\nInnovation and entrepreneurship extend the engineer's role beyond execution into value creation. Engineering innovation may be incremental (improving an existing product or process) or disruptive (introducing something entirely new), and in either case it requires combining technical knowledge with business thinking. In the Nigerian context, technology transfer—acquiring and adapting technologies developed elsewhere—has historically been the dominant path to industrialisation, but sustainable development demands that transferred technologies eventually be absorbed, improved and owned locally. Nigeria's local content policy, especially in the oil and gas sector, is a deliberate strategy to build that domestic capability.\n\nAt the national scale, engineering underwrites virtually every dimension of economic development. Roads, bridges, power grids, water systems and digital infrastructure reduce the cost of doing business, raise productivity and attract investment. The manufacturing sector converts raw materials into higher-value goods, and engineers are the agents who design, build and operate the factories and supply chains that make this conversion possible. Countries that have closed the gap with advanced economies—South Korea, Malaysia, Brazil—did so largely by investing in engineering capacity, and Nigeria's own development ambitions depend on producing and retaining engineers who can design, not merely operate, the infrastructure and industries the country needs.",
+      "keyPoints": [
+        "The engineering project life cycle has five main phases: conception and feasibility, planning and design, procurement and construction, operation and maintenance, and decommissioning or disposal.",
+        "A feasibility study uses tools such as Net Present Value (NPV) to compare the present value of future benefits against upfront costs; a positive NPV signals a financially viable project.",
+        "Innovation in engineering is classified as product innovation (new or improved goods), process innovation (better ways of making or delivering) or systems innovation (new organisational or infrastructure arrangements).",
+        "Engineering entrepreneurship turns technical innovations into commercial ventures; break-even analysis determines the minimum output at which a new venture covers its costs.",
+        "Technology transfer is the acquisition, adaptation and internalisation of technology from an external source; it succeeds only when local engineers understand and can independently modify the transferred technology.",
+        "Nigeria's Local Content Act (2010) requires oil and gas operators to give preference to Nigerian goods, services and personnel, aiming to increase the share of project value retained in the domestic economy.",
+        "Engineers contribute to national development through infrastructure (roads, power, water, ICT), manufacturing (agro-processing, petrochemicals, light industry) and services (consulting, maintenance, design).",
+        "Key development metrics influenced by engineering investment include GDP growth, employment, export diversification, energy access rates and the Human Development Index."
+      ],
+      "definitions": [
+        {
+          "term": "Project life cycle",
+          "definition": "The complete sequence of phases through which an engineering project passes, from the initial identification of a need to the final disposal of the facility: typically conception/feasibility, planning/design, procurement/construction, operation/maintenance, and decommissioning."
+        },
+        {
+          "term": "Feasibility study",
+          "definition": "A structured early-phase investigation that assesses whether a proposed project is technically achievable, financially viable and socially acceptable, enabling decision-makers to commit or withdraw before major resources are spent."
+        },
+        {
+          "term": "Net Present Value (NPV)",
+          "definition": "The sum of all future net cash flows from a project discounted back to today's value minus the initial investment; a positive NPV indicates that the project is expected to create more value than it costs."
+        },
+        {
+          "term": "Innovation",
+          "definition": "The successful introduction of something new or significantly improved—a product, process, service or organisational method—that creates value; distinguished from invention by its requirement for practical adoption and impact."
+        },
+        {
+          "term": "Engineering entrepreneurship",
+          "definition": "The activity of identifying a market need, designing a technical solution and organising the resources (capital, people, equipment) to deliver that solution as a sustainable commercial enterprise."
+        },
+        {
+          "term": "Technology transfer",
+          "definition": "The deliberate movement of technical knowledge, processes or equipment from one organisation or country to another, with the goal that the recipient can eventually operate, maintain and improve the technology independently."
+        },
+        {
+          "term": "Local content",
+          "definition": "The proportion of a project's total value—comprising labour, materials, services and intellectual input—that is supplied by domestic rather than foreign sources; in Nigeria it is a legal requirement in the petroleum industry under the Nigerian Oil and Gas Industry Content Development Act 2010."
+        },
+        {
+          "term": "Break-even point",
+          "definition": "The level of output or sales at which total revenue exactly equals total costs (fixed plus variable), so that the venture makes neither profit nor loss; output above this level generates profit."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Assessing project viability with Net Present Value",
+          "problem": "A state government is evaluating a ₦50 million rural water-supply project. The project will deliver net annual benefits (value of water supplied minus operating costs) of ₦10 million per year for 10 years, after which it has no salvage value. Using a discount rate of 10 % per year, calculate the NPV and advise whether the project should proceed.",
+          "steps": [
+            "Identify cash flows. Initial investment C₀ = ₦50 million (outflow at time 0). Annual net benefit = ₦10 million (inflow at end of each year, years 1–10).",
+            "Recall the NPV formula: NPV = −C₀ + A × PVIFA(r, n), where A is the uniform annual benefit, r is the discount rate and PVIFA is the Present Value Interest Factor of an Annuity.",
+            "Calculate PVIFA(10 %, 10 years): PVIFA = [1 − (1 + r)^(−n)] / r = [1 − (1.10)^(−10)] / 0.10. Compute (1.10)^10 = 2.5937, so (1.10)^(−10) = 0.3855. PVIFA = (1 − 0.3855) / 0.10 = 0.6145 / 0.10 = 6.145.",
+            "Calculate the present value of all benefits: PV = 10 × 6.145 = ₦61.45 million.",
+            "Calculate NPV: NPV = −50 + 61.45 = +₦11.45 million.",
+            "Interpret the result. NPV > 0, meaning the project returns more value in today's money than it costs. The project is financially viable and should proceed, provided it also passes technical and social feasibility checks."
+          ],
+          "answer": "NPV = +₦11.45 million. The project is financially viable and should be approved."
+        },
+        {
+          "title": "Calculating local content percentage on a construction project",
+          "problem": "A pipeline construction contract is awarded for a total value of ₦200 million. The contractor's cost breakdown is: Nigerian labour ₦60 million; locally manufactured steel pipes and fittings ₦80 million; imported construction equipment (depreciation allocated to project) ₦40 million; foreign specialist engineering services ₦20 million. Calculate the local content percentage and comment on whether a 65 % local content target has been met.",
+          "steps": [
+            "Identify local (Nigerian) expenditure items: Nigerian labour = ₦60 million; locally manufactured materials = ₦80 million. Total local spend = 60 + 80 = ₦140 million.",
+            "Identify foreign expenditure items: imported equipment = ₦40 million; foreign services = ₦20 million. Total foreign spend = 40 + 20 = ₦60 million.",
+            "Verify total: 140 + 60 = ₦200 million. ✓",
+            "Calculate local content percentage: Local Content % = (Local spend / Total contract value) × 100 = (140 / 200) × 100 = 70 %.",
+            "Compare with the 65 % target: 70 % > 65 %, so the target is exceeded by 5 percentage points.",
+            "Comment. By maximising locally manufactured materials and Nigerian labour, the contractor retains ₦140 million within the domestic economy, supporting local jobs and industrial capacity in line with Nigeria's Local Content Act."
+          ],
+          "answer": "Local content = 70 %, which exceeds the 65 % target. The contract complies with local content requirements."
+        },
+        {
+          "title": "Break-even analysis for an engineering start-up",
+          "problem": "A recent engineering graduate sets up a solar photovoltaic installation business. Annual fixed costs (rent, salaries, insurance, loan repayment) total ₦500,000. The variable cost of each residential installation (panels, inverter, wiring, transport) is ₦80,000 per system, and each system is sold and installed for ₦150,000. How many installations must the business complete per year to break even, and what is the annual profit if 15 installations are completed?",
+          "steps": [
+            "Calculate the contribution margin per installation: Contribution = Selling price − Variable cost = ₦150,000 − ₦80,000 = ₦70,000 per installation.",
+            "Apply the break-even formula: Break-even quantity = Fixed costs / Contribution per unit = ₦500,000 / ₦70,000 = 7.14 installations.",
+            "Since installations are whole units, round up: the business must complete at least 8 installations per year to cover all its costs.",
+            "Calculate profit at 15 installations: Profit = (Contribution per unit × Quantity) − Fixed costs = (70,000 × 15) − 500,000 = 1,050,000 − 500,000 = ₦550,000 per year.",
+            "Interpret. The business becomes profitable after the 8th installation. At 15 installations it earns ₦550,000 annually, demonstrating that small-scale engineering entrepreneurship in renewable energy can be commercially viable even at modest volumes."
+          ],
+          "answer": "Break-even point = 8 installations per year. At 15 installations, annual profit = ₦550,000."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A 12-year infrastructure project has an initial cost of ₦80 million and generates uniform annual net benefits of ₦12 million. Using a discount rate of 10 %, PVIFA(10 %, 12) = 6.814. What is the project's NPV?",
+          "options": [
+            "−₦80.0 million",
+            "−₦61.2 million",
+            "+₦1.77 million",
+            "+₦64.0 million"
+          ],
+          "correctIndex": 2,
+          "explanation": "NPV = −80 + 12 × 6.814 = −80 + 81.77 = +₦1.77 million; the project is marginally viable."
+        },
+        {
+          "question": "Which phase of the engineering project life cycle is the correct stage to conduct a feasibility study?",
+          "options": [
+            "Operation and maintenance",
+            "Procurement and construction",
+            "Conception and initiation",
+            "Decommissioning and disposal"
+          ],
+          "correctIndex": 2,
+          "explanation": "A feasibility study belongs to the conception and initiation phase, when it is still inexpensive to abandon the project if it proves unviable."
+        },
+        {
+          "question": "A contractor spends ₦90 million locally and ₦60 million on foreign inputs on a ₦150 million project. What is the local content percentage, and does it meet a 55 % target?",
+          "options": [
+            "40 %; no, it falls short",
+            "55 %; yes, it exactly meets the target",
+            "60 %; yes, it exceeds the target",
+            "65 %; yes, it exceeds the target"
+          ],
+          "correctIndex": 2,
+          "explanation": "Local content % = (90/150) × 100 = 60 %, which exceeds the 55 % target."
+        },
+        {
+          "question": "Technology transfer is considered fully successful only when:",
+          "options": [
+            "The recipient country has paid all licensing fees to the originating country",
+            "Foreign experts are permanently stationed at the recipient facility",
+            "Local engineers can independently operate, maintain and improve the acquired technology",
+            "The technology has been patented in the recipient country's name"
+          ],
+          "correctIndex": 2,
+          "explanation": "True technology transfer requires genuine absorption of knowledge so that local engineers no longer depend on the original supplier; payment or foreign presence alone does not achieve this."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

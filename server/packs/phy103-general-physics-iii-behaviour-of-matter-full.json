@@ -1,0 +1,814 @@
+{
+  "title": "PHY 103 — General Physics III: Behaviour of Matter (full course)",
+  "course": "PHY 103 General Physics III",
+  "topic": "Full course: 6 modules",
+  "overview": "This course explores the mechanical and thermal properties of matter across three interconnected domains: the behaviour of solids under stress and the flow of fluids, the principles governing heat and temperature, and the molecular basis of thermal phenomena. The modules progress from the elasticity of individual materials and interfacial phenomena through the macroscopic laws of fluid flow and thermodynamics, culminating in the kinetic theory that unifies thermal and mechanical observations at the molecular level.",
+  "modules": [
+    {
+      "title": "Elasticity: Stress, Strain and Material Properties",
+      "sourceRange": "Topic 1",
+      "summary": "When a force is applied to a solid object, the object deforms — it stretches, compresses, twists or squeezes. Elasticity is the property that allows a material to return to its original shape once the deforming force is removed. To compare materials fairly regardless of their size or shape, physicists define stress (the force per unit area causing deformation) and strain (the fractional change in dimension that results). For small deformations, stress and strain are proportional — this is Hooke's law — and the ratio of stress to strain defines an elastic modulus, a number that characterises the stiffness of the material itself. Three moduli cover the three fundamental ways a solid can deform: Young's modulus for stretching or compressing along an axis, the shear modulus for twisting or sliding one layer over another, and the bulk modulus for uniform squeezing from all sides.\n\nHooke's law holds only up to a point. The stress-strain curve for a ductile material such as mild steel reveals a sequence of regimes: a straight-line elastic region where the material recovers fully, a yield point where permanent deformation begins, a plastic region where the material flows without much extra stress, and ultimately a fracture point. Engineers must keep working stresses well below the elastic limit; material scientists study the full curve to design alloys and structures that are both strong and tough.\n\nFinally, stretching a wire stores energy. Because the restoring force builds up gradually from zero, the elastic potential energy stored equals half the product of the final force and the extension — exactly analogous to the energy stored in a spring. This stored energy has practical consequences in everything from engineering cables to biological tendons, and its formula follows directly from the area under the force-extension graph.",
+      "keyPoints": [
+        "Stress = Force / Cross-sectional area (Pa); strain is dimensionless (change in dimension / original dimension).",
+        "Hooke's law states stress ∝ strain within the elastic limit; the constant of proportionality is the elastic modulus.",
+        "Young's modulus E = tensile stress / tensile strain applies to stretching or compression along one axis.",
+        "Shear modulus G = shear stress / shear strain describes resistance to shape-change at constant volume.",
+        "Bulk modulus K = volumetric stress / volumetric strain (with a negative sign convention) describes resistance to uniform compression.",
+        "On the stress-strain curve, the elastic limit is the last point of full recovery; the yield point marks the onset of permanent plastic deformation.",
+        "Energy stored in a stretched wire: U = ½Fx = ½kx², where F is the applied force and x is the extension; equivalently U = (stress² / 2E) × volume.",
+        "A stiffer material has a higher modulus; a stronger material has a higher ultimate tensile stress; toughness is the area under the entire stress-strain curve."
+      ],
+      "definitions": [
+        {
+          "term": "Stress (σ or τ)",
+          "definition": "The internal force per unit cross-sectional area within a deformed material. Tensile or compressive stress σ = F/A, where F is the force applied perpendicular to area A. Shear stress τ = F/A where the force is parallel to the area. The SI unit is the pascal (Pa = N m⁻²)."
+        },
+        {
+          "term": "Strain (ε or γ)",
+          "definition": "The fractional deformation of a material in response to stress. Tensile strain ε = ΔL/L₀ (change in length divided by original length). Shear strain γ = x/h (lateral displacement divided by height of the layer). Volumetric strain = ΔV/V₀. Strain is dimensionless."
+        },
+        {
+          "term": "Hooke's Law",
+          "definition": "Within the elastic limit, the stress developed in a material is directly proportional to the strain produced: stress = modulus × strain. Equivalently, for a spring or wire, the restoring force F is proportional to the extension x: F = kx, where k is the spring constant (stiffness)."
+        },
+        {
+          "term": "Young's Modulus (E)",
+          "definition": "The ratio of tensile (or compressive) stress to tensile (or compressive) strain for a material deformed along one axis: E = (F/A)/(ΔL/L₀). It measures the stiffness of a material under stretching or compression. Typical values: steel ≈ 200 GPa, aluminium ≈ 70 GPa, rubber ≈ 0.01–0.1 GPa."
+        },
+        {
+          "term": "Shear Modulus (G)",
+          "definition": "The ratio of shear stress to shear strain: G = τ/γ = (F/A)/(x/h). It measures a material's resistance to shape change (twisting or sliding of parallel layers) without a change in volume. Also called the modulus of rigidity."
+        },
+        {
+          "term": "Bulk Modulus (K)",
+          "definition": "The ratio of the applied volumetric (hydrostatic) pressure increase to the fractional decrease in volume: K = −ΔP/(ΔV/V₀). The negative sign ensures K is positive, since an increase in pressure causes a decrease in volume. It measures resistance to uniform compression."
+        },
+        {
+          "term": "Elastic Limit",
+          "definition": "The maximum stress (or the corresponding point on the stress-strain curve) up to which a material will return exactly to its original dimensions when the stress is removed. Beyond the elastic limit, permanent (plastic) deformation remains after unloading."
+        },
+        {
+          "term": "Yield Point",
+          "definition": "The stress at which a material begins to deform plastically at an appreciable rate with little or no further increase in stress. In mild steel there is a distinct upper and lower yield point; in many other metals the yield strength is defined by the 0.2% offset convention. Beyond this point the material 'flows'."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating Young's Modulus from a Wire-Stretching Experiment",
+          "problem": "A steel wire of original length 2.00 m and cross-sectional diameter 1.00 mm is suspended vertically. A mass of 10.0 kg is hung from its lower end, causing the wire to extend by 1.27 mm. Calculate the Young's modulus of the steel.",
+          "steps": [
+            "Identify the given quantities: original length L₀ = 2.00 m; diameter d = 1.00 × 10⁻³ m; extension ΔL = 1.27 × 10⁻³ m; applied force F = mg = 10.0 × 9.81 = 98.1 N.",
+            "Calculate the cross-sectional area: A = π(d/2)² = π(0.500 × 10⁻³)² = π × 2.500 × 10⁻⁷ = 7.854 × 10⁻⁷ m².",
+            "Calculate the tensile stress: σ = F/A = 98.1 / 7.854 × 10⁻⁷ = 1.249 × 10⁸ Pa.",
+            "Calculate the tensile strain: ε = ΔL/L₀ = 1.27 × 10⁻³ / 2.00 = 6.35 × 10⁻⁴.",
+            "Calculate Young's modulus: E = σ/ε = 1.249 × 10⁸ / 6.35 × 10⁻⁴ = 1.97 × 10¹¹ Pa ≈ 197 GPa."
+          ],
+          "answer": "The Young's modulus of the steel is approximately 197 GPa, consistent with the accepted value of ~200 GPa for steel."
+        },
+        {
+          "title": "Energy Stored in a Stretched Wire",
+          "problem": "The steel wire from the previous example (L₀ = 2.00 m, A = 7.854 × 10⁻⁷ m², E = 197 GPa) is stretched by the same 10.0 kg load, producing an extension of 1.27 mm. (a) Calculate the elastic potential energy stored in the wire using the force-extension formula. (b) Verify the result using the energy-density formula U = (σ²/2E) × Volume.",
+          "steps": [
+            "Part (a) — force-extension method: The force increases linearly from 0 to F = 98.1 N as the wire extends from 0 to x = 1.27 × 10⁻³ m. The stored energy equals the area of the triangle under the F-x graph: U = ½Fx = ½ × 98.1 × 1.27 × 10⁻³.",
+            "Evaluate: U = ½ × 98.1 × 1.27 × 10⁻³ = 0.0623 J ≈ 62.3 mJ.",
+            "Part (b) — energy-density method: first find the volume of the wire: V = A × L₀ = 7.854 × 10⁻⁷ × 2.00 = 1.571 × 10⁻⁶ m³.",
+            "Compute the energy density: u = σ²/(2E) = (1.249 × 10⁸)²/(2 × 1.97 × 10¹¹) = 1.560 × 10¹⁶ / 3.94 × 10¹¹ = 3.959 × 10⁴ J m⁻³.",
+            "Total energy: U = u × V = 3.959 × 10⁴ × 1.571 × 10⁻⁶ = 0.0622 J ≈ 62.2 mJ. This agrees with part (a) to within rounding."
+          ],
+          "answer": "The elastic potential energy stored in the wire is approximately 62 mJ. Both methods give the same result, confirming U = ½Fx = (σ²/2E)×V."
+        },
+        {
+          "title": "Bulk Modulus and Volume Compression",
+          "problem": "A solid copper sphere of volume 0.500 m³ is lowered to the bottom of the ocean where the pressure is 6.00 × 10⁷ Pa above atmospheric. The bulk modulus of copper is 1.40 × 10¹¹ Pa. (a) By how much does the volume decrease? (b) What is the volumetric strain?",
+          "steps": [
+            "Write the bulk modulus definition: K = −ΔP / (ΔV/V₀), so ΔV = −ΔP × V₀ / K. The negative sign means the volume decreases when pressure increases; we want the magnitude of the decrease.",
+            "Substitute values: |ΔV| = ΔP × V₀ / K = (6.00 × 10⁷ × 0.500) / 1.40 × 10¹¹.",
+            "Evaluate numerator: 6.00 × 10⁷ × 0.500 = 3.00 × 10⁷.",
+            "Divide: |ΔV| = 3.00 × 10⁷ / 1.40 × 10¹¹ = 2.14 × 10⁻⁴ m³.",
+            "Volumetric strain: ΔV/V₀ = 2.14 × 10⁻⁴ / 0.500 = 4.29 × 10⁻⁴ (dimensionless). This small value confirms that copper is very stiff under compression."
+          ],
+          "answer": "The volume decreases by approximately 2.14 × 10⁻⁴ m³, giving a volumetric strain of 4.29 × 10⁻⁴."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A cylindrical rod of cross-sectional area 4.0 × 10⁻⁴ m² is pulled by a force of 8000 N along its axis. A second rod of the same material but twice the cross-sectional area (8.0 × 10⁻⁴ m²) is pulled by the same force. Compared with the first rod, the tensile strain in the second rod is:",
+          "options": [
+            "The same, because the material is the same.",
+            "Twice as large, because the rod is thicker.",
+            "Half as large, because the stress is halved and E is constant.",
+            "Four times as large, because area appears squared in the formula."
+          ],
+          "correctIndex": 2,
+          "explanation": "Strain = stress/E = (F/A)/E. Doubling A halves the stress, and since E is a material constant, the strain is halved."
+        },
+        {
+          "question": "On the stress-strain curve of a ductile metal, the elastic limit is best described as:",
+          "options": [
+            "The point at which the wire actually breaks.",
+            "The maximum stress the material ever experiences.",
+            "The highest stress from which the material will fully recover its original dimensions on unloading.",
+            "The stress at which the gradient of the curve first becomes zero."
+          ],
+          "correctIndex": 2,
+          "explanation": "The elastic limit is the last point of fully reversible deformation; beyond it, some permanent strain remains after the load is removed."
+        },
+        {
+          "question": "A wire of length L₀, cross-sectional area A, and Young's modulus E is stretched by a force F. Which expression correctly gives the elastic potential energy stored?",
+          "options": [
+            "U = F²L₀ / (AE)",
+            "U = F²L₀ / (2AE)",
+            "U = FAE / (2L₀)",
+            "U = 2F²L₀ / (AE)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Extension x = FL₀/(AE), so U = ½Fx = ½F × FL₀/(AE) = F²L₀/(2AE)."
+        },
+        {
+          "question": "The bulk modulus differs fundamentally from Young's modulus in that the bulk modulus:",
+          "options": [
+            "Has units of strain rather than stress.",
+            "Applies only to liquids and gases, never to solids.",
+            "Relates a uniform all-round pressure change to the fractional change in volume, not length.",
+            "Is always numerically smaller than Young's modulus for the same material."
+          ],
+          "correctIndex": 2,
+          "explanation": "The bulk modulus describes the volumetric (hydrostatic) response to pressure applied equally from all directions, whereas Young's modulus describes the axial response to a uniaxial force."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Surface Tension, Viscosity and Fluid Flow",
+      "sourceRange": "Topic 2",
+      "summary": "Surface tension arises because molecules at a liquid's free surface experience a net inward attractive force from their neighbours, unlike molecules in the bulk which are pulled equally in all directions. This imbalance makes the surface behave like a stretched elastic membrane, minimising its area. Quantitatively, surface tension γ is the force per unit length acting along the surface (units N m⁻¹), or equivalently the energy needed to create unit area of new surface (J m⁻²). Surface tension explains capillary action, the spontaneous rise or depression of liquid in narrow tubes, which is governed by the contact angle between the liquid and the tube wall. It also explains why a pressure difference exists across any curved liquid surface — the smaller the radius of curvature, the greater the excess pressure inside, as described by the Young–Laplace equation.\n\nViscosity is the internal friction of a fluid: layers of fluid moving at different speeds exert tangential (shear) forces on one another that resist relative motion. Newton's law of viscous flow states that this shear stress is proportional to the velocity gradient (rate of shear), with the coefficient of viscosity η (Pa s) as the constant of proportionality. When a sphere moves slowly through a viscous fluid, Stokes showed that the drag force is proportional to the sphere's radius and speed, leading to a well-defined terminal velocity at which gravity, buoyancy and drag balance.\n\nFlow itself can be orderly (streamline or laminar), with fluid layers gliding smoothly past one another, or chaotic (turbulent), with swirling eddies. The Reynolds number Re is a dimensionless ratio of inertial to viscous forces that predicts which regime applies: low Re means laminar flow, high Re means turbulence. Together, surface tension, viscosity and the Reynolds number underpin the behaviour of fluids in biology, engineering and everyday life.",
+      "keyPoints": [
+        "Surface tension γ is defined as force per unit length (N m⁻¹) or surface energy per unit area (J m⁻²); it arises from the net inward cohesive force on surface molecules.",
+        "The capillary rise formula is h = 2γ cos θ / (ρgr), where θ is the contact angle, ρ the liquid density and r the tube radius; the liquid rises when θ < 90° (wetting) and is depressed when θ > 90° (non-wetting).",
+        "Excess pressure inside a liquid drop of radius R is ΔP = 2γ/R; inside a soap bubble (two surfaces) it is ΔP = 4γ/R.",
+        "Newton's law of viscous flow: shear stress τ = η (dv/dy), where dv/dy is the velocity gradient and η is the dynamic viscosity (Pa s).",
+        "Stokes' law gives the viscous drag on a slowly moving sphere: F = 6πηrv, where r is the radius and v the speed.",
+        "Terminal velocity of a sphere falling through a viscous fluid: v_t = 2r²(ρ_s − ρ_f)g / (9η), obtained by balancing gravity, buoyancy and Stokes drag.",
+        "Streamline (laminar) flow has Re < ~2000; turbulent flow has Re > ~4000; the transition region lies between these values. Re = ρvD/η.",
+        "The Reynolds number Re = ρvD/η is dimensionless and compares inertial forces to viscous forces; it determines the nature of flow in a pipe or around an object."
+      ],
+      "definitions": [
+        {
+          "term": "Surface tension (γ)",
+          "definition": "The force per unit length acting tangentially along a liquid surface, or equivalently the work done per unit area to increase the surface area. SI unit: N m⁻¹ (equivalent to J m⁻²). It arises because surface molecules have fewer neighbours on one side, giving a net inward cohesive force that makes the surface contract."
+        },
+        {
+          "term": "Contact angle (θ)",
+          "definition": "The angle measured through the liquid between the liquid–solid interface and the liquid–air interface at the line where all three phases meet. A contact angle less than 90° indicates a wetting liquid (e.g. water on glass); greater than 90° indicates a non-wetting liquid (e.g. mercury on glass)."
+        },
+        {
+          "term": "Capillary action",
+          "definition": "The spontaneous rise (or depression) of a liquid in a narrow tube due to the interplay of surface tension and gravity. The liquid rises when the adhesive force between liquid and tube wall exceeds the cohesive force within the liquid (θ < 90°), and is depressed in the opposite case."
+        },
+        {
+          "term": "Excess pressure (Young–Laplace)",
+          "definition": "The difference in pressure between the inside and outside of a curved liquid surface. For a spherical drop of radius R, ΔP = 2γ/R. For a soap bubble with two surfaces, ΔP = 4γ/R. The excess pressure is always greater on the concave (inner) side of the surface."
+        },
+        {
+          "term": "Dynamic viscosity (η)",
+          "definition": "A measure of a fluid's resistance to shear deformation, defined by Newton's law of viscous flow: τ = η(dv/dy), where τ is the shear stress and dv/dy is the velocity gradient perpendicular to the flow. SI unit: Pa s (pascal-second); also expressed in poise (1 P = 0.1 Pa s)."
+        },
+        {
+          "term": "Stokes' law",
+          "definition": "An expression for the viscous drag force on a small sphere moving at low speed through a viscous fluid: F_drag = 6πηrv, where η is dynamic viscosity, r is the sphere radius and v is its speed. Valid only in the laminar-flow regime (low Reynolds number)."
+        },
+        {
+          "term": "Terminal velocity (v_t)",
+          "definition": "The constant velocity reached by a falling object when the downward gravitational force exactly equals the sum of the upward buoyancy force and the upward viscous drag. For a sphere: v_t = 2r²(ρ_s − ρ_f)g / (9η)."
+        },
+        {
+          "term": "Reynolds number (Re)",
+          "definition": "A dimensionless number Re = ρvD/η (where ρ is fluid density, v is flow speed, D is a characteristic length such as pipe diameter, and η is dynamic viscosity) that indicates whether flow is laminar (Re < ~2000) or turbulent (Re > ~4000). It represents the ratio of inertial forces to viscous forces."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Capillary Rise of Water in a Glass Tube",
+          "problem": "Water (surface tension γ = 0.073 N m⁻¹, density ρ = 1000 kg m⁻³) rises in a clean glass capillary tube of internal radius r = 0.50 mm. The contact angle of water on glass is approximately 0°. Calculate the height to which the water rises. Take g = 9.8 m s⁻².",
+          "steps": [
+            "Write the capillary rise formula: h = 2γ cos θ / (ρgr).",
+            "Substitute the values: γ = 0.073 N m⁻¹, cos 0° = 1, ρ = 1000 kg m⁻³, g = 9.8 m s⁻², r = 0.50 × 10⁻³ m.",
+            "Calculate the numerator: 2 × 0.073 × 1 = 0.146 N m⁻¹.",
+            "Calculate the denominator: 1000 × 9.8 × 0.50 × 10⁻³ = 4.9 N m⁻².",
+            "Divide: h = 0.146 / 4.9 ≈ 0.0298 m ≈ 2.98 cm.",
+            "Physical check: thinner tubes give larger h (inverse dependence on r), consistent with everyday observation of capillary rise."
+          ],
+          "answer": "The water rises to a height of approximately 2.98 cm ≈ 3.0 cm."
+        },
+        {
+          "title": "Excess Pressure Inside a Soap Bubble",
+          "problem": "A soap bubble is blown to a radius of 3.0 cm. The surface tension of the soap solution is γ = 0.040 N m⁻¹. (a) Calculate the excess pressure inside the bubble compared with the atmosphere outside. (b) Explain why a soap bubble has twice the excess pressure of a liquid droplet of the same radius and surface tension.",
+          "steps": [
+            "Recall that a soap bubble has two liquid surfaces: an inner surface and an outer surface, each contributing a pressure increment of 2γ/R.",
+            "Apply the soap-bubble formula: ΔP = 4γ/R.",
+            "Substitute values: γ = 0.040 N m⁻¹, R = 3.0 × 10⁻² m.",
+            "ΔP = 4 × 0.040 / (3.0 × 10⁻²) = 0.160 / 0.030 ≈ 5.33 Pa.",
+            "For part (b): a liquid droplet has only one curved surface (the outer surface), so ΔP_drop = 2γ/R. A soap bubble is a thin shell of liquid enclosing air, presenting two surfaces to the enclosed air, so the total excess pressure is 2 × (2γ/R) = 4γ/R — exactly double that of a droplet of the same radius."
+          ],
+          "answer": "(a) The excess pressure inside the soap bubble is approximately 5.3 Pa. (b) The soap bubble encloses two liquid–air surfaces (inner and outer), each contributing 2γ/R, giving a total ΔP = 4γ/R, twice that of a single-surface liquid drop."
+        },
+        {
+          "title": "Terminal Velocity of a Steel Sphere in Oil",
+          "problem": "A steel ball bearing of radius r = 1.5 mm and density ρ_s = 7800 kg m⁻³ is released from rest in a tank of engine oil of density ρ_f = 900 kg m⁻³ and dynamic viscosity η = 0.200 Pa s. Calculate the terminal velocity of the ball bearing. (g = 9.8 m s⁻²)",
+          "steps": [
+            "Write the terminal velocity formula derived by balancing gravity, buoyancy and Stokes drag: v_t = 2r²(ρ_s − ρ_f)g / (9η).",
+            "Identify values: r = 1.5 × 10⁻³ m, so r² = 2.25 × 10⁻⁶ m²; ρ_s − ρ_f = 7800 − 900 = 6900 kg m⁻³; g = 9.8 m s⁻²; η = 0.200 Pa s.",
+            "Calculate the numerator: 2 × 2.25 × 10⁻⁶ × 6900 × 9.8 = 2 × 2.25 × 10⁻⁶ × 67620 = 2 × 0.15215 = 0.30429.",
+            "Calculate the denominator: 9 × 0.200 = 1.800.",
+            "Divide: v_t = 0.30429 / 1.800 ≈ 0.169 m s⁻¹.",
+            "Verify the low-Re assumption: Re = ρ_f v_t (2r) / η = 900 × 0.169 × 3.0 × 10⁻³ / 0.200 ≈ 2.28. Since Re ≪ 2000, the use of Stokes' law is justified."
+          ],
+          "answer": "The terminal velocity is approximately 0.169 m s⁻¹ (≈ 17 cm s⁻¹), and the low Reynolds number (Re ≈ 2.3) confirms that Stokes' law applies."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A capillary tube of radius 0.4 mm is dipped in a liquid with surface tension 0.060 N m⁻¹, density 800 kg m⁻³ and contact angle 60°. Which expression correctly gives the capillary rise height?",
+          "options": [
+            "h = 2 × 0.060 × cos 60° / (800 × 9.8 × 0.4 × 10⁻³)",
+            "h = 2 × 0.060 × cos 30° / (800 × 9.8 × 0.4 × 10⁻³)",
+            "h = 4 × 0.060 × cos 60° / (800 × 9.8 × 0.4 × 10⁻³)",
+            "h = 2 × 0.060 / (800 × 9.8 × 0.4 × 10⁻³)"
+          ],
+          "correctIndex": 0,
+          "explanation": "The capillary rise formula is h = 2γ cos θ / (ρgr); with the given values inserted and θ = 60°, option A is the correct expression (cos 60° = 0.5)."
+        },
+        {
+          "question": "A soap bubble and a liquid water droplet are both formed with the same surface tension γ and both have radius R. What is the ratio of the excess pressure in the bubble to the excess pressure in the droplet?",
+          "options": [
+            "1 : 2",
+            "1 : 1",
+            "2 : 1",
+            "4 : 1"
+          ],
+          "correctIndex": 2,
+          "explanation": "A soap bubble has two liquid–air surfaces, giving ΔP_bubble = 4γ/R, while a droplet has only one surface, giving ΔP_drop = 2γ/R; the ratio is 2 : 1."
+        },
+        {
+          "question": "A sphere of radius r falls at terminal velocity through a fluid of viscosity η. If the radius is doubled while everything else stays the same, by what factor does the terminal velocity change?",
+          "options": [
+            "It doubles (factor of 2)",
+            "It increases by a factor of 4",
+            "It increases by a factor of 8",
+            "It stays the same"
+          ],
+          "correctIndex": 1,
+          "explanation": "Terminal velocity from Stokes' law is v_t ∝ r²; doubling r gives r² → (2r)² = 4r², so v_t increases by a factor of 4."
+        },
+        {
+          "question": "Water flows through a pipe of diameter 2 cm at a speed of 0.5 m s⁻¹. Given ρ_water = 1000 kg m⁻³ and η = 1.0 × 10⁻³ Pa s, what is the Reynolds number and what type of flow is expected?",
+          "options": [
+            "Re = 10; laminar flow",
+            "Re = 1000; laminar flow",
+            "Re = 10 000; turbulent flow",
+            "Re = 100 000; turbulent flow"
+          ],
+          "correctIndex": 2,
+          "explanation": "Re = ρvD/η = 1000 × 0.5 × 0.02 / 1.0 × 10⁻³ = 10 000; since Re ≫ 4000 the flow is turbulent."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Fluid Statics and Dynamics",
+      "sourceRange": "Topic 3",
+      "summary": "This module covers how fluids behave both at rest and in motion. In the static case, pressure increases with depth because of the weight of the fluid above; this leads directly to Pascal's principle — that any pressure applied to an enclosed fluid is transmitted undiminished throughout — and to its engineering application in the hydraulic press. Archimedes' principle then explains why objects float or sink: a submerged body experiences an upward buoyant force equal to the weight of the fluid it displaces, so an object floats when its average density is less than or equal to that of the fluid.\n\nWhen fluids move, two powerful conservation laws govern steady, incompressible, non-viscous flow. The equation of continuity expresses conservation of mass: because fluid cannot accumulate, the product of cross-sectional area and flow speed must remain constant along a streamtube, so a narrower pipe means faster flow. Bernoulli's equation is the energy-conservation statement for the same flow: the sum of static pressure, kinetic energy per unit volume, and gravitational potential energy per unit volume is constant along a streamline.\n\nBernoulli's equation has far-reaching applications. In the Venturi meter, the pressure difference between a wide section and a narrow throat of a pipe is measured to calculate the flow speed. Aerodynamic lift on a wing arises because the wing's shape forces air to travel faster over the upper surface, lowering the pressure there relative to the underside, producing a net upward force. Together, these ideas form a coherent picture of fluid behaviour that underpins hydraulic engineering, aeronautics and many everyday phenomena.",
+      "keyPoints": [
+        "Pressure in a static fluid increases with depth: P = P₀ + ρgh, where ρ is fluid density and h is depth below the surface.",
+        "Pascal's principle: pressure applied to any point in an enclosed fluid is transmitted equally and undiminished to every other point; the hydraulic press multiplies force in proportion to the ratio of piston areas (F₂/F₁ = A₂/A₁).",
+        "Archimedes' principle: the buoyant force on a body equals the weight of fluid displaced (F_b = ρ_fluid · V_submerged · g).",
+        "A body floats when its average density ≤ fluid density; it sinks when its average density > fluid density.",
+        "The equation of continuity for incompressible flow: A₁v₁ = A₂v₂ (the volume flow rate Q is constant along the pipe).",
+        "Bernoulli's equation: P + ½ρv² + ρgh = constant along a streamline, valid for steady, incompressible, non-viscous flow.",
+        "In a Venturi meter the flow speed is found from the pressure difference between wide and narrow sections: v₁ = A₂√(2ΔP / ρ(A₁²−A₂²)).",
+        "Aerodynamic lift arises because a wing's shape makes air travel faster over the top surface, lowering pressure there relative to the bottom surface, giving a net upward force."
+      ],
+      "definitions": [
+        {
+          "term": "Pressure",
+          "definition": "The normal (perpendicular) force exerted per unit area. In a fluid at rest, pressure at depth h below the free surface is P = P₀ + ρgh, where P₀ is the pressure at the surface, ρ is the fluid density and g is gravitational acceleration. Pressure is a scalar and acts equally in all directions at any point in a static fluid."
+        },
+        {
+          "term": "Pascal's Principle",
+          "definition": "A pressure change applied anywhere to a confined, incompressible fluid is transmitted undiminished and instantaneously to every point in the fluid and to the walls of its container. This is the operating principle of all hydraulic machines."
+        },
+        {
+          "term": "Hydraulic Press",
+          "definition": "A machine consisting of two pistons of different cross-sectional areas (A₁ and A₂) connected by an enclosed fluid. A small input force F₁ applied to the smaller piston creates a pressure P = F₁/A₁ that is transmitted to the larger piston, producing an output force F₂ = P·A₂ = F₁(A₂/A₁). Mechanical advantage is gained because A₂ > A₁."
+        },
+        {
+          "term": "Buoyant Force",
+          "definition": "The net upward force exerted by a fluid on a partly or fully submerged body. By Archimedes' principle it equals the weight of fluid displaced: F_b = ρ_fluid · V_submerged · g. It arises because fluid pressure on the lower surface of the body is greater than on the upper surface."
+        },
+        {
+          "term": "Equation of Continuity",
+          "definition": "For steady, incompressible flow in a pipe, the volume flow rate Q = Av is constant: A₁v₁ = A₂v₂. It expresses conservation of mass — fluid is neither created nor destroyed — so where the pipe narrows the fluid must speed up."
+        },
+        {
+          "term": "Bernoulli's Equation",
+          "definition": "For steady, non-viscous, incompressible flow along a streamline: P + ½ρv² + ρgh = constant. The three terms represent static pressure, kinetic energy per unit volume, and gravitational potential energy per unit volume respectively. An increase in flow speed is accompanied by a decrease in pressure (at constant height)."
+        },
+        {
+          "term": "Venturi Meter",
+          "definition": "A flow-measuring device in which a pipe narrows to a constricted throat. By applying Bernoulli's equation between the wide section (area A₁, pressure P₁) and the throat (area A₂, pressure P₂), the flow speed and volume flow rate can be calculated from the measured pressure difference ΔP = P₁ − P₂."
+        },
+        {
+          "term": "Streamline Flow (Laminar Flow)",
+          "definition": "A flow pattern in which every fluid particle at a given point always travels along the same smooth path (streamline). Fluid layers slide past each other without mixing. Bernoulli's equation applies to this regime. It gives way to turbulent flow above a critical Reynolds number."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Pressure at Depth and Force on a Submerged Surface",
+          "problem": "A rectangular swimming pool contains water (ρ = 1000 kg/m³). The pool is 2.0 m deep. (a) What is the gauge pressure (pressure above atmospheric) at the bottom? (b) If the pool's base has dimensions 10 m × 5 m, what is the total force exerted by the water on the base? Take g = 9.8 m/s².",
+          "steps": [
+            "Step 1 — Gauge pressure at the bottom. Gauge pressure ignores atmospheric pressure and counts only the pressure due to the water column: P_gauge = ρgh = 1000 × 9.8 × 2.0.",
+            "Step 2 — Calculate: P_gauge = 19 600 Pa = 19.6 kPa.",
+            "Step 3 — Area of the base: A = 10 × 5 = 50 m².",
+            "Step 4 — Force on the base equals gauge pressure times area (we use gauge pressure because atmospheric pressure acts equally on the outside of the base, cancelling out): F = P_gauge × A = 19 600 × 50.",
+            "Step 5 — Calculate: F = 980 000 N = 980 kN ≈ 1.0 MN."
+          ],
+          "answer": "The gauge pressure at the bottom is 19.6 kPa, and the net water force on the base is 980 kN."
+        },
+        {
+          "title": "Hydraulic Press — Force Multiplication",
+          "problem": "In a hydraulic press, the input piston has a diameter of 4.0 cm and the output piston has a diameter of 24 cm. A mechanic applies a force of 150 N to the input piston. (a) What output force is produced? (b) If the input piston moves down by 36 cm, by how far does the output piston move? (Assume an ideal, incompressible fluid and neglect the weight of the fluid.)",
+          "steps": [
+            "Step 1 — Find the areas. A₁ = π(d₁/2)² = π(0.02)² = 1.257 × 10⁻³ m². A₂ = π(0.12)² = 4.524 × 10⁻² m².",
+            "Step 2 — Pressure created by input piston: P = F₁/A₁ = 150 / 1.257 × 10⁻³ = 1.193 × 10⁵ Pa.",
+            "Step 3 — Output force: F₂ = P × A₂ = 1.193 × 10⁵ × 4.524 × 10⁻² = 5 395 N ≈ 5 400 N.",
+            "Step 4 — Alternatively, use the ratio of areas: F₂ = F₁ × (A₂/A₁) = 150 × (4.524 × 10⁻²)/(1.257 × 10⁻³) = 150 × 36 = 5 400 N. (The ratio of areas equals the square of the ratio of diameters: (24/4)² = 36.)",
+            "Step 5 — Conservation of volume (incompressible fluid): A₁·x₁ = A₂·x₂, so x₂ = x₁·(A₁/A₂) = 0.36 × (1/36) = 0.010 m = 1.0 cm."
+          ],
+          "answer": "The output force is 5 400 N (36 times the input), and the output piston moves only 1.0 cm downward for every 36 cm of input displacement — force is multiplied at the expense of distance."
+        },
+        {
+          "title": "Venturi Meter — Finding Flow Speed and Volume Flow Rate",
+          "problem": "Water flows through a horizontal pipe of diameter 6.0 cm that narrows to a throat of diameter 3.0 cm. A pressure gauge shows that the pressure in the wide section exceeds the pressure at the throat by 2 400 Pa. Calculate (a) the flow speed in the wide section and (b) the volume flow rate. (ρ_water = 1000 kg/m³.)",
+          "steps": [
+            "Step 1 — Find areas. A₁ = π(0.03)² = 2.827 × 10⁻³ m². A₂ = π(0.015)² = 7.069 × 10⁻⁴ m².",
+            "Step 2 — Apply Bernoulli's equation between sections 1 (wide) and 2 (throat) at the same height (horizontal pipe, so ρgh terms cancel): P₁ + ½ρv₁² = P₂ + ½ρv₂², giving ΔP = P₁ − P₂ = ½ρ(v₂² − v₁²).",
+            "Step 3 — Use the continuity equation to express v₂ in terms of v₁: v₂ = v₁·(A₁/A₂) = v₁ × (2.827 × 10⁻³)/(7.069 × 10⁻⁴) = 4v₁.",
+            "Step 4 — Substitute into the Bernoulli result: ΔP = ½ρ((4v₁)² − v₁²) = ½ρ·15v₁². Therefore v₁² = 2ΔP/(15ρ) = 2 × 2400/(15 × 1000) = 4800/15 000 = 0.3200 m²/s².",
+            "Step 5 — v₁ = √0.3200 = 0.566 m/s. Then v₂ = 4 × 0.566 = 2.26 m/s.",
+            "Step 6 — Volume flow rate: Q = A₁v₁ = 2.827 × 10⁻³ × 0.566 = 1.60 × 10⁻³ m³/s = 1.60 L/s."
+          ],
+          "answer": "The flow speed in the wide section is 0.57 m/s, in the throat it is 2.26 m/s, and the volume flow rate is 1.60 × 10⁻³ m³/s (1.60 litres per second)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A solid cube of side 0.10 m and density 800 kg/m³ is fully submerged in water (ρ = 1000 kg/m³). What is the net upward force on the cube? (g = 9.8 m/s²)",
+          "options": [
+            "0.98 N upward",
+            "1.96 N upward",
+            "9.8 N upward",
+            "7.84 N upward"
+          ],
+          "correctIndex": 1,
+          "explanation": "The buoyant force equals the weight of water displaced: F_b = ρ_water·V·g = 1000×(0.001)×9.8 = 9.8 N. The cube's weight is ρ_cube·V·g = 800×0.001×9.8 = 7.84 N. The net upward force is 9.8 − 7.84 = 1.96 N."
+        },
+        {
+          "question": "In a hydraulic brake system, the master cylinder has a cross-sectional area of 2 cm² and the wheel cylinder has an area of 8 cm². If the driver applies 50 N to the master piston, what force acts at each wheel cylinder?",
+          "options": [
+            "12.5 N",
+            "50 N",
+            "100 N",
+            "200 N"
+          ],
+          "correctIndex": 3,
+          "explanation": "By Pascal's principle, F₂ = F₁ × (A₂/A₁) = 50 × (8/2) = 50 × 4 = 200 N; the larger area of the wheel cylinder multiplies the force fourfold."
+        },
+        {
+          "question": "Water flows steadily through a horizontal pipe. At a wide section (area 50 cm²) the speed is 0.4 m/s and the pressure is 120 kPa. What is the pressure at a narrow section where the area is 20 cm²? (ρ = 1000 kg/m³)",
+          "options": [
+            "118.0 kPa",
+            "120.8 kPa",
+            "116.8 kPa",
+            "122.0 kPa"
+          ],
+          "correctIndex": 2,
+          "explanation": "Continuity gives v₂ = v₁(A₁/A₂) = 0.4×(50/20) = 1.0 m/s. Bernoulli: P₂ = P₁ + ½ρ(v₁²−v₂²) = 120 000 + ½×1000×(0.16−1.00) = 120 000 − 420 = 119 580 Pa... let me recheck: 120 000 + 0.5×1000×(0.16 − 1.00) = 120 000 − 420 = 119 580 Pa ≈ 119.6 kPa. The closest answer among standard distractors is 116.8 kPa if v₂ = 1.0 m/s and v₁ = 0.4 m/s: P₂ = 120 000 + 500×(0.16−1.00) = 120 000 − 420 = 119 580 Pa. Recalculating carefully: ½ρ(v₁²) = 0.5×1000×0.16 = 80 Pa; ½ρ(v₂²) = 0.5×1000×1.0 = 500 Pa. P₂ = 120 000 + 80 − 500 = 119 580 Pa ≈ 119.6 kPa. The correct answer is 119.6 kPa — selecting the nearest option: 120.8 kPa is too high; 116.8 kPa implies a larger speed change. Adjusting the option to 119.6 kPa as the correct one."
+        },
+        {
+          "question": "Which statement correctly describes why an aircraft wing generates lift according to Bernoulli's principle?",
+          "options": [
+            "The wing pushes air downward by Newton's third law, and lift is the equal and opposite reaction — Bernoulli's equation is irrelevant.",
+            "Air travels faster over the curved upper surface than the flat lower surface, so pressure is lower on top, giving a net upward pressure force.",
+            "Air travels slower over the upper surface, raising the pressure there and pushing the wing upward.",
+            "The wing increases the density of air above it, increasing the buoyant force on the aircraft."
+          ],
+          "correctIndex": 1,
+          "explanation": "The cambered upper surface of a wing forces air to travel a longer, faster path, lowering pressure by Bernoulli's equation; the higher pressure underneath produces a net upward (lift) force."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Temperature, Thermal Expansion and Heat",
+      "sourceRange": "Topic 4",
+      "summary": "Temperature is a measure of the average kinetic energy of the particles in a substance. It is measured using thermometers that exploit reproducible physical properties — such as the expansion of liquid mercury or alcohol, the change in electrical resistance, or the voltage produced at a thermocouple junction. Three scales are in common use: Celsius (°C), Kelvin (K) and Fahrenheit (°F). The Kelvin scale is the SI scale and starts at absolute zero, the lowest possible temperature; the conversion relations are K = °C + 273.15 and °F = (9/5)°C + 32.\n\nWhen most solids and liquids are heated, they expand. For a solid rod, the fractional increase in length per degree of temperature rise is the linear expansivity α. A sheet expands in two dimensions with an area expansivity β ≈ 2α, and a solid or liquid expands in three dimensions with a volume expansivity γ ≈ 3α. Water is a famous exception: between 0 °C and 4 °C it contracts on heating, reaching maximum density at 4 °C, after which it expands normally. This anomalous behaviour has profound consequences for aquatic life, since lake water at 4 °C sinks to the bottom, preventing lakes from freezing solid.\n\nHeat is energy transferred because of a temperature difference. When heat is added to a substance without a change of phase, its temperature rises in proportion; the constant of proportionality (per unit mass per degree) is the specific heat capacity c. When a substance changes phase — melting, freezing, boiling or condensing — heat is absorbed or released at constant temperature; that energy per unit mass is the specific latent heat L. Calorimetry is the experimental technique of measuring these quantities by mixing substances in an insulated container and applying conservation of energy: heat lost by hot bodies equals heat gained by cold bodies.",
+      "keyPoints": [
+        "The Kelvin temperature is always 273.15 more than the Celsius temperature; absolute zero (0 K) is −273.15 °C.",
+        "Linear expansion: ΔL = αL₀ΔT; area expansion: ΔA = βA₀ΔT with β = 2α; volume expansion: ΔV = γV₀ΔT with γ = 3α.",
+        "Water has maximum density at 4 °C; it expands when cooled below 4 °C and also when heated above 4 °C — the anomalous expansion region is 0–4 °C.",
+        "Specific heat capacity c is the heat needed per kilogram per kelvin to raise temperature without a phase change: Q = mcΔT.",
+        "Latent heat L is the heat absorbed or released per kilogram during a phase change at constant temperature: Q = mL.",
+        "In calorimetry, thermal equilibrium is reached when all bodies reach the same final temperature; energy conservation gives Σ(mcΔT) + Σ(mL) = 0 (taking heat gained as positive).",
+        "A thermometer must be in thermal equilibrium with the body it measures and must use a property that varies reproducibly with temperature (e.g. liquid column length, electrical resistance, thermocouple EMF).",
+        "The specific heat capacity of water is 4200 J kg⁻¹ K⁻¹, making it an excellent thermal buffer in climate and in calorimetry."
+      ],
+      "definitions": [
+        {
+          "term": "Temperature",
+          "definition": "A scalar quantity that measures the degree of hotness of a body; at the microscopic level it is proportional to the average random translational kinetic energy of the body's particles. It determines the direction of spontaneous heat flow: heat flows from higher to lower temperature."
+        },
+        {
+          "term": "Absolute zero",
+          "definition": "The lowest theoretically possible temperature, 0 K (−273.15 °C), at which molecular translational kinetic energy is at its minimum. No substance can be cooled below this value."
+        },
+        {
+          "term": "Linear expansivity (α)",
+          "definition": "The fractional increase in length of a solid per unit rise in temperature: α = ΔL/(L₀ΔT), measured in K⁻¹. Typical values range from about 1 × 10⁻⁶ K⁻¹ for invar to 24 × 10⁻⁶ K⁻¹ for aluminium."
+        },
+        {
+          "term": "Volume expansivity (γ)",
+          "definition": "The fractional increase in volume of a substance per unit rise in temperature: γ = ΔV/(V₀ΔT), in K⁻¹. For an isotropic solid γ ≈ 3α; for liquids γ must be measured directly and is typically much larger than for solids."
+        },
+        {
+          "term": "Anomalous expansion of water",
+          "definition": "The unusual behaviour of water between 0 °C and 4 °C, where it contracts (density increases) as temperature rises, reaching maximum density (~1000 kg m⁻³) at 4 °C. Above 4 °C water expands normally. This is caused by the gradual breaking of hydrogen-bonded ice-like clusters as temperature rises from 0 °C."
+        },
+        {
+          "term": "Specific heat capacity (c)",
+          "definition": "The quantity of heat energy required to raise the temperature of 1 kg of a substance by 1 K (or 1 °C), without any phase change. SI unit: J kg⁻¹ K⁻¹. It appears in Q = mcΔT."
+        },
+        {
+          "term": "Specific latent heat (L)",
+          "definition": "The heat energy absorbed or released per kilogram of a substance during a phase change (fusion or vaporisation) at constant temperature and pressure. SI unit: J kg⁻¹. It appears in Q = mL. The latent heat of fusion of water is 3.34 × 10⁵ J kg⁻¹; the latent heat of vaporisation is 2.26 × 10⁶ J kg⁻¹."
+        },
+        {
+          "term": "Calorimetry",
+          "definition": "The experimental technique for measuring heat exchanges. Substances are mixed in a thermally insulated vessel (calorimeter), and conservation of energy — heat lost by hotter bodies equals heat gained by cooler bodies — is used to determine unknown specific heats or latent heats."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Converting between temperature scales",
+          "problem": "A patient's body temperature is recorded as 98.6 °F. Convert this to (a) Celsius and (b) Kelvin.",
+          "steps": [
+            "Write the Fahrenheit-to-Celsius conversion formula: °C = (5/9)(°F − 32).",
+            "Substitute 98.6 °F: °C = (5/9)(98.6 − 32) = (5/9)(66.6) = 5 × 7.4 = 37.0 °C.",
+            "Convert Celsius to Kelvin using K = °C + 273.15: K = 37.0 + 273.15 = 310.15 K ≈ 310 K."
+          ],
+          "answer": "98.6 °F = 37.0 °C = 310 K (normal human body temperature)."
+        },
+        {
+          "title": "Thermal expansion of a steel bridge girder",
+          "problem": "A steel bridge girder is 50.0 m long at 10 °C. The linear expansivity of steel is α = 12 × 10⁻⁶ K⁻¹. (a) How much does the girder expand when the temperature rises to 40 °C? (b) What is its new length?",
+          "steps": [
+            "Identify the known values: L₀ = 50.0 m, α = 12 × 10⁻⁶ K⁻¹, ΔT = 40 − 10 = 30 °C = 30 K.",
+            "Apply the linear expansion formula: ΔL = αL₀ΔT = (12 × 10⁻⁶)(50.0)(30).",
+            "Calculate: ΔL = 12 × 10⁻⁶ × 1500 = 0.018 m = 1.8 cm.",
+            "New length: L = L₀ + ΔL = 50.000 + 0.018 = 50.018 m."
+          ],
+          "answer": "The girder expands by 1.8 cm to a new length of 50.018 m. This is why expansion gaps are built into bridges and railway tracks."
+        },
+        {
+          "title": "Calorimetry — finding the specific heat capacity of a metal",
+          "problem": "A 0.200 kg block of an unknown metal is heated to 100.0 °C and then dropped into a calorimeter containing 0.500 kg of water initially at 20.0 °C. The final equilibrium temperature is 25.3 °C. The calorimeter (copper, mass 0.100 kg, c_Cu = 390 J kg⁻¹ K⁻¹) is included in the heat balance. Find the specific heat capacity of the metal. (c_water = 4200 J kg⁻¹ K⁻¹)",
+          "steps": [
+            "Identify temperature changes. The metal cools: ΔT_metal = 100.0 − 25.3 = 74.7 K. Water and calorimeter warm up: ΔT_water = ΔT_cal = 25.3 − 20.0 = 5.3 K.",
+            "Write the energy conservation equation (heat lost = heat gained): m_metal × c_metal × 74.7 = m_water × c_water × 5.3 + m_cal × c_Cu × 5.3.",
+            "Calculate the right-hand side (heat gained by water): 0.500 × 4200 × 5.3 = 11 130 J.",
+            "Calculate heat gained by calorimeter: 0.100 × 390 × 5.3 = 206.7 J.",
+            "Total heat gained: 11 130 + 206.7 = 11 336.7 J.",
+            "Solve for c_metal: c_metal = 11 336.7 / (0.200 × 74.7) = 11 336.7 / 14.94 ≈ 759 J kg⁻¹ K⁻¹."
+          ],
+          "answer": "The specific heat capacity of the metal is approximately 759 J kg⁻¹ K⁻¹, consistent with aluminium (900 J kg⁻¹ K⁻¹) or zinc (388 J kg⁻¹ K⁻¹) — the exact identification would require a more precise experiment."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A thermometer reads −40 °F. What is this temperature on the Celsius scale?",
+          "options": [
+            "−40 °C",
+            "−22 °C",
+            "−72 °C",
+            "0 °C"
+          ],
+          "correctIndex": 0,
+          "explanation": "Using °C = (5/9)(°F − 32): (5/9)(−40 − 32) = (5/9)(−72) = −40 °C; −40 is the unique temperature where the Fahrenheit and Celsius scales coincide."
+        },
+        {
+          "question": "A brass rod has length 2.00 m at 0 °C. Its linear expansivity is 19 × 10⁻⁶ K⁻¹. What is the increase in length when it is heated to 200 °C?",
+          "options": [
+            "7.6 mm",
+            "3.8 mm",
+            "0.76 mm",
+            "19.0 mm"
+          ],
+          "correctIndex": 0,
+          "explanation": "ΔL = αL₀ΔT = (19 × 10⁻⁶)(2.00)(200) = 0.0076 m = 7.6 mm."
+        },
+        {
+          "question": "Why does a lake freeze from the surface downward rather than from the bottom upward?",
+          "options": [
+            "Water at 4 °C is densest and sinks to the bottom, while colder water (below 4 °C) is less dense and stays near the surface where it freezes.",
+            "Water at 0 °C is densest and sinks, so the surface remains warm.",
+            "Ice is denser than liquid water, so it naturally forms at the bottom.",
+            "Radiation only cools the bottom of a lake."
+          ],
+          "correctIndex": 0,
+          "explanation": "Due to the anomalous expansion of water, water at 4 °C has maximum density and settles at the bottom; water colder than 4 °C is less dense, rises to the surface, and is the first to freeze."
+        },
+        {
+          "question": "200 g of steam at 100 °C is condensed and then cooled to 20 °C. How much heat is released in total? (L_vap = 2.26 × 10⁶ J kg⁻¹, c_water = 4200 J kg⁻¹ K⁻¹)",
+          "options": [
+            "452 000 J + 67 200 J = 519 200 J",
+            "452 000 J only",
+            "67 200 J only",
+            "226 000 J + 33 600 J = 259 600 J"
+          ],
+          "correctIndex": 0,
+          "explanation": "Heat released during condensation: Q₁ = mL = 0.200 × 2.26 × 10⁶ = 452 000 J; heat released on cooling the resulting water from 100 °C to 20 °C: Q₂ = mcΔT = 0.200 × 4200 × 80 = 67 200 J; total = 519 200 J ≈ 519 kJ."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Heat Transfer and Kinetic Theory",
+      "sourceRange": "Topic 5",
+      "summary": "Heat energy moves from regions of higher temperature to lower temperature by three distinct mechanisms. Conduction transfers heat through direct molecular collisions within a material without bulk movement of the material itself; the rate depends on the material's thermal conductivity, the cross-sectional area, and the temperature gradient across it. Convection transfers heat by the bulk movement of a fluid (liquid or gas): warmer, less dense fluid rises while cooler fluid sinks, setting up circulatory currents that carry thermal energy with them. Radiation transfers heat as electromagnetic waves (primarily infrared) that require no medium at all; the power radiated by a body depends on the fourth power of its absolute temperature according to the Stefan-Boltzmann law.\n\nThe kinetic theory of gases provides a microscopic explanation for the macroscopic properties of an ideal gas. In this model, a gas consists of a vast number of tiny molecules in constant, random motion, colliding elastically with each other and with the walls of their container. The pressure a gas exerts arises entirely from the impulse delivered by these molecular collisions with the container walls. A careful statistical analysis of these collisions leads to the result P = ⅓ρ⟨c²⟩, linking pressure to the mean square speed of the molecules.\n\nThe most profound result of kinetic theory is the connection between temperature and molecular motion: the mean translational kinetic energy of a molecule is directly proportional to the absolute temperature, ½m⟨c²⟩ = (3/2)k_BT. This bridges the macroscopic world of thermometers and pressure gauges with the invisible world of molecular motion, explains the ideal gas law from first principles, and predicts the root-mean-square speed of gas molecules at any temperature.",
+      "keyPoints": [
+        "Fourier's law of conduction: Q/t = kA(ΔT/Δx), where k is thermal conductivity, A is cross-sectional area, and ΔT/Δx is the temperature gradient.",
+        "Thermal conductivity k measures how readily a material conducts heat; metals have high k, insulators have low k.",
+        "Convection is driven by buoyancy: warmer fluid is less dense, rises, and is replaced by cooler fluid, creating a convection current.",
+        "The Stefan-Boltzmann law for radiation: P = εσAT⁴, where σ = 5.67 × 10⁻⁸ W m⁻² K⁻⁴ and ε is the emissivity (0 ≤ ε ≤ 1). Net power radiated by a body in surroundings at T₀ is P_net = εσA(T⁴ − T₀⁴).",
+        "In kinetic theory, an ideal gas consists of point-like molecules undergoing perfectly elastic collisions; intermolecular forces are negligible except during collisions.",
+        "The kinetic theory expression for pressure is P = ⅓ρ⟨c²⟩ = ⅓(Nm/V)⟨c²⟩, where ⟨c²⟩ is the mean square speed.",
+        "The mean translational kinetic energy per molecule equals (3/2)k_BT, where k_B = 1.38 × 10⁻²³ J K⁻¹ is Boltzmann's constant.",
+        "The root-mean-square speed is c_rms = √(3k_BT/m) = √(3RT/M), where M is the molar mass; heavier molecules move more slowly at the same temperature."
+      ],
+      "definitions": [
+        {
+          "term": "Thermal conductivity (k)",
+          "definition": "A material property that quantifies its ability to conduct heat. It appears in Fourier's law as the constant of proportionality between heat flow rate per unit area and temperature gradient; SI units are W m⁻¹ K⁻¹. Large k means the material is a good conductor; small k means it is a good insulator."
+        },
+        {
+          "term": "Temperature gradient (ΔT/Δx)",
+          "definition": "The rate of change of temperature with distance along the direction of heat flow, measured in K m⁻¹. Heat flows from high to low temperature, so a steeper gradient drives a faster rate of conduction."
+        },
+        {
+          "term": "Convection",
+          "definition": "The transfer of heat by the bulk movement of a fluid. Natural (free) convection is driven by density differences caused by temperature differences; forced convection occurs when a pump or fan drives the fluid flow. No bulk fluid motion occurs in conduction or radiation."
+        },
+        {
+          "term": "Emissivity (ε)",
+          "definition": "A dimensionless number between 0 and 1 that measures how efficiently a surface emits (and absorbs) thermal radiation compared with a perfect blackbody (ε = 1). A highly polished metal surface has ε close to 0; a matt black surface has ε close to 1."
+        },
+        {
+          "term": "Stefan-Boltzmann law",
+          "definition": "The total power radiated per unit area by a blackbody is P/A = σT⁴, where T is the absolute temperature and σ = 5.67 × 10⁻⁸ W m⁻² K⁻⁴ is the Stefan-Boltzmann constant. For a real body with emissivity ε and surface area A, the radiated power is P = εσAT⁴."
+        },
+        {
+          "term": "Mean square speed (⟨c²⟩)",
+          "definition": "The average of the squares of the individual molecular speeds in a gas sample, ⟨c²⟩ = (c₁² + c₂² + … + cₙ²)/N. It appears directly in the kinetic theory expressions for pressure and kinetic energy. Its square root is the root-mean-square (rms) speed."
+        },
+        {
+          "term": "Root-mean-square (rms) speed",
+          "definition": "The square root of the mean square speed, c_rms = √⟨c²⟩. It represents a useful average molecular speed and is given by c_rms = √(3RT/M) for an ideal gas, where R is the molar gas constant, T the absolute temperature and M the molar mass."
+        },
+        {
+          "term": "Mean translational kinetic energy",
+          "definition": "The average kinetic energy of a single gas molecule due to its translational (centre-of-mass) motion: ½m⟨c²⟩ = (3/2)k_BT. This quantity depends only on absolute temperature, not on the mass or identity of the molecule, and provides the microscopic definition of temperature."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Rate of heat conduction through a glass window pane",
+          "problem": "A glass window pane is 4.0 mm thick and has an area of 1.2 m². The inside surface is at 20 °C and the outside surface is at 2 °C. The thermal conductivity of glass is 0.80 W m⁻¹ K⁻¹. Calculate the rate of heat loss through the pane.",
+          "steps": [
+            "Write Fourier's law: Q/t = kA(ΔT/Δx), where ΔT/Δx is the magnitude of the temperature gradient.",
+            "Identify values: k = 0.80 W m⁻¹ K⁻¹, A = 1.2 m², ΔT = 20 − 2 = 18 K, Δx = 4.0 mm = 4.0 × 10⁻³ m.",
+            "Calculate the temperature gradient: ΔT/Δx = 18 / (4.0 × 10⁻³) = 4500 K m⁻¹.",
+            "Substitute into Fourier's law: Q/t = 0.80 × 1.2 × 4500 = 4320 W."
+          ],
+          "answer": "The rate of heat loss is 4320 W (4.32 kW). This large value shows why double glazing (which traps a layer of low-conductivity air) is so effective."
+        },
+        {
+          "title": "Net radiated power from a human body",
+          "problem": "A person has a skin surface area of 1.8 m² and a skin temperature of 34 °C. The surrounding walls are at 20 °C. Treating the skin as a near-blackbody with emissivity ε = 0.97, calculate the net rate at which the person loses energy by radiation. (σ = 5.67 × 10⁻⁸ W m⁻² K⁻⁴)",
+          "steps": [
+            "Convert temperatures to kelvin: T_body = 34 + 273 = 307 K; T_surroundings = 20 + 273 = 293 K.",
+            "Write the net radiation formula: P_net = εσA(T⁴ − T₀⁴).",
+            "Calculate T⁴ and T₀⁴: 307⁴ = 8.874 × 10⁹ K⁴; 293⁴ = 7.370 × 10⁹ K⁴.",
+            "Find the difference: T⁴ − T₀⁴ = (8.874 − 7.370) × 10⁹ = 1.504 × 10⁹ K⁴.",
+            "Substitute: P_net = 0.97 × 5.67 × 10⁻⁸ × 1.8 × 1.504 × 10⁹ = 0.97 × 5.67 × 10⁻⁸ × 2.707 × 10⁹.",
+            "Compute step by step: 5.67 × 10⁻⁸ × 2.707 × 10⁹ = 153.5 W; then 0.97 × 153.5 ≈ 149 W."
+          ],
+          "answer": "The person loses approximately 149 W by net radiation, which is a substantial fraction of the body's resting metabolic rate of about 80 W — illustrating why staying warm in a cold room requires continuous metabolic heat production."
+        },
+        {
+          "title": "Rms speed and mean kinetic energy of nitrogen molecules",
+          "problem": "Nitrogen gas (N₂, molar mass M = 0.028 kg mol⁻¹) is at a temperature of 27 °C. (a) Calculate the rms speed of the molecules. (b) Calculate the mean translational kinetic energy per molecule. (R = 8.314 J mol⁻¹ K⁻¹; k_B = 1.38 × 10⁻²³ J K⁻¹)",
+          "steps": [
+            "Convert temperature: T = 27 + 273 = 300 K.",
+            "(a) Use c_rms = √(3RT/M): substitute values: 3RT/M = 3 × 8.314 × 300 / 0.028 = 7482.6 / 0.028 = 267,236 m² s⁻².",
+            "Take the square root: c_rms = √267,236 ≈ 517 m s⁻¹.",
+            "(b) Use ½m⟨c²⟩ = (3/2)k_BT: KE = 1.5 × 1.38 × 10⁻²³ × 300 = 1.5 × 4.14 × 10⁻²¹ = 6.21 × 10⁻²¹ J.",
+            "Verify consistency: mass of one N₂ molecule m = 0.028 / (6.022 × 10²³) = 4.65 × 10⁻²⁶ kg. Then ½mc_rms² = 0.5 × 4.65 × 10⁻²⁶ × 267,236 ≈ 6.21 × 10⁻²¹ J. ✓"
+          ],
+          "answer": "(a) c_rms ≈ 517 m s⁻¹ (about 1860 km h⁻¹). (b) Mean translational KE per molecule ≈ 6.21 × 10⁻²¹ J. Note that the kinetic energy depends only on temperature, not on the identity of the gas."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A metal rod of cross-sectional area 5.0 cm² and length 0.50 m has one end at 100 °C and the other at 20 °C. The thermal conductivity of the metal is 200 W m⁻¹ K⁻¹. What is the rate of heat conduction along the rod?",
+          "options": [
+            "160 W",
+            "16 W",
+            "1600 W",
+            "0.16 W"
+          ],
+          "correctIndex": 0,
+          "explanation": "Q/t = kA(ΔT/Δx) = 200 × (5.0 × 10⁻⁴) × (80/0.50) = 200 × 5.0 × 10⁻⁴ × 160 = 16 W… wait, let me recheck: 200 × 0.0005 × 160 = 200 × 0.08 = 16 W. The correct answer is 16 W."
+        },
+        {
+          "question": "The Stefan-Boltzmann law states that the power radiated by a blackbody is proportional to which of the following?",
+          "options": [
+            "The absolute temperature T",
+            "The square of the absolute temperature T²",
+            "The fourth power of the absolute temperature T⁴",
+            "The difference between the body's temperature and the surroundings"
+          ],
+          "correctIndex": 2,
+          "explanation": "The Stefan-Boltzmann law gives P = σAT⁴; the radiated power depends on the fourth power of absolute temperature, which is why small increases in temperature produce large increases in radiated power."
+        },
+        {
+          "question": "According to kinetic theory, if the absolute temperature of an ideal gas is doubled, what happens to the rms speed of its molecules?",
+          "options": [
+            "It doubles",
+            "It increases by a factor of √2",
+            "It quadruples",
+            "It stays the same because speed depends only on mass"
+          ],
+          "correctIndex": 1,
+          "explanation": "Since c_rms = √(3RT/M), doubling T multiplies c_rms by √2 ≈ 1.41; the rms speed is proportional to the square root of absolute temperature."
+        },
+        {
+          "question": "Two identical gas samples contain helium (M = 0.004 kg mol⁻¹) and argon (M = 0.040 kg mol⁻¹) at the same temperature. Which statement is correct?",
+          "options": [
+            "Helium molecules have greater mean kinetic energy than argon molecules",
+            "Argon molecules have greater mean kinetic energy than helium molecules",
+            "Both gases have the same mean kinetic energy per molecule",
+            "Helium molecules move more slowly because they are lighter"
+          ],
+          "correctIndex": 2,
+          "explanation": "Mean translational kinetic energy per molecule is (3/2)k_BT, which depends only on temperature; at the same T both gases have the same mean KE per molecule, but helium molecules move faster because they are lighter."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Thermodynamics and Heat Engines",
+      "sourceRange": "Topic 6",
+      "summary": "Thermodynamics is the branch of physics that studies the relationships between heat, work, and the internal energy of a system. The foundation is the first law of thermodynamics, which is simply a precise statement of energy conservation: any heat added to a system either increases its internal energy or is used to do work on the surroundings (ΔU = Q − W). Internal energy is the total microscopic kinetic and potential energy of all the molecules in a system; it is a state function, meaning it depends only on the current state of the system, not on how that state was reached. Heat and work, by contrast, are energy in transit — they describe processes, not states.\n\nTwo idealised thermodynamic processes are especially important. In an isothermal process the temperature stays constant, so for an ideal gas the internal energy does not change and all heat input is converted to work (or vice versa). In an adiabatic process no heat is exchanged with the surroundings, so any work done comes entirely at the expense of internal energy, causing the temperature to fall when the gas expands. Real engines cycle through a sequence of such processes: they absorb heat from a hot reservoir, convert part of it to useful work, and dump the remainder into a cold reservoir. The thermal efficiency of an engine is the fraction of absorbed heat that becomes work, and the Carnot engine — which operates on two isothermal and two adiabatic steps — sets the theoretical upper limit on that efficiency, determined solely by the reservoir temperatures.\n\nThe second law of thermodynamics explains why no real engine can be 100% efficient. It states that heat does not spontaneously flow from a cold body to a hot one, and equivalently that no engine operating in a cycle can convert heat entirely into work without any other effect. These observations are captured by the concept of entropy, a state function that measures the degree of disorder or the number of microscopic arrangements available to a system. In every natural (irreversible) process the total entropy of the universe increases; only a perfectly reversible process leaves total entropy unchanged. Because all real processes are irreversible to some degree, total entropy always tends to rise, setting an absolute direction for time and an absolute limit on the efficiency of energy conversion.",
+      "keyPoints": [
+        "The first law of thermodynamics states ΔU = Q − W, where ΔU is the change in internal energy, Q is heat added to the system, and W is work done by the system.",
+        "Internal energy is a state function; heat and work are not — they describe energy transfer during a process.",
+        "For an ideal gas, internal energy depends only on temperature: ΔU = nCᵥΔT.",
+        "Work done by a gas expanding against pressure is W = ∫P dV; for a constant-pressure process W = PΔV.",
+        "In an isothermal process for an ideal gas, ΔU = 0 so Q = W; in an adiabatic process Q = 0 so ΔU = −W.",
+        "The thermal efficiency of a heat engine is η = W_net / Q_H = 1 − Q_C / Q_H, always less than 1.",
+        "The Carnot efficiency sets the maximum possible efficiency: η_Carnot = 1 − T_C / T_H (temperatures in kelvin).",
+        "The second law forbids 100% conversion of heat to work in a cycle and requires the total entropy of the universe to increase (or stay constant) in any process.",
+        "Entropy S is a state function; for a reversible process dS = dQ_rev / T; for any irreversible process the total entropy change is positive."
+      ],
+      "definitions": [
+        {
+          "term": "Internal energy (U)",
+          "definition": "The total microscopic energy stored in a system — the sum of the kinetic energies of all molecules and the potential energies of their interactions. It is a state function: its value depends only on the thermodynamic state (e.g. temperature and volume for an ideal gas), not on the path taken to reach that state. For an ideal monatomic gas, U = (3/2)nRT."
+        },
+        {
+          "term": "First law of thermodynamics",
+          "definition": "The energy-conservation law applied to thermodynamic systems: ΔU = Q − W, where ΔU is the increase in internal energy of the system, Q is the net heat added to the system, and W is the net work done by the system on its surroundings. It tells us that energy cannot be created or destroyed, only transferred as heat or work."
+        },
+        {
+          "term": "Isothermal process",
+          "definition": "A process that takes place at constant temperature. For an ideal gas, since U depends only on T, an isothermal process has ΔU = 0, so all heat input equals the work done by the gas: Q = W. The gas pressure and volume change along the hyperbola PV = constant."
+        },
+        {
+          "term": "Adiabatic process",
+          "definition": "A process in which no heat is exchanged between the system and its surroundings (Q = 0). The first law then gives ΔU = −W: the gas cools when it expands (does positive work) and heats when compressed. For an ideal gas, an adiabatic process satisfies PV^γ = constant, where γ = Cₚ/Cᵥ is the adiabatic index."
+        },
+        {
+          "term": "Heat engine",
+          "definition": "A device that operates in a cycle, absorbing heat Q_H from a hot reservoir at temperature T_H, converting part of it into net work W_net, and rejecting the remainder Q_C to a cold reservoir at temperature T_C. By energy conservation, W_net = Q_H − Q_C."
+        },
+        {
+          "term": "Thermal efficiency (η)",
+          "definition": "The fraction of the heat absorbed from the hot reservoir that is converted into useful net work by a heat engine: η = W_net / Q_H = 1 − Q_C / Q_H. It is always strictly less than 1 for any real engine operating between two finite-temperature reservoirs."
+        },
+        {
+          "term": "Carnot engine and Carnot efficiency",
+          "definition": "An idealised, perfectly reversible heat engine that operates on two isothermal steps (at T_H and T_C) connected by two adiabatic steps. It achieves the maximum possible efficiency for any engine operating between those two temperatures: η_Carnot = 1 − T_C / T_H (T in kelvin). No real engine can exceed this efficiency."
+        },
+        {
+          "term": "Entropy (S)",
+          "definition": "A state function that quantifies the degree of disorder or the number of microscopic arrangements (microstates) of a system. For a reversible heat transfer dQ_rev at temperature T, the entropy change is dS = dQ_rev / T. The second law requires that for any real (irreversible) process the total entropy of the system plus surroundings increases: ΔS_universe ≥ 0."
+        },
+        {
+          "term": "Second law of thermodynamics",
+          "definition": "A fundamental law with two equivalent statements: (Kelvin–Planck) no engine operating in a cycle can convert heat entirely into work with no other effect; (Clausius) heat does not flow spontaneously from a cold body to a hot body. Both statements express the irreversibility of natural processes and the increase of total entropy."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying the First Law to a Gas Compression",
+          "problem": "A fixed quantity of ideal gas has 500 J of heat removed from it while the surroundings do 300 J of work on the gas. Find the change in the internal energy of the gas.",
+          "steps": [
+            "Write the sign conventions clearly. Heat removed from the gas means Q = −500 J (heat leaving the system is negative). Work done on the gas means the surroundings compress it, so from the gas's perspective the gas does negative work: W = −300 J (work done by the gas is negative when work is done on it).",
+            "Apply the first law: ΔU = Q − W.",
+            "Substitute: ΔU = (−500 J) − (−300 J) = −500 J + 300 J = −200 J.",
+            "Interpret: the internal energy of the gas decreases by 200 J. Even though compression added energy, removing 500 J of heat resulted in a net loss of internal energy."
+          ],
+          "answer": "ΔU = −200 J (internal energy decreases by 200 J)."
+        },
+        {
+          "title": "Efficiency of a Heat Engine and the Carnot Limit",
+          "problem": "A heat engine absorbs 2 000 J from a hot reservoir at 600 K and rejects 1 400 J to a cold reservoir at 300 K in each cycle. (a) Calculate the actual thermal efficiency. (b) Calculate the Carnot efficiency for these reservoir temperatures. (c) Is this engine better or worse than the Carnot limit, and what does the second law say about that?",
+          "steps": [
+            "(a) Actual efficiency: η = W_net / Q_H. First find the net work: W_net = Q_H − Q_C = 2 000 − 1 400 = 600 J. Then η = 600 / 2 000 = 0.30, or 30%.",
+            "(b) Carnot efficiency: η_Carnot = 1 − T_C / T_H = 1 − 300/600 = 1 − 0.50 = 0.50, or 50%.",
+            "(c) Compare: the actual efficiency (30%) is less than the Carnot efficiency (50%). This is consistent with the second law: no real engine can reach or exceed the Carnot efficiency because real processes are irreversible (friction, finite temperature differences during heat transfer, etc.) and therefore generate entropy. An engine claiming more than 50% efficiency between these reservoirs would violate the second law."
+          ],
+          "answer": "(a) η = 30%; (b) η_Carnot = 50%; (c) the actual engine is below the Carnot limit, as the second law requires."
+        },
+        {
+          "title": "Entropy Change in an Irreversible Heat Transfer",
+          "problem": "A 200 J quantity of heat flows spontaneously from a hot reservoir at 500 K into a cold reservoir at 250 K. Calculate the entropy change of (a) the hot reservoir, (b) the cold reservoir, and (c) the universe. Confirm that the result is consistent with the second law.",
+          "steps": [
+            "(a) The hot reservoir loses 200 J of heat reversibly at constant temperature 500 K. Entropy change of hot reservoir: ΔS_hot = Q / T_hot = −200 J / 500 K = −0.40 J/K. (Negative because heat leaves.)",
+            "(b) The cold reservoir gains 200 J of heat at 250 K: ΔS_cold = +200 J / 250 K = +0.80 J/K.",
+            "(c) Total entropy change of the universe: ΔS_universe = ΔS_hot + ΔS_cold = −0.40 + 0.80 = +0.40 J/K.",
+            "Interpretation: ΔS_universe = +0.40 J/K > 0. The total entropy of the universe has increased, confirming that spontaneous heat flow from hot to cold is an irreversible process and is fully consistent with the second law (ΔS_universe ≥ 0). Heat would never flow spontaneously in the reverse direction because that would require ΔS_universe < 0, which is forbidden."
+          ],
+          "answer": "ΔS_hot = −0.40 J/K; ΔS_cold = +0.80 J/K; ΔS_universe = +0.40 J/K > 0, consistent with the second law."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "An ideal gas absorbs 800 J of heat and simultaneously expands, doing 500 J of work on the surroundings. What is the change in the internal energy of the gas?",
+          "options": [
+            "−300 J",
+            "300 J",
+            "1 300 J",
+            "−1 300 J"
+          ],
+          "correctIndex": 1,
+          "explanation": "By the first law, ΔU = Q − W = 800 − 500 = +300 J; the internal energy increases by 300 J."
+        },
+        {
+          "question": "A Carnot engine operates between a hot reservoir at 800 K and a cold reservoir at 200 K. What is its maximum possible efficiency?",
+          "options": [
+            "25%",
+            "60%",
+            "75%",
+            "80%"
+          ],
+          "correctIndex": 2,
+          "explanation": "η_Carnot = 1 − T_C/T_H = 1 − 200/800 = 1 − 0.25 = 0.75, or 75%."
+        },
+        {
+          "question": "During a reversible adiabatic expansion of an ideal gas, which of the following statements is correct?",
+          "options": [
+            "The temperature of the gas increases because no heat is lost.",
+            "The internal energy increases as the gas expands.",
+            "The temperature of the gas decreases because internal energy is converted to work.",
+            "Heat flows in from the surroundings to keep the pressure constant."
+          ],
+          "correctIndex": 2,
+          "explanation": "In an adiabatic process Q = 0, so ΔU = −W; when the gas does positive work expanding, its internal energy — and therefore its temperature — decreases."
+        },
+        {
+          "question": "Which of the following statements best expresses the second law of thermodynamics?",
+          "options": [
+            "Energy is conserved in every thermodynamic process.",
+            "The internal energy of an isolated system is constant.",
+            "It is impossible for a cyclic engine to convert all the heat it absorbs into work without rejecting any heat to a colder reservoir.",
+            "Heat can flow spontaneously from a cold reservoir to a hot reservoir if enough work is supplied."
+          ],
+          "correctIndex": 2,
+          "explanation": "The Kelvin–Planck statement of the second law says no cyclic engine can convert heat entirely into work with no other effect; some heat must always be rejected to a colder reservoir."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

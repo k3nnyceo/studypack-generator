@@ -1,0 +1,808 @@
+{
+  "title": "GST 111 — Communication in English (full course)",
+  "course": "GST 111 Communication in English",
+  "topic": "Full course: 6 modules",
+  "overview": "This course covers the essential foundations of effective communication in English for first-year university students. The modules progress from understanding how communication works (the process, barriers, and modes) through the practical skills of listening and note-taking, then to the technical elements of written and spoken English (grammar, punctuation, vocabulary, and presentation). Together, these modules equip students with the integrated skills needed to communicate clearly, professionally, and persuasively in academic and professional settings.",
+  "modules": [
+    {
+      "title": "The Communication Process: Elements, Modes, and Barriers",
+      "sourceRange": "Topic 1",
+      "summary": "Communication is the purposeful transfer of meaning from one party to another. Every act of communication — whether a spoken lecture, a text message, or a raised eyebrow — can be analysed through the same six-element model: a sender encodes a message, selects a channel to carry it, and transmits it to a receiver, who decodes it and (ideally) sends back feedback, while noise at any stage can distort or block the meaning. Understanding how these elements interact helps communicators make deliberate choices about what to say, how to say it, and through which medium.\n\nCommunication takes two broad forms. Verbal communication uses language — spoken words in conversation, lectures, and phone calls, or written words in essays, emails, and reports. Non-verbal communication conveys meaning without words, through body language (posture, gesture, facial expression), paralanguage (tone, pitch, pace, silence), proxemics (use of personal space), and appearance. Research consistently shows that non-verbal cues carry a large share of a message's emotional meaning, so skilled communicators attend to both channels simultaneously.\n\nEven well-crafted messages frequently fail to reach their destination intact. Barriers to communication fall into four main categories: physical barriers (distance, noise, poor technology), psychological barriers (stress, prejudice, poor attention), semantic barriers (ambiguous language, jargon, translation problems), and organisational barriers (rigid hierarchies, information overload). Recognising which barrier is operating in a given situation is the first step toward applying the right strategy to overcome it.",
+      "keyPoints": [
+        "The six elements of communication are: sender, message, channel, receiver, feedback, and noise.",
+        "The sender encodes a message (converts ideas into words or symbols); the receiver decodes it (interprets those symbols back into meaning).",
+        "Feedback closes the communication loop and confirms whether the message was understood as intended.",
+        "Noise is any interference — physical, psychological, or semantic — that distorts the message at any point in the process.",
+        "Verbal communication uses spoken or written language; non-verbal communication uses body language, facial expressions, gestures, tone of voice, space, and appearance.",
+        "Non-verbal cues often reinforce, contradict, substitute for, or complement verbal messages.",
+        "The four main categories of communication barriers are physical, psychological, semantic, and organisational.",
+        "Barriers can be overcome through active listening, plain language, feedback-seeking, appropriate channel selection, and building a climate of trust."
+      ],
+      "definitions": [
+        {
+          "term": "Sender",
+          "definition": "The person or entity who originates a message by encoding an idea — converting thoughts into words, symbols, or actions — and transmitting it through a chosen channel."
+        },
+        {
+          "term": "Encoding",
+          "definition": "The process by which the sender translates an internal idea or feeling into a form (words, images, gestures) that can be transmitted to a receiver."
+        },
+        {
+          "term": "Channel",
+          "definition": "The medium through which a message travels from sender to receiver, such as face-to-face speech, telephone, email, printed text, or body language."
+        },
+        {
+          "term": "Decoding",
+          "definition": "The process by which the receiver interprets the symbols received and reconstructs the sender's intended meaning."
+        },
+        {
+          "term": "Feedback",
+          "definition": "The receiver's response — verbal or non-verbal — that is sent back to the original sender, indicating how the message was understood and allowing the sender to correct misunderstandings."
+        },
+        {
+          "term": "Noise",
+          "definition": "Any factor that interferes with the accurate transmission or reception of a message. Noise can be physical (loud sounds, poor signal), psychological (prejudice, anxiety), or semantic (ambiguous words, unfamiliar jargon)."
+        },
+        {
+          "term": "Non-verbal communication",
+          "definition": "The transmission of meaning through means other than words, including facial expressions, gestures, posture, eye contact, tone and pitch of voice (paralanguage), physical distance (proxemics), and personal appearance."
+        },
+        {
+          "term": "Semantic barrier",
+          "definition": "A communication barrier that arises from differences in the meaning assigned to words or symbols, including the use of jargon, ambiguous language, technical terms, or words that have different connotations for sender and receiver."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Analysing a Failed Communication Using the Six-Element Model",
+          "problem": "A university lecturer sends an email in formal academic language to a first-year student asking her to 'present a précis of the prescribed text at the next colloquium.' The student does not respond and arrives at the next class unprepared. Use the six-element model to identify where communication broke down.",
+          "steps": [
+            "Identify the sender and encoding: The lecturer (sender) encoded the message using formal academic vocabulary — 'précis', 'prescribed text', 'colloquium' — assuming shared knowledge.",
+            "Identify the channel: The channel was written email, which carries no tone of voice or facial expression to clarify meaning.",
+            "Identify the receiver and decoding: The first-year student (receiver) decoded the message but did not know the words 'précis' (a formal summary) or 'colloquium' (a seminar meeting), so she could not interpret the instruction correctly.",
+            "Identify the noise: The barrier is semantic noise — a mismatch between the vocabulary used by the sender and the vocabulary known by the receiver.",
+            "Assess feedback: The student gave no feedback (no reply email, no question in class), so the lecturer received no signal that the message had failed.",
+            "Suggest a remedy: The lecturer could use plain language ('Please write a one-page summary of the set chapter and share it in class next Tuesday'), invite feedback ('Reply to confirm you understand'), and choose a channel that allows immediate clarification, such as a brief spoken announcement in class."
+          ],
+          "answer": "The communication broke down at the decoding stage due to semantic noise (unfamiliar vocabulary). The absence of feedback prevented the sender from detecting or correcting the failure. Plain language, a feedback invitation, and a richer channel would have prevented the breakdown."
+        },
+        {
+          "title": "Identifying Non-Verbal Signals and Their Functions",
+          "problem": "During a job interview, a candidate gives a confident verbal answer ('I work very well under pressure') but simultaneously breaks eye contact, crosses her arms, and speaks in a quiet, hesitant voice. Analyse the non-verbal signals and explain what message the interviewer is likely to receive.",
+          "steps": [
+            "Identify the verbal message: The candidate explicitly claims to be confident under pressure — a positive, assertive statement.",
+            "Identify the non-verbal signals: (a) Breaking eye contact is typically read as uncertainty or evasiveness. (b) Crossing the arms is a closed posture often interpreted as defensiveness or discomfort. (c) A quiet, hesitant voice (paralanguage) signals low confidence.",
+            "Determine the relationship between verbal and non-verbal channels: The non-verbal signals contradict the verbal message. When verbal and non-verbal messages conflict, listeners tend to trust the non-verbal cues because they are harder to control consciously.",
+            "Predict the interviewer's interpretation: The interviewer is likely to doubt the candidate's claim, perceiving her as lacking the confidence she describes.",
+            "Recommend improvement: The candidate should align her non-verbal communication with her verbal message — maintain steady eye contact, adopt an open posture (hands relaxed, not crossed), and speak at a clear, moderate pace to reinforce rather than undermine her words."
+          ],
+          "answer": "The non-verbal signals contradict the verbal claim, and interviewers will typically trust the non-verbal channel. The candidate's body language and paralanguage communicate insecurity, undermining her stated message. Congruence between verbal and non-verbal channels is essential for credibility."
+        },
+        {
+          "title": "Diagnosing and Overcoming Communication Barriers",
+          "problem": "A hospital manager circulates a three-page memo at 4:45 pm on a Friday informing junior nurses of a new patient-handover procedure that takes effect the following Monday. By Monday morning, several nurses are still following the old procedure, some misunderstood the new steps, and one nurse did not receive the memo at all. Identify each barrier operating here and propose a specific strategy to overcome each one.",
+          "steps": [
+            "Barrier 1 — Physical noise/channel failure: One nurse never received the memo, suggesting a breakdown in the distribution channel (e.g., an incorrect email address or absent staff member). Strategy: Confirm receipt by requiring acknowledgement — a reply email, a sign-off sheet, or a WhatsApp group read-receipt — and have a printed copy posted on the staff noticeboard as a backup channel.",
+            "Barrier 2 — Psychological barrier (timing and attention): Sending a complex procedural memo late on a Friday means recipients are mentally switching off for the weekend, reducing attention and retention. Strategy: Communicate important procedural changes at the start of a shift, in person or at a briefing meeting, when attention is higher and questions can be asked immediately.",
+            "Barrier 3 — Semantic barrier (complexity): A three-page memo for a practical procedure is likely to contain dense language that nurses may misinterpret. Strategy: Supplement the written memo with a numbered, step-by-step checklist and a short demonstration during a handover briefing so that meaning is clarified through multiple channels (written + verbal + visual).",
+            "Barrier 4 — Organisational barrier (top-down, one-way flow): The manager sent information downward with no feedback mechanism. Nurses who misunderstood had no obvious way to ask for clarification before Monday. Strategy: Create a feedback loop — invite questions in a brief Monday-morning huddle before the procedure takes effect, or provide a contact number for queries over the weekend.",
+            "Evaluate the outcome: By addressing each barrier systematically, the manager ensures the message is received (physical fix), attended to (timing fix), understood (semantic fix), and confirmed (feedback fix)."
+          ],
+          "answer": "Four barriers operated simultaneously: a physical channel failure, a psychological timing barrier, a semantic complexity barrier, and an organisational feedback gap. Each requires a distinct remedy — confirmed delivery, better timing, plain-language formatting, and an open feedback channel. Effective communication planning anticipates these barriers before transmission, not after failure."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the communication process, 'encoding' refers to which of the following?",
+          "options": [
+            "The receiver interpreting the symbols in a message",
+            "The sender converting an idea into words or symbols for transmission",
+            "The channel selected to carry the message",
+            "The feedback sent by the receiver back to the sender"
+          ],
+          "correctIndex": 1,
+          "explanation": "Encoding is the sender's act of translating an internal idea into a communicable form (words, gestures, images) before it is transmitted."
+        },
+        {
+          "question": "A student is reading silently in a library when a group nearby begins a loud conversation, making it impossible for her to concentrate on her text. Which type of communication barrier does this best illustrate?",
+          "options": [
+            "Semantic barrier",
+            "Psychological barrier",
+            "Organisational barrier",
+            "Physical barrier"
+          ],
+          "correctIndex": 3,
+          "explanation": "Physical barriers involve environmental factors — such as loud sounds or distance — that interrupt the transmission of a message before it reaches the receiver."
+        },
+        {
+          "question": "During a conversation, a speaker says 'That's fine' in a flat, cold tone while frowning. A listener who perceives this as insincere is responding primarily to which aspect of communication?",
+          "options": [
+            "The verbal channel, because the literal words carry the most meaning",
+            "The non-verbal channel, because tone and expression contradict the words",
+            "The feedback loop, because the listener is correcting the sender",
+            "The channel selection, because face-to-face conversation is unreliable"
+          ],
+          "correctIndex": 1,
+          "explanation": "When verbal and non-verbal signals conflict, listeners typically trust the non-verbal cues (tone, facial expression) over the literal words, because non-verbal communication is harder to falsify."
+        },
+        {
+          "question": "Which of the following strategies BEST addresses a semantic barrier between a doctor and a patient who is not medically trained?",
+          "options": [
+            "Speaking more loudly and slowly to the patient",
+            "Replacing medical jargon with plain, everyday language and checking for understanding",
+            "Sending a written letter instead of speaking face-to-face",
+            "Reducing the amount of feedback requested from the patient"
+          ],
+          "correctIndex": 1,
+          "explanation": "Semantic barriers arise from differences in vocabulary and meaning; replacing technical jargon with plain language and seeking feedback directly tackles the source of the misunderstanding."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Listening and Note-Taking: Skills and Methods",
+      "sourceRange": "Topic 2",
+      "summary": "Listening is far more than the passive act of hearing sounds; it is an active, purposeful mental process through which we assign meaning to what we hear. Skilled communicators recognise that different situations demand different types of listening, from the careful sound-discrimination needed when learning a new language, to the deep empathy required when supporting a distressed friend. Understanding these five types—discriminative, comprehensive, evaluative, empathetic, and appreciative—helps you deploy the right mental stance for every context.\n\nActive listening takes this a step further by making the listener a visible participant in the exchange. Through techniques such as paraphrasing, asking clarifying questions, and providing feedback, an active listener signals genuine engagement, reduces misunderstanding, and encourages the speaker to communicate more fully. These skills are especially valuable in academic seminars, group discussions, and any professional setting where understanding must be precise.\n\nBecause much of university learning arrives through spoken lectures, the ability to convert what you hear into useful written records is just as important as listening itself. Three systematic note-taking methods—the Outline Method, the Cornell System, and the Mapping (or Mind-Map) Method—each organise information differently and suit different learners and subjects. Knowing how to apply all three, and when to choose each one, transforms passive attendance at lectures into an active learning strategy that supports both memory and later revision.",
+      "keyPoints": [
+        "Listening is an active cognitive process, not merely the physical reception of sound.",
+        "The five types of listening are discriminative, comprehensive, evaluative, empathetic, and appreciative—each suited to a specific purpose.",
+        "Active listening requires deliberate techniques: maintaining eye contact, paraphrasing, asking clarifying questions, withholding judgement, and giving verbal or non-verbal feedback.",
+        "Paraphrasing means restating the speaker's message in your own words to confirm understanding, not simply repeating their words.",
+        "The Outline Method organises notes in a hierarchy of main headings, sub-points, and supporting details using indentation and numbering.",
+        "The Cornell System divides the page into a narrow cue column, a wide notes column, and a summary box, creating a built-in revision tool on every page.",
+        "The Mapping Method represents ideas as a visual network of branches radiating from a central concept, making relationships between ideas immediately visible.",
+        "Choosing a note-taking method depends on the subject's structure, the lecturer's delivery speed, and your own learning style."
+      ],
+      "definitions": [
+        {
+          "term": "Discriminative listening",
+          "definition": "The most fundamental level of listening, focused on distinguishing between sounds, tones, or non-verbal cues. It is the basis for all other listening and is used, for example, when learning to tell apart the sounds of a new language or when detecting emotion from a speaker's tone of voice."
+        },
+        {
+          "term": "Comprehensive listening",
+          "definition": "Listening whose goal is to fully understand the message being conveyed. It is the type used in lectures, tutorials, and instructions, where the listener must grasp meaning, follow logic, and retain information accurately."
+        },
+        {
+          "term": "Evaluative (critical) listening",
+          "definition": "Listening in which the listener not only understands the message but also analyses, questions, and judges its logic, evidence, and intent. It is essential in debates, persuasive speeches, and situations where the listener must decide whether to accept, reject, or act on what is said."
+        },
+        {
+          "term": "Empathetic listening",
+          "definition": "Listening that prioritises understanding the speaker's feelings, perspective, and emotional state rather than just the literal content of their words. It involves suspending personal judgement and responding with compassion; it is the type used in counselling, peer support, and conflict resolution."
+        },
+        {
+          "term": "Appreciative listening",
+          "definition": "Listening done for enjoyment, pleasure, or aesthetic experience—for example, listening to music, poetry, or an entertaining story. The listener is not primarily seeking information or making judgements but rather enjoying the experience itself."
+        },
+        {
+          "term": "Active listening",
+          "definition": "A deliberate, participatory approach to listening in which the listener gives the speaker full attention, processes the message carefully, and responds in ways that confirm understanding and encourage continued communication. It involves both cognitive engagement and visible behavioural signals such as nodding, eye contact, and verbal responses."
+        },
+        {
+          "term": "Cornell note-taking system",
+          "definition": "A structured page layout for lecture notes developed at Cornell University, in which the page is divided into three sections: a narrow left-hand cue column (about one-third of the page width) for key terms and questions, a wider right-hand notes column (about two-thirds) for main notes taken during the lecture, and a summary box at the bottom of the page written after the lecture to capture the main idea of the page in the student's own words."
+        },
+        {
+          "term": "Mind mapping (mapping method)",
+          "definition": "A visual note-taking technique in which a central idea or topic is written in the middle of the page and related sub-topics, facts, and details radiate outward as labelled branches and sub-branches. It mirrors the brain's associative thinking and is particularly useful for subjects with many interconnected concepts."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying the Correct Type of Listening",
+          "problem": "Read the four scenarios below and identify which type of listening (discriminative, comprehensive, evaluative, empathetic, or appreciative) each person is engaged in. Justify each answer.\n(A) Amara is attending her GST 111 lecture and concentrating hard so she can follow her lecturer's explanation of communication barriers.\n(B) Chidi is at a student debate and is deciding whether the speaker's argument that social media improves literacy is logically sound.\n(C) Fatima's roommate is crying and telling her about a problem at home; Fatima is focused entirely on how her roommate feels.\n(D) Emeka is relaxing on Sunday afternoon, playing his favourite Afrobeats playlist.",
+          "steps": [
+            "Step 1 – Scenario A: Amara's goal is to understand and retain the content of the lecture accurately. She is not judging arguments or responding to emotions; she is building knowledge. This is comprehensive listening.",
+            "Step 2 – Scenario B: Chidi already understands the speaker's message and is now examining the quality of the reasoning and evidence to decide whether to accept it. This critical appraisal of logic and intent defines evaluative (critical) listening.",
+            "Step 3 – Scenario C: Fatima is not primarily processing information or judging arguments. Her attention is on her roommate's emotional experience, and she is trying to understand and share that experience without imposing her own viewpoint. This is empathetic listening.",
+            "Step 4 – Scenario D: Emeka is listening purely for pleasure and relaxation, with no goal of extracting information or making judgements. This is appreciative listening.",
+            "Step 5 – Check: All five types exist on a continuum and can overlap in real life, but in each scenario one purpose dominates. The key question to ask is always: what is the listener's primary purpose—distinguishing sounds, understanding content, judging arguments, connecting emotionally, or enjoying the experience?"
+          ],
+          "answer": "(A) Comprehensive listening — the goal is understanding and retaining lecture content. (B) Evaluative listening — the goal is judging the logic and evidence of an argument. (C) Empathetic listening — the goal is understanding and sharing the speaker's emotional experience. (D) Appreciative listening — the goal is enjoyment and pleasure."
+        },
+        {
+          "title": "Applying Active Listening Techniques in a Conversation",
+          "problem": "During a study group, Kelechi says: 'I just don't get this communication stuff. The lecturer keeps saying feedback is part of the process, but that doesn't make sense to me because feedback happens after the message, so it's like a separate thing, not part of the actual communication.' You are the active listener. Demonstrate three active listening techniques—paraphrasing, clarifying, and providing feedback—in your response.",
+          "steps": [
+            "Step 1 – Paraphrasing: Restate Kelechi's main idea in your own words to show you have understood and to give her a chance to correct any misunderstanding. Example response: 'So if I understand you correctly, you think feedback can't be part of the communication process itself because it only comes after the original message has already been sent—is that right?' This mirrors the content without copying her exact words.",
+            "Step 2 – Clarifying: Ask a focused question that helps you (and Kelechi) pinpoint exactly where the confusion lies. Example: 'When you say it's a separate thing, do you mean you see communication as a straight line from sender to receiver, with feedback as an optional add-on rather than a built-in loop?' This zeroes in on the conceptual gap—linear versus circular models of communication.",
+            "Step 3 – Providing feedback (informational): Offer a brief, helpful response that addresses the confusion without lecturing. Example: 'That's a really common question. Most communication models treat the process as a loop rather than a straight line—so feedback is what turns one-way information transfer into a two-way exchange, which is why scholars include it as a core element.' This confirms you were listening and adds value.",
+            "Step 4 – Non-verbal signals throughout: While saying the above, you would also maintain comfortable eye contact, nod occasionally, and avoid interrupting—these behaviours signal to Kelechi that she has your full attention.",
+            "Step 5 – What to avoid: Do not finish Kelechi's sentences, do not immediately give your own opinion before confirming you understood hers, and do not check your phone or look away—these behaviours are barriers to active listening."
+          ],
+          "answer": "An active listener uses paraphrasing ('So you mean…?') to confirm understanding, clarifying questions ('Do you mean…?') to locate the exact point of confusion, and informational feedback to respond helpfully—all while maintaining attentive body language throughout."
+        },
+        {
+          "title": "Applying the Three Note-Taking Methods to the Same Lecture Passage",
+          "problem": "A lecturer delivers the following short passage: 'Communication barriers fall into three main categories. First, physical barriers—things like noise, distance, or a faulty microphone that interfere with the channel. Second, psychological barriers—these are internal, such as prejudice, stress, or lack of interest, and they affect how a message is sent or received. Third, linguistic barriers—arising from differences in language, vocabulary, or accent.' Show how a student would record this passage using (A) the Outline Method, (B) the Cornell System layout, and (C) the Mapping Method.",
+          "steps": [
+            "Step 1 – Outline Method: Write the main topic as a Roman numeral heading, then indent and label each category with a capital letter, and add supporting details below each using Arabic numerals.\n\nI. Communication Barriers\n   A. Physical barriers\n      1. Noise, distance, faulty equipment\n      2. Interfere with the channel\n   B. Psychological barriers\n      1. Prejudice, stress, lack of interest\n      2. Internal; affect sender or receiver\n   C. Linguistic barriers\n      1. Differences in language, vocabulary, accent\n\nThe indentation makes the hierarchy of ideas instantly visible.",
+            "Step 2 – Cornell System layout: Draw a vertical line about one-third from the left edge and a horizontal line about 5 cm from the bottom of the page.\n\nNOTES COLUMN (right, taken during lecture):\n• 3 categories of communication barriers\n• Physical – noise, distance, faulty mic → affects channel\n• Psychological – internal: prejudice, stress, low interest → affects sender/receiver\n• Linguistic – language, vocab, accent differences\n\nCUE COLUMN (left, filled in after lecture):\n• What are the 3 barrier types?\n• Give 2 examples of each\n• Which type is 'internal'?\n\nSUMMARY BOX (bottom, written after lecture):\n'Communication barriers are physical (channel interference), psychological (internal mental states), and linguistic (language differences).'\n\nThe cue column turns the page into a self-test tool: cover the notes column and answer the cue questions from memory.",
+            "Step 3 – Mapping Method: Write 'Communication Barriers' in a circle in the centre of the page. Draw three branches outward, each labelled with one category. Add sub-branches for examples.\n\nCentral node: COMMUNICATION BARRIERS\n  Branch 1 → PHYSICAL → sub-branches: noise / distance / faulty mic\n  Branch 2 → PSYCHOLOGICAL → sub-branches: prejudice / stress / low interest\n  Branch 3 → LINGUISTIC → sub-branches: language / vocabulary / accent\n\nYou can add colour-coding (e.g., red for physical, blue for psychological, green for linguistic) to make the map easier to scan during revision.",
+            "Step 4 – Comparison: The Outline Method is best when the lecturer speaks in a clear, organised sequence and the content is hierarchical. The Cornell System suits all subjects and builds revision directly into the note-taking process. The Mapping Method is best for showing relationships between ideas and for visual learners, but requires more space and can be harder to complete at high speed."
+          ],
+          "answer": "(A) Outline: hierarchical numbering with indentation. (B) Cornell: notes column for lecture content, cue column for post-lecture questions, summary box for the main idea. (C) Mapping: central node 'Communication Barriers' with three labelled branches and sub-branches for examples. Each method captures the same information but organises it differently to suit different revision strategies."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student listening to a political speech mentally notes logical gaps, unsupported claims, and possible bias in the speaker's argument. Which type of listening is the student engaging in?",
+          "options": [
+            "Comprehensive listening",
+            "Discriminative listening",
+            "Evaluative listening",
+            "Empathetic listening"
+          ],
+          "correctIndex": 2,
+          "explanation": "Evaluative (critical) listening involves judging the logic, evidence, and intent of a message—exactly what the student is doing by identifying logical gaps and bias."
+        },
+        {
+          "question": "Which of the following best describes paraphrasing as an active listening technique?",
+          "options": [
+            "Repeating the speaker's exact words back to them to show you were paying attention",
+            "Restating the speaker's message in your own words to confirm your understanding",
+            "Asking the speaker to repeat themselves more slowly so you can take notes",
+            "Summarising only the parts of the message you personally agreed with"
+          ],
+          "correctIndex": 1,
+          "explanation": "Paraphrasing means restating the speaker's message in your own words—not echoing their exact words—so both parties can verify that understanding is accurate."
+        },
+        {
+          "question": "In the Cornell note-taking system, what is the primary purpose of the cue column?",
+          "options": [
+            "To write down the lecturer's exact sentences verbatim during the lecture",
+            "To draw diagrams and mind maps of the main topic",
+            "To record questions and key terms after the lecture that can be used for self-testing",
+            "To provide space for writing a paragraph summary of the whole page"
+          ],
+          "correctIndex": 2,
+          "explanation": "The cue column is filled in after the lecture with key terms and questions that the student uses to test themselves by covering the notes column—it is the system's built-in revision tool."
+        },
+        {
+          "question": "A student is taking notes on a lecture about the human immune system, which covers many interconnected concepts (antigens, antibodies, T-cells, B-cells, and their relationships). Which note-taking method is most naturally suited to capturing these relationships visually?",
+          "options": [
+            "The Outline Method, because its numbered hierarchy keeps medical terms in order",
+            "The Cornell System, because the cue column can hold all the technical vocabulary",
+            "The Mapping Method, because it uses branches to show how concepts connect to one another",
+            "The Sentence Method, because writing full sentences captures more detail"
+          ],
+          "correctIndex": 2,
+          "explanation": "The Mapping Method represents ideas as a network of connected branches, making it ideal for subjects with many interrelated concepts where the relationships between ideas are as important as the ideas themselves."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "English Grammar: Parts of Speech, Sentences, and Common Errors",
+      "sourceRange": "Topic 3",
+      "summary": "Grammar is the rule system that governs how words are selected and combined to produce meaningful, well-formed sentences. This module covers the entire grammatical framework a first-year university student needs for accurate academic writing: the eight parts of speech and how each functions in a sentence; how words cluster into phrases and clauses; how clauses combine to form the four major sentence types (simple, compound, complex, and compound-complex); the rules of subject-verb concord; the English tense and aspect system; and the most persistent grammatical errors found in Nigerian English.\n\nUnderstanding parts of speech is the foundation of all grammar work. Every word belongs to one of eight categories—noun, pronoun, verb, adjective, adverb, preposition, conjunction, or interjection—and knowing a word's category tells you what job it is doing and how it must relate to surrounding words. Above the level of individual words, phrases and clauses are the structural units that show how ideas are grouped. A phrase adds detail but lacks a subject-verb combination, while a clause has both. Independent clauses form the backbone of a sentence; dependent clauses add subordinate information. The interplay of these units produces the four sentence types, each offering a different way to express relationships between ideas.\n\nSubject-verb concord—ensuring the verb matches its subject in number and person—is among the most frequently tested areas of standard English, with several special cases that trip up many writers. English verbs also encode time and aspect through a system of twelve tense forms, each capturing a distinct relationship between an action and the moment of speaking. Finally, because many Nigerian students are influenced by local languages and informal registers, certain error patterns recur in Nigerian English; recognising these patterns is the first step to eliminating them from formal academic writing.",
+      "keyPoints": [
+        "The eight parts of speech are noun, pronoun, verb, adjective, adverb, preposition, conjunction, and interjection; every word in a sentence belongs to exactly one of these categories in its given context.",
+        "A phrase is a group of words functioning as a unit but lacking both a subject and a finite verb; a clause contains a subject and a finite verb.",
+        "An independent clause expresses a complete thought and can stand alone as a sentence; a dependent (subordinate) clause has a subject and verb but cannot stand alone and must be attached to an independent clause.",
+        "The four sentence types are: simple (one independent clause), compound (two or more independent clauses joined by a coordinating conjunction or semicolon), complex (one independent clause plus one or more dependent clauses), and compound-complex (two or more independent clauses plus one or more dependent clauses).",
+        "Subject-verb concord requires a singular subject to take a singular verb and a plural subject to take a plural verb; intervening prepositional phrases between subject and verb do not change this rule.",
+        "Special concord cases: collective nouns used as a single unit take a singular verb; compound subjects joined by 'and' take a plural verb; with 'neither…nor' and 'either…or' the verb agrees with the nearer subject; indefinite pronouns such as 'everyone,' 'each,' and 'nobody' always take a singular verb.",
+        "English tense combines time (present, past, future) with aspect (simple, continuous, perfect, perfect continuous), producing twelve tense forms that each express a distinct time-and-aspect relationship.",
+        "Common Nigerian English grammatical errors include: using the progressive form of stative verbs (e.g., 'are owing' instead of 'owe'), wrong preposition use with certain verbs (e.g., 'explain me' instead of 'explain to me'), using 'since' with a duration instead of 'for,' and failing to apply tense backshift in reported speech."
+      ],
+      "definitions": [
+        {
+          "term": "Part of speech",
+          "definition": "One of the eight grammatical categories—noun, pronoun, verb, adjective, adverb, preposition, conjunction, and interjection—into which every word is classified according to its function in a sentence. The same word can belong to different categories in different contexts (e.g., 'light' as a noun, adjective, or verb)."
+        },
+        {
+          "term": "Phrase",
+          "definition": "A group of related words that functions as a single grammatical unit but does not contain both a subject and a finite verb. Phrases are classified by their main word: noun phrases ('the tired student'), verb phrases ('has been reading'), prepositional phrases ('on the dusty shelf'), and adjective or adverb phrases."
+        },
+        {
+          "term": "Independent clause",
+          "definition": "A clause that contains both a subject and a finite verb and expresses a complete thought, so it can stand alone as a grammatically correct sentence. For example, 'The student passed the examination' is an independent clause."
+        },
+        {
+          "term": "Dependent (subordinate) clause",
+          "definition": "A clause that has a subject and a finite verb but does not express a complete thought on its own; it must be attached to an independent clause for its meaning to be complete. Dependent clauses are introduced by subordinating conjunctions (e.g., 'because,' 'although,' 'when') or relative pronouns (e.g., 'who,' 'which')."
+        },
+        {
+          "term": "Subject-verb concord",
+          "definition": "The grammatical rule that the verb in a clause must agree with its subject in number (singular or plural) and person (first, second, or third). Violating this rule—for instance, writing 'The students was late' instead of 'The students were late'—produces a concord error."
+        },
+        {
+          "term": "Tense",
+          "definition": "The grammatical category of a verb that signals the time of an action or state—past, present, or future—in relation to the moment of speaking. In English, tense is marked by changes in the verb form itself (e.g., 'writes' vs. 'wrote') or by the use of auxiliary verbs (e.g., 'will write')."
+        },
+        {
+          "term": "Aspect",
+          "definition": "A grammatical feature that describes how an action is distributed in time: whether it is habitual or viewed as a whole (simple aspect), ongoing at a specific moment (continuous/progressive aspect), completed with relevance to a reference point (perfect aspect), or ongoing over a period up to a reference point (perfect continuous aspect). Aspect combines with tense to produce English's twelve tense forms."
+        },
+        {
+          "term": "Stative verb",
+          "definition": "A verb that describes a state, condition, feeling, or mental/relational experience rather than a deliberate, dynamic action. Examples include 'know,' 'believe,' 'owe,' 'belong,' 'contain,' and 'resemble.' Stative verbs are not normally used in continuous (progressive) tenses in standard English; saying 'I am knowing the answer' instead of 'I know the answer' is a grammatical error."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying Parts of Speech in a Sentence",
+          "problem": "Identify the part of speech of every word in the sentence below and give a brief justification for each classification:\n'The exhausted lecturer slowly closed her heavy notebook.'",
+          "steps": [
+            "'The' — Adjective (definite article/determiner): it specifies which lecturer is meant; articles are a subclass of adjectives.",
+            "'exhausted' — Adjective: it describes the state of the noun 'lecturer,' answering the question what kind of lecturer?",
+            "'lecturer' — Noun (common noun): it names a person and functions as the subject of the sentence.",
+            "'slowly' — Adverb: it modifies the verb 'closed,' answering the question how? Adverbs typically modify verbs, adjectives, or other adverbs.",
+            "'closed' — Verb (past tense, transitive action verb): it is the main predicate, expressing what the lecturer did, and it takes 'notebook' as its direct object.",
+            "'her' — Pronoun (possessive pronoun): it replaces a noun phrase (the lecturer's name) and shows ownership of 'notebook.'",
+            "'heavy' — Adjective: it modifies the noun 'notebook,' describing its physical quality.",
+            "'notebook' — Noun (common noun): it names an object and functions as the direct object of the verb 'closed.'"
+          ],
+          "answer": "the = adjective (article); exhausted = adjective; lecturer = noun (subject); slowly = adverb; closed = verb; her = pronoun (possessive); heavy = adjective; notebook = noun (direct object)."
+        },
+        {
+          "title": "Applying Subject-Verb Concord Rules",
+          "problem": "Each sentence below contains a concord error. Identify the rule that is being broken and rewrite each sentence correctly.\n(a) 'The quality of these reports are unsatisfactory.'\n(b) 'Neither the dean nor the professors was informed of the change.'\n(c) 'Everyone in the two lecture halls have signed the register.'",
+          "steps": [
+            "Sentence (a) — Step 1: Locate the true grammatical subject. The subject is 'quality' (singular), not 'reports.' Step 2: 'Of these reports' is an intervening prepositional phrase; it modifies the subject but does not change its number. Step 3: A singular subject requires a singular verb. Replace 'are' with 'is.' Corrected: 'The quality of these reports is unsatisfactory.'",
+            "Sentence (b) — Step 1: The construction 'neither…nor' is a correlative conjunction that links two subjects. Step 2: Apply the proximity rule: when subjects are joined by 'neither…nor' or 'either…or,' the verb agrees with the subject that is closer to it. The nearer subject is 'professors,' which is plural. Step 3: Replace 'was' with 'were.' Corrected: 'Neither the dean nor the professors were informed of the change.'",
+            "Sentence (c) — Step 1: The grammatical subject is 'everyone,' an indefinite pronoun. Step 2: Indefinite pronouns such as 'everyone,' 'each,' 'nobody,' 'somebody,' and 'anyone' are always treated as singular in standard English, regardless of any following prepositional phrase (here, 'in the two lecture halls'). Step 3: Replace 'have' with 'has.' Corrected: 'Everyone in the two lecture halls has signed the register.'"
+          ],
+          "answer": "(a) '…is unsatisfactory.' (b) '…professors were informed…' (c) '…halls has signed…'"
+        },
+        {
+          "title": "Identifying and Correcting Common Nigerian English Errors",
+          "problem": "The sentences below contain grammatical errors that frequently occur in Nigerian English. For each sentence, name the type of error and write the corrected version.\n(a) 'They are owing me five thousand naira.'\n(b) 'She explained me the entire procedure.'\n(c) 'I have been working at this office since three years.'\n(d) 'He told me that he is ready to submit the assignment.'",
+          "steps": [
+            "Sentence (a) — Error type: Progressive form used with a stative verb. 'Owe' describes a financial relationship (a state), not a dynamic action. Stative verbs do not take the continuous/progressive form in standard English. Change 'are owing' to 'owe.' Corrected: 'They owe me five thousand naira.'",
+            "Sentence (b) — Error type: Incorrect verb complementation (missing preposition). The verb 'explain' is not ditransitive in standard English; it cannot take a personal object directly. The indirect object must be preceded by 'to.' Rewrite as 'She explained the entire procedure to me.' Corrected: 'She explained the entire procedure to me.'",
+            "Sentence (c) — Error type: Confusion of 'since' and 'for.' 'Since' introduces a specific point in time at which something began (e.g., 'since 2021,' 'since Monday'). 'For' introduces a duration or length of time (e.g., 'for three years,' 'for two hours'). Because 'three years' is a duration, replace 'since' with 'for.' Corrected: 'I have been working at this office for three years.'",
+            "Sentence (d) — Error type: Failure to apply tense backshift in reported (indirect) speech. The reporting verb 'told' is in the past tense. Standard English requires the verb in the reported clause to shift back one tense: present simple ('is') shifts to past simple ('was'). Change 'is' to 'was.' Corrected: 'He told me that he was ready to submit the assignment.'"
+          ],
+          "answer": "(a) They owe me five thousand naira. (b) She explained the entire procedure to me. (c) I have been working at this office for three years. (d) He told me that he was ready to submit the assignment."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the sentence 'The students eagerly awaited their results,' what part of speech is 'eagerly'?",
+          "options": [
+            "Adjective",
+            "Noun",
+            "Adverb",
+            "Verb"
+          ],
+          "correctIndex": 2,
+          "explanation": "'Eagerly' modifies the verb 'awaited' by describing how the action was performed, which is the defining function of an adverb; it does not describe a noun, so it is not an adjective."
+        },
+        {
+          "question": "Which of the following sentences demonstrates correct subject-verb concord?",
+          "options": [
+            "The news of the new policies are alarming.",
+            "Each of the submitted assignments have been marked.",
+            "Neither the student nor the supervisors was available.",
+            "The team of engineers has completed its inspection."
+          ],
+          "correctIndex": 3,
+          "explanation": "'Team' is a collective noun used as a single unit, so it correctly takes the singular verb 'has'; 'news' is always singular (eliminating A); 'each' requires a singular verb 'has' (eliminating B); with 'neither…nor' the verb must agree with the nearer subject 'supervisors' (plural), requiring 'were,' not 'was' (eliminating C)."
+        },
+        {
+          "question": "Which of the following is a compound-complex sentence?",
+          "options": [
+            "The rain fell heavily all night.",
+            "The rain fell and the streets flooded.",
+            "Although it was late, she continued to study.",
+            "Although it was late, she continued to study, and her roommate joined her."
+          ],
+          "correctIndex": 3,
+          "explanation": "Option D contains two independent clauses ('she continued to study' and 'her roommate joined her') joined by the coordinating conjunction 'and,' plus one dependent clause ('Although it was late'), satisfying the definition of a compound-complex sentence."
+        },
+        {
+          "question": "Which sentence contains the type of grammatical error most characteristic of Nigerian English?",
+          "options": [
+            "She has known him for many years.",
+            "The lecturer is knowing the correct answer.",
+            "They have been waiting for three hours.",
+            "He explained the examination rules to the new students."
+          ],
+          "correctIndex": 1,
+          "explanation": "'Know' is a stative verb and must not appear in the progressive form; the correct version is 'The lecturer knows the correct answer.' Misusing progressive tenses with stative verbs is a well-documented grammatical feature of Nigerian English."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Punctuation and Mechanics: Marks and Their Uses",
+      "sourceRange": "Topic 4",
+      "summary": "Punctuation is the system of marks that organises written language into clear, readable units. Without it, even a well-chosen set of words can be ambiguous, misleading, or impossible to follow. This module examines seven essential marks—the full stop, comma, semicolon, colon, apostrophe, quotation marks, and capital letters—explaining what each mark does, the rules that govern it, and the errors writers most commonly make.\n\nEach mark signals a specific relationship: a full stop closes a thought; a comma creates a brief pause or separates parallel elements; a semicolon shows that two ideas are closely related yet grammatically independent; a colon points forward to an explanation or list; an apostrophe marks possession or a missing letter; quotation marks frame borrowed or spoken words; and capital letters flag sentence beginnings, proper nouns, and titles. Mastering these marks is not merely a matter of following conventions—it is a matter of controlling meaning, because the same words punctuated differently can say opposite things.\n\nA recurring theme in this module is that punctuation errors in Nigerian English often arise from treating the marks as decorative rather than functional. Common mistakes include using an apostrophe to form a simple plural, placing a comma between two independent clauses without a conjunction (the comma splice), and omitting capitals from proper nouns. Working through the rules and incorrect examples below will sharpen your ability to write precisely and to catch errors in editing.",
+      "keyPoints": [
+        "A full stop ends every declarative and imperative sentence; it also follows most abbreviations (e.g., Mr., etc.) but is omitted in acronyms written in full capitals (UNESCO, NOUN).",
+        "The comma has several distinct jobs: separating items in a list, joining independent clauses before a coordinating conjunction, setting off introductory phrases or clauses, and marking parenthetical (non-essential) information.",
+        "A comma splice is the error of joining two independent clauses with only a comma and no coordinating conjunction; it must be corrected with a full stop, a semicolon, or a conjunction.",
+        "The semicolon joins two closely related independent clauses without a conjunction, and it also separates list items that themselves contain commas.",
+        "The colon introduces what has been promised by the clause before it—a list, an explanation, or a quotation—and must follow a grammatically complete clause.",
+        "The apostrophe marks either possession (the student's book; the students' books) or contraction (it's = it is; don't = do not); it is never used to form a simple plural.",
+        "Quotation marks enclose direct speech or quoted text; the first word of a quoted complete sentence begins with a capital letter, and the closing punctuation of the speech sits inside the closing quotation mark.",
+        "Capital letters are required at the start of every sentence, for all proper nouns and proper adjectives, for the pronoun I, and for the principal words in titles of books, films, and institutions."
+      ],
+      "definitions": [
+        {
+          "term": "Full stop (period)",
+          "definition": "A punctuation mark (.) placed at the end of a declarative sentence (a statement) or an imperative sentence (a command). It signals a complete pause and a grammatically closed thought. It is also used after abbreviations such as Prof. or Jan., but not after acronyms like UNESCO or contractions in some styles."
+        },
+        {
+          "term": "Comma",
+          "definition": "A punctuation mark (,) that indicates a brief pause within a sentence. Its main uses are: (1) separating three or more items in a list; (2) joining two independent clauses when followed by a coordinating conjunction (and, but, or, so, yet); (3) setting off an introductory word, phrase, or clause; and (4) enclosing non-essential parenthetical information in the middle of a sentence."
+        },
+        {
+          "term": "Comma splice",
+          "definition": "A punctuation error in which two independent clauses are joined by a comma alone, without a coordinating conjunction. Example of the error: 'She finished her assignment, she submitted it online.' Correct options are: a full stop, a semicolon, or a comma plus a conjunction ('she finished her assignment, and she submitted it online')."
+        },
+        {
+          "term": "Semicolon",
+          "definition": "A punctuation mark (;) that links two independent clauses that are closely related in meaning but are not joined by a coordinating conjunction. It is also used to separate items in a list when those items already contain commas, to avoid confusion."
+        },
+        {
+          "term": "Colon",
+          "definition": "A punctuation mark (:) that points forward from a grammatically complete clause to introduce a list, an explanation, a definition, or a direct quotation. The clause before a colon must be able to stand alone as a sentence; the material after the colon elaborates on it."
+        },
+        {
+          "term": "Apostrophe",
+          "definition": "A punctuation mark (') with two distinct uses: (1) Possession — added as 's to a singular noun (the lecturer's notes) or as s' to a regular plural noun (the students' union); irregular plurals take 's (the children's books). (2) Contraction — placed where one or more letters have been omitted (it's = it is; wasn't = was not). It is never used to make a noun plural."
+        },
+        {
+          "term": "Quotation marks (inverted commas)",
+          "definition": "Marks (' ' or \" \") that enclose direct speech, a passage quoted word-for-word, or a title of a short work such as an article or short story. In direct speech, the quoted words begin with a capital letter if they form a complete sentence, and the full stop or comma at the end of the speech is placed inside the closing quotation mark."
+        },
+        {
+          "term": "Capitalisation",
+          "definition": "The convention of writing certain letters in their upper-case form. Rules require capitals at the start of every sentence, for all proper nouns (names of specific people, places, languages, religions, institutions—e.g., Abuja, Yoruba, Islam, University of Lagos), for the pronoun I, and for the first and principal words in titles of books, films, and organisations."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "How a Comma (or Its Absence) Changes Meaning",
+          "problem": "Consider these two sentences: (a) 'Let's eat Grandma.' and (b) 'Let's eat, Grandma.' Explain precisely what each sentence means and identify the punctuation feature responsible for the difference.",
+          "steps": [
+            "Step 1 – Analyse sentence (a): 'Let's eat Grandma.' There is no comma between 'eat' and 'Grandma'. Grammatically, 'Grandma' functions as the direct object of the verb 'eat', meaning the speaker is suggesting that the listeners eat Grandma. The full stop signals a simple declarative proposal.",
+            "Step 2 – Analyse sentence (b): 'Let's eat, Grandma.' The comma after 'eat' creates a vocative construction—it separates the verb phrase from a noun of direct address. 'Grandma' is now the name of the person being spoken to, not something to be eaten. The speaker is inviting Grandma to join them for a meal.",
+            "Step 3 – Identify the rule at work: A comma must be placed before (or around) a noun of direct address—the name or title of the person being spoken to—so that readers do not mistake it for another grammatical role such as object or subject.",
+            "Step 4 – Generalise the lesson: Even one missing comma can reverse a sentence's meaning or produce an unintentionally absurd reading. This is why punctuation is a matter of meaning, not mere convention."
+          ],
+          "answer": "Sentence (a), without the comma, suggests eating Grandma (she is the object). Sentence (b), with the comma, is an invitation addressed to Grandma. The comma in (b) marks direct address, completely changing the sentence's meaning."
+        },
+        {
+          "title": "Correcting Apostrophe Errors",
+          "problem": "Each of the following sentences contains at least one apostrophe error. Identify every error and write the corrected sentence. (a) 'The student's are waiting in the hall.' (b) 'Its important to submit you're assignment before Friday.' (c) 'The childrens' books were scattered on the floor.'",
+          "steps": [
+            "Step 1 – Sentence (a): 'student's' uses an apostrophe, but 'students' here is a simple plural noun (more than one student), not a possessive. Apostrophes never form ordinary plurals. Correction: 'The students are waiting in the hall.'",
+            "Step 2 – Sentence (b), word 1: 'Its' should be 'It's'. Here the meaning is 'It is important', so a contraction is needed: the apostrophe replaces the missing letter i from 'is'. Without the apostrophe, 'its' is a possessive pronoun (belonging to it), which does not fit the sentence.",
+            "Step 3 – Sentence (b), word 2: 'you're' means 'you are' (a contraction). But 'you are assignment' makes no sense; what is needed is the possessive pronoun 'your' (belonging to you). Possessive pronouns—his, her, its, your, our, their—never take an apostrophe. Correction: 'It's important to submit your assignment before Friday.'",
+            "Step 4 – Sentence (c): 'children' is already an irregular plural of 'child' (not 'childrens'). To form the possessive of an irregular plural, add 's (not s'). Writing 'childrens'' invents a non-word. Correction: 'The children's books were scattered on the floor.'"
+          ],
+          "answer": "(a) 'The students are waiting in the hall.' (b) 'It's important to submit your assignment before Friday.' (c) 'The children's books were scattered on the floor.'"
+        },
+        {
+          "title": "Choosing Between the Semicolon and the Colon",
+          "problem": "Insert either a semicolon (;) or a colon (:) in each blank and justify your choice. (a) 'The department requires three items __ a textbook, a dictionary, and a notebook.' (b) 'Kano is a city of contrasts __ its ancient walls stand beside ultramodern shopping centres.' (c) 'The prize went to the student who worked hardest __ Ngozi outperformed everyone in all three assessments.'",
+          "steps": [
+            "Step 1 – Rule reminder: A colon follows a grammatically complete clause and introduces a list, an explanation, or a quotation. A semicolon connects two complete, independent clauses that are closely related but lack a coordinating conjunction.",
+            "Step 2 – Sentence (a): 'The department requires three items' is a complete clause. What follows ('a textbook, a dictionary, and a notebook') is a list that fulfils the promise of 'three items'. A colon is correct. → 'The department requires three items: a textbook, a dictionary, and a notebook.'",
+            "Step 3 – Sentence (b): Both 'Kano is a city of contrasts' and 'its ancient walls stand beside ultramodern shopping centres' are independent clauses. The second illustrates the first, but no coordinating conjunction is used. Either a semicolon or a colon could work here, but because the second clause explains or exemplifies the first (rather than simply listing), a colon is slightly more precise. A semicolon is also acceptable. Best answer: colon. → 'Kano is a city of contrasts: its ancient walls stand beside ultramodern shopping centres.'",
+            "Step 4 – Sentence (c): 'The prize went to the student who worked hardest' is a complete clause; 'Ngozi outperformed everyone in all three assessments' is a second complete clause that identifies who that student is. The second clause explains and names the first clause's claim. A colon introduces this identification. → 'The prize went to the student who worked hardest: Ngozi outperformed everyone in all three assessments.' (A semicolon would also be grammatically defensible, but the colon better signals that the second clause identifies the first.)"
+          ],
+          "answer": "(a) Colon — introduces an announced list. (b) Colon (or semicolon) — the second clause exemplifies the first. (c) Colon — the second clause identifies and explains the claim in the first."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following sentences uses the comma correctly?",
+          "options": [
+            "She wanted to travel, but, she could not afford the fare.",
+            "After submitting her report, she went to the cafeteria.",
+            "He bought yam, rice, and, beans from the market.",
+            "The lecturer, explained the concept slowly."
+          ],
+          "correctIndex": 1,
+          "explanation": "An introductory adverbial clause or phrase is correctly set off from the main clause by a single comma placed immediately after it, as in option B; the other options either insert unnecessary commas or place the comma in the wrong position."
+        },
+        {
+          "question": "Which sentence contains a correctly used apostrophe?",
+          "options": [
+            "The 1990's were marked by rapid change in Nigeria.",
+            "The boys' football boots were caked in mud after the match.",
+            "The dog wagged it's tail excitedly.",
+            "Please return all the book's to the library shelf."
+          ],
+          "correctIndex": 1,
+          "explanation": "'Boys'' is the correct plural possessive (the boots belonging to multiple boys); the other options misuse the apostrophe—to form a decade plural, to replace the possessive pronoun 'its', and to form a simple plural of 'books'."
+        },
+        {
+          "question": "Which punctuation mark best completes this sentence? 'She had one ambition __ to represent Nigeria at the Olympics.'",
+          "options": [
+            "Comma",
+            "Full stop",
+            "Semicolon",
+            "Colon"
+          ],
+          "correctIndex": 3,
+          "explanation": "A colon is used after a complete clause to introduce what it has promised or announced; here, 'to represent Nigeria at the Olympics' is the specific ambition the first clause points toward."
+        },
+        {
+          "question": "Which sentence uses capital letters correctly?",
+          "options": [
+            "My Professor teaches english at the university of lagos.",
+            "my professor teaches English at the University of Lagos.",
+            "My professor teaches English at the University of Lagos.",
+            "My Professor teaches English at the University Of Lagos."
+          ],
+          "correctIndex": 2,
+          "explanation": "Capital letters are required for the first word of the sentence, for the proper noun 'English' (a specific language), and for the official name of the institution ('University of Lagos'), but not for a common noun like 'professor' when used as a generic title without a proper name."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Vocabulary and Usage: Word Formation, Relationships, and Register",
+      "sourceRange": "Topic 5",
+      "summary": "Vocabulary is the foundation of effective communication. A wide and well-organised vocabulary allows you to express ideas precisely, adapt your language to different situations, and understand what you read and hear. This module examines five interconnected areas that build vocabulary competence. First, word formation: English constructs thousands of words by attaching prefixes (at the front) and suffixes (at the end) to base words, and recognising these building blocks lets you decode unfamiliar words without a dictionary. Second, vocabulary relationships: synonyms are words with similar meanings, antonyms are opposites, and homophones are words that sound alike but differ in spelling and meaning—confusing any of these is a source of common writing errors. Third, idioms: fixed phrases whose meaning cannot be guessed from the individual words, which must be learned and used carefully. Fourth, register: the level and style of language appropriate to a particular audience, purpose, and situation—formal, informal, or technical. Finally, effective dictionary use brings all of these together, allowing you to check meaning, pronunciation, grammatical class, register labels, and example sentences.\n\nMastering vocabulary is not simply memorising long word lists. It means understanding how words are built, how they relate to one another, what they imply as well as what they state (connotation versus denotation), and how context governs which word is the right choice. A word that is perfect in a casual conversation—say, 'kids' instead of 'children'—may be inappropriate in a formal report. Similarly, a technical term that communicates precisely among specialists may confuse a general audience. Developing sensitivity to register is therefore as important as knowing definitions. Good dictionary habits, practised regularly, anchor all these skills in reliable, authoritative information about how words actually behave in educated written English.",
+      "keyPoints": [
+        "Prefixes and suffixes are morphemes (meaningful units) added to a base word to change its meaning or grammatical class; knowing common ones unlocks the meaning of thousands of new words.",
+        "A prefix is added before the base word (un- + happy = unhappy); a suffix is added after it (happy + -ness = happiness), often changing the word's part of speech.",
+        "Synonyms share a similar meaning but rarely have identical connotations or levels of formality; always consider the nuance before substituting one for another.",
+        "Antonyms express opposite meanings and may be formed by adding a negative prefix (happy/unhappy) or may be entirely different words (hot/cold).",
+        "Homophones sound identical but are spelled differently and carry different meanings (their/there/they're; affect/effect as commonly confused pairs); errors with homophones are common in writing.",
+        "An idiom is a fixed expression whose overall meaning is different from the literal meaning of its words; idioms are culture-specific and must be learned as whole units.",
+        "Register refers to the variety of language chosen to suit a context: formal register is used in academic writing, legal documents, and official speeches; informal register suits conversation and personal messages; technical register is field-specific and assumes specialist knowledge.",
+        "A good dictionary entry provides: headword, pronunciation (in IPA), part of speech, definition(s), example sentences, irregular forms, collocations, and sometimes register or usage labels."
+      ],
+      "definitions": [
+        {
+          "term": "Prefix",
+          "definition": "A morpheme (unit of meaning) attached to the beginning of a base word to modify its meaning without changing its grammatical class. For example, 'un-' (meaning 'not') added to 'happy' produces 'unhappy'; 'pre-' (meaning 'before') added to 'view' produces 'preview'."
+        },
+        {
+          "term": "Suffix",
+          "definition": "A morpheme attached to the end of a base word, often changing both the meaning and the grammatical class (part of speech) of the word. For example, adding '-ness' (a noun-forming suffix) to the adjective 'dark' produces the noun 'darkness'; adding '-ify' to 'simple' produces the verb 'simplify'."
+        },
+        {
+          "term": "Synonym",
+          "definition": "A word that has a meaning very similar to that of another word in the same language. Because synonyms carry different connotations, degrees of formality, or collocational patterns, they are rarely perfectly interchangeable. For example, 'commence', 'begin', and 'start' are synonyms, but 'commence' is formal and 'start' is neutral."
+        },
+        {
+          "term": "Antonym",
+          "definition": "A word whose meaning is opposite or strongly contrasted with that of another word. Antonyms may be gradable (hot–cold, with many degrees between them) or complementary/binary (alive–dead, with no middle ground). Some antonyms are created by adding a negative prefix: 'possible/impossible', 'honest/dishonest'."
+        },
+        {
+          "term": "Homophone",
+          "definition": "A word that is pronounced the same as another word but differs in spelling and meaning. Examples include 'write' and 'right'; 'bare' and 'bear'; 'their', 'there', and 'they're'. Because spell-checkers cannot detect homophone errors (both spellings are valid words), writers must learn them carefully."
+        },
+        {
+          "term": "Idiom",
+          "definition": "A fixed multi-word expression whose conventional meaning cannot be deduced by analysing the meanings of its individual words. For instance, 'to beat about the bush' means to avoid stating something directly; 'to kick the bucket' means to die. Idioms are culturally embedded and must be learned as complete units."
+        },
+        {
+          "term": "Register",
+          "definition": "The variety or level of language a speaker or writer selects according to the context, audience, and purpose of communication. The three principal registers are: formal (academic essays, official correspondence, professional reports); informal (everyday conversation, text messages, personal letters); and technical (specialised vocabulary used within a particular field, such as medicine, law, or engineering)."
+        },
+        {
+          "term": "Connotation",
+          "definition": "The emotional, cultural, or associative meaning a word carries beyond its literal dictionary definition (its denotation). For example, 'slim' and 'scrawny' both denote a thin body, but 'slim' has a positive connotation while 'scrawny' is negative. Choosing between synonyms often depends on which connotation suits the intended effect."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Decoding an Unfamiliar Word Using Prefixes and Suffixes",
+          "problem": "You encounter the word 'incomprehensibility' in an academic article and do not know its meaning. Using your knowledge of prefixes and suffixes, analyse the word step by step to work out what it means, and state the grammatical class of each form produced.",
+          "steps": [
+            "Identify the base word. Strip away any affixes to find the root. The core is 'comprehend', a verb meaning 'to understand fully'. (Alternatively, the Latin root 'comprehen-' carries this meaning, visible in the adjective form 'comprehensible'.)",
+            "Identify the first suffix. 'comprehend' → 'comprehensible': the suffix '-ible' (variant of '-able') is an adjective-forming suffix meaning 'capable of being'. So 'comprehensible' = 'capable of being understood'; grammatical class: adjective.",
+            "Identify the prefix. 'comprehensible' → 'incomprehensible': the prefix 'in-' means 'not'. So 'incomprehensible' = 'not capable of being understood'; grammatical class: adjective.",
+            "Identify the final suffix. 'incomprehensible' → 'incomprehensibility': the suffix '-ity' is a noun-forming suffix that converts an adjective into a noun denoting a state or quality. So 'incomprehensibility' = 'the state or quality of being impossible to understand'; grammatical class: noun.",
+            "Confirm the analysis. The full word breaks down as: in- (not) + comprehens- (understand) + -ible (capable of being) + -ity (the quality/state of) = 'the quality of not being capable of being understood'."
+          ],
+          "answer": "'Incomprehensibility' is a noun meaning 'the quality or state of being impossible to understand'. It is built from the prefix 'in-' (not), the base 'comprehensible' (understandable), and the noun-forming suffix '-ity'."
+        },
+        {
+          "title": "Choosing Between Synonyms and Avoiding Homophone Errors",
+          "problem": "A student writes the following two sentences in an assignment. Identify and correct any vocabulary errors, explaining your reasoning: (a) 'The principle reason for the company's collapse was poor management.' (b) 'The government must affect immediate change to stop the crises.' Also, choose the more appropriate synonym to complete the sentence: (c) 'The professor gave a _______ (long / protracted) lecture on thermodynamics.'",
+          "steps": [
+            "Sentence (a) — Homophone error: 'principle' and 'principal' are homophones. 'Principle' is a noun meaning 'a fundamental rule or belief' (e.g., 'the principle of fairness'). 'Principal' functions as an adjective meaning 'main or most important', or as a noun for a person in authority. The sentence needs the adjective meaning 'main', so the correct word is 'principal'. Corrected: 'The principal reason for the company's collapse was poor management.'",
+            "Sentence (b) — Commonly confused pair (near-homophones): 'affect' and 'effect' are frequently confused. 'Affect' is usually a verb meaning 'to influence or have an impact on'. 'Effect' as a noun means 'a result or outcome'; as a verb (less common) it means 'to bring about or cause to happen'. The sentence means 'to bring about change', so the verb 'effect' is required. Corrected: 'The government must effect immediate change to stop the crises.'",
+            "Sentence (c) — Choosing between synonyms for appropriate register and connotation: Both 'long' and 'protracted' mean 'extended in duration'. However, 'protracted' carries the connotation of something drawn out beyond a desirable or normal length, often used in formal or critical contexts (e.g., 'protracted negotiations', 'a protracted war'). In a neutral factual statement about a lecture in an academic assignment, 'protracted' is both register-appropriate (formal) and more precise in implying the length was excessive. The better choice is 'protracted'.",
+            "Summarise all corrections: (a) principal; (b) effect; (c) protracted."
+          ],
+          "answer": "(a) 'principle' → 'principal' (homophone error: 'principal' is the adjective meaning 'main'). (b) 'affect' → 'effect' (confused pair: the verb 'effect' means 'to bring about'). (c) 'protracted' is the more appropriate synonym because it is formal in register and conveys the nuance of excessive length."
+        },
+        {
+          "title": "Matching Register to Context and Using a Dictionary Entry",
+          "problem": "A student needs to write three short sentences conveying the same basic information—'we need to start the meeting now'—in three different registers: informal, formal, and technical/official. Then, given the dictionary entry below, answer the questions that follow.\n\nDictionary entry: commence /kəˈmɛns/ verb [I, T] (formal) to begin something or to begin to happen. 'The ceremony will commence at 10:00 a.m.' Noun form: commencement. See also: begin, start, initiate.",
+          "steps": [
+            "Informal register: The language should be relaxed, natural, and suited to conversation among peers or friends. Contractions and simple vocabulary are acceptable. Sentence: 'Guys, let's get started — it's time.'",
+            "Formal register: The language should be polished, impersonal, and suitable for official or professional settings. Full sentences, no contractions, and elevated vocabulary are expected. Sentence: 'I respectfully request that all participants take their seats, as the meeting is about to begin.'",
+            "Technical/official register: The language follows the conventions of formal institutional communication, often using specific procedural vocabulary. Sentence: 'This convening is hereby called to order; proceedings will commence forthwith.'",
+            "Reading the dictionary entry: (i) Pronunciation — the IPA transcription /kəˈmɛns/ shows two syllables, with stress on the second syllable (ˈ precedes the stressed syllable): com-MENCE. (ii) Register label — the entry is marked '(formal)', meaning 'commence' is inappropriate in casual conversation; 'start' or 'begin' would be more natural there. (iii) Part of speech and transitivity — 'verb [I, T]' means it can be used intransitively (without an object: 'The meeting will commence') or transitively (with an object: 'We will commence proceedings'). (iv) The noun form 'commencement' is cross-referenced, showing how to derive a related word.",
+            "Conclusion: Choosing the right word and the right register means consulting all parts of a dictionary entry — not just the definition — and asking: Who is my audience? What is the context? What connotation does this word carry?"
+          ],
+          "answer": "Informal: 'Guys, let's get started — it's time.' Formal: 'I respectfully request that all participants take their seats, as the meeting is about to begin.' Technical/official: 'This convening is hereby called to order; proceedings will commence forthwith.' From the dictionary entry: 'commence' is formal, stressed on the second syllable, can be transitive or intransitive, and its noun form is 'commencement'."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student writes: 'She has a very lose grip on the handlebars.' What type of vocabulary error is this, and what is the correct word?",
+          "options": [
+            "A synonym error; the correct word is 'weak'.",
+            "A homophone error; the correct word is 'loose'.",
+            "A register error; the correct word is 'lax'.",
+            "A suffix error; the correct word is 'losing'."
+          ],
+          "correctIndex": 1,
+          "explanation": "'Lose' (a verb meaning 'to fail to keep') and 'loose' (an adjective meaning 'not tight') are homophones; the sentence requires the adjective 'loose' to describe the grip."
+        },
+        {
+          "question": "Which of the following sentences uses the word 'effect' correctly?",
+          "options": [
+            "The new policy will effect everyone in the department.",
+            "The chairman promised to effect sweeping reforms before the year ends.",
+            "She could not effect whether the decision was reversed.",
+            "The medicine had no effect on effecting a cure."
+          ],
+          "correctIndex": 1,
+          "explanation": "In option B, 'effect' is used as a verb meaning 'to bring about', which is its correct (though less common) verbal use; options A and C confuse it with 'affect', and option D uses both forms awkwardly and incorrectly."
+        },
+        {
+          "question": "A lecturer asks you to 'use formal register' in your essay. Which of the following passages best fulfils that instruction?",
+          "options": [
+            "So basically, the experiment didn't work out and we kinda didn't expect that result.",
+            "The experimental outcome was inconsistent with the predicted results, suggesting a methodological limitation.",
+            "OMG the experiment failed!! Nobody saw that coming lol.",
+            "The experiment, you know, just didn't give us what we wanted, which was a bit surprising."
+          ],
+          "correctIndex": 1,
+          "explanation": "Option B uses full sentences, precise academic vocabulary ('inconsistent', 'methodological limitation'), and an impersonal tone—all hallmarks of formal register; the other options are informal or colloquial."
+        },
+        {
+          "question": "What is the function of the prefix 'mis-' in the words 'misunderstand', 'mislead', and 'misuse'?",
+          "options": [
+            "It indicates repetition of the action.",
+            "It reverses or undoes the action of the base word.",
+            "It signals that the action is done wrongly or badly.",
+            "It converts the verb into a noun."
+          ],
+          "correctIndex": 2,
+          "explanation": "The prefix 'mis-' means 'wrongly' or 'badly': to misunderstand is to understand wrongly, to mislead is to lead someone in the wrong direction, and to misuse is to use something badly or improperly."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Speaking and Presentation Skills: Delivery, Visuals, and Interaction",
+      "sourceRange": "Topic 6",
+      "summary": "Effective spoken communication depends on mastering both the features of spoken English and the practical skills of planning, delivering, and responding during a presentation. Spoken English differs fundamentally from written English: meaning is carried not only by words but by how those words are said — through stress, intonation, pace, and pause. A speaker who places stress on the wrong syllable or uses a flat, monotone pitch loses the audience's attention and can even be misunderstood. Developing conscious control of these prosodic features is therefore the first step towards confident public speaking.\n\nA successful presentation is the product of careful planning. A well-structured talk moves through three clear stages — an introduction that gains attention and previews the content, a body that develops ideas in a logical sequence, and a conclusion that summarises and leaves the audience with a clear takeaway. Supporting these stages with well-designed visual aids (slides, charts, diagrams) helps the audience follow complex information, but only when the aids are kept simple, legible, and genuinely relevant rather than used as a crutch to replace spoken explanation.\n\nFinally, public speaking is interactive. Handling audience questions calmly and honestly, and participating constructively in seminars and group discussions, are skills in their own right. They require active listening, respect for other speakers, the ability to build on or politely challenge another's point, and the discipline to contribute meaningfully without dominating. Together, these skills form the foundation of academic and professional oral communication.",
+      "keyPoints": [
+        "Word stress places emphasis on one syllable within a word; misplacing stress in English changes the word's identity or makes it hard to understand (e.g., PREsent vs. preSENT).",
+        "Sentence stress highlights the most important word in an utterance; intonation (the rise and fall of pitch) signals whether a sentence is a statement, question, or incomplete thought.",
+        "Pace and pause are powerful tools: speaking too fast loses the audience; deliberate pauses signal important points and give listeners time to absorb information.",
+        "Every presentation needs three structural sections: introduction (attention-getter, thesis/purpose, preview), body (2–4 main points with supporting evidence), and conclusion (summary, closing statement, call to action or reflection).",
+        "Visual aids should follow the 6×6 rule as a maximum guide — no more than six lines per slide and six words per line — and must be large enough to read from the back of the room.",
+        "When handling questions, listen to the full question before responding, paraphrase to confirm understanding, answer honestly, and admit when you do not know.",
+        "In seminars and group discussions, contribute relevant points, build on others' contributions, avoid interrupting, use hedging language to disagree respectfully, and keep contributions concise.",
+        "Eye contact, posture, and gestures (non-verbal delivery) reinforce the speaker's message and project confidence and credibility to the audience."
+      ],
+      "definitions": [
+        {
+          "term": "Word stress",
+          "definition": "The emphasis placed on one particular syllable within a word, making it louder, longer, and higher in pitch than surrounding syllables. English word stress is fixed for each word and must be learned, as misplacing it can make a word unrecognisable (e.g., PHOtograph vs. phoTOgraphy)."
+        },
+        {
+          "term": "Sentence stress",
+          "definition": "The pattern of emphasis across the words in an utterance, where content words (nouns, main verbs, adjectives, adverbs) receive more stress than function words (articles, prepositions, auxiliary verbs). Shifting stress to a different word changes the meaning or focus of the sentence."
+        },
+        {
+          "term": "Intonation",
+          "definition": "The rise and fall of the speaker's pitch across a phrase or sentence. A falling tone typically signals a complete statement or a wh-question answer; a rising tone signals a yes/no question, uncertainty, or that the speaker has not finished. Intonation conveys attitude and emotion as well as grammatical meaning."
+        },
+        {
+          "term": "Pace",
+          "definition": "The speed at which a speaker delivers words, measured informally by how many words or ideas are communicated per minute. An appropriate pace (roughly 120–150 words per minute for formal presentations) ensures clarity; too fast prevents comprehension, and too slow loses audience interest."
+        },
+        {
+          "term": "Visual aid",
+          "definition": "Any graphic or physical material used during a presentation to support or illustrate spoken content, including slides (PowerPoint/Google Slides), charts, diagrams, handouts, physical objects, and whiteboards. Effective visual aids simplify complex information and reinforce key points without repeating the speaker's words verbatim."
+        },
+        {
+          "term": "The 6×6 rule",
+          "definition": "A practical guideline for slide design stating that each slide should contain no more than six bullet points and each bullet no more than six words, ensuring slides remain readable and uncluttered. It is a maximum, not a target — simpler slides with a single image or headline are often more effective."
+        },
+        {
+          "term": "Seminar etiquette",
+          "definition": "The set of behavioural norms that govern respectful and productive participation in academic seminars and group discussions, including listening without interrupting, contributing relevant and concise points, building on others' ideas, using polite hedging when disagreeing, and allowing equal speaking opportunities for all participants."
+        },
+        {
+          "term": "Hedging language",
+          "definition": "Words and phrases that soften or qualify a statement, allowing a speaker to express disagreement, uncertainty, or a contrasting view without sounding aggressive or dismissive. Examples include 'I see your point, however…', 'It could be argued that…', and 'I'm not sure I entirely agree because…'."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Word Stress and Intonation in a Sentence",
+          "problem": "A student is practising the sentence: 'We NEED to submit the report by FRIDAY.' Explain (a) why the capitalised words receive stress, (b) what intonation pattern is appropriate, and (c) how a different stress pattern would change the meaning.",
+          "steps": [
+            "Step 1 – Identify content vs. function words. The sentence contains: 'We' (pronoun/content), 'need' (modal-like main verb/content), 'to' (function), 'submit' (content verb), 'the' (function), 'report' (content noun), 'by' (function preposition), 'Friday' (content noun — specific deadline). Content words are candidates for stress.",
+            "Step 2 – Determine which content words carry the most communicative weight. The speaker wants to emphasise the urgency ('NEED') and the specific deadline ('FRIDAY'). These two words are therefore the primary stress bearers.",
+            "Step 3 – Choose the intonation pattern. This is a declarative statement, so a falling intonation at the end ('FRI-day↘') is appropriate, signalling a complete, definitive statement rather than a question or uncertainty.",
+            "Step 4 – Explore meaning shift with different stress. If stress moves: 'We need to submit the REPORT by Friday' — the focus shifts to what must be submitted (not a proposal or draft, but specifically the report). 'WE need to submit the report by Friday' — implies others do not have this obligation; the contrast is with another group. Each stress choice creates a different communicative message.",
+            "Step 5 – Practical delivery note. To reinforce these stressed words, the speaker should also slow down slightly on 'NEED' and 'FRI-day', and may pause briefly before 'Friday' to heighten the sense of deadline."
+          ],
+          "answer": "'NEED' is stressed to signal urgency and 'FRIDAY' to highlight the critical deadline — both are high-information content words. A falling tone at the end marks the utterance as a definitive statement. Shifting stress to 'REPORT' or 'WE' would redirect the focus of the message to what is being submitted or who must submit it, demonstrating that stress choice actively shapes meaning."
+        },
+        {
+          "title": "Planning and Structuring a Five-Minute Presentation",
+          "problem": "A student must deliver a five-minute presentation on the topic 'Social media is more harmful than beneficial for university students.' Show how to plan and structure this presentation using the introduction–body–conclusion framework, and estimate appropriate time allocation for each section.",
+          "steps": [
+            "Step 1 – Calculate the total word budget. At a comfortable pace of approximately 130 words per minute for a formal presentation, a five-minute talk contains roughly 130 × 5 = 650 words. This sets a realistic scope: you cannot cover five main points in 650 words; two or three is appropriate.",
+            "Step 2 – Plan the Introduction (target: ~1 minute / ~130 words). Open with an attention-getter: a striking statistic or rhetorical question, e.g., 'Did you know that the average university student spends over four hours a day on social media — more time than they spend in lectures?' State the thesis clearly: 'Today I will argue that, on balance, social media does more harm than good for university students.' Preview the main points: 'I will look at two areas: its impact on academic performance and its effect on mental health.'",
+            "Step 3 – Plan the Body (target: ~3 minutes / ~390 words). Develop two main points, each with a claim, evidence, and explanation. Point 1 (academic performance): social media multitasking reduces concentration; cite relevant research or examples. Point 2 (mental health): comparison culture and cyberbullying increase anxiety and depression rates among students. Use signpost language between points: 'Having considered academic performance, I now turn to mental health…'",
+            "Step 4 – Plan the Conclusion (target: ~1 minute / ~130 words). Summarise both main points briefly: 'I have shown that social media undermines both academic focus and emotional wellbeing.' Restate the thesis in new words: 'For university students, the costs of heavy social media use outweigh the benefits.' Close with a memorable final thought or call to action: 'The next time you reach for your phone between classes, consider whether that scroll is working for you or against you.'",
+            "Step 5 – Review the structure for balance and flow. Check that the body accounts for roughly 60% of total time, that each point is distinct and does not repeat another, and that the conclusion introduces no new arguments."
+          ],
+          "answer": "The five-minute presentation should be structured as: Introduction (~1 min) with an attention-getter, thesis, and preview; Body (~3 min) with two clearly signposted main points supported by evidence; Conclusion (~1 min) with a summary, restated thesis, and memorable close. At 130 words per minute, the total script is approximately 650 words, confirming that two main points is the right scope."
+        },
+        {
+          "title": "Designing a Readable Presentation Slide",
+          "problem": "A student writes the following text on a single PowerPoint slide:\n'Social media platforms such as Instagram, Twitter, Facebook, and TikTok have been found in multiple studies conducted between 2015 and 2023 to significantly reduce the attention span of university students, increase rates of depression and anxiety, promote unhealthy body image through constant comparison with curated online profiles, and reduce the overall quality and quantity of sleep due to late-night screen use.'\nApply the 6×6 rule to redesign this slide so it communicates the same information effectively.",
+          "steps": [
+            "Step 1 – Count the problems with the original slide. The original is a single 68-word sentence on one slide. It has no visual hierarchy, no bullet points, and would appear as a dense block of text that is impossible to read at a glance. It violates the core principle that slides support speech rather than replacing it.",
+            "Step 2 – Identify the key ideas hidden in the sentence. Reading carefully, there are four distinct harms: (1) reduced attention span, (2) increased depression and anxiety, (3) unhealthy body image from comparison, (4) poorer sleep due to screen use.",
+            "Step 3 – Apply the 6×6 rule. Maximum 6 bullet points, maximum 6 words each. Draft the redesigned slide:\n  Title: 'How Social Media Harms Students'\n  • Shortens attention span (studies 2015–2023)\n  • Raises depression and anxiety rates\n  • Promotes unhealthy body comparison\n  • Disrupts sleep via late-night screens\nThat is 4 bullets, each under 6 words. The title is the claim; the bullets are the evidence categories.",
+            "Step 4 – Consider further visual improvement. Replace or supplement the bullet list with a simple two-column visual: 'Harm | Effect on Student Life', or use a single icon beside each bullet. Use a font size of at least 24pt for body text and 36pt for the title so text is legible from the back of the room.",
+            "Step 5 – Confirm what the speaker adds verbally. The full detail — the specific platforms, the date range, the mechanisms — is delivered orally. The slide provides the skeleton; the speaker adds the flesh. This division of labour is what makes a presentation more engaging than a written essay read aloud."
+          ],
+          "answer": "The redesigned slide carries a clear title ('How Social Media Harms Students') and four concise bullets (attention span, mental health, body image, sleep), each under six words and in at least 24pt font. All specific detail is delivered verbally. This satisfies the 6×6 rule, ensures legibility, and maintains the audience's focus on the speaker rather than on reading dense text."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A lecturer says 'I did NOT say she stole the money.' Then repeats the sentence stressing a different word each time. What aspect of spoken English is this demonstrating?",
+          "options": [
+            "Intonation patterns signalling question versus statement",
+            "Sentence stress shifting the focus and implied meaning of an utterance",
+            "Word stress determining the correct pronunciation of individual words",
+            "Pace variation to maintain audience interest"
+          ],
+          "correctIndex": 1,
+          "explanation": "Placing stress on different words in the sentence ('NOT', 'I', 'she', 'stole', 'money') changes what is being contrasted or emphasised, demonstrating how sentence stress controls the communicative focus of an utterance."
+        },
+        {
+          "question": "According to the 6×6 rule, which of the following slides is most appropriately designed?",
+          "options": [
+            "One slide containing two 80-word paragraphs explaining the causes of inflation",
+            "One slide with a bold title and four bullet points of five words each",
+            "One slide with twelve bullet points covering every sub-point of the presentation",
+            "One slide displaying the speaker's full script so nothing is forgotten"
+          ],
+          "correctIndex": 1,
+          "explanation": "The 6×6 rule recommends a maximum of six bullets per slide and six words per bullet; four bullets of five words each is well within this limit, keeping the slide readable and uncluttered."
+        },
+        {
+          "question": "During the question-and-answer session after a presentation, an audience member asks a long and unclear question. What is the best strategy for the presenter?",
+          "options": [
+            "Answer immediately to avoid appearing unprepared, even if the question was not fully understood",
+            "Paraphrase the question back to the questioner to confirm understanding before answering",
+            "Decline to answer and move to the next question to save time",
+            "Admit you did not understand and ask the audience for help"
+          ],
+          "correctIndex": 1,
+          "explanation": "Paraphrasing the question confirms the presenter has understood correctly, shows respect for the questioner, and gives the presenter a moment to organise a thoughtful response."
+        },
+        {
+          "question": "In a seminar discussion, a student wants to disagree with the previous speaker's argument without being dismissive. Which response best illustrates correct seminar etiquette?",
+          "options": [
+            "'That is completely wrong and shows you haven't read the material.'",
+            "'Whatever — let me just tell everyone my own point instead.'",
+            "'I take your point about funding cuts; however, the evidence suggests student numbers also play a role.'",
+            "'I agree with everything you said, and I have nothing to add.'"
+          ],
+          "correctIndex": 2,
+          "explanation": "Acknowledging the previous speaker's point before introducing a contrasting view is an example of hedging and constructive disagreement, which is central to respectful seminar participation."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

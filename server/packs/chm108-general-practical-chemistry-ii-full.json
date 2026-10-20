@@ -1,0 +1,808 @@
+{
+  "title": "CHM 108 — General Practical Chemistry II (full course)",
+  "course": "CHM 108 General Practical Chemistry II",
+  "topic": "Full course: 6 modules",
+  "overview": "This course covers the experimental techniques needed to identify unknown ions and functional groups through qualitative analysis, purify and characterise compounds through separation and physical testing, and synthesise new substances. The six modules build from identifying what is present in a sample, to isolating pure substances, to measuring their properties, to making them from scratch—the core skills of practical chemistry.",
+  "modules": [
+    {
+      "title": "Qualitative analysis of cations",
+      "sourceRange": "Topic 1",
+      "summary": "Qualitative analysis identifies which ions are present in an unknown sample without measuring how much of each is there. For cations — positively charged ions — chemists use a small set of reagents that produce characteristic, visible results: coloured precipitates that may or may not dissolve when more reagent is added, and coloured flames produced when a sample is held in a hot Bunsen flame.\n\nThe two most important aqueous reagents are sodium hydroxide solution (NaOH(aq)) and ammonia solution (NH₃(aq)). Both are bases that supply hydroxide ions (OH⁻) or act as ligands, precipitating metal hydroxides from solution. The key distinction is what happens in excess: some hydroxide precipitates dissolve in excess NaOH (amphoteric hydroxides, e.g. Al(OH)₃, Zn(OH)₂, Pb(OH)₂) but not in excess NH₃, while others dissolve in excess NH₃ because the metal ion forms a soluble ammonia complex (e.g. Cu²⁺ giving deep blue [Cu(NH₃)₄]²⁺, Zn²⁺ giving [Zn(NH₃)₄]²⁺). The ammonium ion NH₄⁺ is a special case: it is identified by warming with NaOH and detecting the ammonia gas released.\n\nFlame tests complement the precipitation tests by exploiting the fact that metal ions, when vaporised in a flame, emit light at characteristic wavelengths. Each metal gives a distinctive flame colour visible to the naked eye or through a blue cobalt-glass filter. Together, precipitation behaviour in NaOH and NH₃ plus flame tests — followed by one confirmatory test — allow a confident identification of the cation present.",
+      "keyPoints": [
+        "NaOH(aq) and NH₃(aq) both precipitate metal hydroxides; the key diagnostic is whether the precipitate dissolves in excess reagent.",
+        "Amphoteric hydroxides (Al(OH)₃, Zn(OH)₂, Pb(OH)₂) dissolve in excess NaOH to give colourless solutions, but do NOT dissolve in excess NH₃.",
+        "Cu²⁺ and Zn²⁺ precipitates dissolve in excess NH₃ to form deep-blue [Cu(NH₃)₄]²⁺ and colourless [Zn(NH₃)₄]²⁺ complexes respectively.",
+        "Fe²⁺ gives a dirty-green precipitate with both NaOH and NH₃ that is insoluble in excess; Fe³⁺ gives a red-brown precipitate insoluble in excess.",
+        "NH₄⁺ is identified by warming with NaOH: ammonia gas is evolved, turning moist red litmus paper blue.",
+        "Flame test colours: Na = persistent yellow; K = lilac (seen through cobalt-glass); Ca = brick-red; Ba = apple-green; Cu = blue-green (verdigris).",
+        "A clean platinum or nichrome wire loop must be used for flame tests; the wire is cleaned with concentrated HCl between tests.",
+        "Confirmatory tests fix the identification: e.g. adding aqueous ammonia to the blue Cu–NH₃ complex, or using potassium hexacyanoferrate(II) to confirm Fe³⁺ (Prussian blue)."
+      ],
+      "definitions": [
+        {
+          "term": "Qualitative analysis",
+          "definition": "A branch of analytical chemistry concerned with detecting and identifying the chemical species (ions, functional groups, compounds) present in a sample, without determining their amounts."
+        },
+        {
+          "term": "Precipitate",
+          "definition": "An insoluble solid that forms and separates from a solution when two solutions are mixed, because the product exceeds its solubility. In cation tests, metal hydroxides are precipitated by OH⁻ from NaOH or NH₃."
+        },
+        {
+          "term": "Amphoteric hydroxide",
+          "definition": "A metal hydroxide that reacts with both acids and strong bases (excess NaOH). Al(OH)₃, Zn(OH)₂ and Pb(OH)₂ are amphoteric: they dissolve in excess NaOH to form aluminate, zincate and plumbate ions respectively, but are insoluble in excess NH₃."
+        },
+        {
+          "term": "Complex ion (ammine complex)",
+          "definition": "A species formed when a metal ion bonds to several ligand molecules. In excess NH₃, Cu²⁺ forms the deep-blue tetraamminecopper(II) ion [Cu(NH₃)₄]²⁺ and Zn²⁺ forms the colourless [Zn(NH₃)₄]²⁺; these dissolve the initial hydroxide precipitate."
+        },
+        {
+          "term": "Flame test",
+          "definition": "An analytical technique in which a sample is introduced into a hot non-luminous Bunsen flame on a clean wire loop; metal ions are vaporised and their electrons emit light at element-specific wavelengths, producing a characteristic flame colour."
+        },
+        {
+          "term": "Confirmatory test",
+          "definition": "A second, more specific chemical test performed after an initial observation to confirm the identity of an ion; it eliminates ambiguity when two ions give similar initial results (e.g. both Zn²⁺ and Al³⁺ give white precipitates soluble in excess NaOH)."
+        },
+        {
+          "term": "Cobalt-blue glass filter",
+          "definition": "A piece of dark blue glass used during flame tests to absorb the intense yellow of any sodium contamination, allowing the lilac colour of potassium to be seen clearly."
+        },
+        {
+          "term": "Tollens' reagent / brown-ring test",
+          "definition": "(Defined here only as context for the cation module boundary.) Not applicable in this module — these belong to anion and organic tests. In this module, the equivalent 'specific reagent' concept is illustrated by using K₄[Fe(CN)₆] (potassium hexacyanoferrate(II)) to confirm Fe³⁺ by the formation of Prussian blue, or K₃[Fe(CN)₆] to confirm Fe²⁺ (Turnbull's blue)."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying an unknown metal cation from NaOH and NH₃ tests",
+          "problem": "A student adds NaOH(aq) to a solution of an unknown salt and obtains a pale blue precipitate. Adding excess NaOH does not dissolve it. When the test is repeated with NH₃(aq) and excess NH₃ is added, the precipitate dissolves to give a deep blue solution. Identify the cation and write the relevant ionic equations.",
+          "steps": [
+            "Step 1 — Interpret the NaOH result: a pale blue precipitate insoluble in excess NaOH. Pale blue hydroxide precipitates that are insoluble in excess NaOH are characteristic of Cu²⁺. The equation is: Cu²⁺(aq) + 2 OH⁻(aq) → Cu(OH)₂(s) (pale blue precipitate).",
+            "Step 2 — Interpret the NH₃ result: the precipitate dissolves in excess NH₃ to give a deep blue solution. This is the hallmark of the tetraamminecopper(II) complex. The equation is: Cu(OH)₂(s) + 4 NH₃(aq) → [Cu(NH₃)₄]²⁺(aq) + 2 OH⁻(aq). The deep blue colour of [Cu(NH₃)₄]²⁺ is highly distinctive.",
+            "Step 3 — Confirm: the combination of (a) pale blue precipitate with NaOH, (b) precipitate insoluble in excess NaOH, and (c) precipitate dissolving in excess NH₃ to give deep blue, uniquely identifies Cu²⁺. A confirmatory flame test would give a blue-green flame, consistent with copper."
+          ],
+          "answer": "The cation is Cu²⁺ (copper(II)). It forms Cu(OH)₂ as a pale blue precipitate with both NaOH and NH₃, which dissolves in excess NH₃ to give the deep blue [Cu(NH₃)₄]²⁺ complex."
+        },
+        {
+          "title": "Distinguishing Al³⁺ from Zn²⁺ using selective reagents",
+          "problem": "Two solutions, A and B, each give a white precipitate when NaOH(aq) is added. Both precipitates dissolve in excess NaOH. When NH₃(aq) is added to fresh samples and excess is added, neither precipitate dissolves. A flame test on solution A gives no distinctive colour; a flame test on solution B also gives no distinctive colour. Describe how you would conclusively distinguish the two cations, and write the equation for the dissolution of each hydroxide in excess NaOH.",
+          "steps": [
+            "Step 1 — Recognise the limitation of NaOH and NH₃ alone: both Al³⁺ and Zn²⁺ give white precipitates (Al(OH)₃ and Zn(OH)₂) that dissolve in excess NaOH and are insoluble in excess NH₃. Flame tests are unhelpful for both metals. A confirmatory test is needed.",
+            "Step 2 — Apply a confirmatory test for Al³⁺: add a few drops of aluminon reagent (ammonium aurintricarboxylate) to solution A; a red lake (precipitate) confirms Al³⁺. Alternatively, treat the white precipitate with sodium hydroxide solution and add a drop of universal indicator or litmus: the aluminate solution is alkaline. A classic practical test is to dissolve the precipitate in dilute HCl, then add a strip of red litmus moistened with ammonia — aluminium salts hydrolyse to give an acidic solution, while zinc salts behave differently.",
+            "Step 3 — Apply a confirmatory test for Zn²⁺: add sodium hydroxide to dissolve the precipitate (zincate formed), then add excess ammonia — the precipitate of Zn(OH)₂ from ammonia dissolves to give colourless [Zn(NH₃)₄]²⁺. More reliably in a first-year lab: add a few drops of sodium sulfide solution to the original sample; Zn²⁺ gives a white precipitate of ZnS, while Al³⁺ gives Al(OH)₃ (Al²S₃ hydrolyses immediately in water and does not precipitate as a sulfide).",
+            "Step 4 — Write dissolution equations in excess NaOH: Al(OH)₃(s) + OH⁻(aq) → [Al(OH)₄]⁻(aq) (colourless aluminate). Zn(OH)₂(s) + 2 OH⁻(aq) → [Zn(OH)₄]²⁻(aq) (colourless zincate)."
+          ],
+          "answer": "Both ions give white precipitates soluble in excess NaOH. They are distinguished by a confirmatory test: Zn²⁺ gives a white ZnS precipitate with Na₂S solution, whereas Al³⁺ does not form a stable sulfide precipitate in water. The dissolution equations are Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻ and Zn(OH)₂ + 2OH⁻ → [Zn(OH)₄]²⁻."
+        },
+        {
+          "title": "Identifying NH₄⁺ and performing a flame test calculation/interpretation",
+          "problem": "(a) A white solid is warmed with NaOH solution; a pungent gas is evolved that turns moist red litmus paper blue. Identify the ion and write the equation. (b) In a flame test, a metal salt gives a brick-red flame. Identify the metal. A second salt is tested and gives a lilac flame when viewed through cobalt-blue glass. Identify that metal. (c) A sample is suspected to contain both Na⁺ and K⁺. Explain why the cobalt-blue glass is essential.",
+          "steps": [
+            "Step 1 — Identify the gas from NaOH: a pungent gas that turns moist red litmus blue is ammonia (NH₃). This result means the original ion was NH₄⁺. The ionic equation is: NH₄⁺(aq) + OH⁻(aq) → NH₃(g) + H₂O(l). The test is done by warming gently; holding moist red litmus paper in the gas stream confirms NH₃ because ammonia is alkaline and turns litmus blue.",
+            "Step 2 — Interpret the brick-red flame: a persistent brick-red (or orange-red) flame colour is characteristic of calcium (Ca). This arises because Ca atoms emit light strongly at around 622 nm (red region of the visible spectrum) when their electrons return to the ground state after excitation.",
+            "Step 3 — Interpret the lilac flame through cobalt glass: lilac (pale violet) seen through cobalt-blue glass is characteristic of potassium (K). Potassium emits at about 766–770 nm (near-infrared/red) but a secondary emission near 404 nm appears lilac. Without the cobalt glass filter, even trace Na contamination would mask this with its intense yellow emission at 589 nm.",
+            "Step 4 — Explain the need for cobalt-blue glass when both Na⁺ and K⁺ are suspected: sodium's yellow flame at 589 nm is extremely intense and persistent. The cobalt-blue glass absorbs yellow light, blocking the sodium emission and allowing the weaker lilac of potassium to be observed clearly. Without it, K⁺ would be missed in the presence of Na⁺."
+          ],
+          "answer": "(a) NH₄⁺; NH₄⁺ + OH⁻ → NH₃(g) + H₂O(l). (b) Brick-red = Ca; lilac through cobalt glass = K. (c) Cobalt-blue glass absorbs sodium's dominant yellow emission, revealing potassium's lilac colour."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A solution gives a dirty-green precipitate with NaOH(aq) that is insoluble in excess NaOH and insoluble in excess NH₃(aq). On standing, the precipitate slowly turns red-brown. Which cation is most likely present?",
+          "options": [
+            "Fe³⁺",
+            "Cu²⁺",
+            "Fe²⁺",
+            "Zn²⁺"
+          ],
+          "correctIndex": 2,
+          "explanation": "Fe²⁺ gives a dirty-green precipitate of Fe(OH)₂ which is insoluble in excess NaOH and excess NH₃; on standing, Fe(OH)₂ is oxidised by dissolved oxygen to red-brown Fe(OH)₃, confirming Fe²⁺."
+        },
+        {
+          "question": "Which of the following hydroxide precipitates dissolves in excess NH₃(aq) to give a deep blue solution?",
+          "options": [
+            "Al(OH)₃",
+            "Pb(OH)₂",
+            "Fe(OH)₃",
+            "Cu(OH)₂"
+          ],
+          "correctIndex": 3,
+          "explanation": "Cu(OH)₂ dissolves in excess NH₃ to form the intensely deep-blue tetraamminecopper(II) complex [Cu(NH₃)₄]²⁺; the other hydroxides listed do not form soluble ammine complexes."
+        },
+        {
+          "question": "A student performs a flame test on an unknown chloride salt and observes an apple-green flame. Which cation is present?",
+          "options": [
+            "Na⁺",
+            "Ca²⁺",
+            "K⁺",
+            "Ba²⁺"
+          ],
+          "correctIndex": 3,
+          "explanation": "Barium (Ba²⁺) gives a characteristic apple-green flame; calcium gives brick-red, sodium gives persistent yellow, and potassium gives lilac (seen through cobalt glass)."
+        },
+        {
+          "question": "To distinguish between Pb²⁺ and Al³⁺, both of which give white precipitates soluble in excess NaOH, a student adds dilute H₂SO₄ to each solution. A white precipitate forms in one tube. Which ion does that precipitate confirm, and what is the precipitate?",
+          "options": [
+            "Al³⁺; Al₂(SO₄)₃",
+            "Pb²⁺; PbSO₄",
+            "Al³⁺; Al(OH)₃",
+            "Pb²⁺; Pb(OH)₂"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lead(II) sulfate (PbSO₄) is sparingly soluble and forms a white precipitate when dilute H₂SO₄ is added to a Pb²⁺ solution; aluminium sulfate is soluble and gives no precipitate, so this test confirms Pb²⁺."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Qualitative analysis of anions",
+      "sourceRange": "Topic 2",
+      "summary": "Qualitative analysis of anions uses a series of chemical reagents to identify which negative ions are present in an unknown solution or solid. The strategy is to apply tests in a logical order: first treat the sample with dilute acid to see whether a gas is evolved, then add barium chloride solution to test for sulphate or sulphite, and finally add silver nitrate solution to test for halides. Each test produces a characteristic observation—a precipitate of a specific colour, a gas with a recognisable smell or chemical property, or a colour change—that either confirms or rules out a particular ion.\n\nGases evolved during tests must themselves be identified by secondary tests. Carbon dioxide turns limewater milky, sulphur dioxide decolourises acidified potassium permanganate, hydrogen sulphide blackens lead acetate paper, ammonia turns moist red litmus blue, and hydrogen ignites with a squeaky pop while oxygen relights a glowing splint. These gas tests are an essential part of the overall scheme because several anions (carbonate, sulphite, sulphide) are most easily detected through the gas they release with acid.\n\nDistinguishing between similar anions—for example SO₄²⁻ and SO₃²⁻, or Cl⁻, Br⁻ and I⁻—requires careful observation of additional details such as whether a precipitate dissolves in excess ammonia, whether it dissolves in dilute acid, and the specific colour of each precipitate. Mastering these distinctions, together with the confirmatory tests, allows a systematic and reliable identification of all eight anions covered in this module.",
+      "keyPoints": [
+        "Dilute HCl or H₂SO₄ added to a solid or solution reveals CO₃²⁻ (CO₂ gas), SO₃²⁻ (SO₂ gas), S²⁻ (H₂S gas) and NO₃²⁻ (identified separately by the brown ring test).",
+        "BaCl₂ solution gives a white precipitate with both SO₄²⁻ (BaSO₄, insoluble in dilute HCl) and SO₃²⁻ (BaSO₃, dissolves in dilute HCl)—this acid-solubility distinguishes them.",
+        "AgNO₃ solution gives white AgCl (soluble in dilute NH₃), pale yellow AgBr (soluble only in concentrated NH₃), and yellow AgI (insoluble in NH₃), allowing Cl⁻, Br⁻ and I⁻ to be distinguished.",
+        "The brown ring test for NO₃⁻: concentrated H₂SO₄ is carefully poured down the side of a tube containing the sample mixed with fresh FeSO₄ solution; a brown ring at the interface confirms nitrate.",
+        "S²⁻ is confirmed by adding dilute HCl to produce H₂S gas, which turns moist lead acetate paper black (formation of PbS).",
+        "CO₂ is confirmed by bubbling the gas through limewater (Ca(OH)₂): a white precipitate of CaCO₃ forms; excess CO₂ redissolves it.",
+        "SO₂ is confirmed by decolourisation of acidified potassium permanganate (KMnO₄) solution, or by turning moist potassium dichromate paper from orange to green.",
+        "A systematic approach—acid test first, then BaCl₂, then AgNO₃, then brown ring—avoids interference between reagents and gives unambiguous results."
+      ],
+      "definitions": [
+        {
+          "term": "Qualitative analysis (anions)",
+          "definition": "A set of chemical tests used to identify which anions are present in an unknown sample, based on characteristic precipitate colours, gas evolution, and solubility behaviour rather than on measuring quantities."
+        },
+        {
+          "term": "Carbonate ion (CO₃²⁻)",
+          "definition": "An anion that reacts with dilute acids to release carbon dioxide gas, which is detected by turning limewater (Ca(OH)₂ solution) milky due to the formation of a white CaCO₃ precipitate."
+        },
+        {
+          "term": "Sulphate ion (SO₄²⁻)",
+          "definition": "An anion identified by the formation of a dense white precipitate of barium sulphate (BaSO₄) when barium chloride solution is added in the presence of dilute hydrochloric acid; BaSO₄ is insoluble in excess dilute HCl."
+        },
+        {
+          "term": "Sulphite ion (SO₃²⁻)",
+          "definition": "An anion that gives a white precipitate of BaSO₃ with BaCl₂ solution, but unlike sulphate this precipitate dissolves in dilute HCl; sulphite also releases SO₂ gas on treatment with dilute acid, confirmed by decolourising acidified KMnO₄."
+        },
+        {
+          "term": "Halide ions (Cl⁻, Br⁻, I⁻)",
+          "definition": "Anions of the halogens, distinguished by the colour of their silver halide precipitate with AgNO₃ solution and by the solubility of that precipitate in ammonia: AgCl is white and dissolves in dilute NH₃; AgBr is pale yellow and dissolves only in concentrated NH₃; AgI is yellow and is insoluble in NH₃."
+        },
+        {
+          "term": "Brown ring test",
+          "definition": "A confirmatory test for the nitrate ion (NO₃⁻) in which concentrated sulphuric acid is carefully poured down the inner wall of a test tube containing the sample mixed with fresh iron(II) sulphate (FeSO₄) solution; a brown ring of [Fe(NO)]²⁺ forms at the acid–solution interface, confirming NO₃⁻."
+        },
+        {
+          "term": "Sulphide ion (S²⁻)",
+          "definition": "An anion detected by the production of hydrogen sulphide (H₂S) gas when dilute hydrochloric acid is added; H₂S has a characteristic rotten-egg smell and turns moist lead acetate paper black due to the formation of lead(II) sulphide (PbS)."
+        },
+        {
+          "term": "Limewater test",
+          "definition": "A standard test for carbon dioxide: the gas is bubbled through a solution of calcium hydroxide (limewater); a white milky precipitate of CaCO₃ forms if CO₂ is present. If excess CO₂ is passed, the precipitate redissolves to form soluble Ca(HCO₃)₂."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Distinguishing SO₄²⁻ from SO₃²⁻ using BaCl₂ and dilute HCl",
+          "problem": "An unknown solution gives a white precipitate when excess BaCl₂ solution is added. Explain the two-step procedure you would use to decide whether the anion is sulphate or sulphite, and predict the outcome for each ion.",
+          "steps": [
+            "Step 1 – Add BaCl₂ solution to the unknown: Both SO₄²⁻ and SO₃²⁻ give a white precipitate (BaSO₄ or BaSO₃ respectively), so the precipitate alone does not distinguish them. Note the precipitate but do not draw a conclusion yet.",
+            "Step 2 – Add dilute hydrochloric acid to the precipitate and observe: BaSO₄ is highly insoluble and does not dissolve in dilute HCl (Ksp ≈ 1.1 × 10⁻¹⁰); the precipitate persists. BaSO₃, however, is a salt of the weak acid H₂SO₃ and dissolves readily: BaSO₃ + 2HCl → BaCl₂ + SO₂ + H₂O.",
+            "Step 3 – Additional confirmation if SO₃²⁻ is suspected: Hold moist acidified KMnO₄ paper near the mouth of the tube. The purple colour fades to colourless if SO₂ is being released, confirming sulphite. The equation for decolourisation is: 5SO₂ + 2KMnO₄ + 2H₂O → K₂SO₄ + 2MnSO₄ + 2H₂SO₄.",
+            "Conclusion: Precipitate persists with dilute HCl → SO₄²⁻. Precipitate dissolves with effervescence and SO₂ is detected → SO₃²⁻."
+          ],
+          "answer": "The acid-solubility test is the key distinguishing step: BaSO₄ is insoluble in dilute HCl (confirming sulphate), whereas BaSO₃ dissolves and releases SO₂ (confirming sulphite)."
+        },
+        {
+          "title": "Identifying Cl⁻, Br⁻ and I⁻ using AgNO₃ and ammonia",
+          "problem": "Three test tubes labelled A, B and C each contain a different sodium halide solution (NaCl, NaBr or NaI, in unknown order). Using AgNO₃ solution and ammonia, identify which halide is in each tube. Tube A gives a white precipitate, Tube B a pale yellow precipitate, and Tube C a yellow precipitate.",
+          "steps": [
+            "Step 1 – Record precipitate colours: A = white → likely AgCl; B = pale yellow → likely AgBr; C = yellow → likely AgI.",
+            "Step 2 – Add dilute aqueous ammonia (2 mol dm⁻³) to each precipitate and observe: AgCl dissolves completely (Ag(NH₃)₂⁺ complex forms): AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻. AgBr does not dissolve in dilute NH₃. AgI does not dissolve in dilute NH₃.",
+            "Step 3 – Add concentrated ammonia to the remaining precipitates: AgBr dissolves slowly in concentrated NH₃, whereas AgI remains insoluble even in concentrated NH₃.",
+            "Step 4 – Draw conclusions: Tube A (white, dissolves in dilute NH₃) = Cl⁻. Tube B (pale yellow, dissolves in concentrated NH₃) = Br⁻. Tube C (yellow, insoluble in NH₃) = I⁻."
+          ],
+          "answer": "Tube A contains Cl⁻, Tube B contains Br⁻ and Tube C contains I⁻, identified by the colour of the AgX precipitate and its differential solubility in dilute versus concentrated ammonia."
+        },
+        {
+          "title": "Carrying out the brown ring test for NO₃⁻",
+          "problem": "A student suspects that a colourless solution contains nitrate ions. Describe the brown ring test in full, write the relevant ionic equation, and state clearly what a positive result looks like and why a negative result could occur.",
+          "steps": [
+            "Step 1 – Prepare the FeSO₄ layer: Dissolve a small amount of fresh iron(II) sulphate (FeSO₄) in the unknown solution in a test tube to make a green-coloured mixture. Fresh FeSO₄ is essential; old, partially oxidised FeSO₄ contains Fe³⁺ which will not form the brown complex.",
+            "Step 2 – Add concentrated H₂SO₄ carefully: Tilt the test tube and pour concentrated sulphuric acid slowly down the inner wall so it sinks to the bottom and forms a separate layer beneath the aqueous FeSO₄ layer. Do not mix the layers.",
+            "Step 3 – Observe the interface: In the presence of NO₃⁻, the concentrated H₂SO₄ reduces nitrate to nitrogen monoxide (NO): NO₃⁻ + 3Fe²⁺ + 4H⁺ → NO + 3Fe³⁺ + 2H₂O. The NO immediately complexes with excess Fe²⁺ at the interface: Fe²⁺ + NO → [Fe(NO)]²⁺ (brown). A distinct brown ring at the acid–water interface is a positive result.",
+            "Step 4 – Interpret a negative result: No brown ring means NO₃⁻ is absent. However, a false negative can occur if the FeSO₄ is stale (oxidised to Fe³⁺) or if halide ions (especially I⁻ or Br⁻) are present in excess, as they interfere by reacting with the acid. If halides are suspected, remove them first by precipitating with AgNO₃ and filtering."
+          ],
+          "answer": "A brown ring at the interface between the concentrated H₂SO₄ layer and the FeSO₄–sample layer confirms the presence of NO₃⁻. The colour arises from the [Fe(NO)]²⁺ complex formed when nitrate is reduced to NO by Fe²⁺ under strongly acidic conditions."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A white precipitate forms when BaCl₂ solution is added to an unknown solution. When dilute hydrochloric acid is added to the precipitate, it dissolves with the evolution of a gas that turns acidified KMnO₄ from purple to colourless. Which anion is present?",
+          "options": [
+            "SO₄²⁻",
+            "CO₃²⁻",
+            "SO₃²⁻",
+            "Cl⁻"
+          ],
+          "correctIndex": 2,
+          "explanation": "BaSO₃ dissolves in dilute HCl and releases SO₂, which decolourises acidified KMnO₄; BaSO₄ would not dissolve, and CO₃²⁻ and Cl⁻ do not give a precipitate with BaCl₂."
+        },
+        {
+          "question": "Silver nitrate solution is added to three separate halide solutions, giving precipitates. Dilute ammonia solution is then added to each precipitate. Which precipitate dissolves?",
+          "options": [
+            "AgI (yellow)",
+            "AgBr (pale yellow)",
+            "AgCl (white)",
+            "None of them dissolves in dilute ammonia"
+          ],
+          "correctIndex": 2,
+          "explanation": "AgCl is soluble in dilute aqueous ammonia because silver forms the stable diamminesilver(I) complex [Ag(NH₃)₂]⁺; AgBr requires concentrated NH₃ and AgI is insoluble in NH₃ altogether."
+        },
+        {
+          "question": "In the brown ring test for nitrate, why must the iron(II) sulphate solution be freshly prepared?",
+          "options": [
+            "Old FeSO₄ has decomposed to iron metal, which reacts violently with H₂SO₄",
+            "Aged FeSO₄ is partially oxidised to Fe³⁺, which cannot be reduced by NO₃⁻ to form the brown [Fe(NO)]²⁺ complex",
+            "Fresh FeSO₄ has a lower pH that is essential for the reaction",
+            "Old FeSO₄ precipitates as Fe(OH)₂ and masks the brown ring"
+          ],
+          "correctIndex": 1,
+          "explanation": "The brown ring requires Fe²⁺ ions to reduce NO₃⁻ to NO and then form [Fe(NO)]²⁺; if the FeSO₄ has been oxidised to Fe³⁺ by air, the necessary Fe²⁺ is absent and no brown ring forms."
+        },
+        {
+          "question": "Dilute hydrochloric acid is added to a solid unknown and a colourless gas is evolved that turns limewater milky. Which anion does this confirm?",
+          "options": [
+            "SO₃²⁻",
+            "S²⁻",
+            "NO₃⁻",
+            "CO₃²⁻"
+          ],
+          "correctIndex": 3,
+          "explanation": "CO₃²⁻ reacts with dilute acid to produce CO₂, which turns limewater milky by forming CaCO₃; SO₃²⁻ produces SO₂ (no effect on limewater), S²⁻ produces H₂S, and NO₃⁻ does not react with dilute HCl."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Separation and purification techniques",
+      "sourceRange": "Topic 3",
+      "summary": "Mixtures of solids, liquids or dissolved substances are separated in the laboratory by exploiting differences in physical properties such as particle size, solubility, volatility, boiling point and polarity. This module covers the six principal techniques encountered in first-year practical chemistry: filtration and crystallisation (for solid–liquid systems), simple and fractional distillation (for liquid–liquid systems that differ in boiling point), solvent extraction with a separating funnel (governed by the partition coefficient), sublimation (for solids that vaporise without melting), and chromatography (paper and thin-layer, characterised by Rf values).\n\nUnderstanding when and why to use each technique is as important as knowing how to carry it out. The choice depends on the nature of the mixture: if the components are a solid and a liquid, filtration is the starting point; if two miscible liquids have different boiling points, distillation is appropriate; if a desired compound distributes preferentially into an organic solvent, solvent extraction is efficient; if a solid sublimes cleanly, sublimation gives a pure product in one step; and if multiple components of similar polarity must be resolved and identified, chromatography is ideal. Each technique can be assessed quantitatively — distillation through boiling-point curves, extraction through the partition coefficient, and chromatography through Rf values.",
+      "keyPoints": [
+        "Filtration separates an insoluble solid from a liquid; the solid is the residue and the liquid that passes through is the filtrate.",
+        "Crystallisation purifies a soluble solid by dissolving it in hot solvent and allowing crystals to form on cooling; impurities remain in solution (the mother liquor).",
+        "Simple distillation is used when two liquids differ in boiling point by more than about 25 °C; fractional distillation (with a fractionating column) is needed for closer boiling points.",
+        "In fractional distillation the component with the lower boiling point is enriched at the top of the column and distils over first; the column provides multiple theoretical equilibration stages.",
+        "The partition coefficient K = c(organic) / c(aqueous) quantifies how a solute distributes between two immiscible solvents; a high K means the solute favours the organic layer.",
+        "Multiple small-volume extractions with fresh solvent are more efficient than one large-volume extraction.",
+        "Sublimation is used to purify solids that vaporise directly from solid to vapour (e.g. iodine, camphor, naphthalene) and re-condense to a pure solid on a cold surface.",
+        "In chromatography, Rf = (distance moved by spot) / (distance moved by solvent front); values are between 0 and 1 and are characteristic of a compound under fixed conditions.",
+        "In TLC on polar silica, a more polar compound has a lower Rf (it is retained more by the stationary phase); a less polar compound has a higher Rf.",
+        "Paper chromatography uses cellulose paper as the stationary phase; TLC uses a thin layer of silica or alumina on a rigid backing, and spots are often visualised under UV light or with iodine vapour."
+      ],
+      "definitions": [
+        {
+          "term": "Filtration",
+          "definition": "A technique that separates an insoluble solid from a liquid by passing the mixture through a porous medium (filter paper or sintered glass); the solid collected on the filter is the residue and the liquid that passes through is the filtrate."
+        },
+        {
+          "term": "Crystallisation",
+          "definition": "A purification method in which a solid is dissolved in a minimum volume of hot solvent and the solution is allowed to cool slowly; the desired compound crystallises out while more-soluble impurities remain dissolved in the mother liquor."
+        },
+        {
+          "term": "Fractional distillation",
+          "definition": "Separation of two or more miscible liquids with relatively close boiling points by repeated vaporisation–condensation cycles inside a fractionating column; the more volatile (lower-boiling) component concentrates at the top of the column and distils over first."
+        },
+        {
+          "term": "Partition coefficient (K)",
+          "definition": "The equilibrium ratio of the concentration of a solute in one solvent to its concentration in a second, immiscible solvent: K = c(organic layer) / c(aqueous layer). A large K means the solute strongly favours the organic layer."
+        },
+        {
+          "term": "Separating funnel",
+          "definition": "A piece of glassware (pear-shaped with a stopcock at the bottom) used for liquid–liquid extraction; two immiscible solvents containing the dissolved mixture are shaken together and then allowed to settle into separate layers that are run off individually."
+        },
+        {
+          "term": "Sublimation",
+          "definition": "A purification technique in which a solid is heated and converts directly to vapour, bypassing the liquid phase; the vapour is then condensed on a cool surface to give a pure solid. It is applicable only to substances with a significant vapour pressure below their melting point (e.g. iodine, camphor, naphthalene)."
+        },
+        {
+          "term": "Stationary phase and mobile phase (chromatography)",
+          "definition": "In chromatography, the stationary phase is the fixed material through which separation occurs (cellulose paper or silica/alumina in TLC); the mobile phase is the solvent (or solvent mixture) that moves through it, carrying the sample components at different rates depending on their relative affinity for each phase."
+        },
+        {
+          "term": "Rf value (retardation factor)",
+          "definition": "A dimensionless number that characterises a compound's position in a chromatogram: Rf = (distance travelled by the centre of the compound's spot from the baseline) ÷ (distance travelled by the solvent front from the baseline). Rf lies between 0 and 1 and is characteristic of a compound under fixed solvent and stationary-phase conditions."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Partition coefficient: calculating the mass extracted by a single solvent extraction",
+          "problem": "A solute has a partition coefficient K = 6.0 between ethyl acetate and water, defined as K = c(ethyl acetate) / c(water). A student dissolves 0.90 g of the solute in 60 mL of water. She then shakes the aqueous solution with a single 30 mL portion of ethyl acetate in a separating funnel. Calculate the mass of solute extracted into the organic layer and the mass remaining in the aqueous layer after the layers separate.",
+          "steps": [
+            "Define the unknown. Let x = mass (in grams) of solute that moves into the ethyl acetate layer. The mass remaining in the aqueous layer is therefore (0.90 − x) g.",
+            "Express the concentrations in each layer. Concentration in ethyl acetate layer = x / 30 g mL⁻¹. Concentration in water layer = (0.90 − x) / 60 g mL⁻¹.",
+            "Apply the partition coefficient expression: K = c(organic) / c(aqueous) = [x / 30] / [(0.90 − x) / 60] = 6.0.",
+            "Simplify the left-hand side: [x / 30] × [60 / (0.90 − x)] = 2x / (0.90 − x) = 6.0.",
+            "Solve for x: 2x = 6.0 × (0.90 − x) = 5.40 − 6.0x → 8.0x = 5.40 → x = 0.675 g.",
+            "Calculate the mass remaining in the aqueous layer: 0.90 − 0.675 = 0.225 g."
+          ],
+          "answer": "0.675 g of solute is extracted into the ethyl acetate layer; 0.225 g remains in the aqueous layer. This means 75% of the solute was recovered in a single extraction. (Performing a second extraction with a fresh 30 mL portion of ethyl acetate would extract 75% of the remaining 0.225 g, giving a cumulative recovery greater than 93%, illustrating why multiple small extractions are preferred over a single large one.)"
+        },
+        {
+          "title": "Rf value: calculating and interpreting chromatographic data",
+          "problem": "In a thin-layer chromatography experiment on silica, a student spots a reaction mixture and two reference compounds (X and Y) on the baseline of a TLC plate. After development with a hexane/ethyl acetate solvent mixture, the solvent front has risen 8.0 cm from the baseline. The spot centres are measured as: reaction mixture gives two spots at 5.6 cm and 2.4 cm; reference X runs at 5.6 cm; reference Y runs at 2.4 cm. (a) Calculate the Rf of each spot. (b) Identify which reference compound is present in the mixture. (c) State which of X or Y is the more polar compound and explain why.",
+          "steps": [
+            "Apply the Rf formula to the first spot of the mixture (5.6 cm): Rf = 5.6 / 8.0 = 0.70.",
+            "Apply the Rf formula to the second spot of the mixture (2.4 cm): Rf = 2.4 / 8.0 = 0.30.",
+            "Calculate Rf for reference X: Rf(X) = 5.6 / 8.0 = 0.70; Rf for reference Y: Rf(Y) = 2.4 / 8.0 = 0.30.",
+            "Compare: the mixture spot at Rf = 0.70 matches reference X; the mixture spot at Rf = 0.30 matches reference Y. Both references are present in the mixture.",
+            "Interpret polarity on polar silica: a compound strongly retained by polar silica moves a shorter distance and has a lower Rf. Y has Rf = 0.30, so it interacts more strongly with the polar stationary phase and is therefore the more polar compound. X has Rf = 0.70 and is the less polar compound."
+          ],
+          "answer": "Rf(X) = 0.70; Rf(Y) = 0.30. Both X and Y are present in the reaction mixture. Compound Y (Rf = 0.30) is the more polar compound because it is more strongly adsorbed onto the polar silica stationary phase and therefore migrates a shorter distance with the solvent front."
+        },
+        {
+          "title": "Choosing between simple and fractional distillation",
+          "problem": "A student has two separation tasks: (A) purifying a sample of water contaminated with a small amount of dissolved sodium chloride, and (B) separating a liquid mixture of ethanol (bp 78 °C) and propan-1-ol (bp 97 °C). For each task, decide whether simple distillation, fractional distillation, or a different technique is more appropriate, and explain the reasoning step by step.",
+          "steps": [
+            "Task A — examine the nature of the mixture. Sodium chloride is a non-volatile ionic solid dissolved in water. On heating, only water vapour is produced; NaCl has essentially zero vapour pressure. The components differ enormously in volatility (effectively infinite difference in boiling points).",
+            "Task A — choose the technique. Because the solute is non-volatile, simple distillation is sufficient: heat the mixture, collect the water vapour in a condenser, and the salt is left behind in the flask. No fractionating column is needed.",
+            "Task B — examine the nature of the mixture. Ethanol (bp 78 °C) and propan-1-ol (bp 97 °C) are both volatile, miscible liquids. Their boiling points differ by only 19 °C, which is less than the ~25 °C threshold usually required for clean separation by simple distillation.",
+            "Task B — rule out simple distillation. With simple distillation the vapour above the mixture is enriched in ethanol but still contains a significant proportion of propan-1-ol; the distillate would not be pure ethanol.",
+            "Task B — choose fractional distillation. A fractionating column (packed with glass beads or a Vigreux column) provides many theoretical plates — repeated cycles of vaporisation and condensation along the column height. The more volatile ethanol is progressively enriched as vapour rises, and nearly pure ethanol distils over first at close to 78 °C. The temperature at the still-head is monitored; when it rises above 78 °C the receiver is changed, and propan-1-ol is then collected at approximately 97 °C.",
+            "Summary of decision rule. Use simple distillation when the boiling-point difference is large (>25 °C) or one component is non-volatile. Use fractional distillation when two or more volatile liquids have similar boiling points (<25 °C apart)."
+          ],
+          "answer": "Task A: simple distillation is appropriate — NaCl is non-volatile so water distils cleanly. Task B: fractional distillation is required — the boiling points of ethanol and propan-1-ol differ by only 19 °C, so a fractionating column is needed to achieve clean separation, with ethanol distilling over first at ~78 °C."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A solute has a partition coefficient K = 4.0 (organic/aqueous). If 1.00 g is dissolved in 100 mL of water and extracted once with 50 mL of organic solvent, what mass is extracted into the organic layer?",
+          "options": [
+            "0.50 g",
+            "0.67 g",
+            "0.80 g",
+            "0.25 g"
+          ],
+          "correctIndex": 1,
+          "explanation": "Setting up K = (x/50) / ((1−x)/100) = 4.0 gives 2x/(1−x) = 4.0, so x = 0.667 g ≈ 0.67 g."
+        },
+        {
+          "question": "In a TLC experiment on silica gel, compound P travels 3.0 cm and compound Q travels 6.0 cm when the solvent front travels 7.5 cm. Which statement is correct?",
+          "options": [
+            "Rf(P) = 0.40 and P is less polar than Q",
+            "Rf(P) = 0.40 and P is more polar than Q",
+            "Rf(Q) = 0.40 and Q is more polar than P",
+            "Both compounds have the same Rf because they started at the same baseline"
+          ],
+          "correctIndex": 1,
+          "explanation": "Rf(P) = 3.0/7.5 = 0.40 and Rf(Q) = 6.0/7.5 = 0.80; P moves less far on polar silica, meaning it is retained more strongly and is therefore the more polar compound."
+        },
+        {
+          "question": "Why are multiple extractions with small volumes of solvent more efficient than a single extraction with the same total volume of solvent?",
+          "options": [
+            "Because the partition coefficient changes with solvent volume",
+            "Because more solvent molecules are available to dissolve the solute",
+            "Because each extraction starts with fresh solvent, re-establishing the equilibrium and driving more solute into the organic phase each time",
+            "Because the separating funnel can only hold a limited volume"
+          ],
+          "correctIndex": 2,
+          "explanation": "Each fresh portion of organic solvent has zero solute initially, so the equilibrium shifts to move more solute out of the aqueous layer; this is more efficient than one large extraction where the organic layer becomes more concentrated and the driving force diminishes."
+        },
+        {
+          "question": "A mixture of iodine crystals and sand needs to be purified to obtain pure iodine. Which technique is most appropriate and why?",
+          "options": [
+            "Filtration, because iodine is insoluble in water",
+            "Fractional distillation, because iodine and sand have different boiling points",
+            "Sublimation, because iodine converts directly from solid to vapour and re-condenses as pure crystals, leaving the non-volatile sand behind",
+            "Solvent extraction, because iodine has a high partition coefficient into organic solvents"
+          ],
+          "correctIndex": 2,
+          "explanation": "Iodine sublimes readily — it vaporises directly from the solid phase and re-condenses as pure crystals on a cold surface, leaving non-volatile sand as residue; this makes sublimation the ideal single-step purification here."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Physical constants and assessing purity",
+      "sourceRange": "Topic 4",
+      "summary": "Every pure compound has characteristic physical constants — most importantly its melting point and boiling point — that are fixed at a given pressure and can be looked up in reference tables. Measuring these constants in the laboratory is therefore one of the most powerful ways to identify an unknown compound and to assess how pure a sample is. A pure solid melts sharply at a single, well-defined temperature; a pure liquid boils at a single, well-defined temperature. Impurities disturb intermolecular forces in a predictable way: they depress the melting point (the sample melts at a lower temperature than the pure compound and over a wider range) and elevate the boiling point (the solution boils at a higher temperature than the pure solvent). The further the measured value strays from the literature value, and the wider the melting range, the less pure the sample.\n\nThe mixed melting point test is a practical extension of these ideas. If you suspect that an unknown solid is the same compound as a known reference, you grind them together and measure the melting point of the mixture. If they are identical compounds, the mixture melts sharply at the same temperature as each pure component. If they are different compounds, each acts as an impurity toward the other and the mixture melts at a lower temperature over a wide range — a clear negative result achieved without any spectroscopic equipment.\n\nWhen a sample is found to be impure, recrystallisation is the standard purification method for solids. The compound is dissolved in a minimum volume of hot solvent, then allowed to cool slowly; the desired compound crystallises out while soluble impurities remain in solution. Choosing the right solvent is the key practical skill: the compound must be sparingly soluble in the cold solvent but freely soluble when the solvent is hot, and the solvent must not react with the compound. After recrystallisation, re-measuring the melting point and confirming it matches the literature value — with a sharp, narrow range — confirms that purification has succeeded.",
+      "keyPoints": [
+        "A pure solid has a sharp, well-defined melting point; impurities depress the melting point and widen the melting range.",
+        "A pure liquid has a fixed boiling point at a given pressure; dissolved impurities elevate the boiling point.",
+        "The melting point range (onset to complete melting) should be no more than 0.5–1 °C for a pure compound; a range wider than 2–3 °C indicates significant impurity.",
+        "The mixed melting point test: mixing an unknown solid with a known reference compound depresses the melting point if they are different substances, but leaves it unchanged if they are the same substance.",
+        "Recrystallisation purifies a solid by exploiting the large difference in solubility between hot and cold solvent; the compound crystallises on cooling while impurities stay in solution.",
+        "A good recrystallisation solvent dissolves the compound freely when hot, sparingly when cold, does not react with the compound, and is easy to remove (low boiling point).",
+        "Boiling point is measured by heating a small liquid sample and reading the thermometer when vapour and liquid are in equilibrium; the value should be stable over a range of at least one degree for a pure liquid.",
+        "Comparing measured physical constants with literature values is a primary method of compound identification and purity assessment."
+      ],
+      "definitions": [
+        {
+          "term": "Melting point (mp)",
+          "definition": "The temperature at which a solid and its liquid are in equilibrium at a given pressure (usually 1 atm). For a pure compound it is a fixed, characteristic value; it is reported as the range from when the sample first begins to liquefy to when it is completely liquid."
+        },
+        {
+          "term": "Melting point range",
+          "definition": "The interval between the temperature at which a solid sample first shows signs of melting and the temperature at which it is completely liquid. A narrow range (≤1 °C) indicates high purity; a wide range indicates the presence of impurities."
+        },
+        {
+          "term": "Depression of melting point",
+          "definition": "The lowering of a solid's melting point caused by the presence of impurities. An impurity disrupts the crystal lattice, so less thermal energy is needed to break it down, and the melting point falls below the literature value of the pure compound."
+        },
+        {
+          "term": "Mixed melting point test",
+          "definition": "A method of comparing an unknown solid with a known reference compound. Equal small amounts are ground together and the melting point of the mixture is measured. If the melting point is unchanged (no depression), the two substances are identical. If the melting point is depressed and the range is wide, they are different compounds."
+        },
+        {
+          "term": "Boiling point (bp)",
+          "definition": "The temperature at which the vapour pressure of a liquid equals the external (atmospheric) pressure. It is a fixed, characteristic value for a pure liquid at a stated pressure; dissolved solutes elevate the boiling point above that of the pure solvent."
+        },
+        {
+          "term": "Elevation of boiling point",
+          "definition": "The increase in boiling point of a liquid caused by dissolved impurities (or any solute). The solute lowers the vapour pressure of the solvent, so a higher temperature is needed to raise the vapour pressure to atmospheric, resulting in a higher boiling point."
+        },
+        {
+          "term": "Recrystallisation",
+          "definition": "A purification technique for solids in which the impure compound is dissolved in a minimum volume of hot solvent, the hot solution is filtered to remove insoluble impurities, and the filtrate is cooled slowly so that the pure compound crystallises out while soluble impurities remain dissolved. The crystals are then collected by filtration and dried."
+        },
+        {
+          "term": "Recrystallisation solvent",
+          "definition": "The solvent used in recrystallisation. The ideal solvent dissolves the compound readily at high temperature but only sparingly at room temperature (giving a high yield of crystals on cooling), does not chemically react with the compound, and has a boiling point low enough to be removed easily from the dried crystals."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Interpreting a melting point result",
+          "problem": "A student isolates a white solid and measures its melting point as 118–122 °C. The literature melting point of aspirin (acetylsalicylic acid) is 135 °C. (a) Is the sample pure? (b) What does the wide range suggest? (c) How could the student confirm whether the impure solid is aspirin?",
+          "steps": [
+            "Step 1 – Assess the melting point value. The measured onset (118 °C) is 17 °C below the literature value of 135 °C. Depression of melting point indicates the presence of impurities.",
+            "Step 2 – Assess the melting range. The range is 122 − 118 = 4 °C. A pure compound melts over ≤1 °C; a 4 °C range confirms the sample is significantly impure.",
+            "Step 3 – Plan a mixed melting point test. Grind a small portion of the unknown solid together with an authentic, pure sample of aspirin (mp 135 °C). Pack both the mixture and a pure aspirin sample into separate capillary tubes.",
+            "Step 4 – Interpret possible outcomes. If the mixture melts at ~135 °C with a sharp range, the unknown is aspirin (the two components are the same compound, so no depression occurs). If the mixture melts well below 135 °C with a wide range, the unknown is a different compound.",
+            "Step 5 – Purify and confirm. Recrystallise the sample from the appropriate solvent (e.g. ethanol–water), dry the crystals, and re-measure the melting point. If the purified solid melts at 134–135 °C over a narrow range, the identity as aspirin is confirmed."
+          ],
+          "answer": "The sample is impure: its melting point is depressed by 17 °C and the 4 °C range is far wider than the ≤1 °C expected for a pure solid. A mixed melting point test with authentic aspirin will confirm or refute identity; recrystallisation will purify the sample."
+        },
+        {
+          "title": "Boiling point elevation calculation",
+          "problem": "The boiling point elevation constant (Kb) for water is 0.512 °C kg mol⁻¹. A student dissolves 9.0 g of glucose (M = 180 g mol⁻¹) in 250 g of water. (a) Calculate the expected boiling point elevation. (b) At what temperature will the solution boil (at 1 atm)?",
+          "steps": [
+            "Step 1 – Calculate moles of glucose. n = mass ÷ molar mass = 9.0 g ÷ 180 g mol⁻¹ = 0.050 mol.",
+            "Step 2 – Calculate molality of the solution. Molality (m) = moles of solute ÷ mass of solvent in kg = 0.050 mol ÷ 0.250 kg = 0.20 mol kg⁻¹.",
+            "Step 3 – Apply the boiling point elevation formula. ΔTb = Kb × m = 0.512 °C kg mol⁻¹ × 0.20 mol kg⁻¹ = 0.102 °C ≈ 0.10 °C.",
+            "Step 4 – Find the boiling point of the solution. Boiling point = 100.00 + 0.10 = 100.10 °C.",
+            "Step 5 – Interpret. Although a 0.10 °C rise is small, any consistent elevation of boiling point above 100.0 °C, combined with a broad boiling range, would indicate the liquid is not pure water."
+          ],
+          "answer": "The boiling point is elevated by 0.10 °C; the solution boils at 100.10 °C instead of 100.00 °C. This illustrates how dissolved impurities always raise the boiling point above that of the pure solvent."
+        },
+        {
+          "title": "Choosing a recrystallisation solvent and estimating recovery",
+          "problem": "An impure sample of benzoic acid (20.0 g, estimated 15% impurity by mass) is to be recrystallised. Benzoic acid dissolves at 68 g per 100 mL of hot ethanol (78 °C) and only 1.5 g per 100 mL of cold ethanol (20 °C). (a) What volume of hot ethanol is needed to dissolve the pure benzoic acid? (b) What mass of benzoic acid crystallises on cooling to 20 °C? (c) Why is ethanol a suitable recrystallisation solvent here?",
+          "steps": [
+            "Step 1 – Estimate mass of pure benzoic acid. Impurity = 15% of 20.0 g = 3.0 g, so pure benzoic acid ≈ 17.0 g.",
+            "Step 2 – Calculate minimum volume of hot ethanol needed to dissolve 17.0 g. Solubility at 78 °C = 68 g per 100 mL, so volume needed = (17.0 g ÷ 68 g) × 100 mL = 25.0 mL of hot ethanol.",
+            "Step 3 – Calculate how much benzoic acid remains dissolved in 25.0 mL of cold ethanol. Solubility at 20 °C = 1.5 g per 100 mL, so mass remaining dissolved = (1.5 g ÷ 100 mL) × 25.0 mL = 0.375 g.",
+            "Step 4 – Calculate mass that crystallises. Mass crystallised = 17.0 − 0.375 = 16.6 g.",
+            "Step 5 – Calculate percentage recovery. Recovery = (16.6 ÷ 17.0) × 100 = 97.6%. The 0.375 g lost to the cold filtrate is called the 'mother liquor loss'.",
+            "Step 6 – Evaluate ethanol as solvent. Ethanol dissolves benzoic acid very well when hot but poorly when cold (a large solubility difference — essential for good recovery). Ethanol does not react with benzoic acid and evaporates readily from the dried crystals. These properties make it a suitable recrystallisation solvent."
+          ],
+          "answer": "25.0 mL of hot ethanol is needed; approximately 16.6 g of pure benzoic acid crystallises on cooling (97.6% recovery). Ethanol is suitable because it shows a large difference in solubility between hot and cold, is chemically inert toward benzoic acid, and is easily removed."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A pure compound has a literature melting point of 156 °C. A student's sample melts over the range 142–149 °C. What is the most reasonable conclusion?",
+          "options": [
+            "The sample is pure but the thermometer is incorrectly calibrated by 14 °C.",
+            "The sample is impure; the melting point is depressed and the wide range confirms significant impurity.",
+            "The sample is a different compound that happens to melt near 156 °C.",
+            "The sample is pure; melting point ranges of 5–10 °C are normal for organic solids."
+          ],
+          "correctIndex": 1,
+          "explanation": "Impurities depress the melting point and widen the melting range; a 7 °C range combined with a 14 °C depression strongly indicates significant impurity rather than calibration error or a different compound."
+        },
+        {
+          "question": "A mixed melting point test is carried out by mixing an unknown white solid X with pure compound Y (mp 200 °C). The mixture melts at 198–200 °C. What is the correct interpretation?",
+          "options": [
+            "X and Y are different compounds; Y is slightly impure.",
+            "X and Y are the same compound; no depression occurs because there is no foreign impurity.",
+            "X is impure but Y is pure, which counteracts the depression.",
+            "The test is inconclusive because the melting range is too narrow."
+          ],
+          "correctIndex": 1,
+          "explanation": "When two samples of the same compound are mixed, neither acts as an impurity to the other, so no melting point depression occurs and the mixture melts sharply at the same temperature as the pure compound."
+        },
+        {
+          "question": "Which property is most important when selecting a solvent for recrystallisation?",
+          "options": [
+            "The solvent should dissolve the compound equally well at all temperatures.",
+            "The solvent should have a very high boiling point so it does not evaporate during heating.",
+            "The compound should be very soluble in the hot solvent but only sparingly soluble in the cold solvent.",
+            "The solvent should react slightly with the compound to remove attached impurities."
+          ],
+          "correctIndex": 2,
+          "explanation": "A large difference in solubility between hot and cold solvent is essential: the compound dissolves completely when hot and crystallises out efficiently on cooling, while soluble impurities stay in solution."
+        },
+        {
+          "question": "A student measures the boiling point of a liquid sample and finds it is consistently 2.5 °C above the literature value for the pure compound. What does this indicate, and what should the student do?",
+          "options": [
+            "The sample is pure; small boiling point variations are caused by atmospheric pressure changes and can be ignored.",
+            "The sample contains dissolved impurities that elevate the boiling point; the student should purify it by distillation or recrystallisation and re-measure.",
+            "The sample has degraded on heating and the boiling point measurement is invalid.",
+            "A higher boiling point means the sample is purer than the reference standard."
+          ],
+          "correctIndex": 1,
+          "explanation": "Dissolved impurities always elevate the boiling point above that of the pure substance; a consistent 2.5 °C elevation indicates the sample is impure and requires purification before further characterisation."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Tests for organic functional groups",
+      "sourceRange": "Topic 5",
+      "summary": "Organic qualitative analysis uses carefully chosen chemical reagents to reveal the presence of specific functional groups. Each reagent is chosen because it reacts selectively with one type of bond or atom arrangement, producing a visible signal—a colour change, a precipitate, a gas, or the disappearance of colour—that identifies the group. The student's task is to apply reagents in a logical sequence, observe precisely what happens (and what does not happen), and translate those observations into structural conclusions.\n\nThis module covers the major functional group tests encountered in a first-year practical course. Unsaturation (C=C double bonds and C≡C triple bonds) is detected by bromine water and Baeyer's reagent. Alcohols are identified by sodium metal (effervescence), ceric ammonium nitrate (colour change), and the Lucas test (cloudiness), which also distinguishes primary, secondary, and tertiary alcohols. The carbonyl group in aldehydes and ketones is shown by 2,4-dinitrophenylhydrazine (2,4-DNPH), while Tollens' reagent and Fehling's solution separate aldehydes from ketones by exploiting the ease with which an aldehyde is oxidised. Carboxylic acids effervesce with sodium hydrogencarbonate. Phenols give a striking colour with iron(III) chloride solution. Amines are detected by their basicity and the formation of isocyanides, while amides are distinguished from amines by hydrolysis tests.\n\nFor each test it is essential to note not just a positive result but also a negative result, because ruling out one group is as informative as confirming another. Colour descriptions should be precise—'brick-red precipitate', 'silver mirror', 'cream precipitate'—and the underlying chemistry should be understood so that results can be interpreted rather than merely memorised.",
+      "keyPoints": [
+        "Bromine water is decolourised by alkenes and alkynes (electrophilic addition); Baeyer's reagent (cold, dilute, alkaline KMnO₄) turns from purple to brown/colourless (MnO₂ precipitate) with unsaturated compounds.",
+        "Sodium metal reacts with the O–H bond of alcohols and phenols (and carboxylic acids) to give hydrogen gas; effervescence with a glowing splint confirms H₂.",
+        "Ceric ammonium nitrate (CAN) turns from yellow/orange to red with any alcohol (primary, secondary or tertiary); no colour change with alkanes, esters or ethers.",
+        "The Lucas test uses concentrated HCl and anhydrous ZnCl₂: tertiary alcohols give immediate cloudiness, secondary alcohols cloud within 5 minutes, primary alcohols show no cloudiness in the cold.",
+        "2,4-DNPH (Brady's reagent) gives a yellow, orange, or red precipitate with any aldehyde or ketone, confirming the carbonyl (C=O) group.",
+        "Tollens' reagent (ammoniacal silver nitrate) gives a silver mirror only with aldehydes, not ketones; Fehling's solution gives a brick-red Cu₂O precipitate only with aldehydes (and some reducing sugars).",
+        "Carboxylic acids effervesce with NaHCO₃ solution, releasing CO₂ that turns limewater milky; alcohols and phenols do NOT effervesce with NaHCO₃.",
+        "FeCl₃ solution gives a violet/purple colour with phenols; alcohols give no colour change.",
+        "Primary amines give a foul-smelling isocyanide (carbylamine test with CHCl₃/KOH); amines turn moist red litmus blue; amides require hot NaOH to hydrolyse and release NH₃."
+      ],
+      "definitions": [
+        {
+          "term": "Bromine water test",
+          "definition": "A test for unsaturation in which an orange-brown solution of bromine in water is added to the unknown compound. An alkene or alkyne rapidly decolourises the solution as bromine adds across the multiple bond; a saturated compound does not decolourise it."
+        },
+        {
+          "term": "Baeyer's test",
+          "definition": "A test for unsaturation using cold, dilute, alkaline potassium permanganate (KMnO₄) solution, which is purple. Alkenes and alkynes are oxidised and the reagent is decolourised, leaving a brown precipitate of manganese(IV) oxide (MnO₂). Saturated compounds do not change the colour."
+        },
+        {
+          "term": "Lucas test",
+          "definition": "A test that distinguishes primary, secondary, and tertiary alcohols using a mixture of concentrated hydrochloric acid and anhydrous zinc chloride (ZnCl₂). Cloudiness (due to formation of an insoluble alkyl chloride) appears immediately with tertiary alcohols, within about 5 minutes with secondary alcohols, and not at all in the cold with primary alcohols."
+        },
+        {
+          "term": "Ceric ammonium nitrate (CAN) test",
+          "definition": "A test for alcohols using an orange/yellow solution of (NH₄)₂Ce(NO₃)₆. Any compound containing an O–H or C–OH group (primary, secondary, or tertiary alcohol) turns the reagent red. The test detects the presence of an alcohol but does not distinguish among the three classes."
+        },
+        {
+          "term": "2,4-Dinitrophenylhydrazine (2,4-DNPH / Brady's reagent)",
+          "definition": "An orange solution used to detect the carbonyl group (C=O) in aldehydes and ketones. The reagent condenses with the carbonyl compound to form a coloured 2,4-dinitrophenylhydrazone precipitate, which is yellow, orange, or red depending on the degree of conjugation. A positive result confirms C=O but does not distinguish aldehyde from ketone on its own."
+        },
+        {
+          "term": "Tollens' reagent",
+          "definition": "An ammoniacal silver nitrate solution, [Ag(NH₃)₂]⁺, that acts as a mild oxidising agent. Aldehydes reduce Ag⁺ to metallic silver, producing a silver mirror on the inner wall of a clean test tube (or a grey precipitate in a dirty tube). Ketones do not react, so a silver mirror confirms an aldehyde."
+        },
+        {
+          "term": "Fehling's solution",
+          "definition": "A deep blue alkaline solution of copper(II) ions complexed with sodium potassium tartrate (Rochelle salt). Aldehydes (and reducing sugars) reduce Cu²⁺ to Cu⁺, giving a brick-red precipitate of copper(I) oxide (Cu₂O) on heating. Ketones (except α-hydroxy ketones) do not react, so a brick-red precipitate distinguishes an aldehyde from a simple ketone."
+        },
+        {
+          "term": "Carbylamine (isocyanide) test",
+          "definition": "A test for primary amines: the amine is heated with chloroform (CHCl₃) and concentrated potassium hydroxide. Primary amines produce a foul-smelling isocyanide (carbylamine, R–NC). Secondary and tertiary amines do not give a positive result. The test is specific to the –NH₂ group attached to carbon."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Distinguishing an aldehyde from a ketone",
+          "problem": "An unknown colourless liquid is believed to be either propanal (CH₃CH₂CHO) or propanone (CH₃COCH₃). Describe a logical sequence of tests and predict the observations for each compound.",
+          "steps": [
+            "Step 1 – Test with 2,4-DNPH (Brady's reagent): Add a few drops of the unknown to 2,4-DNPH solution. Both propanal and propanone contain a C=O group, so both will give an orange/yellow precipitate. This confirms a carbonyl compound but does not distinguish them.",
+            "Step 2 – Test with Tollens' reagent: Add the unknown to freshly prepared Tollens' reagent in a clean test tube and warm gently in a water bath. Propanal (an aldehyde) will reduce Ag⁺ to Ag⁰, producing a silver mirror on the glass. Propanone (a ketone) will give no mirror because it cannot be oxidised under these mild conditions.",
+            "Step 3 – Confirm with Fehling's solution: Add the unknown to Fehling's solution and heat. Propanal will reduce Cu²⁺ (deep blue) to Cu⁺, giving a brick-red precipitate of Cu₂O. Propanone will give no colour change—the solution stays blue.",
+            "Conclusion: A silver mirror with Tollens' and a brick-red precipitate with Fehling's both point unambiguously to propanal; no reaction in both tests points to propanone."
+          ],
+          "answer": "Propanal gives a positive Tollens' test (silver mirror) and a positive Fehling's test (brick-red Cu₂O precipitate). Propanone gives neither reaction. Both compounds give an orange/yellow precipitate with 2,4-DNPH, confirming a carbonyl group in each case."
+        },
+        {
+          "title": "Using the Lucas test to classify an alcohol",
+          "problem": "Three unlabelled bottles contain 1-butanol (primary), 2-butanol (secondary), and 2-methyl-2-propanol (tertiary). Explain how the Lucas test is used to identify each, and describe the expected observations and the chemistry behind them.",
+          "steps": [
+            "Step 1 – Prepare Lucas reagent: Mix anhydrous ZnCl₂ with concentrated HCl. ZnCl₂ is a Lewis acid that activates the C–OH bond towards substitution.",
+            "Step 2 – Add each alcohol to Lucas reagent at room temperature and note the time for cloudiness to appear. Cloudiness means an alkyl chloride (RCl) has formed; RCl is insoluble in the aqueous layer, so the mixture turns cloudy or separates into two layers.",
+            "Step 3 – Tertiary alcohol (2-methyl-2-propanol): The tertiary carbocation [(CH₃)₃C⁺] forms instantly because it is highly stabilised. The solution turns cloudy immediately (within ~1 minute) as 2-chloro-2-methylpropane forms.",
+            "Step 4 – Secondary alcohol (2-butanol): A secondary carbocation is less stable; cloudiness appears after approximately 3–5 minutes as 2-chlorobutane is produced.",
+            "Step 5 – Primary alcohol (1-butanol): A primary carbocation is very unstable; no cloudiness is observed within 5 minutes at room temperature. (Reaction does eventually occur on prolonged heating, but the cold test is negative.)",
+            "Conclusion: Immediate cloudiness = tertiary; cloudiness within 5 min = secondary; no cloudiness = primary."
+          ],
+          "answer": "2-Methyl-2-propanol gives immediate cloudiness (tertiary). 2-Butanol clouds within about 5 minutes (secondary). 1-Butanol shows no cloudiness in the cold Lucas test (primary)."
+        },
+        {
+          "title": "Identifying a white solid as a carboxylic acid, a phenol, or an alcohol",
+          "problem": "A white solid dissolves in water to give a clear solution. Describe the tests you would carry out to determine whether it is ethanol (an alcohol, liquid but used here as an illustrative comparison), benzoic acid (carboxylic acid), or phenol, and state the expected results for each.",
+          "steps": [
+            "Step 1 – NaHCO₃ test: Add a spatula-tip of the solid to a few cm³ of sodium hydrogencarbonate solution. Benzoic acid (pKa ≈ 4.2) is acidic enough to react with HCO₃⁻, releasing CO₂ gas that effervesces visibly and turns limewater milky: C₆H₅COOH + NaHCO₃ → C₆H₅COONa + H₂O + CO₂↑. Phenol is too weak an acid (pKa ≈ 10) to liberate CO₂ from HCO₃⁻—no effervescence. Ethanol also gives no effervescence.",
+            "Step 2 – FeCl₃ test: Add a few drops of iron(III) chloride solution to separate samples. Phenol gives an intense violet/purple colour because phenol forms a coloured complex with Fe³⁺. Benzoic acid gives a buff/cream precipitate (iron(III) benzoate) but no violet colour. Ethanol gives no colour change.",
+            "Step 3 – Sodium metal test: Drop a small piece of clean sodium metal into the dissolved sample. All three compounds have an O–H bond and will react to release H₂ gas (effervescence), so this distinguishes them from compounds lacking O–H but does not separate the three from each other.",
+            "Step 4 – Interpret results in combination: Effervescence with NaHCO₃ → benzoic acid. No effervescence with NaHCO₃ + violet colour with FeCl₃ → phenol. No effervescence with NaHCO₃ + no colour with FeCl₃ → alcohol (ethanol)."
+          ],
+          "answer": "Benzoic acid: effervesces with NaHCO₃; no violet with FeCl₃. Phenol: no effervescence with NaHCO₃; violet/purple with FeCl₃. Ethanol: no effervescence with NaHCO₃; no colour with FeCl₃. The combination of NaHCO₃ and FeCl₃ tests uniquely identifies each compound."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student adds Tollens' reagent to compound X and warms the tube: a silver mirror forms. When Fehling's solution is added to compound X and heated, a brick-red precipitate forms. Which functional group does compound X contain?",
+          "options": [
+            "Ketone",
+            "Aldehyde",
+            "Carboxylic acid",
+            "Alkene"
+          ],
+          "correctIndex": 1,
+          "explanation": "Both Tollens' (silver mirror) and Fehling's (brick-red Cu₂O) tests are positive only for aldehydes, which are oxidised under these mild conditions; ketones, carboxylic acids, and alkenes do not give both positive results."
+        },
+        {
+          "question": "In the Lucas test, compound Y produces cloudiness immediately when mixed with Lucas reagent at room temperature. What is the most likely class of compound Y?",
+          "options": [
+            "Primary alcohol",
+            "Secondary alcohol",
+            "Tertiary alcohol",
+            "Phenol"
+          ],
+          "correctIndex": 2,
+          "explanation": "Tertiary alcohols form stable tertiary carbocations instantly, reacting immediately with HCl to give an insoluble alkyl chloride (cloudiness); secondary alcohols take several minutes and primary alcohols show no cloudiness in the cold."
+        },
+        {
+          "question": "Which of the following reagents would produce a colour change with phenol but NOT with ethanol?",
+          "options": [
+            "Sodium metal",
+            "Bromine water",
+            "Iron(III) chloride solution",
+            "2,4-Dinitrophenylhydrazine solution"
+          ],
+          "correctIndex": 2,
+          "explanation": "FeCl₃ forms a violet/purple complex specifically with phenols due to the electron-rich aromatic ring; ethanol (and other simple alcohols) do not form this coloured complex."
+        },
+        {
+          "question": "Brady's reagent (2,4-DNPH) is added to four compounds: (i) pentan-2-one, (ii) pentanal, (iii) phenol, (iv) pentan-1-ol. Which compounds give a coloured precipitate?",
+          "options": [
+            "(i) only",
+            "(i) and (ii) only",
+            "(ii) and (iv) only",
+            "(i), (ii), (iii) and (iv)"
+          ],
+          "correctIndex": 1,
+          "explanation": "2,4-DNPH reacts with the carbonyl group (C=O) of aldehydes and ketones; pentan-2-one (ketone) and pentanal (aldehyde) both give a yellow/orange precipitate, while phenol and pentan-1-ol lack a carbonyl group and give no precipitate."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Preparation of simple compounds and practical reporting",
+      "sourceRange": "Topic 6",
+      "summary": "Chemistry is not only about observing and identifying substances — it also involves making them. This module covers two classic first-year preparations: growing crystals of copper(II) sulphate pentahydrate (an inorganic salt) and synthesising an ester by esterification under reflux. Both preparations illustrate the full experimental cycle: choosing and measuring reactants, running the reaction under controlled conditions, isolating and purifying the product, and evaluating the outcome through percentage yield.\n\nPercentage yield is the central quantitative idea of the module. It connects the moles of reactants (the theoretical, or stoichiometric, prediction) to the actual mass collected. Because real reactions suffer from incomplete conversion, side reactions, losses during transfer and purification, and equilibrium constraints, the actual yield is almost always less than the theoretical yield. Calculating percentage yield requires writing a balanced equation, identifying the limiting reagent, working out the theoretical yield in grams, and expressing the actual mass as a percentage of that figure.\n\nBeyond the chemistry, the module addresses how a practical report should be written. In a university practical, every observation (colour change, gas evolved, precipitate formed, temperature measured) is recorded as a factual statement in the moment, and every inference is a conclusion drawn from that evidence. Keeping these two categories distinct — what you saw versus what you conclude — is a professional habit that underpins all experimental science. The purification steps (filtration, evaporation, crystallisation, reflux with drying agent) covered in earlier modules apply directly here, and the identity of the final product can be confirmed using the analytical and spectroscopic tests from earlier modules.",
+      "keyPoints": [
+        "Copper(II) sulphate crystals are made by reacting excess copper(II) oxide (or copper(II) carbonate) with warm dilute sulphuric acid, filtering off the excess solid, and evaporating/cooling the filtrate to crystallise CuSO₄·5H₂O.",
+        "Excess base (CuO) is used deliberately to ensure all the acid reacts, making the limiting reagent the acid and preventing acid contamination of the product.",
+        "Percentage yield = (actual yield / theoretical yield) × 100%; it is always ≤ 100% in a real experiment.",
+        "Theoretical yield is calculated from the limiting reagent using stoichiometric mole ratios and molar masses.",
+        "Esterification is the reaction of a carboxylic acid with an alcohol in the presence of a concentrated acid catalyst (H₂SO₄); it is reversible, so reflux and excess of one reagent are used to drive the equilibrium forward.",
+        "Reflux means heating a reaction mixture in a flask fitted with a condenser so that vapours condense and return, allowing prolonged heating without loss of volatile material.",
+        "In a practical report, observations are factual, present-tense descriptions of what is directly seen, heard or smelled; inferences are reasoned conclusions about what the observations mean chemically.",
+        "A product's purity is confirmed by melting point, boiling point, or the analytical tests studied in earlier modules; a pure product matches the literature value closely."
+      ],
+      "definitions": [
+        {
+          "term": "Theoretical yield",
+          "definition": "The maximum mass of product that could be obtained if the limiting reagent were converted completely to product, with no losses, calculated from the balanced equation and molar masses."
+        },
+        {
+          "term": "Actual yield",
+          "definition": "The mass of purified product actually collected at the end of an experiment; it is invariably less than or equal to the theoretical yield."
+        },
+        {
+          "term": "Percentage yield",
+          "definition": "The ratio of actual yield to theoretical yield, expressed as a percentage: (actual yield / theoretical yield) × 100%. It measures how efficiently a reaction was carried out."
+        },
+        {
+          "term": "Limiting reagent",
+          "definition": "The reactant that is completely consumed first and therefore determines the maximum amount of product that can form; the other reactant is present in excess."
+        },
+        {
+          "term": "Esterification",
+          "definition": "A reversible reaction between a carboxylic acid and an alcohol, catalysed by a concentrated acid (usually H₂SO₄), that produces an ester and water: RCOOH + R'OH ⇌ RCOOR' + H₂O."
+        },
+        {
+          "term": "Reflux",
+          "definition": "A technique in which a reaction mixture is heated to boiling in a flask fitted with a vertical condenser; vapours condense and drip back into the flask, allowing sustained high-temperature reaction without loss of volatile reactants or products."
+        },
+        {
+          "term": "Observation (practical report)",
+          "definition": "A direct, factual record of what is perceived during an experiment — colour, state, smell, temperature, gas evolution — written without interpretation or conclusion."
+        },
+        {
+          "term": "Inference (practical report)",
+          "definition": "A reasoned chemical conclusion drawn from an observation, explaining what the observation indicates about the identity, structure or reactivity of a substance."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating the theoretical and percentage yield for copper(II) sulphate preparation",
+          "problem": "A student reacts 4.00 g of copper(II) oxide with excess dilute sulphuric acid. After filtering, evaporating and crystallising, she collects 8.50 g of CuSO₄·5H₂O crystals. Calculate (a) the theoretical yield and (b) the percentage yield. (Molar masses: CuO = 79.5 g mol⁻¹; CuSO₄·5H₂O = 249.5 g mol⁻¹)",
+          "steps": [
+            "Write the balanced equation: CuO(s) + H₂SO₄(aq) → CuSO₄(aq) + H₂O(l). On crystallisation: CuSO₄(aq) + 5H₂O → CuSO₄·5H₂O(s). Overall, 1 mol CuO gives 1 mol CuSO₄·5H₂O.",
+            "Calculate moles of CuO used: n(CuO) = 4.00 g ÷ 79.5 g mol⁻¹ = 0.05031 mol.",
+            "Because the mole ratio is 1 : 1, moles of CuSO₄·5H₂O expected = 0.05031 mol.",
+            "Theoretical yield = 0.05031 mol × 249.5 g mol⁻¹ = 12.55 g.",
+            "Percentage yield = (8.50 g ÷ 12.55 g) × 100% = 67.7%."
+          ],
+          "answer": "Theoretical yield = 12.55 g; percentage yield = 67.7%."
+        },
+        {
+          "title": "Identifying the limiting reagent and theoretical yield in esterification",
+          "problem": "Ethyl ethanoate is prepared by mixing 9.20 g of ethanol with 18.0 g of ethanoic acid, with a few drops of concentrated H₂SO₄ catalyst. Identify the limiting reagent and calculate the theoretical yield of ethyl ethanoate. (Molar masses: CH₃CH₂OH = 46.0 g mol⁻¹; CH₃COOH = 60.0 g mol⁻¹; CH₃COOC₂H₅ = 88.0 g mol⁻¹)",
+          "steps": [
+            "Balanced equation: CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O. Mole ratio is 1 : 1 : 1.",
+            "Moles of ethanol: n = 9.20 g ÷ 46.0 g mol⁻¹ = 0.200 mol.",
+            "Moles of ethanoic acid: n = 18.0 g ÷ 60.0 g mol⁻¹ = 0.300 mol.",
+            "Ethanol requires 0.200 mol of acid to react completely; only 0.200 mol acid is needed but 0.300 mol is present. Therefore ethanol is the limiting reagent (it is used up first).",
+            "Theoretical yield of ester = moles of limiting reagent × M(ester) = 0.200 mol × 88.0 g mol⁻¹ = 17.6 g."
+          ],
+          "answer": "Ethanol is the limiting reagent; theoretical yield of ethyl ethanoate = 17.6 g."
+        },
+        {
+          "title": "Writing observations and inferences in a practical report",
+          "problem": "A student prepares copper(II) sulphate by the following steps and records what she sees. For each observation, write the correct inference. (i) Excess black powder was stirred into warm dilute sulphuric acid; the black solid gradually disappeared and the solution turned blue. (ii) The mixture was filtered; a small amount of black residue remained on the filter paper. (iii) The blue filtrate was evaporated and then cooled; blue crystals formed.",
+          "steps": [
+            "Step (i) observation: 'Black solid dissolves in warm dilute H₂SO₄; solution becomes blue.' Inference: Copper(II) oxide (a black solid) reacts with sulphuric acid to form copper(II) sulphate solution; Cu²⁺ ions in solution are responsible for the blue colour. The acid has been neutralised.",
+            "Step (ii) observation: 'A black residue is retained on the filter paper.' Inference: Excess, unreacted CuO remains; it was added in excess to ensure all the acid was consumed, so the product solution contains no free acid. Filtration removes this excess.",
+            "Step (iii) observation: 'Blue crystals deposit on cooling the concentrated solution.' Inference: Evaporation increases the concentration of CuSO₄ beyond its solubility at the lower temperature; the compound crystallises as the hydrated salt CuSO₄·5H₂O, whose characteristic blue colour confirms the presence of Cu²⁺."
+          ],
+          "answer": "(i) CuO reacts with H₂SO₄ to give Cu²⁺(aq) solution (blue). (ii) Excess CuO is filtered off, confirming acid is fully consumed. (iii) CuSO₄·5H₂O crystallises from the concentrated solution on cooling."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the preparation of copper(II) sulphate from CuO and H₂SO₄, why is an excess of CuO used rather than an excess of acid?",
+          "options": [
+            "Excess CuO increases the reaction rate by providing more surface area.",
+            "Excess CuO ensures all the acid is consumed, preventing acid contamination of the product crystals.",
+            "Excess CuO raises the boiling point of the solution, aiding crystallisation.",
+            "Excess CuO shifts the equilibrium to produce more water as a by-product."
+          ],
+          "correctIndex": 1,
+          "explanation": "Using excess base (CuO) guarantees that all the sulphuric acid reacts; the leftover CuO is simply filtered off, leaving a pure, neutral copper(II) sulphate solution."
+        },
+        {
+          "question": "A student obtains 6.20 g of product from a reaction whose theoretical yield is 8.80 g. What is the percentage yield?",
+          "options": [
+            "29.5%",
+            "41.9%",
+            "70.5%",
+            "142%"
+          ],
+          "correctIndex": 2,
+          "explanation": "Percentage yield = (6.20 ÷ 8.80) × 100% = 70.5%; the other options arise from inverting the ratio or subtracting rather than dividing."
+        },
+        {
+          "question": "Which statement correctly describes the purpose of reflux in the esterification of ethanoic acid with ethanol?",
+          "options": [
+            "It removes water from the reaction mixture to drive the equilibrium towards the ester.",
+            "It allows prolonged heating at the boiling point without losing volatile reactants, increasing conversion to ester.",
+            "It decomposes the sulphuric acid catalyst so it does not contaminate the ester.",
+            "It raises the pressure inside the flask, increasing the boiling point of the ester."
+          ],
+          "correctIndex": 1,
+          "explanation": "Reflux condenses vapours and returns them to the flask, enabling sustained heating without losing ethanol or ester; it does not itself remove water (a separate drying step does that)."
+        },
+        {
+          "question": "In a practical report, a student writes: 'A white precipitate formed when dilute HCl was added, indicating the presence of chloride ions.' What is wrong with this entry?",
+          "options": [
+            "The observation is incorrect; HCl always gives a coloured precipitate.",
+            "The student has mixed an observation ('white precipitate formed') with an inference ('indicating chloride ions') in a single statement; they should be recorded separately.",
+            "Inferences are not required in a university practical report.",
+            "The student should have written the balanced ionic equation instead of describing the colour."
+          ],
+          "correctIndex": 1,
+          "explanation": "Good practical reporting keeps observations (what you directly see) separate from inferences (what you conclude chemically); combining them in one sentence is incorrect format and can lead to circular reasoning."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

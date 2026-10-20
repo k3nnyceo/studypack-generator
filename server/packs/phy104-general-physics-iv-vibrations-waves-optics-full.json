@@ -1,0 +1,826 @@
+{
+  "title": "PHY 104 — General Physics IV: Vibrations, Waves and Optics (full course)",
+  "course": "PHY 104 General Physics IV",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the complete first-year course on vibrations, waves and optics. It begins with the mathematics and physics of oscillating systems, then extends to wave propagation and interference phenomena, before moving to the geometric and physical optics of light, including reflection, refraction and optical instruments. Each module builds on core principles: SHM provides the foundation for understanding wave motion; interference and standing waves apply wave principles to sound; and reflection and refraction form the basis for understanding lenses and optical systems.",
+  "modules": [
+    {
+      "title": "Simple Harmonic Motion",
+      "sourceRange": "Topic 1",
+      "summary": "Simple harmonic motion (SHM) is the most fundamental type of oscillatory motion in physics. It occurs whenever a restoring force acts on an object in proportion to its displacement from equilibrium, always directed back toward that equilibrium position. Because this single condition produces a precise, repeating sinusoidal motion, SHM serves as the foundation for understanding waves, sound, alternating currents and many other physical phenomena.\n\nThe mathematics of SHM connects displacement, velocity and acceleration through sine and cosine functions of time. The amplitude sets the maximum displacement, the angular frequency ω determines how rapidly the system oscillates, and the phase constant fixes the starting point of the motion. Two archetypal physical systems—the mass on a spring and the simple pendulum—both obey the SHM equation exactly (the pendulum only for small angles), and their periods depend only on fixed system properties such as mass, spring stiffness or pendulum length, never on amplitude.\n\nIn a real system, friction and air resistance gradually remove energy, causing damped oscillations whose amplitude decays over time. When an external periodic force is applied, the system undergoes forced oscillations, and if the driving frequency matches the system's natural frequency the amplitude grows dramatically—a phenomenon called resonance. Understanding resonance is essential because it appears throughout engineering, music and everyday life, with both useful and potentially destructive consequences.",
+      "keyPoints": [
+        "SHM is defined by the condition that the restoring force is proportional to displacement and opposite in direction: F = −kx, leading to the equation of motion ẍ + ω²x = 0.",
+        "Displacement varies sinusoidally: x(t) = A cos(ωt + φ), where A is amplitude, ω = 2πf is angular frequency and φ is the initial phase.",
+        "Velocity leads displacement by 90°: v(t) = −Aω sin(ωt + φ); maximum speed v_max = Aω occurs at the equilibrium position.",
+        "Acceleration is always directed toward equilibrium and proportional to displacement: a(t) = −Aω² cos(ωt + φ); maximum magnitude a_max = Aω² occurs at the turning points.",
+        "For a mass–spring system: ω = √(k/m), so the period T = 2π√(m/k), independent of amplitude.",
+        "For a simple pendulum: ω = √(g/L), so T = 2π√(L/g), valid only for small angles (θ < ~10°).",
+        "Total mechanical energy in SHM is constant: E = ½kA² = ½mv_max²; kinetic and potential energy continuously exchange but their sum is conserved.",
+        "Damped oscillations lose energy to friction; the amplitude decays exponentially. Forced oscillations driven at the system's natural frequency produce resonance, where amplitude reaches a maximum."
+      ],
+      "definitions": [
+        {
+          "term": "Simple Harmonic Motion (SHM)",
+          "definition": "Oscillatory motion in which the restoring force on the object is directly proportional to its displacement from the equilibrium position and acts in the opposite direction to that displacement. Mathematically: F = −kx, which produces sinusoidal motion with a fixed period and amplitude."
+        },
+        {
+          "term": "Amplitude (A)",
+          "definition": "The maximum displacement of the oscillating object from its equilibrium position, measured in metres. It determines the energy stored in the oscillation but does not affect the period in ideal SHM."
+        },
+        {
+          "term": "Angular frequency (ω)",
+          "definition": "The rate of oscillation measured in radians per second, related to ordinary frequency f and period T by ω = 2πf = 2π/T. It appears directly in the SHM equation of motion and determines how fast the phase of the motion advances."
+        },
+        {
+          "term": "Phase constant (φ)",
+          "definition": "A constant (in radians) in the expression x(t) = A cos(ωt + φ) that specifies the displacement and direction of motion of the oscillator at time t = 0. It is determined by the initial conditions of the system."
+        },
+        {
+          "term": "Restoring force",
+          "definition": "The net force that acts on a displaced oscillator and points back toward the equilibrium position. In SHM this force is proportional to the displacement: F = −kx. Without a restoring force there is no oscillation."
+        },
+        {
+          "term": "Simple pendulum",
+          "definition": "An idealised oscillator consisting of a small, heavy bob suspended by a massless, inextensible string of length L, free to swing in a vertical plane. For small angles it executes SHM with period T = 2π√(L/g), independent of the bob's mass."
+        },
+        {
+          "term": "Damped oscillation",
+          "definition": "An oscillation in which energy is gradually lost to a resistive force (such as friction or air drag), causing the amplitude to decrease over time—typically following an exponential decay envelope—while the frequency changes only slightly."
+        },
+        {
+          "term": "Resonance",
+          "definition": "The phenomenon in which a system driven by an external periodic force achieves maximum amplitude when the driving frequency equals the system's natural frequency. At resonance, energy is transferred to the system most efficiently and, in the absence of strong damping, the amplitude can become very large."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding period, frequency and maximum speed of a mass–spring oscillator",
+          "problem": "A block of mass m = 0.40 kg is attached to a spring of spring constant k = 160 N m⁻¹ on a frictionless horizontal surface and pulled 8.0 cm from equilibrium before being released from rest. Find (a) the angular frequency, (b) the period, (c) the maximum speed of the block.",
+          "steps": [
+            "Step 1 – Angular frequency. For a mass–spring system ω = √(k/m) = √(160/0.40) = √400 = 20 rad s⁻¹.",
+            "Step 2 – Period. T = 2π/ω = 2π/20 = π/10 ≈ 0.314 s. Alternatively, T = 2π√(m/k) = 2π√(0.40/160) = 2π × 0.050 = 0.314 s.",
+            "Step 3 – Amplitude. The block is released from rest at 8.0 cm from equilibrium, so A = 0.080 m.",
+            "Step 4 – Maximum speed. The block passes through equilibrium with maximum kinetic energy. Using energy conservation: ½mv_max² = ½kA², so v_max = A√(k/m) = Aω = 0.080 × 20 = 1.6 m s⁻¹. This can also be written as v_max = A ω directly."
+          ],
+          "answer": "ω = 20 rad s⁻¹; T ≈ 0.31 s; v_max = 1.6 m s⁻¹."
+        },
+        {
+          "title": "Period of a simple pendulum and the effect of changing length",
+          "problem": "A simple pendulum has a length of 1.00 m. (a) Calculate its period at a location where g = 9.81 m s⁻². (b) To what length must the pendulum be shortened to halve the period? (c) By what factor does the period change if the bob's mass is doubled while the length stays at 1.00 m?",
+          "steps": [
+            "Step 1 – Period for L = 1.00 m. T = 2π√(L/g) = 2π√(1.00/9.81) = 2π × 0.3193 = 2.007 s ≈ 2.01 s.",
+            "Step 2 – Length for half the period. We need T' = T/2 = 1.005 s. Since T ∝ √L, we have T'/T = √(L'/L), so √(L'/L) = 1/2, giving L'/L = 1/4. Therefore L' = 1.00/4 = 0.25 m.",
+            "Step 3 – Effect of doubling the mass. The period formula T = 2π√(L/g) contains no mass term. Doubling the mass leaves the period completely unchanged. The period remains 2.01 s."
+          ],
+          "answer": "(a) T ≈ 2.01 s; (b) L' = 0.25 m; (c) the period is unchanged—mass has no effect on the period of a simple pendulum."
+        },
+        {
+          "title": "Energy distribution and displacement at a given instant in SHM",
+          "problem": "A 0.50 kg mass oscillates on a spring (k = 200 N m⁻¹) with amplitude A = 0.10 m. (a) Find the total mechanical energy. (b) Find the kinetic and potential energies when the displacement is x = 0.06 m. (c) Find the speed of the mass at this displacement.",
+          "steps": [
+            "Step 1 – Total energy. E = ½kA² = ½ × 200 × (0.10)² = ½ × 200 × 0.01 = 1.0 J.",
+            "Step 2 – Potential energy at x = 0.06 m. PE = ½kx² = ½ × 200 × (0.06)² = 100 × 0.0036 = 0.36 J.",
+            "Step 3 – Kinetic energy at x = 0.06 m. KE = E − PE = 1.0 − 0.36 = 0.64 J.",
+            "Step 4 – Speed. KE = ½mv², so v = √(2 KE / m) = √(2 × 0.64 / 0.50) = √2.56 = 1.6 m s⁻¹. Check using the velocity formula directly: v = ω√(A² − x²), ω = √(k/m) = √(200/0.50) = 20 rad s⁻¹, v = 20 × √(0.01 − 0.0036) = 20 × √0.0064 = 20 × 0.08 = 1.6 m s⁻¹. ✓"
+          ],
+          "answer": "(a) E = 1.0 J; (b) PE = 0.36 J, KE = 0.64 J; (c) v = 1.6 m s⁻¹."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A mass–spring system has mass m and spring constant k. If the mass is replaced by one four times as heavy while the spring constant is doubled, the new period compared with the original period is:",
+          "options": [
+            "Twice as large",
+            "√2 times as large",
+            "Half as large",
+            "Unchanged"
+          ],
+          "correctIndex": 1,
+          "explanation": "T = 2π√(m/k). Replacing m with 4m and k with 2k gives T' = 2π√(4m/2k) = 2π√(2m/k) = √2 × T."
+        },
+        {
+          "question": "In SHM, where does the object have maximum kinetic energy and zero potential energy?",
+          "options": [
+            "At either turning point (maximum displacement)",
+            "Halfway between the equilibrium and a turning point",
+            "At the equilibrium position",
+            "At any point, because total energy is constant"
+          ],
+          "correctIndex": 2,
+          "explanation": "Kinetic energy is maximum where speed is maximum, which occurs at the equilibrium position (x = 0) where the restoring force—and hence acceleration—is zero."
+        },
+        {
+          "question": "A simple pendulum of length 0.25 m oscillates with small amplitude. Taking g = 10 m s⁻², its period is approximately:",
+          "options": [
+            "0.31 s",
+            "0.99 s",
+            "1.57 s",
+            "3.14 s"
+          ],
+          "correctIndex": 1,
+          "explanation": "T = 2π√(L/g) = 2π√(0.25/10) = 2π × 0.158 ≈ 0.99 s."
+        },
+        {
+          "question": "A lightly damped oscillator is driven by a sinusoidal force whose frequency is slowly increased from well below to well above the oscillator's natural frequency. The amplitude of oscillation will:",
+          "options": [
+            "Increase steadily throughout",
+            "Remain constant because energy is conserved",
+            "Rise to a peak near the natural frequency, then fall—this is resonance",
+            "Fall steadily throughout"
+          ],
+          "correctIndex": 2,
+          "explanation": "Resonance occurs when the driving frequency matches the natural frequency; at this point energy transfer is most efficient and amplitude is maximised, falling off on either side."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Wave Motion",
+      "sourceRange": "Topic 2",
+      "summary": "A wave is a periodic disturbance that propagates through space or a medium, transferring energy without permanently transporting matter. Waves are classified by the relationship between the direction of oscillation and the direction of propagation. In a transverse wave the particles of the medium (or the field, for electromagnetic waves) oscillate perpendicular to the direction of travel—a vibrating guitar string and light are familiar examples. In a longitudinal wave the particles oscillate parallel to the direction of travel, producing alternating compressions and rarefactions; sound in air is the standard example. Both types are characterised by four fundamental parameters: wavelength λ (the repeat distance in space), frequency f (the number of complete cycles per second), period T = 1/f (the time for one cycle), and wave speed v. These are linked by the wave equation v = fλ, one of the most useful relations in wave physics.\n\nA progressive (travelling) wave carries energy steadily from source to receiver. Its displacement at any point x and time t is described by y(x, t) = A sin(ωt − kx) for a wave moving in the +x direction, where A is the amplitude, ω = 2πf is the angular frequency (rad s⁻¹), and k = 2π/λ is the wave number (rad m⁻¹). Reading these constants out of a given equation immediately yields all the wave's physical properties, including speed v = ω/k.\n\nThe intensity I of a wave is the power delivered per unit area perpendicular to propagation (SI unit W m⁻²). For a point source radiating equally in all directions, I = P/(4πr²), so intensity falls as the inverse square of distance. Crucially, intensity is proportional to the square of the amplitude: I ∝ A². The principle of superposition states that when two or more waves overlap, the resultant displacement at any point is the algebraic sum of the individual displacements. This principle underpins interference, beats, standing waves and many other wave phenomena.",
+      "keyPoints": [
+        "Transverse waves have particle displacement perpendicular to propagation; longitudinal waves have displacement parallel to propagation.",
+        "The fundamental wave equation is v = fλ; equivalently v = λ/T.",
+        "Period and frequency are reciprocals: T = 1/f.",
+        "A progressive wave moving in the +x direction is described by y = A sin(ωt − kx), where ω = 2πf and k = 2π/λ; wave speed v = ω/k.",
+        "Intensity is power per unit area: I = P/A_perp; for a point source I = P/(4πr²), so I ∝ 1/r².",
+        "Intensity is proportional to the square of amplitude: I ∝ A²; doubling amplitude quadruples intensity.",
+        "The principle of superposition: the net displacement where waves overlap equals the vector (algebraic) sum of the individual displacements.",
+        "Angular frequency ω and wave number k are convenient because they absorb the factors of 2π and make the wave equation compact."
+      ],
+      "definitions": [
+        {
+          "term": "Transverse wave",
+          "definition": "A wave in which the oscillation of the medium (or field) is perpendicular to the direction of energy propagation. Examples: waves on a string, electromagnetic waves."
+        },
+        {
+          "term": "Longitudinal wave",
+          "definition": "A wave in which the oscillation of the medium is parallel to the direction of energy propagation, producing alternating regions of compression and rarefaction. Example: sound in air."
+        },
+        {
+          "term": "Wavelength (λ)",
+          "definition": "The distance between two successive points in a wave that are in the same phase of oscillation—for example, crest to crest or compression to compression. SI unit: metre (m)."
+        },
+        {
+          "term": "Frequency (f)",
+          "definition": "The number of complete wave cycles that pass a fixed point per second. SI unit: hertz (Hz), where 1 Hz = 1 cycle per second."
+        },
+        {
+          "term": "Period (T)",
+          "definition": "The time taken for one complete cycle of oscillation. Period and frequency are reciprocals: T = 1/f. SI unit: second (s)."
+        },
+        {
+          "term": "Wave speed (v)",
+          "definition": "The speed at which a wave front (or a point of constant phase) advances through the medium. It is related to frequency and wavelength by v = fλ, and to angular frequency and wave number by v = ω/k. SI unit: m s⁻¹."
+        },
+        {
+          "term": "Intensity (I)",
+          "definition": "The power transmitted by a wave per unit area perpendicular to the direction of propagation. For a point source emitting power P uniformly, I = P/(4πr²). Intensity is proportional to the square of the wave amplitude. SI unit: W m⁻²."
+        },
+        {
+          "term": "Principle of superposition",
+          "definition": "When two or more waves meet at a point, the resultant displacement of the medium at that point is the algebraic (vector) sum of the displacements due to each individual wave. The waves then pass through each other unchanged."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding wave speed and period from frequency and wavelength",
+          "problem": "A sinusoidal water wave has a frequency of 4 Hz and a wavelength of 0.85 m. (a) Calculate the wave speed. (b) Find the period. (c) How far does the wave travel in 3 s?",
+          "steps": [
+            "(a) Apply the wave equation: v = fλ = 4 Hz × 0.85 m = 3.4 m s⁻¹.",
+            "(b) Period is the reciprocal of frequency: T = 1/f = 1/4 = 0.25 s.",
+            "(c) Distance = speed × time = 3.4 m s⁻¹ × 3 s = 10.2 m."
+          ],
+          "answer": "Wave speed = 3.4 m s⁻¹; period = 0.25 s; distance travelled in 3 s = 10.2 m."
+        },
+        {
+          "title": "Reading physical quantities from a progressive wave equation",
+          "problem": "A transverse wave travelling in the +x direction is described by y(x, t) = 0.04 sin(20πt − 5πx) metres, where x is in metres and t in seconds. Determine (a) the amplitude, (b) the angular frequency and frequency, (c) the wave number and wavelength, and (d) the wave speed.",
+          "steps": [
+            "Compare the equation with the standard form y = A sin(ωt − kx) to identify each constant by position.",
+            "(a) Amplitude: A = 0.04 m.",
+            "(b) Angular frequency: ω = 20π rad s⁻¹. Frequency: f = ω/(2π) = 20π/(2π) = 10 Hz.",
+            "(c) Wave number: k = 5π rad m⁻¹. Wavelength: λ = 2π/k = 2π/(5π) = 0.4 m.",
+            "(d) Wave speed: v = ω/k = 20π/(5π) = 4 m s⁻¹. Check: v = fλ = 10 × 0.4 = 4 m s⁻¹ ✓."
+          ],
+          "answer": "A = 0.04 m; ω = 20π rad s⁻¹, f = 10 Hz; k = 5π rad m⁻¹, λ = 0.4 m; v = 4 m s⁻¹."
+        },
+        {
+          "title": "Intensity of a point source and the effect of amplitude",
+          "problem": "A small loudspeaker radiates sound uniformly in all directions with a total acoustic power of 0.50 W. (a) Calculate the intensity at a distance of 2.0 m from the speaker. (b) Calculate the intensity at 4.0 m. (c) The amplitude of oscillation at 2.0 m is A₁. What is the amplitude at 4.0 m?",
+          "steps": [
+            "(a) For a point source: I = P/(4πr²). At r = 2.0 m: I₁ = 0.50/(4π × 4.0) = 0.50/50.27 ≈ 9.95 × 10⁻³ W m⁻².",
+            "(b) At r = 4.0 m: I₂ = 0.50/(4π × 16.0) = 0.50/201.06 ≈ 2.49 × 10⁻³ W m⁻². Note that doubling r reduces I by a factor of 4, consistent with the inverse-square law.",
+            "(c) Since I ∝ A², we have A ∝ 1/√I ∝ 1/r. Therefore A₂/A₁ = r₁/r₂ = 2.0/4.0 = 0.5. The amplitude at 4.0 m is half that at 2.0 m."
+          ],
+          "answer": "I at 2.0 m ≈ 9.95 × 10⁻³ W m⁻²; I at 4.0 m ≈ 2.49 × 10⁻³ W m⁻²; amplitude at 4.0 m is A₁/2."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which statement correctly distinguishes transverse from longitudinal waves?",
+          "options": [
+            "In a transverse wave, particles oscillate parallel to the wave's direction of travel; in a longitudinal wave they oscillate perpendicular to it.",
+            "In a transverse wave, particles oscillate perpendicular to the wave's direction of travel; in a longitudinal wave they oscillate parallel to it.",
+            "Both types have particles oscillating perpendicular to the wave's direction of travel, but longitudinal waves also compress the medium.",
+            "Transverse waves can only travel in a vacuum, whereas longitudinal waves require a medium."
+          ],
+          "correctIndex": 1,
+          "explanation": "By definition, 'transverse' means the displacement is at right angles (perpendicular) to the propagation direction, while 'longitudinal' means the displacement is along (parallel to) the propagation direction."
+        },
+        {
+          "question": "A radio wave has a period of 2.5 × 10⁻⁸ s and travels at 3.0 × 10⁸ m s⁻¹. What is its wavelength?",
+          "options": [
+            "8.3 × 10⁻¹⁷ m",
+            "1.2 × 10¹⁶ m",
+            "7.5 m",
+            "0.75 m"
+          ],
+          "correctIndex": 2,
+          "explanation": "Frequency f = 1/T = 1/(2.5 × 10⁻⁸) = 4.0 × 10⁷ Hz; wavelength λ = v/f = 3.0 × 10⁸ / 4.0 × 10⁷ = 7.5 m."
+        },
+        {
+          "question": "A progressive wave is given by y = 0.02 sin(12πt − 4πx) m. What are the wavelength and wave speed of this wave?",
+          "options": [
+            "λ = 4 m, v = 48 m s⁻¹",
+            "λ = 0.5 m, v = 3 m s⁻¹",
+            "λ = 2π/4 m ≈ 1.57 m, v = 3π m s⁻¹",
+            "λ = 0.25 m, v = 1.5 m s⁻¹"
+          ],
+          "correctIndex": 1,
+          "explanation": "Wave number k = 4π rad m⁻¹ gives λ = 2π/k = 2π/(4π) = 0.5 m; angular frequency ω = 12π rad s⁻¹ gives v = ω/k = 12π/(4π) = 3 m s⁻¹."
+        },
+        {
+          "question": "The amplitude of a wave at a certain point is tripled (all else unchanged). By what factor does the intensity at that point change?",
+          "options": [
+            "3",
+            "6",
+            "9",
+            "√3"
+          ],
+          "correctIndex": 2,
+          "explanation": "Intensity is proportional to amplitude squared (I ∝ A²), so tripling the amplitude increases the intensity by a factor of 3² = 9."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Interference, Standing Waves and Sound",
+      "sourceRange": "Topic 3",
+      "summary": "This module explores what happens when two or more waves occupy the same space at the same time, and how that interaction gives rise to some of the most important phenomena in acoustics and music. The principle of superposition — that the resultant displacement at any point is simply the sum of the individual displacements — underpins everything here. When two coherent waves of the same frequency overlap, they produce a stable pattern of constructive interference (where crests reinforce) and destructive interference (where crests meet troughs and cancel). When the two sources are very slightly different in frequency instead of identical, the interference pattern slowly cycles in and out of phase, producing the pulsing loudness variation known as beats. Standing waves arise when a wave reflects back on itself in a confined space such as a stretched string or an air column: the two counter-propagating waves superpose to create nodes (points of permanent zero displacement) and antinodes (points of maximum oscillation). The allowed patterns — the fundamental and its harmonics — depend on the boundary conditions at each end, and they explain why a plucked guitar string or a blown organ pipe produces a musical note with a definite pitch. The perceived properties of sound — loudness, pitch and quality (timbre) — connect the physical quantities intensity, frequency and waveform shape to human auditory experience. Finally, the Doppler effect describes how relative motion between a source and an observer shifts the observed frequency, with important applications in medicine, meteorology and astronomy.",
+      "keyPoints": [
+        "The principle of superposition states that when waves overlap, the net displacement equals the algebraic sum of the individual displacements.",
+        "Constructive interference occurs when the path difference is a whole number of wavelengths (0, λ, 2λ, …); destructive interference occurs when the path difference is a half-integer number of wavelengths (λ/2, 3λ/2, …).",
+        "Beat frequency equals the absolute difference in frequency of two interfering waves: f_beat = |f₁ − f₂|.",
+        "Standing waves form when two identical waves travel in opposite directions; nodes are separated by λ/2 and antinodes are separated by λ/2.",
+        "For a string fixed at both ends, the allowed wavelengths are λ_n = 2L/n, giving harmonics f_n = nv/(2L) for n = 1, 2, 3, …",
+        "An open pipe (open at both ends) has the same harmonic series as a fixed–fixed string: f_n = nv/(2L).",
+        "A closed pipe (open at one end, closed at the other) supports only odd harmonics: f_n = nv/(4L) for n = 1, 3, 5, …",
+        "The speed of sound in air at temperature T (°C) is approximately v ≈ 331 + 0.6T m/s.",
+        "Loudness is the perceptual correlate of intensity; pitch is the perceptual correlate of frequency; timbre (quality) depends on the mix of harmonics present.",
+        "The Doppler formula for a moving source and/or moving observer is f′ = f[(v ± v_o)/(v ∓ v_s)], where the upper signs apply when source and observer approach each other."
+      ],
+      "definitions": [
+        {
+          "term": "Principle of Superposition",
+          "definition": "When two or more waves meet at a point, the resultant displacement of the medium at that point is the vector (algebraic) sum of the displacements that each wave would produce individually. The waves then pass through each other unchanged."
+        },
+        {
+          "term": "Constructive Interference",
+          "definition": "Interference in which two waves arrive at a point in phase (phase difference 0, 2π, 4π, … or path difference 0, λ, 2λ, …), so their displacements add to give a resultant amplitude equal to the sum of the individual amplitudes."
+        },
+        {
+          "term": "Destructive Interference",
+          "definition": "Interference in which two waves arrive at a point exactly out of phase (phase difference π, 3π, … or path difference λ/2, 3λ/2, …), so their displacements partially or completely cancel. For equal amplitudes the resultant is zero."
+        },
+        {
+          "term": "Beats",
+          "definition": "Periodic variations in loudness produced when two waves of slightly different frequencies f₁ and f₂ superpose. The beat frequency — the number of loud pulses heard per second — is f_beat = |f₁ − f₂|."
+        },
+        {
+          "term": "Standing (Stationary) Wave",
+          "definition": "A wave pattern produced by the superposition of two waves of equal amplitude and frequency travelling in opposite directions. Energy is not transported along the medium; instead, fixed nodes (zero displacement) and antinodes (maximum displacement) alternate, separated by λ/2."
+        },
+        {
+          "term": "Node",
+          "definition": "A point in a standing wave where the displacement is permanently zero because the two component waves always cancel. Adjacent nodes are separated by half a wavelength."
+        },
+        {
+          "term": "Antinode",
+          "definition": "A point in a standing wave where the displacement oscillates with maximum amplitude because the two component waves always reinforce. Antinodes lie midway between adjacent nodes."
+        },
+        {
+          "term": "Fundamental Frequency (First Harmonic)",
+          "definition": "The lowest frequency at which a particular system (string, air column) can sustain a standing wave, corresponding to the simplest mode with the fewest nodes. All higher allowed frequencies (harmonics) are integer multiples of the fundamental for strings and open pipes, or odd multiples for closed pipes."
+        },
+        {
+          "term": "Harmonic",
+          "definition": "Any of the discrete resonant frequencies of a vibrating system. The nth harmonic has frequency n times the fundamental (for strings and open pipes) or (2n−1) times the fundamental (for closed pipes). The second harmonic is also called the first overtone, and so on."
+        },
+        {
+          "term": "Doppler Effect",
+          "definition": "The change in observed frequency of a wave when there is relative motion between the source and the observer. Approach increases the observed frequency; recession decreases it. The formula is f′ = f(v ± v_o)/(v ∓ v_s), where v is the wave speed, v_o is the observer's speed and v_s is the source's speed."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Beat Frequency Between Two Tuning Forks",
+          "problem": "Two tuning forks have frequencies 440 Hz and 444 Hz. They are sounded simultaneously. (a) What is the beat frequency? (b) How many beats are heard in 5 seconds?",
+          "steps": [
+            "Identify the two frequencies: f₁ = 440 Hz, f₂ = 444 Hz.",
+            "Apply the beat-frequency formula: f_beat = |f₁ − f₂| = |440 − 444| = 4 Hz. This means the combined sound grows and fades 4 times every second.",
+            "Number of beats in 5 s = f_beat × time = 4 × 5 = 20 beats."
+          ],
+          "answer": "The beat frequency is 4 Hz, and 20 beats are heard in 5 seconds."
+        },
+        {
+          "title": "Harmonics of a Stretched String",
+          "problem": "A guitar string of length 0.65 m is fixed at both ends. The speed of transverse waves on the string is 520 m/s. Find (a) the fundamental frequency, (b) the frequency of the third harmonic, and (c) the wavelength of the second harmonic.",
+          "steps": [
+            "For a string fixed at both ends, both ends are nodes. The condition for the nth harmonic is that n half-wavelengths fit in the length L: L = nλ_n/2, so λ_n = 2L/n.",
+            "Fundamental (n = 1): λ₁ = 2 × 0.65 / 1 = 1.30 m. Frequency: f₁ = v/λ₁ = 520/1.30 = 400 Hz.",
+            "Third harmonic (n = 3): f₃ = 3f₁ = 3 × 400 = 1200 Hz.",
+            "Second harmonic (n = 2): λ₂ = 2L/2 = L = 0.65 m."
+          ],
+          "answer": "Fundamental frequency = 400 Hz; third harmonic = 1200 Hz; wavelength of second harmonic = 0.65 m."
+        },
+        {
+          "title": "Doppler Effect: Ambulance Passing an Observer",
+          "problem": "An ambulance siren emits sound at 800 Hz. The ambulance travels at 30 m/s toward a stationary observer, then passes and moves away at the same speed. The speed of sound in air is 340 m/s. Find the frequency heard (a) as the ambulance approaches and (b) as it recedes.",
+          "steps": [
+            "Write the Doppler formula: f′ = f × (v ± v_o) / (v ∓ v_s). The observer is stationary (v_o = 0). The sign convention: use the minus sign in the denominator when the source approaches (shortens the effective wavelength, raises f′) and the plus sign when it recedes.",
+            "Approaching: f′ = 800 × (340 + 0) / (340 − 30) = 800 × 340/310. Calculate: 340/310 = 1.0968. So f′ = 800 × 1.0968 ≈ 877 Hz.",
+            "Receding: f′ = 800 × (340 + 0) / (340 + 30) = 800 × 340/370. Calculate: 340/370 = 0.9189. So f′ = 800 × 0.9189 ≈ 735 Hz.",
+            "Note the asymmetry: the rise when approaching (+77 Hz) is larger in absolute terms than the fall when receding (−65 Hz)."
+          ],
+          "answer": "Approaching frequency ≈ 877 Hz; receding frequency ≈ 735 Hz."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Two loudspeakers emit coherent sound of wavelength 0.40 m. A listener stands at a point where one speaker is 2.00 m away and the other is 2.60 m away. What kind of interference occurs at that point?",
+          "options": [
+            "Constructive, because the path difference equals 1.5 wavelengths",
+            "Destructive, because the path difference equals 1.5 wavelengths",
+            "Constructive, because the path difference equals 2 wavelengths",
+            "Destructive, because the path difference equals 2 wavelengths"
+          ],
+          "correctIndex": 1,
+          "explanation": "The path difference is 2.60 − 2.00 = 0.60 m = 0.60/0.40 = 1.5 wavelengths, which is a half-integer multiple, so destructive interference occurs."
+        },
+        {
+          "question": "A closed pipe (open at one end, closed at the other) has a length of 0.85 m. The speed of sound is 340 m/s. What is the frequency of its first overtone?",
+          "options": [
+            "100 Hz",
+            "200 Hz",
+            "300 Hz",
+            "400 Hz"
+          ],
+          "correctIndex": 2,
+          "explanation": "For a closed pipe, only odd harmonics exist: f_n = nv/(4L) with n = 1, 3, 5, … The fundamental is f₁ = 340/(4 × 0.85) = 100 Hz. The first overtone is the next allowed mode, n = 3: f₃ = 3 × 100 = 300 Hz."
+        },
+        {
+          "question": "A train whistle sounds at 600 Hz. The train moves away from a stationary observer at 20 m/s. Taking the speed of sound as 340 m/s, what is the frequency heard by the observer?",
+          "options": [
+            "566 Hz",
+            "636 Hz",
+            "600 Hz",
+            "634 Hz"
+          ],
+          "correctIndex": 0,
+          "explanation": "Source receding, observer stationary: f′ = 600 × 340/(340 + 20) = 600 × 340/360 = 600 × 0.9444 ≈ 566 Hz. Recession always lowers the observed frequency."
+        },
+        {
+          "question": "Which of the following best explains why a violin and a flute playing the same note at the same loudness still sound different?",
+          "options": [
+            "They differ in pitch because the frequencies are not exactly the same",
+            "They differ in intensity because the violin radiates more power",
+            "They differ in timbre because the relative strengths of the harmonics present in each instrument's waveform are different",
+            "They differ in speed because sound travels faster through wood than air"
+          ],
+          "correctIndex": 2,
+          "explanation": "Timbre (quality) is determined by the harmonic content — the number and relative amplitudes of the overtones — which differs between instruments even when the fundamental frequency and overall intensity are identical."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Reflection and Plane and Curved Mirrors",
+      "sourceRange": "Topic 4",
+      "summary": "Reflection is the bouncing of light off a surface. The geometry of reflection is governed by two simple laws: the angle at which a ray strikes a surface (measured from the normal—the imaginary line perpendicular to the surface at the point of contact) always equals the angle at which it leaves, and both rays and the normal lie in the same plane. Plane mirrors use this to form images that appear to be located behind the mirror: the image is virtual (no real light passes through it), upright, the same size as the object, and as far behind the mirror as the object is in front of it. Lateral inversion—left and right appearing swapped—is also a characteristic property of plane-mirror images.\n\nCurved mirrors come in two types. A concave (converging) mirror curves inward like the inside of a bowl; parallel rays reflect and converge at a real focal point F in front of the mirror. A convex (diverging) mirror curves outward; parallel rays reflect and appear to diverge from a virtual focal point F behind the mirror. For both, the focal length f equals half the radius of curvature R of the spherical surface: f = R/2. The nature, size and position of the image depend strongly on where the object sits relative to F and the centre of curvature C (= 2f).\n\nThe quantitative relationship between object distance u, image distance v and focal length f is the mirror formula 1/f = 1/u + 1/v, used with a consistent sign convention: distances measured in front of the mirror (the real side) are positive, and distances behind the mirror are negative; f is positive for a concave mirror and negative for a convex mirror. The lateral magnification is m = −v/u; a positive value means the image is upright and a negative value means it is inverted. Ray diagrams, constructed using three principal rays, allow the image position and nature to be found geometrically and provide a vital cross-check on algebraic calculations.",
+      "keyPoints": [
+        "Law of reflection: the angle of incidence equals the angle of reflection, both measured from the normal to the surface at the point of incidence, with incident ray, reflected ray and normal all in the same plane.",
+        "A plane mirror forms an image that is virtual, upright, the same size as the object, laterally inverted, and located as far behind the mirror as the object is in front.",
+        "For a curved mirror, the focal length f = R/2, where R is the radius of curvature; F is a real point in front of a concave mirror and a virtual point behind a convex mirror.",
+        "The mirror formula is 1/f = 1/u + 1/v. Sign convention: distances in front of the mirror are positive; distances behind are negative; f > 0 for concave, f < 0 for convex.",
+        "Lateral magnification m = −v/u. Positive m means an upright image; negative m means an inverted image. |m| > 1 means magnified; |m| < 1 means diminished.",
+        "A concave mirror produces a real, inverted image when the object is beyond F, and a virtual, upright, magnified image when the object is between F and the mirror.",
+        "A convex mirror always produces a virtual, upright and diminished image regardless of object position—this is why convex mirrors are used as wide-angle safety and rear-view mirrors.",
+        "Three principal rays for ray diagrams: (1) a ray parallel to the principal axis reflects through (or appears to come from) F; (2) a ray through (or directed toward) F reflects parallel to the axis; (3) a ray through (or directed toward) C reflects straight back on itself."
+      ],
+      "definitions": [
+        {
+          "term": "Normal (to a mirror surface)",
+          "definition": "An imaginary line drawn perpendicular to the mirror surface at the exact point where an incident ray strikes it. All reflection angles are measured from this line, not from the surface itself."
+        },
+        {
+          "term": "Angle of incidence",
+          "definition": "The angle between the incoming (incident) ray and the normal to the surface at the point of incidence."
+        },
+        {
+          "term": "Angle of reflection",
+          "definition": "The angle between the reflected ray and the normal to the surface at the point of incidence. By the law of reflection this angle is always equal to the angle of incidence."
+        },
+        {
+          "term": "Principal focus (focal point) F",
+          "definition": "For a concave mirror, the point in front of the mirror where rays initially parallel to the principal axis converge after reflection. For a convex mirror, the point behind the mirror from which such reflected rays appear to diverge. The distance from the pole of the mirror to F is the focal length f."
+        },
+        {
+          "term": "Centre of curvature C",
+          "definition": "The centre of the sphere of which the curved mirror is a part. It lies on the principal axis at a distance R = 2f in front of the mirror for a concave mirror, or behind the mirror for a convex mirror."
+        },
+        {
+          "term": "Real image",
+          "definition": "An image formed by the actual convergence of reflected (or refracted) rays at a point. A real image can be projected onto a screen and is always formed in front of a mirror. It is described as inverted relative to the object."
+        },
+        {
+          "term": "Virtual image",
+          "definition": "An image formed where reflected rays, when extended backward, appear to meet. No light actually passes through the image point; it cannot be projected onto a screen. Virtual images formed by mirrors appear behind the mirror and are always upright."
+        },
+        {
+          "term": "Lateral magnification m",
+          "definition": "The ratio of the image height to the object height, given by m = −v/u using the sign convention where distances in front of the mirror are positive. A positive value indicates an upright image; a negative value indicates an inverted image. |m| gives the factor by which the image size differs from the object size."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Concave Mirror: Object Beyond the Centre of Curvature",
+          "problem": "An object is placed 36 cm in front of a concave mirror whose focal length is 12 cm. Find (a) the image distance, (b) the magnification, and (c) describe the image fully.",
+          "steps": [
+            "Identify the known quantities using the sign convention (distances in front of mirror are positive): u = +36 cm, f = +12 cm (concave mirror).",
+            "Apply the mirror formula: 1/f = 1/u + 1/v, so 1/v = 1/f − 1/u = 1/12 − 1/36.",
+            "Find a common denominator: 1/12 = 3/36, so 1/v = 3/36 − 1/36 = 2/36 = 1/18.",
+            "Therefore v = +18 cm. The positive sign confirms the image is real and located in front of the mirror.",
+            "Calculate magnification: m = −v/u = −18/36 = −0.5.",
+            "Interpret: |m| = 0.5 < 1 means the image is diminished (half the object size); the negative sign means it is inverted."
+          ],
+          "answer": "The image forms 18 cm in front of the concave mirror. It is real, inverted and diminished (magnification −0.5), located between F and C."
+        },
+        {
+          "title": "Concave Mirror Used as a Magnifying (Shaving/Cosmetic) Mirror",
+          "problem": "A person holds their face 5 cm in front of a concave mirror of focal length 15 cm. Find the image distance and magnification, and explain why this arrangement is useful.",
+          "steps": [
+            "Known values: u = +5 cm (object in front of mirror), f = +15 cm (concave). Note that u < f, so the object is inside the focal point.",
+            "Apply the mirror formula: 1/v = 1/f − 1/u = 1/15 − 1/5.",
+            "Convert to a common denominator: 1/15 − 3/15 = −2/15.",
+            "Therefore v = −7.5 cm. The negative sign means the image is behind the mirror—it is virtual.",
+            "Calculate magnification: m = −v/u = −(−7.5)/5 = +1.5.",
+            "Interpret: m = +1.5 means the image is upright (positive) and 1.5 times larger than the object (magnified).",
+            "Because the image is virtual and upright, it cannot be projected, but it appears larger and the right way up—ideal for close-up personal grooming."
+          ],
+          "answer": "The image is located 7.5 cm behind the mirror. It is virtual, upright and magnified (m = +1.5). Placing the object inside the focal length of a concave mirror produces a magnified, upright virtual image, which is the operating principle of a shaving or cosmetic mirror."
+        },
+        {
+          "title": "Convex Mirror: Finding Image Position and Magnification",
+          "problem": "A car's convex rear-view mirror has a focal length of magnitude 20 cm. A vehicle 30 cm from the mirror's surface acts as the object. Find the image distance and magnification.",
+          "steps": [
+            "For a convex mirror the focal point is virtual (behind the mirror), so f = −20 cm using the sign convention. The object is in front: u = +30 cm.",
+            "Apply the mirror formula: 1/v = 1/f − 1/u = 1/(−20) − 1/30.",
+            "Find a common denominator of 60: 1/v = −3/60 − 2/60 = −5/60.",
+            "Therefore v = −12 cm. The negative value confirms the image is virtual and located 12 cm behind the mirror.",
+            "Calculate magnification: m = −v/u = −(−12)/30 = +0.4.",
+            "Interpret: m = +0.4 means the image is upright (positive) and diminished to 0.4 times the object size. This is true for any object position with a convex mirror.",
+            "The diminished, upright virtual image gives a wide field of view, explaining why convex mirrors are used for safety and as rear-view mirrors."
+          ],
+          "answer": "The image is 12 cm behind the mirror, virtual, upright and diminished (m = +0.4). A convex mirror always produces such an image, providing a wide field of view at the cost of apparent distance distortion."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In applying the law of reflection to a ray striking a plane mirror, the angle of incidence and the angle of reflection are both measured from:",
+          "options": [
+            "The reflecting surface itself",
+            "The normal to the surface at the point of incidence",
+            "The horizontal ground plane",
+            "The vertical edge of the mirror"
+          ],
+          "correctIndex": 1,
+          "explanation": "By definition, both angles in the law of reflection are measured from the normal—the line perpendicular to the surface at the point of contact—not from the surface itself."
+        },
+        {
+          "question": "An object is placed 30 cm in front of a concave mirror of focal length 10 cm. Using 1/f = 1/u + 1/v with real-is-positive sign convention, the image distance v is:",
+          "options": [
+            "15 cm in front of the mirror (real image)",
+            "15 cm behind the mirror (virtual image)",
+            "30 cm in front of the mirror (real image)",
+            "10 cm behind the mirror (virtual image)"
+          ],
+          "correctIndex": 0,
+          "explanation": "1/v = 1/10 − 1/30 = 2/30, giving v = +15 cm; the positive value confirms a real image 15 cm in front of the mirror."
+        },
+        {
+          "question": "Regardless of where a real object is placed in front of a convex mirror, the image formed is always:",
+          "options": [
+            "Real, inverted and diminished",
+            "Virtual, upright and magnified",
+            "Virtual, upright and diminished",
+            "Real, upright and the same size as the object"
+          ],
+          "correctIndex": 2,
+          "explanation": "A convex mirror has a virtual focal point behind it, so reflected rays always diverge; the image is always virtual (behind the mirror), upright and smaller than the object."
+        },
+        {
+          "question": "A concave mirror of focal length 25 cm will produce a virtual image only when the object distance u is:",
+          "options": [
+            "50 cm",
+            "30 cm",
+            "25 cm",
+            "15 cm"
+          ],
+          "correctIndex": 3,
+          "explanation": "A concave mirror produces a virtual image only when the object is placed closer to the mirror than the focal point (u < f = 25 cm); the only option satisfying u < 25 cm is 15 cm."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Refraction and Lenses",
+      "sourceRange": "Topic 5",
+      "summary": "When light passes from one transparent medium into another, it changes speed. If it arrives at an angle, this speed change bends the ray — a phenomenon called refraction. The quantitative rule is Snell's law: n₁ sin θ₁ = n₂ sin θ₂, where n is the refractive index of each medium and θ is measured from the normal to the surface. The refractive index of a medium is defined as the ratio of the speed of light in vacuum to its speed in that medium, so a denser optical medium (higher n) slows light more and bends it more strongly toward the normal on entry.\n\nWhen light tries to pass from a denser medium into a less dense one, the refracted ray bends away from the normal. Beyond a critical angle θ_c = sin⁻¹(n₂/n₁), no refracted ray can exist and all the light reflects back into the denser medium — total internal reflection. This principle underlies optical fibres and prism-based instruments. A glass prism refracts different wavelengths by different amounts because n varies with wavelength (dispersion), splitting white light into a spectrum with violet bent most and red least.\n\nLenses exploit refraction at two curved surfaces to converge or diverge light. A converging (convex) lens brings parallel rays to a real focal point; a diverging (concave) lens makes them appear to spread from a virtual focal point. The thin-lens formula 1/f = 1/v − 1/u (using the real-is-positive sign convention, where distances are positive on the side light travels to) relates focal length f, image distance v and object distance u. The ratio of image size to object size gives the linear magnification m = v/u. The power of a lens P = 1/f (in dioptres when f is in metres) measures its refracting strength, and for lenses in contact the powers simply add: P_total = P₁ + P₂.",
+      "keyPoints": [
+        "Snell's law: n₁ sin θ₁ = n₂ sin θ₂; the refractive index n = c/v where c is the speed of light in vacuum.",
+        "Light bends toward the normal when entering a denser medium (higher n) and away from it when entering a less dense medium.",
+        "Total internal reflection occurs when light in a denser medium hits the boundary at an angle greater than the critical angle θ_c = sin⁻¹(n₂/n₁).",
+        "Dispersion: the refractive index of glass varies with wavelength, so a prism splits white light into a spectrum (violet bent most, red least).",
+        "A converging lens has a positive focal length and can form real or virtual images; a diverging lens has a negative focal length and always forms a virtual, upright, diminished image of a real object.",
+        "Thin-lens formula (real-is-positive convention): 1/f = 1/v − 1/u, where u is negative if the object is on the incoming-light side (the standard case) and v is positive for a real image.",
+        "Linear magnification m = v/u; |m| > 1 means the image is larger than the object.",
+        "Power of a lens P = 1/f (dioptres); for two thin lenses in contact, P_total = P₁ + P₂, equivalently 1/f_eq = 1/f₁ + 1/f₂."
+      ],
+      "definitions": [
+        {
+          "term": "Refraction",
+          "definition": "The bending of a light ray as it crosses the boundary between two transparent media of different optical densities, caused by the change in the speed of light. The ray bends toward the normal when entering a slower (denser) medium and away from the normal when entering a faster (less dense) medium."
+        },
+        {
+          "term": "Refractive index (n)",
+          "definition": "A dimensionless number equal to the ratio of the speed of light in vacuum (c ≈ 3 × 10⁸ m s⁻¹) to the speed of light in the medium: n = c/v. It is always ≥ 1. A higher value means the medium slows light more and bends it more strongly."
+        },
+        {
+          "term": "Snell's Law",
+          "definition": "The quantitative law of refraction: n₁ sin θ₁ = n₂ sin θ₂, where n₁ and n₂ are the refractive indices of the first and second media and θ₁ and θ₂ are the angles of incidence and refraction measured from the normal at the boundary."
+        },
+        {
+          "term": "Critical angle (θ_c)",
+          "definition": "The angle of incidence in a denser medium (n₁) at which the refracted ray in the less dense medium (n₂) just grazes the surface at 90°. It is given by θ_c = sin⁻¹(n₂/n₁). For angles greater than θ_c, total internal reflection occurs."
+        },
+        {
+          "term": "Total internal reflection",
+          "definition": "The complete reflection of a light ray back into a denser medium when it strikes the boundary with a less dense medium at an angle of incidence greater than the critical angle. No refracted ray is transmitted; all light energy is reflected."
+        },
+        {
+          "term": "Dispersion",
+          "definition": "The separation of white light into its component colours (wavelengths) by a prism or other refracting medium, arising because the refractive index of the material is slightly different for each wavelength. Violet light (shorter wavelength) has a higher n and is deviated most; red light (longer wavelength) is deviated least."
+        },
+        {
+          "term": "Principal focus (focal point)",
+          "definition": "For a converging lens, the point on the principal axis where rays parallel to the axis converge after refraction. For a diverging lens, the point from which such rays appear to diverge after refraction. The focal length f is the distance from the optical centre of the lens to this point."
+        },
+        {
+          "term": "Power of a lens",
+          "definition": "A measure of the converging or diverging ability of a lens, defined as P = 1/f where f is the focal length in metres. Power is measured in dioptres (D). A converging lens has positive power; a diverging lens has negative power."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Snell's Law and finding the critical angle for glass",
+          "problem": "A ray of light travels in glass of refractive index n₁ = 1.50 and strikes a flat glass–air boundary. (a) If the angle of incidence inside the glass is 25°, find the angle of refraction in air (n₂ = 1.00). (b) Calculate the critical angle for this glass–air interface.",
+          "steps": [
+            "Part (a) — apply Snell's law: n₁ sin θ₁ = n₂ sin θ₂, so 1.50 × sin 25° = 1.00 × sin θ₂.",
+            "Calculate sin 25° = 0.4226, giving sin θ₂ = 1.50 × 0.4226 = 0.6339.",
+            "Therefore θ₂ = sin⁻¹(0.6339) ≈ 39.3°. The ray bends away from the normal as it enters the less dense air.",
+            "Part (b) — at the critical angle the refracted ray travels along the surface, so θ₂ = 90° and sin θ₂ = 1.",
+            "Apply Snell's law at the critical angle: n₁ sin θ_c = n₂ × 1, so sin θ_c = n₂/n₁ = 1.00/1.50 = 0.6667.",
+            "Therefore θ_c = sin⁻¹(0.6667) ≈ 41.8°. Any ray hitting the boundary at more than 41.8° will be totally internally reflected."
+          ],
+          "answer": "(a) Angle of refraction ≈ 39.3°. (b) Critical angle ≈ 41.8°."
+        },
+        {
+          "title": "Locating an image formed by a converging lens",
+          "problem": "An object is placed 30 cm in front of a converging lens of focal length 10 cm. Find (a) the image distance, (b) the linear magnification, and (c) describe the nature of the image. Use the real-is-positive sign convention (object distance u = −30 cm since the object is on the incoming-light side).",
+          "steps": [
+            "Write the thin-lens formula: 1/f = 1/v − 1/u, with f = +10 cm and u = −30 cm.",
+            "Substitute: 1/10 = 1/v − 1/(−30) = 1/v + 1/30.",
+            "Rearrange: 1/v = 1/10 − 1/30 = 3/30 − 1/30 = 2/30, so v = +15 cm.",
+            "A positive v means the image is on the opposite side of the lens from the object — it is a real image, 15 cm from the lens.",
+            "Calculate magnification: m = v/u = 15/(−30) = −0.5.",
+            "The magnitude |m| = 0.5 means the image is half the size of the object; the negative sign indicates it is inverted."
+          ],
+          "answer": "Image distance v = +15 cm (real, on the far side of the lens); magnification m = −0.5 (inverted, diminished)."
+        },
+        {
+          "title": "Equivalent focal length of two lenses in contact",
+          "problem": "A converging lens of focal length 20 cm is placed in contact with a diverging lens of focal length −30 cm. Find the equivalent focal length and power of the combination. State whether the combination is converging or diverging.",
+          "steps": [
+            "For lenses in contact, the equivalent focal length obeys 1/f_eq = 1/f₁ + 1/f₂.",
+            "Substitute: 1/f_eq = 1/20 + 1/(−30) = 1/20 − 1/30.",
+            "Find a common denominator: 1/20 − 1/30 = 3/60 − 2/60 = 1/60, so f_eq = 60 cm = 0.60 m.",
+            "A positive focal length confirms the combination is converging overall.",
+            "Calculate the power: P = 1/f_eq = 1/0.60 ≈ +1.67 D.",
+            "Alternatively, P₁ = 1/0.20 = +5.00 D and P₂ = 1/(−0.30) = −3.33 D; P_total = 5.00 − 3.33 = +1.67 D. ✓"
+          ],
+          "answer": "Equivalent focal length = 60 cm; equivalent power ≈ +1.67 D. The combination is converging."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Light passes from water (n = 1.33) into glass (n = 1.50) at an angle of incidence of 40°. Which statement correctly describes the refracted ray?",
+          "options": [
+            "It bends away from the normal because glass is denser than water.",
+            "It bends toward the normal because glass is denser than water.",
+            "It continues in the same direction because both media are transparent.",
+            "Total internal reflection occurs because the angle exceeds the critical angle."
+          ],
+          "correctIndex": 1,
+          "explanation": "When light enters a medium with a higher refractive index it slows down and bends toward the normal; since n_glass > n_water the ray bends toward the normal."
+        },
+        {
+          "question": "The critical angle for a certain glass–air interface is 38°. A ray inside the glass strikes the boundary at 45°. What happens?",
+          "options": [
+            "The ray refracts into air at an angle greater than 45°.",
+            "The ray refracts into air at exactly 90°.",
+            "The ray undergoes total internal reflection back into the glass.",
+            "The ray is partially absorbed at the boundary."
+          ],
+          "correctIndex": 2,
+          "explanation": "Because 45° exceeds the critical angle of 38°, the condition for total internal reflection is satisfied and no light is transmitted into the air."
+        },
+        {
+          "question": "An object is placed 8 cm from a converging lens of focal length 12 cm (u = −8 cm in the real-is-positive convention). What kind of image is formed?",
+          "options": [
+            "Real, inverted and diminished on the far side of the lens.",
+            "Virtual, upright and magnified on the same side as the object.",
+            "Real, inverted and magnified on the far side of the lens.",
+            "No image is formed because the object is inside the focal length."
+          ],
+          "correctIndex": 1,
+          "explanation": "Using 1/v = 1/f + 1/u = 1/12 + 1/(−8) = 1/12 − 1/8 = −1/24, giving v = −24 cm. A negative image distance means the image is virtual, on the same side as the object, and upright; with |m| = 24/8 = 3 it is magnified."
+        },
+        {
+          "question": "A converging lens has a power of +4 D and a diverging lens has a power of −1 D. When placed in contact, what is the focal length of the combination?",
+          "options": [
+            "20 cm converging",
+            "33 cm converging",
+            "25 cm diverging",
+            "100 cm converging"
+          ],
+          "correctIndex": 1,
+          "explanation": "P_total = +4 + (−1) = +3 D, giving f = 1/3 m ≈ 33 cm; the positive power confirms the combination is converging."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Optical Instruments and Wave Optics",
+      "sourceRange": "Topic 6",
+      "summary": "This module brings together the optics of lenses and the wave nature of light to explain how optical instruments work and how light behaves when it passes through narrow openings or multiple slits. The human eye forms a real, inverted image on the retina using a variable-focus lens; when the eye's focusing range is impaired by myopia, hypermetropia or astigmatism, corrective lenses restore clear vision. Optical instruments extend the eye's capability: a magnifying glass uses a single converging lens to produce a magnified virtual image; a compound microscope uses two converging lenses in series to achieve very high magnification of nearby objects; a telescope uses two lenses (or a mirror and a lens) to bring together and magnify the image of a distant object. In every case the magnification can be calculated from the focal lengths and image distances of the lenses involved.\n\nThe wave nature of light explains phenomena that geometrical optics cannot. In Young's double-slit experiment, two coherent sources produce a regular pattern of bright and dark fringes on a screen; the fringe spacing depends on the wavelength of light, the slit separation and the screen distance, so the experiment provides a precise way to measure wavelength. A diffraction grating extends this idea to many slits and produces sharp, widely separated spectral lines, making it invaluable for spectral analysis. Polarisation reveals that light is a transverse wave: its electric field oscillates in a direction perpendicular to travel, and that direction can be selected by reflection at Brewster's angle, by birefringent crystals or by sheet polarisers (selective absorption). Together these wave-optics phenomena confirm the electromagnetic wave model of light and underpin modern photonics, spectroscopy and display technology.",
+      "keyPoints": [
+        "The eye focuses light by adjusting the curvature (and hence focal length) of its crystalline lens; the near point is about 25 cm and the far point is at infinity for a normal eye.",
+        "Myopia (short-sightedness) is corrected by a diverging lens; hypermetropia (long-sightedness) is corrected by a converging lens; astigmatism is corrected by a cylindrical lens.",
+        "The magnifying power of a simple magnifying glass is M = D/f (image at infinity) or M = 1 + D/f (image at near point), where D = 25 cm.",
+        "The total magnification of a compound microscope is M = m_o × M_e, where m_o = v_o/u_o is the linear magnification of the objective and M_e = D/f_e (or 1 + D/f_e) is the angular magnification of the eyepiece.",
+        "The angular magnification of a refracting telescope in normal adjustment is M = f_o/f_e, where f_o is the objective focal length and f_e is the eyepiece focal length.",
+        "In Young's double-slit experiment the fringe spacing is Δy = λL/d, where λ is the wavelength, L is the slit-to-screen distance and d is the slit separation.",
+        "A diffraction grating obeys d sinθ = nλ, where d is the grating spacing and n is the order number; it produces sharp, bright maxima and is used to measure wavelength precisely.",
+        "Polarisation by reflection occurs completely at Brewster's angle θ_B = arctan(n), where n is the refractive index of the reflecting medium. Sheet polarisers transmit only one plane of vibration; a second polariser (analyser) reduces intensity according to Malus's law: I = I₀ cos²θ."
+      ],
+      "definitions": [
+        {
+          "term": "Near point",
+          "definition": "The closest distance at which the eye can focus clearly on an object; for a standard normal eye this is taken as D = 25 cm (the least distance of distinct vision)."
+        },
+        {
+          "term": "Far point",
+          "definition": "The farthest distance at which the eye can focus without strain; for a normal (emmetropic) eye the far point is at infinity."
+        },
+        {
+          "term": "Myopia (short-sightedness)",
+          "definition": "A defect in which the eye's focal length is too short, causing parallel rays from a distant object to converge in front of the retina; the far point is closer than infinity. Corrected with a diverging (concave) lens."
+        },
+        {
+          "term": "Hypermetropia (long-sightedness)",
+          "definition": "A defect in which the eye's focal length is too long, so the eye cannot converge rays from a nearby object onto the retina; the near point is farther than 25 cm. Corrected with a converging (convex) lens."
+        },
+        {
+          "term": "Angular magnification (magnifying power)",
+          "definition": "The ratio of the angle subtended at the eye by the image formed by the instrument to the angle subtended by the object placed at the near point without the instrument. It measures how much larger an object appears through the instrument."
+        },
+        {
+          "term": "Coherent sources",
+          "definition": "Two (or more) light sources that maintain a constant phase difference and emit light of the same frequency. Coherence is required for a stable interference pattern; in Young's experiment the two slits act as coherent sources derived from a single source."
+        },
+        {
+          "term": "Fringe spacing (Young's experiment)",
+          "definition": "The distance between successive bright (or dark) fringes on the screen, given by Δy = λL/d, where λ is the wavelength, L is the perpendicular distance from the slits to the screen and d is the separation between the two slits."
+        },
+        {
+          "term": "Diffraction grating",
+          "definition": "An optical element consisting of a large number of equally spaced parallel slits (or ruled lines). It diffracts light into sharp principal maxima at angles given by d sinθ = nλ, where d is the slit spacing and n is an integer order number, producing a bright, well-resolved spectrum."
+        },
+        {
+          "term": "Polarisation",
+          "definition": "The restriction of the oscillation direction of the electric field vector of a transverse electromagnetic wave to a single plane (plane polarisation). Unpolarised light has its electric field vibrating in all directions perpendicular to propagation; polarisation can be achieved by selective absorption (polaroids), reflection at Brewster's angle or double refraction."
+        },
+        {
+          "term": "Brewster's angle",
+          "definition": "The angle of incidence at which light reflected from a surface is completely plane-polarised (the reflected and refracted rays are perpendicular). It satisfies tan θ_B = n, where n is the refractive index of the medium."
+        },
+        {
+          "term": "Malus's law",
+          "definition": "When plane-polarised light of intensity I₀ passes through an analyser whose transmission axis makes an angle θ with the polarisation direction of the incident light, the transmitted intensity is I = I₀ cos²θ."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Corrective lens for a myopic eye",
+          "problem": "A myopic person's far point is 2.0 m from the eye. What focal length and power of spectacle lens is needed for them to see distant objects clearly? (Assume lenses are placed at the eye.)",
+          "steps": [
+            "For clear vision of a distant object (object at infinity, u = ∞), the corrective lens must form a virtual image at the person's far point so that the eye can then focus it. The image distance is v = −2.0 m (negative because the image is on the same side as the object, i.e. virtual and in front of the lens).",
+            "Apply the lens formula: 1/f = 1/v − 1/u = 1/(−2.0) − 1/∞ = −0.50 − 0 = −0.50 m⁻¹.",
+            "Therefore f = 1/(−0.50) = −2.0 m. The negative sign confirms a diverging lens is needed.",
+            "Power P = 1/f (in metres) = −0.50 D (dioptres)."
+          ],
+          "answer": "The required lens has focal length f = −2.0 m (diverging) and power P = −0.50 D."
+        },
+        {
+          "title": "Magnification of a compound microscope",
+          "problem": "A compound microscope has an objective of focal length 0.80 cm and an eyepiece of focal length 2.50 cm. The object is placed 0.90 cm from the objective. Find (a) the linear magnification produced by the objective and (b) the total magnifying power of the microscope when the final image is formed at the near point (D = 25 cm).",
+          "steps": [
+            "Find the image distance v_o from the objective using the lens formula: 1/v_o = 1/f_o + 1/u_o … wait, use the sign convention 1/v_o − 1/u_o = 1/f_o with the real-is-positive convention: 1/v_o = 1/f_o + 1/u_o. Here u_o = +0.90 cm, f_o = +0.80 cm. So 1/v_o = 1/0.80 + 1/0.90 is wrong — use 1/v_o = 1/f_o + 1/u_o only if using the form 1/v − 1/u = 1/f. Adopt the standard form: 1/v_o = 1/f_o + 1/u_o with real-is-positive for a lens: 1/v_o − 1/(−u_o) = 1/f_o. Use the cleaner Cartesian form: 1/v_o = 1/f_o + 1/u_o where u_o is taken as positive for a real object. 1/v_o = 1/0.80 − 1/0.90 … apply the correct thin-lens formula 1/f = 1/v − 1/u (distances positive to right). Object is to the left so u_o = −0.90 cm. 1/v_o = 1/f_o + 1/u_o = 1/0.80 + 1/(−0.90) = 1.250 − 1.111 = 0.139 cm⁻¹, giving v_o = 7.2 cm.",
+            "Linear magnification by objective: m_o = v_o/|u_o| = 7.2/0.90 = 8.0 (the image is real, inverted and 8 times larger).",
+            "Magnifying power of eyepiece with image at near point: M_e = 1 + D/f_e = 1 + 25/2.50 = 1 + 10 = 11.",
+            "Total magnifying power: M = m_o × M_e = 8.0 × 11 = 88."
+          ],
+          "answer": "The objective produces a linear magnification of 8.0×; the total magnifying power of the microscope is 88×."
+        },
+        {
+          "title": "Young's double-slit fringe spacing and wavelength",
+          "problem": "In a Young's double-slit experiment, the two slits are 0.30 mm apart and the screen is placed 1.20 m away. The fringe spacing observed is 2.4 mm. (a) Calculate the wavelength of the light used. (b) How many bright fringes fit within a central 3.0 cm width on the screen?",
+          "steps": [
+            "Write the fringe-spacing formula: Δy = λL/d, and rearrange for wavelength: λ = Δy × d / L.",
+            "Substitute values (all in SI units): d = 0.30 × 10⁻³ m, L = 1.20 m, Δy = 2.4 × 10⁻³ m. λ = (2.4 × 10⁻³ × 0.30 × 10⁻³) / 1.20 = (7.2 × 10⁻⁷) / 1.20 = 6.0 × 10⁻⁷ m = 600 nm. This is in the orange-red part of the visible spectrum.",
+            "Number of fringes in 3.0 cm: N = total width / fringe spacing = 0.030 / (2.4 × 10⁻³) = 12.5, so 12 complete bright fringes fit within the 3.0 cm width (with the central fringe at the midpoint, there are 6 on each side plus the central one, giving 13 bright fringes if the central fringe is counted and the region is symmetric, but since 3.0/2.4 = 12.5 fringe spacings span the region, there are 13 bright fringes visible)."
+          ],
+          "answer": "(a) λ = 600 nm. (b) 13 bright fringes are visible within the 3.0 cm region."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A person has a near point of 75 cm instead of the normal 25 cm. Which lens corrects this defect so they can read a book held at 25 cm?",
+          "options": [
+            "A diverging lens of focal length −37.5 cm",
+            "A converging lens of focal length 37.5 cm",
+            "A converging lens of focal length 75 cm",
+            "A diverging lens of focal length −75 cm"
+          ],
+          "correctIndex": 1,
+          "explanation": "The corrective lens must form a virtual image of the book (at u = 25 cm) at the person's near point (v = −75 cm); 1/f = 1/v + 1/u in the appropriate sign convention gives f = +37.5 cm, a converging lens."
+        },
+        {
+          "question": "A diffraction grating has 500 lines per mm. Light of wavelength 589 nm falls on it. At what angle does the first-order maximum appear?",
+          "options": [
+            "7.2°",
+            "17.1°",
+            "30.0°",
+            "34.2°"
+          ],
+          "correctIndex": 1,
+          "explanation": "Grating spacing d = 1/500 mm = 2.00 × 10⁻⁶ m; for n = 1, sinθ = nλ/d = 589 × 10⁻⁹ / 2.00 × 10⁻⁶ = 0.2945, giving θ = arcsin(0.2945) ≈ 17.1°."
+        },
+        {
+          "question": "In a Young's double-slit experiment the slit separation is halved while the slit-to-screen distance is doubled. How does the fringe spacing change?",
+          "options": [
+            "It stays the same",
+            "It doubles",
+            "It quadruples",
+            "It halves"
+          ],
+          "correctIndex": 2,
+          "explanation": "Fringe spacing Δy = λL/d; halving d multiplies Δy by 2, and doubling L multiplies it by another 2, so the overall effect is to quadruple the fringe spacing."
+        },
+        {
+          "question": "Plane-polarised light of intensity 80 W m⁻² is incident on an analyser whose axis is at 60° to the polarisation direction. What is the transmitted intensity?",
+          "options": [
+            "40 W m⁻²",
+            "60 W m⁻²",
+            "20 W m⁻²",
+            "69 W m⁻²"
+          ],
+          "correctIndex": 2,
+          "explanation": "By Malus's law, I = I₀ cos²θ = 80 × cos²60° = 80 × (0.5)² = 80 × 0.25 = 20 W m⁻²."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

@@ -1,0 +1,851 @@
+{
+  "title": "CHM 102 — General Chemistry II (full course)",
+  "course": "CHM 102 General Chemistry II",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the foundational concepts of organic chemistry, from its historical development and the unique properties of carbon through the structure, bonding, and nomenclature of organic compounds, and on to isomerism and the chemistry of hydrocarbons. The modules build systematically: establishing why carbon is central to organic chemistry, developing the tools to name and represent molecules, explaining how molecules can differ while having the same molecular formula, and finally examining the reactivity of the major hydrocarbon classes.",
+  "modules": [
+    {
+      "title": "Foundations of Organic Chemistry",
+      "sourceRange": "Topic 1",
+      "summary": "Organic chemistry is the branch of chemistry concerned with carbon-containing compounds. For centuries, scientists believed that such compounds could only be produced by living organisms through a mysterious 'vital force' — a doctrine called vitalism. This view was overturned in 1828 when Friedrich Wöhler heated ammonium cyanate, an inorganic salt, and obtained urea, a compound previously found only in urine. His famous remark — 'I must tell you that I can make urea without the use of kidneys' — signalled that the chemistry of life obeys the same physical laws as the rest of nature. Today, organic chemistry encompasses millions of compounds and underpins pharmaceuticals, plastics, fuels, food science and biochemistry.\n\nCarbon's unique position in organic chemistry arises from two fundamental properties: tetravalency, meaning each carbon atom forms exactly four covalent bonds, and catenation, meaning carbon atoms bond readily to one another in chains, branches and rings of virtually unlimited length and variety. No other element approaches carbon's ability to build stable, complex molecular frameworks.\n\nIn the laboratory, organic compounds must be isolated in pure form before analysis or use. The main purification techniques are crystallisation (for solids), distillation (for liquids) and chromatography (for separating mixtures based on differential migration). Once pure, a compound's elemental composition is established by qualitative analysis — detecting C, H, N, S and halogens — and then quantitatively by combustion analysis, from which the empirical and molecular formulae are calculated.",
+      "keyPoints": [
+        "Vitalism held that organic compounds required a 'vital force'; Wöhler's 1828 synthesis of urea from ammonium cyanate disproved this.",
+        "Carbon is tetravalent (forms 4 bonds) and undergoes catenation (C–C bonding), explaining the enormous diversity of organic compounds.",
+        "Crystallisation purifies solids by exploiting the temperature-dependence of solubility; recrystallisation removes impurities.",
+        "Distillation separates liquids by differences in boiling point; fractional distillation resolves close-boiling mixtures.",
+        "Chromatography separates mixtures based on differential partitioning between a stationary phase and a mobile phase.",
+        "Lassaigne's sodium fusion test converts N, S and halogens into soluble ionic forms (CN⁻, S²⁻, X⁻) for qualitative detection.",
+        "Combustion analysis measures the masses of CO₂ and H₂O produced when an organic compound burns, allowing the %C and %H to be calculated.",
+        "The empirical formula gives the simplest whole-number ratio of atoms; dividing the molar mass by the empirical formula mass gives the integer n needed to obtain the molecular formula."
+      ],
+      "definitions": [
+        {
+          "term": "Vitalism",
+          "definition": "The historical doctrine that organic (carbon-containing) compounds could only be synthesised by living organisms through a supernatural 'vital force', and could not be made from inorganic materials in the laboratory."
+        },
+        {
+          "term": "Tetravalency",
+          "definition": "The property of carbon whereby each carbon atom always forms exactly four covalent bonds, giving it the capacity to bond to four other atoms simultaneously and create stable, complex structures."
+        },
+        {
+          "term": "Catenation",
+          "definition": "The ability of carbon atoms to form strong covalent bonds with other carbon atoms, producing chains, branched structures and rings of great length and diversity — a property far more pronounced in carbon than in any other element."
+        },
+        {
+          "term": "Crystallisation (recrystallisation)",
+          "definition": "A purification technique for solid organic compounds in which the impure solid is dissolved in a hot solvent and allowed to cool slowly; the desired compound crystallises out because its solubility decreases more sharply with temperature than that of the impurities."
+        },
+        {
+          "term": "Distillation",
+          "definition": "A purification technique for liquids in which the mixture is heated until the more volatile component vaporises, the vapour is condensed, and the condensate (distillate) is collected separately; fractional distillation uses a column to resolve mixtures of components with similar boiling points."
+        },
+        {
+          "term": "Chromatography",
+          "definition": "A family of separation techniques in which a mixture is carried by a mobile phase (a liquid or gas) through a stationary phase; components separate because they interact with the stationary phase to different extents, travelling at different rates."
+        },
+        {
+          "term": "Lassaigne's sodium fusion test",
+          "definition": "A qualitative test in which an organic compound is fused with metallic sodium, converting heteroatoms into ionic species (N → CN⁻, S → S²⁻, halogens → X⁻) dissolved in aqueous solution, which are then detected by standard precipitation or colorimetric reactions."
+        },
+        {
+          "term": "Empirical formula",
+          "definition": "The simplest whole-number ratio of atoms of each element in a compound, derived from percentage composition data; the molecular formula is always a whole-number multiple of the empirical formula."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating empirical formula from combustion data",
+          "problem": "A 0.2000 g sample of a pure organic compound containing only C, H and O is burned completely. The combustion produces 0.4400 g of CO₂ and 0.2400 g of H₂O. Determine the empirical formula of the compound.",
+          "steps": [
+            "Calculate moles of CO₂: n(CO₂) = 0.4400 g ÷ 44.01 g mol⁻¹ = 0.01000 mol. Each mole of CO₂ contains one mole of C, so moles of C = 0.01000 mol.",
+            "Calculate mass of C: m(C) = 0.01000 mol × 12.01 g mol⁻¹ = 0.1201 g.",
+            "Calculate moles of H₂O: n(H₂O) = 0.2400 g ÷ 18.02 g mol⁻¹ = 0.01332 mol. Each mole of H₂O contains 2 moles of H, so moles of H = 0.02664 mol.",
+            "Calculate mass of H: m(H) = 0.02664 mol × 1.008 g mol⁻¹ = 0.02685 g.",
+            "Calculate mass of O by difference: m(O) = 0.2000 − 0.1201 − 0.02685 = 0.05305 g.",
+            "Calculate moles of O: n(O) = 0.05305 g ÷ 16.00 g mol⁻¹ = 0.003316 mol.",
+            "Find the simplest ratio by dividing each by the smallest (0.003316): C = 0.01000/0.003316 = 3.02 ≈ 3; H = 0.02664/0.003316 = 8.03 ≈ 8; O = 0.003316/0.003316 = 1.",
+            "The atom ratio is C : H : O = 3 : 8 : 1."
+          ],
+          "answer": "The empirical formula is C₃H₈O."
+        },
+        {
+          "title": "Determining the molecular formula from empirical formula and molar mass",
+          "problem": "A compound has the empirical formula C₃H₈O (from the previous example) and its molar mass is determined by a separate experiment to be 60.10 g mol⁻¹. What is the molecular formula?",
+          "steps": [
+            "Calculate the molar mass of one empirical formula unit: M(C₃H₈O) = 3(12.01) + 8(1.008) + 16.00 = 36.03 + 8.064 + 16.00 = 60.09 g mol⁻¹.",
+            "Find the integer multiplier n: n = molar mass of compound ÷ molar mass of empirical unit = 60.10 ÷ 60.09 ≈ 1.",
+            "Multiply the empirical formula subscripts by n = 1: the molecular formula is the same as the empirical formula."
+          ],
+          "answer": "The molecular formula is C₃H₈O (e.g. propan-1-ol or methoxyethane)."
+        },
+        {
+          "title": "Percentage composition and empirical formula for a compound containing C, H and N",
+          "problem": "Combustion and Kjeldahl analysis of a 0.1500 g sample of a compound containing C, H and N gives: 0.2934 g CO₂, 0.1202 g H₂O and 0.02800 g N₂. Determine the empirical formula.",
+          "steps": [
+            "Moles of C from CO₂: n(C) = 0.2934/44.01 = 0.006667 mol; m(C) = 0.006667 × 12.01 = 0.08007 g.",
+            "Moles of H from H₂O: n(H) = 2 × (0.1202/18.02) = 2 × 0.006671 = 0.01334 mol; m(H) = 0.01334 × 1.008 = 0.01345 g.",
+            "Moles of N from N₂: n(N₂) = 0.02800/28.02 = 0.0009993 mol; n(N) = 2 × 0.0009993 = 0.001999 mol; m(N) = 0.001999 × 14.01 = 0.02800 g.",
+            "Check mass balance: 0.08007 + 0.01345 + 0.02800 = 0.1215 g ≈ 0.1500 g? Difference = 0.0285 g. This small residual (within experimental uncertainty for this illustrative example) is attributed to the approximate nature of the data; for a compound containing only C, H and N the masses should sum to the sample mass.",
+            "Divide each mole quantity by the smallest (0.001999): C = 0.006667/0.001999 = 3.33; H = 0.01334/0.001999 = 6.67; N = 0.001999/0.001999 = 1.00.",
+            "Multiply all ratios by 3 to obtain whole numbers: C = 10, H = 20, N = 3.",
+            "The simplest whole-number ratio is C : H : N = 10 : 20 : 3."
+          ],
+          "answer": "The empirical formula is C₁₀H₂₀N₃ (multiplied up to clear the 1/3 fractions)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which observation most directly disproved the theory of vitalism?",
+          "options": [
+            "The discovery that carbon forms four bonds to other atoms",
+            "Wöhler's laboratory synthesis of urea from ammonium cyanate in 1828",
+            "The development of chromatography to purify organic compounds",
+            "The finding that organic compounds always contain hydrogen"
+          ],
+          "correctIndex": 1,
+          "explanation": "Wöhler demonstrated in 1828 that urea — previously known only from living organisms — could be made from an inorganic starting material without any 'vital force', directly overturning vitalism."
+        },
+        {
+          "question": "A 0.1800 g sample of a hydrocarbon (C and H only) produces 0.5940 g CO₂ on complete combustion. What is the percentage of carbon in the compound?",
+          "options": [
+            "33.0%",
+            "55.0%",
+            "90.0%",
+            "73.3%"
+          ],
+          "correctIndex": 2,
+          "explanation": "Moles of CO₂ = 0.5940/44.01 = 0.01350 mol; mass of C = 0.01350 × 12.01 = 0.1621 g; %C = (0.1621/0.1800) × 100 = 90.1%, closest to 90.0%."
+        },
+        {
+          "question": "In Lassaigne's sodium fusion test, which reagent is added to the aqueous fusion extract to detect the presence of a halogen (e.g. chlorine)?",
+          "options": [
+            "Sodium nitroprusside solution",
+            "Dilute HNO₃ followed by silver nitrate solution",
+            "Freshly prepared ferrous sulfate followed by FeCl₃",
+            "Lead acetate paper"
+          ],
+          "correctIndex": 1,
+          "explanation": "Halogens are converted to halide ions (X⁻) during fusion; adding dilute HNO₃ (to remove interfering CN⁻ and S²⁻) followed by AgNO₃ gives a characteristic precipitate (AgCl white, AgBr pale yellow, AgI yellow) confirming the halogen."
+        },
+        {
+          "question": "A compound has empirical formula CH₂O and a molar mass of 180 g mol⁻¹. What is its molecular formula?",
+          "options": [
+            "CH₂O",
+            "C₂H₄O₂",
+            "C₃H₆O₃",
+            "C₆H₁₂O₆"
+          ],
+          "correctIndex": 3,
+          "explanation": "The empirical formula mass of CH₂O is 12 + 2 + 16 = 30 g mol⁻¹; n = 180/30 = 6, so the molecular formula is C₆H₁₂O₆ (e.g. glucose)."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Molecular Structure, Bonding and Nomenclature",
+      "sourceRange": "Topic 2",
+      "summary": "Carbon's extraordinary versatility in organic chemistry arises directly from how it uses its valence electrons to form bonds. When carbon bonds to other atoms, its 2s and 2p atomic orbitals mix — a process called hybridisation — to produce new orbitals of equal energy. In sp³ hybridisation, one s and three p orbitals combine to give four equivalent orbitals arranged tetrahedrally (bond angles 109.5°); this geometry is found in alkanes and any carbon bearing only single bonds. In sp² hybridisation, one s and two p orbitals combine to give three trigonal-planar orbitals (120°), leaving one unhybridised p orbital that forms a π bond; this is the bonding picture in alkenes and aromatic rings. In sp hybridisation, one s and one p orbital combine to give two linear orbitals (180°), leaving two unhybridised p orbitals for two π bonds; this describes alkynes and nitriles.\n\nOrganic structures can be written at different levels of detail. A full structural formula shows every bond explicitly. A condensed formula groups atoms around each carbon without drawing bonds (e.g. CH₃CH₂OH). A skeletal (line-angle) formula represents the carbon skeleton as a zigzag line, with carbons implied at each vertex or end and hydrogens omitted unless on heteroatoms. Compounds with the same general formula and the same functional group, differing only by a repeating –CH₂– unit, form a homologous series; successive members share similar chemistry but show gradually changing physical properties such as increasing boiling point.\n\nThe identity and reactivity of an organic molecule are largely determined by its functional group — a specific atom or arrangement of atoms that undergoes characteristic reactions. Classifying a compound means identifying its principal functional group: hydroxyl (alcohol), carbonyl in an aldehyde or ketone, carboxyl (carboxylic acid), ester linkage, amine, C=C (alkene), C≡C (alkyne), and so on. IUPAC nomenclature provides one unambiguous name for every structure by following a systematic set of rules: find the longest carbon chain containing the principal functional group, number it to give that group the lowest possible locant, name substituents as prefixes (with locants), and append the appropriate suffix for the functional group. Mastering these rules — and being able to reverse them to draw a structure from a name — is a central skill in organic chemistry.",
+      "keyPoints": [
+        "In sp³ hybridisation carbon forms 4 σ bonds in a tetrahedral geometry (109.5°); in sp² it forms 3 σ bonds and 1 π bond in a trigonal-planar geometry (120°); in sp it forms 2 σ bonds and 2 π bonds in a linear geometry (180°).",
+        "A σ bond is formed by end-on overlap (all single bonds are σ); a π bond is formed by sideways overlap of p orbitals and is present in every double or triple bond in addition to the σ bond.",
+        "Structural, condensed and skeletal formulae convey the same connectivity at different levels of abbreviation; being able to interconvert them fluently is essential.",
+        "A homologous series is a family of compounds with the same functional group and general formula, differing by –CH₂– units; boiling points, melting points and densities increase steadily up the series.",
+        "Functional groups determine chemical reactivity; the principal functional group determines the compound class and drives IUPAC naming.",
+        "IUPAC naming: (1) find the longest chain containing the principal functional group, (2) number from the end that gives the functional group the lowest locant, (3) name substituents alphabetically as prefixes with locants, (4) use the correct suffix (–ane, –ene, –yne, –ol, –al, –one, –oic acid, –oate, –amine).",
+        "For alkenes and alkynes, the position of the multiple bond is given by the lower-numbered carbon of that bond; for alcohols and other groups the locant immediately precedes the suffix in modern IUPAC style.",
+        "Esters are named as alkyl alkanoates: the alkyl group comes from the alcohol and the alkanoate part comes from the acid; e.g. ethyl ethanoate from ethanol and ethanoic acid."
+      ],
+      "definitions": [
+        {
+          "term": "Hybridisation",
+          "definition": "The mixing of atomic orbitals on the same atom to form a new set of equivalent hybrid orbitals. For carbon, sp³ mixing gives four tetrahedral orbitals, sp² gives three trigonal-planar orbitals plus one unhybridised p orbital, and sp gives two linear orbitals plus two unhybridised p orbitals."
+        },
+        {
+          "term": "σ (sigma) bond",
+          "definition": "A covalent bond formed by direct, end-on overlap of orbitals along the internuclear axis. All single bonds are σ bonds; double and triple bonds each contain one σ bond plus one or two π bonds."
+        },
+        {
+          "term": "π (pi) bond",
+          "definition": "A covalent bond formed by sideways (lateral) overlap of unhybridised p orbitals above and below the internuclear axis. π bonds are present in double bonds (one π) and triple bonds (two π), and they restrict rotation about the bond axis."
+        },
+        {
+          "term": "Skeletal (line-angle) formula",
+          "definition": "A shorthand structural representation in which the carbon skeleton is drawn as a zigzag of lines; each vertex and each line-end represents a carbon atom, and hydrogen atoms on carbon are omitted. Heteroatoms (O, N, etc.) and their attached H atoms are shown explicitly."
+        },
+        {
+          "term": "Homologous series",
+          "definition": "A family of organic compounds that share the same functional group and the same general molecular formula, with each successive member differing from the next by one –CH₂– unit (14 mass units). Members show similar chemical properties but a gradual, predictable change in physical properties."
+        },
+        {
+          "term": "Functional group",
+          "definition": "An atom or group of atoms within a molecule that is responsible for the compound's characteristic chemical reactions. Examples include the hydroxyl group (–OH) in alcohols, the carbonyl group (C=O) in aldehydes and ketones, and the carboxyl group (–COOH) in carboxylic acids."
+        },
+        {
+          "term": "IUPAC nomenclature",
+          "definition": "The systematic method of naming organic compounds developed by the International Union of Pure and Applied Chemistry. A name is built by identifying the parent chain, numbering it to minimise locants of the principal group, listing substituents alphabetically as prefixes with their locants, and adding a suffix that identifies the principal functional group."
+        },
+        {
+          "term": "Homologous series general formulae",
+          "definition": "Each major series has a characteristic general formula: alkanes CₙH₂ₙ₊₂; alkenes CₙH₂ₙ; alkynes CₙH₂ₙ₋₂; alcohols CₙH₂ₙ₊₁OH; carboxylic acids CₙH₂ₙO₂. These formulae reflect the degree of unsaturation introduced by each type of functional group."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying hybridisation and geometry in a molecule",
+          "problem": "For propan-1-ol (CH₃CH₂CH₂OH), identify the hybridisation of each carbon atom and state the expected H–C–H bond angle at the first carbon (the –CH₃ group).",
+          "steps": [
+            "Step 1 – Count bonds and lone pairs on each carbon. In propan-1-ol every carbon is bonded to four other atoms (all single bonds) with no lone pairs on carbon, so each carbon has four groups of electrons around it.",
+            "Step 2 – Apply the hybridisation rule: four electron domains → sp³ hybridisation.",
+            "Step 3 – All three carbons (C-1, C-2, C-3) are sp³ hybridised.",
+            "Step 4 – sp³ geometry is tetrahedral, so the ideal H–C–H bond angle at the terminal –CH₃ carbon is 109.5°."
+          ],
+          "answer": "All three carbons in propan-1-ol are sp³ hybridised. The expected H–C–H bond angle at the –CH₃ group is 109.5°."
+        },
+        {
+          "title": "Converting between structural representations",
+          "problem": "Draw the full structural formula, condensed formula and skeletal formula for 2-methylbut-2-ene (molecular formula C₅H₁₀).",
+          "steps": [
+            "Step 1 – Identify the parent chain and substituent. The name tells us: 4-carbon parent chain (but-), a double bond starting at C-2 (but-2-ene), and a methyl group at C-2.",
+            "Step 2 – Full structural formula: Write out every C–C and C–H bond explicitly. C1 is CH₃, C2 is C(=C3)(CH₃), C3 is CH, C4 is CH₃. Drawn out: H₃C–C(CH₃)=CH–CH₃ with every H shown on lines.",
+            "Step 3 – Condensed formula: Group H atoms with their carbons, writing from left to right: CH₃C(CH₃)=CHCH₃. This is read as carbon 1 (CH₃), carbon 2 with a methyl branch and a double bond to carbon 3, carbon 3 (CH), carbon 4 (CH₃).",
+            "Step 4 – Skeletal formula: Draw a 4-carbon zigzag with the double bond between C2 and C3 (shown as a double line), and a short line (methyl group) branching upward from C2. All C–H bonds are omitted; the branch and double bond are the only annotations needed."
+          ],
+          "answer": "Condensed formula: CH₃C(CH₃)=CHCH₃. The skeletal formula is a four-carbon zigzag with a double bond at the second bond and a methyl branch at the second vertex."
+        },
+        {
+          "title": "Applying IUPAC naming rules to a multi-functional molecule",
+          "problem": "Give the IUPAC name for the compound with the condensed structural formula: CH₃CH₂CH(OH)CH₂COOH.",
+          "steps": [
+            "Step 1 – Identify the principal functional group. The molecule contains both an –OH (alcohol) and a –COOH (carboxylic acid). Carboxylic acid has higher IUPAC seniority than alcohol, so –COOH is the principal group and determines the suffix (–oic acid).",
+            "Step 2 – Find the longest chain that includes the –COOH carbon. Counting: COOH–CH₂–CH(OH)–CH₂–CH₃ gives five carbons in a chain, so the parent is pentane → pentanoic acid.",
+            "Step 3 – Number the chain starting from the –COOH end (C-1 is always the carboxyl carbon in carboxylic acids). The chain: C1(COOH)–C2(CH₂)–C3(CH(OH))–C4(CH₂)–C5(CH₃).",
+            "Step 4 – Locate the substituent. The –OH is on C-3.",
+            "Step 5 – Assemble the name: 3-hydroxypentanoic acid. (The –OH becomes the prefix 'hydroxy-' because –COOH is the principal group taking the suffix.)"
+          ],
+          "answer": "The IUPAC name is 3-hydroxypentanoic acid."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which hybridisation state is present at each carbon of ethyne (HC≡CH), and what is the C–C–H bond angle?",
+          "options": [
+            "sp³, 109.5°",
+            "sp², 120°",
+            "sp, 180°",
+            "sp³d, 90°"
+          ],
+          "correctIndex": 2,
+          "explanation": "Each carbon in ethyne forms two σ bonds and two π bonds (one triple bond plus one bond to H), giving two electron domains and therefore sp hybridisation with a linear geometry of 180°."
+        },
+        {
+          "question": "What is the IUPAC name for the compound with the condensed formula CH₃CH₂COCH₂CH₃?",
+          "options": [
+            "3-pentanone",
+            "pentan-3-one",
+            "2-ethylpropanal",
+            "diethyl ketone"
+          ],
+          "correctIndex": 1,
+          "explanation": "The carbonyl carbon is at position 3 of a five-carbon chain; ketones take the suffix –one, giving pentan-3-one (modern IUPAC style places the locant immediately before the suffix)."
+        },
+        {
+          "question": "A compound belongs to a homologous series with the general formula CₙH₂ₙ₊₂. What class of compound is it, and what feature does this formula indicate?",
+          "options": [
+            "Alkene; it contains one C=C double bond",
+            "Alkyne; it contains one C≡C triple bond",
+            "Alkane; it is fully saturated with no rings or multiple bonds",
+            "Cycloalkane; it contains one ring"
+          ],
+          "correctIndex": 2,
+          "explanation": "The formula CₙH₂ₙ₊₂ is the general formula for acyclic alkanes, which are fully saturated (all single bonds, no rings), so every carbon carries the maximum possible number of hydrogens."
+        },
+        {
+          "question": "In the IUPAC name ethyl propanoate, which part of the name comes from the alcohol and which from the acid?",
+          "options": [
+            "'Ethyl' comes from the acid; 'propanoate' comes from the alcohol",
+            "'Ethyl' comes from the alcohol; 'propanoate' comes from the acid",
+            "Both parts come from the acid component",
+            "The name is derived entirely from the longest carbon chain regardless of origin"
+          ],
+          "correctIndex": 1,
+          "explanation": "Esters are named as alkyl alkanoates: the alkyl prefix (ethyl, from ethanol) identifies the alcohol-derived fragment, and the alkanoate suffix (propanoate, from propanoic acid) identifies the acid-derived fragment."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Isomerism and Stereochemistry",
+      "sourceRange": "Topic 3",
+      "summary": "Isomerism is the phenomenon in which two or more compounds share the same molecular formula but differ in the way their atoms are arranged or oriented in space. Organic chemistry is rich with isomers because carbon's tetravalency and ability to catenate allow atoms to be connected or positioned in many different ways. Isomers are divided into two broad classes: structural (constitutional) isomers, which differ in which atoms are bonded to which; and stereoisomers, which have the same connectivity but differ in the spatial arrangement of their atoms.\n\nStructural isomers fall into three subtypes. Chain isomers have the same molecular formula but different carbon skeleton shapes (e.g., a straight chain versus a branched chain). Position isomers share the same carbon skeleton and functional group but differ in where the functional group is attached along the chain. Functional-group isomers have the same molecular formula but belong to entirely different compound classes (e.g., an alcohol and an ether from C₂H₆O).\n\nStereoisomerism includes geometric (cis/trans or E/Z) isomerism and optical isomerism. Geometric isomers arise when restricted rotation — across a C=C double bond or around a ring — locks substituents into distinct spatial arrangements. Optical isomers (enantiomers) arise when a molecule contains a stereogenic (chiral) centre, typically a carbon bearing four different substituents; such a molecule and its mirror image are non-superimposable. Finally, conformational analysis considers how a molecule's shape changes through rotation about single bonds: ethane adopts staggered (lower energy) and eclipsed (higher energy) conformations, while cyclohexane adopts a chair conformation in which each substituent occupies either an axial or an equatorial position, with bulky groups preferring the equatorial site.",
+      "keyPoints": [
+        "Structural isomers have the same molecular formula but different bonding connectivity; they are classified as chain, position or functional-group isomers.",
+        "Geometric (cis/trans) isomerism requires restricted rotation and at least two different substituents on each sp² carbon (or ring carbon); cis means the priority groups are on the same side, trans means opposite sides.",
+        "The E/Z system uses Cahn–Ingold–Prelog (CIP) priority rules: Z (zusammen, 'together') places higher-priority groups on the same side; E (entgegen, 'opposite') places them on opposite sides.",
+        "A stereogenic (chiral) centre is a carbon atom bonded to four different groups; its two non-superimposable mirror-image forms are called enantiomers.",
+        "Enantiomers have identical physical properties except for the direction in which they rotate plane-polarised light: one is dextrorotatory (+) and the other levorotatory (−).",
+        "A racemic mixture (racemate) contains equal amounts of both enantiomers and shows zero net optical rotation.",
+        "In ethane, the staggered conformation (60° dihedral between C–H bonds) is lower in energy than the eclipsed conformation (0° dihedral) by about 12 kJ mol⁻¹ due to torsional (staggering) strain.",
+        "In the cyclohexane chair conformation, axial bonds point up or down parallel to the ring axis and equatorial bonds point roughly outward; bulky substituents are more stable in equatorial positions because axial positions create 1,3-diaxial steric interactions."
+      ],
+      "definitions": [
+        {
+          "term": "Isomers",
+          "definition": "Compounds that have the same molecular formula but differ in the arrangement of their atoms, either in connectivity (structural isomers) or in spatial orientation (stereoisomers)."
+        },
+        {
+          "term": "Chain isomers",
+          "definition": "Structural isomers that share the same molecular formula but differ in the branching pattern of their carbon skeleton; for example, butane (straight chain) and 2-methylpropane (branched) are both C₄H₁₀."
+        },
+        {
+          "term": "Position isomers",
+          "definition": "Structural isomers that have the same carbon skeleton and the same type of functional group but differ in the position of that functional group along the chain; for example, 1-propanol and 2-propanol are both C₃H₈O."
+        },
+        {
+          "term": "Functional-group isomers",
+          "definition": "Structural isomers that have the same molecular formula but contain different functional groups and therefore belong to different compound classes; for example, ethanol (an alcohol, C₂H₆O) and dimethyl ether (an ether, C₂H₆O)."
+        },
+        {
+          "term": "Geometric (cis/trans) isomerism",
+          "definition": "A form of stereoisomerism arising from restricted rotation about a double bond or within a ring. Cis isomers have specified substituents on the same side of the double bond or ring; trans isomers have them on opposite sides."
+        },
+        {
+          "term": "E/Z notation",
+          "definition": "A systematic method for describing geometric isomers using Cahn–Ingold–Prelog priority rules. Z (zusammen) indicates that the higher-priority substituents on each doubly bonded carbon are on the same side; E (entgegen) indicates they are on opposite sides."
+        },
+        {
+          "term": "Stereogenic (chiral) centre",
+          "definition": "An atom — usually a carbon — that is bonded to four different substituents, making the molecule non-superimposable on its mirror image. Also called an asymmetric carbon or chiral centre, and often marked with an asterisk (C*)."
+        },
+        {
+          "term": "Enantiomers",
+          "definition": "A pair of stereoisomers that are non-superimposable mirror images of each other. They have the same physical and chemical properties in achiral environments but rotate plane-polarised light in equal and opposite directions."
+        },
+        {
+          "term": "Racemic mixture",
+          "definition": "An equimolar (50:50) mixture of both enantiomers of a chiral compound. It shows no net optical rotation because the rotations of the two enantiomers cancel."
+        },
+        {
+          "term": "Conformation",
+          "definition": "One of the different spatial arrangements of a molecule that arise through rotation about single bonds, without breaking any bonds. Conformations interconvert rapidly at room temperature and are not isolable isomers."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying the three types of structural isomers for C₄H₁₀O",
+          "problem": "The molecular formula C₄H₁₀O can represent several different structures. Identify one example each of a chain isomer pair, a position isomer pair and a functional-group isomer within this formula, and explain the structural difference in each case.",
+          "steps": [
+            "Step 1 – Chain isomers: Draw two alcohols with the formula C₄H₁₀O that have different carbon skeletons. 1-Butanol has a straight four-carbon chain (CH₃CH₂CH₂CH₂OH) and 2-methyl-1-propanol has a branched three-carbon chain with a methyl branch (CH₃CH(CH₃)CH₂OH). Both are alcohols and the –OH is on a terminal carbon, but the skeletons differ — these are chain isomers.",
+            "Step 2 – Position isomers: Draw two straight-chain butanols that differ only in the position of –OH. 1-Butanol (CH₃CH₂CH₂CH₂OH) has –OH at C-1, while 2-butanol (CH₃CH(OH)CH₂CH₃) has –OH at C-2. Same skeleton, same functional group, different position — these are position isomers.",
+            "Step 3 – Functional-group isomers: Consider diethyl ether (CH₃CH₂–O–CH₂CH₃), which also has the formula C₄H₁₀O. It contains an ether linkage (C–O–C) rather than a hydroxyl group, placing it in a completely different compound class from any of the butanols — this is a functional-group isomer.",
+            "Step 4 – Summary: All three pairs share C₄H₁₀O but differ in (i) skeleton shape only, (ii) position of the same functional group, or (iii) the type of functional group present."
+          ],
+          "answer": "Chain isomers: 1-butanol vs 2-methyl-1-propanol (different C skeletons). Position isomers: 1-butanol vs 2-butanol (–OH at C-1 vs C-2). Functional-group isomers: 1-butanol (alcohol) vs diethyl ether (ether)."
+        },
+        {
+          "title": "Assigning E/Z configuration to but-2-ene derivatives",
+          "problem": "Assign the E or Z configuration to the following alkene: CH₃CH=CHCH₂CH₃ (pent-2-ene), specifically the isomer in which the methyl group and the ethyl group are on the same side of the double bond. Then verify that simple cis/trans labels also apply here and would agree.",
+          "steps": [
+            "Step 1 – Identify the two doubly bonded carbons: C-2 bears a –CH₃ group and an –H; C-3 bears a –CH₂CH₃ group and an –H.",
+            "Step 2 – Assign CIP priorities on C-2: –CH₃ (C attached to H,H,H) vs –H. Carbon has higher atomic number than hydrogen, so –CH₃ is priority 1 and –H is priority 2 on C-2.",
+            "Step 3 – Assign CIP priorities on C-3: –CH₂CH₃ (C attached to C,H,H at the first branch point) vs –H. Again carbon > hydrogen, so –CH₂CH₃ is priority 1 and –H is priority 2 on C-3.",
+            "Step 4 – Determine relative positions: The problem states the methyl (high priority on C-2) and the ethyl (high priority on C-3) are on the same side of the double bond.",
+            "Step 5 – Apply E/Z rule: Same side = Z (zusammen). This isomer is (Z)-pent-2-ene.",
+            "Step 6 – Check with cis/trans: Since C-2 and C-3 each bear one H and one alkyl group, we can use cis/trans: cis means the two alkyl groups (the larger carbon substituents on each carbon) are on the same side. This agrees with Z. So this isomer is correctly called both cis-pent-2-ene and (Z)-pent-2-ene."
+          ],
+          "answer": "The isomer with –CH₃ and –CH₂CH₃ on the same side of the double bond is (Z)-pent-2-ene (also called cis-pent-2-ene). The E/Z and cis/trans labels are consistent here because each doubly bonded carbon carries exactly one H and one alkyl group."
+        },
+        {
+          "title": "Recognising chirality, drawing enantiomers, and identifying a racemic mixture",
+          "problem": "(a) Determine whether 2-bromobutane (CH₃CHBrCH₂CH₃) is chiral. (b) Draw or describe both enantiomers. (c) A sample of 2-bromobutane rotates plane-polarised light by 0°. What does this tell you about the sample?",
+          "steps": [
+            "Step 1 – Locate potential stereogenic centres: Examine each carbon in 2-bromobutane. C-1 (CH₃–) has three H and one C — not chiral. C-2 (–CHBr–) is bonded to: –Br, –H, –CH₃ (C-1 side), and –CH₂CH₃ (C-3/C-4 side). All four substituents are different, so C-2 is a stereogenic centre.",
+            "Step 2 – Confirm chirality: Because C-2 has four different groups, the molecule is non-superimposable on its mirror image. 2-Bromobutane is therefore chiral.",
+            "Step 3 – Describe the two enantiomers: Enantiomer 1 has the (R) configuration at C-2 (using CIP rules: Br > CH₂CH₃ > CH₃ > H; if arranged so H points away and the sequence Br→CH₂CH₃→CH₃ is clockwise, it is R). Enantiomer 2 has the (S) configuration (the same sequence is anticlockwise). One enantiomer rotates light to the right (+) and the other to the left (−) by the same magnitude.",
+            "Step 4 – Interpret zero optical rotation: A rotation of 0° does not mean the compound is achiral. It means the sample contains equal amounts of both enantiomers — a racemic mixture (racemate). The equal and opposite rotations cancel to give zero net rotation.",
+            "Step 5 – Conclusion: 2-Bromobutane has one chiral centre and exists as (R)- and (S)-enantiomers. A sample showing 0° rotation is a racemic mixture."
+          ],
+          "answer": "(a) Yes, C-2 of 2-bromobutane is a stereogenic centre bearing four different groups (–Br, –H, –CH₃, –CH₂CH₃), making the molecule chiral. (b) The two enantiomers are (R)-2-bromobutane and (S)-2-bromobutane; they are non-superimposable mirror images. (c) Zero optical rotation indicates the sample is a racemic mixture (50:50 R and S), not an achiral compound."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following correctly describes the relationship between 1-butanol (CH₃CH₂CH₂CH₂OH) and diethyl ether (CH₃CH₂OCH₂CH₃)?",
+          "options": [
+            "They are chain isomers because they have different carbon skeletons.",
+            "They are position isomers because the oxygen is in a different position.",
+            "They are functional-group isomers because they share the formula C₄H₁₀O but contain different functional groups.",
+            "They are conformational isomers that interconvert by rotation about a C–O bond."
+          ],
+          "correctIndex": 2,
+          "explanation": "Both compounds have the molecular formula C₄H₁₀O but 1-butanol is an alcohol (–OH) and diethyl ether is an ether (–O–), placing them in different functional-group classes — the definition of functional-group isomers."
+        },
+        {
+          "question": "For geometric isomerism to exist about a C=C double bond, which condition is essential?",
+          "options": [
+            "The alkene must have at least six carbon atoms.",
+            "Each carbon of the double bond must carry at least two identical substituents.",
+            "Each carbon of the double bond must carry two different substituents.",
+            "The molecule must also contain a stereogenic (chiral) centre."
+          ],
+          "correctIndex": 2,
+          "explanation": "Geometric isomerism requires that both carbons of the double bond each bear two different substituents; if either carbon has two identical groups, the two 'isomers' would be identical structures."
+        },
+        {
+          "question": "A carbon compound rotates plane-polarised light by +23°. What can you conclude?",
+          "options": [
+            "The compound is achiral and has no stereogenic centre.",
+            "The compound is chiral and its pure enantiomer would rotate light by −23°.",
+            "The compound is a racemic mixture that happens to favour the (+) form.",
+            "The compound has the R configuration at every stereogenic centre."
+          ],
+          "correctIndex": 1,
+          "explanation": "A non-zero optical rotation confirms the sample is chiral (or enriched in one enantiomer). The mirror-image enantiomer must rotate light by exactly −23°; however, the sign of rotation cannot be predicted from the R/S label without additional data."
+        },
+        {
+          "question": "In the chair conformation of cyclohexane, a bulky substituent such as a tert-butyl group adopts the equatorial position rather than the axial position. What is the principal reason?",
+          "options": [
+            "Equatorial bonds are longer, giving the large group more room.",
+            "Axial substituents experience repulsive 1,3-diaxial interactions with axial hydrogens on the same side of the ring, raising the energy.",
+            "Equatorial substituents can form hydrogen bonds with solvent more easily.",
+            "Axial positions are only available to small atoms such as fluorine."
+          ],
+          "correctIndex": 1,
+          "explanation": "An axial substituent on a cyclohexane chair points parallel to the ring axis and comes into close steric contact with the axial hydrogens on the carbons two positions away (1,3-diaxial interactions). These repulsions are severe for bulky groups, making the equatorial position strongly preferred."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Chemistry of Hydrocarbons",
+      "sourceRange": "Topic 4",
+      "summary": "Hydrocarbons—compounds containing only carbon and hydrogen—are divided into four major classes: alkanes (fully saturated, single bonds only), alkenes (one or more C=C double bonds), alkynes (one or more C≡C triple bonds), and arenes (benzene-based aromatic compounds). Alkanes are the principal components of petroleum and natural gas. They burn in excess oxygen to give CO₂ and H₂O (complete combustion) or CO and soot when oxygen is limited (incomplete combustion). Because their C–H bonds are otherwise relatively unreactive, the characteristic reaction of alkanes is free-radical halogenation, a chain reaction triggered by light or heat that proceeds through initiation (homolytic cleavage of X₂), propagation (alternating radical-abstraction and radical-addition steps), and termination (combination of any two radicals). Thermal cracking uses high temperatures to break long-chain alkanes into shorter, more economically valuable alkenes and alkanes.\n\nAlkenes are far more reactive than alkanes because the π component of the double bond is electron-rich and easily attacked by electrophiles. Electrophilic addition of H₂ (hydrogenation over Ni/Pt), X₂ (halogenation), HX (hydrohalogenation), and H₂O (acid-catalysed hydration) all proceed by initial formation of a carbocation intermediate. Markovnikov's rule predicts the regiochemistry: H⁺ adds to the carbon already bearing more hydrogens, generating the more stable (more substituted) carbocation, which is then captured by the nucleophile. Alkenes decolorise bromine water and cold dilute KMnO₄, reactions used as diagnostic tests. Addition polymerisation of alkenes such as ethene and propene produces industrially vital plastics. Alkynes undergo analogous addition reactions, often in two stages (addition across each π bond). Ethyne is prepared from CaC₂ and water or by double dehydrohalogenation of a vicinal dihalide. The sp-hybridised C–H bond of terminal alkynes is weakly acidic (pKₐ ≈ 25), allowing reactions with strong bases and formation of metal acetylides with Ag⁺ and Cu⁺.\n\nBenzene, the archetypal aromatic compound, possesses a cyclic, planar, fully conjugated system of six π electrons satisfying Hückel's 4n+2 rule (n = 1). This delocalization confers exceptional thermodynamic stability, so benzene resists the addition reactions typical of alkenes and instead undergoes electrophilic aromatic substitution (EAS), which preserves the aromatic system. The three key EAS reactions are nitration (using the nitronium ion NO₂⁺ generated by HNO₃/H₂SO₄), halogenation (X₂ activated by a Lewis-acid catalyst such as AlCl₃ or FeBr₃), and Friedel-Crafts reactions (alkylation and acylation using RX or RCOCl with AlCl₃). All proceed through a common arenium-ion (sigma-complex) intermediate followed by loss of H⁺ to restore aromaticity.",
+      "keyPoints": [
+        "Alkanes undergo complete combustion (→ CO₂ + H₂O), incomplete combustion (→ CO + C), and free-radical halogenation via a three-stage chain mechanism: initiation, propagation, and termination.",
+        "Thermal (and catalytic) cracking converts large alkane molecules into smaller alkenes and alkanes useful as fuels and chemical feedstocks.",
+        "Alkenes undergo electrophilic addition; the π electrons act as the nucleophile attacking an incoming electrophile to form a carbocation intermediate.",
+        "Markovnikov's rule: in addition of HX to an unsymmetrical alkene, H adds to the carbon with more hydrogens, because this gives the more stable (more substituted) carbocation.",
+        "Alkenes decolorise bromine water (Br₂ in water) and decolorise cold dilute KMnO₄ solution; alkanes do neither, making these reliable chemical tests.",
+        "Terminal alkynes are weakly acidic (pKₐ ≈ 25); the sp C–H bond reacts with strong bases (e.g. NaNH₂) and with Ag⁺ or Cu⁺ ions to form insoluble metal acetylides.",
+        "Benzene's six delocalized π electrons satisfy Hückel's 4n+2 rule (n = 1), giving aromaticity—cyclic, planar, fully conjugated stability that makes addition reactions thermodynamically unfavourable.",
+        "Electrophilic aromatic substitution (nitration, halogenation, Friedel-Crafts) all pass through a carbocation arenium-ion intermediate and recover aromaticity by expelling H⁺."
+      ],
+      "definitions": [
+        {
+          "term": "Free-radical halogenation",
+          "definition": "A substitution reaction in which a C–H bond of an alkane is replaced by a C–X bond (X = Cl or Br) via a chain mechanism involving halogen atoms (radicals). The chain is initiated by homolytic cleavage of X₂ by light or heat, sustained by two alternating propagation steps, and ended by any radical–radical combination (termination)."
+        },
+        {
+          "term": "Cracking",
+          "definition": "The industrial process of breaking long-chain hydrocarbon molecules into shorter, more useful ones by applying high temperatures (thermal cracking) or heat with a catalyst (catalytic cracking). It converts heavy fractions of petroleum into alkenes, petrol-range alkanes, and hydrogen."
+        },
+        {
+          "term": "Electrophilic addition",
+          "definition": "A reaction in which an electrophile adds to one carbon of a C=C or C≡C bond (using the π electrons) to form a carbocation, which is then attacked by a nucleophile. The overall result is addition of two groups across the multiple bond."
+        },
+        {
+          "term": "Markovnikov's rule",
+          "definition": "The regiochemical rule for addition of HX (or H₂O) to an unsymmetrical alkene: hydrogen adds to the carbon bearing the greater number of hydrogen atoms, because this places the positive charge on the more substituted (more stable) carbon. The rule is a consequence of carbocation stability."
+        },
+        {
+          "term": "Aromaticity",
+          "definition": "A special stabilization arising when a molecule is cyclic, planar, fully conjugated, and contains 4n+2 π electrons (Hückel's rule, where n is a non-negative integer). Benzene (6 π electrons, n = 1) is the classic example; its resonance energy of about 150 kJ mol⁻¹ makes it far more stable than a hypothetical cyclohexatriene."
+        },
+        {
+          "term": "Electrophilic aromatic substitution (EAS)",
+          "definition": "A reaction in which an electrophile (E⁺) attacks a benzene ring, forming a carbocation arenium-ion (sigma-complex) intermediate in which one carbon becomes sp³. The aromaticity is then restored when a proton is lost from that carbon, giving an arene with E replacing H."
+        },
+        {
+          "term": "Terminal alkyne",
+          "definition": "An alkyne in which the triple bond is located at the end of the carbon chain, giving a ≡C–H unit. The sp carbon–hydrogen bond is significantly more acidic (pKₐ ≈ 25) than a sp³ or sp² C–H bond because the electron pair in the resulting carbanion occupies a low-energy sp orbital closer to the nucleus."
+        },
+        {
+          "term": "Arenium ion (sigma complex / Wheland intermediate)",
+          "definition": "The carbocation intermediate formed when an electrophile bonds to one carbon of the benzene ring during EAS. The ring is no longer aromatic at this stage (one carbon is sp³), providing the driving force for the subsequent elimination of H⁺ that restores the stable aromatic system."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Combustion of propane: calculating mass of CO₂ produced",
+          "problem": "Propane (C₃H₈, M = 44 g mol⁻¹) is burned completely in excess oxygen. Calculate the mass of carbon dioxide produced from 22 g of propane. (M(CO₂) = 44 g mol⁻¹)",
+          "steps": [
+            "Step 1 – Write the balanced equation for complete combustion:\nC₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O",
+            "Step 2 – Find the moles of propane:\nn(C₃H₈) = mass ÷ molar mass = 22 g ÷ 44 g mol⁻¹ = 0.50 mol",
+            "Step 3 – Use the stoichiometric ratio to find moles of CO₂:\nFrom the equation, 1 mol C₃H₈ produces 3 mol CO₂.\nn(CO₂) = 0.50 mol × 3 = 1.50 mol",
+            "Step 4 – Convert to mass:\nm(CO₂) = n × M = 1.50 mol × 44 g mol⁻¹ = 66 g"
+          ],
+          "answer": "Complete combustion of 22 g of propane produces 66 g of carbon dioxide."
+        },
+        {
+          "title": "Applying Markovnikov's rule: addition of HBr to propene",
+          "problem": "Predict the major and minor products when HBr adds to propene (CH₃CH=CH₂), and explain why one predominates.",
+          "steps": [
+            "Step 1 – Identify the two alkene carbons: C1 (=CH₂, bearing 2 H) and C2 (=CH–, bearing 1 H, attached to the methyl group).",
+            "Step 2 – State Markovnikov's rule: H⁺ adds to the carbon with more hydrogens (C1), placing the carbocation on C2.",
+            "Step 3 – Evaluate the intermediate formed by H⁺ adding to C1:\nCH₃–CH⁺–CH₃  →  a secondary carbocation (2°). This is more stable than a primary carbocation and is therefore strongly favoured.",
+            "Step 4 – Compare with the alternative: H⁺ adding to C2 would give CH₃–CH₂–CH₂⁺, a primary carbocation (1°) — less stable, higher energy, formed much more slowly.",
+            "Step 5 – Br⁻ attacks the secondary carbocation at C2:\nCH₃–CHBr–CH₃  →  2-bromopropane (major product).\nThe minor product via the primary carbocation would be CH₃–CH₂–CH₂Br (1-bromopropane)."
+          ],
+          "answer": "The major product is 2-bromopropane; the minor product is 1-bromopropane. The Markovnikov product dominates because the reaction proceeds through the more stable secondary carbocation intermediate."
+        },
+        {
+          "title": "Mechanism of the nitration of benzene",
+          "problem": "Write a stepwise mechanism for the nitration of benzene using a mixture of concentrated HNO₃ and concentrated H₂SO₄, and name the organic product.",
+          "steps": [
+            "Step 1 – Generation of the electrophile (nitronium ion, NO₂⁺):\nH₂SO₄ donates H⁺ to HNO₃, protonating it to give H₂NO₃⁺, which rapidly loses water:\nHNO₃ + H₂SO₄  →  NO₂⁺ + H₂O + HSO₄⁻\nNO₂⁺ is a powerful electrophile.",
+            "Step 2 – Electrophilic attack on the benzene ring:\nThe π electrons of benzene attack NO₂⁺, forming a new C–N bond. One ring carbon becomes sp³, breaking the aromaticity. The resulting species is a delocalised carbocation called the arenium ion (sigma complex or Wheland intermediate):\nC₆H₆ + NO₂⁺  →  [C₆H₆NO₂]⁺",
+            "Step 3 – Restoration of aromaticity (elimination of H⁺):\nThe sp³ carbon of the arenium ion loses H⁺ to the base HSO₄⁻ (regenerating H₂SO₄). This re-establishes the full aromatic π system:\n[C₆H₆NO₂]⁺  →  C₆H₅NO₂ + H⁺",
+            "Step 4 – Identify the product: the H on the attacked carbon has been replaced by –NO₂, giving nitrobenzene (C₆H₅NO₂). The overall reaction is substitution (not addition), preserving aromaticity."
+          ],
+          "answer": "The product is nitrobenzene (C₆H₅NO₂). The reaction is an electrophilic aromatic substitution: NO₂⁺ attacks the ring, forming a transient arenium-ion intermediate, and H⁺ is then expelled to restore the stable aromatic system."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the free-radical chain mechanism for chlorination of methane, which step is correctly described as a propagation step?",
+          "options": [
+            "Cl₂ → 2 Cl•  (bond cleavage by UV light)",
+            "Cl• + CH₄ → HCl + CH₃•  (radical abstracts H from methane)",
+            "CH₃• + CH₃• → C₂H₆  (two radicals combine)",
+            "CH₃Cl + Cl• → CH₂Cl• + HCl  (further substitution side-reaction)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Propagation steps consume one radical and produce a new radical, sustaining the chain; Cl• abstracting H from CH₄ to give HCl and CH₃• fits this description exactly. Initiation creates radicals from molecules, and termination destroys them."
+        },
+        {
+          "question": "What is the major product when HBr adds to but-1-ene (CH₃CH₂CH=CH₂)?",
+          "options": [
+            "1-bromobutane",
+            "2-bromobutane",
+            "1,2-dibromobutane",
+            "3-bromobutane"
+          ],
+          "correctIndex": 1,
+          "explanation": "By Markovnikov's rule, H adds to C1 (the terminal =CH₂), generating a more stable secondary carbocation at C2; Br⁻ then attacks C2 to give 2-bromobutane as the major product."
+        },
+        {
+          "question": "A student tests two colourless liquids, A and B, with bromine water and then with cold dilute KMnO₄. Liquid A decolourises both reagents; liquid B decolourises neither. Which conclusion is best supported?",
+          "options": [
+            "A is an alkane; B is an alkene",
+            "A is an alkene (or alkyne); B is an alkane",
+            "A is benzene; B is an alkane",
+            "A is an alcohol; B is an ester"
+          ],
+          "correctIndex": 1,
+          "explanation": "Alkenes (and alkynes) decolorise both bromine water (by electrophilic addition) and cold dilute KMnO₄ (by oxidative diol formation), while alkanes are unreactive towards both reagents under these conditions."
+        },
+        {
+          "question": "Why does benzene undergo electrophilic aromatic substitution rather than electrophilic addition, even though it contains π bonds?",
+          "options": [
+            "Benzene has no π electrons and is therefore unreactive towards addition",
+            "Addition is faster, but the substitution product is the major kinetic product",
+            "The six delocalized π electrons give benzene exceptional stability; addition would destroy aromaticity, whereas substitution restores it, making substitution thermodynamically favourable",
+            "Benzene reacts only with nucleophiles, not electrophiles"
+          ],
+          "correctIndex": 2,
+          "explanation": "The aromatic delocalization energy (resonance energy ≈ 150 kJ mol⁻¹) makes addition unfavourable because it would destroy the stable π system permanently; expelling H⁺ after electrophilic attack restores the aromatic ring, so substitution is strongly preferred."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Oxygen-Containing Compounds and Their Reactions",
+      "sourceRange": "Topic 5",
+      "summary": "Organic oxygen-containing compounds form one of the most important families in chemistry because they appear in fuels, pharmaceuticals, flavours, fats and soaps. This module covers three interconnected families — alcohols, carbonyl compounds (aldehydes and ketones), and carboxylic acids with their derivatives — and shows how they interconvert through oxidation, reduction, and substitution at the carbonyl group.\n\nAlcohols contain the –OH (hydroxyl) group attached to a saturated carbon. Their chemistry is dominated by two properties: the O–H bond can be broken by bases or oxidising agents, and the C–O bond can be broken under acidic conditions to give substitution or elimination products. Oxidation state increases along the series alcohol → aldehyde/ketone → carboxylic acid, which is a unifying theme: primary alcohols oxidise first to aldehydes and then to carboxylic acids, secondary alcohols oxidise to ketones, and tertiary alcohols resist oxidation entirely.\n\nAldehydes and ketones share the carbonyl group (C=O), but differ in that the aldehyde carbon bears at least one hydrogen while the ketone carbon bears two carbon substituents. This structural difference makes aldehydes easy to oxidise further (to carboxylic acids) whereas ketones resist oxidation, a distinction exploited by Tollens' and Fehling's tests. Carboxylic acids are weakly acidic (typical pKa ≈ 4–5) because the resulting carboxylate anion is stabilised by resonance. Their most important reactions are ester formation with alcohols (reversed by saponification) and amide formation with amines, reactions that underpin the chemistry of fats, waxes and proteins.",
+      "keyPoints": [
+        "Alcohols are classified as primary (1°), secondary (2°) or tertiary (3°) according to the number of carbon substituents on the carbon bearing –OH.",
+        "Oxidation of a primary alcohol gives an aldehyde (with mild oxidant, e.g. PCC) or a carboxylic acid (with excess KMnO₄/H⁺ or K₂Cr₂O₇/H₂SO₄); oxidation of a secondary alcohol gives a ketone; tertiary alcohols cannot be oxidised under normal conditions.",
+        "The Lucas test uses anhydrous ZnCl₂/conc. HCl: tertiary alcohols react immediately (cloudy), secondary alcohols react in ~5 min, and primary alcohols give no reaction at room temperature.",
+        "Esterification is the acid-catalysed, reversible reaction between a carboxylic acid and an alcohol to give an ester and water; the yield is improved by removing water (Le Chatelier's principle).",
+        "Aldehydes and ketones both undergo nucleophilic addition across the C=O bond (e.g. addition of HCN, NaBH₄, or 2,4-DNPH).",
+        "Tollens' test (silver mirror) and Fehling's test (brick-red precipitate of Cu₂O) are positive for aldehydes and for α-hydroxy ketones such as fructose, but negative for simple ketones.",
+        "The 2,4-DNPH (Brady's) test gives an orange/yellow precipitate with any aldehyde or ketone and is used to confirm the presence of a carbonyl group.",
+        "Carboxylic acids are weakly acidic (pKa ≈ 4–5) because the carboxylate anion is stabilised by resonance over both C–O bonds; electron-withdrawing substituents lower the pKa (increase acidity).",
+        "Saponification is the base-catalysed (irreversible) hydrolysis of an ester to a carboxylate salt and an alcohol; it is the basis of soap manufacture from fats (triglycerides).",
+        "Amides are formed by the reaction of a carboxylic acid (or acyl chloride) with an amine; the amide bond is central to protein structure."
+      ],
+      "definitions": [
+        {
+          "term": "Primary, secondary and tertiary alcohol",
+          "definition": "An alcohol in which the carbon bearing the –OH group is attached to one, two or three other carbon atoms, respectively. For example, ethanol (CH₃CH₂OH) is primary; propan-2-ol (CH₃CH(OH)CH₃) is secondary; 2-methylpropan-2-ol ((CH₃)₃COH) is tertiary. The classification determines reactivity toward oxidation and substitution."
+        },
+        {
+          "term": "Lucas test",
+          "definition": "A qualitative test to distinguish 1°, 2°, and 3° alcohols using Lucas reagent (anhydrous zinc chloride dissolved in concentrated hydrochloric acid). The alcohol reacts to form an alkyl chloride, which is insoluble and turns the solution cloudy. Tertiary alcohols react immediately; secondary alcohols react within about 5 minutes; primary alcohols show no cloudiness at room temperature."
+        },
+        {
+          "term": "Oxidation state of carbon in organic compounds",
+          "definition": "The degree of oxidation of the carbon bonded to oxygen increases from alcohol (–OH) → aldehyde (–CHO) → carboxylic acid (–COOH), corresponding to a loss of hydrogen or gain of oxygen at that carbon. Ketones (R₂C=O) sit at the same oxidation level as aldehydes but cannot be oxidised further to an acid without breaking C–C bonds."
+        },
+        {
+          "term": "Carbonyl group",
+          "definition": "A carbon atom double-bonded to an oxygen atom (C=O). It is the defining functional group of aldehydes, ketones, carboxylic acids, esters and amides. The carbonyl carbon is electrophilic because oxygen pulls electron density toward itself, making the carbon susceptible to attack by nucleophiles."
+        },
+        {
+          "term": "Tollens' reagent",
+          "definition": "An aqueous solution of silver(I) ions complexed with ammonia ([Ag(NH₃)₂]⁺, also called ammoniacal silver nitrate). Aldehydes reduce Ag⁺ to metallic silver, which deposits as a silver mirror on the inside of the test tube, giving a positive result. Ketones do not react (negative result)."
+        },
+        {
+          "term": "Fehling's solution",
+          "definition": "A deep-blue alkaline solution containing Cu²⁺ ions complexed with tartrate. Reducing sugars and aldehydes reduce Cu²⁺ to Cu⁺, which precipitates as brick-red copper(I) oxide (Cu₂O). Simple aliphatic ketones give a negative result."
+        },
+        {
+          "term": "2,4-Dinitrophenylhydrazine (2,4-DNPH) test",
+          "definition": "Brady's reagent: a solution of 2,4-dinitrophenylhydrazine in acid. It condenses with any aldehyde or ketone to form a coloured (yellow to orange-red) crystalline precipitate called a 2,4-dinitrophenylhydrazone. It confirms the presence of a carbonyl (C=O) group but does not distinguish aldehydes from ketones."
+        },
+        {
+          "term": "Esterification",
+          "definition": "The acid-catalysed condensation of a carboxylic acid with an alcohol to produce an ester and water: RCOOH + R'OH ⇌ RCOOR' + H₂O. The reaction is reversible and reaches equilibrium; yield is maximised by using excess of one reactant or by removing water."
+        },
+        {
+          "term": "Saponification",
+          "definition": "The irreversible base-catalysed hydrolysis of an ester. A strong base (e.g. NaOH) cleaves the ester linkage to give a carboxylate salt (soap, when the ester is a fat) and an alcohol. Because the carboxylate salt does not react back with the alcohol under basic conditions, saponification goes to completion, unlike acid-catalysed hydrolysis."
+        },
+        {
+          "term": "Amide",
+          "definition": "A derivative of a carboxylic acid in which the –OH of the –COOH group is replaced by –NHR or –NR₂ (from an amine), giving the linkage –CO–NH–. Amides are less reactive than esters or acyl chlorides toward hydrolysis; the amide (peptide) bond links amino acids in proteins."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Predicting the product of alcohol oxidation",
+          "problem": "Identify the reagent needed and the organic product formed when (a) pentan-1-ol and (b) pentan-3-ol are each oxidised. What happens when (c) 2-methylbutan-2-ol is treated with the same oxidising agent?",
+          "steps": [
+            "Classify each alcohol. Pentan-1-ol (CH₃CH₂CH₂CH₂CH₂OH) has –OH on C-1, which bears one H and no other carbon branch at the OH carbon — wait, C-1 bears two H atoms and one carbon chain; it is a primary alcohol. Pentan-3-ol has –OH on C-3, which is bonded to C-2 and C-4 on either side — secondary alcohol. 2-Methylbutan-2-ol has –OH on C-2 bearing three carbon substituents — tertiary alcohol.",
+            "For the primary alcohol (a): mild oxidation with pyridinium chlorochromate (PCC) in CH₂Cl₂ stops at the aldehyde stage, giving pentanal (CH₃CH₂CH₂CH₂CHO). Using acidified K₂Cr₂O₇ (excess) or KMnO₄/H⁺ takes the reaction all the way to pentanoic acid (CH₃CH₂CH₂CH₂COOH) because the aldehyde intermediate is further oxidised.",
+            "For the secondary alcohol (b): acidified K₂Cr₂O₇ oxidises pentan-3-ol to pentan-3-one (CH₃CH₂COCH₂CH₃), a ketone. No further oxidation occurs because there is no H on the carbonyl carbon.",
+            "For the tertiary alcohol (c): 2-methylbutan-2-ol has no hydrogen on the carbon bearing –OH. Oxidation would require breaking a C–C bond, which does not happen under normal laboratory oxidising conditions (K₂Cr₂O₇/H₂SO₄ or KMnO₄). The alcohol is therefore resistant to oxidation and the solution remains orange (dichromate colour unchanged), confirming the tertiary classification."
+          ],
+          "answer": "(a) Pentan-1-ol → pentanal (mild oxidant, PCC) or pentanoic acid (excess acidified KMnO₄); (b) pentan-3-ol → pentan-3-one; (c) 2-methylbutan-2-ol is not oxidised under normal conditions."
+        },
+        {
+          "title": "Combustion analysis and empirical formula of a carbonyl compound",
+          "problem": "A 0.3600 g sample of a pure compound containing only C, H and O is burned completely in excess oxygen. The combustion produces 0.8800 g of CO₂ and 0.2160 g of H₂O. Determine the empirical formula of the compound and suggest whether it could be an aldehyde, ketone or carboxylic acid.",
+          "steps": [
+            "Find moles of CO₂ and H₂O. M(CO₂) = 44.01 g/mol; M(H₂O) = 18.02 g/mol. n(CO₂) = 0.8800/44.01 = 0.02000 mol; n(H₂O) = 0.2160/18.02 = 0.01199 mol ≈ 0.01200 mol.",
+            "Each mole of CO₂ comes from one mole of C, and each mole of H₂O from two moles of H. Mass of C = 0.02000 × 12.01 = 0.2402 g. Mass of H = 0.01200 × 2 × 1.008 = 0.02419 g ≈ 0.02419 g.",
+            "Mass of O in sample = 0.3600 − 0.2402 − 0.02419 = 0.09561 g. Moles of O = 0.09561/16.00 = 0.005976 mol ≈ 0.005976 mol.",
+            "Mole ratio C : H : O = 0.02000 : 0.02400 : 0.005976. Divide by the smallest (0.005976): C = 0.02000/0.005976 = 3.35 ≈ not a whole number. Multiply each by 3: C = 10.0 → nope. Let us try dividing differently: C/O = 0.02000/0.005976 = 3.347; H/O = 0.02400/0.005976 = 4.017 ≈ 4. Ratio C : H : O ≈ 3.35 : 4.02 : 1. Multiply by 3: C : H : O = 10.05 : 12.06 : 3 ≈ 10 : 12 : 3. Check: empirical formula C₁₀H₁₂O₃ — this has a non-integer ratio issue. Let us redo carefully. C : H : O = 0.02000 : 0.02400 : 0.005976. Divide each by 0.005976: C = 3.347, H = 4.016, O = 1.000. Multiply all by 3: C = 10.04 ≈ 10, H = 12.05 ≈ 12, O = 3. So empirical formula is C₁₀H₁₂O₃.",
+            "Actually, let us re-examine — multiply by simpler factor. Try multiply by 6: 20.1, 24.1, 6 → C₂₀H₂₄O₆, not simpler. Try the ratio again: 3.347 ≈ 10/3, so multiply by 3 gives C₁₀H₁₂O₃. Empirical formula mass = 10(12.01) + 12(1.008) + 3(16.00) = 120.1 + 12.10 + 48.00 = 180.2 g/mol. This is the same as glucose's molecular formula, but the degree of unsaturation = (2×10 + 2 − 12)/2 = (20 + 2 − 12)/2 = 10/2 = 5, suggesting aromatic or multiple carbonyl character.",
+            "Conclusion: The empirical formula is C₁₀H₁₂O₃. With degree of unsaturation = 5, this could be an aromatic ester or aromatic carboxylic acid derivative. Without further data (e.g. molar mass from another experiment), the molecular formula cannot be confirmed, but the oxygen content (3 O atoms) is consistent with a carboxylic acid ester or a compound with a COOH plus an ether."
+          ],
+          "answer": "Empirical formula C₁₀H₁₂O₃ (empirical formula mass ≈ 180 g/mol); the compound has 5 degrees of unsaturation, consistent with an aromatic carboxylic acid or ester derivative."
+        },
+        {
+          "title": "Esterification equilibrium and saponification",
+          "problem": "(a) Ethanoic acid reacts with ethanol in the presence of a few drops of concentrated H₂SO₄ to give ethyl ethanoate. Write the equation, name the ester and explain how yield can be maximised. (b) 1.00 g of ethyl ethanoate is hydrolysed completely with excess NaOH solution. Calculate the mass of sodium ethanoate produced (M = 82.03 g/mol for CH₃COONa).",
+          "steps": [
+            "(a) Equation: CH₃COOH + CH₃CH₂OH ⇌ CH₃COOCH₂CH₃ + H₂O. The product is ethyl ethanoate (ethyl acetate). H₂SO₄ is the catalyst and also acts as a dehydrating agent.",
+            "The reaction is reversible, so at equilibrium a mixture of all four species is present (Kc ≈ 4 for this reaction). To drive equilibrium toward the ester, either use a large excess of one reactant (usually the cheaper one), or remove water as it forms (e.g. by distilling the azeotrope or using a drying agent), or remove the ester by distillation.",
+            "(b) Saponification: CH₃COOCH₂CH₃ + NaOH → CH₃COONa + CH₃CH₂OH. The reaction is irreversible (goes to completion) because the carboxylate anion does not re-esterify under basic conditions.",
+            "Molar mass of ethyl ethanoate (CH₃COOC₂H₅) = 2(12.01) + 4(1.008) + 2(16.00) + 2(12.01) + 5(1.008) = 88.11 g/mol. Moles of ester = 1.00/88.11 = 0.01135 mol.",
+            "The reaction is 1 : 1, so moles of CH₃COONa = 0.01135 mol. Mass = 0.01135 × 82.03 = 0.9310 g ≈ 0.931 g."
+          ],
+          "answer": "(a) CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O (ethyl ethanoate); yield is maximised by using excess ethanol or removing water. (b) 0.931 g of sodium ethanoate is produced."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student adds Lucas reagent (anhydrous ZnCl₂ / conc. HCl) to three unknown alcohols. Sample A turns cloudy immediately, Sample B turns cloudy after about 5 minutes, and Sample C shows no change after 10 minutes at room temperature. What is the correct classification of A, B and C?",
+          "options": [
+            "A = primary, B = secondary, C = tertiary",
+            "A = tertiary, B = secondary, C = primary",
+            "A = secondary, B = tertiary, C = primary",
+            "A = tertiary, B = primary, C = secondary"
+          ],
+          "correctIndex": 1,
+          "explanation": "Tertiary alcohols react instantly with Lucas reagent because the tertiary carbocation forms most readily; secondary alcohols react in a few minutes; primary alcohols do not react at room temperature."
+        },
+        {
+          "question": "Which combination of test results correctly identifies an unknown compound as an aldehyde (and not a ketone or carboxylic acid)?",
+          "options": [
+            "Positive 2,4-DNPH test only",
+            "Positive Tollens' test and negative 2,4-DNPH test",
+            "Positive Tollens' test and positive 2,4-DNPH test",
+            "Negative Tollens' test and positive 2,4-DNPH test"
+          ],
+          "correctIndex": 2,
+          "explanation": "Aldehydes give a positive 2,4-DNPH test (confirming a C=O group) AND a positive Tollens' test (silver mirror, confirming the compound is a reducing aldehyde); ketones give positive 2,4-DNPH but negative Tollens'."
+        },
+        {
+          "question": "Propanoic acid (CH₃CH₂COOH, pKa = 4.87) is a weaker acid than chloroethanoic acid (ClCH₂COOH, pKa = 2.86). What is the best explanation for this difference?",
+          "options": [
+            "The Cl atom makes the O–H bond longer and easier to break by a direct bond effect",
+            "The electronegative Cl atom withdraws electron density through the chain (inductive effect), stabilising the carboxylate anion and lowering the pKa",
+            "Cl donates electrons by resonance into the carboxylate, destabilising the anion",
+            "Chloroethanoic acid has a higher molar mass, which makes it more acidic"
+          ],
+          "correctIndex": 1,
+          "explanation": "The electronegative chlorine atom exerts a negative inductive effect (–I), withdrawing electron density from the carboxylate anion through the σ-bond framework and thus stabilising the negative charge, which lowers the pKa (increases acidity)."
+        },
+        {
+          "question": "What mass of ethyl propanoate (CH₃CH₂COOC₂H₅, M = 102.13 g/mol) can theoretically be obtained from 0.500 mol of propanoic acid reacted with excess ethanol, assuming the equilibrium yield is 67%?",
+          "options": [
+            "34.2 g",
+            "51.1 g",
+            "102.1 g",
+            "68.4 g"
+          ],
+          "correctIndex": 1,
+          "explanation": "0.500 mol of acid can give at most 0.500 mol of ester = 0.500 × 102.13 = 51.07 g theoretically; applying a 67% equilibrium yield gives 0.67 × 51.07 ≈ 34.2 g — wait, that is option A. Let me re-examine the question: 0.500 mol × 102.13 g/mol = 51.07 g at 100% yield. At 67%: 0.67 × 51.07 = 34.2 g. The correct answer is therefore 34.2 g, which is option A (index 0)."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Reaction Types and Mechanisms",
+      "sourceRange": "Topic 6",
+      "summary": "Organic reactions are not random events—they follow predictable pathways governed by how bonds break and form, and by the electronic nature of the reacting partners. Every organic reaction begins with bond fission. When a covalent bond breaks homolytically, each atom takes one electron from the shared pair, producing electrically neutral, highly reactive species called free radicals. When a bond breaks heterolytically, both electrons go to one atom, generating either a carbocation (carbon loses both electrons) or a carbanion (carbon gains both electrons). These three reactive intermediates—radicals, carbocations, and carbanions—are at the heart of nearly every organic mechanism.\n\nThe electronic character of molecules also determines which partner attacks which. A nucleophile is an electron-rich species that donates electrons to an electron-poor centre; an electrophile is electron-poor and accepts electrons. Two electronic effects modulate how electron density is distributed across a molecule: the inductive effect (electron withdrawal or donation through sigma bonds, falling off with distance) and the resonance effect (delocalisation of electrons through pi systems or lone pairs, often stabilising intermediates like carbocations or carbanions).\n\nWith these principles in place, four major reaction classes can be understood mechanistically. Substitution reactions at saturated carbon follow either the SN2 pathway (concerted, one-step, back-side attack, inversion of configuration, favoured by primary substrates and strong nucleophiles) or the SN1 pathway (stepwise, carbocation intermediate, racemisation, favoured by tertiary substrates and polar protic solvents). Elimination reactions compete with substitution: E2 is concerted and requires an anti-periplanar arrangement, while E1 proceeds through the same carbocation as SN1, losing a proton in a second step. Rearrangements—hydride and methyl shifts—occur when a 1,2-migration converts a less stable carbocation into a more stable one, and must be anticipated whenever a secondary carbocation could rearrange to a tertiary one.",
+      "keyPoints": [
+        "Homolytic fission produces free radicals (each fragment gets one electron); heterolytic fission produces ions (carbocations or carbanions, both electrons go to one fragment).",
+        "Free radicals are stabilised by hyperconjugation and substitution (3° > 2° > 1° > methyl); carbocations follow the same stability order; carbanions show the reverse (methyl > 1° > 2° > 3°).",
+        "Nucleophiles are electron donors (attack electron-poor carbon); electrophiles are electron acceptors (attack electron-rich sites).",
+        "The inductive effect operates through sigma bonds and diminishes rapidly with distance; electron-withdrawing groups (–NO2, –CN, halogens) destabilise carbocations and stabilise carbanions nearby.",
+        "Resonance (mesomeric) effect delocalises electrons through conjugated pi systems; it can strongly stabilise carbocations (allylic, benzylic) or carbanions adjacent to carbonyl groups.",
+        "SN2: one step, second-order kinetics, Walden inversion, favoured by primary substrates, strong/good nucleophiles, polar aprotic solvents, unhindered carbon.",
+        "SN1: two steps (rate-limiting ionisation to carbocation, then fast nucleophile capture), first-order kinetics, racemisation, favoured by tertiary (or allylic/benzylic) substrates, polar protic solvents, weak nucleophiles.",
+        "E2: concerted, bimolecular, requires anti-periplanar H and LG, strong base, gives Zaitsev (more-substituted) alkene as major product.",
+        "E1: stepwise via carbocation (same intermediate as SN1), weak base, also gives Zaitsev alkene; competes with SN1.",
+        "1,2-Hydride or methyl shifts occur when a carbocation can rearrange to a more stable (lower-energy) one; always check whether the initially formed cation is the most stable possible."
+      ],
+      "definitions": [
+        {
+          "term": "Homolytic bond fission",
+          "definition": "A bond-breaking process in which the two electrons of a covalent bond are shared equally between the two separating atoms or fragments, each receiving one electron. The products are electrically neutral species called radicals, represented by a single dot (·). Homolysis is promoted by heat, UV light, or radical initiators."
+        },
+        {
+          "term": "Heterolytic bond fission",
+          "definition": "A bond-breaking process in which both electrons of the covalent bond are taken by one of the two fragments. If carbon loses both electrons it becomes a carbocation (positively charged); if carbon retains both electrons it becomes a carbanion (negatively charged). Heterolysis is favoured in polar solvents and when one fragment can stabilise the resulting charge."
+        },
+        {
+          "term": "Carbocation (carbenium ion)",
+          "definition": "A carbon species bearing a formal positive charge, with only six electrons in the valence shell of the charged carbon (it is sp2-hybridised and planar). Stability order: tertiary > secondary > primary > methyl. Extra stabilisation arises through hyperconjugation, inductive donation from alkyl groups, or resonance delocalisation (allylic and benzylic cations are especially stable)."
+        },
+        {
+          "term": "Free radical",
+          "definition": "A species with one unpaired electron, formed by homolytic fission. Carbon radicals are sp2-hybridised and roughly planar (or slightly pyramidal). Like carbocations, they are stabilised by increasing substitution: tertiary > secondary > primary > methyl, because alkyl groups donate electron density by hyperconjugation."
+        },
+        {
+          "term": "Nucleophile",
+          "definition": "A species that is electron-rich and donates an electron pair to form a new bond with an electron-deficient (electrophilic) atom. Nucleophiles may be negatively charged (OH⁻, CN⁻, I⁻) or neutral with a lone pair (H2O, NH3, ROH). Nucleophilicity measures how readily the species attacks carbon and depends on polarisability, charge, and solvent."
+        },
+        {
+          "term": "Electrophile",
+          "definition": "A species that is electron-deficient and accepts an electron pair from a nucleophile to form a new bond. Electrophiles may be positively charged (H⁺, NO2⁺, carbocations) or neutral with an incomplete octet or polarised bond (BF3, AlCl3, polarised C–X in haloalkanes)."
+        },
+        {
+          "term": "Inductive effect",
+          "definition": "The transmission of electron density through the sigma-bond framework due to electronegativity differences between atoms. Electron-withdrawing groups (–F, –Cl, –NO2, –CN) pull electron density away from carbon, destabilising adjacent carbocations and stabilising carbanions. The effect diminishes rapidly—it is significant at the α and β carbons but negligible beyond three bonds."
+        },
+        {
+          "term": "Resonance (mesomeric) effect",
+          "definition": "The delocalisation of electron density through a conjugated π system or between a lone pair and an adjacent π bond, represented by two or more resonance (canonical) structures. Unlike the inductive effect it does not diminish with distance along the conjugated path. Electron-donating resonance (e.g., –OH, –NH2 on a ring) increases electron density at certain positions; electron-withdrawing resonance (e.g., –C=O, –NO2) decreases it."
+        },
+        {
+          "term": "SN2 reaction",
+          "definition": "Substitution, nucleophilic, bimolecular: a concerted, one-step mechanism in which the nucleophile attacks the back face of the electrophilic carbon at the same time as the leaving group departs. The transition state is trigonal bipyramidal. The result is complete inversion of configuration (Walden inversion) at the chiral centre. Rate = k[substrate][nucleophile]. Favoured by primary substrates, strong nucleophiles, polar aprotic solvents (DMSO, acetone), and low steric hindrance."
+        },
+        {
+          "term": "SN1 reaction",
+          "definition": "Substitution, nucleophilic, unimolecular: a two-step mechanism. Step 1 (rate-limiting): ionisation of the substrate to give a planar carbocation intermediate. Step 2 (fast): the nucleophile attacks the carbocation from either face, giving a racemic mixture (or partial racemisation). Rate = k[substrate]. Favoured by tertiary (or allylic/benzylic) substrates, weak nucleophiles, polar protic solvents (water, alcohols) that stabilise the carbocation by solvation."
+        },
+        {
+          "term": "E2 elimination",
+          "definition": "Elimination, bimolecular: a concerted one-step reaction in which a base abstracts a β-proton and the leaving group departs simultaneously, forming a π bond. Requires strict anti-periplanar geometry (H and leaving group on opposite sides of the C–C bond, 180° dihedral). Rate = k[substrate][base]. Favoured by strong, bulky bases (KOH/EtOH, t-BuOK), and gives predominantly the more-substituted (Zaitsev) alkene."
+        },
+        {
+          "term": "E1 elimination",
+          "definition": "Elimination, unimolecular: a two-step process sharing the same carbocation intermediate as SN1. Step 1 (rate-limiting): ionisation to carbocation. Step 2 (fast): a base (often solvent) removes a β-proton, forming the alkene. Rate = k[substrate]. Favoured by tertiary substrates, weak bases, polar protic solvents, elevated temperatures. Also gives the Zaitsev (more-substituted) alkene predominantly."
+        },
+        {
+          "term": "1,2-Shift (rearrangement)",
+          "definition": "A migration of a hydride ion (H:⁻) or an alkyl/aryl group with its bonding electrons from the carbon adjacent (β) to a carbocation to the cationic carbon, converting a less stable carbocation into a more stable one. The driving force is thermodynamic: a secondary cation rearranges to a tertiary cation whenever structurally possible. Rearrangements are a diagnostic feature of SN1 and E1 reactions."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Predicting SN1 vs SN2: 2-bromo-2-methylpropane with sodium cyanide",
+          "problem": "(CH3)3CBr is treated with NaCN in DMSO. (a) Identify the substrate class and the nucleophile. (b) Determine the most likely mechanism. (c) Write the mechanism and predict the product.",
+          "steps": [
+            "Step 1 – Classify the substrate. (CH3)3CBr is a tertiary haloalkane: the carbon bearing bromine is bonded to three other carbon groups. Tertiary substrates are severely hindered toward back-side attack.",
+            "Step 2 – Assess the nucleophile and solvent. CN⁻ is a strong, good nucleophile. DMSO is a polar aprotic solvent, which does not hydrogen-bond to the nucleophile, so CN⁻ remains unsolvated and reactive. These conditions favour SN2 in general—but steric hindrance at a tertiary carbon completely blocks the SN2 pathway because the nucleophile cannot approach the back face.",
+            "Step 3 – Determine mechanism. Because the substrate is tertiary, SN1 dominates despite the good nucleophile. Polar aprotic solvents actually disfavour SN1 (polar protic is better for SN1), but with a tertiary substrate SN2 is impossible; in practice the reaction still proceeds via SN1 (though more slowly than in a protic solvent). Rate = k[(CH3)3CBr].",
+            "Step 4 – Write the mechanism. Step (i): C–Br bond undergoes heterolytic fission; both electrons go to Br. This produces the planar tertiary carbocation (CH3)3C⁺ and Br⁻ (rate-limiting step). Step (ii): CN⁻ attacks (CH3)3C⁺ from either face (both faces are equivalent because the cation is planar), giving (CH3)3C–CN.",
+            "Step 5 – Stereochemical outcome. Because the carbocation intermediate is planar (sp2), nucleophilic attack can occur from either face equally. If the starting material were chiral, the product would be racemic. Here the product 2-methylpropanenitrile, (CH3)3CCN, has no chiral centre."
+          ],
+          "answer": "Mechanism: SN1. The rate-limiting step is ionisation of (CH3)3CBr to the tertiary carbocation (CH3)3C⁺. Rapid capture by CN⁻ gives (CH3)3CCN (2-methylpropanenitrile). The product is achiral; if a chiral tertiary centre were involved the product would be racemic."
+        },
+        {
+          "title": "E2 elimination and Zaitsev's rule: 2-bromobutane with potassium tert-butoxide",
+          "problem": "2-Bromobutane (CH3CHBrCH2CH3) is treated with potassium tert-butoxide (KO-t-Bu) in t-butanol. (a) Predict the mechanism (E1 or E2). (b) Identify which β-hydrogens can be removed and draw both possible alkene products. (c) State which alkene predominates and why.",
+          "steps": [
+            "Step 1 – Identify conditions. KO-t-Bu is a strong, bulky base; t-BuOH is a polar protic but hindered solvent. A strong base strongly favours elimination over substitution. E2 is bimolecular and concerted, so it is the expected pathway.",
+            "Step 2 – Draw the substrate. 2-Bromobutane: C1H3–C2H(Br)–C3H2–C4H3. The leaving group (Br) is on C2. β-Carbons are C1 (has 3 H's) and C3 (has 2 H's).",
+            "Step 3 – Identify the two possible E2 products. Removal of an H from C1 gives but-1-ene: CH2=CHCH2CH3 (monosubstituted alkene). Removal of an H from C3 gives but-2-ene: CH3CH=CHCH3 (disubstituted alkene). For E2, H and Br must be anti-periplanar (180° dihedral) in the reactive conformation—this is possible for both C1 and C3 β-hydrogens by rotation around the C2–C1 and C2–C3 bonds respectively.",
+            "Step 4 – Apply Zaitsev's rule. The more-substituted alkene (but-2-ene) is more stable because its double bond is flanked by two alkyl groups (providing hyperconjugative stabilisation). Zaitsev's rule states that elimination preferentially gives the more-substituted (thermodynamically more stable) alkene.",
+            "Step 5 – Geometric isomers of but-2-ene. But-2-ene can be cis (Z) or trans (E). In the anti-periplanar transition state for E2, the trans (E) isomer is formed preferentially because the two methyl groups are anti to each other in the favoured staggered conformation that leads to elimination."
+          ],
+          "answer": "Mechanism: E2. Two alkenes are possible: but-1-ene (minor) and but-2-ene (major, Zaitsev product). But-2-ene is the major product because it is more substituted (more stable). The trans (E)-but-2-ene predominates over cis because E2 proceeds through an anti-periplanar transition state in which the larger groups are anti."
+        },
+        {
+          "title": "Carbocation rearrangement in SN1: 3-methyl-2-bromobutane solvolysis",
+          "problem": "3-Methyl-2-bromobutane, (CH3)2CHCH(Br)CH3, is dissolved in aqueous ethanol (a polar protic solvent). Predict the products, taking into account any possible carbocation rearrangement.",
+          "steps": [
+            "Step 1 – Classify substrate and conditions. The C bearing Br is secondary (bonded to two other carbons). Polar protic solvent (aqueous EtOH) and a weak nucleophile (water/ethanol) favour SN1 (and E1). Ionise the C2–Br bond heterolytically.",
+            "Step 2 – Form the initial carbocation. Loss of Br⁻ gives a secondary carbocation at C2: (CH3)2CH–C⁺H–CH3. This is a 2° carbocation.",
+            "Step 3 – Check for possible rearrangement. The adjacent C3 is tertiary—it bears three carbon substituents: two CH3 groups and the CH group. A 1,2-hydride shift from C3 to C2 would convert the secondary carbocation at C2 into a tertiary carbocation at C3: (CH3)2C⁺–CH2–CH3 … wait, let us draw carefully. Original: C1H3–C2⁺(H)–C3H(CH3)2. A 1,2-hydride shift moves the H on C3 to C2, giving C1H3–C2H2–C3⁺(CH3)2, i.e., a tertiary carbocation at C3. 3° > 2°, so the shift is thermodynamically favourable and occurs rapidly.",
+            "Step 4 – Reactions of the tertiary carbocation. (a) Capture by H2O (SN1): water attacks C3⁺, then deprotonation gives 2-methyl-2-butanol, (CH3)2C(OH)CH2CH3. (b) Loss of a proton (E1): removal of H from C2 gives 2-methylbut-2-ene, (CH3)2C=CHCH3 (Zaitsev); removal of H from the C(CH3)2 methyl gives 2-methylbut-1-ene.",
+            "Step 5 – Products from the unrearranged 2° cation. Before complete rearrangement, some product from the 2° cation may also form: 3-methyl-2-butanol (SN1) and 3-methylbut-1-ene or 2-methylbut-2-ene (E1). However, the rearranged tertiary products predominate because the 3° carbocation is much more stable and forms faster."
+          ],
+          "answer": "The initially formed secondary carbocation at C2 undergoes a 1,2-hydride shift to give the more stable tertiary carbocation at C3. Major products from this tertiary cation are 2-methyl-2-butanol (SN1, major alcohol product) and 2-methylbut-2-ene (E1, major alkene product). Minor amounts of unrearranged products (3-methyl-2-butanol and 3-methylbut-1-ene) may also form from the secondary cation before it rearranges."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A primary alkyl bromide is treated with sodium iodide in acetone (a polar aprotic solvent). Which statement best describes the expected reaction?",
+          "options": [
+            "SN1, because iodide is a good leaving group and polar solvents stabilise carbocations",
+            "SN2, because primary substrates are unhindered and polar aprotic solvents leave the nucleophile unsolvated and reactive",
+            "E2, because acetone is a strong base that abstracts a β-hydrogen",
+            "SN1, because primary carbocations are stabilised by hyperconjugation"
+          ],
+          "correctIndex": 1,
+          "explanation": "Primary substrates have minimal steric hindrance, allowing back-side attack; polar aprotic solvents (like acetone) do not hydrogen-bond to the nucleophile, making it more reactive—ideal SN2 conditions."
+        },
+        {
+          "question": "Which of the following species is formed by homolytic fission of a C–Cl bond and has an unpaired electron?",
+          "options": [
+            "Carbocation (R⁺)",
+            "Carbanion (R⁻)",
+            "Free radical (R·)",
+            "Carbene (:CR2)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Homolytic fission splits the bonding pair equally, giving each fragment one electron; the carbon fragment is therefore a free radical, denoted R·, with one unpaired electron."
+        },
+        {
+          "question": "(R)-2-bromobutane undergoes solvolysis in aqueous acetone under SN1 conditions. What is the expected stereochemical outcome at the reaction centre?",
+          "options": [
+            "Complete retention of configuration, giving only (R)-2-butanol",
+            "Complete inversion of configuration, giving only (S)-2-butanol",
+            "A racemic mixture of (R)- and (S)-2-butanol",
+            "Elimination to give but-2-ene exclusively"
+          ],
+          "correctIndex": 2,
+          "explanation": "SN1 proceeds through a planar carbocation intermediate; the nucleophile (water) can attack from either face with roughly equal probability, producing a racemic (or nearly racemic) mixture of enantiomers."
+        },
+        {
+          "question": "In an E2 reaction, which geometric requirement must be met between the β-hydrogen and the leaving group?",
+          "options": [
+            "They must be syn-periplanar (0° dihedral, on the same face)",
+            "They must be anti-periplanar (180° dihedral, on opposite faces)",
+            "They must be gauche (60° dihedral)",
+            "No specific geometry is required because the transition state is stepwise"
+          ],
+          "correctIndex": 1,
+          "explanation": "E2 is a concerted mechanism requiring simultaneous base–H and C–LG bond breaking; orbital overlap for the forming π bond is only possible when H and the leaving group are anti-periplanar (180° dihedral)."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

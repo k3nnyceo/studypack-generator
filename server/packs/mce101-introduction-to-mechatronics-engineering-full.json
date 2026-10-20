@@ -1,0 +1,825 @@
+{
+  "title": "MCE 101 — Introduction to Mechatronics Engineering (full course)",
+  "course": "MCE 101 Introduction to Mechatronics Engineering",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the six foundational topics of mechatronics engineering: what mechatronics is and its history, the sensors and transducers that measure physical quantities, the actuators that produce motion, signal conditioning and microcontroller integration, control system theory and feedback, and finally applications across industries with the design process. Together these modules build a complete picture of how mechanical, electrical, electronic, control and computer systems integrate to create intelligent automated devices.",
+  "modules": [
+    {
+      "title": "What Mechatronics Is: Definition, History and System Architecture",
+      "sourceRange": "Topic 1",
+      "summary": "Mechatronics is an engineering discipline that deliberately integrates mechanical engineering, electrical and electronic engineering, control engineering, and computer engineering into a single, unified design philosophy. The word was coined in 1969 by Tetsuro Mori, a senior engineer at Yaskawa Electric Corporation in Japan, who fused the words 'mechanics' and 'electronics' to describe the company's precision servo technology. The field expanded rapidly as affordable microprocessors appeared in the 1970s and 1980s, making it practical to embed computation directly inside mechanical systems. Today, mechatronics underlies virtually every intelligent product, from household appliances to aircraft.\n\nThe power of mechatronics lies in synergy: when the four disciplines are designed together from the start, each can be simplified or enhanced by the others. A mechanical structure can be made lighter if a control algorithm compensates for its flexibility; a motor can be made smaller if software prevents it from being overloaded. This is why modern products—washing machines, anti-lock brakes, camera autofocus systems, robot arms—are best understood as integrated mechatronic systems rather than separate subsystems bolted together.\n\nEvery mechatronic system can be described with a standard block diagram. A reference input (a desired speed, temperature, or position) is compared with a measured feedback signal from a sensor. The difference—the error—is processed by a digital controller, usually a microcontroller or microprocessor, which runs a control algorithm and sends commands to one or more actuators. The actuators act on the physical plant (the mechanical system), producing the actual output. A feedback path continuously measures that output and returns it to the controller, closing the loop and enabling automatic error correction.",
+      "keyPoints": [
+        "Mechatronics is the synergistic integration of mechanical, electrical/electronic, control, and computer engineering—not merely four disciplines placed side by side.",
+        "The term was coined by Tetsuro Mori at Yaskawa Electric, Japan, in 1969, originally to describe precision servo systems.",
+        "Affordable microprocessors from the 1970s onward drove rapid growth of the discipline by making embedded computation economical.",
+        "Classic examples: washing machine (motor + level/temperature sensors + embedded controller), car ABS (wheel-speed sensors + solenoid valves + ECU), camera autofocus (image sensor + DSP + voice-coil motor), robot arm (multiple motors + encoders + computer controller).",
+        "The mechatronic block diagram has five elements: reference input, controller, actuator, plant (mechanical system), and sensor feedback path.",
+        "Feedback enables error correction: the controller compares actual output to desired output and adjusts actuator commands automatically.",
+        "Synergy means the integrated design produces capability that none of the four disciplines could achieve alone.",
+        "Mechatronic design requires all disciplines to be considered simultaneously from the earliest design stage, not added sequentially."
+      ],
+      "definitions": [
+        {
+          "term": "Mechatronics",
+          "definition": "An engineering discipline that synergistically combines mechanical engineering, electrical and electronic engineering, control engineering, and computer engineering to design intelligent products and systems whose function emerges from the coordinated interaction of all four disciplines."
+        },
+        {
+          "term": "Synergistic integration",
+          "definition": "A design approach in which multiple engineering disciplines are combined from the outset so that their interaction produces a system capability greater than the sum of separately designed parts—for example, using a control algorithm to compensate for mechanical compliance, allowing a lighter structure."
+        },
+        {
+          "term": "Plant",
+          "definition": "In control and mechatronics terminology, the physical mechanical (or electromechanical) system being controlled—such as a robot arm, a vehicle, or a drum in a washing machine—whose behaviour the actuators and controller are designed to govern."
+        },
+        {
+          "term": "Sensor",
+          "definition": "A device that detects a physical quantity (position, temperature, pressure, speed, etc.) and converts it into an electrical signal that can be processed by the controller. In the block diagram it forms the feedback path."
+        },
+        {
+          "term": "Actuator",
+          "definition": "A device that converts an electrical command signal from the controller into a physical action—such as force, torque, or fluid flow—to drive the mechanical plant. Examples include electric motors, solenoid valves, and hydraulic cylinders."
+        },
+        {
+          "term": "Controller",
+          "definition": "The decision-making unit of a mechatronic system, typically a microcontroller or microprocessor, which receives the error signal (difference between desired and actual output), executes a control algorithm, and generates command signals for the actuators."
+        },
+        {
+          "term": "Feedback",
+          "definition": "The process of measuring the actual output of a system with a sensor and returning that measurement to the controller input, so that any difference between the desired and actual output (the error) can be detected and corrected automatically."
+        },
+        {
+          "term": "Block diagram",
+          "definition": "A schematic representation of a system in which each functional element (reference input, controller, actuator, plant, sensor) is drawn as a labelled block and the flow of signals between elements is shown with arrows, making the system's information and energy flows easy to analyse."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying mechatronic subsystems in a washing machine",
+          "problem": "A household washing machine fills with water, heats it, rotates the drum at different speeds for washing and spinning, then drains and stops. Identify the four mechatronics engineering disciplines present and give one concrete component that belongs to each.",
+          "steps": [
+            "Mechanical engineering: The rotating drum, drive shaft or belt, water pump impeller, door seal, and bearings are purely mechanical components that contain, move, and drain water and clothes. Their design involves stress analysis, materials selection, and fluid mechanics.",
+            "Electrical and electronic engineering: An AC induction motor or brushless DC motor drives the drum. Power electronics—triacs for simple machines or a variable-frequency inverter drive for modern ones—control the voltage and frequency supplied to the motor, setting its speed.",
+            "Control engineering: A programmed control strategy manages the wash cycle. Water-level control uses a pressure sensor in a closed feedback loop to stop the inlet valve at the correct level. Temperature control uses a thermistor in a feedback loop to switch the heating element. Spin speed is ramped up gradually using a speed-control loop to avoid imbalance.",
+            "Computer engineering: An embedded 8-bit or 16-bit microcontroller stores the wash programs in flash memory, reads digital and analogue inputs from the door-lock switch, water-level sensor, thermistor, and tachometer, then outputs timed commands to the motor driver, inlet solenoid valve, drain pump, and heater relay."
+          ],
+          "answer": "All four disciplines are present and inseparable. The washing machine is a mechatronic system because its useful function—reliably cleaning clothes while conserving water and energy—emerges only from the coordinated interaction of the mechanical drum assembly, the motor and power electronics, the feedback control loops, and the embedded microcontroller running the wash program."
+        },
+        {
+          "title": "Tracing signal flow in a car Anti-lock Braking System (ABS)",
+          "problem": "A car travelling at 80 km/h applies maximum braking on a wet road. Trace the signal flow through the ABS mechatronic system step by step, identifying each element of the block diagram, and explain why the system prevents wheel lock-up.",
+          "steps": [
+            "Reference input: The driver pressing the brake pedal defines the desired outcome—maximum braking force without the wheel locking and sliding.",
+            "Sensing (feedback path): Each wheel carries a magnetic reluctance or Hall-effect wheel-speed sensor that generates a pulse train proportional to wheel rotational speed (a typical reluctance ring has 48 teeth, producing 48 pulses per revolution). The ABS Electronic Control Unit (ECU) samples all four sensors at approximately 1 ms intervals.",
+            "Signal processing inside the controller: The ECU converts pulse frequency to wheel speed in km/h. It then calculates the slip ratio for each wheel: slip ratio = (vehicle reference speed − wheel speed) / vehicle reference speed. A slip ratio above roughly 0.15–0.20 indicates the wheel is approaching lock-up, where braking force actually decreases and steering control is lost.",
+            "Control decision: When a wheel's slip ratio exceeds the threshold, the ECU outputs an electrical command signal to reduce hydraulic brake pressure on that wheel. When slip falls back below the threshold the ECU commands pressure to increase again.",
+            "Actuation: Electro-hydraulic solenoid valves (one inlet and one outlet valve per wheel) modulate the hydraulic pressure in the brake caliper. This pressure-reduce / pressure-hold / pressure-increase cycle repeats at 3–15 Hz, far faster than a human driver can pump the brakes.",
+            "Output and closed-loop correction: The wheel speed recovers, slip returns to the optimal range (≈0.10–0.20) where both braking force and lateral (steering) force are near their maximum values. The sensor continuously feeds updated wheel speed back to the ECU, completing the closed loop."
+          ],
+          "answer": "The ABS is a closed-loop mechatronic system. Automatic feedback (wheel-speed sensor → ECU → solenoid valves → wheel speed) operates in milliseconds, keeping each tyre's slip at the value that maximises braking and steering force—something a human driver cannot replicate manually. Without the integration of mechanical brakes, electronic sensors, hydraulic actuators, and a fast digital controller, this performance would be impossible."
+        },
+        {
+          "title": "Calculating lens acceleration in a camera autofocus system",
+          "problem": "A digital camera uses a voice-coil motor (VCM) to move its lens assembly along an 8 mm travel for autofocus. The VCM produces a maximum force of 0.05 N and the moving lens assembly has a mass of 4 g. (a) Identify each element of the mechatronic block diagram for this system. (b) Calculate the maximum linear acceleration the VCM can give the lens assembly, ignoring friction. (c) Explain in one paragraph why this constitutes a mechatronic system.",
+          "steps": [
+            "(a) Block diagram elements — Sensor/input: The CMOS image sensor captures successive image frames; the contrast-detection autofocus (CDAF) algorithm measures high-frequency spatial content in a region of each frame as the sharpness metric—this serves as both the sensing and the error signal (low contrast = large error from 'perfectly focused'). Controller: The camera's digital signal processor (DSP) runs the CDAF algorithm, determines in which direction and by how much to move the lens, and generates a pulse-width-modulated (PWM) drive signal. Actuator: The voice-coil motor converts the PWM electrical signal into a proportional linear force on the lens carrier. Plant: The optical lens and its mechanical carrier move along precision linear guides. Output: The lens position that maximises image contrast—the sharpest possible focus. Feedback: The DSP continuously re-evaluates image sharpness after each lens step and adjusts the drive signal accordingly.",
+            "(b) Applying Newton's second law: F = m × a, so a = F ÷ m. Convert mass to SI units: m = 4 g = 0.004 kg. Substitute values: a = 0.05 N ÷ 0.004 kg = 12.5 m/s².",
+            "(c) Why it is mechatronic: The mechanical lens and precision track provide movement but have no means to judge focus. The electronic CMOS sensor captures image data but cannot move the lens. The DSP can run the algorithm but has nothing to drive without the actuator. The VCM can exert force but has no target position without the control algorithm. Only when all four elements—mechanical optics, electronic sensing, digital computation, and electromagnetic actuation—are designed as an integrated system does reliable automatic focus become possible."
+          ],
+          "answer": "(b) The maximum linear acceleration of the lens assembly is 12.5 m/s². (c) The autofocus system is mechatronic because correct function requires the simultaneous, integrated design of mechanics (lens and guide), electronics (CMOS image sensor), computer engineering (DSP and CDAF algorithm), and actuation (voice-coil motor)—none of the four alone can achieve automatic focus."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Who coined the term 'mechatronics', and in which year?",
+          "options": [
+            "James Watt, 1769",
+            "Tetsuro Mori, 1969",
+            "Norbert Wiener, 1948",
+            "Nikola Tesla, 1891"
+          ],
+          "correctIndex": 1,
+          "explanation": "Tetsuro Mori, an engineer at Yaskawa Electric Corporation in Japan, coined the word 'mechatronics' in 1969 by combining 'mechanics' and 'electronics' to describe precision servo technology."
+        },
+        {
+          "question": "Which statement best describes what 'synergy' means in the context of mechatronics?",
+          "options": [
+            "Using mechanical components to replace electronic ones wherever possible to reduce cost",
+            "Designing each of the four engineering disciplines independently and then assembling the results",
+            "Integrating mechanical, electrical, control and computer engineering from the outset so the combined system outperforms separately designed parts",
+            "Ensuring that one engineering discipline—usually control—dominates all design decisions"
+          ],
+          "correctIndex": 2,
+          "explanation": "Synergy in mechatronics means the four disciplines are deliberately integrated from the start, so their interaction yields capability that no discipline could achieve in isolation."
+        },
+        {
+          "question": "In the standard mechatronic system block diagram, what is the primary role of the feedback path?",
+          "options": [
+            "To supply electrical power from the source to the actuator",
+            "To convert the analogue sensor signal into a digital number for storage",
+            "To return a measurement of the actual output to the controller so it can compute the error and generate a corrective command",
+            "To store the reference input value in the controller's memory between control cycles"
+          ],
+          "correctIndex": 2,
+          "explanation": "The feedback path carries the sensor's measurement of the actual output back to the controller input, where it is compared with the desired reference to produce an error signal that drives corrective action."
+        },
+        {
+          "question": "A washing machine, a car ABS, a camera autofocus system, and a robot arm are all classified as mechatronic systems. What single characteristic do all four share that justifies this classification?",
+          "options": [
+            "They all use pneumatic actuators to produce mechanical motion",
+            "They all require continuous human intervention to correct errors during operation",
+            "They all integrate mechanical action, electronic sensing, and computer-based control into one coordinated system whose function depends on all parts working together",
+            "They all use the same family of 8-bit microcontroller as their embedded processor"
+          ],
+          "correctIndex": 2,
+          "explanation": "The defining feature shared by all mechatronic systems is the integration of mechanical, electronic, and computer/control elements into a unified design—not any specific technology choice or the need for human involvement."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Sensors and Transducers: Measurement Principles and Types",
+      "sourceRange": "Topic 2",
+      "summary": "A mechatronic system can only respond intelligently to the world if it can first measure it. Sensors are the devices that perform this measurement: they detect a physical quantity such as temperature, force, displacement or light and convert it into an electrical signal that a control system can process. The word transducer is broader and refers to any device that converts energy from one form to another; all sensors are transducers, but not every transducer is used purely for sensing. Understanding this distinction matters because the same physical principle—for example, the change in electrical resistance with temperature—can be exploited in a sensor (a thermistor reading temperature) or in an actuator (a resistive heater generating heat).\n\nBefore selecting or using a sensor, an engineer must understand its performance characteristics. Terms such as sensitivity, resolution, accuracy, linearity and response time describe how faithfully and usefully a sensor converts a physical quantity into a readable signal. These characteristics determine whether a sensor is fit for a particular task: a sensor with excellent sensitivity but poor linearity may be unusable in a precision measurement system, while one with a slow response time cannot track rapidly changing quantities.\n\nSensors are classified by the quantity they measure. Displacement and position sensors—potentiometers, LVDTs and encoders—detect where something is or how far it has moved. Temperature sensors (thermocouples, thermistors and RTDs) each exploit a different physical relationship between temperature and an electrical property. Pressure sensors convert mechanical force per unit area into electrical signals, strain gauges measure tiny deformations of structural members, and photodetectors convert light intensity into current or voltage. Each type has characteristic advantages and limitations that guide the engineer's choice of sensor for a given application.",
+      "keyPoints": [
+        "A sensor detects a physical quantity and converts it to an electrical signal; a transducer converts energy between any two forms, making all sensors transducers but not vice versa.",
+        "Sensitivity is the ratio of the change in output signal to the change in the measured input quantity; a higher sensitivity means a larger output change for the same physical change.",
+        "Resolution is the smallest change in the input quantity that the sensor can detect and report; it sets the lower limit of measurement discrimination.",
+        "Accuracy describes how close a sensor's reading is to the true value; it is distinct from resolution (a sensor can resolve tiny changes yet still read the wrong absolute value if poorly calibrated).",
+        "Linearity describes how closely the sensor's input-output relationship follows a straight line; good linearity simplifies calibration and signal processing.",
+        "A potentiometer gives an analogue voltage proportional to wiper position; an LVDT gives an AC voltage proportional to core displacement with no mechanical contact; an incremental encoder gives digital pulses proportional to angle rotated.",
+        "Thermocouples generate a small voltage via the Seebeck effect, thermistors change resistance rapidly (high sensitivity, nonlinear), and RTDs change resistance slowly and linearly with temperature—each suiting different accuracy and range requirements.",
+        "A strain gauge exploits the change in electrical resistance when a conductor is mechanically deformed; the gauge factor relates the fractional resistance change to the applied strain."
+      ],
+      "definitions": [
+        {
+          "term": "Sensor",
+          "definition": "A device that detects a specific physical quantity (such as displacement, temperature, pressure or light) and converts it into an electrical signal suitable for measurement or control purposes."
+        },
+        {
+          "term": "Transducer",
+          "definition": "Any device that converts energy from one physical form to another. Sensors are a subset of transducers used specifically for measurement; actuators are transducers used to produce motion or force."
+        },
+        {
+          "term": "Sensitivity",
+          "definition": "The ratio of the change in a sensor's output signal to the change in the input quantity being measured (for example, millivolts per degree Celsius or volts per millimetre). A higher sensitivity means the output changes more for the same physical change, making small variations easier to detect."
+        },
+        {
+          "term": "Resolution",
+          "definition": "The smallest incremental change in the measured quantity that a sensor can distinguish and report. It sets the finest level of detail available from the sensor, independent of whether that reading is accurate in an absolute sense."
+        },
+        {
+          "term": "Linearity",
+          "definition": "The degree to which a sensor's input-output relationship follows a straight line over its operating range. Good linearity means the sensitivity is constant across the range, simplifying calibration; poor linearity requires correction curves or look-up tables."
+        },
+        {
+          "term": "LVDT (Linear Variable Differential Transformer)",
+          "definition": "An inductive displacement sensor consisting of a primary coil and two secondary coils wound on a hollow former, with a moveable ferromagnetic core. The AC voltage induced in the secondaries varies linearly with core position, giving a contactless, wear-free measurement of linear displacement."
+        },
+        {
+          "term": "Seebeck Effect",
+          "definition": "The physical phenomenon, exploited in thermocouples, whereby a small electromotive force (EMF) is generated at the junction of two dissimilar metals when that junction is at a different temperature from a reference junction. The magnitude of the EMF is approximately proportional to the temperature difference."
+        },
+        {
+          "term": "Gauge Factor (GF)",
+          "definition": "A dimensionless constant that characterises the sensitivity of a strain gauge; defined as the fractional change in resistance (ΔR/R) divided by the mechanical strain (ε = ΔL/L). A typical metallic strain gauge has a gauge factor of about 2."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Potentiometer Output Voltage and Sensitivity",
+          "problem": "A linear potentiometer has a total resistance of 10 kΩ and a full mechanical stroke of 80 mm. It is supplied with a constant reference voltage of 8 V. (a) Calculate the sensitivity of the sensor in V/mm. (b) Find the output voltage when the wiper is displaced 50 mm from the zero end.",
+          "steps": [
+            "Step 1 – Understand the working principle. The potentiometer acts as a voltage divider: the output voltage at the wiper equals (wiper position / total stroke) × supply voltage, assuming negligible load current.",
+            "Step 2 – Calculate sensitivity. Sensitivity S = ΔVout / Δx = V_supply / total stroke = 8 V / 80 mm = 0.10 V/mm.",
+            "Step 3 – Calculate output voltage at 50 mm. Vout = S × x = 0.10 V/mm × 50 mm = 5.0 V. Alternatively: Vout = (50/80) × 8 = 0.625 × 8 = 5.0 V.",
+            "Step 4 – Interpret the result. The output is 5.0 V for a 50 mm displacement, confirming the linear relationship. Each additional millimetre of travel produces exactly 0.10 V of additional output, which is the sensor's sensitivity."
+          ],
+          "answer": "Sensitivity = 0.10 V/mm; output voltage at 50 mm = 5.0 V."
+        },
+        {
+          "title": "Strain Gauge Resistance Change",
+          "problem": "A metallic strain gauge with an unstrained resistance of 120 Ω and a gauge factor of 2.05 is bonded to a steel beam. When a load is applied, the beam experiences a tensile strain of 650 microstrain (650 × 10⁻⁶ m/m). Calculate (a) the fractional change in resistance ΔR/R and (b) the actual change in resistance ΔR.",
+          "steps": [
+            "Step 1 – Recall the gauge factor definition. GF = (ΔR/R) / ε, so ΔR/R = GF × ε.",
+            "Step 2 – Calculate the fractional change. ΔR/R = 2.05 × 650 × 10⁻⁶ = 1332.5 × 10⁻⁶ ≈ 1.3325 × 10⁻³ (dimensionless).",
+            "Step 3 – Calculate the absolute change in resistance. ΔR = (ΔR/R) × R₀ = 1.3325 × 10⁻³ × 120 Ω = 0.1599 Ω ≈ 0.160 Ω.",
+            "Step 4 – Appreciate the scale. A change of only 0.16 Ω on a 120 Ω gauge (about 0.13%) is very small, which is why strain gauges are almost always connected in a Wheatstone bridge circuit—a circuit specifically designed to detect tiny resistance changes accurately."
+          ],
+          "answer": "ΔR/R = 1.333 × 10⁻³; ΔR ≈ 0.160 Ω."
+        },
+        {
+          "title": "RTD Temperature Measurement",
+          "problem": "A Pt100 RTD (platinum resistance thermometer) has a resistance of exactly 100 Ω at 0 °C and a temperature coefficient of resistance α = 0.00385 Ω/(Ω·°C). During an industrial process measurement, the instrument reads a resistance of 153.5 Ω. Determine the process temperature.",
+          "steps": [
+            "Step 1 – Write the RTD resistance equation. For a linear model: R(T) = R₀ (1 + αT), where R₀ = 100 Ω, α = 0.00385 °C⁻¹, and T is the temperature in °C.",
+            "Step 2 – Substitute the measured resistance and solve for T. 153.5 = 100 × (1 + 0.00385 × T).",
+            "Step 3 – Divide both sides by 100. 1.535 = 1 + 0.00385T.",
+            "Step 4 – Isolate T. 0.00385T = 1.535 − 1 = 0.535, so T = 0.535 / 0.00385 = 138.96 °C ≈ 139 °C.",
+            "Step 5 – Verify. R(139°C) = 100 × (1 + 0.00385 × 139) = 100 × (1 + 0.5352) = 100 × 1.5352 = 153.52 Ω ✓. This confirms the RTD's highly linear, predictable behaviour—its chief advantage over a thermistor."
+          ],
+          "answer": "The process temperature is approximately 139 °C."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A temperature sensor produces an output voltage that increases from 0.20 V to 0.70 V when the temperature rises from 20 °C to 70 °C. What is the sensitivity of the sensor?",
+          "options": [
+            "0.01 V/°C",
+            "0.014 V/°C",
+            "0.035 V/°C",
+            "0.10 V/°C"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sensitivity = ΔV / ΔT = (0.70 − 0.20) V / (70 − 20) °C = 0.50 V / 50 °C = 0.01 V/°C."
+        },
+        {
+          "question": "Which of the following is the most significant practical advantage of an LVDT over a simple potentiometer for measuring linear displacement?",
+          "options": [
+            "The LVDT produces a digital output directly, eliminating the need for an ADC.",
+            "The LVDT has no mechanical contact between the moving core and the coil, giving it virtually unlimited mechanical life.",
+            "The LVDT operates on DC supply, making it easier to power than a potentiometer.",
+            "The LVDT has a much wider measurement range than any potentiometer."
+          ],
+          "correctIndex": 1,
+          "explanation": "The LVDT's ferromagnetic core moves freely inside the coil former without touching it, so there is no friction or wear—its principal advantage over the wiper contact of a potentiometer."
+        },
+        {
+          "question": "A thermocouple, a thermistor and a Pt100 RTD are all available for measuring temperature. Which statement correctly compares their characteristics?",
+          "options": [
+            "The thermistor is the most linear of the three and is preferred when accuracy over a wide range is needed.",
+            "The thermocouple is most suitable for measuring very small temperature differences near room temperature because its sensitivity is highest there.",
+            "The RTD offers the best linearity and stability over a wide range but has lower sensitivity than a thermistor.",
+            "The Pt100 RTD requires no reference junction, unlike the thermocouple and thermistor."
+          ],
+          "correctIndex": 2,
+          "explanation": "RTDs (such as Pt100) have an accurately linear and stable resistance-temperature relationship over a wide range, but thermistors exhibit a much larger (though nonlinear) resistance change per degree, giving higher sensitivity for narrow-range measurements."
+        },
+        {
+          "question": "A strain gauge with gauge factor 2.0 and unstrained resistance 120 Ω is subjected to a compressive strain of 500 microstrain. What is the magnitude of the change in resistance?",
+          "options": [
+            "0.048 Ω",
+            "0.120 Ω",
+            "0.240 Ω",
+            "1.200 Ω"
+          ],
+          "correctIndex": 1,
+          "explanation": "ΔR = GF × ε × R₀ = 2.0 × 500 × 10⁻⁶ × 120 Ω = 0.120 Ω."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Actuators: Motion and Control Devices",
+      "sourceRange": "Topic 3",
+      "summary": "An actuator is the output device in a mechatronic system: it receives a command signal from the controller and converts energy into physical motion or force. Just as sensors are the system's eyes and ears, actuators are its muscles. Understanding actuators means understanding what energy they use, what kind of motion they produce, and how their speed and torque characteristics match the demands of a task.\n\nElectrical actuators are by far the most common in modern mechatronics. DC motors convert electrical energy into continuous rotary motion and are easy to speed-control by varying supply voltage. Stepper motors move in precise discrete angular steps, making them ideal for open-loop position control without a sensor. Servo motors combine a DC or brushless motor with a built-in gearbox, encoder and controller to give accurate, programmable position and speed. Solenoids produce a short linear push or pull, while relays use a solenoid to switch a separate high-power electrical circuit. Each type has a distinct torque–speed characteristic that determines which applications it suits.\n\nWhen electrical power alone cannot supply enough force or speed, engineers turn to fluid power. Pneumatic actuators use compressed air to produce fast, clean linear or rotary motion at moderate forces. Hydraulic actuators use pressurised oil and can produce enormous forces in a compact package. Choosing the right actuator for any application requires balancing force, speed, precision, power source availability, environment, cost and controllability—a structured decision that is central to mechatronic design.",
+      "keyPoints": [
+        "An actuator converts energy (electrical, pneumatic or hydraulic) into mechanical motion (rotary or linear).",
+        "DC motors produce continuous rotation; speed is proportional to terminal voltage (minus losses) and torque is proportional to armature current.",
+        "Torque and speed are related by power: P = τ × ω, where τ is torque (N·m) and ω is angular velocity (rad/s).",
+        "Stepper motors divide one revolution into a fixed number of equal steps; a 1.8°/step motor has 200 steps per revolution.",
+        "Servo motors include closed-loop feedback and are used where accurate position or speed control is needed.",
+        "Solenoids convert electrical energy into a short-stroke linear force; relays use a solenoid to switch a separate circuit.",
+        "Pneumatic actuators are fast and clean but limited in force; hydraulic actuators produce very high forces but require oil and pumps.",
+        "Actuator selection criteria: required force/torque, speed, stroke or range of motion, precision, power source, environment and cost."
+      ],
+      "definitions": [
+        {
+          "term": "Actuator",
+          "definition": "A device that converts an energy input (electrical, pneumatic or hydraulic) into mechanical output—either rotary motion, linear motion or force—in response to a control signal."
+        },
+        {
+          "term": "DC Motor",
+          "definition": "An electrical machine that converts direct-current electrical energy into continuous rotary mechanical motion. Speed is controlled by varying the terminal voltage or armature current; torque is proportional to armature current."
+        },
+        {
+          "term": "Stepper Motor",
+          "definition": "A brushless DC motor whose rotor moves in fixed, discrete angular increments (steps) each time a pulse is applied to its windings, allowing precise open-loop position control without a feedback sensor."
+        },
+        {
+          "term": "Servo Motor",
+          "definition": "A motor system (usually a DC or brushless motor) combined with a gearbox, position or speed sensor and a dedicated controller, providing closed-loop control of shaft angle or speed to a commanded reference."
+        },
+        {
+          "term": "Solenoid",
+          "definition": "An electromechanical device consisting of a coil of wire and a movable iron core (plunger); when current flows through the coil it creates a magnetic field that pulls the plunger inward, producing a short-stroke linear force."
+        },
+        {
+          "term": "Relay",
+          "definition": "An electrically operated switch in which a solenoid energises to move a mechanical contact, thereby opening or closing a separate, often higher-power circuit; it provides electrical isolation between the control and power circuits."
+        },
+        {
+          "term": "Pneumatic Actuator",
+          "definition": "A device that uses compressed air (typically 5–10 bar) to produce linear motion (cylinder) or rotary motion (air motor or rotary actuator); characterised by high speed, cleanliness and moderate force output."
+        },
+        {
+          "term": "Hydraulic Actuator",
+          "definition": "A device that uses pressurised hydraulic fluid (oil, typically 70–700 bar) to produce linear or rotary motion; capable of very high forces in a compact size but requires a pump, reservoir and seals to contain the fluid."
+        },
+        {
+          "term": "Torque (τ)",
+          "definition": "The rotational equivalent of force, measured in newton-metres (N·m); it is the product of a tangential force and the radius at which it acts, and it represents a motor's ability to do rotational work against a load."
+        },
+        {
+          "term": "Back-EMF",
+          "definition": "A voltage generated by a spinning DC motor's armature that opposes the supply voltage; it increases with speed and limits armature current, thereby linking a DC motor's speed to its terminal voltage."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "DC Motor Speed, Torque and Power Calculation",
+          "problem": "A DC motor operates at a shaft speed of 1 500 rpm and produces a torque of 0.4 N·m. (a) Calculate the mechanical output power. (b) If the motor's electrical input power is 75 W, what is its efficiency?",
+          "steps": [
+            "Convert speed from rpm to rad/s: ω = (1 500 rev/min) × (2π rad/rev) ÷ (60 s/min) = 1 500 × 2π / 60 = 157.08 rad/s.",
+            "Calculate mechanical output power using P = τ × ω: P_out = 0.4 N·m × 157.08 rad/s = 62.83 W.",
+            "Calculate efficiency: η = P_out / P_in × 100% = 62.83 / 75 × 100% = 83.8%."
+          ],
+          "answer": "The mechanical output power is approximately 62.8 W and the motor efficiency is approximately 83.8%."
+        },
+        {
+          "title": "Stepper Motor Position Control",
+          "problem": "A stepper motor has a step angle of 1.8° per step. A lead screw attached to its shaft converts rotation to linear motion with a pitch of 2 mm per revolution (i.e. one full revolution advances the carriage 2 mm). (a) How many steps are required to move the carriage exactly 35 mm? (b) What is the theoretical positioning resolution of the system?",
+          "steps": [
+            "Find steps per revolution: 360° ÷ 1.8°/step = 200 steps/revolution.",
+            "Find linear advance per step: 2 mm/revolution ÷ 200 steps/revolution = 0.01 mm/step.",
+            "Find steps needed for 35 mm: 35 mm ÷ 0.01 mm/step = 3 500 steps.",
+            "The theoretical resolution is the linear advance per step = 0.01 mm (10 µm)."
+          ],
+          "answer": "3 500 pulses must be sent to the stepper motor to move the carriage 35 mm; the positioning resolution is 0.01 mm (10 µm) per step."
+        },
+        {
+          "title": "Selecting an Actuator for a Given Application",
+          "problem": "An engineer must choose an actuator to open and close a water control valve in an industrial pipeline. The valve requires a force of 800 N to open, needs to travel 80 mm from fully closed to fully open, must operate reliably in a wet outdoor environment, requires only fully-open or fully-closed positions (not proportional control), and must use the site's available 6-bar compressed-air supply. Evaluate whether a pneumatic cylinder is appropriate and size it.",
+          "steps": [
+            "Check power source compatibility: the site has 6-bar compressed air, so a pneumatic actuator is directly compatible—no electrical motor drive or hydraulic power pack is needed.",
+            "Check precision requirement: only two end positions (open and closed) are needed; pneumatic cylinders naturally travel between mechanical end-stops, which suits this perfectly. Proportional control is not required.",
+            "Check environmental suitability: pneumatic systems tolerate wet, dusty outdoor environments well; there is no risk of electrical short-circuit and no oil-leak contamination risk.",
+            "Size the cylinder bore using F = P × A, where F = 800 N and P = 6 bar = 6 × 10⁵ Pa. Rearranging: A = F / P = 800 / (6 × 10⁵) = 1.333 × 10⁻³ m².",
+            "Calculate the required bore diameter: A = π d² / 4 → d = √(4A / π) = √(4 × 1.333 × 10⁻³ / π) = √(1.698 × 10⁻³) ≈ 0.0412 m = 41.2 mm. Select the next standard bore size up (e.g. 50 mm) to include a safety margin.",
+            "Confirm stroke: the cylinder must have a stroke ≥ 80 mm; a standard 80 mm or 100 mm stroke cylinder is specified."
+          ],
+          "answer": "A double-acting pneumatic cylinder with a 50 mm bore and at least 80 mm stroke, fed from the 6-bar air supply, is appropriate. It meets the force requirement (delivers over 980 N at 6 bar with a 50 mm bore), suits the two-position control requirement, and is compatible with the wet outdoor environment."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A DC motor shaft rotates at 3 000 rpm and produces a torque of 0.2 N·m. What is its mechanical output power?",
+          "options": [
+            "18.85 W",
+            "37.70 W",
+            "62.83 W",
+            "628.3 W"
+          ],
+          "correctIndex": 2,
+          "explanation": "Converting 3 000 rpm to rad/s gives 314.16 rad/s; multiplying by 0.2 N·m gives P = 62.83 W."
+        },
+        {
+          "question": "A stepper motor with a step angle of 0.9° per step is used to rotate a shaft through exactly 180°. How many pulses must the controller send?",
+          "options": [
+            "100",
+            "180",
+            "200",
+            "400"
+          ],
+          "correctIndex": 2,
+          "explanation": "Steps required = total angle ÷ step angle = 180° ÷ 0.9°/step = 200 steps."
+        },
+        {
+          "question": "Which of the following best describes why a servo motor is preferred over a plain DC motor when precise angular position is required?",
+          "options": [
+            "A servo motor uses alternating current and is therefore more powerful.",
+            "A servo motor contains a built-in feedback sensor and controller that continuously correct shaft position to match the command.",
+            "A servo motor moves in discrete steps, eliminating cumulative position errors.",
+            "A servo motor requires no power supply, as it generates its own back-EMF."
+          ],
+          "correctIndex": 1,
+          "explanation": "A servo motor's integrated encoder and closed-loop controller compare actual position to the desired command and correct any error, giving accurate position control that an open-loop DC motor cannot provide on its own."
+        },
+        {
+          "question": "An application requires actuating a force of 50 000 N in a compact space, with slow and precisely controlled motion. Which actuator type is most suitable?",
+          "options": [
+            "Solenoid",
+            "Pneumatic cylinder",
+            "Hydraulic cylinder",
+            "Stepper motor with lead screw"
+          ],
+          "correctIndex": 2,
+          "explanation": "Hydraulic actuators operate at very high pressures (up to hundreds of bar) and can produce tens of thousands of newtons in a compact cylinder, making them the standard choice when very high forces are required in a limited space."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Signal Conditioning and Microcontrollers: From Analog to Digital",
+      "sourceRange": "Topic 4",
+      "summary": "Real-world sensors produce small, noisy analogue voltages or currents that a digital system cannot use directly. Signal conditioning is the set of electronic processes that transforms a raw sensor output into a clean, correctly scaled signal ready for conversion to digital form. The three core stages are amplification (boosting a weak signal to a usable voltage range), filtering (removing unwanted noise or interference), and analogue-to-digital conversion (turning a continuous voltage into a binary number a computer can process).\n\nOnce a signal is digital, it is handled by logic circuits and microcontrollers. A digital signal has only two states—HIGH and LOW—represented by distinct voltage levels. Logic gates combine these states according to Boolean rules (AND, OR, NOT, etc.) to perform decisions. A microcontroller integrates a CPU, program memory, data memory, and input/output peripherals on a single chip, making it the 'brain' of most mechatronic systems: it reads sensor data, executes a control algorithm, and drives actuators, all within a compact, low-cost package.\n\nThe Arduino platform (based on the ATmega328P microcontroller) is a widely used learning tool that illustrates these ideas concretely. Its built-in 10-bit ADC converts analogue sensor voltages into integers from 0 to 1023; digital output pins can switch actuators such as LEDs, relays or motor drivers; and a simple C-based programming environment (the Arduino IDE) ties everything together. Understanding this signal chain—from physical quantity, through conditioning and conversion, to microcontroller decision and actuator response—is the foundation of all mechatronic system design.",
+      "keyPoints": [
+        "Signal conditioning prepares a raw sensor signal for digital processing through amplification, filtering, and ADC conversion.",
+        "An op-amp non-inverting amplifier has voltage gain G = 1 + Rf/R1; an inverting amplifier has gain G = −Rf/R1.",
+        "A low-pass filter passes frequencies below its cut-off frequency fc = 1/(2πRC) and attenuates higher-frequency noise.",
+        "An n-bit ADC divides the reference voltage Vref into 2ⁿ equal steps; each step (the LSB) has size Vref/2ⁿ volts.",
+        "The digital output of an ADC is D = floor(Vin × 2ⁿ / Vref), ranging from 0 to 2ⁿ − 1.",
+        "A microcontroller contains a CPU, flash program memory, SRAM data memory, and configurable I/O pins on one chip.",
+        "Arduino's analogRead() returns a 10-bit value (0–1023) for a 0–5 V input; digitalWrite() sets a pin HIGH or LOW to switch actuators.",
+        "PWM (Pulse Width Modulation) lets a digital output pin simulate an analogue level by varying the fraction of time the pin is HIGH (the duty cycle)."
+      ],
+      "definitions": [
+        {
+          "term": "Signal Conditioning",
+          "definition": "All electronic processing applied to a raw sensor output—amplification, filtering, impedance matching, and so on—to produce a clean, correctly scaled signal suitable for analogue-to-digital conversion or direct use by a control circuit."
+        },
+        {
+          "term": "Amplification (Gain)",
+          "definition": "The process of increasing the amplitude of a signal using an active circuit such as an operational amplifier (op-amp). Voltage gain G = Vout/Vin; for a non-inverting op-amp configuration G = 1 + Rf/R1, where Rf is the feedback resistor and R1 is the input resistor."
+        },
+        {
+          "term": "Low-Pass Filter",
+          "definition": "A circuit that passes signal frequencies below a cut-off frequency fc and attenuates frequencies above it. For a simple RC low-pass filter, fc = 1/(2πRC). It is used to remove high-frequency electrical noise from a sensor signal before ADC conversion."
+        },
+        {
+          "term": "Analogue-to-Digital Converter (ADC)",
+          "definition": "A circuit that samples a continuous analogue voltage and converts it to an n-bit binary integer. The smallest voltage change it can distinguish—one least significant bit (LSB)—equals Vref/2ⁿ, where Vref is the reference (full-scale) voltage. The digital output D = floor(Vin × 2ⁿ / Vref)."
+        },
+        {
+          "term": "Resolution (ADC)",
+          "definition": "The number of distinct digital values an ADC can produce, equal to 2ⁿ for an n-bit converter. A higher bit-depth gives finer voltage steps and more precise measurement. A 10-bit ADC has 1024 steps; a 12-bit ADC has 4096 steps."
+        },
+        {
+          "term": "Microcontroller",
+          "definition": "A single integrated circuit that combines a CPU (executes instructions), flash memory (stores the program), SRAM (holds variables at runtime), and programmable I/O peripherals (timers, ADC, communication ports, digital pins) on one chip. It is the central processing and decision-making element in most mechatronic systems."
+        },
+        {
+          "term": "Digital Signal / Logic Levels",
+          "definition": "A signal that takes only two discrete voltage states: HIGH (logic 1, typically near Vcc, e.g. 5 V or 3.3 V) and LOW (logic 0, typically near 0 V). All microcontroller inputs, outputs, and internal computations use digital signals, which are immune to small amounts of noise that would corrupt an analogue signal."
+        },
+        {
+          "term": "Pulse Width Modulation (PWM)",
+          "definition": "A technique for encoding an analogue-like control value in a digital output signal by switching the pin rapidly between HIGH and LOW and varying the duty cycle (the fraction of each period spent HIGH). A 50% duty cycle at 5 V delivers an average of 2.5 V to the load, allowing variable speed motor control or dimming of LEDs from a digital pin."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating the Output of a Non-Inverting Op-Amp Amplifier",
+          "problem": "A strain-gauge bridge produces a peak output of 45 mV. A non-inverting op-amp amplifier is built with a feedback resistor Rf = 82 kΩ and an input resistor R1 = 10 kΩ. (a) Calculate the voltage gain. (b) Find the amplifier output voltage for the 45 mV input. (c) State why amplification is needed before ADC conversion in an Arduino system with Vref = 5 V and 10-bit resolution.",
+          "steps": [
+            "Step 1 – Recall the non-inverting gain formula: G = 1 + Rf/R1.",
+            "Step 2 – Substitute values: G = 1 + 82 kΩ / 10 kΩ = 1 + 8.2 = 9.2.",
+            "Step 3 – Calculate output voltage: Vout = G × Vin = 9.2 × 45 mV = 414 mV ≈ 0.414 V.",
+            "Step 4 – Find the ADC LSB size without amplification: LSB = Vref/2ⁿ = 5 V / 1024 ≈ 4.88 mV. The 45 mV raw signal spans only 45/4.88 ≈ 9 ADC counts, giving very poor resolution.",
+            "Step 5 – Find the ADC counts with amplification: 414 mV spans 414/4.88 ≈ 85 counts—about nine times better, making the measurement usable."
+          ],
+          "answer": "The voltage gain is 9.2, the amplified output is approximately 414 mV, and amplification is essential because the raw 45 mV signal would span fewer than 10 of the 1024 ADC steps, wasting most of the converter's resolution."
+        },
+        {
+          "title": "ADC Conversion: Finding the Digital Output and Recovering the Voltage",
+          "problem": "An Arduino Uno uses a 10-bit ADC with Vref = 5.00 V. A temperature sensor has been conditioned so that it outputs 0 V at 0 °C and 5 V at 200 °C (sensitivity = 25 mV/°C). The sensor output at a particular moment is 1.75 V. (a) Calculate the ADC digital output D. (b) Verify by recovering the voltage from D. (c) Find the temperature this corresponds to.",
+          "steps": [
+            "Step 1 – Recall the ADC formula: D = floor(Vin × 2ⁿ / Vref).",
+            "Step 2 – Substitute: D = floor(1.75 × 1024 / 5.00) = floor(1792 / 5) = floor(358.4) = 358.",
+            "Step 3 – Recover the voltage from D: Vrec = D × (Vref / 2ⁿ) = 358 × (5.00 / 1024) = 358 × 4.8828 mV = 1748.0 mV ≈ 1.748 V. (This differs from 1.750 V by 0.002 V, which is the quantisation error, less than one LSB = 4.88 mV—acceptable.)",
+            "Step 4 – Convert recovered voltage to temperature using the sensor calibration: T = Vrec / sensitivity = 1.748 V / 0.025 V per °C = 69.9 °C ≈ 70 °C."
+          ],
+          "answer": "The ADC outputs D = 358 (out of 0–1023). Recovering the voltage gives 1.748 V, confirming a quantisation error of less than one LSB (4.88 mV). The corresponding temperature is approximately 70 °C."
+        },
+        {
+          "title": "Arduino: Reading a Sensor and Switching an Actuator with a Threshold",
+          "problem": "An Arduino Uno reads a light-dependent resistor (LDR) voltage on analogue pin A0. The conditioned LDR voltage ranges from 0 V (bright light) to 5 V (complete darkness). When the ADC reading exceeds 614 (indicating low light), the Arduino must switch a relay on digital pin 7 to HIGH to turn on a lamp. (a) What light-sensor voltage corresponds to ADC reading 614? (b) Write the logical structure of the Arduino sketch (setup and loop). (c) Calculate the duty cycle needed on a PWM pin to deliver an average of 3.5 V to a motor driver from a 5 V supply, and state the analogWrite() value required.",
+          "steps": [
+            "Step 1 – Convert ADC reading 614 back to voltage: V = D × Vref / 2ⁿ = 614 × 5.00 / 1024 = 3070 / 1024 ≈ 3.00 V. So the lamp turns on when the LDR voltage exceeds 3.00 V.",
+            "Step 2 – Arduino sketch structure: In setup(), call pinMode(7, OUTPUT) to configure pin 7 as a digital output. In loop(), call int sensorValue = analogRead(A0) to read the ADC. Then use an if statement: if (sensorValue > 614) { digitalWrite(7, HIGH); } else { digitalWrite(7, LOW); }.",
+            "Step 3 – For the PWM motor question, calculate duty cycle: Duty cycle = Vaverage / Vsupply = 3.5 V / 5.0 V = 0.70 = 70%.",
+            "Step 4 – Convert duty cycle to analogWrite() value: analogWrite() accepts 0–255 (8-bit PWM on Arduino). Value = 0.70 × 255 = 178.5, rounded to 179. Call analogWrite(pwmPin, 179)."
+          ],
+          "answer": "ADC reading 614 corresponds to a sensor voltage of approximately 3.00 V. The Arduino sketch uses pinMode in setup and reads analogRead in loop, turning pin 7 HIGH whenever the reading exceeds 614. For the motor, a 70% duty cycle is required, achieved by calling analogWrite(pwmPin, 179)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A 12-bit ADC uses a reference voltage of 4.096 V. What is the voltage represented by one LSB (the smallest detectable voltage change)?",
+          "options": [
+            "1.000 mV",
+            "2.000 mV",
+            "0.488 mV",
+            "4.000 mV"
+          ],
+          "correctIndex": 0,
+          "explanation": "LSB = Vref / 2ⁿ = 4.096 V / 4096 = 0.001 V = 1.000 mV; the convenient reference was chosen precisely to give 1 mV per count."
+        },
+        {
+          "question": "A non-inverting op-amp amplifier has R1 = 5 kΩ and Rf = 45 kΩ. A 20 mV sensor signal is applied. What is the output voltage?",
+          "options": [
+            "180 mV",
+            "200 mV",
+            "900 mV",
+            "90 mV"
+          ],
+          "correctIndex": 1,
+          "explanation": "G = 1 + Rf/R1 = 1 + 45/5 = 10; Vout = 10 × 20 mV = 200 mV."
+        },
+        {
+          "question": "Which component of a microcontroller stores the user's program code permanently so it is not lost when power is removed?",
+          "options": [
+            "SRAM",
+            "Cache memory",
+            "Flash (program) memory",
+            "The I/O register"
+          ],
+          "correctIndex": 2,
+          "explanation": "Flash memory is non-volatile and holds the program; SRAM is volatile RAM used for variables and the stack at runtime."
+        },
+        {
+          "question": "An Arduino analogWrite(pin, 128) command is issued on a 5 V system. What average voltage does this produce on the PWM pin, and what is the duty cycle?",
+          "options": [
+            "2.51 V, 50.2%",
+            "2.56 V, 50.0%",
+            "1.28 V, 25.6%",
+            "3.75 V, 75.0%"
+          ],
+          "correctIndex": 0,
+          "explanation": "Duty cycle = 128/255 = 0.502 = 50.2%; average voltage = 0.502 × 5 V = 2.51 V. Note the denominator is 255 (not 256) because analogWrite maps 255 to 100% duty cycle."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Control Systems: Feedback and Regulation",
+      "sourceRange": "Topic 5",
+      "summary": "A control system is any arrangement that causes a physical quantity — speed, temperature, position, pressure — to behave in a desired way. The simplest arrangement, open-loop control, applies a fixed input and hopes the output follows; it is cheap but blind to disturbances. Closed-loop control adds a sensor that measures the actual output, compares it with the desired value (the setpoint), and uses the difference — the error — to drive the actuator. This feedback loop makes the system self-correcting and is the foundation of almost every automatic machine.\n\nThe crudest feedback strategy is on-off (bang-bang) control: the actuator is either fully on or fully off depending on the sign of the error. A household thermostat works this way — the boiler fires when the room falls below the setpoint and cuts off when it rises above. On-off control is simple but causes the output to oscillate around the setpoint rather than settling precisely. More refined behaviour requires PID control, which combines three terms: Proportional action (output proportional to current error), Integral action (output proportional to accumulated past error, eliminating steady-state offset), and Derivative action (output proportional to the rate of change of error, providing anticipatory damping). Tuning the three gains KP, KI, and KD shapes the transient and steady-state response.\n\nBlock diagrams are the language used to describe control systems. Each block represents a mathematical operation on a signal, arrows show signal flow, a summing junction adds or subtracts signals, and the feedback path carries the measured output back to be compared with the setpoint. Reading a block diagram correctly allows an engineer to trace how a disturbance or a change in setpoint propagates through the entire system and to predict whether the system will be stable, fast, and accurate.",
+      "keyPoints": [
+        "Open-loop control has no feedback; the output is not compared with the setpoint, so errors caused by disturbances are not corrected.",
+        "Closed-loop (feedback) control measures the actual output, forms an error signal e = setpoint − measured output, and uses that error to drive the actuator.",
+        "On-off control switches the actuator fully on when error > 0 and fully off when error ≤ 0; it is simple but produces steady oscillation (hunting) around the setpoint.",
+        "The proportional term KP × e gives an output proportional to the current error; larger KP reduces steady-state error but can cause overshoot and oscillation.",
+        "The integral term KI × ∫e dt accumulates past error and eliminates steady-state (offset) error, but too much integral action slows the response and can cause windup.",
+        "The derivative term KD × (de/dt) reacts to the rate of change of error, damping oscillations and improving stability, but amplifies sensor noise.",
+        "A block diagram represents signal flow: blocks are transfer functions, arrows are signals, and a summing junction (circle with + / −) computes the error from the setpoint and the feedback signal.",
+        "The closed-loop transfer function for a simple unity-feedback system is G/(1 + G), where G is the forward-path gain."
+      ],
+      "definitions": [
+        {
+          "term": "Setpoint (reference input)",
+          "definition": "The desired value of the controlled variable that the control system is trying to achieve, for example a target temperature of 75 °C or a motor speed of 1500 rpm."
+        },
+        {
+          "term": "Error signal (e)",
+          "definition": "The difference between the setpoint (reference) and the measured output: e = setpoint − measured output. It is the key quantity that drives a feedback controller."
+        },
+        {
+          "term": "Open-loop control",
+          "definition": "A control strategy in which the controller sends a fixed command to the actuator without measuring the actual output. There is no feedback path, so disturbances are not detected or corrected."
+        },
+        {
+          "term": "Closed-loop (feedback) control",
+          "definition": "A control strategy in which the actual output is continuously measured, compared with the setpoint to form an error signal, and the controller adjusts the actuator to reduce that error. The feedback path makes the system self-correcting."
+        },
+        {
+          "term": "On-off (bang-bang) control",
+          "definition": "The simplest feedback strategy: the actuator is switched fully on when the error is positive and fully off when the error is zero or negative. It causes the output to oscillate (hunt) around the setpoint by a small amount called the dead band or hysteresis band."
+        },
+        {
+          "term": "Proportional control (P)",
+          "definition": "A control action whose output is directly proportional to the current error: u = KP × e. A larger proportional gain reduces steady-state error but can cause overshoot or oscillation if set too high. A residual steady-state error (offset) usually remains with proportional-only control."
+        },
+        {
+          "term": "Integral control (I)",
+          "definition": "A control action whose output is proportional to the integral (accumulated sum) of past errors: u = KI × ∫e dt. It eliminates steady-state offset because it keeps increasing the output until the error reaches exactly zero, but excessive integral gain causes slow, oscillatory responses and integrator windup."
+        },
+        {
+          "term": "Derivative control (D)",
+          "definition": "A control action whose output is proportional to the rate of change of the error: u = KD × (de/dt). It acts as a predictive damper — if the error is changing quickly toward zero, D action reduces the controller output to prevent overshoot. It is sensitive to measurement noise."
+        },
+        {
+          "term": "Block diagram",
+          "definition": "A graphical representation of a control system in which rectangular blocks contain the transfer function (mathematical operation) of each component, arrows represent signal flow, and circular summing junctions add or subtract signals to form error or combined outputs."
+        },
+        {
+          "term": "Transfer function",
+          "definition": "A mathematical expression (usually a ratio of polynomials in the Laplace variable s for linear systems) that describes the relationship between a block's input and its output. For a simple gain block it is just the constant gain value G."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Comparing Open-Loop and Closed-Loop Temperature Control",
+          "problem": "An electric oven must be held at 200 °C. In open-loop mode the heater is set to a fixed power that normally produces 200 °C. A disturbance (opening the oven door) drops the temperature to 185 °C. In closed-loop mode a thermocouple measures the temperature and the controller increases heater power when the temperature falls. Describe quantitatively what each system does after the disturbance, given that the open-loop heater power stays fixed and the closed-loop controller has proportional gain KP = 2 W/°C.",
+          "steps": [
+            "Identify the error after the disturbance: e = setpoint − measured = 200 − 185 = 15 °C.",
+            "Open-loop response: the controller sends the same fixed power as before. It has no information about the temperature drop, so the oven stays at 185 °C (or whatever the new equilibrium with the door open is). Error = 15 °C persists indefinitely.",
+            "Closed-loop proportional response: the controller output increases by KP × e = 2 W/°C × 15 °C = 30 W above the nominal level.",
+            "The extra 30 W heats the oven back toward 200 °C. As the temperature rises, the error shrinks and the extra power decreases proportionally, settling the oven close to the setpoint.",
+            "Conclusion: Open-loop cannot correct the disturbance; closed-loop detects and corrects it automatically."
+          ],
+          "answer": "Open-loop: temperature stays at 185 °C; error of 15 °C is never corrected. Closed-loop (P-only): controller adds 30 W of corrective power, driving the temperature back toward 200 °C and reducing the error to near zero (a small offset may remain with P-only control)."
+        },
+        {
+          "title": "On-Off Control with Hysteresis — Room Thermostat",
+          "problem": "A room thermostat is set to 22 °C with a hysteresis band of ±0.5 °C (heater turns ON at 21.5 °C and OFF at 22.5 °C). The room is currently at 23 °C and cooling at 0.2 °C/min. (a) At what time does the heater switch on? (b) Once the heater runs, the room warms at 0.3 °C/min. How long before the heater switches off again? (c) What is the peak-to-peak temperature oscillation?",
+          "steps": [
+            "The heater switches ON when temperature falls to 21.5 °C. Starting from 23 °C and cooling at 0.2 °C/min: time to reach 21.5 °C = (23 − 21.5) / 0.2 = 1.5 / 0.2 = 7.5 minutes.",
+            "The heater switches OFF when temperature rises to 22.5 °C. Starting from 21.5 °C and warming at 0.3 °C/min: time to reach 22.5 °C = (22.5 − 21.5) / 0.3 = 1.0 / 0.3 ≈ 3.3 minutes.",
+            "Peak-to-peak oscillation = upper switch-off point − lower switch-on point = 22.5 − 21.5 = 1.0 °C.",
+            "Note: the system never rests exactly at 22 °C; it continuously cycles between 21.5 °C and 22.5 °C. This cycling is called hunting and is characteristic of on-off control."
+          ],
+          "answer": "(a) Heater switches ON after 7.5 minutes. (b) Heater switches OFF after a further 3.3 minutes. (c) The temperature oscillates over a 1.0 °C peak-to-peak band around the setpoint."
+        },
+        {
+          "title": "PID Controller Output Calculation",
+          "problem": "A PID controller has gains KP = 5, KI = 2 s⁻¹, KD = 0.5 s. At a particular instant the error is e = 4 units and has been held at this constant value for 3 seconds. The rate of change of error at this instant is de/dt = −1 unit/s (error is decreasing). Calculate the total controller output u at this instant.",
+          "steps": [
+            "Proportional term: uP = KP × e = 5 × 4 = 20 units.",
+            "Integral term: the error has been constant at 4 units for 3 s, so ∫e dt = 4 × 3 = 12 unit·s. uI = KI × ∫e dt = 2 × 12 = 24 units.",
+            "Derivative term: uD = KD × (de/dt) = 0.5 × (−1) = −0.5 units. The negative sign means the derivative term is reducing the output because the error is already falling — it is providing anticipatory damping to prevent overshoot.",
+            "Total output: u = uP + uI + uD = 20 + 24 + (−0.5) = 43.5 units.",
+            "Interpretation: the integral term has built up a large contribution (24 units) because the error has persisted for 3 seconds; this is exactly the mechanism by which integral action works to eliminate steady-state offset."
+          ],
+          "answer": "u = 20 (P) + 24 (I) − 0.5 (D) = 43.5 units. The integral term dominates because the error has persisted, and the derivative term slightly reduces the output to damp the response."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A conveyor belt speed controller is set to 2 m/s. When a heavy load is added the belt slows to 1.7 m/s, but the controller never adjusts the motor power because there is no sensor. What type of control system is this, and what is the steady-state error?",
+          "options": [
+            "Closed-loop; error = 0 m/s because integral action eliminates it",
+            "Open-loop; error = 0.3 m/s, which persists uncorrected",
+            "Closed-loop; error = 0.3 m/s, which the derivative term will correct",
+            "On-off control; the motor will switch fully on to recover the speed"
+          ],
+          "correctIndex": 1,
+          "explanation": "With no sensor there is no feedback path, making this an open-loop system; the speed error of 2.0 − 1.7 = 0.3 m/s persists indefinitely because the controller has no information about the disturbance."
+        },
+        {
+          "question": "A P-only temperature controller with KP = 3 W/°C holds an oven near 180 °C but there is always a small residual error of about 4 °C below the 180 °C setpoint. Adding which control action will eliminate this residual offset?",
+          "options": [
+            "Increase the derivative gain KD",
+            "Add integral action (I), because it accumulates the persistent error and drives it to zero",
+            "Reduce the proportional gain KP",
+            "Switch to on-off control, which naturally centres on the setpoint"
+          ],
+          "correctIndex": 1,
+          "explanation": "Integral action integrates (accumulates) the persistent error over time and keeps increasing the output until the error reaches zero, thereby eliminating steady-state offset that P-only control cannot remove."
+        },
+        {
+          "question": "In a standard closed-loop block diagram, a summing junction receives the setpoint R and the feedback signal Y. What signal does it produce, and where does that signal go next?",
+          "options": [
+            "It produces the product R × Y and sends it to the plant",
+            "It produces the error E = R − Y and sends it to the controller",
+            "It produces the total output of the system and sends it to the sensor",
+            "It produces the derivative of Y and sends it back to the setpoint"
+          ],
+          "correctIndex": 1,
+          "explanation": "The summing junction subtracts the measured output (feedback) Y from the reference R to form the error signal E = R − Y, which the controller then processes to compute the actuator command."
+        },
+        {
+          "question": "A PID controller is tuned with a very high derivative gain KD on a system whose position sensor produces electrical noise. What is the most likely consequence?",
+          "options": [
+            "The steady-state error increases because derivative action opposes integral action",
+            "The controller output becomes very noisy and erratic, potentially damaging the actuator",
+            "The system responds more slowly because derivative action reduces the proportional term",
+            "The integral windup problem is eliminated because KD is large"
+          ],
+          "correctIndex": 1,
+          "explanation": "The derivative term amplifies the rate of change of the error signal; if the sensor is noisy, rapid random fluctuations in the measured output produce large, erratic spikes in the controller output, which can destabilise the system and wear out the actuator."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Applications and the Mechatronic Design Process",
+      "sourceRange": "Topic 6",
+      "summary": "Mechatronics is applied across virtually every sector of modern industry and daily life. Manufacturing automation relies on CNC machine tools, robotic welding cells and automated conveyor lines that combine precise mechanical motion, electrical drives, closed-loop sensors and programmable controllers to deliver speed, repeatability and quality beyond manual labour. In the automotive sector, systems such as the Anti-lock Braking System (ABS), Electronic Fuel Injection (EFI) and adaptive cruise control use real-time sensor feedback and fast actuators to make vehicles safer and more fuel-efficient. Medical mechatronics — infusion pumps, surgical robots and powered prosthetic limbs — demands the highest standards of reliability and safety. At the consumer level, products such as washing machines, digital cameras and drones show how everyday objects have become rich mechatronic systems integrating motors, sensors and embedded intelligence.\n\nRobotics is the flagship application of mechatronics. A robot arm's capability is characterised by its degrees of freedom (DOF) — the number of independent motions it can make — and by its end effector, the tool or gripper that physically interacts with the environment. A 6-DOF arm can place its end effector at any position and in any orientation within its workspace, giving it the full dexterity needed for assembly, welding or surgery.\n\nBringing any mechatronic product into existence requires a structured, iterative design process: capturing customer requirements, converting them into measurable specifications, generating and evaluating concepts, developing detailed mechanical, electrical and control subsystems in parallel, integrating them into a prototype, and then testing against the original specification. Test results feed back into refinement — mirroring the closed-loop feedback principle that underpins control systems — until the design meets every requirement. Understanding this process is as important as knowing the individual technologies, because real products succeed or fail at the integration stage.",
+      "keyPoints": [
+        "Manufacturing automation (CNC, robotic cells, conveyors) uses mechatronics to achieve precision, speed and repeatability that manual processes cannot match.",
+        "Automotive mechatronics (ABS, EFI, adaptive cruise control) uses closed-loop control to improve safety and efficiency in real time.",
+        "Medical mechatronics encompasses surgical robots, infusion pumps and prosthetics; reliability and patient safety drive every design decision.",
+        "Consumer products such as washing machines, cameras and drones are complete mechatronic systems integrating mechanics, electronics and software.",
+        "A robot's degree of freedom (DOF) is the number of independent motions it can execute; 6 DOF gives full positional and orientational control in 3D space.",
+        "An end effector is the specialised tool or gripper at the tip of a robot arm that directly interacts with objects or the environment.",
+        "The mechatronic design process follows the sequence: Requirements → Specification → Conceptual Design → Detailed Design → Prototype → Test and Validate.",
+        "The design process is iterative: test results are evaluated against the specification and fed back to drive redesign until all targets are met."
+      ],
+      "definitions": [
+        {
+          "term": "Degree of Freedom (DOF)",
+          "definition": "One independent motion that a mechanism or robot can perform. In a robot arm, each joint that allows an independent rotation or translation contributes one DOF. A 6-DOF robot can independently control its end-effector position in x, y and z and its orientation (roll, pitch, yaw)."
+        },
+        {
+          "term": "End Effector",
+          "definition": "The device mounted at the outermost link of a robot arm that directly interacts with the environment. Examples include jaw grippers (for grasping parts), suction cups (for flat objects), welding torches and surgical tools. The end effector is chosen to match the specific task."
+        },
+        {
+          "term": "Robot Workspace",
+          "definition": "The total volume of space that a robot's end effector can reach, determined by link lengths and the range of motion of each joint. For a 2-link planar robot with full joint rotation it is an annular (ring-shaped) region between a minimum and maximum radius."
+        },
+        {
+          "term": "Requirements",
+          "definition": "A statement of what a mechatronic system must do, expressed in terms of the customer's or user's needs (e.g. 'sort 30 bottles per minute', 'operate safely in a hospital ward'). Requirements are qualitative or quantitative goals that drive the entire design."
+        },
+        {
+          "term": "Specification",
+          "definition": "A precise, measurable and testable translation of requirements into engineering targets (e.g. 'sensor response time ≤ 50 ms', 'positional accuracy ± 0.1 mm'). Specifications are used to evaluate whether a design has succeeded."
+        },
+        {
+          "term": "Prototype",
+          "definition": "A working physical build of a mechatronic system, or a key subsystem, constructed to validate the design against the specification. A prototype may be a bench-top model, a scaled version or a full pre-production unit, depending on the design stage."
+        },
+        {
+          "term": "Automation",
+          "definition": "The use of mechatronic systems to perform tasks with minimal or no human intervention. Manufacturing automation replaces or augments human labour with machines that sense the environment, make decisions and execute actions repeatedly and precisely."
+        },
+        {
+          "term": "Iterative Design",
+          "definition": "A design philosophy in which the cycle of build, test, evaluate and refine is repeated until the system meets its specification. Test results are treated as feedback that drives improvement, directly mirroring the closed-loop control principle."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Counting Degrees of Freedom of a 6-Axis Robot Arm",
+          "problem": "An industrial robot arm has the following joints: (1) a base that rotates about a vertical axis, (2) a shoulder joint that raises and lowers the upper arm, (3) an elbow joint that bends the forearm, (4) a wrist-pitch joint, (5) a wrist-yaw joint and (6) a wrist-roll joint. How many degrees of freedom does the robot have, and what capability does this give it?",
+          "steps": [
+            "List every independent joint motion. Each joint that allows one independent rotation or translation contributes exactly 1 DOF.",
+            "Base rotation (waist): 1 DOF — sweeps the whole arm left and right around the vertical axis.",
+            "Shoulder rotation: 1 DOF — raises or lowers the upper arm in the vertical plane.",
+            "Elbow rotation: 1 DOF — bends the forearm relative to the upper arm.",
+            "Wrist pitch: 1 DOF — tilts the end effector up or down.",
+            "Wrist yaw: 1 DOF — swings the end effector left or right.",
+            "Wrist roll: 1 DOF — spins the end effector about its own axis.",
+            "Total DOF = 1 + 1 + 1 + 1 + 1 + 1 = 6.",
+            "Interpret the result: 3 DOF (waist, shoulder, elbow) control the position of the wrist centre in 3D space (x, y, z). The remaining 3 DOF (pitch, yaw, roll) control the orientation of the end effector. Together they give the arm full dexterity — it can reach any point within its workspace and approach it from any angle."
+          ],
+          "answer": "The robot has 6 degrees of freedom. Three DOF position the wrist anywhere in 3D space; three DOF orient the end effector in any direction, giving complete positional and orientational control within the workspace."
+        },
+        {
+          "title": "Calculating the Workspace of a 2-Link Planar Robot",
+          "problem": "A planar pick-and-place robot has two revolute joints and link lengths L₁ = 500 mm and L₂ = 300 mm. Both joints can rotate through a full 360°. Calculate (a) the maximum reach, (b) the minimum reach, and (c) the area of the reachable workspace.",
+          "steps": [
+            "Maximum reach occurs when both links are fully extended in the same direction: R_max = L₁ + L₂ = 500 + 300 = 800 mm.",
+            "Minimum reach occurs when the second link folds back as far as possible over the first, so the tip is closest to the base: R_min = |L₁ − L₂| = |500 − 300| = 200 mm.",
+            "Because both joints rotate through 360°, the end effector can reach any point in the annular (ring-shaped) region between radius R_min and R_max. The workspace is not a full disk; the robot cannot reach the central hole of radius 200 mm.",
+            "Area of full circle at R_max: A_outer = π × R_max² = π × (800)² = π × 640,000 ≈ 2,010,619 mm².",
+            "Area of the inner hole at R_min: A_inner = π × R_min² = π × (200)² = π × 40,000 ≈ 125,664 mm².",
+            "Workspace area = A_outer − A_inner = 2,010,619 − 125,664 ≈ 1,884,955 mm² ≈ 1.885 m²."
+          ],
+          "answer": "Maximum reach = 800 mm; minimum reach = 200 mm; reachable workspace area ≈ 1.885 m² (an annular ring). Any point between 200 mm and 800 mm from the base can be reached."
+        },
+        {
+          "title": "Applying the Mechatronic Design Process: Automated Colour-Sorting System",
+          "problem": "A small bottling factory needs a system to automatically sort plastic bottles by colour — red or blue — on a moving conveyor belt and divert them into separate collection bins. The required throughput is at least 30 bottles per minute and the sort accuracy must be at least 99%. Walk through the mechatronic design process to develop this system.",
+          "steps": [
+            "Step 1 — Requirements: Identify customer needs: sort red and blue bottles; rate ≥ 30 bottles/min; accuracy ≥ 99%; safe for a factory floor; affordable to maintain.",
+            "Step 2 — Specification: Translate requirements into measurable targets. Conveyor speed: 0.3 m/s. Colour sensor: must distinguish red from blue reliably under factory lighting. Diverter actuator: must complete a full divert stroke within 200 ms of detection. Microcontroller: must process the sensor signal and fire the actuator within 10 ms. Minimum bottle spacing on belt: 150 mm (gives 0.5 s between bottles at 0.3 m/s, comfortably above the 200 ms divert time).",
+            "Step 3 — Conceptual Design: Three diverter concepts are evaluated: (a) pneumatic arm, (b) motorised paddle, (c) air jet. The pneumatic arm is selected because it is fast (< 100 ms stroke), reliable and easy to interface with a solenoid valve.",
+            "Step 4 — Detailed Design: Mechanical: diverter arm length, pivot position and clearance above conveyor. Electrical: RGB photodetector colour sensor (5 V), 12 V solenoid valve driven by a transistor switch from microcontroller output, 5 V regulated supply. Control logic (implemented on a microcontroller): if red channel reading exceeds threshold → energise solenoid → divert to red bin; else → bottle passes to blue bin.",
+            "Step 5 — Prototype: Build a 1-metre bench-top conveyor section with sensor mount, microcontroller (e.g. Arduino Uno), solenoid valve and pneumatic cylinder. Use standard plastic bottles painted red and blue for initial tests.",
+            "Step 6 — Test and Validate: Run 200 bottles at the target rate. First test result: 97% accuracy (3 misreads per 100 bottles) — below the 99% specification. Investigation reveals sensor misreads under varying ambient light. Corrective action: add a small black shroud around the sensor head to block ambient light. Second test: 99.5% accuracy at 32 bottles/min — specification met. Design is released for full production."
+          ],
+          "answer": "After one iteration of redesign (adding a sensor shroud to solve ambient-light interference), the system achieves 99.5% accuracy at 32 bottles/min, meeting all specifications. The test-and-refine loop was essential — no real design passes first time without some correction."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A robot arm has a waist joint (1 DOF), a shoulder joint (1 DOF), an elbow joint (1 DOF) and a 2-DOF wrist. What is the robot's total degree of freedom?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "correctIndex": 2,
+          "explanation": "DOF is simply the sum of independent joint motions: 1 + 1 + 1 + 2 = 5 DOF."
+        },
+        {
+          "question": "A 2-link planar robot has link lengths L₁ = 600 mm and L₂ = 400 mm with full 360° joint rotation. What is its maximum reach?",
+          "options": [
+            "200 mm",
+            "400 mm",
+            "600 mm",
+            "1000 mm"
+          ],
+          "correctIndex": 3,
+          "explanation": "Maximum reach occurs when both links are fully extended in the same direction: R_max = L₁ + L₂ = 600 + 400 = 1000 mm."
+        },
+        {
+          "question": "In the mechatronic design process, what is the primary purpose of writing a specification?",
+          "options": [
+            "To build the first prototype as quickly as possible",
+            "To translate customer requirements into precise, measurable and testable engineering targets",
+            "To select the brand of microcontroller to be used in the system",
+            "To document the final manufacturing cost of the product"
+          ],
+          "correctIndex": 1,
+          "explanation": "A specification converts qualitative customer needs into quantitative, testable criteria (e.g. response time ≤ 50 ms) so the engineer can objectively judge whether the design has succeeded."
+        },
+        {
+          "question": "Which statement best describes why the mechatronic design process is called iterative?",
+          "options": [
+            "Each engineering discipline (mechanical, electrical, software) works completely independently with no overlap",
+            "The design is finalised in a single pass from requirements to manufacture without revisiting earlier stages",
+            "Test results are evaluated against the specification and fed back to drive redesign, repeating the cycle until all targets are met",
+            "Prototypes are built before any requirements or specifications are written"
+          ],
+          "correctIndex": 2,
+          "explanation": "Iterative design means that testing reveals shortfalls which are corrected and retested — a feedback loop that directly mirrors the closed-loop control principle used in the systems being designed."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

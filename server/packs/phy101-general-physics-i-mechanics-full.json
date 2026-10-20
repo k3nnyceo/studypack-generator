@@ -1,0 +1,828 @@
+{
+  "title": "PHY 101 — General Physics I: Mechanics (full course)",
+  "course": "PHY 101 General Physics I",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the foundation of classical mechanics at first-year university level, beginning with how we measure and describe physical quantities, then progressing through motion, forces, energy, and rotation. The six modules build systematically: measurement and vectors provide the language; kinematics describes motion without reference to causes; Newton's laws and friction explain what causes motion and resistance; work and energy provide an alternative framework for analysing motion; momentum and collisions show how motion is conserved and transferred; and circular motion and gravitation extend these ideas to rotation and gravitational systems. Together, they form a complete introduction to Newtonian mechanics.",
+  "modules": [
+    {
+      "title": "Measurement, units and vectors",
+      "sourceRange": "Topic 1",
+      "summary": "Physics is a quantitative science, so every measurement must carry a unit and every result must be expressed to an appropriate precision. The International System of Units (SI) provides seven base units from which all other units are derived. Checking that the units on both sides of an equation match — dimensional analysis — is one of the most powerful tools a physicist has: it can verify formulae, expose errors, and even suggest the form an unknown relationship must take.\n\nNot every digit in a measured number is meaningful. Significant figures encode how precisely a quantity was measured, and the rules for counting and propagating them ensure that calculated results never claim more precision than the data warrant.\n\nMany physical quantities have both a size and a direction; these are vectors. Vectors obey their own algebra: they can be resolved into perpendicular components, added component-by-component, and multiplied in two distinct ways. The dot product extracts the component of one vector along another and returns a scalar; the cross product produces a new vector perpendicular to both originals, capturing the idea of rotation or area. Mastery of vector methods underpins almost every topic in mechanics that follows.",
+      "keyPoints": [
+        "The seven SI base units are the metre (m), kilogram (kg), second (s), ampere (A), kelvin (K), mole (mol) and candela (cd); all other units are derived from these.",
+        "Dimensions describe the physical nature of a quantity (length L, mass M, time T, etc.); every term in a valid physics equation must have the same dimensions (dimensional homogeneity).",
+        "Dimensional analysis can be used to check equations, convert units, and derive relationships between quantities up to an unknown dimensionless constant.",
+        "Significant figures reflect measurement precision; zeros between non-zero digits are significant, trailing zeros after a decimal point are significant, and leading zeros are never significant.",
+        "A scalar is fully described by a magnitude alone; a vector requires both magnitude and direction.",
+        "A vector A in 2-D is resolved into components Ax = A cos θ and Ay = A sin θ, where θ is the angle from the positive x-axis.",
+        "Vectors are added by summing their corresponding components: if C = A + B then Cx = Ax + Bx and Cy = Ay + By.",
+        "The dot product A · B = AB cos θ is a scalar equal to the product of the magnitudes and the cosine of the angle between them; it is used to compute work and projections.",
+        "The cross product A × B is a vector with magnitude AB sin θ pointing perpendicular to both A and B (direction given by the right-hand rule); it is used to compute torque and angular momentum."
+      ],
+      "definitions": [
+        {
+          "term": "SI base unit",
+          "definition": "One of the seven fundamental units of measurement defined by the International System of Units, from which all other units are built. The seven are: metre (length), kilogram (mass), second (time), ampere (electric current), kelvin (thermodynamic temperature), mole (amount of substance) and candela (luminous intensity)."
+        },
+        {
+          "term": "Derived unit",
+          "definition": "A unit formed by combining SI base units through multiplication or division. For example, the newton (N = kg m s⁻²) for force and the joule (J = kg m² s⁻²) for energy are derived units."
+        },
+        {
+          "term": "Dimension",
+          "definition": "The physical nature of a quantity expressed in terms of the base quantities: length (L), mass (M), time (T), electric current (I), temperature (Θ), etc. — independent of the choice of unit. For example, speed has dimensions L T⁻¹ whether measured in m/s or km/h."
+        },
+        {
+          "term": "Dimensional homogeneity",
+          "definition": "The requirement that every term in a physically valid equation has the same dimensions. An equation that fails this test is certainly wrong; one that passes it may still be wrong by a dimensionless factor."
+        },
+        {
+          "term": "Significant figures (sig figs)",
+          "definition": "The digits in a measured or calculated number that carry meaningful information about its precision. Non-zero digits are always significant; zeros between non-zero digits are significant; trailing zeros after a decimal point are significant; leading zeros are never significant."
+        },
+        {
+          "term": "Scalar",
+          "definition": "A physical quantity that is completely specified by its magnitude (a number and a unit) alone, with no directional information. Examples include mass, temperature, speed, and energy."
+        },
+        {
+          "term": "Vector",
+          "definition": "A physical quantity that requires both a magnitude and a direction to be fully described. Examples include displacement, velocity, acceleration, force, and momentum. Vectors are represented by bold symbols (A) or symbols with an arrow (→A)."
+        },
+        {
+          "term": "Dot product (scalar product)",
+          "definition": "A way of multiplying two vectors A and B defined as A · B = AB cos θ, where θ is the angle between them. The result is a scalar. Geometrically it equals the magnitude of one vector multiplied by the projection of the other onto it."
+        },
+        {
+          "term": "Cross product (vector product)",
+          "definition": "A way of multiplying two vectors A and B that produces a third vector A × B perpendicular to both, with magnitude |A × B| = AB sin θ. The direction is given by the right-hand rule: curl the fingers of the right hand from A toward B; the thumb points in the direction of A × B."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Dimensional analysis — checking and using a formula",
+          "problem": "(a) Verify that the formula for the period of a simple pendulum, T = 2π√(L/g), is dimensionally consistent. (b) Use dimensional analysis to find how the maximum speed v of a pendulum bob depends on the length L and gravitational acceleration g, given that v = k√(Lg) for some dimensionless constant k.",
+          "steps": [
+            "Step 1 – Find the dimensions of each side of T = 2π√(L/g). The left side has dimensions [T] = T (time).",
+            "Step 2 – Inside the square root: [L/g] = L / (L T⁻²) = T². Taking the square root gives T. The factor 2π is dimensionless.",
+            "Step 3 – Both sides have dimension T, so the equation is dimensionally homogeneous. ✓",
+            "Step 4 – For part (b), write [v] = L T⁻¹ and [√(Lg)] = √(L · L T⁻²) = √(L² T⁻²) = L T⁻¹.",
+            "Step 5 – The dimensions match, confirming that v = k√(Lg) is dimensionally consistent. The actual value of k must be determined by experiment or full calculation (for a pendulum released from a small angle, k = √(2) for the maximum speed, but dimensional analysis alone cannot give k)."
+          ],
+          "answer": "T = 2π√(L/g) is dimensionally consistent (both sides have dimension T), and v = k√(Lg) has the correct dimensions L T⁻¹ for speed."
+        },
+        {
+          "title": "Vector addition by components",
+          "problem": "Vector A has magnitude 8.0 m at 30° above the positive x-axis. Vector B has magnitude 5.0 m at 120° from the positive x-axis. Find the magnitude and direction of the resultant C = A + B.",
+          "steps": [
+            "Step 1 – Resolve A into components: Ax = 8.0 cos 30° = 8.0 × 0.866 = 6.93 m; Ay = 8.0 sin 30° = 8.0 × 0.500 = 4.00 m.",
+            "Step 2 – Resolve B into components: Bx = 5.0 cos 120° = 5.0 × (−0.500) = −2.50 m; By = 5.0 sin 120° = 5.0 × 0.866 = 4.33 m.",
+            "Step 3 – Add components: Cx = 6.93 + (−2.50) = 4.43 m; Cy = 4.00 + 4.33 = 8.33 m.",
+            "Step 4 – Find the magnitude: |C| = √(Cx² + Cy²) = √(4.43² + 8.33²) = √(19.62 + 69.39) = √89.01 ≈ 9.43 m.",
+            "Step 5 – Find the direction: θ = arctan(Cy/Cx) = arctan(8.33/4.43) = arctan(1.880) ≈ 62.0° above the positive x-axis. Since both components are positive, the vector is in the first quadrant."
+          ],
+          "answer": "The resultant has magnitude 9.43 m at 62.0° above the positive x-axis."
+        },
+        {
+          "title": "Dot product and cross product",
+          "problem": "Vector A = 3 î + 4 ĵ m and vector B = 5 î − 2 ĵ m. (a) Calculate A · B and interpret the result. (b) Calculate |A × B| and state the direction of A × B.",
+          "steps": [
+            "Step 1 – Dot product using components: A · B = Ax Bx + Ay By = (3)(5) + (4)(−2) = 15 − 8 = 7 m².",
+            "Step 2 – Interpretation: A · B = AB cos θ, so cos θ = 7 / (|A||B|). |A| = √(9+16) = 5 m; |B| = √(25+4) = √29 ≈ 5.39 m. Thus cos θ = 7/(5 × 5.39) = 7/26.93 ≈ 0.260, giving θ ≈ 74.9°. The dot product tells us the component of A along B is 7/5.39 ≈ 1.30 m.",
+            "Step 3 – Cross product magnitude: |A × B| = AB sin θ. Using sin 74.9° ≈ 0.966: |A × B| = 5 × 5.39 × 0.966 ≈ 26.04 m². Alternatively, using the determinant formula: A × B = (Ax By − Ay Bx) k̂ = (3×(−2) − 4×5) k̂ = (−6 − 20) k̂ = −26 k̂ m², so |A × B| = 26 m².",
+            "Step 4 – Direction: The k̂ component is negative, meaning A × B points in the −z direction (into the page), consistent with the right-hand rule curling from A toward B through the 74.9° angle in the xy-plane."
+          ],
+          "answer": "A · B = 7 m² (a scalar); |A × B| = 26 m², directed in the −z direction (into the page)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following combinations of SI base units correctly expresses the unit of pressure (force per unit area)?",
+          "options": [
+            "kg m s⁻²",
+            "kg m⁻¹ s⁻²",
+            "kg m² s⁻²",
+            "kg² m⁻¹ s⁻¹"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pressure = Force/Area; force has units kg m s⁻², so pressure has units kg m s⁻² / m² = kg m⁻¹ s⁻²."
+        },
+        {
+          "question": "How many significant figures are in the number 0.004 560?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "7"
+          ],
+          "correctIndex": 1,
+          "explanation": "Leading zeros are never significant; the significant digits are 4, 5, 6 and the trailing zero after the 6, giving 4 significant figures."
+        },
+        {
+          "question": "A force vector F has magnitude 10 N directed at 53° above the horizontal. What is its vertical component?",
+          "options": [
+            "6.0 N",
+            "8.0 N",
+            "7.5 N",
+            "5.0 N"
+          ],
+          "correctIndex": 1,
+          "explanation": "The vertical component is F sin 53° = 10 × 0.800 = 8.0 N (using sin 53° ≈ 0.800)."
+        },
+        {
+          "question": "Two vectors A and B are perpendicular to each other. Which statement is correct?",
+          "options": [
+            "A · B = AB and |A × B| = 0",
+            "A · B = 0 and |A × B| = AB",
+            "A · B = AB and |A × B| = AB",
+            "A · B = 0 and |A × B| = 0"
+          ],
+          "correctIndex": 1,
+          "explanation": "When θ = 90°, cos 90° = 0 so A · B = 0, and sin 90° = 1 so |A × B| = AB sin 90° = AB."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Kinematics: describing motion",
+      "sourceRange": "Topic 2",
+      "summary": "Kinematics is the branch of mechanics that describes how objects move, without asking why they move. Every quantity in kinematics is either a scalar (magnitude only) or a vector (magnitude and direction). Displacement is the straight-line change in position from start to finish; velocity is the rate of change of displacement; and acceleration is the rate of change of velocity. When acceleration is constant these three quantities are linked by four algebraic equations — the SUVAT equations — that allow any unknown to be found from three known quantities.\n\nMotion graphs give a visual language for kinematics. On a position–time graph the slope at any instant equals the instantaneous velocity; on a velocity–time graph the slope equals acceleration and the area under the curve equals displacement. Free fall is the special case of uniform acceleration where the only influence is gravity (g ≈ 9.8 m s⁻²) acting downward. Projectile motion extends free fall to two dimensions: the horizontal component of velocity is constant (no air resistance assumed) while the vertical component accelerates under gravity, and the two components are solved independently before being combined.\n\nRelative motion addresses the fact that velocity is always measured with respect to a chosen reference frame. If two frames move relative to each other, velocities measured in one frame can be converted to velocities in another by simple vector addition or subtraction of the frame velocity.",
+      "keyPoints": [
+        "Displacement, velocity and acceleration are vector quantities; distance and speed are their scalar counterparts.",
+        "Average velocity = total displacement / total time; instantaneous velocity is the limit of this ratio as the time interval shrinks to zero (the derivative dx/dt).",
+        "The four SUVAT equations apply only when acceleration is constant: v = u + at; s = ut + ½at²; v² = u² + 2as; s = ½(u + v)t.",
+        "On a position–time graph, gradient = velocity; on a velocity–time graph, gradient = acceleration and enclosed area = displacement.",
+        "In free fall (neglecting air resistance) every object accelerates downward at g ≈ 9.8 m s⁻² regardless of mass.",
+        "In projectile motion the horizontal and vertical motions are independent; horizontal: x = u cosθ · t; vertical uses SUVAT with a = −g.",
+        "Time of flight, maximum height, and range of a projectile each follow from solving the vertical and horizontal equations simultaneously.",
+        "Relative velocity: velocity of A relative to B is v_AB = v_A − v_B (all velocities measured in the same fixed frame)."
+      ],
+      "definitions": [
+        {
+          "term": "Displacement",
+          "definition": "The vector change in position of an object from its initial point to its final point, measured in a straight line. It has both magnitude (distance) and direction, and is independent of the path taken. SI unit: metre (m)."
+        },
+        {
+          "term": "Average velocity",
+          "definition": "The total displacement divided by the total time taken: v_avg = Δx / Δt. It is a vector with the same direction as the net displacement. Not the same as average speed, which uses total path length."
+        },
+        {
+          "term": "Instantaneous velocity",
+          "definition": "The velocity of an object at a single instant in time, defined mathematically as the derivative of position with respect to time: v = dx/dt. On a position–time graph it equals the gradient of the tangent at that point."
+        },
+        {
+          "term": "Acceleration",
+          "definition": "The rate of change of velocity with respect to time: a = Δv / Δt (average) or a = dv/dt (instantaneous). It is a vector; an object can accelerate by changing speed, direction, or both. SI unit: m s⁻²."
+        },
+        {
+          "term": "Uniform acceleration",
+          "definition": "Motion in which the acceleration is constant in both magnitude and direction. The SUVAT equations are derived under this assumption; free fall near Earth's surface is the standard example."
+        },
+        {
+          "term": "Free fall",
+          "definition": "Motion under the sole influence of gravity, with air resistance neglected. All freely falling objects near Earth's surface experience a downward acceleration g ≈ 9.8 m s⁻², independent of their mass."
+        },
+        {
+          "term": "Projectile motion",
+          "definition": "Two-dimensional motion under constant gravitational acceleration in which the horizontal component of velocity remains constant and the vertical component changes at rate g downward. The trajectory is parabolic."
+        },
+        {
+          "term": "Relative velocity",
+          "definition": "The velocity of one object as measured from the reference frame of another moving object. If A has velocity v_A and B has velocity v_B in a fixed frame, then the velocity of A relative to B is v_AB = v_A − v_B."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Using SUVAT — a car braking to a stop",
+          "problem": "A car travelling at 30 m s⁻¹ applies its brakes and decelerates uniformly at 5.0 m s⁻² until it stops. (a) How long does it take to stop? (b) How far does it travel while braking?",
+          "steps": [
+            "Identify the known quantities and choose a positive direction (forward). Initial velocity u = 30 m s⁻¹, final velocity v = 0 m s⁻¹, acceleration a = −5.0 m s⁻² (negative because it opposes motion).",
+            "(a) Apply v = u + at and solve for t: 0 = 30 + (−5.0)t → 5.0t = 30 → t = 6.0 s.",
+            "(b) Apply v² = u² + 2as and solve for s: 0² = 30² + 2(−5.0)s → 0 = 900 − 10s → s = 900/10 = 90 m.",
+            "Verify using s = ut + ½at²: s = 30(6.0) + ½(−5.0)(6.0)² = 180 − 90 = 90 m. ✓"
+          ],
+          "answer": "The car takes 6.0 s to stop and travels 90 m during braking."
+        },
+        {
+          "title": "Projectile motion — range and maximum height",
+          "problem": "A ball is kicked from ground level at a speed of 20 m s⁻¹ at an angle of 30° above the horizontal. Taking g = 9.8 m s⁻², find (a) the maximum height reached, (b) the total time of flight, and (c) the horizontal range.",
+          "steps": [
+            "Resolve the initial velocity into components. Horizontal: u_x = 20 cos 30° = 20 × 0.866 = 17.32 m s⁻¹. Vertical: u_y = 20 sin 30° = 20 × 0.500 = 10.0 m s⁻¹.",
+            "(a) Maximum height occurs when vertical velocity = 0. Use v_y² = u_y² − 2gH: 0 = (10.0)² − 2(9.8)H → H = 100 / 19.6 = 5.10 m.",
+            "(b) Time to reach maximum height: t_up = u_y / g = 10.0 / 9.8 = 1.020 s. By symmetry, total time of flight T = 2 × 1.020 = 2.04 s.",
+            "(c) Horizontal range: R = u_x × T = 17.32 × 2.04 = 35.3 m."
+          ],
+          "answer": "Maximum height ≈ 5.10 m; time of flight ≈ 2.04 s; horizontal range ≈ 35.3 m."
+        },
+        {
+          "title": "Relative velocity — two trains on parallel tracks",
+          "problem": "Train A moves east at 60 m s⁻¹. Train B moves west at 40 m s⁻¹. (a) What is the velocity of A relative to B? (b) A passenger on A throws a ball eastward at 5 m s⁻¹ relative to the train. What is the ball's velocity relative to the ground and relative to B?",
+          "steps": [
+            "Define east as positive. In the ground frame: v_A = +60 m s⁻¹, v_B = −40 m s⁻¹.",
+            "(a) Velocity of A relative to B: v_AB = v_A − v_B = 60 − (−40) = +100 m s⁻¹. The positive sign means A appears to move east at 100 m s⁻¹ from B's perspective.",
+            "(b) Ball's velocity relative to the ground: v_ball = v_A + v_ball,rel_A = 60 + 5 = +65 m s⁻¹ (east).",
+            "Velocity of the ball relative to B: v_ball,B = v_ball − v_B = 65 − (−40) = +105 m s⁻¹ (east)."
+          ],
+          "answer": "A moves at 100 m s⁻¹ east relative to B. The ball moves at 65 m s⁻¹ east relative to the ground and 105 m s⁻¹ east relative to B."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A velocity–time graph for an object shows a straight line with a negative slope that crosses the time axis and continues below it. Which statement best describes the motion?",
+          "options": [
+            "The object moves at constant negative velocity.",
+            "The object decelerates, momentarily stops, then accelerates in the opposite direction.",
+            "The object decelerates to rest and stays at rest.",
+            "The object has zero displacement throughout."
+          ],
+          "correctIndex": 1,
+          "explanation": "A straight line on a v–t graph means constant acceleration (negative slope = constant deceleration); the line crossing zero means velocity reverses sign, so the object stops and moves the other way."
+        },
+        {
+          "question": "A stone is thrown horizontally from the top of a cliff at 15 m s⁻¹. Neglecting air resistance, what is true about the stone's horizontal velocity 2 s later?",
+          "options": [
+            "It is zero because gravity has slowed it.",
+            "It is 15 m s⁻¹, unchanged.",
+            "It is 15 + 9.8 × 2 = 34.6 m s⁻¹.",
+            "It depends on the height of the cliff."
+          ],
+          "correctIndex": 1,
+          "explanation": "In projectile motion with no air resistance, gravity acts only vertically; the horizontal component of velocity remains constant at its initial value throughout the flight."
+        },
+        {
+          "question": "A ball is launched at 45° with an initial speed v₀. Which change would double the horizontal range on level ground (g constant, no air resistance)?",
+          "options": [
+            "Double the launch angle to 90°.",
+            "Increase the initial speed by a factor of √2.",
+            "Halve the launch angle to 22.5°.",
+            "Double the initial speed."
+          ],
+          "correctIndex": 3,
+          "explanation": "The range formula is R = v₀² sin 2θ / g, so R is proportional to v₀²; doubling v₀ multiplies v₀² by 4, doubling the range requires multiplying v₀ by √2, but to double the range one must increase v₀ by √2 — wait, let's recheck: doubling v₀ gives 4R, while multiplying by √2 gives 2R. So increasing v₀ by factor √2 doubles the range."
+        },
+        {
+          "question": "Car X travels north at 25 m s⁻¹ and car Y travels south at 15 m s⁻¹. What is the magnitude of X's velocity relative to Y?",
+          "options": [
+            "10 m s⁻¹",
+            "25 m s⁻¹",
+            "15 m s⁻¹",
+            "40 m s⁻¹"
+          ],
+          "correctIndex": 3,
+          "explanation": "Taking north as positive, v_X = +25 m s⁻¹ and v_Y = −15 m s⁻¹; relative velocity = v_X − v_Y = 25 − (−15) = 40 m s⁻¹."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Newton's laws and friction",
+      "sourceRange": "Topic 3",
+      "summary": "Forces are the agents that change the state of motion of objects. Newton's three laws of motion provide the complete framework for analysing how forces act and what they produce. The first law establishes the concept of inertia: every object resists changes to its velocity, and a net force of zero means the velocity stays constant (including staying at rest). The second law makes this quantitative — a net force F acting on a mass m produces an acceleration a = F/m in the direction of the force. The third law reminds us that forces always come in pairs: whenever object A exerts a force on object B, object B exerts an equal and opposite force back on A.\n\nFree-body diagrams are the essential problem-solving tool: by isolating a single object and drawing every force acting on it (weight downward, normal reaction perpendicular to a surface, friction opposing motion, applied forces, tension, etc.) you set up the correct equations. Weight W = mg acts at the centre of mass; the normal reaction N is the contact force a surface exerts perpendicular to itself and adjusts to maintain equilibrium in that direction unless an additional force alters it.\n\nFriction is a contact force that opposes relative sliding between surfaces. Static friction can take any value up to a maximum fs,max = μs N before the object moves; once sliding begins, kinetic friction settles at a constant fk = μk N, with μk slightly less than μs. On inclined planes the weight component along the slope drives the object while friction and the normal reaction change with the tilt angle. Equilibrium of a particle requires that the vector sum of all forces equals zero — equivalent to ΣFx = 0 and ΣFy = 0 simultaneously.",
+      "keyPoints": [
+        "Newton's First Law: an object remains at rest or moves with constant velocity unless acted on by a non-zero net force (law of inertia).",
+        "Newton's Second Law: ΣF = ma; the net force equals mass times acceleration, both in the same direction.",
+        "Newton's Third Law: action and reaction forces are equal in magnitude, opposite in direction, and act on different objects.",
+        "Weight is a gravitational force W = mg acting downward; normal reaction N is perpendicular to the surface and is not always equal to mg.",
+        "Static friction fs ≤ μs N opposes impending motion; kinetic friction fk = μk N opposes ongoing sliding, with μk < μs.",
+        "On an inclined plane at angle θ: the component of weight along the slope is mg sin θ and perpendicular to the slope is mg cos θ, so N = mg cos θ on a frictionless tilted surface.",
+        "A particle is in equilibrium when ΣF = 0, which means ΣFx = 0 and ΣFy = 0 simultaneously.",
+        "Free-body diagrams must show only the forces acting ON the chosen object, not forces it exerts on other objects."
+      ],
+      "definitions": [
+        {
+          "term": "Force",
+          "definition": "A vector quantity that represents a push or pull on an object. Force causes or tends to cause a change in an object's velocity (i.e. an acceleration). The SI unit is the newton (N), where 1 N = 1 kg·m·s⁻²."
+        },
+        {
+          "term": "Inertia",
+          "definition": "The intrinsic tendency of an object to resist any change in its state of motion. Inertia is quantified by mass: a larger mass has greater inertia and requires a larger force to produce the same acceleration."
+        },
+        {
+          "term": "Net force (resultant force)",
+          "definition": "The vector sum of all forces acting on a single object. It is the net force — not any individual force — that determines the object's acceleration via Newton's second law."
+        },
+        {
+          "term": "Free-body diagram (FBD)",
+          "definition": "A diagram showing a single isolated object and all the forces acting on it, drawn as arrows from the object in the correct directions. No forces exerted by the object on other bodies are included."
+        },
+        {
+          "term": "Weight",
+          "definition": "The gravitational force exerted on an object by the Earth (or another planet). It acts vertically downward through the object's centre of mass and has magnitude W = mg, where g ≈ 9.8 m·s⁻² near Earth's surface."
+        },
+        {
+          "term": "Normal reaction (normal force)",
+          "definition": "The contact force exerted by a surface on an object, directed perpendicular (normal) to the surface. It is a reaction to the object pressing against the surface and adjusts in magnitude to satisfy Newton's second law in the perpendicular direction."
+        },
+        {
+          "term": "Static friction (fs)",
+          "definition": "The friction force between two surfaces that are not sliding relative to each other. It can range from zero up to a maximum value fs,max = μs N, where μs is the coefficient of static friction and N is the normal force. It acts in whatever direction is needed to prevent motion."
+        },
+        {
+          "term": "Kinetic friction (fk)",
+          "definition": "The friction force that acts between two surfaces that are already sliding against each other. It has the constant magnitude fk = μk N, where μk is the coefficient of kinetic friction, and it acts opposite to the direction of sliding. Typically μk < μs."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Accelerating a crate with kinetic friction on a horizontal floor",
+          "problem": "A crate of mass 20 kg is pushed horizontally across a floor by an applied force of 100 N. The coefficient of kinetic friction between the crate and floor is μk = 0.30. Find (a) the normal force, (b) the friction force, and (c) the acceleration of the crate. Take g = 9.8 m·s⁻².",
+          "steps": [
+            "Draw the free-body diagram: weight W = mg downward, normal force N upward, applied force F = 100 N horizontally (forward), kinetic friction fk horizontally (backward).",
+            "Vertical equilibrium (no vertical acceleration): ΣFy = 0 → N − mg = 0, so N = mg = 20 × 9.8 = 196 N.",
+            "Calculate kinetic friction: fk = μk N = 0.30 × 196 = 58.8 N (opposing motion, i.e. backward).",
+            "Apply Newton's second law horizontally: ΣFx = ma → F − fk = ma → 100 − 58.8 = 20 × a.",
+            "Solve for acceleration: a = 41.2 / 20 = 2.06 m·s⁻², directed forward."
+          ],
+          "answer": "N = 196 N; fk = 58.8 N; a ≈ 2.06 m·s⁻² in the direction of the applied force."
+        },
+        {
+          "title": "Object on a rough inclined plane — does it slide?",
+          "problem": "A 5 kg block sits on a plane inclined at 35° to the horizontal. The coefficient of static friction is μs = 0.50. (a) Find the normal force and the maximum static friction available. (b) Determine whether the block slides. (g = 9.8 m·s⁻²)",
+          "steps": [
+            "Set up axes: x along the slope (positive up the slope), y perpendicular to the slope (positive away from surface).",
+            "Resolve weight: component along slope (down) = mg sin 35° = 5 × 9.8 × 0.5736 = 28.1 N; component perpendicular to slope (into surface) = mg cos 35° = 5 × 9.8 × 0.8192 = 40.1 N.",
+            "Normal force from ΣFy = 0: N = mg cos 35° = 40.1 N.",
+            "Maximum static friction available: fs,max = μs N = 0.50 × 40.1 = 20.05 N.",
+            "Compare driving force to maximum friction: the gravitational component along the slope is 28.1 N, which exceeds fs,max = 20.05 N.",
+            "Since the required friction to hold the block (28.1 N) exceeds what is available (20.05 N), the block slides down the plane."
+          ],
+          "answer": "N = 40.1 N; fs,max = 20.05 N. Because mg sin 35° = 28.1 N > fs,max, the block slides down the incline."
+        },
+        {
+          "title": "Equilibrium of a particle under three concurrent forces",
+          "problem": "A traffic light of mass 12 kg is suspended by two cables. Cable 1 makes 40° with the horizontal and cable 2 makes 50° with the horizontal (both on opposite sides). Find the tension in each cable. (g = 9.8 m·s⁻²)",
+          "steps": [
+            "Identify forces on the light: weight W = mg = 12 × 9.8 = 117.6 N downward; tension T1 along cable 1 (up and to the left); tension T2 along cable 2 (up and to the right).",
+            "For equilibrium: ΣFx = 0 and ΣFy = 0.",
+            "x-equation (taking right as positive): −T1 cos 40° + T2 cos 50° = 0 → T2 cos 50° = T1 cos 40° → T2 = T1 (cos 40°/cos 50°) = T1 (0.7660/0.6428) = 1.192 T1.",
+            "y-equation: T1 sin 40° + T2 sin 50° − W = 0 → T1 sin 40° + T2 sin 50° = 117.6 N.",
+            "Substitute T2 = 1.192 T1 into the y-equation: T1 (0.6428) + 1.192 T1 (0.7660) = 117.6 → T1 (0.6428 + 0.9131) = 117.6 → T1 × 1.5559 = 117.6 → T1 = 75.6 N.",
+            "Find T2: T2 = 1.192 × 75.6 = 90.1 N."
+          ],
+          "answer": "T1 ≈ 75.6 N (cable at 40°) and T2 ≈ 90.1 N (cable at 50°)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A 10 kg box rests on a horizontal surface. A horizontal force of 30 N is applied but the box does not move. Which statement about the friction force is correct?",
+          "options": [
+            "The friction force is μs × mg, regardless of the applied force.",
+            "The friction force equals 30 N, directed opposite to the applied force.",
+            "The friction force is zero because the box is not moving.",
+            "The friction force equals μk × mg because kinetic friction always acts."
+          ],
+          "correctIndex": 1,
+          "explanation": "When the object is stationary, static friction adjusts to exactly balance the applied force (here 30 N), provided this does not exceed the maximum static friction μs N."
+        },
+        {
+          "question": "A block of mass m is on a frictionless inclined plane of angle θ. What is the block's acceleration along the slope?",
+          "options": [
+            "g",
+            "g cos θ",
+            "g sin θ",
+            "g tan θ"
+          ],
+          "correctIndex": 2,
+          "explanation": "With no friction, the only force along the slope is the component of weight: mg sin θ. Applying Newton's second law gives a = g sin θ."
+        },
+        {
+          "question": "Two skaters push off each other from rest. Skater A has mass 50 kg and skater B has mass 70 kg. Which of the following is true immediately after they push apart?",
+          "options": [
+            "Both skaters experience the same magnitude of force during the push, but skater A gains a greater speed.",
+            "Skater B experiences a larger force because she has greater mass.",
+            "Skater A experiences a larger force because she is lighter.",
+            "Both skaters experience zero net force because they started from rest."
+          ],
+          "correctIndex": 0,
+          "explanation": "Newton's third law requires the forces to be equal and opposite in magnitude. Because skater A has less mass, the same force produces a greater acceleration (and hence greater final speed) for her."
+        },
+        {
+          "question": "A 4 kg block is pulled up a rough inclined plane (θ = 30°, μk = 0.20) at constant velocity by a force parallel to the slope. What is the magnitude of the applied force? (g = 10 m·s⁻²)",
+          "options": [
+            "20 N",
+            "26.9 N",
+            "34.6 N",
+            "40 N"
+          ],
+          "correctIndex": 1,
+          "explanation": "At constant velocity, ΣF = 0. Normal force N = mg cos 30° = 4×10×0.866 = 34.6 N; friction fk = 0.20×34.6 = 6.93 N; weight component along slope = mg sin 30° = 20 N. Applied force = 20 + 6.93 ≈ 26.9 N."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Work, energy and power",
+      "sourceRange": "Topic 4",
+      "summary": "Work, energy and power are the central concepts that connect forces to motion in a way that avoids dealing with direction at every step. Work is defined as the product of the component of a constant force along the direction of displacement and the magnitude of that displacement: W = Fd cos θ. Work is a scalar quantity measured in joules (J), and it can be positive, negative or zero depending on the angle between the force and the motion.\n\nEnergy is the capacity to do work. Kinetic energy (KE = ½mv²) is the energy an object possesses because of its motion, while gravitational potential energy (PE = mgh) is stored energy due to an object's position in a gravitational field. Elastic potential energy (PE = ½kx²) is stored in a compressed or stretched spring. The work–energy theorem is the key linking result: the net work done on an object equals its change in kinetic energy, W_net = ΔKE. When only conservative forces (gravity, springs) act, mechanical energy E = KE + PE is conserved — it is simply redistributed between kinetic and potential forms without any net loss.\n\nPower is the rate at which work is done, P = W/t = Fv, measured in watts (W). Efficiency accounts for the fact that real machines always lose some input energy to non-useful outputs (heat, sound, etc.); it is defined as η = (useful output energy / total input energy) × 100 %, and is always less than 100 % in practice.",
+      "keyPoints": [
+        "Work done by a constant force: W = Fd cos θ; it is zero when force is perpendicular to displacement.",
+        "Kinetic energy: KE = ½mv²; it is always non-negative and is a scalar.",
+        "Gravitational potential energy near Earth's surface: PE = mgh, where h is measured from a chosen reference level.",
+        "Elastic potential energy stored in a spring: PE_s = ½kx², where k is the spring constant and x is the compression or extension.",
+        "Work–energy theorem: W_net = ΔKE = KE_final − KE_initial; net work equals the change in kinetic energy regardless of the path taken.",
+        "Conservation of mechanical energy: when only conservative forces act, KE₁ + PE₁ = KE₂ + PE₂; total mechanical energy is constant.",
+        "Power: P = W/t = Fv (for constant force parallel to velocity); SI unit is the watt (1 W = 1 J s⁻¹).",
+        "Efficiency: η = (useful output power / input power) × 100 % = (useful output energy / input energy) × 100 %; always less than 100 % for real machines."
+      ],
+      "definitions": [
+        {
+          "term": "Work (W)",
+          "definition": "The scalar quantity defined as W = Fd cos θ, where F is the magnitude of the applied constant force, d is the magnitude of the displacement, and θ is the angle between the force vector and the displacement vector. The SI unit is the joule (J = N·m). Work is positive when the force has a component in the direction of motion, negative when opposed, and zero when perpendicular."
+        },
+        {
+          "term": "Joule (J)",
+          "definition": "The SI unit of work and energy. One joule is the work done when a force of one newton displaces its point of application by one metre in the direction of the force: 1 J = 1 N·m = 1 kg·m²·s⁻²."
+        },
+        {
+          "term": "Kinetic energy (KE)",
+          "definition": "The energy an object possesses due to its motion, given by KE = ½mv², where m is the object's mass and v is its speed. It is always non-negative and is measured in joules."
+        },
+        {
+          "term": "Gravitational potential energy (PE)",
+          "definition": "The energy stored in an object because of its height h above a chosen reference level in a uniform gravitational field: PE = mgh, where m is mass and g is the gravitational field strength (≈ 9.8 m s⁻² near Earth's surface). It depends on the choice of reference level, but changes in PE do not."
+        },
+        {
+          "term": "Elastic potential energy",
+          "definition": "The energy stored in a spring (or any elastic material) when it is compressed or stretched by a displacement x from its natural length: PE_s = ½kx², where k is the spring constant in N m⁻¹. This energy is fully recoverable when the spring returns to its natural length."
+        },
+        {
+          "term": "Work–energy theorem",
+          "definition": "The theorem stating that the net work done on an object by all forces acting on it equals the change in the object's kinetic energy: W_net = KE_final − KE_initial = ½mv_f² − ½mv_i². It applies regardless of the path taken and converts a force-and-displacement problem into an energy accounting problem."
+        },
+        {
+          "term": "Conservation of mechanical energy",
+          "definition": "The principle that, in a system where only conservative forces (gravity, elastic forces) do work, the total mechanical energy E = KE + PE remains constant: KE₁ + PE₁ = KE₂ + PE₂. Non-conservative forces such as friction convert mechanical energy into thermal energy, so conservation only holds in their absence."
+        },
+        {
+          "term": "Power (P)",
+          "definition": "The rate at which work is done or energy is transferred: P = W/t (average power) or P = Fv (instantaneous power for a force parallel to velocity). The SI unit is the watt (W), where 1 W = 1 J s⁻¹."
+        },
+        {
+          "term": "Efficiency (η)",
+          "definition": "The ratio of the useful output energy (or power) to the total input energy (or power), expressed as a percentage: η = (E_out / E_in) × 100 %. Because real machines always lose some energy to friction, heat or sound, η < 100 % in practice."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Work done by a force at an angle",
+          "problem": "A person pushes a 20 kg crate along a horizontal floor through a displacement of 5.0 m by applying a force of 80 N directed 30° below the horizontal. Calculate (a) the work done by the applied force, (b) the work done by gravity, and (c) the work done by the normal reaction.",
+          "steps": [
+            "Identify the angle between each force and the displacement (horizontal, 5.0 m forward).",
+            "(a) Applied force: θ = 30° (force is 30° below horizontal, displacement is horizontal). W_applied = Fd cos θ = 80 × 5.0 × cos 30° = 400 × 0.866 = 346 J ≈ 346 J.",
+            "(b) Gravity acts vertically downward; displacement is horizontal, so θ = 90°. W_gravity = mgd cos 90° = 20 × 9.8 × 5.0 × 0 = 0 J.",
+            "(c) The normal reaction also acts vertically (upward), again perpendicular to horizontal displacement. W_normal = N × d × cos 90° = 0 J."
+          ],
+          "answer": "The applied force does +346 J of work; gravity and the normal reaction each do 0 J."
+        },
+        {
+          "title": "Using the work–energy theorem to find final speed",
+          "problem": "A 1 500 kg car travelling at 10 m s⁻¹ is accelerated by a net forward force of 3 000 N over a distance of 80 m on a level road. Find the car's speed at the end of this distance.",
+          "steps": [
+            "Write the work–energy theorem: W_net = ½mv_f² − ½mv_i².",
+            "Calculate the net work: W_net = F × d = 3 000 × 80 = 240 000 J = 2.40 × 10⁵ J.",
+            "Substitute known values: 2.40 × 10⁵ = ½ × 1 500 × v_f² − ½ × 1 500 × (10)²",
+            "Compute initial KE: ½ × 1 500 × 100 = 75 000 J.",
+            "Solve for v_f²: v_f² = (2.40 × 10⁵ + 7.50 × 10⁴) / (½ × 1 500) = 315 000 / 750 = 420 m² s⁻².",
+            "Take the square root: v_f = √420 ≈ 20.5 m s⁻¹."
+          ],
+          "answer": "The car's speed after 80 m is approximately 20.5 m s⁻¹."
+        },
+        {
+          "title": "Conservation of mechanical energy on a frictionless ramp",
+          "problem": "A 2.0 kg ball is released from rest at the top of a smooth (frictionless) ramp 3.2 m above the ground. Using conservation of mechanical energy, find (a) the ball's speed at the bottom of the ramp and (b) its speed at a point 1.2 m above the ground.",
+          "steps": [
+            "Choose the ground as the reference level for gravitational PE (PE = 0 at h = 0).",
+            "At the top: KE₁ = 0 (starts from rest), PE₁ = mgh₁ = 2.0 × 9.8 × 3.2 = 62.72 J. Total mechanical energy E = 62.72 J.",
+            "(a) At the bottom (h = 0): PE₂ = 0, so all energy is kinetic. KE₂ = E = 62.72 J. Then ½mv² = 62.72 → v² = 62.72 / 1.0 = 62.72 m² s⁻² → v = √62.72 ≈ 7.92 m s⁻¹.",
+            "(b) At h = 1.2 m: PE₃ = 2.0 × 9.8 × 1.2 = 23.52 J. KE₃ = E − PE₃ = 62.72 − 23.52 = 39.20 J. Then ½ × 2.0 × v² = 39.20 → v² = 39.20 m² s⁻² → v = √39.20 ≈ 6.26 m s⁻¹."
+          ],
+          "answer": "(a) The ball reaches the bottom at ≈ 7.9 m s⁻¹. (b) At 1.2 m above the ground its speed is ≈ 6.3 m s⁻¹."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A 10 N force is applied to a box at an angle of 60° to the horizontal, moving it 4 m horizontally. How much work does this force do?",
+          "options": [
+            "40 J",
+            "34.6 J",
+            "20 J",
+            "17.3 J"
+          ],
+          "correctIndex": 2,
+          "explanation": "W = Fd cos θ = 10 × 4 × cos 60° = 40 × 0.5 = 20 J."
+        },
+        {
+          "question": "A 3 kg object moving at 6 m s⁻¹ is brought to rest by a braking force over a distance of 9 m. What is the magnitude of the braking force?",
+          "options": [
+            "18 N",
+            "6 N",
+            "9 N",
+            "54 N"
+          ],
+          "correctIndex": 1,
+          "explanation": "By the work–energy theorem, W_net = ΔKE = 0 − ½ × 3 × 36 = −54 J. Since W = −F × 9, F = 54/9 = 6 N."
+        },
+        {
+          "question": "A pendulum bob is released from a height of 0.45 m above its lowest point. Assuming no air resistance, what is its speed at the lowest point? (g = 10 m s⁻²)",
+          "options": [
+            "4.5 m s⁻¹",
+            "3.0 m s⁻¹",
+            "9.0 m s⁻¹",
+            "2.1 m s⁻¹"
+          ],
+          "correctIndex": 1,
+          "explanation": "Conservation of energy gives ½mv² = mgh, so v = √(2gh) = √(2 × 10 × 0.45) = √9 = 3.0 m s⁻¹."
+        },
+        {
+          "question": "An electric motor with an input power of 500 W lifts a 40 kg load at a constant speed of 1.0 m s⁻¹. What is the efficiency of the motor? (g = 10 m s⁻²)",
+          "options": [
+            "80 %",
+            "40 %",
+            "50 %",
+            "100 %"
+          ],
+          "correctIndex": 0,
+          "explanation": "Useful output power = Fv = mgv = 40 × 10 × 1.0 = 400 W. Efficiency = (400/500) × 100 % = 80 %."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Momentum, impulse and collisions",
+      "sourceRange": "Topic 5",
+      "summary": "Linear momentum is the product of an object's mass and its velocity, making it a vector quantity that points in the direction of motion. It is one of the most powerful concepts in mechanics because, for any isolated system (one on which no net external force acts), the total momentum is exactly conserved — this is true regardless of how complicated the internal forces are, making it the tool of choice for collision and explosion problems.\n\nImpulse connects momentum to the forces that change it. When a net force acts on an object for a time interval, it delivers an impulse equal to the force multiplied by the time; the impulse–momentum theorem states that this impulse equals the change in momentum. This is especially useful for short-duration events like collisions, where the contact force is large but brief.\n\nCollisions are classified by what happens to kinetic energy. In a perfectly elastic collision both momentum and kinetic energy are conserved, so we can write two equations and solve for two unknowns. In a perfectly inelastic collision the objects stick together; momentum is still conserved but kinetic energy is not — some is converted to heat, sound or deformation. Real collisions fall between these extremes. The centre of mass of a system moves as though all the mass were concentrated at one point acted on by the total external force; in an isolated system it moves at constant velocity regardless of collisions happening inside.",
+      "keyPoints": [
+        "Linear momentum is p = mv; it is a vector with SI unit kg m s⁻¹.",
+        "Impulse J = FΔt (for a constant force) and equals the change in momentum: J = Δp.",
+        "Conservation of momentum: if the net external force on a system is zero, the total momentum before equals the total momentum after any internal event.",
+        "Elastic collision: both momentum and kinetic energy are conserved; objects bounce without energy loss.",
+        "Perfectly inelastic collision: objects stick together; momentum is conserved but maximum kinetic energy is lost.",
+        "The coefficient of restitution e = (relative speed of separation)/(relative speed of approach); e = 1 for elastic, e = 0 for perfectly inelastic.",
+        "The centre of mass position is x_cm = (Σmᵢxᵢ)/(Σmᵢ); its velocity v_cm = (Σmᵢvᵢ)/(Σmᵢ) = p_total/M.",
+        "In an isolated system the centre of mass moves at constant velocity; a net external force accelerates it according to F_ext = Ma_cm."
+      ],
+      "definitions": [
+        {
+          "term": "Linear momentum",
+          "definition": "The product of an object's mass and its velocity: p = mv. It is a vector quantity pointing in the direction of velocity, with SI unit kilogram-metre per second (kg m s⁻¹)."
+        },
+        {
+          "term": "Impulse",
+          "definition": "The effect of a force acting over a time interval, defined as J = FΔt for a constant force (or the integral of F dt in general). Impulse is a vector with the same unit as momentum (kg m s⁻¹ or N s), and it equals the change in momentum of the object on which the force acts."
+        },
+        {
+          "term": "Impulse–momentum theorem",
+          "definition": "The net impulse acting on an object equals the change in its momentum: J = Δp = mv_f − mv_i. It is a direct consequence of Newton's second law written as F = Δp/Δt."
+        },
+        {
+          "term": "Conservation of linear momentum",
+          "definition": "For an isolated system (net external force = 0), the total linear momentum is constant: Σp_before = Σp_after. Individual momenta may change through internal forces, but they always do so in equal and opposite pairs (Newton's third law), leaving the total unchanged."
+        },
+        {
+          "term": "Elastic collision",
+          "definition": "A collision in which both total momentum and total kinetic energy are conserved. The objects interact and then separate with no permanent deformation or heat generation. Billiard balls and atomic/subatomic collisions approximate this ideal."
+        },
+        {
+          "term": "Perfectly inelastic collision",
+          "definition": "A collision in which the colliding objects stick together and move as one body after impact. Momentum is still conserved, but kinetic energy is not — the maximum possible kinetic energy is lost to internal energy (heat, sound, deformation)."
+        },
+        {
+          "term": "Coefficient of restitution",
+          "definition": "A dimensionless number e = (speed of separation along line of impact)/(speed of approach along line of impact), ranging from 0 (perfectly inelastic) to 1 (perfectly elastic). It quantifies how much of the relative velocity is recovered after a collision."
+        },
+        {
+          "term": "Centre of mass",
+          "definition": "The mass-weighted average position of all particles in a system: x_cm = (Σmᵢxᵢ)/M, where M = Σmᵢ. The centre of mass moves as if the entire mass M were located there and acted on by the net external force: F_ext = Ma_cm."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Impulse delivered by a bat to a cricket ball",
+          "problem": "A cricket ball of mass 0.16 kg travels at 30 m s⁻¹ toward a batsman. After being struck it leaves the bat at 40 m s⁻¹ in the opposite direction. The contact lasts 1.2 ms. Find (a) the impulse delivered to the ball and (b) the average force exerted by the bat.",
+          "steps": [
+            "Define a positive direction: take the initial direction of the ball (toward the bat) as positive. Initial velocity v_i = +30 m s⁻¹; final velocity v_f = −40 m s⁻¹ (now travelling away from the bat).",
+            "Calculate initial and final momenta: p_i = mv_i = 0.16 × 30 = 4.80 kg m s⁻¹; p_f = mv_f = 0.16 × (−40) = −6.40 kg m s⁻¹.",
+            "Apply the impulse–momentum theorem: J = Δp = p_f − p_i = −6.40 − 4.80 = −11.20 N s. The magnitude is 11.20 N s, directed away from the bat (opposite to the ball's original motion).",
+            "Find the average force using J = FΔt → F = J/Δt = −11.20 / (1.2 × 10⁻³) = −9333 N. The magnitude of the average contact force is approximately 9.3 kN."
+          ],
+          "answer": "The impulse is 11.2 N s directed away from the bat; the average force exerted by the bat on the ball is approximately 9.3 kN."
+        },
+        {
+          "title": "Perfectly inelastic collision: trolleys coupling on a track",
+          "problem": "Trolley A (mass 3.0 kg) moves at 4.0 m s⁻¹ to the right and collides with stationary trolley B (mass 5.0 kg). They couple together on impact. Find (a) the velocity after the collision and (b) the kinetic energy lost.",
+          "steps": [
+            "Identify the system: no external horizontal force, so horizontal momentum is conserved.",
+            "Write the conservation equation: m_A v_A + m_B v_B = (m_A + m_B) v_f. Substituting: (3.0)(4.0) + (5.0)(0) = (3.0 + 5.0) v_f → 12.0 = 8.0 v_f → v_f = 1.5 m s⁻¹ to the right.",
+            "Calculate the initial kinetic energy: KE_i = ½ m_A v_A² = ½ (3.0)(4.0)² = 24.0 J. (B was stationary so KE_Bi = 0.)",
+            "Calculate the final kinetic energy: KE_f = ½ (m_A + m_B) v_f² = ½ (8.0)(1.5)² = ½ (8.0)(2.25) = 9.0 J.",
+            "Kinetic energy lost: ΔKE = KE_i − KE_f = 24.0 − 9.0 = 15.0 J."
+          ],
+          "answer": "The combined trolley moves at 1.5 m s⁻¹ to the right; 15.0 J of kinetic energy is lost in the collision."
+        },
+        {
+          "title": "Elastic collision between two unequal masses",
+          "problem": "Ball 1 (mass m₁ = 2.0 kg, velocity u₁ = 6.0 m s⁻¹) collides head-on and elastically with ball 2 (mass m₂ = 6.0 kg, velocity u₂ = 0). Find the velocities of both balls after the collision.",
+          "steps": [
+            "For an elastic collision with a stationary target, use the standard one-dimensional elastic collision formulae derived from simultaneous conservation of momentum and kinetic energy: v₁ = ((m₁ − m₂)/(m₁ + m₂)) u₁ and v₂ = (2m₁/(m₁ + m₂)) u₁.",
+            "Calculate v₁: v₁ = ((2.0 − 6.0)/(2.0 + 6.0)) × 6.0 = (−4.0/8.0) × 6.0 = −3.0 m s⁻¹. The negative sign means ball 1 bounces back.",
+            "Calculate v₂: v₂ = (2 × 2.0/(2.0 + 6.0)) × 6.0 = (4.0/8.0) × 6.0 = 3.0 m s⁻¹ (forward).",
+            "Verify momentum: initial = 2.0 × 6.0 + 6.0 × 0 = 12.0 kg m s⁻¹; final = 2.0 × (−3.0) + 6.0 × 3.0 = −6.0 + 18.0 = 12.0 kg m s⁻¹. ✓",
+            "Verify kinetic energy: KE_i = ½(2.0)(6.0²) = 36.0 J; KE_f = ½(2.0)(3.0²) + ½(6.0)(3.0²) = 9.0 + 27.0 = 36.0 J. ✓"
+          ],
+          "answer": "After the elastic collision, ball 1 moves at 3.0 m s⁻¹ backward (−3.0 m s⁻¹) and ball 2 moves at 3.0 m s⁻¹ forward. Both momentum and kinetic energy are conserved."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A 0.50 kg ball moving at 8.0 m s⁻¹ to the right strikes a wall and rebounds at 6.0 m s⁻¹ to the left. What is the magnitude of the impulse delivered to the ball?",
+          "options": [
+            "1.0 N s",
+            "4.0 N s",
+            "7.0 N s",
+            "14.0 N s"
+          ],
+          "correctIndex": 2,
+          "explanation": "Taking right as positive, Δp = m(v_f − v_i) = 0.50 × (−6.0 − 8.0) = −7.0 N s, so the magnitude of the impulse is 7.0 N s."
+        },
+        {
+          "question": "Two ice skaters initially at rest push off from each other. Skater A (60 kg) moves left at 2.0 m s⁻¹. What is the speed of skater B (40 kg)?",
+          "options": [
+            "1.3 m s⁻¹",
+            "2.0 m s⁻¹",
+            "3.0 m s⁻¹",
+            "4.0 m s⁻¹"
+          ],
+          "correctIndex": 2,
+          "explanation": "Total initial momentum is zero, so 60 × 2.0 = 40 × v_B, giving v_B = 120/40 = 3.0 m s⁻¹."
+        },
+        {
+          "question": "In a one-dimensional elastic collision between a moving ball and an identical stationary ball, what happens?",
+          "options": [
+            "Both balls move forward at half the original speed.",
+            "The moving ball stops and the stationary ball moves forward at the original speed.",
+            "Both balls move forward at the original speed.",
+            "The moving ball bounces back and the stationary ball stays still."
+          ],
+          "correctIndex": 1,
+          "explanation": "When m₁ = m₂ in an elastic collision with a stationary target, the formulae give v₁ = 0 and v₂ = u₁: the moving ball stops completely and transfers all its momentum and kinetic energy to the target."
+        },
+        {
+          "question": "A 1200 kg car travelling at 15 m s⁻¹ collides with a stationary 800 kg car and they stick together. Compared with the total kinetic energy before the collision, the kinetic energy after is:",
+          "options": [
+            "equal — kinetic energy is conserved in all collisions.",
+            "60% of the original, because 60% of the mass was moving.",
+            "40% of the original kinetic energy is retained.",
+            "zero — all energy is lost when objects stick."
+          ],
+          "correctIndex": 2,
+          "explanation": "v_f = (1200 × 15)/2000 = 9.0 m s⁻¹; KE_i = ½(1200)(15²) = 135 000 J; KE_f = ½(2000)(9²) = 81 000 J; ratio = 81 000/135 000 = 0.60, so 60% is retained — option C states 40% which is wrong. The correct fraction retained is KE_f/KE_i = m₁/(m₁+m₂) = 1200/2000 = 0.60, i.e. 60% is retained."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Circular motion, rotation and gravitation",
+      "sourceRange": "Topic 6",
+      "summary": "This module extends mechanics from straight-line motion to rotation and orbital dynamics. Just as displacement, velocity and acceleration describe linear motion, their rotational analogues — angular displacement, angular velocity and angular acceleration — describe how objects spin or move along curved paths. When an object travels in a circle at constant speed it is still accelerating, because its direction changes continuously; this centripetal acceleration always points toward the centre and requires a net centripetal force to sustain it.\n\nRotation about an axis introduces two further ideas. Torque is the rotational equivalent of force: it is the turning effect produced by a force acting at a lever arm. Moment of inertia is the rotational equivalent of mass, measuring how the distribution of mass about the axis resists angular acceleration. Together they obey a rotational version of Newton's second law. Rotational kinetic energy and angular momentum round out the description, and conservation of angular momentum explains phenomena from spinning ice-skaters to the formation of solar systems.\n\nGravitation ties everything together at the planetary scale. Newton's universal law of gravitation gives the attractive force between any two masses and leads directly to the concept of gravitational field strength. Combining this law with circular-orbit mechanics yields the orbital speed and period of satellites. Kepler's three empirical laws of planetary motion — elliptical orbits, equal areas in equal times, and the period-squared proportional to semi-major-axis-cubed — are all consequences of Newtonian gravitation and provide a powerful framework for understanding the solar system.",
+      "keyPoints": [
+        "Angular displacement θ is measured in radians; one full revolution = 2π rad. Angular velocity ω = dθ/dt and angular acceleration α = dω/dt are the rotational analogues of v and a.",
+        "The linear quantities of a point on a rotating body are related to angular quantities by s = rθ, v = rω, and a_t = rα (tangential) plus a_c = v²/r = ω²r (centripetal, directed inward).",
+        "Centripetal acceleration is not a new kind of force; the centripetal force is whatever real force (tension, gravity, friction, normal reaction) acts toward the centre to keep the object on its circular path.",
+        "Torque τ = r × F (magnitude τ = rF sinθ); the rotational analogue of Newton's second law is τ_net = Iα, where I is the moment of inertia.",
+        "Moment of inertia I = Σmᵢrᵢ² depends on both the total mass and how that mass is distributed relative to the rotation axis; it replaces m in all rotational dynamics equations.",
+        "Rotational kinetic energy is KE_rot = ½Iω²; when an object both translates and rotates, total KE = ½mv² + ½Iω².",
+        "Angular momentum L = Iω is conserved when the net external torque is zero, explaining why a spinning skater speeds up on pulling in their arms.",
+        "Newton's law of gravitation: F = Gm₁m₂/r², with G = 6.674 × 10⁻¹¹ N m² kg⁻². Gravitational field strength g = GM/r².",
+        "Orbital speed of a satellite in a circular orbit of radius r around mass M: v = √(GM/r); orbital period T = 2πr/v.",
+        "Kepler's laws: (1) orbits are ellipses with the Sun at one focus; (2) the radius vector sweeps equal areas in equal times (consequence of angular momentum conservation); (3) T² ∝ a³, specifically T² = (4π²/GM)a³."
+      ],
+      "definitions": [
+        {
+          "term": "Angular displacement (θ)",
+          "definition": "The angle through which a body rotates about a fixed axis, measured in radians. One complete revolution corresponds to 2π radians. Unlike linear displacement, it is defined to be positive in the counterclockwise direction by convention."
+        },
+        {
+          "term": "Angular velocity (ω)",
+          "definition": "The rate of change of angular displacement with time, ω = dθ/dt, measured in radians per second (rad s⁻¹). It is related to the linear speed of a point at radius r from the axis by v = rω."
+        },
+        {
+          "term": "Angular acceleration (α)",
+          "definition": "The rate of change of angular velocity with time, α = dω/dt, measured in rad s⁻². The tangential linear acceleration of a point at radius r is a_t = rα."
+        },
+        {
+          "term": "Centripetal acceleration (a_c)",
+          "definition": "The acceleration directed toward the centre of a circular path, responsible for continuously changing the direction of velocity. Its magnitude is a_c = v²/r = ω²r, where r is the radius of the path."
+        },
+        {
+          "term": "Centripetal force",
+          "definition": "The net force directed toward the centre of a circular path that is required to maintain circular motion. It is not a separate type of force but is provided by whatever physical force (tension, gravity, friction, etc.) acts inward. Its magnitude is F_c = mv²/r = mω²r."
+        },
+        {
+          "term": "Torque (τ)",
+          "definition": "The rotational effect of a force about a pivot or axis. For a force F applied at position vector r from the axis, τ = r × F, with magnitude τ = rF sinθ, where θ is the angle between r and F. The SI unit is the newton-metre (N m)."
+        },
+        {
+          "term": "Moment of inertia (I)",
+          "definition": "The rotational analogue of mass; it measures a body's resistance to angular acceleration about a specified axis. For a collection of point masses, I = Σmᵢrᵢ², where rᵢ is each mass's perpendicular distance from the axis. The SI unit is kg m²."
+        },
+        {
+          "term": "Angular momentum (L)",
+          "definition": "The rotational analogue of linear momentum, defined as L = Iω for a rigid body rotating about a fixed axis, or L = r × p for a point mass. Its SI unit is kg m² s⁻¹. Angular momentum is conserved when the net external torque on the system is zero."
+        },
+        {
+          "term": "Newton's law of universal gravitation",
+          "definition": "Every pair of point masses m₁ and m₂ separated by distance r attracts each other with a force F = Gm₁m₂/r², directed along the line joining them. G = 6.674 × 10⁻¹¹ N m² kg⁻² is the universal gravitational constant."
+        },
+        {
+          "term": "Gravitational field strength (g)",
+          "definition": "The gravitational force per unit mass experienced by a small test mass placed at a given point in space. At distance r from a body of mass M, g = GM/r², pointing toward M. At Earth's surface this gives the familiar g ≈ 9.8 m s⁻²."
+        },
+        {
+          "term": "Kepler's third law",
+          "definition": "The square of the orbital period T of a planet is proportional to the cube of the semi-major axis a of its elliptical orbit: T² = (4π²/GM)a³, where M is the mass of the central body. This follows directly from applying Newton's law of gravitation to circular (and elliptical) orbits."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding centripetal force on a car rounding a bend",
+          "problem": "A car of mass 1 200 kg travels at a constant speed of 20 m s⁻¹ around a horizontal circular bend of radius 80 m. (a) Find the centripetal acceleration. (b) Find the centripetal force required. (c) State which real force provides this centripetal force.",
+          "steps": [
+            "Identify the formula for centripetal acceleration: a_c = v²/r.",
+            "Substitute v = 20 m s⁻¹ and r = 80 m: a_c = (20)²/80 = 400/80 = 5.0 m s⁻².",
+            "Apply Newton's second law for circular motion: F_c = ma_c = 1 200 × 5.0 = 6 000 N.",
+            "Identify the source: on a horizontal road the only horizontal force available is static friction between the tyres and the road surface. This friction acts toward the centre of the bend and provides the entire centripetal force."
+          ],
+          "answer": "Centripetal acceleration = 5.0 m s⁻²; centripetal force = 6 000 N, provided by static friction between the tyres and the road."
+        },
+        {
+          "title": "Applying the rotational analogue of Newton's second law",
+          "problem": "A uniform disc of mass 4.0 kg and radius 0.30 m is free to rotate about its central axis. A constant tangential force of 6.0 N is applied at its rim. (a) Calculate the moment of inertia of the disc. (b) Calculate the resulting angular acceleration. (c) Find the angular velocity after 5.0 s, starting from rest.",
+          "steps": [
+            "The moment of inertia of a uniform disc about its central axis is I = ½MR²: I = ½ × 4.0 × (0.30)² = ½ × 4.0 × 0.09 = 0.18 kg m².",
+            "Calculate the torque produced by the tangential force (sinθ = 1 because the force is perpendicular to the radius): τ = F × r = 6.0 × 0.30 = 1.80 N m.",
+            "Apply the rotational form of Newton's second law, τ = Iα, and solve for α: α = τ/I = 1.80/0.18 = 10 rad s⁻².",
+            "Use the rotational kinematic equation ω = ω₀ + αt with ω₀ = 0: ω = 0 + 10 × 5.0 = 50 rad s⁻²."
+          ],
+          "answer": "I = 0.18 kg m²; α = 10 rad s⁻²; ω = 50 rad s⁻¹ after 5.0 s."
+        },
+        {
+          "title": "Orbital speed and period of a satellite",
+          "problem": "A satellite orbits Earth in a circular orbit at an altitude of 400 km above the surface. Take Earth's mass M = 5.97 × 10²⁴ kg, Earth's radius R_E = 6.37 × 10⁶ m, and G = 6.674 × 10⁻¹¹ N m² kg⁻². (a) Find the orbital radius. (b) Find the orbital speed. (c) Find the orbital period.",
+          "steps": [
+            "Determine the orbital radius r: r = R_E + altitude = 6.37 × 10⁶ + 4.00 × 10⁵ = 6.77 × 10⁶ m.",
+            "For a circular orbit, gravitational force provides centripetal force: GMm/r² = mv²/r. The satellite mass m cancels, giving v = √(GM/r).",
+            "Substitute values: GM = 6.674 × 10⁻¹¹ × 5.97 × 10²⁴ = 3.984 × 10¹⁴ m³ s⁻². Then v = √(3.984 × 10¹⁴ / 6.77 × 10⁶) = √(5.885 × 10⁷) ≈ 7 671 m s⁻¹ ≈ 7.67 km s⁻¹.",
+            "Calculate the orbital period using T = 2πr/v: T = 2π × 6.77 × 10⁶ / 7 671 = 4.253 × 10⁷ / 7 671 ≈ 5 544 s ≈ 92.4 minutes."
+          ],
+          "answer": "r = 6.77 × 10⁶ m; orbital speed ≈ 7 670 m s⁻¹; orbital period ≈ 5 540 s (about 92 minutes)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A stone tied to a string is swung in a horizontal circle. If the speed of the stone is doubled while the radius is kept constant, what happens to the centripetal force required?",
+          "options": [
+            "It doubles.",
+            "It halves.",
+            "It quadruples.",
+            "It remains the same."
+          ],
+          "correctIndex": 2,
+          "explanation": "Centripetal force F_c = mv²/r; since F_c depends on v², doubling v increases the required force by a factor of 2² = 4."
+        },
+        {
+          "question": "A spinning ice-skater pulls her arms inward, reducing her moment of inertia from 3.6 kg m² to 1.2 kg m². If her initial angular velocity is 2.0 rad s⁻¹, what is her final angular velocity?",
+          "options": [
+            "0.67 rad s⁻¹",
+            "2.0 rad s⁻¹",
+            "6.0 rad s⁻¹",
+            "18 rad s⁻¹"
+          ],
+          "correctIndex": 2,
+          "explanation": "Angular momentum is conserved (no external torque): I₁ω₁ = I₂ω₂, so ω₂ = (3.6 × 2.0)/1.2 = 6.0 rad s⁻¹."
+        },
+        {
+          "question": "Two planets A and B orbit the same star. Planet A has an orbital radius three times that of planet B. What is the ratio of planet A's orbital period to planet B's orbital period?",
+          "options": [
+            "3",
+            "√3",
+            "3√3",
+            "9"
+          ],
+          "correctIndex": 2,
+          "explanation": "By Kepler's third law T² ∝ r³, so T_A/T_B = (r_A/r_B)^(3/2) = 3^(3/2) = 3√3 ≈ 5.20."
+        },
+        {
+          "question": "At a distance r from Earth's centre the gravitational field strength is g. At a distance 3r from Earth's centre, the gravitational field strength is:",
+          "options": [
+            "g/3",
+            "g/6",
+            "g/9",
+            "g/27"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gravitational field strength varies as 1/r², so tripling the distance reduces g by a factor of 3² = 9, giving g/9."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

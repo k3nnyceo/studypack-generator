@@ -1,0 +1,869 @@
+{
+  "title": "GET 102 — Engineering Graphics and Solid Modelling I (full course)",
+  "course": "GET 102 Engineering Graphics and Solid Modelling I",
+  "topic": "Full course: 6 modules",
+  "overview": "This course introduces the foundational skills and standards for creating and interpreting technical drawings in engineering. It progresses from manual drawing instruments and geometric constructions, through orthographic and pictorial projection systems, to modern computer-aided design and 3D solid modelling. Mastering these topics enables engineers to communicate designs precisely, understand existing drawings, and transition between manual and digital workflows.",
+  "modules": [
+    {
+      "title": "Drawing Instruments, Lines and Lettering",
+      "sourceRange": "Topic 1",
+      "summary": "Engineering drawing is the universal language of the engineer: it communicates size, shape, material and assembly information unambiguously between designer, manufacturer and inspector. For that language to work, every practitioner must use the same instruments correctly, lay out paper to a recognised standard, and follow agreed conventions for lines and lettering. This module introduces the physical toolkit of the drawing office and the graphic conventions that make a manual engineering drawing readable anywhere in the world.\n\nThe principal instruments — drawing board, T-square, set squares, compass and scale rule — work together as a system. The T-square slides along the left edge of the board to produce reliable horizontal lines; set squares leaning against the T-square blade add 30°, 45° and 60° lines; the compass scribes accurate circles and arcs. Paper is standardised in the ISO A-series (A0 to A4), each size being exactly half the one above it, so that drawings can be reduced or enlarged without distortion. Every sheet carries a border and a title block that records the drawing number, title, scale, projection symbol, drafter's name and date.\n\nLines are not all alike: a thick continuous line means 'you can see this edge'; a thin dashed line means 'this edge exists but is hidden'; a thin chain line (long dash–short dash) marks an axis of symmetry or the path of motion. Lettering must be clear, consistent and free of artistic flourish so that numerals and letters can never be misread. Together, these conventions ensure that a drawing made in Lagos can be manufactured without ambiguity in any workshop in the world.",
+      "keyPoints": [
+        "The drawing board provides the flat, stable surface against which the T-square travels; always keep the working edge straight and clean.",
+        "The T-square draws horizontal lines only; set squares (45° and 30°/60°) leaning against its blade produce all standard angles.",
+        "A compass is used for circles and arcs; dividers (similar in form) transfer distances without marking.",
+        "ISO A-series sheets follow the rule: each size is half the area of the previous one, obtained by halving the longer dimension. A0 ≈ 1 m²; dimensions are 841 × 1189 mm.",
+        "Borders protect the drawing from handling damage; the left margin is wider (20–25 mm) to allow binding, while other margins are typically 10 mm.",
+        "The title block, placed in the bottom-right corner, must include: drawing title, drawing number, scale, projection symbol, material, date and drafter's name.",
+        "Continuous thick lines (0.5–0.7 mm) show all visible outlines and edges; continuous thin lines (0.25–0.35 mm) are used for dimension lines, projection lines and hatching.",
+        "Dashed thin lines represent edges or faces hidden from the current viewing direction.",
+        "Chain thin lines (long dash–short dash, 0.25 mm) mark axes of symmetry, centre lines of holes and pitch circles.",
+        "Standard engineering lettering uses upright or slightly inclined (15°) single-stroke sans-serif capital letters; minimum recommended height is 3.5 mm on most sheet sizes."
+      ],
+      "definitions": [
+        {
+          "term": "Drawing board",
+          "definition": "A flat, rectangular board with one perfectly straight working edge (the left edge) along which the T-square head slides. It provides the rigid, smooth backing needed to keep the drawing sheet flat and to guarantee that horizontal lines are truly parallel."
+        },
+        {
+          "term": "T-square",
+          "definition": "An instrument shaped like the letter T, consisting of a long blade and a shorter head that is held firmly against the working edge of the drawing board. Sliding the head up or down positions the blade at any height on the sheet, allowing the drafter to rule accurate horizontal lines across the full width of the paper."
+        },
+        {
+          "term": "Set square",
+          "definition": "A flat, right-angled triangular instrument used together with the T-square to draw lines at fixed angles. The 45° set square has angles of 45°–45°–90°; the 30°/60° set square has angles of 30°–60°–90°. Combining the two gives angles of 15° and 75° as well."
+        },
+        {
+          "term": "Compass",
+          "definition": "A two-legged instrument used to scribe circles and arcs on a drawing. One leg carries a needle point fixed at the centre; the other carries a pencil lead or ruling pen. The radius is set by adjusting the distance between the legs. A large-radius extension bar can be fitted for big circles."
+        },
+        {
+          "term": "Title block",
+          "definition": "A rectangular panel, standardised in layout and always placed in the bottom-right corner of the drawing sheet, that records all the administrative and technical data needed to identify and use the drawing: drawing title, drawing number, scale, projection symbol (first- or third-angle), material specification, date drawn, drafter's name, and revision history."
+        },
+        {
+          "term": "Continuous thick line",
+          "definition": "A solid, unbroken line drawn at full pen width (typically 0.5–0.7 mm). It represents every visible outline, visible edge and visible surface boundary on a view. It is the most prominent line type on the sheet and forms the primary shape-information layer of the drawing."
+        },
+        {
+          "term": "Dashed hidden line",
+          "definition": "A thin line (typically 0.25–0.35 mm) drawn as a series of short equal dashes with small equal gaps between them. It represents edges, outlines or boundaries that exist within the object but cannot be seen from the current viewing direction because material lies in front of them. Hidden lines are drawn only when they add essential information not shown in another view."
+        },
+        {
+          "term": "Chain centre line",
+          "definition": "A thin line (0.25 mm) drawn as an alternating sequence of one long dash and one or two short dashes. It marks the axis of symmetry of a feature, the centre of a circle or hole, the pitch circle of a bolt group, or the path along which a part moves. Centre lines always extend a short distance beyond the outline of the feature they refer to."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Deriving ISO A-series sheet dimensions from A0",
+          "problem": "The A0 sheet measures 841 mm × 1189 mm. By applying the ISO halving rule, calculate the dimensions of A1, A2, A3 and A4, and verify that the area approximately halves at each step.",
+          "steps": [
+            "State the rule: each smaller size is obtained by halving the longer dimension of the previous size. The former longer dimension becomes the new shorter dimension.",
+            "A0 = 841 × 1189 mm. Area = 841 × 1189 = 999 949 mm² ≈ 1 000 000 mm² = 1 m².",
+            "A1: halve the longer side of A0 → 1189 ÷ 2 = 594.5, rounded to 594 mm. A1 = 594 × 841 mm. Area = 594 × 841 = 499 554 mm² ≈ 500 000 mm² (half of A0). ✓",
+            "A2: halve the longer side of A1 → 841 ÷ 2 = 420.5, rounded to 420 mm. A2 = 420 × 594 mm. Area = 420 × 594 = 249 480 mm² ≈ 250 000 mm². ✓",
+            "A3: halve the longer side of A2 → 594 ÷ 2 = 297 mm (exact). A3 = 297 × 420 mm. Area = 297 × 420 = 124 740 mm² ≈ 125 000 mm². ✓",
+            "A4: halve the longer side of A3 → 420 ÷ 2 = 210 mm (exact). A4 = 210 × 297 mm. Area = 210 × 297 = 62 370 mm² ≈ 62 500 mm². ✓",
+            "Each step confirms the area is halved. The aspect ratio (longer ÷ shorter ≈ √2 ≈ 1.414) is preserved throughout, which is why scaled photocopying between sizes works without distortion."
+          ],
+          "answer": "A1 = 594 × 841 mm; A2 = 420 × 594 mm; A3 = 297 × 420 mm; A4 = 210 × 297 mm. The area halves at every step, confirming compliance with ISO 216."
+        },
+        {
+          "title": "Calculating usable drawing area on an A3 sheet with borders and title block",
+          "problem": "An A3 sheet (420 mm × 297 mm, landscape orientation) is set up with a left binding margin of 25 mm, margins of 10 mm on the right, top and bottom, and a title block 30 mm deep running across the full width of the drawing frame at the bottom. Calculate (a) the overall frame (border) dimensions, (b) the dimensions of the usable drawing space above the title block.",
+          "steps": [
+            "Identify the sheet dimensions in landscape orientation: width = 420 mm, height = 297 mm.",
+            "Calculate the frame width: subtract the left margin and right margin from the sheet width. Frame width = 420 − 25 − 10 = 385 mm.",
+            "Calculate the frame height: subtract the top and bottom margins from the sheet height. Frame height = 297 − 10 − 10 = 277 mm.",
+            "The title block occupies the full frame width and a depth of 30 mm at the bottom of the frame.",
+            "Usable drawing height above the title block = frame height − title block depth = 277 − 30 = 247 mm.",
+            "Usable drawing width = frame width = 385 mm (the title block does not reduce the width of the space above it).",
+            "State the results clearly."
+          ],
+          "answer": "(a) Drawing frame: 385 mm wide × 277 mm tall. (b) Usable drawing space above the title block: 385 mm × 247 mm."
+        },
+        {
+          "title": "Identifying the correct line type for each feature on a sectioned shaft drawing",
+          "problem": "A front view of a solid cylindrical stepped shaft is drawn. Identify the correct line type for each of the following features, and state the approximate line width to use: (i) the visible outer profile of the shaft, (ii) a central blind drilled hole that is not visible from the front, (iii) the longitudinal axis of symmetry of the shaft, (iv) projection (extension) lines used to indicate a dimension.",
+          "steps": [
+            "Feature (i) — visible outer profile: This is an edge that can be seen directly in this view. Rule: visible outlines are drawn with a continuous thick line. Recommended width: 0.5–0.7 mm.",
+            "Feature (ii) — hidden blind drilled hole: The hole exists inside the shaft and cannot be seen from outside in this view. Rule: hidden features are shown with a dashed thin line (short equal dashes, equal gaps). Recommended width: 0.25–0.35 mm. If the hidden detail is clearly shown in another view, it may be omitted here.",
+            "Feature (iii) — longitudinal axis of symmetry: This is the central axis about which the shaft is rotationally symmetric. Rule: axes of symmetry and centre lines are drawn with a chain thin line (long dash–short dash pattern). The line must extend 3–5 mm beyond each end of the shaft outline. Recommended width: 0.25 mm.",
+            "Feature (iv) — projection (extension) lines for dimensioning: These are construction-type lines that link the feature being dimensioned to the dimension line. Rule: projection and dimension lines are continuous thin lines. Recommended width: 0.25–0.35 mm.",
+            "Summarise: the four features require three distinct line types — continuous thick (visible outline), dashed thin (hidden detail), chain thin (centre line), and continuous thin (dimension/projection lines)."
+          ],
+          "answer": "(i) Continuous thick line, 0.5–0.7 mm. (ii) Dashed thin line, 0.25–0.35 mm. (iii) Chain thin line (long dash–short dash), 0.25 mm, extending beyond the outline. (iv) Continuous thin line, 0.25–0.35 mm."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What are the correct dimensions of an A2 drawing sheet according to the ISO 216 standard?",
+          "options": [
+            "594 mm × 841 mm",
+            "420 mm × 594 mm",
+            "297 mm × 420 mm",
+            "210 mm × 297 mm"
+          ],
+          "correctIndex": 1,
+          "explanation": "A2 is obtained by halving the longer dimension of A1 (841 mm ÷ 2 = 420 mm), giving 420 mm × 594 mm; the options for A1 and A3 are the adjacent sizes above and below."
+        },
+        {
+          "question": "On an engineering drawing, which line type is used to show an edge or boundary that exists within the object but cannot be seen from the current viewing direction?",
+          "options": [
+            "Continuous thick line",
+            "Chain thin line (long dash–short dash)",
+            "Dashed thin line",
+            "Continuous thin line"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dashed thin lines (short equal dashes with equal gaps) represent hidden detail — features that lie behind other material and are therefore invisible in that particular view."
+        },
+        {
+          "question": "When setting up a drawing board for manual drafting, what is the primary function of the T-square?",
+          "options": [
+            "To draw vertical lines parallel to the working edge of the board",
+            "To draw horizontal lines parallel to the top edge of the board",
+            "To measure distances along inclined lines",
+            "To construct circles of any required radius"
+          ],
+          "correctIndex": 1,
+          "explanation": "The T-square head slides along the left (working) edge of the board, keeping the blade truly horizontal so that all lines ruled along it are parallel to each other and to the top of the sheet."
+        },
+        {
+          "question": "Which of the following best describes the standard for engineering lettering on a drawing?",
+          "options": [
+            "Decorative italic script to distinguish it from dimension numerals",
+            "Upright or slightly inclined (≈15°) single-stroke sans-serif capital letters of consistent height",
+            "Any neat handwriting style the drafter finds natural",
+            "Lower-case letters throughout, with capitals reserved for titles only"
+          ],
+          "correctIndex": 1,
+          "explanation": "Engineering lettering standards (ISO 3098) specify single-stroke, upright or slightly inclined sans-serif capitals because they are fast to draw, highly legible at reduced scale, and free from the ambiguity of cursive or decorative scripts."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Geometric Constructions and Scales",
+      "sourceRange": "Topic 2",
+      "summary": "Geometric construction is the foundation of accurate technical drawing. Using only a compass, straightedge, set squares and a pencil, a draughtsperson can build precise shapes without relying on measurement alone. This module covers the classical constructions every engineering student must master: bisecting lines and angles, constructing regular polygons of any number of sides, drawing tangents to circles, blending two curves or a curve and a straight line with a smooth arc, and constructing an accurate ellipse using the concentric circles method.\n\nAlongside geometric construction, the module introduces the theory and practice of scales. Real objects are almost never drawn at their actual size: a building must be reduced, a microchip enlarged. A representative fraction (RF) expresses the ratio of drawing length to true length, and two physical scale devices — the plain scale and the diagonal scale — allow a draughtsperson to set off or read distances to one or two subdivisions of the main unit directly on the drawing sheet. Understanding these tools equips a student to produce drawings that are both geometrically exact and correctly proportioned.",
+      "keyPoints": [
+        "To bisect a line or angle, use a compass set to more than half the length or opening; the two arcs cross to locate the exact midpoint or bisecting ray.",
+        "A regular polygon can be inscribed in a circle by stepping off the side length with a compass, or constructed on a given baseline using the general polygon method.",
+        "A tangent from an external point to a circle is found by drawing a semicircle on the line joining the point to the centre; where it crosses the given circle is the tangent point.",
+        "A blending arc of radius R joins two curves (or a curve and a line) smoothly when its centre lies at distance R from each element; it is found by drawing offset loci and intersecting them.",
+        "The concentric circles (trammel) method for an ellipse uses the major and minor axes as diameters of two concentric circles; a radial line cuts both circles, and the two intersection points are projected horizontally and vertically to meet at a point on the ellipse.",
+        "Representative fraction (RF) = drawing length ÷ true length; both must be in the same units.",
+        "A plain scale represents two units (e.g. metres and decimetres) and reads to one subdivision of the smaller unit.",
+        "A diagonal scale uses the geometry of similar triangles to subdivide the smallest main division into ten equal parts, giving readings to three units (e.g. metres, decimetres and centimetres)."
+      ],
+      "definitions": [
+        {
+          "term": "Geometric Construction",
+          "definition": "The drawing of exact geometric figures — lines, angles, polygons, circles and curves — using only a compass and straightedge (and set squares), without relying on direct numerical measurement."
+        },
+        {
+          "term": "Perpendicular Bisector",
+          "definition": "A line drawn at 90° to a given line segment, passing through its exact midpoint. It is constructed by striking equal arcs from both endpoints and joining the two crossing points."
+        },
+        {
+          "term": "Angle Bisector",
+          "definition": "A ray that divides a given angle into two exactly equal halves. It is found by striking an arc from the vertex to mark two points on the arms, then striking equal arcs from those points to locate the bisecting direction."
+        },
+        {
+          "term": "Regular Polygon",
+          "definition": "A closed plane figure with a specified number of sides all equal in length and all interior angles equal. Examples include the equilateral triangle (3), square (4), pentagon (5), hexagon (6) and octagon (8)."
+        },
+        {
+          "term": "Tangent to a Circle",
+          "definition": "A straight line (or arc) that touches a circle at exactly one point, called the point of tangency, and is perpendicular to the radius drawn to that point."
+        },
+        {
+          "term": "Blending Arc",
+          "definition": "A circular arc of chosen radius R that joins two lines, two curves, or a line and a curve with a smooth, continuous transition, touching each element at a single tangent point with no sharp corner."
+        },
+        {
+          "term": "Ellipse (Concentric Circles Method)",
+          "definition": "An ellipse constructed by drawing two concentric circles whose diameters equal the major and minor axes; points on the ellipse are found where the vertical projection of a point on the outer circle meets the horizontal projection of the corresponding point on the inner circle."
+        },
+        {
+          "term": "Representative Fraction (RF)",
+          "definition": "The ratio of a length on a drawing to the corresponding true length of the object, both expressed in the same units. RF = drawing length ÷ true length. An RF of 1:50 means 1 mm on paper represents 50 mm on the object."
+        },
+        {
+          "term": "Plain Scale",
+          "definition": "A graduated scale bar that represents two consecutive units of measurement (e.g. metres and decimetres), allowing distances to be set off or read to the nearest subdivision of the smaller unit."
+        },
+        {
+          "term": "Diagonal Scale",
+          "definition": "A scale bar that uses diagonal lines across a subdivided rectangle to achieve a third level of subdivision (e.g. metres, decimetres and centimetres), enabling readings ten times finer than a plain scale of the same size."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Bisecting a Line Segment and Constructing a Perpendicular Bisector",
+          "problem": "A line segment AB is 90 mm long. Using compass and straightedge only, find its midpoint M and draw the perpendicular bisector.",
+          "steps": [
+            "Draw line segment AB = 90 mm with a sharp HB pencil and ruler.",
+            "Open the compass to a radius r greater than half of AB, i.e. r > 45 mm. A convenient choice is r = 55 mm.",
+            "Place the compass point at A and draw an arc above and below the line.",
+            "Without changing the compass radius, place the compass point at B and draw a second pair of arcs, crossing the first pair at points P (above AB) and Q (below AB).",
+            "Join P and Q with a straight line. This line PQ is the perpendicular bisector.",
+            "The point where PQ crosses AB is the midpoint M. Verify by measuring: AM = MB = 45 mm.",
+            "To confirm the right angle, place a set square at M along PQ: it should align exactly with AB."
+          ],
+          "answer": "Midpoint M lies 45 mm from each end. The perpendicular bisector PQ passes through M at exactly 90° to AB."
+        },
+        {
+          "title": "Constructing a Regular Hexagon on a Given Side Length",
+          "problem": "Construct a regular hexagon with a side length of 40 mm.",
+          "steps": [
+            "Draw the given side AB = 40 mm.",
+            "The circumradius of a regular hexagon equals its side length, so set the compass to 40 mm.",
+            "To find the centre O, strike arcs of radius 40 mm from both A and B; their intersection is O (this works because the triangle OAB is equilateral).",
+            "Draw the circumscribed circle of radius 40 mm centred on O.",
+            "Without changing the compass radius (still 40 mm), place the compass at A and step off arcs around the circle, marking points C, D, E, F in succession. Six equal steps of 40 mm will bring you exactly back to B, confirming the construction.",
+            "Join the six points A–B–C–D–E–F–A with straight lines using a ruler or set square.",
+            "Check: all six sides should measure 40 mm and all interior angles should be 120°."
+          ],
+          "answer": "A regular hexagon with all sides equal to 40 mm and all interior angles equal to 120°."
+        },
+        {
+          "title": "Constructing a Plain Scale and Reading a Distance",
+          "problem": "A map is drawn to a scale of 1:25 000. Construct a plain scale long enough to read up to 5 km, with the main divisions in kilometres and the first division subdivided into 100 m units. Then use it to represent a distance of 3 km 600 m.",
+          "steps": [
+            "Determine the RF: RF = 1/25 000. This means 1 mm on the drawing = 25 000 mm = 25 m in reality.",
+            "Find the drawing length for 1 km: drawing length = 1 000 000 mm ÷ 25 000 = 40 mm. So 1 km is represented by 40 mm on the scale bar.",
+            "Total scale bar length for 5 km = 5 × 40 mm = 200 mm. Draw a rectangle 200 mm long and about 5 mm tall.",
+            "Divide the 200 mm length into 5 equal parts of 40 mm each, labelling them 0, 1, 2, 3, 4, 5 (km) from left to right. The division at '0' is the zero mark; the leftmost division extends to the left of zero.",
+            "Subdivide the leftmost 40 mm division (to the left of zero) into 4 equal parts of 10 mm each. Each 10 mm part represents 10 mm × 25 000 mm = 250 000 mm = 250 m. Label as 250 m, 500 m, 750 m, 1000 m. For 100 m subdivisions, divide into 10 parts of 4 mm each (4 mm × 25 000 = 100 000 mm = 100 m).",
+            "To read 3 km 600 m: place the right end of a pair of dividers on the 3 km mark (120 mm from zero). Place the left end at the 600 m mark in the subdivided first division (600 m = 6 subdivisions of 100 m = 6 × 4 mm = 24 mm to the left of zero). Total span of dividers = 120 + 24 = 144 mm.",
+            "Verify: 144 mm × 25 000 = 3 600 000 mm = 3 600 m = 3 km 600 m. ✓"
+          ],
+          "answer": "The plain scale has main divisions of 40 mm per km. The distance 3 km 600 m is represented by a span of 144 mm on the drawing."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "When bisecting angle ABC using a compass, you first strike an arc centred at B to mark points P on BA and Q on BC. What is the next step?",
+          "options": [
+            "Draw a line from B through the midpoint of PQ",
+            "Strike equal-radius arcs centred at P and Q and join B to their intersection",
+            "Measure the angle with a protractor and mark half the value",
+            "Strike an arc centred at the midpoint of PQ"
+          ],
+          "correctIndex": 1,
+          "explanation": "The bisector is found by striking equal arcs from P and Q (the two points on the arms) and joining B to the point where those arcs cross, which lies exactly on the bisecting ray."
+        },
+        {
+          "question": "A drawing is made to an RF of 1:50. A line on the drawing measures 36 mm. What is the true length of that line?",
+          "options": [
+            "0.72 m",
+            "1.80 m",
+            "3.60 m",
+            "72.00 m"
+          ],
+          "correctIndex": 1,
+          "explanation": "True length = drawing length × (1/RF denominator) = 36 mm × 50 = 1 800 mm = 1.80 m."
+        },
+        {
+          "question": "In the concentric circles method for constructing an ellipse, what do the diameters of the two concentric circles represent?",
+          "options": [
+            "The focal distances of the ellipse",
+            "The major and minor axes of the ellipse",
+            "The circumference and perimeter of the ellipse",
+            "Two arbitrary radii chosen for convenience"
+          ],
+          "correctIndex": 1,
+          "explanation": "The outer circle has the major axis as its diameter and the inner circle has the minor axis as its diameter; radial lines through both circles generate the ellipse points."
+        },
+        {
+          "question": "Which of the following best describes the advantage of a diagonal scale over a plain scale?",
+          "options": [
+            "It can represent longer distances on the same sheet",
+            "It requires no RF calculation",
+            "It allows distances to be read to a third, finer unit using diagonal lines across subdivided rectangles",
+            "It is easier to construct because it has fewer divisions"
+          ],
+          "correctIndex": 2,
+          "explanation": "A diagonal scale exploits similar triangles to divide the smallest main division into ten equal parts, enabling readings to three units (e.g. km, m and dm) that a plain scale cannot achieve."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Orthographic Projection",
+      "sourceRange": "Topic 3",
+      "summary": "Orthographic projection is the standard method engineers use to describe a three-dimensional object completely on a flat sheet of paper. The core idea is simple: imagine placing the object inside a transparent glass box. You look at the object from directly in front, directly above, and directly from the side — each time your line of sight is perfectly perpendicular to the face of the box you are looking at. What you see on each face of the box is a true-shape, true-size view of the object, because there is no perspective distortion. When the box is unfolded flat, the three views appear in a standard arrangement that draughtspeople worldwide recognise instantly.\n\nThere are two internationally used unfolding conventions. In first-angle projection (used throughout Europe, Africa and most of the world outside North America), the object sits between your eye and the projection plane, so the front view is placed top-left, the top (plan) view goes below it, and the right-side view goes to the left. In third-angle projection (used mainly in North America), the projection plane sits between your eye and the object, so the top view goes above the front view and the right-side view goes to the right. Both systems give identical views — only the arrangement on the sheet differs. Each system has a standardised symbol (a truncated cone drawn in its own projection) that must appear in the title block so any reader knows which convention is in use.\n\nProducing a correct orthographic drawing requires careful use of line types: visible edges are drawn as continuous thick lines, hidden edges behind the visible surface are shown as equally spaced dashed (short-dash) lines, and axes of symmetry or centre lines of holes and cylinders are drawn as long-chain (alternating long-dash–short-dash) thin lines. Choosing which face of the object to treat as the front view is a professional judgement: the view should show the most characteristic shape of the object, minimise hidden lines, and position the object in its natural or working orientation.",
+      "keyPoints": [
+        "Orthographic projection uses parallel lines of sight perpendicular to the projection plane, giving true-shape, true-size views with no perspective distortion.",
+        "The three principal planes are the vertical plane (VP) giving the front view, the horizontal plane (HP) giving the top/plan view, and the profile plane (PP) giving the side view.",
+        "In first-angle projection the view is placed on the far side of the object from the observer; in third-angle projection the view is placed on the near side (between the observer and the object).",
+        "The first-angle symbol is a truncated cone drawn with the narrow end facing the viewer; the third-angle symbol shows the wide end facing the viewer. Always include the correct symbol in the title block.",
+        "In first-angle layout: top view is below the front view, right-side view is to the left of the front view. In third-angle layout: top view is above, right-side view is to the right.",
+        "Hidden edges that cannot be seen from the viewing direction are shown as dashed lines (evenly spaced short dashes) and must be included for completeness.",
+        "Centre lines (long-chain thin lines) mark axes of symmetry, centres of circles and axes of cylinders or holes; they extend a few millimetres beyond the outline.",
+        "The front view should show the most characteristic and complex face of the object, be in the natural or working position, and minimise the number of hidden lines needed."
+      ],
+      "definitions": [
+        {
+          "term": "Orthographic projection",
+          "definition": "A method of representing a 3D object by projecting its features onto a flat plane using parallel rays that are all perpendicular (at 90°) to that plane, so every view shows true shape and true size."
+        },
+        {
+          "term": "Principal planes",
+          "definition": "The three mutually perpendicular reference planes used in orthographic projection: the Vertical Plane (VP) onto which the front view is projected, the Horizontal Plane (HP) giving the top (plan) view, and the Profile (or Side) Plane (PP) giving the left or right side view."
+        },
+        {
+          "term": "First-angle projection",
+          "definition": "A projection convention in which the object is placed between the observer and the projection plane. Each view is cast onto the plane that lies on the far side of the object. The arrangement on the sheet has the top view below the front view and the right-side view to the left of the front view."
+        },
+        {
+          "term": "Third-angle projection",
+          "definition": "A projection convention in which the projection plane is placed between the observer and the object. Each view falls on the plane nearest the observer. The top view appears above the front view and the right-side view appears to the right of the front view."
+        },
+        {
+          "term": "Projection symbol",
+          "definition": "A small standardised drawing (a truncated cone shown in its own projection) placed in the title block to identify which projection convention is used. The first-angle symbol shows the cone with its apex pointing left toward the viewer; the third-angle symbol shows the cone with its wide base toward the viewer."
+        },
+        {
+          "term": "Hidden line",
+          "definition": "A dashed line (short, evenly spaced dashes) used to represent an edge or boundary that exists on the object but is not directly visible from the current viewing direction because it lies behind or inside visible surfaces."
+        },
+        {
+          "term": "Centre line",
+          "definition": "A thin long-chain line (alternating long dash–short dash) used to indicate the axis of a cylinder, cone or sphere, the centre of a circle or arc, or an axis of symmetry. It should extend a short distance beyond the outline of the feature it refers to."
+        },
+        {
+          "term": "Front view (elevation)",
+          "definition": "The principal orthographic view obtained by looking at the object from directly in front, projected onto the vertical plane. It is chosen to show the most characteristic and informative face of the object and is used as the reference from which the other views are aligned."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Projecting three views of a rectangular block with a through-hole",
+          "problem": "A solid rectangular block measures 80 mm long × 50 mm wide × 40 mm tall. A cylindrical through-hole of diameter 20 mm is drilled centrally from front to back (i.e. its axis runs parallel to the length). Draw and describe all features that must appear in the front view, top view and right-side view using first-angle projection.",
+          "steps": [
+            "Step 1 – Identify the front view. The front face is the 80 × 40 mm rectangle. Draw it as a continuous thick outline: 80 mm wide and 40 mm tall. The hole opens on this face, so draw a circle of diameter 20 mm centred at 40 mm from each side and 20 mm from top and bottom (the geometric centre). Add a horizontal and a vertical centre line through the circle centre, extending 3–5 mm beyond the circle.",
+            "Step 2 – Project the top view (first-angle: place it below the front view). Looking down onto the 80 × 50 mm top face, the outline is an 80 × 50 mm rectangle. The cylindrical hole runs front-to-back through the block, so its top is not visible; its upper edge is hidden — draw two dashed lines 10 mm either side of the horizontal centre line (20 mm diameter), running the full 50 mm depth of the block. Add a horizontal centre line along the mid-length of the top view.",
+            "Step 3 – Project the right-side view (first-angle: place it to the left of the front view). Looking from the right along the 80 mm length, you see the 50 × 40 mm rectangle as the outline. The hole is now seen end-on but is interior: its circle (ø20) is hidden and is drawn as a dashed circle centred in the view. Add horizontal and vertical centre lines through the dashed circle.",
+            "Step 4 – Check alignment. The height (40 mm) must be the same in the front view and the right-side view. The depth (50 mm) must match across the top view and the right-side view. Use horizontal and vertical projection lines to transfer dimensions.",
+            "Step 5 – Check line types. All outer rectangles: continuous thick. The hole on the front face: continuous thick circle with centre lines. Hidden hole circles/edges in top and right-side views: dashed thin. Centre lines everywhere: long-chain thin."
+          ],
+          "answer": "Front view: 80×40 mm rectangle with a ø20 mm visible circle (and centre lines) at the geometric centre. Top view (below, first-angle): 80×50 mm rectangle with two dashed lines 10 mm above and below the centre line, plus a centre line. Right-side view (to the left, first-angle): 50×40 mm rectangle with a dashed ø20 mm circle at centre, and centre lines."
+        },
+        {
+          "title": "Identifying first-angle vs third-angle layout from a given arrangement",
+          "problem": "A drawing shows three views of an object. The top view is positioned directly below the front view, and the right-side view is positioned directly to the left of the front view. (a) Which projection system is being used? (b) If the same object were redrawn in the other system, where would the top view and right-side view be placed relative to the front view?",
+          "steps": [
+            "Step 1 – Apply the first-angle rule. In first-angle projection the view is placed on the plane that is on the far side of the object from the observer. Looking down gives a top view projected downward — it lands below the front view. Looking from the right gives a right-side view projected to the left. Both conditions match the given arrangement.",
+            "Step 2 – Conclusion for part (a): the drawing uses first-angle projection.",
+            "Step 3 – Apply the third-angle rule for part (b). In third-angle projection the plane is between the observer and the object. Looking down, the view is captured on the plane above the object — the top view goes above the front view. Looking from the right, the right-side view is captured on the plane to the right — it goes to the right of the front view.",
+            "Step 4 – Confirm with the symbols. The title block of the original drawing should show the first-angle truncated-cone symbol (narrow end toward the observer). The redrawn sheet would show the third-angle symbol (wide end toward the observer)."
+          ],
+          "answer": "(a) First-angle projection. (b) In third-angle projection the top view moves above the front view and the right-side view moves to the right of the front view."
+        },
+        {
+          "title": "Selecting and justifying the best front view for an L-shaped bracket",
+          "problem": "An L-shaped steel bracket has the following features when viewed from different directions: Direction A shows the full L-profile (long vertical arm 60 mm, short horizontal foot 30 mm, uniform thickness 10 mm). Direction B (90° to A) shows a plain 10 mm wide rectangle. Direction C (from above) shows the plan footprint. Which direction should be chosen as the front view, and why? Also state how many hidden lines each alternative would require in the side view.",
+          "steps": [
+            "Step 1 – Evaluate Direction A. This view reveals the defining L-shape: both arms of the bracket, their lengths (60 mm and 30 mm) and the overall form are immediately recognisable. No hidden lines are needed in this view itself. A reader instantly understands what the part is.",
+            "Step 2 – Evaluate Direction B. This view shows only a thin 10×(60+0) mm rectangle — the thickness of the bracket. It communicates almost nothing about the L-shape. If this were the front view, the entire L-profile would appear as hidden lines in the adjacent view, making the drawing harder to read.",
+            "Step 3 – Evaluate Direction C (plan from above). This shows the footprint of the L — useful as a supplementary view but it does not show the vertical arm height, so it is less informative than Direction A as a front view.",
+            "Step 4 – Count hidden lines if Direction B were front view. The side view (which would then show the L-profile) would need no hidden lines, but Direction B as front view would require two dashed lines to show the internal corner of the L — adding unnecessary complexity.",
+            "Step 5 – Apply the selection rule: choose the view that shows the most characteristic shape, is in the natural upright orientation, and minimises hidden lines across the set of views."
+          ],
+          "answer": "Direction A is the best front view because it displays the characteristic L-profile, places the bracket in its natural upright orientation, and requires the fewest hidden lines across the complete set of views. Direction B would produce an uninformative front view and force the L-profile into a side view loaded with hidden lines."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In first-angle projection, where is the top (plan) view placed relative to the front view on the drawing sheet?",
+          "options": [
+            "Directly above the front view",
+            "Directly below the front view",
+            "Directly to the right of the front view",
+            "Directly to the left of the front view"
+          ],
+          "correctIndex": 1,
+          "explanation": "In first-angle projection the top view is projected onto the horizontal plane below the object, so when the planes are unfolded it appears below the front view on the sheet."
+        },
+        {
+          "question": "A cylindrical hole passes completely through a block but is not visible in the current view. How should it be represented?",
+          "options": [
+            "Omitted, since it cannot be seen",
+            "Drawn as a continuous thick circle",
+            "Drawn as a dashed thin circle with centre lines through its centre",
+            "Drawn as a chain line only"
+          ],
+          "correctIndex": 2,
+          "explanation": "Invisible edges — including hidden holes — are shown as evenly spaced dashed thin lines; the centre of any circular feature must also be indicated with centre lines."
+        },
+        {
+          "question": "Which of the following correctly describes the third-angle projection symbol found in a title block?",
+          "options": [
+            "A truncated cone with its narrow (apex) end pointing toward the observer",
+            "A truncated cone with its wide (base) end pointing toward the observer",
+            "A circle with two perpendicular centre lines",
+            "An arrow pointing to the right inside a rectangle"
+          ],
+          "correctIndex": 1,
+          "explanation": "The third-angle symbol shows the truncated cone with its wide base facing the observer, reflecting that in third-angle projection the projection plane sits between the observer and the object."
+        },
+        {
+          "question": "When selecting the front view of an object, the most important criterion is that the chosen view should:",
+          "options": [
+            "Always show the smallest face of the object to save drawing space",
+            "Show the most characteristic shape of the object and minimise hidden lines",
+            "Be the view with the greatest number of visible lines",
+            "Always be the view from directly above the object"
+          ],
+          "correctIndex": 1,
+          "explanation": "The front view should reveal the most descriptive and characteristic face of the object so the shape is immediately understandable, and hidden lines should be minimised to keep the drawing clear."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Pictorial Drawing",
+      "sourceRange": "Topic 4",
+      "summary": "Pictorial drawing produces a single view that shows three faces of an object at once, giving an immediate three-dimensional impression without requiring the reader to mentally combine separate views. It is used for assembly instructions, catalogues, and design communication wherever clarity matters more than strict dimensional accuracy.\n\nThe two main systems studied at this level are isometric drawing and oblique drawing. In isometric drawing, three axes are arranged at 120° to one another, with the vertical axis truly vertical and the two receding axes at 30° to the horizontal. All lines parallel to these axes are drawn to their true length (or scaled by the isometric scale factor of 0.816 if a metrically exact projection is needed). Circles on the faces of an object become ellipses, conveniently approximated by a four-centre oval construction. In oblique drawing, one face is drawn exactly as it appears in the front orthographic view (full size, in the picture plane), and the receding axis is drawn at a chosen angle—commonly 45°. Cavalier oblique keeps receding depths at full length, which tends to look distorted for deep objects; cabinet oblique halves the receding lengths to give a more natural appearance.\n\nConverting from orthographic views to a pictorial drawing is an exercise in reading heights from the front view, widths from the front or top view, and depths from the side or top view, then plotting each dimension along the correct pictorial axis. The reverse process—extracting orthographic views from a pictorial—requires projecting each visible and hidden feature onto the three principal planes in turn.",
+      "keyPoints": [
+        "In isometric drawing the three axes are mutually at 120°; the two receding axes sit at 30° above the horizontal and the vertical axis is truly vertical.",
+        "True isometric projection shortens all receding lines by a factor of cos 45°/cos 30° ≈ 0.816; isometric drawing uses true lengths for convenience and is about 22% larger than true projection.",
+        "Only lines parallel to an isometric axis can be measured along that axis; oblique lines must be plotted by locating their end-points first.",
+        "A circle on an isometric face is approximated by a four-centre ellipse (two arcs of large radius and two of small radius) constructed within the isometric square that surrounds it.",
+        "In cavalier oblique projection the receding axis is at any chosen angle (usually 45°) and receding lengths are drawn full size; the result often looks stretched.",
+        "In cabinet oblique projection the receding axis is also at 45° but receding lengths are drawn at half their true size, giving a more realistic appearance.",
+        "The front face in any oblique drawing is drawn in true shape and true size, making it the best choice for the face that carries circular or irregular features.",
+        "To convert orthographic to pictorial: identify height (front view), width (front or top view), and depth (top or side view), then transfer each dimension to the correct pictorial axis."
+      ],
+      "definitions": [
+        {
+          "term": "Pictorial drawing",
+          "definition": "A drawing in which length, width, and depth are all visible in a single view, giving a three-dimensional impression of the object. It sacrifices strict engineering accuracy for visual clarity."
+        },
+        {
+          "term": "Isometric projection",
+          "definition": "A true axonometric projection in which all three principal axes are equally foreshortened (by a factor of approximately 0.816) and the two receding axes appear at 30° to the horizontal, separated from each other and from the vertical axis by 120°."
+        },
+        {
+          "term": "Isometric drawing",
+          "definition": "A simplified form of isometric projection in which actual (true) lengths are measured along all three axes instead of applying the 0.816 scale factor. The result is geometrically identical in shape to isometric projection but about 22% larger."
+        },
+        {
+          "term": "Isometric scale factor",
+          "definition": "The ratio by which lengths are foreshortened in true isometric projection: cos 45° / cos 30° = 0.7071 / 0.8660 ≈ 0.816. It applies equally to all three axes."
+        },
+        {
+          "term": "Four-centre ellipse",
+          "definition": "A draughtsman's approximation to the ellipse formed when a circle is viewed on an isometric face. It is constructed by drawing four circular arcs — two of a larger radius (centred at two corners of the isometric rhombus) and two of a smaller radius (centred at the intersections of perpendiculars from adjacent corners) — so that they join smoothly inside the isometric square."
+        },
+        {
+          "term": "Oblique drawing",
+          "definition": "A pictorial method in which the front face of the object is drawn in true shape in the picture plane, and the receding (depth) axis is projected at an oblique angle, usually 45°, to the horizontal."
+        },
+        {
+          "term": "Cavalier oblique",
+          "definition": "An oblique drawing system in which the receding axis is drawn at its full true length. Although easy to construct, it tends to make deep objects look excessively long in the receding direction."
+        },
+        {
+          "term": "Cabinet oblique",
+          "definition": "An oblique drawing system in which the receding axis is drawn at exactly half its true length (scale factor 0.5) while the front face remains full size. The reduced depth gives a more natural and less distorted appearance, and is named after its traditional use in furniture (cabinet-making) drawings."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Isometric drawing of a rectangular block with a stepped notch",
+          "problem": "A solid block measures 80 mm long × 50 mm wide × 40 mm high. A rectangular notch 30 mm long × 20 mm wide × 15 mm deep is cut from the top-left front corner. Construct an isometric drawing starting from the bottom-left front corner.",
+          "steps": [
+            "Draw the three isometric axes from the starting point: vertical axis pointing up, left receding axis at 30° up-left, right receding axis at 30° up-right.",
+            "Plot the full block first. Along the right receding axis mark 80 mm (length); along the left receding axis mark 50 mm (depth); along the vertical axis mark 40 mm (height). Complete the isometric box by drawing lines parallel to each axis through every corner — twelve edges in total.",
+            "Locate the notch on the top-left-front region. From the top-front-left corner of the box, measure 30 mm along the right receding axis (length of notch) and 20 mm along the left receding axis (width of notch). Mark these two points.",
+            "Drop a vertical of 15 mm from each notch-corner point. Connect the bottom of these verticals with lines parallel to the axes to form the floor and back wall of the notch.",
+            "Remove (do not draw, or draw dashed) the edges now hidden behind or inside the notch. The two vertical edges at the notch and the two horizontal edges defining its floor complete the feature.",
+            "Check: every measurement was made parallel to one of the three isometric axes, so all dimensions are true length. Label the drawing with the key dimensions."
+          ],
+          "answer": "The finished isometric drawing shows the full 80 × 50 × 40 mm block with a 30 × 20 × 15 mm rectangular notch removed from the top-left-front corner. All dimensions along the three axes are drawn at true length."
+        },
+        {
+          "title": "Four-centre ellipse on the top face of an isometric cylinder",
+          "problem": "A vertical cylinder has a diameter of 60 mm. Construct the ellipse representing its top circular face in an isometric drawing.",
+          "steps": [
+            "Draw the isometric square (rhombus) that would circumscribe the circle: sides equal to the diameter, 60 mm, with two sides along the left receding axis (at 30°) and two sides along the right receding axis (at 30°).",
+            "Label the four corners of the rhombus A (top), B (right), C (bottom), D (left).",
+            "Find the two obtuse-angle corners — in this orientation they are the top corner A and the bottom corner C. These will be the centres of the two large arcs.",
+            "From centre A, draw an arc of radius AB (= 60 mm) spanning between the midpoints of the two sides that meet at B and D sides. From centre C, draw the matching arc of the same radius on the opposite side.",
+            "To find the centres of the two small arcs: from corner B, draw perpendiculars to the two adjacent sides; they intersect at point E inside the rhombus. Repeat from corner D to find point F. (In practice, E and F lie on the long diagonal of the rhombus.) The radius for these small arcs equals the distance from E to the near midpoints.",
+            "Draw the two small arcs centred at E and F, joining smoothly to the large arcs. The four arcs together form a closed, smooth four-centre ellipse.",
+            "Draw the isometric rectangle for the curved surface of the cylinder (two vertical lines of the cylinder's height, 60 mm apart on the receding axis, tangent to the ellipse). Add a matching ellipse at the base; suppress the lower half of the bottom ellipse where it is hidden."
+          ],
+          "answer": "The top face is represented by a four-centre ellipse fitting neatly inside the 60 mm isometric rhombus. Two large arcs (radius 60 mm, centres at the obtuse corners) and two small arcs (centres on the long diagonal) blend together to approximate the true ellipse."
+        },
+        {
+          "title": "Cabinet oblique drawing of an L-shaped bracket",
+          "problem": "An L-shaped bracket has the following front-face profile: overall 100 mm wide × 80 mm tall, with a rectangular cut-out 60 mm wide × 50 mm tall removed from the top-right corner. The bracket is 40 mm deep. Draw it in cabinet oblique projection with the receding axis at 45°.",
+          "steps": [
+            "Draw the front face in true size and true shape in the picture plane. Start with the overall 100 × 80 mm rectangle, then mark the 60 × 50 mm cut-out from the top-right: measure 60 mm left from the top-right corner and 50 mm down from the top-right corner; remove that rectangle to leave the L-profile.",
+            "The receding depth in cabinet oblique is half the true depth: 40 mm × 0.5 = 20 mm. All receding lines will be drawn 20 mm long at 45° to the horizontal.",
+            "From every visible corner of the front L-profile, draw a receding line 20 mm long at 45° upward to the right.",
+            "Connect the far ends of these receding lines with lines identical in shape to the front face (parallel to the corresponding front-face edges) to form the back face of the bracket.",
+            "Identify which back edges are visible from the chosen viewpoint; draw them as full lines. Any edges obscured by the solid are drawn as hidden (dashed) lines or omitted, per convention.",
+            "Check that no receding dimension on the drawing exceeds 20 mm. Check that the front face dimensions are full size (100 mm wide, 80 mm tall) — this is the key advantage of oblique drawing for profiles with important front detail."
+          ],
+          "answer": "The cabinet oblique drawing shows the L-shaped front face at full size (100 × 80 mm minus the 60 × 50 mm cut-out) with all depth edges drawn 20 mm long at 45°. The front face is undistorted, making any curves or complex outlines on it easy to construct accurately."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the isometric scale factor, and what does it mean in practice when producing an isometric drawing rather than a true isometric projection?",
+          "options": [
+            "0.707; all lines are shortened to 70.7% of true length along every axis",
+            "0.816; lines along the receding axes are shortened but the vertical axis is kept full length",
+            "0.816; all lines parallel to any of the three isometric axes are shortened to 81.6% of true length in true projection, but isometric drawing simply uses full true lengths for convenience",
+            "0.500; receding lines are halved just as in cabinet oblique"
+          ],
+          "correctIndex": 2,
+          "explanation": "The isometric scale factor of cos45°/cos30° ≈ 0.816 applies equally to all three axes in a true isometric projection; isometric drawing avoids this by using actual measurements, producing a drawing about 22% larger but otherwise identical in appearance."
+        },
+        {
+          "question": "A circle of diameter 50 mm lies on the front face of an object drawn in oblique projection. In which projection system is it easiest to draw this circle, and why?",
+          "options": [
+            "Isometric, because the axes are equally spaced at 120° so the circle fits naturally",
+            "Cavalier oblique with the circle on the receding face, because receding lengths are full size",
+            "Either cavalier or cabinet oblique, with the circle placed on the front face, because the front face is drawn in true shape",
+            "Cabinet oblique with the circle on the receding face, because the half-scale depth reduces distortion"
+          ],
+          "correctIndex": 2,
+          "explanation": "In any oblique drawing the front face lies in the picture plane and is drawn in true size and true shape, so a circle on that face is drawn as a true circle with a compass — no ellipse construction is needed."
+        },
+        {
+          "question": "When converting a set of orthographic views into an isometric drawing, which view provides the depth dimension (i.e. the dimension measured along the receding axes)?",
+          "options": [
+            "The front view only",
+            "The front view and the top view together provide all three dimensions, with the top view giving depth",
+            "The side view only, because depth never appears in the front view",
+            "Either the top view or the side view, since both show the depth dimension; the front view gives height and width"
+          ],
+          "correctIndex": 3,
+          "explanation": "Depth is the dimension going away from the viewer; it appears in both the top view (as the vertical extent) and the side view (as the horizontal extent), but not in the front view, which shows only height and width."
+        },
+        {
+          "question": "A block is 120 mm deep. How long would the receding lines representing this depth be in (a) cavalier oblique and (b) cabinet oblique, both drawn at 45°?",
+          "options": [
+            "(a) 60 mm (b) 120 mm",
+            "(a) 120 mm (b) 98 mm",
+            "(a) 98 mm (b) 60 mm",
+            "(a) 120 mm (b) 60 mm"
+          ],
+          "correctIndex": 3,
+          "explanation": "Cavalier oblique keeps receding lengths at full true size (120 mm), while cabinet oblique halves them (120 × 0.5 = 60 mm); both are drawn at 45° to the horizontal."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Dimensioning and Sectional Views",
+      "sourceRange": "Topic 5",
+      "summary": "Dimensioning is the process of adding size and location information to an engineering drawing so that a component can be manufactured exactly as designed. A complete dimension consists of four elements working together: dimension lines (thin lines with arrowheads that span the feature being measured), extension lines (thin lines that project out from the object to define where the measurement starts and ends), arrowheads (which terminate dimension lines and indicate the exact limits of the measurement), and leader lines (thin lines with an arrowhead at one end and a shelf at the other, used to attach a note or diameter symbol to a specific feature). Two principal systems govern how dimension figures are written: the aligned system, in which figures are oriented to read from the bottom or right-hand side of the sheet, and the unidirectional system, in which all figures read from the bottom of the sheet regardless of the direction of the dimension line. Two methods govern how a series of dimensions is arranged: chain dimensioning, in which dimensions are placed end-to-end so each one locates a feature from the previous one, and parallel (datum) dimensioning, in which all dimensions originate from the same baseline or datum, avoiding the accumulation of tolerances.\n\nSectional views are used when the internal features of an object are so complex that hidden lines would make the drawing confusing and hard to read. A sectional view is obtained by imagining the object cut open by a cutting plane, removing the near half, and looking at the exposed interior. The cut surface is indicated by hatching — evenly spaced thin lines drawn at 45° to the main outline. Different hatching patterns are prescribed by standards for different engineering materials (e.g., steel, cast iron, brass, concrete), allowing a reader to identify materials at a glance. Three common types of section are the full section (the cutting plane passes completely through the object, revealing the entire interior), the half section (used on symmetrical objects — one quarter is removed to show the inside on one side and the outside on the other simultaneously), and the offset section (the cutting plane is stepped or offset so that it passes through features that do not lie on a single straight line).\n\nTogether, dimensioning and sectional views form the language that turns a geometric drawing into a complete manufacturing specification. Mastering the conventions — correct line types, spacing rules, choice of section type and hatching — ensures that a drawing communicates unambiguously to any engineer or machinist who reads it.",
+      "keyPoints": [
+        "A complete dimension has four components: dimension line, extension lines, arrowheads, and the dimension figure (with units).",
+        "Extension lines start with a small visible gap from the object outline (≈ 1.5 mm) and extend about 3 mm beyond the outer arrowhead.",
+        "In the aligned system, dimension figures are aligned with their dimension line; in the unidirectional system, all figures read from the bottom of the sheet.",
+        "Chain dimensioning places dimensions end-to-end from feature to feature; parallel dimensioning measures all features from a common datum.",
+        "Parallel dimensioning avoids tolerance accumulation (error build-up); chain dimensioning is used when the spacing between features matters more than their absolute position.",
+        "A cutting plane line (chain line with thick ends and arrows) shows where an imaginary cut is made; the arrows indicate the direction of viewing.",
+        "Full section: cutting plane passes entirely through the object. Half section: used on symmetrical parts, showing interior on one side and exterior on the other. Offset section: the cutting plane is stepped to include features at different positions.",
+        "Hatching lines are thin, continuous, drawn at 45° to the principal outline, with uniform spacing (typically 3–5 mm); adjacent parts in an assembly are hatched in opposite directions or at different angles.",
+        "Ribs, webs, shafts, bolts and nuts are not hatched even when the cutting plane passes through them longitudinally.",
+        "Leader lines run at a convenient angle (usually 30°, 45° or 60°) and never vertically or horizontally; the arrowhead touches the feature and the shelf carries the note."
+      ],
+      "definitions": [
+        {
+          "term": "Dimension Line",
+          "definition": "A thin continuous line drawn parallel to the feature being measured, terminated at each end by an arrowhead, and bearing the dimension figure at its mid-point (or above it). It indicates the direction and extent of a measurement."
+        },
+        {
+          "term": "Extension Line",
+          "definition": "A thin continuous line that projects perpendicularly from the point on the object being dimensioned to beyond the outermost dimension line. It defines precisely where a measurement begins and ends without touching the object outline itself."
+        },
+        {
+          "term": "Arrowhead",
+          "definition": "The termination mark at each end of a dimension line. Standard arrowheads are solid, filled triangles whose length is about three times their width, typically 3–5 mm long, and they must be consistent throughout a drawing."
+        },
+        {
+          "term": "Leader Line",
+          "definition": "A thin straight line drawn at an angle (30°, 45° or 60° to the horizontal) that connects a note, symbol or dimension to the specific feature it describes. It ends in an arrowhead (touching the feature surface) at one end and a short horizontal shelf carrying the note at the other."
+        },
+        {
+          "term": "Aligned Dimensioning System",
+          "definition": "A system in which each dimension figure is positioned parallel to and centred on its dimension line, so figures on horizontal dimensions read from the bottom of the sheet and figures on vertical dimensions read from the right-hand side."
+        },
+        {
+          "term": "Unidirectional Dimensioning System",
+          "definition": "A system in which all dimension figures are written horizontally so they can be read from the bottom of the sheet, regardless of the direction of the dimension line. Dimension lines are interrupted at their centres to accommodate the figure."
+        },
+        {
+          "term": "Chain Dimensioning",
+          "definition": "An arrangement in which successive dimensions are placed end-to-end, each measuring the distance from one feature to the next. It clearly defines the spacing between adjacent features but allows tolerance errors to accumulate along the chain."
+        },
+        {
+          "term": "Parallel (Datum) Dimensioning",
+          "definition": "An arrangement in which all dimensions originate from a single common reference (datum) line, edge or surface. Because each feature is located independently from the datum, tolerance errors do not accumulate."
+        },
+        {
+          "term": "Cutting Plane",
+          "definition": "An imaginary flat surface used conceptually to slice through an object to produce a sectional view. On the drawing it is represented by a chain line with thick ends and arrowheads showing the direction of viewing."
+        },
+        {
+          "term": "Hatching",
+          "definition": "Evenly spaced thin continuous lines, normally drawn at 45° to the dominant outline, used to indicate the cut surface of a sectional view. Different line patterns or angles represent different materials according to drawing standards."
+        },
+        {
+          "term": "Full Section",
+          "definition": "A sectional view produced when the cutting plane passes completely through the entire object from one side to the other, fully exposing the interior along the line of cut."
+        },
+        {
+          "term": "Half Section",
+          "definition": "A sectional view used on symmetrical objects in which the cutting plane removes one quarter of the object, so the drawing shows the interior on one side of the centreline and the undisturbed exterior on the other side."
+        },
+        {
+          "term": "Offset Section",
+          "definition": "A sectional view in which the cutting plane is bent (offset) at right angles one or more times so that it can pass through features that are not aligned on a single straight line, without the offsets themselves appearing in the sectional view."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Placing Dimensions on a Simple Rectangular Plate",
+          "problem": "A rectangular steel plate is 120 mm long, 75 mm wide and 10 mm thick, with a single circular hole of diameter 30 mm whose centre lies 50 mm from the left edge and 37.5 mm from the bottom edge. Show, with a complete description, how to correctly dimension the front view (length × width face) using the unidirectional system.",
+          "steps": [
+            "Draw the front view: a rectangle 120 mm × 75 mm with a circle of diameter 30 mm inside it.",
+            "Add extension lines for the length: project two extension lines downward from the bottom edge of the rectangle at the left and right corners, leaving a 1.5 mm gap at the object. Extend them about 3 mm below the outermost dimension line.",
+            "Draw the dimension line for the 120 mm length: a horizontal thin line between the two extension lines, placed about 10 mm below the bottom edge of the rectangle. Add closed arrowheads at each end pointing inward. Write '120' horizontally above the midpoint of the dimension line (unidirectional — figure reads from the bottom).",
+            "Add extension lines for the 75 mm width on the right side: project them horizontally from the top and bottom right corners, leaving the same 1.5 mm gap.",
+            "Draw the dimension line for the 75 mm width: a vertical thin line between those two extension lines, about 10 mm to the right of the right edge. Add arrowheads pointing inward. Write '75' horizontally in a gap at the mid-point of the dimension line (unidirectional).",
+            "Locate the hole centre horizontally: add an extension line at the hole's vertical centreline projecting down. Draw a dimension line from the left-edge extension line (already drawn) to this new extension line, 8 mm below the first length dimension line. Write '50' in the gap horizontally.",
+            "Locate the hole centre vertically: similarly project a horizontal extension line from the hole's horizontal centreline to the right. Draw a vertical dimension line from the bottom edge (using the existing extension lines) to this level. Write '37.5' horizontally in a gap.",
+            "Dimension the hole diameter using a leader line: draw a leader from the circle at 45°, ending in a short horizontal shelf. On the shelf write 'Ø30'. (Diameter symbols prefixed with Ø replace the need for two linear dimensions for circular features.)",
+            "Check: every feature has exactly one set of dimensions, no dimension line coincides with an object line, figures are all horizontal (unidirectional), and the smallest dimensions are closest to the view."
+          ],
+          "answer": "The front view is fully dimensioned with an overall length of 120 mm, overall width of 75 mm, hole centre located at 50 mm from the left and 37.5 mm from the bottom, and hole diameter given as Ø30 via a leader. All figures read from the bottom of the sheet (unidirectional system)."
+        },
+        {
+          "title": "Chain vs. Parallel Dimensioning — Tolerance Build-Up Comparison",
+          "problem": "Four holes are drilled in a bar. Their centres are nominally 20 mm, 20 mm, 20 mm and 20 mm apart (chain), placing the fourth hole 80 mm from the datum end. Each individual dimension carries a manufacturing tolerance of ±0.1 mm. Compare the worst-case position error of the fourth hole centre using (a) chain dimensioning and (b) parallel dimensioning from a datum.",
+          "steps": [
+            "Identify the tolerance per dimension: each linear dimension has a tolerance of ±0.1 mm, meaning its actual value can deviate by up to 0.1 mm from nominal.",
+            "Chain dimensioning — worst-case analysis: the four individual spacings each carry ±0.1 mm. In the worst case all errors add in the same direction. Total worst-case error on the fourth hole = 4 × 0.1 mm = ±0.4 mm. The fourth hole centre could therefore lie anywhere between 79.6 mm and 80.4 mm from the datum.",
+            "Parallel dimensioning — worst-case analysis: the fourth hole is dimensioned directly from the datum as 80 mm ± 0.1 mm. Only one dimension is involved. Worst-case error = ±0.1 mm. The fourth hole centre can only be between 79.9 mm and 80.1 mm from the datum.",
+            "Compare: chain dimensioning gives a worst-case position error four times larger (±0.4 mm) than parallel dimensioning (±0.1 mm).",
+            "Conclusion: wherever the absolute position of a feature is functionally important (e.g., a hole must align with a mating hole), parallel dimensioning from a datum should be used. Chain dimensioning is appropriate only when the spacing between consecutive features matters, not the absolute position from one end."
+          ],
+          "answer": "Chain dimensioning accumulates tolerances: ±0.4 mm worst-case error on the fourth hole. Parallel dimensioning gives ±0.1 mm. Parallel dimensioning is four times more accurate for absolute location in this example."
+        },
+        {
+          "title": "Drawing a Half-Section of a Hollow Cylinder (Boss)",
+          "problem": "A symmetrical hollow cylinder (boss) has an outer diameter of 80 mm, an inner bore of 40 mm and a height of 60 mm. Describe step-by-step how to draw a half-section front view.",
+          "steps": [
+            "Draw the full front view outline lightly: two vertical lines 80 mm apart and 60 mm tall representing the outer diameter, with a centreline running vertically down the middle of the view. Also draw the hidden lines for the 40 mm bore as dashed lines either side of the centreline (20 mm from it).",
+            "Decide on the cutting plane: because the object is symmetrical about its vertical centreline, the cutting plane coincides with that centreline. Mark the cutting plane line on the top view (or indicate it on the drawing) as a chain line with thick ends and arrows pointing to the right (the direction of viewing after removal of the near-left quarter).",
+            "Identify the two halves: the right half of the front view will be drawn as a full section (interior revealed); the left half will remain as an exterior view. The boundary between them is the centreline.",
+            "Draw the sectioned (right) half: the sectioned half shows the bore as a visible rectangular slot — two vertical lines 20 mm from the centreline and 60 mm tall, meeting the top and bottom edges. The material between the outer wall and the bore is the cut surface.",
+            "Apply hatching to the cut surfaces in the right half: draw lines at 45° to the vertical, spaced 3–4 mm apart, filling the two annular cut regions (the top and bottom solid rings of material visible in section). Hatching must not cross the visible outlines.",
+            "Draw the exterior (left) half: retain the outer profile lines. Remove the hidden lines for the bore from this half — in a half section the hidden lines on the unsectioned half are normally omitted because the section has already revealed the interior.",
+            "Add a centreline: reinstate the vertical and horizontal centrelines using chain (dot-dash) lines. The vertical centreline also serves as the boundary between the sectioned and unsectioned halves — it must be drawn as a centreline, not a solid line.",
+            "Add dimensions: outer diameter Ø80, bore Ø40, and height 60 mm. The diameters can be dimensioned on the exterior half (they are visible as overall width) with leader lines or standard extension lines."
+          ],
+          "answer": "The completed half-section shows the right half in section with hatching on the cut annular surfaces and the bore visible as a solid outline; the left half shows the clean exterior profile. This single view communicates both the internal and external geometry of the symmetrical part without any hidden lines."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In the unidirectional dimensioning system, how are dimension figures oriented on the drawing sheet?",
+          "options": [
+            "All figures are aligned parallel to their respective dimension lines.",
+            "All figures are written horizontally so they can be read from the bottom of the sheet.",
+            "Figures on horizontal dimensions read from the bottom; figures on vertical dimensions read from the right.",
+            "Figures are placed outside the extension lines and oriented vertically."
+          ],
+          "correctIndex": 1,
+          "explanation": "The unidirectional system requires every dimension figure to be written horizontally, readable from the bottom of the sheet, regardless of the direction of the dimension line."
+        },
+        {
+          "question": "A designer must locate five holes along a shaft where their absolute position from one end is critical for assembly. Which dimensioning method is most appropriate and why?",
+          "options": [
+            "Chain dimensioning, because it directly gives the spacing between adjacent holes.",
+            "Chain dimensioning, because it uses fewer overall dimensions.",
+            "Parallel (datum) dimensioning, because each hole is located independently from the datum, preventing tolerance accumulation.",
+            "Parallel (datum) dimensioning, because it places dimension lines on only one side of the drawing."
+          ],
+          "correctIndex": 2,
+          "explanation": "Parallel dimensioning measures every feature from a single datum, so each location has only one tolerance; in chain dimensioning, tolerances from every intermediate dimension accumulate, increasing the positional error of distant features."
+        },
+        {
+          "question": "When drawing an offset section, what is the correct way to represent the steps (offsets) in the cutting plane?",
+          "options": [
+            "The offsets are drawn as visible solid lines in the sectional view.",
+            "The offsets appear as dashed lines across the cut surface.",
+            "The offsets are shown only on the cutting plane line in the plan view; they do not appear as lines in the sectional view itself.",
+            "Each offset is shown as a separate full section."
+          ],
+          "correctIndex": 2,
+          "explanation": "An offset section is drawn exactly like a straight full section — the bends in the cutting plane are not shown as lines in the section view; only the cutting plane line (on another view) reveals where the plane was stepped."
+        },
+        {
+          "question": "Which of the following features should NOT be hatched when a cutting plane passes through it longitudinally in a sectional assembly drawing?",
+          "options": [
+            "A hollow cylinder wall",
+            "A flat cover plate",
+            "A solid shaft",
+            "A bearing housing boss"
+          ],
+          "correctIndex": 2,
+          "explanation": "By convention, solid items such as shafts, bolts, nuts, keys and ribs are not hatched when the cutting plane passes along their length, because hatching them would imply hollow interiors and mislead the reader."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Computer-Aided Design and Solid Modelling",
+      "sourceRange": "Topic 6",
+      "summary": "Computer-Aided Design (CAD) replaces the drawing board, pencil and set square with software that stores geometry as precise mathematical data. Unlike a manual drawing, which is a static image, a CAD model is a living description of a part: change one dimension and every affected view, section and detail updates automatically. This shift from drawing to modelling is the central idea of modern engineering graphics.\n\nSolid modelling begins with a 2D sketch drawn on a chosen plane. The sketch is made exact by applying constraints — rules that fix lengths, angles and relationships between lines. Once the sketch is fully constrained, a modelling operation such as extrude, revolve or sweep turns it into a 3D solid. Complex shapes are then built up or carved away using Boolean operations (union, subtraction and intersection), which combine two solids by set logic. The result is a parametric solid model whose geometry is driven entirely by the dimension values entered by the designer.\n\nThe final step closes the loop back to traditional drawing: the CAD system can project the 3D model onto standard planes and generate a fully dimensioned, standards-compliant orthographic drawing automatically. The student who understands orthographic projection, dimensioning and sectional views therefore has the conceptual foundation needed to work productively in any CAD environment, because the software automates the drawing but cannot replace the engineer's understanding of what the views mean.",
+      "keyPoints": [
+        "CAD stores geometry as mathematical data, making drawings associative: editing the model updates all derived views automatically.",
+        "Manual drawing requires physical instruments and is time-consuming to revise; CAD offers speed, accuracy, easy editing and the ability to generate multiple views from one model.",
+        "A 2D sketch must be fully constrained (no degrees of freedom remaining) before a solid feature can be created reliably; under-constrained sketches drift, over-constrained sketches conflict.",
+        "Geometric constraints fix shape relationships (perpendicular, parallel, tangent, coincident, symmetric); dimensional constraints fix size (lengths, radii, angles).",
+        "Extrude adds depth to a closed 2D profile by pushing it a specified distance along an axis perpendicular (or at an angle) to the sketch plane.",
+        "Revolve sweeps a closed profile through a specified angle about an axis lying in or near the sketch plane, producing axially symmetric solids such as shafts, discs and vases.",
+        "Sweep moves a cross-sectional profile along a 3D path (the spine), creating pipes, channels and helical features.",
+        "Boolean Union combines two solids into one; Boolean Subtraction removes the volume of one solid from another (drilling holes, cutting slots); Boolean Intersection keeps only the overlapping volume.",
+        "Orthographic drawings generated from a CAD model are associative: dimensions and views always match the model, eliminating the risk of drawing errors caused by manual re-drawing."
+      ],
+      "definitions": [
+        {
+          "term": "Computer-Aided Design (CAD)",
+          "definition": "The use of computer software to create, modify, analyse and document engineering geometry. CAD replaces manual instruments with a mathematical model of the part, allowing rapid editing, simulation and drawing generation."
+        },
+        {
+          "term": "Parametric modelling",
+          "definition": "A modelling approach in which all geometry is driven by named dimension parameters. Changing a parameter value (e.g. a hole diameter) automatically updates all dependent geometry throughout the model and its drawings."
+        },
+        {
+          "term": "Geometric constraint",
+          "definition": "A rule that fixes a spatial relationship between sketch elements without specifying a numerical value — for example: lines are perpendicular, an arc is tangent to a line, two points are coincident, or a line is horizontal."
+        },
+        {
+          "term": "Dimensional constraint",
+          "definition": "A numerical value attached to a sketch element that fixes its size or angle — for example: a length of 60 mm, a radius of 12 mm, or an included angle of 45°. Together with geometric constraints, dimensional constraints make a sketch fully defined."
+        },
+        {
+          "term": "Extrude",
+          "definition": "A feature operation that takes a closed 2D sketch profile and extends it a specified distance along an axis (usually normal to the sketch plane) to produce a prismatic 3D solid. The extrusion can add material (boss) or remove material (cut/pocket)."
+        },
+        {
+          "term": "Revolve",
+          "definition": "A feature operation that rotates a closed 2D sketch profile through a specified angle (up to 360°) about a defined axis to produce an axially symmetric solid. Used for shafts, cylinders, cones, rings and similar turned parts."
+        },
+        {
+          "term": "Sweep",
+          "definition": "A feature operation that moves a 2D cross-sectional profile along a 3D path (called the spine or guide curve), tracing out a solid whose cross-section is constant or can vary along the path. Used for pipes, handrails and helical springs."
+        },
+        {
+          "term": "Boolean operation",
+          "definition": "A set-theory operation applied to two overlapping 3D solids. Union merges both volumes into one; Subtraction removes the volume of Tool solid B from Base solid A; Intersection retains only the volume shared by both solids."
+        },
+        {
+          "term": "Associative drawing",
+          "definition": "An orthographic or sectional drawing that is linked mathematically to the 3D model from which it was derived. Any change to the model propagates automatically into the drawing views, keeping dimensions and geometry consistent."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Fully constraining a rectangular slot sketch",
+          "problem": "A 2D sketch on the XY plane contains a horizontal rectangle. List all the constraints needed to make it fully defined, given that one corner must sit at the origin, the rectangle is 80 mm wide, 30 mm tall, and its long sides must remain horizontal.",
+          "steps": [
+            "Step 1 — Count degrees of freedom. A general rectangle has 4 corner points × 2 coordinates = 8 degrees of freedom (DOF) before any constraints.",
+            "Step 2 — Apply geometric constraints. Fix the bottom-left corner coincident with the origin: removes 2 DOF (x = 0, y = 0). Apply horizontal to the two long sides (2 constraints, removes 2 DOF — forces all y-coordinates of each side to be equal). Apply vertical to the two short sides (2 constraints, removes 2 DOF — forces x-coordinates of each short side to be equal). Remaining DOF = 8 − 2 − 2 − 2 = 2.",
+            "Step 3 — Apply dimensional constraints. Add width = 80 mm along the bottom edge: removes 1 DOF. Add height = 30 mm along the left edge: removes 1 DOF. Remaining DOF = 0.",
+            "Step 4 — Confirm fully constrained. With 0 DOF, every point has a unique position. The sketch is fully defined and safe to use as an extrude profile."
+          ],
+          "answer": "Seven constraints in total are needed: 1 coincident (origin fix), 2 horizontal, 2 vertical, 1 width dimension (80 mm) and 1 height dimension (30 mm). The sketch is then fully constrained with 0 degrees of freedom."
+        },
+        {
+          "title": "Volume of a revolved solid (stepped shaft)",
+          "problem": "A shaft is modelled by revolving a profile 360° about a centre axis. The profile is an L-shape: a rectangle 50 mm tall and 20 mm wide (the larger-diameter portion) stacked on top of a rectangle 40 mm tall and 12 mm wide (the smaller-diameter portion), both sharing the axis edge. Calculate the total volume of the resulting solid.",
+          "steps": [
+            "Step 1 — Identify the two cylindrical portions. Revolving a rectangle of width r and height h through 360° about the axis edge produces a solid cylinder of radius r and height h.",
+            "Step 2 — Calculate volume of the larger-diameter portion. Radius r₁ = 20 mm, height h₁ = 50 mm. V₁ = π r₁² h₁ = π × 20² × 50 = π × 400 × 50 = 20 000π mm³.",
+            "Step 3 — Calculate volume of the smaller-diameter portion. Radius r₂ = 12 mm, height h₂ = 40 mm. V₂ = π r₂² h₂ = π × 144 × 40 = 5 760π mm³.",
+            "Step 4 — Add the two cylinders. V_total = V₁ + V₂ = 20 000π + 5 760π = 25 760π mm³.",
+            "Step 5 — Evaluate numerically. V_total = 25 760 × 3.14159 ≈ 80 896 mm³ ≈ 80 900 mm³ (to 3 significant figures)."
+          ],
+          "answer": "The total volume of the stepped shaft is 25 760π mm³ ≈ 80 900 mm³."
+        },
+        {
+          "title": "Boolean subtraction to model a drilled block",
+          "problem": "A rectangular block (base solid) measures 100 mm × 60 mm × 40 mm. A through-hole of diameter 20 mm is drilled centrally through the 40 mm depth. Describe the Boolean operation required and calculate the volume of material remaining after drilling.",
+          "steps": [
+            "Step 1 — Model the base solid. Extrude a 100 × 60 mm rectangle to a depth of 40 mm. Volume of block = 100 × 60 × 40 = 240 000 mm³.",
+            "Step 2 — Model the tool solid (the drill cylinder). Sketch a circle of diameter 20 mm (radius 10 mm) at the centre of the top face (position: 50 mm from each long edge, 30 mm from each short edge). Extrude it downward through the full 40 mm depth. Volume of cylinder = π × 10² × 40 = 4 000π mm³ ≈ 12 566 mm³.",
+            "Step 3 — Apply Boolean Subtraction. Designate the block as the Base solid and the cylinder as the Tool solid. The operation removes the cylinder's volume from the block, leaving a through-hole.",
+            "Step 4 — Calculate remaining volume. V_remaining = V_block − V_cylinder = 240 000 − 4 000π ≈ 240 000 − 12 566 ≈ 227 434 mm³.",
+            "Step 5 — Verify the operation. The resulting solid has a circular hole 20 mm in diameter passing through its 40 mm height, open at both the top and bottom faces — consistent with a through-hole produced by Boolean Subtraction."
+          ],
+          "answer": "A Boolean Subtraction operation is applied. The volume of the drilled block is 240 000 − 4 000π ≈ 227 400 mm³ (to 4 significant figures)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A CAD sketch has 6 degrees of freedom remaining after all geometric constraints are applied. How many independent dimensional constraints are still needed to make it fully defined?",
+          "options": [
+            "3, because each dimension removes 2 DOF",
+            "6, because each dimensional constraint removes exactly 1 DOF",
+            "It depends on whether the constraints are linear or angular",
+            "None — geometric constraints alone are always sufficient",
+            "6, because each dimensional constraint removes exactly 1 DOF"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each independent dimensional constraint fixes one remaining degree of freedom, so exactly 6 dimensional constraints are needed to reduce 6 DOF to zero."
+        },
+        {
+          "question": "Which modelling operation is most appropriate for creating a solid ring (torus-like shape) from a circular cross-section profile?",
+          "options": [
+            "Extrude the circle perpendicular to the sketch plane",
+            "Sweep the circle along a straight spine",
+            "Revolve the circular profile 360° about an external axis",
+            "Apply Boolean Union to two overlapping cylinders"
+          ],
+          "correctIndex": 2,
+          "explanation": "Revolving a closed circular profile through 360° about an axis that lies outside but in the same plane as the profile generates a torus, which is an axially symmetric solid produced by the revolve operation."
+        },
+        {
+          "question": "A designer subtracts a cylindrical solid from a rectangular block in a CAD system. Which Boolean operation has been used, and what is the geometric result?",
+          "options": [
+            "Union — the cylinder and block merge into a single larger solid",
+            "Subtraction — the block gains a hole equal in size and position to the cylinder",
+            "Intersection — only the overlapping volume between cylinder and block is kept",
+            "Sweep — the cylinder profile is swept along the block's edge"
+          ],
+          "correctIndex": 1,
+          "explanation": "Boolean Subtraction removes the tool solid's volume (the cylinder) from the base solid (the block), creating a hole whose size and position match the cylinder exactly."
+        },
+        {
+          "question": "An engineer changes the shaft diameter in a parametric CAD model. In an associative orthographic drawing linked to that model, what happens to the drawing automatically?",
+          "options": [
+            "Nothing changes; the drawing must be manually redrawn",
+            "Only the 3D isometric view updates; orthographic views stay the same",
+            "All derived views and associated dimensions update to reflect the new diameter",
+            "The drawing is deleted and must be regenerated from scratch"
+          ],
+          "correctIndex": 2,
+          "explanation": "In an associative CAD drawing, all orthographic views and their dimensions are mathematically linked to the model; editing any model parameter automatically propagates the change through every affected view and dimension."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

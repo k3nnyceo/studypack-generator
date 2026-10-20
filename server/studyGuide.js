@@ -193,7 +193,7 @@ const WARM_UP_INSTRUCTION = 'Stage 2 of 2 will follow. Reply with an empty modul
 const CHARS_PER_MODULE = 2500
 const moduleCap = (chars) => Math.min(MAX_MODULES, Math.max(3, Math.ceil(chars / CHARS_PER_MODULE)))
 
-const planInstruction = (chars) => `Stage 1 of 2: plan the study guide. Give its title, course, topic and overview, and divide the notes into modules that follow the lecture's own topic boundaries: at most ${moduleCap(chars)} modules, fewer if the lecture has fewer distinct topics. Every substantive part of the notes must belong to exactly one module. For each module give its title, sourceRange, and focus: 2-4 sentences naming exactly which concepts, terms, formulas and examples from the notes it covers. Each module will be written by a separate writer who sees only this outline, so the focus must make the boundaries between modules unambiguous.`
+const planInstruction = (cap) => `Stage 1 of 2: plan the study guide. Give its title, course, topic and overview, and divide the notes into modules that follow the lecture's own topic boundaries: at most ${cap} modules, fewer if the lecture has fewer distinct topics. Every substantive part of the notes must belong to exactly one module. For each module give its title, sourceRange, and focus: 2-4 sentences naming exactly which concepts, terms, formulas and examples from the notes it covers. Each module will be written by a separate writer who sees only this outline, so the focus must make the boundaries between modules unambiguous.`
 
 function moduleInstruction(plan, index) {
   const outline = plan.modules.map((m, i) => `${i + 1}. ${m.title} (${m.sourceRange})`).join('\n')
@@ -259,8 +259,10 @@ export function getClient() {
 // `theory` adds exam-style written questions to each module (paid plans).
 // `images` are diagram pages ({ ref, unit, mediaType, data }) shown to the
 // module writers as pictures (paid plans; src/lib/diagramPages.js).
-// `client` and `timing` are for tests.
-export async function generateStudyGuide({ text, fileName, images = [], signal, onCost, theory = false, client = getClient(), timing = {} }) {
+// `maxModules` overrides the cap from the notes' length (ready-made packs built
+// from a short course outline: one module per topic). `client` and `timing`
+// are for tests.
+export async function generateStudyGuide({ text, fileName, images = [], signal, onCost, theory = false, maxModules, client = getClient(), timing = {} }) {
   const { cacheHedgeMs = CACHE_HEDGE_MS, cacheWaitMs = CACHE_WAIT_MS } = timing
   const system = systemPrompt(theory)
   const started = Date.now()
@@ -335,7 +337,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
   try {
     // The plan is a short outline. It isn't cached: its model and schema differ
     // from the module calls', so they couldn't reuse it.
-    const plan = await ask({ label: 'plan', model: PLAN_MODEL, instruction: planInstruction(text.length), schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
+    const plan = await ask({ label: 'plan', model: PLAN_MODEL, instruction: planInstruction(Math.min(MAX_MODULES, maxModules ?? moduleCap(text.length))), schema: PLAN_SCHEMA, maxTokens: 8000, effort: PLAN_EFFORT })
     if (!Array.isArray(plan.modules) || plan.modules.length === 0) {
       throw new StudyGuideError('Claude couldn’t find any topics in these notes.', 422)
     }

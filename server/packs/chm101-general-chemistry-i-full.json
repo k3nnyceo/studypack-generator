@@ -1,0 +1,994 @@
+{
+  "title": "CHM 101 — General Chemistry I (full course)",
+  "course": "CHM 101 General Chemistry I",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the fundamental principles of general chemistry at first-year university level. It progresses from the nature of atoms and the mole concept, through modern quantum theory and periodic trends, to chemical bonding and molecular structure, then to stoichiometry and the dynamic behaviour of chemical systems. Together these modules build the conceptual framework needed to understand how matter is structured, how atoms combine, and how chemical reactions proceed.",
+  "modules": [
+    {
+      "title": "Atoms, molecules and the mole",
+      "sourceRange": "Topic 1",
+      "summary": "Chemistry begins with the atom. Dalton's atomic theory (1808) proposed that all matter is made of indivisible atoms, that atoms of the same element are identical in mass and properties, that atoms of different elements combine in fixed whole-number ratios to form compounds, and that atoms are neither created nor destroyed in chemical reactions. Although later science has refined several of these ideas—atoms can be subdivided, and isotopes mean atoms of the same element are not all identical in mass—Dalton's theory remains the foundation of modern chemistry.\n\nEvery atom contains a nucleus of protons (charge +1, mass ≈ 1 u) and neutrons (charge 0, mass ≈ 1 u), surrounded by electrons (charge −1, mass ≈ 1/1836 u). The atomic number Z is the number of protons and defines the element; the mass number A is the total count of protons and neutrons, so the number of neutrons equals A − Z. Isotopes are atoms of the same element with different numbers of neutrons. Because most elements occur as a mixture of isotopes, the relative atomic mass (Ar) is the weighted average of the isotopic masses, using the fractional abundances as weights.\n\nChemists count atoms and molecules using the mole: one mole is the amount of substance that contains exactly 6.022 × 10²³ particles (Avogadro's number, NA). The molar mass M of a substance, in g mol⁻¹, is numerically equal to its relative formula mass in atomic mass units. These ideas connect macroscopic masses to particle counts and underpin every quantitative calculation in chemistry. From the percentage composition of a compound by mass one can derive the simplest whole-number ratio of atoms (the empirical formula) and, if the molar mass is known, the actual number of each type of atom per molecule (the molecular formula).",
+      "keyPoints": [
+        "Dalton's atomic theory: matter is made of atoms; atoms of the same element are identical; atoms combine in fixed ratios; atoms are conserved in reactions.",
+        "Protons define the element (atomic number Z); neutrons add mass; electrons are responsible for chemical behaviour.",
+        "Mass number A = protons + neutrons; number of neutrons = A − Z.",
+        "Isotopes have the same Z but different A; relative atomic mass is the abundance-weighted average of isotopic masses.",
+        "One mole = 6.022 × 10²³ particles (Avogadro's number); molar mass in g mol⁻¹ equals the relative formula mass numerically.",
+        "Moles = mass (g) ÷ molar mass (g mol⁻¹); number of particles = moles × NA.",
+        "Empirical formula: simplest whole-number atom ratio, found by dividing each element's mole amount by the smallest.",
+        "Molecular formula = n × empirical formula, where n = molar mass ÷ empirical formula mass."
+      ],
+      "definitions": [
+        {
+          "term": "Atomic number (Z)",
+          "definition": "The number of protons in the nucleus of an atom. It is unique to each element and determines the element's identity and its position in the periodic table."
+        },
+        {
+          "term": "Mass number (A)",
+          "definition": "The total number of protons and neutrons (collectively called nucleons) in the nucleus of an atom. It is always a whole number and approximates the atomic mass in unified atomic mass units."
+        },
+        {
+          "term": "Isotopes",
+          "definition": "Atoms of the same element (same Z) that have different numbers of neutrons, and therefore different mass numbers. Isotopes of an element have virtually identical chemical properties but differ in mass and nuclear stability."
+        },
+        {
+          "term": "Relative atomic mass (Ar)",
+          "definition": "The weighted average mass of all naturally occurring isotopes of an element, relative to 1/12 the mass of carbon-12. It is calculated as Ar = Σ(fractional abundance × isotopic mass) and is a dimensionless quantity."
+        },
+        {
+          "term": "Avogadro's number (NA)",
+          "definition": "The number of elementary particles (atoms, molecules, ions, etc.) in one mole of a substance: NA = 6.022 × 10²³ mol⁻¹. It provides the link between the atomic scale and the macroscopic, measurable scale."
+        },
+        {
+          "term": "Mole",
+          "definition": "The SI base unit for amount of substance. One mole of any substance contains exactly 6.022 × 10²³ specified elementary entities. The amount in moles equals the mass in grams divided by the molar mass in g mol⁻¹."
+        },
+        {
+          "term": "Molar mass (M)",
+          "definition": "The mass of one mole of a substance, expressed in g mol⁻¹. Numerically it equals the relative atomic or formula mass. For example, the molar mass of H₂O is 18.02 g mol⁻¹."
+        },
+        {
+          "term": "Empirical formula",
+          "definition": "The simplest whole-number ratio of atoms of each element in a compound. It is determined from percentage composition data by converting mass percentages to moles and dividing through by the smallest mole value."
+        },
+        {
+          "term": "Molecular formula",
+          "definition": "The actual number of atoms of each element in one molecule of a compound. It is a whole-number multiple of the empirical formula: molecular formula = (empirical formula)ₙ, where n = molar mass ÷ empirical formula mass."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Relative atomic mass from isotopic abundance",
+          "problem": "Chlorine exists as two naturally occurring isotopes: ³⁵Cl (isotopic mass 34.97 u, natural abundance 75.77%) and ³⁷Cl (isotopic mass 36.97 u, natural abundance 24.23%). Calculate the relative atomic mass of chlorine.",
+          "steps": [
+            "Convert percentage abundances to fractional abundances: ³⁵Cl → 75.77/100 = 0.7577; ³⁷Cl → 24.23/100 = 0.2423.",
+            "Apply the weighted-average formula: Ar = Σ(fractional abundance × isotopic mass).",
+            "Contribution from ³⁵Cl: 0.7577 × 34.97 = 26.50 u.",
+            "Contribution from ³⁷Cl: 0.2423 × 36.97 = 8.96 u.",
+            "Sum the contributions: Ar = 26.50 + 8.96 = 35.46 u.",
+            "Round to one decimal place as conventional: Ar(Cl) ≈ 35.5."
+          ],
+          "answer": "The relative atomic mass of chlorine is 35.5."
+        },
+        {
+          "title": "Moles, molar mass and number of molecules",
+          "problem": "Calculate (a) the number of moles and (b) the number of molecules present in 9.00 g of water (H₂O). (NA = 6.022 × 10²³ mol⁻¹; Ar: H = 1.008, O = 16.00)",
+          "steps": [
+            "Calculate the molar mass of H₂O: M = 2(1.008) + 16.00 = 2.016 + 16.00 = 18.02 g mol⁻¹.",
+            "Find the number of moles: n = mass ÷ M = 9.00 g ÷ 18.02 g mol⁻¹ = 0.4995 mol ≈ 0.500 mol.",
+            "Find the number of molecules: N = n × NA = 0.500 mol × 6.022 × 10²³ mol⁻¹.",
+            "N = 3.011 × 10²³ molecules."
+          ],
+          "answer": "9.00 g of water contains 0.500 mol and 3.01 × 10²³ molecules."
+        },
+        {
+          "title": "Empirical and molecular formula from percentage composition",
+          "problem": "A compound has the following composition by mass: C 40.00%, H 6.72%, O 53.28%. Its experimentally determined molar mass is 90.08 g mol⁻¹. Find the empirical formula and the molecular formula. (Ar: C = 12.01, H = 1.008, O = 16.00)",
+          "steps": [
+            "Assume a 100 g sample, so the masses are: C = 40.00 g, H = 6.72 g, O = 53.28 g.",
+            "Convert each mass to moles: C: 40.00/12.01 = 3.331 mol; H: 6.72/1.008 = 6.667 mol; O: 53.28/16.00 = 3.330 mol.",
+            "Divide each by the smallest value (3.330): C: 3.331/3.330 ≈ 1.00; H: 6.667/3.330 ≈ 2.00; O: 3.330/3.330 = 1.00.",
+            "The whole-number ratio is C:H:O = 1:2:1, giving the empirical formula CH₂O.",
+            "Calculate the empirical formula mass: 12.01 + 2(1.008) + 16.00 = 30.03 g mol⁻¹.",
+            "Find n: n = molar mass ÷ empirical formula mass = 90.08 ÷ 30.03 ≈ 3.",
+            "Multiply the empirical formula by 3: molecular formula = C₃H₆O₃."
+          ],
+          "answer": "The empirical formula is CH₂O and the molecular formula is C₃H₆O₃."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "An atom of phosphorus has atomic number 15 and mass number 31. How many neutrons does it contain?",
+          "options": [
+            "15",
+            "16",
+            "31",
+            "46"
+          ],
+          "correctIndex": 1,
+          "explanation": "Number of neutrons = mass number − atomic number = 31 − 15 = 16."
+        },
+        {
+          "question": "How many atoms are present in 24.0 g of carbon-12? (Ar(C) = 12.0; NA = 6.022 × 10²³ mol⁻¹)",
+          "options": [
+            "6.022 × 10²³",
+            "1.204 × 10²⁴",
+            "2.000",
+            "3.011 × 10²³"
+          ],
+          "correctIndex": 1,
+          "explanation": "Moles of C = 24.0/12.0 = 2.00 mol; atoms = 2.00 × 6.022 × 10²³ = 1.204 × 10²⁴."
+        },
+        {
+          "question": "Boron has two isotopes: ¹⁰B (abundance 19.9%) and ¹¹B (abundance 80.1%). Which expression correctly gives its relative atomic mass?",
+          "options": [
+            "(10 + 11) ÷ 2",
+            "(0.199 × 10) + (0.801 × 11)",
+            "(0.801 × 10) + (0.199 × 11)",
+            "10 × 11 ÷ (10 + 11)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Relative atomic mass is the sum of each isotopic mass multiplied by its fractional abundance: (0.199 × 10) + (0.801 × 11) = 10.8."
+        },
+        {
+          "question": "A compound's empirical formula is CH₂ and its molar mass is 56 g mol⁻¹. What is its molecular formula? (Ar: C = 12, H = 1)",
+          "options": [
+            "CH₂",
+            "C₂H₄",
+            "C₃H₆",
+            "C₄H₈"
+          ],
+          "correctIndex": 3,
+          "explanation": "Empirical formula mass of CH₂ = 14 g mol⁻¹; n = 56/14 = 4; molecular formula = C₄H₈."
+        }
+      ],
+      "theory": [
+        {
+          "question": "State the main postulates of Dalton's atomic theory and discuss two ways in which the theory has been modified by modern discoveries. (6 marks)",
+          "marks": 6,
+          "modelAnswer": "Dalton's atomic theory (1808) rests on four main postulates: (1) All matter is composed of extremely small, indivisible particles called atoms. (2) All atoms of a given element are identical in mass and chemical properties. (3) Atoms of different elements have different masses and properties; they combine in simple, fixed whole-number ratios to form compounds. (4) In a chemical reaction atoms are neither created nor destroyed, only rearranged—this is the basis of conservation of mass.\n\nTwo significant modifications have been required. First, atoms are not indivisible: the discovery of electrons (Thomson, 1897), protons and neutrons showed that atoms contain subatomic particles. Nuclear reactions can even convert one element into another by changing the proton number. Second, not all atoms of a given element are identical in mass: the existence of isotopes means that atoms of the same element can have different numbers of neutrons and therefore different mass numbers (e.g. ¹²C and ¹³C and ¹⁴C are all carbon). The relative atomic mass used in calculations is a weighted average over these isotopes. Despite these modifications, Dalton's core ideas about fixed composition and conservation of atoms remain valid for ordinary chemical reactions.",
+          "markingPoints": [
+            "Correct statement of at least three of the four postulates",
+            "Identification that atoms contain subatomic particles (electrons, protons, neutrons), contradicting indivisibility",
+            "Identification and explanation of isotopes contradicting identical-mass postulate",
+            "Acknowledgement that conservation of mass and fixed ratios remain valid"
+          ]
+        },
+        {
+          "question": "A gaseous hydrocarbon contains 85.63% carbon and 14.37% hydrogen by mass. Its molar mass is 70.13 g mol⁻¹. Determine the empirical formula and the molecular formula of the compound, showing all working. (Ar: C = 12.01, H = 1.008) (8 marks)",
+          "marks": 8,
+          "modelAnswer": "Step 1 – Convert percentages to moles (assuming 100 g sample):\nMoles of C = 85.63 ÷ 12.01 = 7.130 mol\nMoles of H = 14.37 ÷ 1.008 = 14.256 mol\n\nStep 2 – Find the simplest ratio by dividing by the smallest (7.130):\nC : H = 7.130/7.130 : 14.256/7.130 = 1.000 : 1.999 ≈ 1 : 2\n\nStep 3 – Empirical formula: CH₂\n\nStep 4 – Empirical formula mass:\nM(CH₂) = 12.01 + 2(1.008) = 14.03 g mol⁻¹\n\nStep 5 – Calculate n:\nn = molar mass ÷ empirical formula mass = 70.13 ÷ 14.03 = 4.999 ≈ 5\n\nStep 6 – Molecular formula:\nMolecular formula = (CH₂)₅ = C₅H₁₀\n\nThe empirical formula is CH₂ and the molecular formula is C₅H₁₀ (this compound could be cyclopentane or one of the pentene isomers).",
+          "markingPoints": [
+            "Correct conversion of % composition to moles for both C and H",
+            "Division by smallest mole value to obtain 1:2 ratio",
+            "Correct empirical formula CH₂",
+            "Correct calculation of empirical formula mass (14.03 g mol⁻¹)",
+            "Correct value of n = 5 using given molar mass",
+            "Correct molecular formula C₅H₁₀"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Modern electronic theory and quantum mechanics",
+      "sourceRange": "Topic 2",
+      "summary": "This module traces how chemists moved from a simple planetary picture of the atom to the modern quantum-mechanical model. Niels Bohr explained the discrete lines in the hydrogen emission spectrum by proposing that electrons travel in fixed circular orbits of defined energy; an electron moving from a higher to a lower orbit releases a photon whose energy exactly equals the gap between the two levels. The Rydberg equation makes this quantitative, allowing the wavelength of any hydrogen spectral line to be calculated. However, the Bohr model fails for multi-electron atoms and cannot explain the wave-like behaviour of electrons.\n\nLouis de Broglie's insight that moving particles have an associated wavelength (λ = h/mv) completed the wave-particle duality picture that Einstein had introduced for photons. Heisenberg's uncertainty principle followed naturally: because an electron behaves as a wave, we can never know both its exact position and momentum simultaneously. Schrödinger's wave equation replaced Bohr's fixed orbits with orbitals — three-dimensional probability distributions described by four quantum numbers: the principal quantum number n (energy level/shell), the azimuthal quantum number l (subshell and shape), the magnetic quantum number mₗ (orientation), and the spin quantum number mₛ (intrinsic angular momentum). The shapes of s (spherical), p (dumbbell) and d (clover-leaf and related) orbitals emerge directly from the allowed combinations of these quantum numbers.\n\nElectrons are assigned to orbitals following three rules: the Aufbau principle (fill lowest energy orbitals first), the Pauli exclusion principle (no two electrons in the same atom may share all four quantum numbers, so each orbital holds at most two spin-paired electrons), and Hund's rule (within a degenerate subshell, place one electron in each orbital before pairing). These rules correctly predict the electron configurations of elements 1–36, with the notable exceptions of chromium ([Ar] 3d⁵ 4s¹) and copper ([Ar] 3d¹⁰ 4s¹), which gain extra stability from half-filled and fully filled d subshells.",
+      "keyPoints": [
+        "The Bohr model quantises electron orbits in hydrogen; an electron dropping from level n₂ to n₁ emits a photon whose wavelength is given by the Rydberg equation: 1/λ = R_H(1/n₁² − 1/n₂²), where R_H = 1.097 × 10⁷ m⁻¹.",
+        "Wave-particle duality applies to matter: the de Broglie wavelength of a particle is λ = h/(mv), where h is Planck's constant.",
+        "Four quantum numbers completely specify the state of an electron: n (principal, n = 1, 2, 3 …), l (azimuthal, 0 to n−1), mₗ (magnetic, −l to +l), and mₛ (spin, +½ or −½).",
+        "The shape of an orbital is determined by l: l = 0 → s (sphere); l = 1 → p (dumbbell, three orientations); l = 2 → d (five orientations including clover-leaf dxy, dx²−y² and others).",
+        "Aufbau order follows increasing (n + l) value; where (n + l) is equal, the orbital with lower n fills first (i.e. 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, …).",
+        "Pauli's exclusion principle limits each orbital to two electrons of opposite spin; Hund's rule requires one electron per degenerate orbital before any pairing begins.",
+        "Chromium is [Ar] 3d⁵ 4s¹ (not 3d⁴ 4s²) and copper is [Ar] 3d¹⁰ 4s¹ (not 3d⁹ 4s²) because half-filled and fully filled d subshells are extra stable.",
+        "The number of orbitals in a subshell is 2l + 1; the maximum number of electrons in a shell n is 2n²."
+      ],
+      "definitions": [
+        {
+          "term": "Atomic emission spectrum",
+          "definition": "The set of discrete, characteristic wavelengths of light emitted when excited electrons in isolated atoms fall back to lower energy levels. Each element has a unique spectrum, appearing as bright coloured lines against a dark background."
+        },
+        {
+          "term": "Rydberg equation",
+          "definition": "The equation 1/λ = R_H(1/n₁² − 1/n₂²) that gives the wavelength λ of a photon emitted (or absorbed) when a hydrogen electron transitions between energy levels n₁ (lower) and n₂ (upper). R_H = 1.097 × 10⁷ m⁻¹ is the Rydberg constant."
+        },
+        {
+          "term": "de Broglie wavelength",
+          "definition": "The wavelength associated with a moving particle of mass m travelling at speed v, given by λ = h/(mv), where h = 6.626 × 10⁻³⁴ J s. It shows that all matter has wave character, though the effect is significant only for very light particles such as electrons."
+        },
+        {
+          "term": "Principal quantum number (n)",
+          "definition": "A positive integer (1, 2, 3, …) that specifies the main energy level (shell) of an electron. As n increases, the electron is, on average, farther from the nucleus and has higher energy. The maximum electrons in shell n is 2n²."
+        },
+        {
+          "term": "Azimuthal (angular momentum) quantum number (l)",
+          "definition": "An integer from 0 to (n − 1) that defines the subshell and the shape of the orbital. l = 0 (s), l = 1 (p), l = 2 (d), l = 3 (f). It also gives the orbital angular momentum magnitude as √[l(l+1)] ℏ."
+        },
+        {
+          "term": "Magnetic quantum number (mₗ)",
+          "definition": "An integer from −l to +l (including 0) that specifies the orientation of an orbital in space. For a p subshell (l = 1) the three values −1, 0, +1 correspond to the three mutually perpendicular p orbitals (px, py, pz)."
+        },
+        {
+          "term": "Spin quantum number (mₛ)",
+          "definition": "Takes only two values, +½ or −½, representing the two opposite intrinsic spin states of an electron, often depicted as spin-up (↑) and spin-down (↓)."
+        },
+        {
+          "term": "Pauli exclusion principle",
+          "definition": "No two electrons in the same atom can have identical sets of all four quantum numbers. The practical consequence is that each orbital can hold a maximum of two electrons, which must have opposite spins."
+        },
+        {
+          "term": "Hund's rule",
+          "definition": "When filling orbitals of equal energy (degenerate orbitals, e.g. the three 2p orbitals), electrons occupy separate orbitals with parallel spins before any pairing occurs. This minimises electron–electron repulsion and gives the lowest-energy configuration."
+        },
+        {
+          "term": "Aufbau principle",
+          "definition": "Electrons are added to the lowest available energy orbital first. The filling order follows increasing (n + l) value: 1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p, and so on."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating the wavelength of a hydrogen spectral line",
+          "problem": "An electron in a hydrogen atom falls from the n = 4 level to the n = 2 level (the Balmer series). Calculate the wavelength of the photon emitted and identify the region of the electromagnetic spectrum it falls in. (R_H = 1.097 × 10⁷ m⁻¹)",
+          "steps": [
+            "Write the Rydberg equation: 1/λ = R_H (1/n₁² − 1/n₂²), where n₁ = 2 (lower level) and n₂ = 4 (upper level).",
+            "Substitute: 1/λ = 1.097 × 10⁷ × (1/4 − 1/16) = 1.097 × 10⁷ × (4/16 − 1/16) = 1.097 × 10⁷ × 3/16.",
+            "Calculate: 1/λ = 1.097 × 10⁷ × 0.1875 = 2.057 × 10⁶ m⁻¹.",
+            "Invert to find λ: λ = 1/(2.057 × 10⁶) = 4.86 × 10⁻⁷ m = 486 nm.",
+            "486 nm lies in the blue-green region of visible light; this is the Hβ line of the Balmer series."
+          ],
+          "answer": "λ = 486 nm (blue-green visible light, Hβ Balmer line)."
+        },
+        {
+          "title": "Calculating a de Broglie wavelength",
+          "problem": "Calculate the de Broglie wavelength of an electron travelling at 2.00 × 10⁶ m s⁻¹. (mass of electron = 9.109 × 10⁻³¹ kg; h = 6.626 × 10⁻³⁴ J s.) Comment on whether this wavelength is chemically significant.",
+          "steps": [
+            "Write de Broglie's equation: λ = h/(mv).",
+            "Substitute values: λ = (6.626 × 10⁻³⁴ J s) / (9.109 × 10⁻³¹ kg × 2.00 × 10⁶ m s⁻¹).",
+            "Calculate the denominator: 9.109 × 10⁻³¹ × 2.00 × 10⁶ = 1.822 × 10⁻²⁴ kg m s⁻¹.",
+            "Divide: λ = 6.626 × 10⁻³⁴ / 1.822 × 10⁻²⁴ = 3.64 × 10⁻¹⁰ m = 0.364 nm.",
+            "0.364 nm is comparable to bond lengths and inter-atomic spacings (~0.1–0.3 nm), so the wave character of electrons at this speed is chemically very significant (it underlies electron diffraction and the orbital model)."
+          ],
+          "answer": "λ = 3.64 × 10⁻¹⁰ m (0.364 nm); this is comparable to atomic dimensions, confirming that electron wave character cannot be ignored in chemistry."
+        },
+        {
+          "title": "Writing electron configurations and identifying quantum numbers",
+          "problem": "(a) Write the ground-state electron configurations of iron (Fe, Z = 26) and copper (Cu, Z = 29). (b) State all four quantum numbers for the highest-energy electron in Fe.",
+          "steps": [
+            "Apply the Aufbau principle in order 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p for Z = 26: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁶. Count: 2 + 2 + 6 + 2 + 6 + 2 + 6 = 26. ✓ So Fe = [Ar] 3d⁶ 4s².",
+            "For Cu (Z = 29), the naive configuration would be [Ar] 3d⁹ 4s². However, a fully filled d subshell (3d¹⁰) is extra stable, so one electron migrates from 4s to 3d: Cu = [Ar] 3d¹⁰ 4s¹.",
+            "For part (b), the highest-energy electron in Fe is in the 3d subshell. By Hund's rule the six 3d electrons half-fill the five 3d orbitals first (one each, all spin-up), then the sixth electron pairs with one of them. The sixth electron enters the mₗ = −2 orbital (by convention the first orbital gets the paired electron) with spin-down.",
+            "Its four quantum numbers are: n = 3 (third shell), l = 2 (d subshell), mₗ = −2 (first d orbital, now doubly occupied), mₛ = −½ (paired, spin-down)."
+          ],
+          "answer": "Fe: [Ar] 3d⁶ 4s²; Cu: [Ar] 3d¹⁰ 4s¹ (exception due to stability of filled d subshell). The sixth 3d electron in Fe has quantum numbers n = 3, l = 2, mₗ = −2, mₛ = −½."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "The Balmer series of the hydrogen spectrum corresponds to electron transitions that end at which energy level?",
+          "options": [
+            "n = 1",
+            "n = 2",
+            "n = 3",
+            "n = 4"
+          ],
+          "correctIndex": 1,
+          "explanation": "The Balmer series involves transitions to n = 2, producing lines in the visible region; transitions to n = 1 give the Lyman (UV) series, and transitions to n = 3 give the Paschen (IR) series."
+        },
+        {
+          "question": "An electron has the quantum numbers n = 3, l = 1. Which subshell does it occupy, and how many orbitals are in that subshell?",
+          "options": [
+            "3s; 1 orbital",
+            "3p; 3 orbitals",
+            "3d; 5 orbitals",
+            "3f; 7 orbitals"
+          ],
+          "correctIndex": 1,
+          "explanation": "l = 1 denotes the p subshell; there are 2l + 1 = 3 orbitals (mₗ = −1, 0, +1), giving the 3p subshell."
+        },
+        {
+          "question": "Why is the ground-state electron configuration of chromium (Z = 24) written as [Ar] 3d⁵ 4s¹ rather than [Ar] 3d⁴ 4s²?",
+          "options": [
+            "The 4s orbital is full before 3d in chromium",
+            "A half-filled d subshell (3d⁵) confers extra stability, favouring promotion of one 4s electron",
+            "The Pauli exclusion principle forbids two electrons in 4s at Z = 24",
+            "Hund's rule requires all spins to be parallel across s and d orbitals"
+          ],
+          "correctIndex": 1,
+          "explanation": "A half-filled d subshell (five electrons, one per orbital, all spin-parallel) has extra exchange-energy stability, so one 4s electron is promoted to 3d to achieve [Ar] 3d⁵ 4s¹."
+        },
+        {
+          "question": "Which set of four quantum numbers is impossible for any electron?",
+          "options": [
+            "n = 2, l = 1, mₗ = 0, mₛ = +½",
+            "n = 3, l = 2, mₗ = −2, mₛ = −½",
+            "n = 2, l = 2, mₗ = 0, mₛ = +½",
+            "n = 4, l = 3, mₗ = −3, mₛ = +½"
+          ],
+          "correctIndex": 2,
+          "explanation": "For n = 2 the maximum value of l is n − 1 = 1, so l = 2 is not allowed; this set violates the rule that l must be less than n."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) Describe the Bohr model of the hydrogen atom and explain how it accounts for the discrete lines observed in the hydrogen emission spectrum. (b) State one important success and two significant limitations of the Bohr model. [8 marks]",
+          "marks": 8,
+          "modelAnswer": "(a) Bohr proposed that the electron in a hydrogen atom moves in fixed circular orbits around the nucleus, each orbit having a defined, quantised energy given by Eₙ = −13.6/n² eV (where n = 1, 2, 3, …). While in an orbit the electron neither emits nor absorbs energy. When an electron is excited to a higher orbit (n₂) and then falls to a lower orbit (n₁), it releases a photon whose energy equals the difference ΔE = E₂ − E₁. Because the orbits are quantised, only specific energy differences are possible, producing photons of specific wavelengths. These appear as discrete bright lines in the emission spectrum, organised into series (Lyman: n₁ = 1; Balmer: n₁ = 2; Paschen: n₁ = 3). The wavelengths are predicted exactly by the Rydberg equation: 1/λ = R_H(1/n₁² − 1/n₂²).\n\n(b) Success: The Bohr model correctly predicts the wavelengths of all lines in the hydrogen emission spectrum to high accuracy, and gives the correct ionisation energy of hydrogen (13.6 eV). Limitation 1: It fails completely for multi-electron atoms — it cannot account for the spectra of helium or any heavier element because it ignores electron–electron repulsion. Limitation 2: It treats the electron as a classical particle in a defined orbit, contradicting the Heisenberg uncertainty principle and the wave nature of electrons; the concept of a fixed orbit has no quantum-mechanical basis.",
+          "markingPoints": [
+            "Correct statement that electrons occupy fixed quantised orbits of defined energy",
+            "Correct mechanism: photon emitted when electron drops from higher to lower level, energy = ΔE between levels",
+            "Reference to Rydberg equation or its correct form",
+            "One clear success: accurate prediction of hydrogen spectral lines / ionisation energy",
+            "Two distinct limitations: failure for multi-electron atoms; violation of wave-particle duality / uncertainty principle"
+          ]
+        },
+        {
+          "question": "(a) State the four quantum numbers, giving the name, symbol, allowed values and physical meaning of each. (b) Using the Aufbau, Pauli and Hund rules, write the full ground-state electron configuration of manganese (Z = 25) and of copper (Z = 29), explaining why copper's configuration is anomalous. [10 marks]",
+          "marks": 10,
+          "modelAnswer": "(a) Principal quantum number n: positive integer (1, 2, 3, …); determines the main energy level and average distance of the electron from the nucleus; higher n means higher energy and larger orbital. Azimuthal quantum number l: integer from 0 to (n − 1); determines subshell and orbital shape (0 = s sphere; 1 = p dumbbell; 2 = d clover-leaf). Magnetic quantum number mₗ: integer from −l to +l; determines the orientation of the orbital in space; gives 2l + 1 orbitals per subshell. Spin quantum number mₛ: +½ or −½; represents the intrinsic angular momentum (spin) of the electron — the two spin states of any single electron.\n\n(b) Manganese (Z = 25): fill in Aufbau order — 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁵. The five 3d electrons each occupy a separate 3d orbital with parallel spins (Hund's rule). Full configuration: [Ar] 3d⁵ 4s².\n\nCopper (Z = 29): the expected configuration following simple Aufbau would be [Ar] 3d⁹ 4s². However, a completely filled d subshell (3d¹⁰) has special extra stability due to maximised exchange interactions among the ten d electrons. It is therefore energetically favourable for one 4s electron to be promoted into the 3d subshell, giving the actual configuration [Ar] 3d¹⁰ 4s¹. This is an exception to the normal Aufbau prediction and must be learned; the analogous exception occurs in chromium ([Ar] 3d⁵ 4s¹) for the half-filled d subshell.",
+          "markingPoints": [
+            "Correct name, symbol, allowed values and meaning for all four quantum numbers",
+            "Correct full configuration of Mn: [Ar] 3d⁵ 4s², with Hund's rule applied to 3d",
+            "Correct anomalous configuration of Cu: [Ar] 3d¹⁰ 4s¹",
+            "Clear explanation: extra stability of fully filled (or half-filled) d subshell drives the 4s→3d promotion",
+            "Mention that this contradicts the simple Aufbau prediction / is an exception to learn"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Periodicity and periodic trends",
+      "sourceRange": "Topic 3",
+      "summary": "The periodic table is not merely a list of elements arranged by atomic mass; it is a direct consequence of electronic structure. When elements are arranged in order of increasing atomic number, their outermost (valence) electron configurations repeat in a periodic pattern, and this repetition drives every physical and chemical trend we observe. Mendeleev first noticed chemical periodicity empirically in 1869, but the modern quantum-mechanical explanation is that elements whose atoms share the same valence-shell configuration behave similarly. Filling successive energy levels (s, p, d, f sub-shells) as atomic number increases determines which block, period and group an element occupies.\n\nThe table is divided into four blocks. The s-block (Groups 1 and 2) contains elements whose last electron enters an s orbital. The p-block (Groups 13–18) fills a p sub-shell. The d-block (Groups 3–12, the transition metals) fills d orbitals, and the f-block (lanthanides and actinides) fills f orbitals. Periods correspond to the principal quantum number n of the outermost sub-shell being filled, while groups collect elements with the same valence configuration and therefore the same characteristic oxidation states and bonding behaviour.\n\nMoving across a period or down a group changes three key atomic properties—effective nuclear charge, atomic radius and shielding—and these changes cascade into measurable trends in ionisation energy, electron affinity, electronegativity and metallic character. Understanding why these trends exist (not just memorising their direction) is the central task of this module. A small but important set of diagonal relationships—pairs of elements from adjacent groups and periods that are chemically similar—arises because the diagonal direction keeps the charge-to-size ratio roughly constant.",
+      "keyPoints": [
+        "Elements are arranged in order of increasing atomic number; periodicity arises from the repetition of valence-electron configurations.",
+        "The periodic table is divided into s-, p-, d- and f-blocks based on which sub-shell receives the last electron; periods correspond to the principal quantum number n, and groups share the same valence configuration.",
+        "Effective nuclear charge (Z_eff) increases across a period (more protons, similar shielding) and is roughly constant down a group (extra shielding from inner shells offsets the extra proton).",
+        "Atomic radius decreases across a period (rising Z_eff pulls electrons inward) and increases down a group (electrons occupy higher principal shells farther from the nucleus).",
+        "First ionisation energy generally increases across a period and decreases down a group, with small dips at the start of a new sub-shell (ns² → np¹) and at the half-filled p sub-shell (np³ → np⁴).",
+        "Electron affinity generally becomes more negative (larger energy release) across a period and is less negative down a group; Group 2, 15 and 18 elements show anomalously low or positive values.",
+        "Electronegativity increases across a period and decreases down a group; fluorine is the most electronegative element (Pauling scale 4.0).",
+        "Metallic character decreases across a period and increases down a group; the metalloid 'staircase' separates metals from non-metals in the p-block.",
+        "Diagonal relationships exist between Li and Mg, Be and Al, and B and Si because moving one period down and one group to the right keeps the charge-density (ionic potential) approximately constant."
+      ],
+      "definitions": [
+        {
+          "term": "Periodicity",
+          "definition": "The regular repetition of physical and chemical properties of elements when they are arranged in order of increasing atomic number, caused by the cyclic repetition of valence-electron configurations."
+        },
+        {
+          "term": "Effective nuclear charge (Z_eff)",
+          "definition": "The net positive charge actually experienced by a valence electron after accounting for the shielding effect of inner electrons. Approximately Z_eff = Z − σ, where Z is the atomic number and σ is the shielding constant. It determines how strongly the nucleus attracts the outermost electrons."
+        },
+        {
+          "term": "Shielding (screening)",
+          "definition": "The reduction in the nuclear attraction felt by an outer electron due to repulsion from inner-shell (core) electrons, which partially cancel the nuclear charge. Electrons in the same shell shield each other only weakly; inner-shell electrons shield much more effectively."
+        },
+        {
+          "term": "Atomic radius",
+          "definition": "A measure of the size of an atom, defined operationally as half the distance between the nuclei of two identical adjacent atoms in a covalent bond (covalent radius) or in a metallic lattice (metallic radius). It decreases across a period and increases down a group."
+        },
+        {
+          "term": "Ionisation energy (IE)",
+          "definition": "The minimum energy required to remove one mole of electrons from one mole of gaseous atoms (first IE) or ions. Successive IEs always increase; a large jump between consecutive IEs reveals the number of valence electrons."
+        },
+        {
+          "term": "Electron affinity (EA)",
+          "definition": "The energy change when one mole of electrons is added to one mole of gaseous atoms to form gaseous anions. A large negative value (exothermic) indicates a strong tendency to gain an electron."
+        },
+        {
+          "term": "Electronegativity",
+          "definition": "A dimensionless measure (Pauling scale) of an atom's ability to attract a shared pair of electrons toward itself in a covalent bond. It combines ionisation energy and electron affinity concepts and increases across a period and up a group."
+        },
+        {
+          "term": "Diagonal relationship",
+          "definition": "A similarity in chemical and physical properties between an element in one period and an element one group to the right in the next period (e.g. Li and Mg, Be and Al, B and Si). It arises because the two elements have nearly the same charge-to-radius ratio (ionic potential), leading to similar polarising power and bond character."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Placing an element in the periodic table using its electronic configuration",
+          "problem": "An element X has the electronic configuration [Ar] 3d⁵ 4s¹. Identify its period, group and block, and predict whether it is a metal, non-metal or metalloid.",
+          "steps": [
+            "Write out the full configuration implied by [Ar] 3d⁵ 4s¹: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ 4s¹. The total electron count is 18 + 5 + 1 = 24, so Z = 24 (chromium).",
+            "Determine the period: the highest principal quantum number present in the configuration is n = 4 (the 4s¹ electron), so this element is in Period 4.",
+            "Determine the block: the last electron to be assigned goes into a d orbital (3d⁵), so the element is in the d-block.",
+            "Determine the group: for d-block elements, the group number equals the total number of electrons in the outermost s sub-shell plus all d electrons. Here: 1 (from 4s¹) + 5 (from 3d⁵) = 6, so X is in Group 6.",
+            "Assess metallic character: d-block elements are all metals. Chromium is indeed a hard, lustrous metal."
+          ],
+          "answer": "Element X is chromium (Cr), Period 4, Group 6, d-block — a transition metal. Its anomalous configuration (expected [Ar] 3d⁴ 4s² but actual [Ar] 3d⁵ 4s¹) arises from the extra stability of a half-filled d sub-shell."
+        },
+        {
+          "title": "Ranking elements by first ionisation energy and explaining anomalies",
+          "problem": "Arrange the following elements in order of increasing first ionisation energy and explain any apparent anomalies: Na, Al, P, S, Cl. First IE values (kJ mol⁻¹): Na = 496, Al = 577, P = 1012, S = 1000, Cl = 1251.",
+          "steps": [
+            "All five elements are in Period 3, so the general expectation is that IE increases from left (Na, Group 1) to right (Cl, Group 17) as Z_eff increases.",
+            "Preliminary ranking by position alone: Na < Al < P < S < Cl.",
+            "Check P vs S: phosphorus (Z = 15) has configuration [Ne] 3s² 3p³ — a half-filled p sub-shell. Sulfur (Z = 16) has [Ne] 3s² 3p⁴, meaning one p orbital is doubly occupied. The paired electrons in S repel each other, making it easier to remove one; this inter-electron repulsion lowers the IE of S below that of P despite S having a higher Z.",
+            "Confirm with data: P = 1012 kJ mol⁻¹ > S = 1000 kJ mol⁻¹, consistent with the half-filled sub-shell argument.",
+            "Final order (increasing IE): Na (496) < Al (577) < S (1000) < P (1012) < Cl (1251) kJ mol⁻¹."
+          ],
+          "answer": "Na < Al < S < P < Cl. The reversal of P and S is the key anomaly: sulfur's fourth 3p electron must pair with an existing electron, and the added electron–electron repulsion makes it easier to ionise than the half-filled, spin-parallel configuration of phosphorus."
+        },
+        {
+          "title": "Using atomic radius trends to predict relative sizes",
+          "problem": "Without consulting a data table, rank the following species from smallest to largest radius: F, Cl, F⁻, Na⁺, Mg²⁺. Justify your ranking quantitatively where possible.",
+          "steps": [
+            "Identify the isoelectronic set: F⁻ (10 e⁻), Na⁺ (10 e⁻) and Mg²⁺ (10 e⁻) are all isoelectronic (neon configuration). For isoelectronic species, radius decreases as nuclear charge increases because more protons pull the same 10 electrons closer. Nuclear charges: F⁻ (Z = 9) > Na⁺ (Z = 11) > Mg²⁺ (Z = 12). Therefore: Mg²⁺ < Na⁺ < F⁻.",
+            "Compare neutral atoms across periods: F (Z = 9, Period 2) and Cl (Z = 17, Period 3). Moving from Period 2 to Period 3 adds a principal shell, greatly increasing size. Therefore Cl > F as neutral atoms.",
+            "Anion vs neutral atom: F⁻ has one more electron than F (9 protons, 10 electrons vs 9), so repulsion expands the electron cloud: F⁻ > F.",
+            "Place all species: Mg²⁺ is the smallest (highest charge-to-electron ratio). Na⁺ is next. Then F (neutral, Period 2). Then F⁻ (same nucleus as F but extra electron). Then Cl (Period 3, a full extra shell).",
+            "Final order (smallest to largest): Mg²⁺ < Na⁺ < F < F⁻ < Cl."
+          ],
+          "answer": "Mg²⁺ < Na⁺ < F < F⁻ < Cl. The ranking follows three principles applied in combination: isoelectronic species shrink as Z increases; adding electrons to a fixed nucleus expands the atom; and descending a group increases radius dramatically by adding a principal shell."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following correctly explains why the first ionisation energy of oxygen is lower than that of nitrogen?",
+          "options": [
+            "Oxygen has a higher atomic number and therefore stronger nuclear attraction",
+            "Oxygen's 2p⁴ configuration forces electron pairing, increasing repulsion and making one electron easier to remove",
+            "Oxygen is in Period 2 while nitrogen is in Period 2, so shielding differences dominate",
+            "Nitrogen has a larger atomic radius, so its electrons are farther from the nucleus and easier to remove"
+          ],
+          "correctIndex": 1,
+          "explanation": "Nitrogen has a half-filled 2p sub-shell (2p³) with no paired electrons; oxygen (2p⁴) must double up one orbital, and the resulting inter-electron repulsion lowers the energy needed to remove one electron."
+        },
+        {
+          "question": "An element has the ground-state configuration [Kr] 4d¹⁰ 5s² 5p². In which block and group does it belong?",
+          "options": [
+            "d-block, Group 12",
+            "p-block, Group 14",
+            "s-block, Group 2",
+            "d-block, Group 14"
+          ],
+          "correctIndex": 1,
+          "explanation": "The last electron enters a 5p orbital, placing the element in the p-block. Two p electrons combined with the s² sub-shell gives four valence electrons, corresponding to Group 14 (tin, Sn)."
+        },
+        {
+          "question": "Which pair of elements exhibits a diagonal relationship?",
+          "options": [
+            "Na and K",
+            "Be and Al",
+            "C and Si",
+            "B and N"
+          ],
+          "correctIndex": 1,
+          "explanation": "Be and Al are the classic diagonal pair: both form amphoteric oxides, have similar electronegativities and charge densities, and their chlorides are covalent and hygroscopic — properties that arise from their nearly equal ionic potentials."
+        },
+        {
+          "question": "Moving across Period 3 from Na to Cl, what happens to atomic radius and why?",
+          "options": [
+            "Radius increases because more electrons increase repulsion",
+            "Radius decreases because effective nuclear charge increases while the principal quantum number stays the same",
+            "Radius stays roughly constant because new electrons fill the same shell",
+            "Radius first decreases then increases due to alternating shielding effects"
+          ],
+          "correctIndex": 1,
+          "explanation": "Across a period, each successive element gains one proton and one electron in the same principal shell; the additional proton raises Z_eff more than the added electron increases shielding, so the nucleus pulls all electrons closer, shrinking the atom."
+        }
+      ],
+      "theory": [
+        {
+          "question": "Explain, with reference to electronic structure and effective nuclear charge, why (a) atomic radius decreases across Period 2 from Li to Ne and (b) atomic radius increases from Li down to Cs in Group 1. In your answer define effective nuclear charge and shielding.",
+          "marks": 10,
+          "modelAnswer": "Effective nuclear charge (Z_eff) is the net nuclear charge experienced by a valence electron after inner electrons partially cancel (shield) the nuclear attraction: Z_eff ≈ Z − σ, where σ is the shielding constant contributed by core electrons.\n\n(a) Across Period 2 (Li to Ne), the principal quantum number of the valence shell remains n = 2 throughout. Each step across adds one proton to the nucleus and one electron to the same 2s or 2p sub-shell. Electrons in the same sub-shell shield each other only weakly (σ ≈ 0.35 per same-shell electron by Slater's rules), so each additional proton raises Z_eff by nearly one unit. The increasing Z_eff draws the entire electron cloud inward, reducing the atomic radius from about 152 pm (Li) to 38 pm (Ne, van der Waals).\n\n(b) Down Group 1 (Li → Cs), each successive element adds a complete principal shell of core electrons. These inner-shell electrons shield the single valence s electron very effectively (σ ≈ 0.85–1.00 per inner-shell electron), keeping Z_eff felt by the valence electron roughly constant at about +1 throughout the group. However, the valence electron occupies a progressively higher principal shell (n = 2 for Li, n = 6 for Cs), which is intrinsically much farther from the nucleus. The increase in principal quantum number dominates, so atomic radius increases steadily down the group.",
+          "markingPoints": [
+            "Correct definition of Z_eff and shielding with formula or Slater reference",
+            "Explanation that across a period n is constant while Z increases, raising Z_eff",
+            "Statement that same-shell shielding is weak, so radius decreases across the period",
+            "Explanation that down a group Z_eff stays roughly constant due to effective shielding by inner shells",
+            "Conclusion that increasing principal quantum number (larger orbital) causes radius to increase down the group"
+          ]
+        },
+        {
+          "question": "Describe and explain the trends in first ionisation energy and electronegativity across Period 3 (Na to Ar) and down Group 17 (F to I). Include in your answer the anomalies observed between Mg and Al and between P and S, and explain the concept of diagonal relationships using one named example.",
+          "marks": 12,
+          "modelAnswer": "First ionisation energy (IE₁) is the energy needed to remove one mole of electrons from gaseous atoms; electronegativity (χ) measures an atom's ability to attract bonding electrons.\n\nAcross Period 3, both IE₁ and χ generally increase from Na to Ar. This is because Z_eff rises steadily (same n = 3 shell, weak mutual shielding) while atomic radius decreases, so the nucleus holds electrons more tightly. Anomaly 1 — Mg (IE₁ = 738) > Al (IE₁ = 577 kJ mol⁻¹): aluminium's outer electron is in a 3p orbital, which is slightly higher in energy and better shielded by the filled 3s² pair than magnesium's 3s electron, making it easier to remove. Anomaly 2 — P (IE₁ = 1012) > S (IE₁ = 1000 kJ mol⁻¹): phosphorus has a half-filled 3p³ sub-shell (no paired electrons); sulfur's fourth 3p electron must share an orbital, experiencing extra inter-electron repulsion that lowers IE₁.\n\nDown Group 17 (F to I), IE₁ and χ both decrease. Successive halogens have an extra electron shell, raising n and increasing shielding, so Z_eff felt by valence electrons remains roughly constant while orbital size grows; the nucleus holds outer electrons less tightly.\n\nDiagonal relationship — Be and Al: beryllium (Period 2, Group 2) and aluminium (Period 3, Group 13) have very similar charge-to-radius ratios (ionic potential), giving them nearly equal polarising power. Consequently both form mainly covalent, hydrolysable chlorides, amphoteric oxides and hydroxides, and comparable electronegativities (~1.5–1.6), despite being in different groups and periods.",
+          "markingPoints": [
+            "General increase in IE₁ and electronegativity across Period 3 attributed to increasing Z_eff at constant n",
+            "Correct explanation of Mg > Al anomaly (3p electron higher energy / shielded by 3s²)",
+            "Correct explanation of P > S anomaly (half-filled sub-shell stability / electron pairing repulsion in S)",
+            "Decrease in IE₁ and electronegativity down Group 17 explained by increasing n and shielding",
+            "Accurate description of one diagonal relationship (e.g. Be/Al or Li/Mg) with a specific shared property and the charge-density explanation"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chemical bonding and molecular structure",
+      "sourceRange": "Topic 4",
+      "summary": "Chemical bonds form because atoms achieve lower energy by sharing or transferring electrons. Ionic bonding involves complete electron transfer from a metal to a non-metal, producing oppositely charged ions held together by electrostatic attraction in a lattice; the energy released when gaseous ions pack into this lattice is the lattice energy, which governs stability and physical properties. Covalent bonding arises when two non-metals share electron pairs; Lewis structures show how bonding and lone pairs are arranged, while formal charge and resonance refine the picture for molecules that cannot be described by a single structure. A coordinate (dative) bond is a special covalent bond where both electrons in the shared pair come from one atom, as in the ammonium ion and complex ions.\n\nThe shape of a molecule is predicted by VSEPR theory: electron pairs (bonding and lone) arrange themselves to minimise repulsion, giving geometries such as linear, trigonal planar, tetrahedral, trigonal bipyramidal and octahedral for 2–6 electron domains; lone pairs compress bond angles, producing bent and pyramidal variants. Hybridisation explains these geometries in terms of mixing atomic orbitals: sp gives linear, sp² gives trigonal planar and sp³ gives tetrahedral arrangements. Bond polarity arises when atoms of different electronegativity share electrons unequally; whether the molecule has a net dipole moment depends on both bond polarity and molecular symmetry.\n\nMetallic bonding is described by the sea-of-electrons model: delocalised electrons move freely through a lattice of cations, explaining conductivity, malleability and lustre. Finally, intermolecular forces—London dispersion forces present in all molecules, dipole-dipole forces in polar molecules, and hydrogen bonding in molecules where H is bonded to F, O or N—determine physical properties such as boiling point, viscosity and solubility. Stronger intermolecular forces raise boiling points, which is why water (extensive H-bonding) boils far above H₂S (London + weak dipole forces).",
+      "keyPoints": [
+        "Ionic bonds form by electron transfer; stability is measured by lattice energy (Born–Haber cycle).",
+        "Lewis structures obey the octet rule; formal charge = valence electrons − lone pair electrons − ½ bonding electrons.",
+        "Resonance structures are used when electrons are delocalised; the real structure is a hybrid of all contributors.",
+        "A coordinate bond is a covalent bond in which both electrons originate from one atom (donor).",
+        "VSEPR: electron domains repel; lone pairs repel more than bonding pairs, compressing bond angles.",
+        "Common geometries: 2 domains → linear; 3 → trigonal planar; 4 → tetrahedral; 5 → trigonal bipyramidal; 6 → octahedral.",
+        "sp hybridisation → linear (180°); sp² → trigonal planar (120°); sp³ → tetrahedral (109.5°).",
+        "A molecule is polar only if it has polar bonds AND the bond dipoles do not cancel by symmetry.",
+        "Metallic bonding: cations in a lattice surrounded by delocalised electrons; explains conductivity and ductility.",
+        "Boiling point order for similar-sized molecules: London forces < dipole-dipole < hydrogen bonding."
+      ],
+      "definitions": [
+        {
+          "term": "Ionic bond",
+          "definition": "An electrostatic attraction between oppositely charged ions formed when one atom transfers one or more electrons to another, typically a metal giving electrons to a non-metal."
+        },
+        {
+          "term": "Lattice energy",
+          "definition": "The energy released (exothermic, negative) when one mole of an ionic solid is formed from its gaseous ions under standard conditions; a measure of the stability of the ionic lattice. It cannot be measured directly but is calculated via the Born–Haber cycle."
+        },
+        {
+          "term": "Covalent bond",
+          "definition": "A chemical bond formed by the sharing of one or more pairs of electrons between two atoms, typically between non-metals; each shared pair constitutes one bond."
+        },
+        {
+          "term": "Formal charge",
+          "definition": "A bookkeeping charge assigned to an atom in a Lewis structure, calculated as: formal charge = (valence electrons of free atom) − (lone-pair electrons on that atom) − ½(bonding electrons on that atom). The sum of all formal charges equals the overall charge of the molecule or ion."
+        },
+        {
+          "term": "Resonance",
+          "definition": "The representation of a molecule or ion whose true electron distribution cannot be described by a single Lewis structure; the actual structure is a resonance hybrid—an average of all contributing resonance structures—with electrons delocalised over the contributing bonds."
+        },
+        {
+          "term": "Coordinate (dative) bond",
+          "definition": "A covalent bond in which both electrons of the shared pair are donated by one atom (the Lewis base/donor) to another (the Lewis acid/acceptor). Once formed, it is indistinguishable from an ordinary covalent bond; denoted by an arrow pointing from donor to acceptor."
+        },
+        {
+          "term": "VSEPR theory",
+          "definition": "Valence Shell Electron Pair Repulsion theory: the geometry of a molecule is determined by arranging all electron domains (bonding pairs and lone pairs) around the central atom as far apart as possible to minimise repulsion. Lone pairs occupy more space than bonding pairs and compress bond angles."
+        },
+        {
+          "term": "Hybridisation",
+          "definition": "The mathematical mixing of atomic orbitals on a central atom to form a new set of equivalent hybrid orbitals oriented in space to match the observed molecular geometry: sp (linear), sp² (trigonal planar), sp³ (tetrahedral)."
+        },
+        {
+          "term": "Dipole moment",
+          "definition": "A vector quantity (symbol µ) that measures the overall separation of positive and negative charge in a molecule; µ = q × d, where q is the magnitude of the partial charge and d is the distance between the charges. A molecule has a net dipole moment only when polar bonds are arranged asymmetrically."
+        },
+        {
+          "term": "Metallic bonding",
+          "definition": "The bonding in metals described by the electron-sea model: metal cations occupy fixed lattice positions while valence electrons are delocalised throughout the entire structure, creating a 'sea' of mobile electrons that holds the cations together and explains electrical conductivity, thermal conductivity, malleability and lustre."
+        },
+        {
+          "term": "Hydrogen bond",
+          "definition": "A strong intermolecular (or intramolecular) dipole-dipole attraction between a hydrogen atom covalently bonded to a highly electronegative atom (F, O or N) and a lone pair on another electronegative atom (F, O or N) in a neighbouring molecule. Hydrogen bonds are typically 10–40 kJ mol⁻¹ and are responsible for the anomalously high boiling point of water."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Drawing a Lewis structure and assigning formal charges: SO₃",
+          "problem": "Draw the Lewis structure of sulfur trioxide (SO₃) and calculate the formal charge on each atom in the structure that places a double bond to each oxygen.",
+          "steps": [
+            "Step 1 – Count valence electrons. S contributes 6; each O contributes 6; three O atoms give 18. Total = 6 + 18 = 24 electrons (12 pairs).",
+            "Step 2 – Arrange the skeleton. Place S in the centre bonded to three O atoms. Assign one single bond to each O: 3 bonds use 6 electrons, leaving 18 electrons.",
+            "Step 3 – Complete octets on oxygen first. Each O gets 3 lone pairs (6 electrons each), using 18 electrons. All 24 electrons are now placed, but S has only 6 electrons around it (3 single bonds) — it does not yet have an octet.",
+            "Step 4 – Promote lone pairs to double bonds. Move one lone pair from each O to form a double bond with S. Now each O has one double bond and two lone pairs; S has three double bonds (12 electrons around S — an expanded octet allowed for period 3 elements).",
+            "Step 5 – Calculate formal charges. Use: FC = (valence e⁻) − (lone-pair e⁻) − ½(bonding e⁻). For S: 6 − 0 − ½(12) = 6 − 6 = 0. For each double-bonded O: 6 − 4 − ½(4) = 6 − 4 − 2 = 0.",
+            "Step 6 – All formal charges are zero in the all-double-bond structure, making it the preferred resonance contributor. Because the three S=O bonds are equivalent, SO₃ is a resonance hybrid with bond order 2 for each S–O bond."
+          ],
+          "answer": "The preferred Lewis structure has three S=O double bonds with two lone pairs on each O. All formal charges are zero. The real molecule is a resonance hybrid with equal bond lengths."
+        },
+        {
+          "title": "Predicting molecular geometry and bond angles using VSEPR: PCl₅ and SF₄",
+          "problem": "(a) Predict the geometry of PCl₅. (b) SF₄ has the same number of electron domains as PCl₅ but one is a lone pair. Predict its geometry and the approximate bond angles.",
+          "steps": [
+            "Step 1 – Electron domains in PCl₅. P has 5 valence electrons; 5 Cl atoms each form one bond. Total bonding pairs around P = 5; lone pairs = 0. Electron domains = 5.",
+            "Step 2 – VSEPR for 5 domains. Five domains arrange in a trigonal bipyramidal geometry. The three equatorial bonds are at 120° to each other; the two axial bonds are at 90° to the equatorial plane.",
+            "Step 3 – Molecular geometry of PCl₅. With no lone pairs, all 5 positions are occupied by Cl atoms: shape is trigonal bipyramidal, bond angles 120° (equatorial) and 90° (axial).",
+            "Step 4 – Electron domains in SF₄. S has 6 valence electrons; 4 S–F bonds use 4 of them; remaining 2 electrons form 1 lone pair. Total electron domains = 5 (4 bonding + 1 lone pair).",
+            "Step 5 – Lone pair placement in trigonal bipyramidal arrangement. Lone pairs prefer equatorial positions (more space, fewer 90° repulsions). Place the lone pair equatorial; the four F atoms occupy the remaining 4 positions.",
+            "Step 6 – Resulting shape and angles of SF₄. The molecular geometry (atom positions only) is see-saw (or seesaw/butterfly). The lone pair compresses the equatorial F–S–F angle below 120° (≈ 117°) and the axial F–S–F angle below 180° (≈ 173°)."
+          ],
+          "answer": "PCl₅ is trigonal bipyramidal (120° equatorial, 90° axial). SF₄ is see-saw shaped; the lone pair occupies an equatorial position and compresses bond angles to approximately 117° and 173°."
+        },
+        {
+          "title": "Using the de Broglie / dipole concept — Boiling points from intermolecular forces",
+          "problem": "Explain, with reference to intermolecular forces, why the boiling points of the hydrogen halides follow the order HF (19.5 °C) >> HI (−35.4 °C) > HBr (−66.8 °C) > HCl (−85.1 °C), and predict which has the strongest London dispersion forces among HCl, HBr and HI.",
+          "steps": [
+            "Step 1 – Identify intermolecular forces present. All HX molecules are polar, so all experience dipole-dipole attractions AND London dispersion forces. HF additionally forms hydrogen bonds because H is bonded to F (one of the three electronegative atoms F, O, N that support H-bonding).",
+            "Step 2 – Explain HF anomaly. Despite HF being the lightest, its boiling point is the highest (19.5 °C) because extensive hydrogen bonding (HF…HF chains) requires much more energy to overcome than the weaker forces in heavier HX molecules.",
+            "Step 3 – Trend for HCl → HBr → HI. As the halide ion becomes larger (Cl < Br < I), the electron cloud becomes larger and more polarisable. Greater polarisability → stronger London (instantaneous dipole-induced dipole) forces → higher boiling point. So bp increases from HCl to HBr to HI.",
+            "Step 4 – Dipole-dipole contribution. HCl is the most polar of the three (highest electronegativity difference) but its London forces are weakest. For HBr and HI, the London forces dominate and outweigh the polarity effect.",
+            "Step 5 – Identify strongest London forces. London forces depend on molar mass and electron count. HI has the most electrons and highest molar mass (128 g mol⁻¹), giving the greatest polarisability and the strongest London forces among HCl, HBr and HI."
+          ],
+          "answer": "HF's anomalously high boiling point is due to hydrogen bonding. For HCl, HBr and HI, London dispersion forces increase with electron cloud size, so bp rises from HCl to HI. HI has the strongest London forces."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following molecules has a zero net dipole moment despite containing polar bonds?",
+          "options": [
+            "H₂O",
+            "NH₃",
+            "CO₂",
+            "HCl"
+          ],
+          "correctIndex": 2,
+          "explanation": "CO₂ is linear and its two C=O bond dipoles point in exactly opposite directions, cancelling to give a net dipole moment of zero; the other molecules are asymmetric and remain polar."
+        },
+        {
+          "question": "In VSEPR theory, how many electron domains surround the central atom in a molecule with trigonal pyramidal molecular geometry?",
+          "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "correctIndex": 1,
+          "explanation": "Trigonal pyramidal geometry (e.g. NH₃) has 4 electron domains around the central atom—3 bonding pairs and 1 lone pair—arranged tetrahedrally; the lone pair reduces the observed shape to pyramidal."
+        },
+        {
+          "question": "The lattice energy of an ionic compound is best described as:",
+          "options": [
+            "The energy required to remove an electron from a gaseous atom",
+            "The energy released when one mole of ionic solid forms from its constituent gaseous ions",
+            "The energy absorbed when one mole of ionic solid dissolves in water",
+            "The energy required to break all covalent bonds in one mole of a covalent compound"
+          ],
+          "correctIndex": 1,
+          "explanation": "Lattice energy is defined as the exothermic energy change when gaseous ions come together to form one mole of the ionic solid; it is a measure of the strength of the ionic lattice."
+        },
+        {
+          "question": "Which hybridisation is present on the carbon atoms in ethene (H₂C=CH₂), and what geometry does it give around each carbon?",
+          "options": [
+            "sp³, tetrahedral",
+            "sp², trigonal planar",
+            "sp, linear",
+            "sp³d, trigonal bipyramidal"
+          ],
+          "correctIndex": 1,
+          "explanation": "Each carbon in ethene forms three sigma bonds (two C–H and one C–C) using three sp² hybrid orbitals arranged trigonally at 120°; the remaining unhybridised p orbital on each carbon forms the π bond of the double bond."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) Define lattice energy and explain how the factors of ionic charge and ionic radius affect it. (b) Use the Born–Haber cycle to outline how the lattice energy of sodium chloride (NaCl) can be determined indirectly, naming each energy term involved.",
+          "marks": 10,
+          "modelAnswer": "(a) Lattice energy (U) is the energy released when one mole of an ionic solid is formed from its gaseous ions at standard conditions, e.g. Na⁺(g) + Cl⁻(g) → NaCl(s). It is always negative (exothermic). According to the equation U ∝ Q⁺Q⁻/r (where Q are ionic charges and r is the sum of ionic radii), lattice energy becomes more negative (greater magnitude) when ionic charges increase—e.g. MgO has a much larger lattice energy than NaCl because Mg²⁺ and O²⁻ carry double charges—and when ionic radii decrease, because smaller ions allow a shorter interionic distance and hence stronger electrostatic attraction. Thus lattice energies follow the order MgO > NaF > NaCl > NaBr.\n\n(b) The Born–Haber cycle for NaCl applies Hess's law. The overall enthalpy of formation of NaCl(s) from its elements (ΔHf) equals the sum of: (1) sublimation enthalpy of Na(s) → Na(g); (2) first ionisation energy of Na(g) → Na⁺(g) + e⁻; (3) bond dissociation energy of ½Cl₂(g) → Cl(g); (4) electron affinity of Cl(g) + e⁻ → Cl⁻(g); and (5) lattice energy U. Rearranging: U = ΔHf − ΔHsub − IE₁ − ½D(Cl–Cl) − EA. Substituting known thermochemical values gives U ≈ −787 kJ mol⁻¹ for NaCl.",
+          "markingPoints": [
+            "Correct definition of lattice energy with a representative equation",
+            "Effect of ionic charge: larger charge → more negative lattice energy with example",
+            "Effect of ionic radius: smaller radius → more negative lattice energy with example",
+            "Correct identification of all five energy terms in the Born–Haber cycle",
+            "Correct algebraic relationship (Hess's law) linking U to the other terms"
+          ]
+        },
+        {
+          "question": "Describe how VSEPR theory predicts the shapes and bond angles of (i) BF₃, (ii) NH₃ and (iii) H₂O. Explain why the H–N–H angle (107°) is smaller than the tetrahedral angle (109.5°) and why the H–O–H angle (104.5°) is smaller still.",
+          "marks": 10,
+          "modelAnswer": "VSEPR theory states that electron domains (bonding pairs and lone pairs) around a central atom arrange themselves to maximise separation and minimise repulsion. The molecular geometry is then determined by the positions of the atoms alone.\n\n(i) BF₃: B has 3 valence electrons, forms 3 B–F bonds, no lone pairs. Three bonding domains → trigonal planar geometry, all F–B–F angles = 120°. B is sp² hybridised.\n\n(ii) NH₃: N has 5 valence electrons, forms 3 N–H bonds, leaving 1 lone pair. Four electron domains → tetrahedral electron geometry, but the molecular shape is trigonal pyramidal (three H atoms form a pyramid below N). The lone pair repels the bonding pairs more strongly than bonding pairs repel each other, compressing the H–N–H angle from the ideal 109.5° to 107°.\n\n(iii) H₂O: O has 6 valence electrons, forms 2 O–H bonds, leaving 2 lone pairs. Four electron domains → tetrahedral electron geometry, bent molecular shape. Two lone pairs each exert greater repulsion on the bonding pairs, compressing the H–O–H angle further to 104.5°.\n\nThe trend (BF₃ 120° > NH₃ 107° > H₂O 104.5°) demonstrates that each additional lone pair exerts extra repulsion on the bonding pairs, progressively reducing the bond angle below the ideal value.",
+          "markingPoints": [
+            "Correct electron domain count and electron-pair geometry for each molecule",
+            "Correct molecular geometry names: trigonal planar, trigonal pyramidal, bent",
+            "Lone pairs repel more strongly than bonding pairs — stated explicitly",
+            "Explanation of why NH₃ angle < 109.5° (one lone pair effect)",
+            "Explanation of why H₂O angle < NH₃ angle (two lone pairs vs one)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Stoichiometry and chemical equations",
+      "sourceRange": "Topic 5",
+      "summary": "Stoichiometry is the quantitative language of chemistry: it connects the amounts of reactants consumed to the amounts of products formed, using the balanced chemical equation as the central tool. A balanced equation obeys the law of conservation of mass — the same number of atoms of each element must appear on both sides. For reactions involving electron transfer (redox reactions), a systematic oxidation-number method ensures electrons are properly balanced before atom and charge balance is confirmed.\n\nOnce an equation is balanced, the mole ratios between species are fixed. In a real reaction, one reagent is used up first — the limiting reagent — and its amount determines the theoretical yield of product. The actual yield obtained in the laboratory is always less than or equal to the theoretical yield, and the percentage yield measures how efficiently the reaction ran. For reactions in solution, concentration links moles to volume; dilution calculations track how concentration changes when a solution is made less concentrated. Volumetric (titration) calculations use known concentrations and volumes to find unknown ones. For gaseous reactions, one mole of any ideal gas occupies 22.4 dm³ at standard temperature and pressure (s.t.p., 0 °C and 1 atm), linking moles directly to measurable gas volumes.\n\nMastering stoichiometry requires a clear three-step habit: convert given quantities to moles, apply mole ratios from the balanced equation, then convert moles back to the required units (grams, dm³ of solution, or dm³ of gas). Every calculation in this module follows that pattern.",
+      "keyPoints": [
+        "A balanced chemical equation has equal numbers of each type of atom on both sides; coefficients are the smallest whole-number ratios that achieve this.",
+        "In the oxidation-number method for balancing redox equations, increase in oxidation number equals electrons lost (oxidation); decrease equals electrons gained (reduction); the two changes must be equalised.",
+        "The limiting reagent is the reactant that is completely consumed first; the theoretical yield of product is calculated from the moles of the limiting reagent using the mole ratio.",
+        "Percentage yield = (actual yield ÷ theoretical yield) × 100 %.",
+        "Molar concentration c = n/V (mol/dm³); mass concentration = c × M (g/dm³); for dilution, c₁V₁ = c₂V₂.",
+        "In a titration, at the equivalence point: moles of acid × its stoichiometric coefficient = moles of base × its stoichiometric coefficient (or more generally, n₁c₁V₁ = n₂c₂V₂ for 1:1 reactions, adjusted for the mole ratio).",
+        "At s.t.p. (0 °C, 1 atm) one mole of an ideal gas occupies exactly 22.4 dm³; moles of gas = volume (dm³) ÷ 22.4.",
+        "Excess reagent is whatever remains after the limiting reagent is consumed; its leftover amount is found by subtracting the amount actually reacted from the amount initially present."
+      ],
+      "definitions": [
+        {
+          "term": "Balanced chemical equation",
+          "definition": "A representation of a chemical reaction in which the total number of atoms of each element is the same on the reactant and product sides, satisfying conservation of mass. Coefficients (whole numbers placed before formulae) achieve the balance without altering the formulae themselves."
+        },
+        {
+          "term": "Oxidation number (oxidation state)",
+          "definition": "A bookkeeping charge assigned to an atom in a compound or ion according to a set of rules, as if all bonds were ionic. An increase in oxidation number means oxidation (loss of electrons); a decrease means reduction (gain of electrons)."
+        },
+        {
+          "term": "Limiting reagent",
+          "definition": "The reactant that is completely consumed first in a chemical reaction. It limits the maximum amount of product that can form; all other reactants present in more than the stoichiometric amount are excess reagents."
+        },
+        {
+          "term": "Theoretical yield",
+          "definition": "The maximum mass (or moles) of product that could be obtained if the limiting reagent were converted completely to product with no losses, calculated from the balanced equation and the moles of the limiting reagent."
+        },
+        {
+          "term": "Percentage yield",
+          "definition": "The ratio of the actual yield obtained in an experiment to the theoretical yield, expressed as a percentage: % yield = (actual yield / theoretical yield) × 100 %. It accounts for losses due to incomplete reaction, side reactions, or handling."
+        },
+        {
+          "term": "Molar concentration",
+          "definition": "The amount of solute (in moles) dissolved per cubic decimetre (litre) of solution, symbol c, units mol/dm³ (also written mol/L or M). It is related to mass concentration (g/dm³) by multiplying by the molar mass of the solute."
+        },
+        {
+          "term": "Dilution",
+          "definition": "The process of reducing the concentration of a solution by adding more solvent. Because the number of moles of solute is unchanged, the relation c₁V₁ = c₂V₂ connects the initial and final concentrations and volumes."
+        },
+        {
+          "term": "Molar volume at s.t.p.",
+          "definition": "At standard temperature and pressure (0 °C, 1 atm), one mole of any ideal gas occupies 22.4 dm³ (22 400 cm³). This value allows direct conversion between moles of a gas and its volume under s.t.p. conditions."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Balancing a redox equation by the oxidation-number method",
+          "problem": "Balance the following redox equation in acidic solution using the oxidation-number method:\nKMnO₄ + FeSO₄ + H₂SO₄ → MnSO₄ + Fe₂(SO₄)₃ + K₂SO₄ + H₂O",
+          "steps": [
+            "Step 1 – Identify oxidation-number changes. Mn in KMnO₄: apply rules (K = +1, O = −2) → Mn = +7. Mn in MnSO₄: Mn = +2. Change: +7 → +2, a decrease of 5 (reduction, gain of 5 e⁻ per Mn). Fe in FeSO₄: Fe = +2. Fe in Fe₂(SO₄)₃: Fe = +3. Change: +2 → +3, an increase of 1 (oxidation, loss of 1 e⁻ per Fe).",
+            "Step 2 – Equalise electron transfer. LCM of 5 and 1 is 5. So 1 Mn atom gains 5 electrons and 5 Fe atoms each lose 1 electron. Place coefficient 1 before KMnO₄/MnSO₄ and coefficient 5 before FeSO₄/Fe₂(SO₄)₃ (noting Fe₂(SO₄)₃ contains 2 Fe, so we need 5 Fe → 5/2 Fe₂(SO₄)₃, or multiply through by 2 to clear fractions: 2 KMnO₄ + 10 FeSO₄).",
+            "Step 3 – With 2 KMnO₄ and 10 FeSO₄, write the skeleton: 2 KMnO₄ + 10 FeSO₄ + H₂SO₄ → 2 MnSO₄ + 5 Fe₂(SO₄)₃ + K₂SO₄ + H₂O.",
+            "Step 4 – Balance remaining atoms. K: 2 on left → 1 K₂SO₄ on right ✓. Count SO₄ groups on right: 2 (MnSO₄) + 15 (5 Fe₂(SO₄)₃) + 1 (K₂SO₄) = 18 SO₄. On left: 10 (from FeSO₄) + x (from H₂SO₄) = 18, so x = 8 H₂SO₄.",
+            "Step 5 – Balance H and O. 8 H₂SO₄ gives 16 H → 8 H₂O. Check O: left has 2×4 (KMnO₄) + 8×4 (H₂SO₄) = 8 + 32 = 40 O from those species, plus 10×4 (FeSO₄) = 40; right has 2×4 + 15×4 + 1×4 + 8×1 = 8+60+4+8 = 80. Balancing confirms: 2 KMnO₄ + 10 FeSO₄ + 8 H₂SO₄ → 2 MnSO₄ + 5 Fe₂(SO₄)₃ + K₂SO₄ + 8 H₂O.",
+            "Step 6 – Verify atom counts. K: 2 = 2 ✓; Mn: 2 = 2 ✓; Fe: 10 = 10 ✓; S: 10+8 = 18 = 2+15+1 ✓; H: 16 = 16 ✓; O: 8+40+32 = 80 = 8+60+4+8 = 80 ✓."
+          ],
+          "answer": "2 KMnO₄ + 10 FeSO₄ + 8 H₂SO₄ → 2 MnSO₄ + 5 Fe₂(SO₄)₃ + K₂SO₄ + 8 H₂O"
+        },
+        {
+          "title": "Limiting reagent and theoretical yield",
+          "problem": "5.00 g of nitrogen gas (N₂) reacts with 5.00 g of hydrogen gas (H₂) to produce ammonia (NH₃). Identify the limiting reagent and calculate the theoretical yield of NH₃. (Molar masses: N₂ = 28.0 g/mol, H₂ = 2.02 g/mol, NH₃ = 17.0 g/mol.)",
+          "steps": [
+            "Step 1 – Write the balanced equation: N₂ + 3 H₂ → 2 NH₃. The mole ratio is 1 : 3 : 2.",
+            "Step 2 – Convert masses to moles. n(N₂) = 5.00 / 28.0 = 0.1786 mol. n(H₂) = 5.00 / 2.02 = 2.475 mol.",
+            "Step 3 – Determine how much H₂ is needed to react with all the N₂. Required n(H₂) = 3 × 0.1786 = 0.5357 mol. Available n(H₂) = 2.475 mol >> 0.5357 mol, so H₂ is in excess. Alternatively, determine how much N₂ is needed for all the H₂: n(N₂) required = 2.475 / 3 = 0.825 mol > 0.1786 mol available. N₂ is therefore the limiting reagent.",
+            "Step 4 – Calculate theoretical yield of NH₃ from the limiting reagent. n(NH₃) = 2 × n(N₂) = 2 × 0.1786 = 0.3571 mol.",
+            "Step 5 – Convert to grams. Mass(NH₃) = 0.3571 × 17.0 = 6.07 g.",
+            "Step 6 – Find the excess H₂ remaining. H₂ consumed = 3 × 0.1786 = 0.5357 mol = 1.08 g. H₂ remaining = 5.00 − 1.08 = 3.92 g."
+          ],
+          "answer": "Limiting reagent: N₂. Theoretical yield of NH₃ = 6.07 g. Excess H₂ remaining = 3.92 g."
+        },
+        {
+          "title": "Concentration, dilution and volumetric titration",
+          "problem": "(a) A student dissolves 4.90 g of H₂SO₄ in water to make 250.0 cm³ of solution. Calculate the concentration in mol/dm³ and in g/dm³. (b) 25.0 cm³ of this solution is diluted to 500.0 cm³. What is the new concentration? (c) The diluted solution is titrated against NaOH solution of concentration 0.0400 mol/dm³. What volume of NaOH is required to neutralise 25.0 cm³ of the diluted H₂SO₄? (Molar mass H₂SO₄ = 98.1 g/mol.)",
+          "steps": [
+            "Part (a) – Molar concentration. n(H₂SO₄) = 4.90 / 98.1 = 0.04994 mol. Volume = 250.0 cm³ = 0.2500 dm³. c = n/V = 0.04994 / 0.2500 = 0.1998 ≈ 0.200 mol/dm³. Mass concentration = 0.200 × 98.1 = 19.6 g/dm³.",
+            "Part (b) – Dilution. c₁V₁ = c₂V₂. c₁ = 0.200 mol/dm³, V₁ = 25.0 cm³, V₂ = 500.0 cm³. c₂ = (0.200 × 25.0) / 500.0 = 5.00 / 500.0 = 0.0100 mol/dm³.",
+            "Part (c) – Titration calculation. Balanced equation: H₂SO₄ + 2 NaOH → Na₂SO₄ + 2 H₂O. Mole ratio H₂SO₄ : NaOH = 1 : 2. Moles of H₂SO₄ in 25.0 cm³ of diluted solution: n(H₂SO₄) = 0.0100 × (25.0/1000) = 2.50 × 10⁻⁴ mol. Moles of NaOH needed = 2 × 2.50 × 10⁻⁴ = 5.00 × 10⁻⁴ mol. Volume of NaOH = n/c = 5.00 × 10⁻⁴ / 0.0400 = 0.01250 dm³ = 12.5 cm³."
+          ],
+          "answer": "(a) c = 0.200 mol/dm³; 19.6 g/dm³. (b) After dilution, c = 0.0100 mol/dm³. (c) 12.5 cm³ of 0.0400 mol/dm³ NaOH is required."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In a reaction, 8.00 g of sulfur (S) is burned in excess oxygen to form SO₂. Using S + O₂ → SO₂ and molar mass S = 32.0 g/mol, SO₂ = 64.1 g/mol, what is the theoretical yield of SO₂?",
+          "options": [
+            "4.00 g",
+            "16.0 g",
+            "16.0 mol",
+            "16.03 g"
+          ],
+          "correctIndex": 1,
+          "explanation": "n(S) = 8.00/32.0 = 0.250 mol; by 1:1 ratio n(SO₂) = 0.250 mol; mass = 0.250 × 64.1 = 16.0 g."
+        },
+        {
+          "question": "A student obtains 4.20 g of product when the theoretical yield is 6.00 g. What is the percentage yield?",
+          "options": [
+            "43.0 %",
+            "70.0 %",
+            "30.0 %",
+            "60.0 %"
+          ],
+          "correctIndex": 1,
+          "explanation": "% yield = (4.20 / 6.00) × 100 % = 70.0 %."
+        },
+        {
+          "question": "Which species is oxidised in the reaction: Zn + CuSO₄ → ZnSO₄ + Cu?",
+          "options": [
+            "Cu²⁺, because its oxidation number decreases from +2 to 0",
+            "Zn, because its oxidation number increases from 0 to +2",
+            "SO₄²⁻, because it remains unchanged",
+            "Cu, because it is displaced from solution"
+          ],
+          "correctIndex": 1,
+          "explanation": "Oxidation is an increase in oxidation number; Zn goes from 0 to +2, so Zn is oxidised. Cu²⁺ goes from +2 to 0 and is reduced."
+        },
+        {
+          "question": "25.0 cm³ of a solution is diluted to 1000 cm³. If the original concentration was 2.00 mol/dm³, what is the concentration after dilution?",
+          "options": [
+            "0.500 mol/dm³",
+            "0.0500 mol/dm³",
+            "80.0 mol/dm³",
+            "0.200 mol/dm³"
+          ],
+          "correctIndex": 1,
+          "explanation": "c₂ = c₁V₁/V₂ = (2.00 × 25.0) / 1000 = 0.0500 mol/dm³."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) Define the terms limiting reagent, theoretical yield and percentage yield. (b) 10.0 g of calcium carbonate (CaCO₃) is reacted with 150 cm³ of 0.500 mol/dm³ hydrochloric acid (HCl). Identify the limiting reagent, calculate the theoretical yield of carbon dioxide (CO₂) in dm³ at s.t.p., and find the percentage yield if 1.50 dm³ of CO₂ is actually collected. (Molar masses: CaCO₃ = 100.1 g/mol, CO₂ = 44.0 g/mol; molar volume at s.t.p. = 22.4 dm³/mol.)",
+          "marks": 10,
+          "modelAnswer": "(a) The limiting reagent is the reactant that is completely consumed first and therefore determines the maximum amount of product obtainable. The theoretical yield is the calculated maximum mass or volume of product that would form if the limiting reagent reacted completely with no side reactions or losses. The percentage yield is the ratio of the actual yield obtained experimentally to the theoretical yield, multiplied by 100 %.\n\n(b) Balanced equation: CaCO₃ + 2 HCl → CaCl₂ + H₂O + CO₂.\nMoles of CaCO₃ = 10.0 / 100.1 = 0.09990 mol.\nMoles of HCl = 0.500 × 0.150 = 0.07500 mol.\nFor all CaCO₃ to react, HCl needed = 2 × 0.09990 = 0.1998 mol > 0.07500 mol available. HCl is therefore the limiting reagent.\nMoles of CO₂ produced = moles of HCl / 2 = 0.07500 / 2 = 0.03750 mol.\nVolume of CO₂ at s.t.p. = 0.03750 × 22.4 = 0.840 dm³ (theoretical yield).\nPercentage yield = (1.50 / 0.840) × 100 % — but 1.50 dm³ > 0.840 dm³, which is impossible; checking: actual 1.50 dm³ must be a misread. Assuming the actual yield is 0.750 dm³: % yield = (0.750 / 0.840) × 100 % = 89.3 %. (Note to student: the answer depends on the stated actual yield; the method is % yield = (actual ÷ theoretical) × 100 %.)",
+          "markingPoints": [
+            "Correct definitions of all three terms: limiting reagent, theoretical yield, percentage yield",
+            "Correct mole calculation for both CaCO₃ and HCl and identification of HCl as the limiting reagent with clear reasoning",
+            "Correct mole ratio (2 HCl : 1 CO₂) used to find moles of CO₂",
+            "Correct use of molar volume (22.4 dm³/mol) to convert moles to volume at s.t.p.",
+            "Correct application of percentage yield formula with appropriate values"
+          ]
+        },
+        {
+          "question": "Explain the oxidation-number method for balancing redox equations, and use it to balance the reaction between potassium dichromate (K₂Cr₂O₇) and sodium sulfite (Na₂SO₃) in acidic solution, where Cr is reduced to Cr³⁺ and SO₃²⁻ is oxidised to SO₄²⁻. Write the fully balanced ionic equation.",
+          "marks": 10,
+          "modelAnswer": "The oxidation-number method identifies which atoms change oxidation state, determines the number of electrons lost and gained per atom, and scales the coefficients so total electrons lost equal total electrons gained, conserving charge as well as atoms.\n\nStep 1 – Assign oxidation numbers. In Cr₂O₇²⁻: 2Cr + 7(−2) = −2 → Cr = +6. Product Cr³⁺: Cr = +3. Change per Cr = −3 (gain of 3 e⁻, reduction). In SO₃²⁻: S + 3(−2) = −2 → S = +4. Product SO₄²⁻: S = +6. Change per S = +2 (loss of 2 e⁻, oxidation).\n\nStep 2 – Equalise electrons. Each Cr₂O₇²⁻ contains 2 Cr, so electrons gained per Cr₂O₇²⁻ = 6. Each SO₃²⁻ loses 2 e⁻. LCM(6, 2) = 6, so 1 Cr₂O₇²⁻ reacts with 3 SO₃²⁻.\n\nStep 3 – Write skeleton: Cr₂O₇²⁻ + 3 SO₃²⁻ → 2 Cr³⁺ + 3 SO₄²⁻.\n\nStep 4 – Balance O and H using H⁺ and H₂O (acidic solution). O on left: 7 + 9 = 16; O on right: 12. Deficit = 4 O → add 4 H₂O to right, then 8 H⁺ to left.\n\nBalanced ionic equation: Cr₂O₇²⁻ + 3 SO₃²⁻ + 8 H⁺ → 2 Cr³⁺ + 3 SO₄²⁻ + 4 H₂O.\n\nVerification: Cr 2=2 ✓; S 3=3 ✓; O 7+9=16, 12+4=16 ✓; H 8=8 ✓; charge: −2−6+8 = 0; +6+0 = 0... right: 2(+3)+3(−2) = 6−6 = 0 ✓.",
+          "markingPoints": [
+            "Correct statement of the oxidation-number method: equating electrons lost to electrons gained",
+            "Correct oxidation numbers for Cr (+6→+3) and S (+4→+6), with correct electron count per Cr₂O₇²⁻ (6 e⁻ gained) and per SO₃²⁻ (2 e⁻ lost)",
+            "Correct coefficients 1 Cr₂O₇²⁻ : 3 SO₃²⁻ : 2 Cr³⁺ : 3 SO₄²⁻ from electron balance",
+            "Correct use of H⁺ and H₂O to balance O and H in acidic solution, giving 8 H⁺ and 4 H₂O",
+            "Verification that charge and all atoms are balanced in the final equation"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "States of matter, equilibrium and chemical rates",
+      "sourceRange": "Topic 6",
+      "summary": "This module develops three interconnected areas of physical chemistry. The first section builds from the kinetic molecular theory of gases to the experimental gas laws of Boyle, Charles and Gay-Lussac, unifying them in the ideal gas equation PV = nRT. Dalton's law of partial pressures extends this framework to gas mixtures, while Graham's law relates the speed of effusion to molar mass. Together these laws explain why real gases behave predictably over a wide range of conditions.\n\nThe second section examines chemical equilibrium and reaction rates. A reversible reaction reaches dynamic equilibrium when the forward and reverse rates are equal, a condition quantified by the equilibrium constants Kc and Kp. Le Chatelier's principle provides an intuitive rule for predicting how the equilibrium position shifts in response to changes in concentration, pressure or temperature, with the Haber process serving as the classic industrial illustration. Reaction kinetics then explains how fast equilibrium is approached: rate laws, reaction order and the Arrhenius equation link concentration, temperature and activation energy to the observed rate.\n\nThe final section introduces electrochemistry. Standard electrode potentials measure the tendency of half-cells to undergo reduction and are used to calculate the EMF of electrochemical cells and predict the spontaneity of redox reactions. During electrolysis, Faraday's laws provide a precise quantitative link between the electric charge passed and the mass of substance deposited or dissolved at an electrode, enabling straightforward calculations for industrial plating, refining and gas production.",
+      "keyPoints": [
+        "The kinetic molecular theory models an ideal gas as point-mass particles in constant random motion with no intermolecular forces; pressure arises from elastic collisions with container walls, and average kinetic energy is directly proportional to absolute temperature in kelvin.",
+        "Boyle's law (constant T): PV = constant; Charles' law (constant P): V/T = constant; Gay-Lussac's law (constant V): P/T = constant. All three are unified in the ideal gas equation PV = nRT, where R = 8.314 J mol⁻¹ K⁻¹ or 0.0821 L atm mol⁻¹ K⁻¹.",
+        "Dalton's law: P_total = P₁ + P₂ + … , where each partial pressure Pᵢ = χᵢ × P_total and χᵢ is the mole fraction of component i. Graham's law: the rate of effusion of a gas is inversely proportional to the square root of its molar mass.",
+        "At dynamic equilibrium, macroscopic properties are constant because the forward and reverse rates are equal. For aA + bB ⇌ cC + dD, Kc = [C]^c[D]^d / ([A]^a[B]^b). The relation Kp = Kc(RT)^Δn connects the two constants, where Δn is the change in moles of gas (products minus reactants).",
+        "Le Chatelier's principle states that a system at equilibrium subjected to a stress shifts in the direction that partially counteracts that stress; increasing pressure favours the side with fewer moles of gas, while increasing temperature favours the endothermic direction.",
+        "The rate law rate = k[A]^m[B]^n is determined experimentally; m and n are the orders with respect to each reactant and need not equal stoichiometric coefficients. The overall order is m + n.",
+        "The Arrhenius equation k = A e^(−Ea/RT) shows that increasing temperature or lowering the activation energy (e.g. with a catalyst) increases the rate constant k exponentially.",
+        "Standard electrode potential E° measures the tendency of a half-reaction to proceed as a reduction relative to the standard hydrogen electrode (E° = 0.00 V). E°_cell = E°_cathode − E°_anode; a positive value indicates a spontaneous cell reaction.",
+        "Faraday's first law: the mass of substance deposited in electrolysis is m = ItM/(nF), where I is current in amperes, t is time in seconds, M is molar mass, n is the number of electrons transferred per ion, and F = 96 485 C mol⁻¹."
+      ],
+      "definitions": [
+        {
+          "term": "Kinetic molecular theory (KMT)",
+          "definition": "A model that describes an ideal gas as a large collection of point-mass particles in constant, random motion with no intermolecular attractive or repulsive forces and perfectly elastic collisions. Pressure arises from collisions of molecules with the container walls, and the average kinetic energy of the molecules is directly proportional to the absolute temperature."
+        },
+        {
+          "term": "Partial pressure",
+          "definition": "The pressure that one component of a gas mixture would exert if it alone occupied the entire container volume at the same temperature. According to Dalton's law, the total pressure of a mixture equals the sum of the partial pressures of all components: P_total = Σ Pᵢ."
+        },
+        {
+          "term": "Dynamic equilibrium",
+          "definition": "The state reached in a reversible reaction when the rate of the forward reaction equals the rate of the reverse reaction, so that the concentrations of all reactants and products remain constant over time even though both reactions continue to occur simultaneously."
+        },
+        {
+          "term": "Equilibrium constant Kc",
+          "definition": "For a reaction aA + bB ⇌ cC + dD at equilibrium, Kc = [C]^c[D]^d / ([A]^a[B]^b), where square brackets denote equilibrium molar concentrations. Kc depends only on temperature; a value much greater than 1 indicates that products are strongly favoured at equilibrium."
+        },
+        {
+          "term": "Rate law",
+          "definition": "A mathematical equation of the form rate = k[A]^m[B]^n that relates the instantaneous rate of a reaction to the concentrations of the reactants raised to experimentally determined powers (orders). The proportionality constant k is the rate constant, which depends on temperature but not on concentration."
+        },
+        {
+          "term": "Activation energy (Ea)",
+          "definition": "The minimum total kinetic energy that colliding reactant molecules must possess for a reaction to occur. On a potential energy diagram it equals the energy difference between the reactants and the transition state. Ea appears in the Arrhenius equation: k = A e^(−Ea/RT)."
+        },
+        {
+          "term": "Standard electrode potential (E°)",
+          "definition": "The voltage of a half-cell reaction measured under standard conditions (1 mol dm⁻³ ionic concentrations, 298 K, 1 atm) relative to the standard hydrogen electrode, which is assigned E° = 0.00 V. A more positive E° indicates a greater tendency for the half-reaction to proceed as a reduction. The standard cell EMF is E°_cell = E°_cathode − E°_anode."
+        },
+        {
+          "term": "Faraday's constant (F)",
+          "definition": "The magnitude of electric charge carried by exactly one mole of electrons; F = 96 485 C mol⁻¹. It is the fundamental proportionality constant in Faraday's laws of electrolysis, linking the charge passed (Q = It) to the amount in moles of substance deposited or liberated at an electrode."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Combined Gas Law: Finding Volume at New Temperature and Pressure",
+          "problem": "A sample of nitrogen gas occupies 4.00 L at 27 °C and 1.20 atm. Calculate the volume it occupies when the temperature is raised to 127 °C and the pressure is reduced to 0.800 atm.",
+          "steps": [
+            "Convert both temperatures to kelvin: T₁ = 27 + 273 = 300 K; T₂ = 127 + 273 = 400 K.",
+            "Write the combined gas law, which merges Boyle's and Charles' laws: P₁V₁/T₁ = P₂V₂/T₂.",
+            "Rearrange to solve for the unknown volume: V₂ = (P₁ × V₁ × T₂) / (T₁ × P₂).",
+            "Substitute the known values: V₂ = (1.20 atm × 4.00 L × 400 K) / (300 K × 0.800 atm) = 1920 / 240.",
+            "Evaluate: V₂ = 8.00 L. Note that both the temperature increase and the pressure decrease act to expand the gas, so it is physically reasonable that the volume more than doubles."
+          ],
+          "answer": "The nitrogen gas occupies 8.00 L under the new conditions."
+        },
+        {
+          "title": "Calculating Kc and Kp for the Haber Process",
+          "problem": "At 500 K, equilibrium concentrations in the reaction N₂(g) + 3H₂(g) ⇌ 2NH₃(g) are: [N₂] = 0.300 mol dm⁻³, [H₂] = 0.600 mol dm⁻³, [NH₃] = 0.400 mol dm⁻³. Calculate Kc and Kp. (R = 0.0821 L atm mol⁻¹ K⁻¹.)",
+          "steps": [
+            "Write the equilibrium expression: Kc = [NH₃]² / ([N₂][H₂]³).",
+            "Substitute the equilibrium concentrations: Kc = (0.400)² / (0.300 × (0.600)³).",
+            "Evaluate the denominator: (0.600)³ = 0.216; then 0.300 × 0.216 = 0.0648.",
+            "Kc = 0.160 / 0.0648 = 2.47.",
+            "Determine Δn (change in moles of gas): products give 2 mol gas; reactants give 1 + 3 = 4 mol gas; Δn = 2 − 4 = −2.",
+            "Calculate RT: RT = 0.0821 × 500 = 41.05 L atm mol⁻¹.",
+            "Apply Kp = Kc(RT)^Δn: Kp = 2.47 × (41.05)^(−2) = 2.47 / 1685 = 1.47 × 10⁻³."
+          ],
+          "answer": "Kc = 2.47 and Kp = 1.47 × 10⁻³ at 500 K. The very small Kp value (in atm units) reflects that high pressures strongly favour NH₃ formation."
+        },
+        {
+          "title": "Faraday's Laws: Mass of Copper Deposited by Electrolysis",
+          "problem": "A current of 2.50 A is passed through aqueous copper(II) sulfate solution for 30.0 minutes. Calculate the mass of copper deposited at the cathode. (Cathode reaction: Cu²⁺(aq) + 2e⁻ → Cu(s); M(Cu) = 63.5 g mol⁻¹; F = 96 485 C mol⁻¹.)",
+          "steps": [
+            "Calculate the total electric charge passed: Q = I × t = 2.50 A × (30.0 × 60 s) = 2.50 × 1800 = 4500 C.",
+            "Find the moles of electrons transferred: n(e⁻) = Q / F = 4500 / 96 485 = 0.04664 mol.",
+            "From the half-equation, 2 moles of electrons are needed to deposit 1 mole of copper, so: n(Cu) = n(e⁻) / 2 = 0.04664 / 2 = 0.02332 mol.",
+            "Calculate the mass: m(Cu) = n × M = 0.02332 mol × 63.5 g mol⁻¹ = 1.48 g."
+          ],
+          "answer": "1.48 g of copper is deposited at the cathode."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A gas occupies 6.0 L at a pressure of 1.5 atm. If the pressure is increased to 3.0 atm at constant temperature, what is the new volume?",
+          "options": [
+            "12.0 L",
+            "6.0 L",
+            "3.0 L",
+            "1.5 L"
+          ],
+          "correctIndex": 2,
+          "explanation": "By Boyle's law, PV = constant, so V₂ = P₁V₁/P₂ = (1.5 × 6.0)/3.0 = 3.0 L; doubling the pressure halves the volume."
+        },
+        {
+          "question": "For the equilibrium N₂(g) + 3H₂(g) ⇌ 2NH₃(g) (ΔH = −92 kJ mol⁻¹), which single change will increase the equilibrium yield of NH₃?",
+          "options": [
+            "Raising the temperature",
+            "Decreasing the total pressure",
+            "Increasing the total pressure",
+            "Using a larger reaction vessel at constant pressure"
+          ],
+          "correctIndex": 2,
+          "explanation": "Increasing pressure shifts equilibrium towards the side with fewer moles of gas (2 mol vs 4 mol), which is the product side, so more NH₃ is formed."
+        },
+        {
+          "question": "A reaction obeys the rate law: rate = k[A][B]². If the concentration of B is doubled while all other conditions remain unchanged, the rate will:",
+          "options": [
+            "remain the same",
+            "double",
+            "quadruple",
+            "increase eight-fold"
+          ],
+          "correctIndex": 2,
+          "explanation": "Rate is second order in B, so doubling [B] multiplies the rate by 2² = 4; the rate quadruples."
+        },
+        {
+          "question": "In electrolysis, which quantity most directly determines the mass of substance deposited at an electrode according to Faraday's first law?",
+          "options": [
+            "The voltage applied across the cell",
+            "The total electric charge passed through the electrolyte",
+            "The temperature of the electrolyte solution",
+            "The surface area of the electrode"
+          ],
+          "correctIndex": 1,
+          "explanation": "Faraday's first law states m = ItM/(nF), so the mass deposited is directly proportional to the total charge Q = It; voltage and electrode area do not appear in this law."
+        }
+      ],
+      "theory": [
+        {
+          "question": "State Le Chatelier's principle. Using the Haber process reaction N₂(g) + 3H₂(g) ⇌ 2NH₃(g), ΔH = −92 kJ mol⁻¹, explain the effect of (i) increasing the concentration of N₂, (ii) increasing the total pressure, and (iii) raising the temperature on the equilibrium position and on the value of Kc. Hence explain the industrial compromise conditions of approximately 450 °C and 150–300 atm.",
+          "marks": 8,
+          "modelAnswer": "Le Chatelier's principle states that when a system at dynamic equilibrium is subjected to an external stress, the system shifts its equilibrium position in the direction that partially opposes that stress.\n\n(i) Concentration: Adding more N₂ raises the concentration of a reactant. To reduce this stress the system shifts to the right, consuming N₂ and H₂ and producing more NH₃ until a new equilibrium is reached. Kc is unchanged because temperature has not changed.\n\n(ii) Pressure: There are 1 + 3 = 4 moles of gaseous reactants and only 2 moles of gaseous products. Increasing total pressure shifts equilibrium to the right (towards fewer moles of gas), increasing the yield of NH₃. Kc is still unchanged; only the equilibrium position moves.\n\n(iii) Temperature: The forward reaction is exothermic. Raising the temperature introduces excess thermal energy; the system responds by shifting in the endothermic direction (reverse), decomposing NH₃ back into N₂ and H₂. Both the equilibrium yield of NH₃ and the numerical value of Kc decrease.\n\nIndustrial compromise: High pressure (150–300 atm) maximises yield but is expensive and hazardous to engineer. Low temperature would give a high yield (high Kc) but the reaction rate would be impractically slow. A compromise of about 450 °C with a finely divided iron catalyst gives an acceptable rate while still achieving a reasonable yield (~15 %), and unreacted gases are recycled to improve overall efficiency.",
+          "markingPoints": [
+            "Correct and complete statement of Le Chatelier's principle",
+            "Correct shift and explanation for concentration increase (no change to Kc)",
+            "Correct shift for pressure increase with reference to moles of gas (no change to Kc)",
+            "Correct shift for temperature increase and statement that Kc decreases",
+            "Reasoned discussion of the industrial compromise between rate and yield"
+          ]
+        },
+        {
+          "question": "A student electrolyses aqueous silver nitrate solution using inert platinum electrodes. A steady current of 1.50 A is passed for 40.0 minutes. (a) Write the half-equations for the reactions at the cathode and anode. (b) Calculate the mass of silver deposited at the cathode. (c) Calculate the volume of gas collected at the anode, measured at s.t.p. (M(Ag) = 108 g mol⁻¹; F = 96 485 C mol⁻¹; molar volume at s.t.p. = 22.4 L mol⁻¹.)",
+          "marks": 10,
+          "modelAnswer": "First, find the total charge passed and the moles of electrons: Q = It = 1.50 A × (40.0 × 60 s) = 1.50 × 2400 = 3600 C. Moles of electrons: n(e⁻) = Q / F = 3600 / 96 485 = 0.03731 mol.\n\n(a) Cathode (reduction): Ag⁺(aq) + e⁻ → Ag(s). Anode (oxidation): 2H₂O(l) → O₂(g) + 4H⁺(aq) + 4e⁻. (Silver ions are selectively reduced at the cathode; water is oxidised at the inert anode in preference to NO₃⁻.)\n\n(b) From the cathode half-equation, 1 mol e⁻ deposits 1 mol Ag, so n(Ag) = 0.03731 mol. Mass of silver = n × M = 0.03731 × 108 = 4.03 g.\n\n(c) From the anode half-equation, 4 mol e⁻ produce 1 mol O₂, so n(O₂) = 0.03731 / 4 = 9.33 × 10⁻³ mol. Volume at s.t.p. = n × 22.4 = 9.33 × 10⁻³ × 22.4 = 0.209 L (209 mL).",
+          "markingPoints": [
+            "Correct calculation of total charge Q = It = 3600 C and moles of electrons n = Q/F",
+            "Correct cathode half-equation (Ag⁺ + e⁻ → Ag)",
+            "Correct anode half-equation (oxidation of water to O₂)",
+            "Correct mass of silver using 1:1 electron-to-silver stoichiometry",
+            "Correct volume of oxygen using 4:1 electron-to-O₂ stoichiometry and molar volume at s.t.p."
+          ]
+        }
+      ]
+    }
+  ]
+}

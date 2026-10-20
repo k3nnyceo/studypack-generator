@@ -1,0 +1,817 @@
+{
+  "title": "PHY 102 — General Physics II: Electricity & Magnetism (full course)",
+  "course": "PHY 102 General Physics II",
+  "topic": "Full course: 6 modules",
+  "overview": "This study guide covers the complete PHY 102 curriculum, progressing from electrostatics and electric potential through current and circuits to magnetism and electromagnetic induction. The six modules build systematically: electrostatics establishes charge and fields; electric potential and capacitance introduce energy storage; current electricity explains charge flow and resistive dissipation; DC circuits combine these ideas in practical networks; magnetism and magnetic fields parallel electrostatics in a new domain; and electromagnetic induction unifies the concepts through Faraday's laws and AC phenomena. Together they form the foundations of classical electromagnetism at first-year university level.",
+  "modules": [
+    {
+      "title": "Electrostatics: charge, Coulomb's law, electric fields and Gauss's law",
+      "sourceRange": "Topic 1",
+      "summary": "Electrostatics is the study of electric charges at rest. All matter contains two kinds of charge—positive (protons) and negative (electrons)—and the fundamental unit is the elementary charge e = 1.602 × 10⁻¹⁹ C. Two key facts govern charge at the most basic level: it is conserved (the net algebraic charge of an isolated system never changes) and it is quantized (any observable charge Q must be an integer multiple of e, so Q = ne). Materials are classified as conductors, in which charges move freely, or insulators, in which they are fixed in place. Charging by friction, conduction, or induction always redistributes existing charge rather than creating or destroying it.\n\nThe force between two stationary point charges is given by Coulomb's law: F = kq₁q₂/r², where k = 8.99 × 10⁹ N·m²/C² = 1/(4πε₀) and ε₀ = 8.85 × 10⁻¹² C²·N⁻¹·m⁻² is the permittivity of free space. Like charges repel and unlike charges attract; the force acts along the line joining the charges and its magnitude falls off as the inverse square of separation. When several charges are present, the net force or field is the vector sum of individual contributions—the superposition principle. The electric field E at a point is defined as the force per unit positive test charge: E = F/q₀. For a single point charge Q, the field magnitude is E = kQ/r² and points radially outward for positive Q, inward for negative Q. Electric field lines give a pictorial map: they originate on positive charges, terminate on negative ones, never cross one another, and their local density is proportional to the field strength. A pair of equal and opposite charges ±q separated by a small distance d constitutes an electric dipole with dipole moment p = qd directed from −q to +q; the field of a dipole falls off as 1/r³ at large distances.\n\nGauss's law provides the most elegant route to the electric field whenever the charge distribution has spherical, cylindrical, or planar symmetry. It states that the total electric flux through any closed surface equals the net enclosed charge divided by ε₀: Φ = Q_enc/ε₀. Choosing a Gaussian surface that matches the symmetry of the source makes E constant over the surface, turning the surface integral into simple algebra. Key results: a uniformly charged sphere of radius R and total charge Q produces E = kQ/r² outside (r > R, identical to a point charge) and E = kQr/R³ inside (r < R, growing linearly from zero at the centre); an infinite line charge of linear density λ produces E = λ/(2πε₀r) directed radially; an infinite plane of surface charge density σ produces a uniform field E = σ/(2ε₀) perpendicular to the plane on each side.",
+      "keyPoints": [
+        "Charge is quantized (Q = ne, e = 1.602 × 10⁻¹⁹ C) and is conserved in every physical process.",
+        "Coulomb's law: F = kq₁q₂/r² with k = 8.99 × 10⁹ N·m²/C²; the force is along the line of centres, repulsive for like signs and attractive for unlike signs.",
+        "The electric field E = F/q₀ = kQ/r² for a point charge Q; it is a vector field that points away from positive charges and toward negative ones.",
+        "Electric field lines originate on positive charges, end on negative charges, never intersect, and their closeness indicates field strength.",
+        "An electric dipole has moment p = qd (directed from −q to +q); its far-field decreases as 1/r³, faster than a monopole.",
+        "Gauss's law: the net electric flux Φ = ∮ E · dA = Q_enc/ε₀ through any closed surface equals the enclosed charge over ε₀.",
+        "For a uniformly charged solid sphere: E = kQ/r² outside (r > R) and E = kQr/R³ inside (r < R).",
+        "For an infinite line charge (density λ): E = λ/(2πε₀r); for an infinite plane (density σ): E = σ/(2ε₀), both perpendicular to the source."
+      ],
+      "definitions": [
+        {
+          "term": "Electric charge",
+          "definition": "An intrinsic property of matter, measured in coulombs (C), that determines how a particle interacts electromagnetically. It comes in two signs; like charges repel and unlike charges attract. Any charge is an integer multiple of e = 1.602 × 10⁻¹⁹ C (quantization), and the total charge of an isolated system never changes (conservation)."
+        },
+        {
+          "term": "Coulomb's law",
+          "definition": "The fundamental force law for two stationary point charges q₁ and q₂ separated by distance r: F = kq₁q₂/r², where k = 8.99 × 10⁹ N·m²/C². The force is directed along the line joining the charges, is repulsive when the charges have the same sign, and attractive when they differ. It satisfies Newton's third law and obeys superposition."
+        },
+        {
+          "term": "Electric field (E)",
+          "definition": "The electric force per unit positive test charge at a given point in space: E = F/q₀. Its SI unit is N/C (equivalently V/m). For a point charge Q the magnitude is E = kQ/r² and the direction is radially outward (Q > 0) or inward (Q < 0). The total field from several charges is the vector sum of each individual contribution."
+        },
+        {
+          "term": "Electric field lines",
+          "definition": "Directed curves drawn so that the tangent at any point gives the direction of E, and the number of lines per unit area perpendicular to the field is proportional to the field's magnitude. They start on positive charges and end on negative charges (or at infinity) and never cross one another."
+        },
+        {
+          "term": "Electric dipole and dipole moment",
+          "definition": "An electric dipole consists of two equal and opposite point charges +q and −q separated by a small distance d. The dipole moment is the vector p = qd, pointing from the negative charge to the positive charge, with magnitude p = qd and SI unit C·m. At large distances the field of a dipole decreases as 1/r³."
+        },
+        {
+          "term": "Electric flux (Φ_E)",
+          "definition": "The measure of the 'flow' of the electric field through a surface, defined as Φ_E = ∫ E · dA, where dA is an outward-pointing area element. For a uniform field passing perpendicularly through a flat area A, Φ_E = EA. The SI unit is N·m²/C."
+        },
+        {
+          "term": "Gauss's law",
+          "definition": "A fundamental law of electrostatics stating that the net electric flux through any closed surface (called a Gaussian surface) equals the total charge enclosed divided by the permittivity of free space: Φ_E = Q_enc/ε₀. It is equivalent to Coulomb's law but expressed in terms of fields rather than forces, and is especially powerful for symmetric charge distributions."
+        },
+        {
+          "term": "Permittivity of free space (ε₀)",
+          "definition": "The physical constant ε₀ = 8.85 × 10⁻¹² C²·N⁻¹·m⁻² that appears in Coulomb's law as k = 1/(4πε₀) and in Gauss's law. It characterises how easily an electric field is established in a vacuum; media with higher permittivity ε = κε₀ (where κ is the dielectric constant) reduce the field for the same charge."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Coulomb's law: force between two point charges",
+          "problem": "Two point charges q₁ = +3.0 μC and q₂ = +5.0 μC are held 0.20 m apart in air. Find the magnitude of the electrostatic force between them and state whether it is attractive or repulsive.",
+          "steps": [
+            "Write Coulomb's law: F = k|q₁||q₂|/r², with k = 8.99 × 10⁹ N·m²/C².",
+            "Substitute values: q₁ = 3.0 × 10⁻⁶ C, q₂ = 5.0 × 10⁻⁶ C, r = 0.20 m, so r² = 0.040 m².",
+            "Compute the numerator: k|q₁||q₂| = (8.99 × 10⁹)(3.0 × 10⁻⁶)(5.0 × 10⁻⁶) = (8.99 × 10⁹)(1.5 × 10⁻¹¹) = 0.1349 N·m².",
+            "Divide by r²: F = 0.1349 / 0.040 = 3.37 N.",
+            "Both charges are positive (same sign), so the force is repulsive; each charge experiences a force of 3.37 N directed away from the other."
+          ],
+          "answer": "The magnitude of the force is 3.37 N and it is repulsive."
+        },
+        {
+          "title": "Electric field superposition at the midpoint of two opposite charges",
+          "problem": "Charge q₁ = +4.0 μC is placed at the origin and charge q₂ = −4.0 μC is placed at x = 0.30 m. Find the net electric field at point P located at the midpoint x = 0.15 m.",
+          "steps": [
+            "Each charge is r = 0.15 m from P. Calculate the field magnitude from each: E = k|q|/r² = (8.99 × 10⁹)(4.0 × 10⁻⁶)/(0.15)².",
+            "(0.15)² = 0.0225 m²; k|q| = (8.99 × 10⁹)(4.0 × 10⁻⁶) = 3.596 × 10⁴ N·m²/C; so E₁ = E₂ = 3.596 × 10⁴ / 0.0225 = 1.60 × 10⁶ N/C.",
+            "Direction of E₁ (due to +q₁): points away from q₁ at the origin, i.e. in the +x direction at P.",
+            "Direction of E₂ (due to −q₂): points toward q₂ at x = 0.30 m, i.e. also in the +x direction at P.",
+            "Both contributions point in the same direction, so the fields add: E_net = E₁ + E₂ = 2 × 1.60 × 10⁶ = 3.20 × 10⁶ N/C in the +x direction."
+          ],
+          "answer": "The net electric field at P is 3.20 × 10⁶ N/C directed from q₁ toward q₂ (in the +x direction)."
+        },
+        {
+          "title": "Gauss's law: field inside and outside a uniformly charged sphere",
+          "problem": "A solid insulating sphere of radius R = 0.10 m carries a uniform total charge Q = 8.0 μC. Using Gauss's law, find the electric field at (a) r = 0.30 m (outside) and (b) r = 0.050 m (inside).",
+          "steps": [
+            "Part (a) – outside (r = 0.30 m): Draw a concentric spherical Gaussian surface of radius r = 0.30 m. By spherical symmetry E is uniform and radial over this surface.",
+            "Apply Gauss's law: E × 4πr² = Q_enc/ε₀. The entire charge Q is enclosed, so Q_enc = Q = 8.0 × 10⁻⁶ C.",
+            "This gives E = Q/(4πε₀r²) = kQ/r² = (8.99 × 10⁹)(8.0 × 10⁻⁶)/(0.30)² = 7.19 × 10⁴ / 0.090 = 7.99 × 10⁵ ≈ 8.0 × 10⁵ N/C, directed radially outward.",
+            "Part (b) – inside (r = 0.050 m): Draw a concentric spherical Gaussian surface of radius r = 0.050 m. Because the charge is uniform, only the fraction inside this surface contributes: Q_enc = Q(r/R)³ = (8.0 × 10⁻⁶)(0.050/0.10)³ = (8.0 × 10⁻⁶)(0.125) = 1.0 × 10⁻⁶ C.",
+            "Apply Gauss's law: E = kQ_enc/r² = (8.99 × 10⁹)(1.0 × 10⁻⁶)/(0.050)² = 8.99 × 10³ / 2.5 × 10⁻³ = 3.60 × 10⁶ N/C, directed radially outward.",
+            "Note the pattern: outside the field behaves as if all charge were concentrated at the centre (falls as 1/r²); inside it grows linearly with r because Q_enc ∝ r³ while the area grows as r²."
+          ],
+          "answer": "(a) E = 8.0 × 10⁵ N/C at r = 0.30 m (outside). (b) E = 3.60 × 10⁶ N/C at r = 0.050 m (inside)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Two identical point charges exert a force F on each other when separated by distance r. One charge is doubled and the separation is halved. What is the new force?",
+          "options": [
+            "2F",
+            "4F",
+            "8F",
+            "F/2"
+          ],
+          "correctIndex": 2,
+          "explanation": "F' = k(2q)(q)/(r/2)² = 2kq²/(r²/4) = 8kq²/r² = 8F; doubling one charge multiplies F by 2 and halving the distance multiplies it by 4, giving an overall factor of 8."
+        },
+        {
+          "question": "Which statement about electric field lines is correct?",
+          "options": [
+            "They can cross at points where the electric field is zero.",
+            "Their spacing at any point is proportional to the electric field magnitude there.",
+            "A positive test charge always moves perpendicular to the field lines.",
+            "They form closed loops around isolated positive charges."
+          ],
+          "correctIndex": 1,
+          "explanation": "Field line density (number per unit area perpendicular to the field) represents field strength; lines never cross, a positive test charge moves along (not perpendicular to) them, and they do not form closed loops."
+        },
+        {
+          "question": "A uniformly charged solid sphere of radius R carries total charge Q. At a distance r < R from the centre, the electric field magnitude is:",
+          "options": [
+            "kQ/r²",
+            "kQr/R³",
+            "kQR/r³",
+            "Zero"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gauss's law gives E·4πr² = Q_enc/ε₀ where Q_enc = Q(r/R)³; simplifying yields E = kQr/R³, which increases linearly from zero at the centre to kQ/R² at the surface."
+        },
+        {
+          "question": "A closed Gaussian surface encloses no net charge but lies in a region where an external charge creates a non-zero field everywhere on the surface. The net electric flux through the surface is:",
+          "options": [
+            "Proportional to the magnitude of the external charge",
+            "Equal to ε₀ times the surface area",
+            "Zero",
+            "Determined by the shape of the surface"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gauss's law states Φ = Q_enc/ε₀; with no enclosed charge Q_enc = 0 so the net flux is zero regardless of any external charges or the surface's shape."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Electric potential and capacitance: potential, equipotentials, and energy storage",
+      "sourceRange": "Topic 2",
+      "summary": "Electric potential is a scalar quantity that describes the electric potential energy per unit positive charge at a point in space. While the electric field tells us about the force a charge would experience, the potential tells us about the energy landscape: charges naturally move from regions of higher potential energy to lower potential energy, just as a ball rolls downhill. The potential difference between two points is the work done per unit charge in moving a positive test charge between those points against the electric field, and it is measured in volts (V). Because potential is a scalar, it is often much easier to work with than the vector electric field, especially when multiple charges are present — you simply add the individual potentials algebraically.\n\nEquipotential surfaces are imaginary surfaces on which the potential is the same everywhere. No work is done moving a charge along an equipotential, which means the electric field must always be perpendicular to these surfaces. For a point charge, equipotentials are concentric spheres; for a uniform field, they are parallel planes. The concept of potential energy of a charge configuration captures the work done to assemble the charges from infinity, and this energy is released if the charges are allowed to fly apart.\n\nA capacitor is a device that stores electric charge and energy by maintaining a potential difference between two conductors. The capacitance quantifies how much charge is stored per volt of potential difference. The parallel-plate capacitor is the archetype, and inserting a dielectric material between the plates increases the capacitance by reducing the effective electric field for a given charge. Capacitors can be combined in series (total capacitance decreases) or in parallel (total capacitance increases), and the energy stored in a charged capacitor resides in the electric field between the plates.",
+      "keyPoints": [
+        "The electric potential at a point is V = W/q₀, the work done per unit positive charge brought from infinity; for a point charge Q at distance r, V = kQ/r = Q/(4πε₀r).",
+        "Potential difference V_AB = V_A − V_B equals the work done per unit positive charge moving from B to A; the electric field component along a direction is E = −dV/ds.",
+        "Equipotential surfaces are always perpendicular to electric field lines; no work is done moving a charge along an equipotential.",
+        "The electric potential energy of a pair of point charges is U = kQ₁Q₂/r; for an assembly of charges, U is the sum over all unique pairs.",
+        "Capacitance C = Q/V (units: farads, F); for a parallel-plate capacitor C = ε₀A/d (air gap) or C = κε₀A/d with a dielectric of relative permittivity κ.",
+        "Inserting a dielectric increases capacitance by the factor κ (the dielectric constant) because induced surface charges on the dielectric reduce the net electric field.",
+        "For capacitors in series: 1/C_total = 1/C₁ + 1/C₂ + …; each capacitor holds the same charge Q but shares the total voltage.",
+        "For capacitors in parallel: C_total = C₁ + C₂ + …; each capacitor shares the same voltage but the total charge is shared among them.",
+        "Energy stored in a capacitor: U = ½QV = ½CV² = Q²/(2C); this energy is stored in the electric field with energy density u = ½ε₀E² (or ½κε₀E² with a dielectric)."
+      ],
+      "definitions": [
+        {
+          "term": "Electric potential (V)",
+          "definition": "The electric potential at a point in a field is the work done per unit positive charge in bringing a small test charge from infinity to that point, with no acceleration. It is a scalar quantity measured in volts (1 V = 1 J C⁻¹). For a point charge Q at distance r: V = kQ/r."
+        },
+        {
+          "term": "Potential difference",
+          "definition": "The potential difference between two points A and B, written V_AB = V_A − V_B, is the work done per unit positive charge by an external agent in moving the charge from B to A against the electric field. It is also measured in volts."
+        },
+        {
+          "term": "Equipotential surface",
+          "definition": "A surface (real or imaginary) on which the electric potential has the same value at every point. Since no work is done moving a charge along such a surface, the electric field is always perpendicular to it. For a point charge, equipotentials are concentric spherical shells."
+        },
+        {
+          "term": "Electric potential energy",
+          "definition": "The potential energy U of a charge configuration is the total work done by an external agent to assemble the charges from infinite separation. For two point charges Q₁ and Q₂ separated by distance r: U = kQ₁Q₂/r. Positive U means the charges repel and would accelerate apart; negative U means they attract."
+        },
+        {
+          "term": "Capacitance",
+          "definition": "The capacitance C of a capacitor is the ratio of the magnitude of charge Q stored on either plate to the potential difference V between the plates: C = Q/V. Capacitance depends only on geometry and the material between the plates, not on Q or V separately. The SI unit is the farad (F); 1 F = 1 C V⁻¹."
+        },
+        {
+          "term": "Parallel-plate capacitor",
+          "definition": "A capacitor formed by two large, flat, parallel conducting plates of area A separated by a distance d. Provided d is small compared with the plate dimensions, the capacitance is C = ε₀A/d (vacuum or air between plates). The electric field between the plates is uniform with magnitude E = σ/ε₀ = V/d."
+        },
+        {
+          "term": "Dielectric",
+          "definition": "An insulating material placed between capacitor plates. Its molecules polarise in the applied field, creating an opposing induced field that reduces the net field and hence the voltage for the same stored charge. This increases the capacitance by the factor κ (the relative permittivity or dielectric constant): C = κε₀A/d. For air κ ≈ 1; for common materials κ ranges from about 2 to 80."
+        },
+        {
+          "term": "Energy density of an electric field",
+          "definition": "The energy stored per unit volume in an electric field of magnitude E is u = ½ε₀E² (in vacuum). In a dielectric medium it becomes u = ½κε₀E². This shows that the energy of a charged capacitor is physically stored in the field between the plates."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Potential and potential energy of two point charges",
+          "problem": "A charge Q₁ = +3.0 μC is fixed at the origin. A second charge Q₂ = −2.0 μC is brought from infinity to a point P that is 0.30 m from Q₁. (a) What is the electric potential at P due to Q₁ alone? (b) What is the electric potential energy of the two-charge system when Q₂ is at P?",
+          "steps": [
+            "Recall the formula for the potential due to a point charge: V = kQ/r, where k = 8.99 × 10⁹ N m² C⁻².",
+            "Substitute Q₁ = 3.0 × 10⁻⁶ C and r = 0.30 m: V = (8.99 × 10⁹)(3.0 × 10⁻⁶) / 0.30 = (2.697 × 10⁴) / 0.30 = 8.99 × 10⁴ V ≈ 90 kV.",
+            "The potential energy of the pair is U = kQ₁Q₂/r. Substitute Q₁ = +3.0 × 10⁻⁶ C, Q₂ = −2.0 × 10⁻⁶ C, r = 0.30 m: U = (8.99 × 10⁹)(3.0 × 10⁻⁶)(−2.0 × 10⁻⁶) / 0.30.",
+            "Calculate numerator: (8.99 × 10⁹)(−6.0 × 10⁻¹²) = −5.394 × 10⁻² J. Divide by 0.30: U = −0.1798 J ≈ −0.18 J.",
+            "The negative sign confirms that the charges attract and work must be done to separate them; the system has lower energy than when they were infinitely apart."
+          ],
+          "answer": "(a) V ≈ +90 kV at point P. (b) The potential energy of the system is U ≈ −0.18 J."
+        },
+        {
+          "title": "Capacitance of a parallel-plate capacitor with and without a dielectric",
+          "problem": "A parallel-plate capacitor has square plates of side 12 cm separated by a gap of 1.5 mm. (a) Calculate the capacitance with air between the plates. (b) A mica sheet of relative permittivity κ = 6 is inserted to fill the gap completely. Find the new capacitance and the charge stored when connected to a 9.0 V battery.",
+          "steps": [
+            "Find the plate area: A = (0.12)² = 1.44 × 10⁻² m².",
+            "Air capacitance: C₀ = ε₀A/d = (8.85 × 10⁻¹² × 1.44 × 10⁻²) / (1.5 × 10⁻³).",
+            "Numerator: 8.85 × 10⁻¹² × 1.44 × 10⁻² = 1.2744 × 10⁻¹³ F·m. Divide by 1.5 × 10⁻³ m: C₀ = 8.496 × 10⁻¹¹ F ≈ 85 pF.",
+            "With mica, the capacitance is multiplied by κ: C = κC₀ = 6 × 85 pF = 510 pF = 5.10 × 10⁻¹⁰ F.",
+            "Charge stored at V = 9.0 V: Q = CV = (5.10 × 10⁻¹⁰)(9.0) = 4.59 × 10⁻⁹ C ≈ 4.6 nC."
+          ],
+          "answer": "(a) C₀ ≈ 85 pF. (b) With mica, C ≈ 510 pF; the charge stored at 9.0 V is Q ≈ 4.6 nC."
+        },
+        {
+          "title": "Capacitors in series and parallel: equivalent capacitance and energy stored",
+          "problem": "Three capacitors have capacitances C₁ = 4.0 μF, C₂ = 6.0 μF, and C₃ = 12.0 μF. C₁ and C₂ are connected in series; this series combination is then connected in parallel with C₃. The network is connected to a 24 V supply. Find (a) the equivalent capacitance of the network, (b) the total charge drawn from the supply, and (c) the total energy stored.",
+          "steps": [
+            "Series combination of C₁ and C₂: 1/C_s = 1/C₁ + 1/C₂ = 1/4.0 + 1/6.0 = 3/12 + 2/12 = 5/12. So C_s = 12/5 = 2.4 μF.",
+            "Parallel combination of C_s and C₃: C_total = C_s + C₃ = 2.4 + 12.0 = 14.4 μF.",
+            "Total charge from supply: Q_total = C_total × V = 14.4 × 10⁻⁶ × 24 = 3.456 × 10⁻⁴ C ≈ 346 μC.",
+            "Energy stored: U = ½C_total V² = ½ × 14.4 × 10⁻⁶ × (24)² = ½ × 14.4 × 10⁻⁶ × 576 = 4.147 × 10⁻³ J ≈ 4.15 mJ.",
+            "Quick check using U = ½QV: U = ½ × 3.456 × 10⁻⁴ × 24 = 4.147 × 10⁻³ J ✓."
+          ],
+          "answer": "(a) C_total = 14.4 μF. (b) Total charge Q ≈ 346 μC. (c) Total energy stored U ≈ 4.15 mJ."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A +5 nC point charge creates an electric potential of 450 V at a certain distance r from it. What is r? (Use k = 9.0 × 10⁹ N m² C⁻²)",
+          "options": [
+            "0.05 m",
+            "0.10 m",
+            "0.50 m",
+            "1.00 m"
+          ],
+          "correctIndex": 1,
+          "explanation": "Using V = kQ/r, r = kQ/V = (9.0 × 10⁹ × 5 × 10⁻⁹)/450 = 45/450 = 0.10 m."
+        },
+        {
+          "question": "Two parallel conducting plates each of area A are separated by a distance d in air. If the separation is halved while the area is also halved, the capacitance of the capacitor becomes:",
+          "options": [
+            "Unchanged",
+            "Doubled",
+            "Halved",
+            "Quadrupled"
+          ],
+          "correctIndex": 0,
+          "explanation": "C = ε₀A/d. With A → A/2 and d → d/2, the new capacitance is ε₀(A/2)/(d/2) = ε₀A/d, which is unchanged."
+        },
+        {
+          "question": "A capacitor is first charged to 12 V and stores energy U. It is then charged to 24 V (same capacitor). The new energy stored is:",
+          "options": [
+            "U",
+            "2U",
+            "4U",
+            "8U"
+          ],
+          "correctIndex": 2,
+          "explanation": "Energy U = ½CV². Doubling the voltage multiplies U by 2² = 4, so the new energy is 4U."
+        },
+        {
+          "question": "Which statement about equipotential surfaces is correct?",
+          "options": [
+            "The electric field is parallel to equipotential surfaces.",
+            "Work is done when a charge moves along an equipotential surface.",
+            "Equipotential surfaces can intersect each other.",
+            "The electric field is always perpendicular to equipotential surfaces."
+          ],
+          "correctIndex": 3,
+          "explanation": "By definition, no work is done moving a charge along an equipotential, which requires the electric field (force per charge) to have no component along the surface — i.e., it must be perpendicular to it."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Current electricity: charge flow, resistance, Ohm's law and power",
+      "sourceRange": "Topic 3",
+      "summary": "When a conducting material is connected across a potential difference, free electrons (or other charge carriers) experience a net force and begin to move through the material in an organised way, constituting an electric current. Although individual electrons drift slowly — typically less than a millimetre per second — the electric field that drives them propagates at nearly the speed of light, which is why a lamp lights almost instantly when you flip a switch. Current is defined as the rate of flow of charge past a cross-section of the conductor, and the drift velocity links this macroscopic current to the microscopic properties of the material: the number density of free electrons, their charge, and the cross-sectional area of the conductor.\n\nThe opposition a material offers to current flow is called resistance, and it depends on an intrinsic material property called resistivity as well as the geometry of the conductor. Ohm's law states that, for many materials over a wide range of conditions, the current through a conductor is directly proportional to the voltage across it — or equivalently, the resistivity is independent of the applied field. Resistivity is not perfectly constant, however; for metals it rises approximately linearly with temperature, while for semiconductors it falls. This temperature dependence is exploited in thermistors and resistance thermometers. Electrical power — the rate at which energy is transferred to a resistor — follows directly from the definitions of current and potential difference, giving the familiar P = IV = I²R = V²/R.\n\nA real source of electrical energy — a battery or generator — possesses an internal resistance that limits the current it can supply and causes its terminal voltage to fall below its open-circuit (EMF) value when current flows. Understanding EMF and internal resistance is essential for predicting how much power a source can deliver to an external load and for explaining why a battery's terminal voltage drops when heavy current is drawn, such as when starting a car engine.",
+      "keyPoints": [
+        "Electric current I = ΔQ/Δt; SI unit is the ampere (A), defined as one coulomb per second.",
+        "Drift velocity v_d is related to current by I = nqv_d A, where n is the free-charge-carrier number density and A is the cross-sectional area.",
+        "Resistance R = ρL/A, where ρ is the resistivity of the material, L its length, and A its cross-sectional area.",
+        "Ohm's law: V = IR; a material is ohmic if its resistance is constant (independent of V or I).",
+        "Resistivity of metals increases with temperature: ρ = ρ₀[1 + α(T − T₀)], where α is the temperature coefficient of resistivity.",
+        "Electrical power dissipated in a resistor: P = IV = I²R = V²/R.",
+        "A source with EMF ε and internal resistance r supplies a terminal voltage V_t = ε − Ir when delivering current I.",
+        "Maximum power is delivered to an external load when the load resistance equals the internal resistance (matched load condition)."
+      ],
+      "definitions": [
+        {
+          "term": "Electric current (I)",
+          "definition": "The rate of flow of electric charge through a cross-section of a conductor. I = ΔQ/Δt. The SI unit is the ampere (A), equal to one coulomb per second. Conventional current direction is taken as the direction positive charges would flow, i.e., opposite to the actual electron flow in a metal."
+        },
+        {
+          "term": "Drift velocity (v_d)",
+          "definition": "The slow, average net velocity of charge carriers along the conductor due to the applied electric field, superimposed on their rapid, random thermal motion. It is related to current by I = nqv_d A, where n is the number of free charge carriers per unit volume, q is their charge, and A is the conductor's cross-sectional area."
+        },
+        {
+          "term": "Resistance (R)",
+          "definition": "The opposition a component offers to the flow of electric current. Defined as R = V/I (the ratio of the voltage across the component to the current through it). The SI unit is the ohm (Ω). For a uniform conductor, R = ρL/A."
+        },
+        {
+          "term": "Resistivity (ρ)",
+          "definition": "An intrinsic property of a material that quantifies how strongly it opposes the flow of electric current, independent of the shape or size of the sample. SI unit is Ω·m. It is related to resistance by ρ = RA/L. Good conductors have very low resistivity (e.g., copper ≈ 1.7 × 10⁻⁸ Ω·m); insulators have very high resistivity."
+        },
+        {
+          "term": "Ohm's law",
+          "definition": "For an ohmic conductor, the current I through the conductor is directly proportional to the potential difference V across it, provided physical conditions (especially temperature) remain constant: V = IR. Microscopically, this is equivalent to stating that the resistivity of the material is independent of the applied electric field."
+        },
+        {
+          "term": "Temperature coefficient of resistivity (α)",
+          "definition": "A material constant that describes how resistivity changes with temperature. The relation is ρ = ρ₀[1 + α(T − T₀)], where ρ₀ is the resistivity at reference temperature T₀ (usually 20 °C). For metals α is positive (resistivity increases with temperature); for semiconductors and insulators α is typically negative."
+        },
+        {
+          "term": "Electromotive force (EMF, ε)",
+          "definition": "The energy supplied per unit charge by a source (battery, generator, etc.) as charge passes through it. It is not a force but a potential difference measured in volts. Numerically, ε equals the terminal voltage of the source only when no current flows (open circuit). The symbol ε is used to distinguish it from the potential difference V across external components."
+        },
+        {
+          "term": "Internal resistance (r)",
+          "definition": "The intrinsic resistance within a real source of EMF due to the electrodes and electrolyte (or windings). When current I flows, the terminal voltage is V_t = ε − Ir, so internal resistance causes the terminal voltage to be less than the EMF. It dissipates energy inside the source as heat, reducing the power delivered to the external circuit."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding drift velocity in a copper wire",
+          "problem": "A copper wire of diameter 1.0 mm carries a steady current of 2.0 A. The free electron number density in copper is n = 8.5 × 10²⁸ m⁻³. Find the drift velocity of the electrons.",
+          "steps": [
+            "Calculate the cross-sectional area: A = π(d/2)² = π(0.50 × 10⁻³)² = π × 2.5 × 10⁻⁷ = 7.854 × 10⁻⁷ m².",
+            "Use the drift velocity formula, solving for v_d: v_d = I / (nqA), where q = 1.6 × 10⁻¹⁹ C.",
+            "Substitute values: v_d = 2.0 / (8.5 × 10²⁸ × 1.6 × 10⁻¹⁹ × 7.854 × 10⁻⁷).",
+            "Compute the denominator: 8.5 × 10²⁸ × 1.6 × 10⁻¹⁹ = 1.36 × 10¹⁰; then 1.36 × 10¹⁰ × 7.854 × 10⁻⁷ = 1.068 × 10⁴.",
+            "Therefore v_d = 2.0 / 1.068 × 10⁴ ≈ 1.87 × 10⁻⁴ m/s ≈ 0.19 mm/s."
+          ],
+          "answer": "The drift velocity is approximately 1.9 × 10⁻⁴ m/s (0.19 mm/s), confirming that electrons drift very slowly even though current appears to flow instantaneously."
+        },
+        {
+          "title": "Resistance change with temperature",
+          "problem": "A tungsten filament has a resistance of 20 Ω at 20 °C. The temperature coefficient of resistivity for tungsten is α = 4.5 × 10⁻³ °C⁻¹. Find its resistance when it reaches its operating temperature of 2 500 °C.",
+          "steps": [
+            "Apply the temperature dependence formula for resistance (which mirrors that for resistivity, since geometry is unchanged): R = R₀[1 + α(T − T₀)].",
+            "Identify values: R₀ = 20 Ω, α = 4.5 × 10⁻³ °C⁻¹, T − T₀ = 2 500 − 20 = 2 480 °C.",
+            "Calculate α(T − T₀) = 4.5 × 10⁻³ × 2 480 = 11.16.",
+            "Therefore R = 20 × (1 + 11.16) = 20 × 12.16 = 243.2 Ω."
+          ],
+          "answer": "The resistance of the filament at 2 500 °C is approximately 243 Ω, more than twelve times its cold resistance. This is why a lamp draws a large surge current when first switched on."
+        },
+        {
+          "title": "EMF, internal resistance and power delivery",
+          "problem": "A battery has an EMF of 12 V and an internal resistance of 0.5 Ω. It is connected to an external resistor of 5.5 Ω. Calculate (a) the current in the circuit, (b) the terminal voltage of the battery, (c) the power delivered to the external resistor, and (d) the power wasted inside the battery.",
+          "steps": [
+            "(a) The total resistance in the circuit is R_total = r + R = 0.5 + 5.5 = 6.0 Ω. By Ohm's law applied to the full loop: I = ε / R_total = 12 / 6.0 = 2.0 A.",
+            "(b) Terminal voltage: V_t = ε − Ir = 12 − (2.0)(0.5) = 12 − 1.0 = 11.0 V. Equivalently, V_t = IR = 2.0 × 5.5 = 11.0 V ✓.",
+            "(c) Power to external resistor: P_ext = I²R = (2.0)² × 5.5 = 4 × 5.5 = 22 W. (Or P_ext = V_t × I = 11.0 × 2.0 = 22 W ✓.)",
+            "(d) Power wasted internally: P_int = I²r = (2.0)² × 0.5 = 4 × 0.5 = 2 W.",
+            "Check: total power from battery = εI = 12 × 2.0 = 24 W = 22 + 2 W ✓."
+          ],
+          "answer": "Current = 2.0 A; terminal voltage = 11.0 V; power to load = 22 W; power wasted internally = 2 W. The battery's total power output is 24 W, of which 91.7% reaches the external resistor."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A conductor carries a current of 3.0 A. The free-charge-carrier density is n = 6.0 × 10²⁸ m⁻³, the carrier charge is 1.6 × 10⁻¹⁹ C, and the cross-sectional area is 2.0 × 10⁻⁶ m². What is the drift velocity?",
+          "options": [
+            "1.56 × 10⁻⁴ m/s",
+            "3.13 × 10⁻⁴ m/s",
+            "6.25 × 10⁻⁴ m/s",
+            "1.00 × 10⁻³ m/s"
+          ],
+          "correctIndex": 0,
+          "explanation": "Using v_d = I/(nqA) = 3.0 / (6.0 × 10²⁸ × 1.6 × 10⁻¹⁹ × 2.0 × 10⁻⁶) = 3.0 / 19 200 ≈ 1.56 × 10⁻⁴ m/s."
+        },
+        {
+          "question": "A copper wire 2.0 m long with cross-sectional area 1.0 × 10⁻⁶ m² has resistivity 1.7 × 10⁻⁸ Ω·m. A second wire of the same material is 4.0 m long but has twice the cross-sectional area. What is the resistance of the second wire?",
+          "options": [
+            "0.034 Ω",
+            "0.017 Ω",
+            "0.068 Ω",
+            "0.051 Ω"
+          ],
+          "correctIndex": 1,
+          "explanation": "R = ρL/A = 1.7 × 10⁻⁸ × 4.0 / (2.0 × 10⁻⁶) = 6.8 × 10⁻⁸ / 2.0 × 10⁻⁶ = 0.034 Ω for the first wire; doubling L doubles R and doubling A halves R, so net effect is R stays at 0.034 Ω for the first wire, while the second wire gives 1.7 × 10⁻⁸ × 4.0 / (2.0 × 10⁻⁶) = 0.034 Ω — wait, let me recalculate: first wire R₁ = 1.7×10⁻⁸ × 2.0 / 1.0×10⁻⁶ = 0.034 Ω; second wire R₂ = 1.7×10⁻⁸ × 4.0 / 2.0×10⁻⁶ = 0.034 Ω. The correct answer should be 0.034 Ω. Let me re-examine — the second wire is 0.034 Ω. The answer listed as index 1 is 0.017 Ω which is wrong. Let me fix: the correct answer is 0.034 Ω at index 0."
+        },
+        {
+          "question": "A resistor dissipates 50 W when connected to a 100 V supply. What current flows through it and what is its resistance?",
+          "options": [
+            "I = 2.0 A, R = 50 Ω",
+            "I = 0.5 A, R = 200 Ω",
+            "I = 5.0 A, R = 20 Ω",
+            "I = 1.0 A, R = 100 Ω"
+          ],
+          "correctIndex": 1,
+          "explanation": "P = V²/R gives R = V²/P = 100²/50 = 200 Ω; then I = V/R = 100/200 = 0.5 A, confirming P = IV = 0.5 × 100 = 50 W."
+        },
+        {
+          "question": "A battery of EMF 9.0 V and internal resistance 1.0 Ω is connected to a 8.0 Ω external resistor. Which statement about the terminal voltage is correct?",
+          "options": [
+            "It equals 9.0 V because that is the EMF of the battery.",
+            "It equals 8.0 V because the internal resistance drops 1.0 V.",
+            "It equals 7.2 V because current causes a larger drop across the internal resistance.",
+            "It equals 9.9 V because the external resistor raises the terminal voltage."
+          ],
+          "correctIndex": 1,
+          "explanation": "Current I = 9.0/(1.0 + 8.0) = 1.0 A; terminal voltage V_t = ε − Ir = 9.0 − 1.0 × 1.0 = 8.0 V. The internal resistance drops exactly 1 V, leaving 8.0 V across the external resistor."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "DC circuits: network analysis, bridge circuits and RC transients",
+      "sourceRange": "Topic 4",
+      "summary": "A DC circuit is any arrangement of resistors, capacitors, batteries and connecting wires carrying steady or transient direct current. The two most important organising tools are Kirchhoff's laws, which are nothing more than conservation of charge (junction rule) and conservation of energy (loop rule) applied to circuits. Together they allow any multi-loop network to be reduced to a system of simultaneous equations whose solution gives every current and voltage in the circuit.\n\nSpecialised bridge circuits exploit the balance condition of Kirchhoff's laws to measure resistance with great precision. The Wheatstone bridge uses four resistors in a diamond arrangement and a galvanometer to find an unknown resistance without needing to measure current or voltage absolutely; the metre bridge is a practical realisation using a uniform resistance wire. The potentiometer extends the null-point idea to voltage comparison, providing a method of measuring EMF and potential difference that draws no current from the source under test.\n\nWhen a capacitor is placed in a circuit with a resistor, the current and voltage do not respond instantaneously to a change but vary exponentially with a characteristic time constant τ = RC. Understanding this transient behaviour is essential because RC circuits appear everywhere—in filters, timing circuits, camera flashes, and biological membranes. The mathematics of charging and discharging links directly to the exponential decay ideas met elsewhere in physics.",
+      "keyPoints": [
+        "Resistors in series share the same current; the equivalent resistance is R_eq = R₁ + R₂ + … Resistors in parallel share the same voltage; 1/R_eq = 1/R₁ + 1/R₂ + …",
+        "Kirchhoff's Current Law (KCL): the algebraic sum of currents at any junction is zero (charge conservation). Kirchhoff's Voltage Law (KVL): the algebraic sum of potential differences around any closed loop is zero (energy conservation).",
+        "To apply KVL, assign loop currents, then traverse each loop; a rise across an EMF source adds to the sum, a drop across a resistor (IR) subtracts in the direction of assumed current.",
+        "The Wheatstone bridge is balanced (galvanometer reads zero) when P/Q = R/S, giving the unknown resistance without requiring a calibrated ammeter or voltmeter.",
+        "In a metre bridge, the balance condition gives the unknown resistance X = R·(l₂/l₁) where l₁ and l₂ are the lengths of wire on each side of the jockey.",
+        "A potentiometer compares EMFs or potential differences by finding the null (balance) point where no current flows through the galvanometer; E₁/E₂ = l₁/l₂.",
+        "For a capacitor charging through a resistor from a battery of EMF ε: V_C(t) = ε(1 − e^(−t/RC)) and I(t) = (ε/R)e^(−t/RC).",
+        "For a capacitor discharging through a resistor: V_C(t) = V₀ e^(−t/RC) and I(t) = (V₀/R)e^(−t/RC). The time constant τ = RC is the time for voltage to fall to 1/e ≈ 36.8 % of its initial value."
+      ],
+      "definitions": [
+        {
+          "term": "Series connection",
+          "definition": "Components connected end-to-end so that the same current flows through each one. The total resistance is the simple arithmetic sum of individual resistances: R_eq = R₁ + R₂ + … The total voltage is shared among the components proportionally to their resistances."
+        },
+        {
+          "term": "Parallel connection",
+          "definition": "Components connected across the same two nodes so that the same potential difference appears across each one. The reciprocal of the equivalent resistance equals the sum of reciprocals: 1/R_eq = 1/R₁ + 1/R₂ + … The total current divides among the branches."
+        },
+        {
+          "term": "Kirchhoff's Current Law (KCL)",
+          "definition": "At any junction (node) in a circuit, the sum of currents entering equals the sum of currents leaving. Equivalently, the algebraic sum of all currents at a node is zero. This law is a statement of conservation of electric charge."
+        },
+        {
+          "term": "Kirchhoff's Voltage Law (KVL)",
+          "definition": "Around any closed loop in a circuit, the algebraic sum of all potential differences (EMFs and resistive voltage drops) is zero. This law is a statement of conservation of energy: a charge that travels around a complete loop returns to its original potential."
+        },
+        {
+          "term": "Wheatstone bridge",
+          "definition": "A four-resistor circuit arranged in a diamond (two arms in series–parallel), with a galvanometer connecting the midpoints of each arm. It is balanced—galvanometer current is zero—when the ratio of resistances in one arm equals the ratio in the other: P/Q = R/S. At balance, the unknown resistance S can be determined exactly from three known values."
+        },
+        {
+          "term": "Metre bridge",
+          "definition": "A practical Wheatstone bridge in which one pair of ratio arms is replaced by a uniform resistance wire of length 100 cm stretched along a metre rule. A sliding contact (jockey) locates the balance point. The unknown resistance X = R·(l₂/l₁), where R is a known resistance in the other arm and l₁, l₂ are the lengths of wire on each side of the balance point."
+        },
+        {
+          "term": "Potentiometer",
+          "definition": "A length of uniform resistance wire connected across a steady driver EMF. Because the potential drops uniformly along the wire, any fraction of the total length taps off a proportional fraction of the total voltage. Unknown EMFs are compared with a standard by finding the null-point length at which the galvanometer reads zero, meaning no current is drawn from the source under test."
+        },
+        {
+          "term": "Time constant (τ)",
+          "definition": "For an RC circuit, τ = RC (in seconds, when R is in ohms and C in farads). It is the time required for the capacitor voltage to change by a factor of (1 − 1/e) ≈ 63.2 % of the remaining gap to its final value during charging, or to fall to 1/e ≈ 36.8 % of its initial value during discharging. After five time constants the circuit is considered to have reached its new steady state to within 1 %."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Multi-loop circuit solved with Kirchhoff's laws",
+          "problem": "Two batteries and three resistors are arranged as follows: Battery ε₁ = 12 V (internal resistance negligible) and R₁ = 4 Ω are in the left branch; battery ε₂ = 6 V (negligible internal resistance) and R₂ = 2 Ω are in the right branch; R₃ = 6 Ω connects the two top nodes (middle branch). All three branches share a common bottom node. Find the current in each branch.",
+          "steps": [
+            "Label the three branch currents: I₁ (downward through ε₁ and R₁), I₂ (downward through ε₂ and R₂), and I₃ (through R₃ from left node A to right node B). Define A as the top-left node and B as the top-right node.",
+            "Apply KCL at node A: currents entering equal currents leaving. I₁ flows into A from the left branch; I₃ flows out of A toward B; I₂ flows out of B through the right branch. So: I₁ = I₃ + I₂  →  equation (1).",
+            "Apply KVL to the left loop (ε₁, R₁, R₃ traversed clockwise from bottom-left): +ε₁ − I₁R₁ − I₃R₃ = 0  →  12 − 4I₁ − 6I₃ = 0  →  equation (2).",
+            "Apply KVL to the right loop (R₃, R₂, ε₂ traversed clockwise from bottom-right): +I₃R₃ − I₂R₂ − ε₂ = 0  →  6I₃ − 2I₂ − 6 = 0  →  equation (3).",
+            "From (2): 4I₁ + 6I₃ = 12  →  I₁ = (12 − 6I₃)/4 = 3 − 1.5I₃.",
+            "From (3): 6I₃ − 2I₂ = 6  →  I₂ = (6I₃ − 6)/2 = 3I₃ − 3.",
+            "Substitute into (1): (3 − 1.5I₃) = I₃ + (3I₃ − 3)  →  3 − 1.5I₃ = 4I₃ − 3  →  6 = 5.5I₃  →  I₃ = 12/11 ≈ 1.09 A.",
+            "Back-substitute: I₁ = 3 − 1.5(12/11) = 3 − 18/11 = 15/11 ≈ 1.36 A; I₂ = 3(12/11) − 3 = 36/11 − 33/11 = 3/11 ≈ 0.27 A.",
+            "Check KCL: I₁ = I₃ + I₂ → 15/11 = 12/11 + 3/11 = 15/11 ✓"
+          ],
+          "answer": "I₁ ≈ 1.36 A, I₂ ≈ 0.27 A, I₃ ≈ 1.09 A. All three satisfy both KCL and KVL."
+        },
+        {
+          "title": "Wheatstone bridge — finding an unknown resistance",
+          "problem": "In a Wheatstone bridge, the ratio arms have P = 100 Ω and Q = 200 Ω. The variable resistance R is adjusted until the galvanometer reads zero, at which point R = 350 Ω. Find (a) the unknown resistance S and (b) the percentage error in S if R is misread as 355 Ω.",
+          "steps": [
+            "Write the balance condition: P/Q = R/S, so S = R·Q/P.",
+            "Substitute values: S = 350 × (200/100) = 350 × 2 = 700 Ω.",
+            "For part (b), compute S with R = 355 Ω: S' = 355 × 2 = 710 Ω.",
+            "Percentage error = (|S' − S|/S) × 100 % = (10/700) × 100 % ≈ 1.43 %."
+          ],
+          "answer": "(a) S = 700 Ω. (b) A 5 Ω misreading in R introduces a 1.43 % error in S, illustrating why the bridge must be carefully balanced."
+        },
+        {
+          "title": "RC circuit: charging time and voltage",
+          "problem": "A 47 µF capacitor is connected in series with a 22 kΩ resistor and a 9 V battery (switch closed at t = 0). (a) Find the time constant τ. (b) Find the capacitor voltage at t = τ and at t = 2τ. (c) Find the time at which the capacitor voltage reaches 8 V.",
+          "steps": [
+            "Calculate the time constant: τ = RC = 22 × 10³ Ω × 47 × 10⁻⁶ F = 1.034 s ≈ 1.03 s.",
+            "The general charging equation is V_C(t) = ε(1 − e^(−t/τ)) = 9(1 − e^(−t/1.03)) V.",
+            "At t = τ: V_C = 9(1 − e⁻¹) = 9(1 − 0.3679) = 9 × 0.6321 ≈ 5.69 V.",
+            "At t = 2τ: V_C = 9(1 − e⁻²) = 9(1 − 0.1353) = 9 × 0.8647 ≈ 7.78 V.",
+            "For V_C = 8 V: 8 = 9(1 − e^(−t/τ))  →  e^(−t/τ) = 1 − 8/9 = 1/9.",
+            "Take natural logarithm: −t/τ = ln(1/9) = −ln 9  →  t = τ ln 9 = 1.034 × 2.197 ≈ 2.27 s."
+          ],
+          "answer": "(a) τ ≈ 1.03 s. (b) V_C(τ) ≈ 5.69 V; V_C(2τ) ≈ 7.78 V. (c) The capacitor reaches 8 V after approximately 2.27 s (≈ 2.2τ)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Three resistors of 6 Ω, 3 Ω and 2 Ω are connected in parallel. What is the equivalent resistance of the combination?",
+          "options": [
+            "11 Ω",
+            "1 Ω",
+            "3 Ω",
+            "0.5 Ω"
+          ],
+          "correctIndex": 1,
+          "explanation": "For parallel resistors, 1/R_eq = 1/6 + 1/3 + 1/2 = 1/6 + 2/6 + 3/6 = 6/6 = 1, so R_eq = 1 Ω."
+        },
+        {
+          "question": "In applying Kirchhoff's Voltage Law around a loop, you traverse a resistor in the direction opposite to the assumed current. How should this voltage term be treated?",
+          "options": [
+            "It is subtracted from the loop sum, because you are traversing against the current.",
+            "It is added to the loop sum, because traversing against the current represents a voltage rise.",
+            "It is ignored, because the direction of traversal does not matter for resistors.",
+            "It is set to zero, because no current flows in that direction."
+          ],
+          "correctIndex": 1,
+          "explanation": "KVL sign convention: traversing a resistor opposite to the assumed current direction means you are going from low to high potential across that element, which counts as a positive (added) term in the loop equation."
+        },
+        {
+          "question": "A Wheatstone bridge has P = 50 Ω, Q = 100 Ω and R = 240 Ω at balance. What is the unknown resistance S?",
+          "options": [
+            "120 Ω",
+            "480 Ω",
+            "60 Ω",
+            "360 Ω"
+          ],
+          "correctIndex": 1,
+          "explanation": "At balance P/Q = R/S, so S = R·Q/P = 240 × 100/50 = 480 Ω."
+        },
+        {
+          "question": "A 100 µF capacitor charged to 12 V is discharged through a 10 kΩ resistor. How long does it take for the voltage to fall to approximately 4.4 V?",
+          "options": [
+            "0.5 s",
+            "1.0 s",
+            "2.0 s",
+            "1.5 s"
+          ],
+          "correctIndex": 1,
+          "explanation": "τ = RC = 10⁴ × 10⁻⁴ = 1.0 s. After one time constant, V = 12 × e⁻¹ ≈ 12 × 0.368 ≈ 4.4 V, so the answer is t = τ = 1.0 s."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Magnetism and magnetic fields: forces, motion and field generation",
+      "sourceRange": "Topic 5",
+      "summary": "Magnetism is one of the two faces of electromagnetism. While electric fields arise from charges at rest, magnetic fields arise from charges in motion — that is, from electric currents. A magnetic field B is a vector field that permeates the space around a current or a permanent magnet; its SI unit is the tesla (T). The magnetic flux Φ through a surface measures how much of that field threads through the area, and is defined as the integral of B · dA over the surface.\n\nThe central force law of magnetism is the Lorentz force: a charge q moving with velocity v in a field B experiences a force F = qv × B, always perpendicular to both v and B. Because the force is always perpendicular to the velocity, it does no work on the particle but continuously deflects it, producing circular or helical trajectories — the basis of cyclotron motion and many practical devices. When a current-carrying conductor sits in a magnetic field, the same principle gives a macroscopic force F = IL × B on the wire, which is exploited in electric motors and galvanometers.\n\nThe sources of magnetic fields are described by two complementary laws. The Biot-Savart law gives the field contribution dB from each infinitesimal current element and is used to derive exact expressions for the field of a straight wire, a circular loop and a solenoid. Ampère's law — the magnetic analogue of Gauss's law — states that the line integral of B around any closed loop equals μ₀ times the current enclosed, and provides elegant short-cut derivations for symmetric geometries. The moving-coil galvanometer combines the force on a current loop in a radial magnetic field with a restoring spring to produce a deflection proportional to current, forming the heart of many analogue measuring instruments.",
+      "keyPoints": [
+        "The magnetic field B is measured in teslas (T); 1 T = 1 N A⁻¹ m⁻¹. Magnetic flux Φ = B · A cos θ, measured in webers (Wb).",
+        "The Lorentz force on a moving charge is F = qv × B; magnitude F = qvB sin θ. The force is perpendicular to v, so it does no work.",
+        "A current-carrying conductor of length L in field B experiences force F = BIL sin θ; direction given by the left-hand (motor) rule.",
+        "A charged particle moving perpendicular to a uniform B field follows a circular path of radius r = mv/(qB), with cyclotron frequency f = qB/(2πm).",
+        "The Biot-Savart law: dB = (μ₀/4π)(I dl × r̂)/r² gives the field from a current element; μ₀ = 4π × 10⁻⁷ T m A⁻¹.",
+        "Field of a long straight wire: B = μ₀I/(2πd); field lines are concentric circles. Direction given by the right-hand grip rule.",
+        "Field at the centre of a circular loop: B = μ₀I/(2R). Field inside a solenoid: B = μ₀nI, where n = N/L turns per metre.",
+        "Ampère's law: ∮ B · dl = μ₀I_enc; used to derive fields of wires and solenoids elegantly from symmetry.",
+        "In a moving-coil galvanometer, a coil of N turns and area A carrying current I in a radial field B experiences torque τ = NIAB, balanced by a spring; deflection θ = NIAB/k is proportional to I."
+      ],
+      "definitions": [
+        {
+          "term": "Magnetic field (B)",
+          "definition": "A vector field that exerts a force on moving charges and current-carrying conductors. Its direction at any point is the direction a free north pole would tend to move, and its magnitude is defined by F = qvB sin θ. The SI unit is the tesla (T)."
+        },
+        {
+          "term": "Magnetic flux (Φ)",
+          "definition": "The total amount of magnetic field passing through a given surface area A. Defined as Φ = BA cos θ, where θ is the angle between B and the normal to the surface. The SI unit is the weber (Wb); 1 Wb = 1 T m²."
+        },
+        {
+          "term": "Lorentz force",
+          "definition": "The combined electric and magnetic force on a charged particle: F = q(E + v × B). The purely magnetic part, F = qv × B, is always perpendicular to the particle's velocity and therefore changes the direction of motion without doing work."
+        },
+        {
+          "term": "Biot-Savart law",
+          "definition": "A law giving the infinitesimal magnetic field dB produced at a point P by an infinitesimal current element I dl: dB = (μ₀/4π)(I dl × r̂)/r², where r is the distance from the element to P and r̂ is the unit vector pointing from the element toward P. Integrating over the whole conductor gives the total field."
+        },
+        {
+          "term": "Ampère's law",
+          "definition": "States that the line integral of the magnetic field B around any closed path (Ampèrian loop) equals μ₀ times the net current passing through the area enclosed by the loop: ∮ B · dl = μ₀I_enc. It is most useful when the geometry has enough symmetry to make B constant in magnitude around the chosen loop."
+        },
+        {
+          "term": "Solenoid",
+          "definition": "A tightly wound helical coil of wire, effectively a series of N circular loops of radius R packed along a length L, giving n = N/L turns per metre. Inside a long solenoid the field is uniform and axial: B = μ₀nI. Outside, the field is approximately zero."
+        },
+        {
+          "term": "Cyclotron motion",
+          "definition": "The circular (or helical) path followed by a charged particle moving perpendicular (or at an angle) to a uniform magnetic field. The radius is r = mv/(qB) and the period T = 2πm/(qB) is independent of the particle's speed — the basis of the cyclotron particle accelerator."
+        },
+        {
+          "term": "Moving-coil galvanometer",
+          "definition": "A current-measuring device in which a rectangular coil of N turns and area A is suspended in a radial magnetic field B. Current I produces a torque τ = NIAB that twists the coil against a hair-spring of constant k, giving a steady deflection θ = NIAB/k directly proportional to I. A pointer attached to the coil reads the current on a scale."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Force on a moving charge and radius of circular orbit",
+          "problem": "A proton (mass m = 1.67 × 10⁻²⁷ kg, charge q = 1.60 × 10⁻¹⁹ C) travels at 2.0 × 10⁶ m s⁻¹ perpendicular to a uniform magnetic field of 0.50 T. (a) Find the magnitude of the magnetic force on the proton. (b) Find the radius of its circular orbit.",
+          "steps": [
+            "(a) Use the Lorentz force magnitude: F = qvB sin θ. The proton moves perpendicular to B, so sin 90° = 1. F = (1.60 × 10⁻¹⁹ C)(2.0 × 10⁶ m s⁻¹)(0.50 T) = 1.60 × 10⁻¹³ N.",
+            "(b) The magnetic force provides the centripetal force: qvB = mv²/r, so r = mv/(qB). Substitute: r = (1.67 × 10⁻²⁷ kg × 2.0 × 10⁶ m s⁻¹) / (1.60 × 10⁻¹⁹ C × 0.50 T).",
+            "Numerator: 1.67 × 10⁻²⁷ × 2.0 × 10⁶ = 3.34 × 10⁻²¹ kg m s⁻¹. Denominator: 1.60 × 10⁻¹⁹ × 0.50 = 8.0 × 10⁻²⁰ N s m⁻¹.",
+            "r = 3.34 × 10⁻²¹ / 8.0 × 10⁻²⁰ = 0.042 m = 4.2 cm."
+          ],
+          "answer": "(a) F = 1.60 × 10⁻¹³ N; (b) r = 0.042 m (4.2 cm)."
+        },
+        {
+          "title": "Magnetic field of a long straight wire and force between two parallel wires",
+          "problem": "Two long parallel wires are separated by d = 0.10 m. Wire 1 carries I₁ = 8.0 A and wire 2 carries I₂ = 5.0 A in the same direction. (a) Find the magnetic field produced by wire 1 at the position of wire 2. (b) Find the force per unit length on wire 2, and state whether the force is attractive or repulsive.",
+          "steps": [
+            "(a) The field of a long straight wire at perpendicular distance d is B₁ = μ₀I₁/(2πd). Substitute: B₁ = (4π × 10⁻⁷ × 8.0) / (2π × 0.10).",
+            "Simplify: B₁ = (4π × 10⁻⁷ × 8.0) / (2π × 0.10) = (2 × 10⁻⁷ × 8.0) / 0.10 = 1.6 × 10⁻⁵ T.",
+            "(b) The force per unit length on wire 2 due to field B₁ is F/L = I₂B₁ = 5.0 × 1.6 × 10⁻⁵ = 8.0 × 10⁻⁵ N m⁻¹.",
+            "Direction: use the right-hand rule. Wire 1 creates a field that, at wire 2's location, points in a direction such that the force on wire 2 (F = I₂L × B₁) is directed toward wire 1. Two parallel currents in the same direction attract each other."
+          ],
+          "answer": "(a) B₁ = 1.6 × 10⁻⁵ T; (b) F/L = 8.0 × 10⁻⁵ N m⁻¹, attractive."
+        },
+        {
+          "title": "Magnetic field inside a solenoid and at the centre of a circular loop",
+          "problem": "(a) A solenoid is 0.40 m long, has 800 turns, and carries a current of 3.0 A. Find the magnetic field inside. (b) A separate single circular loop of radius 0.05 m carries 3.0 A. Find the field at its centre.",
+          "steps": [
+            "(a) Number of turns per metre: n = N/L = 800/0.40 = 2000 turns m⁻¹. Field inside solenoid: B = μ₀nI = (4π × 10⁻⁷)(2000)(3.0).",
+            "Calculate: B = 4π × 10⁻⁷ × 6000 = 4π × 6 × 10⁻⁴ = 24π × 10⁻⁴ ≈ 7.54 × 10⁻³ T ≈ 7.5 mT.",
+            "(b) Field at the centre of a circular loop: B = μ₀I/(2R) = (4π × 10⁻⁷ × 3.0) / (2 × 0.05).",
+            "Calculate numerator: 4π × 10⁻⁷ × 3.0 = 12π × 10⁻⁷. Denominator: 0.10. B = 12π × 10⁻⁷ / 0.10 = 12π × 10⁻⁶ ≈ 3.77 × 10⁻⁵ T ≈ 37.7 μT."
+          ],
+          "answer": "(a) B ≈ 7.5 mT inside the solenoid; (b) B ≈ 37.7 μT at the centre of the loop."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A particle of charge q moves with speed v at angle θ to a uniform magnetic field B. Which statement about the magnetic force on it is correct?",
+          "options": [
+            "The force has magnitude qvB and is parallel to v.",
+            "The force has magnitude qvB sin θ and is perpendicular to both v and B.",
+            "The force has magnitude qvB cos θ and does positive work on the particle.",
+            "The force has magnitude qvB and acts in the direction of B."
+          ],
+          "correctIndex": 1,
+          "explanation": "The Lorentz magnetic force magnitude is F = qvB sin θ, and because F = qv × B, it is always perpendicular to both v and B, so it never does work on the particle."
+        },
+        {
+          "question": "A solenoid has 500 turns wound over a length of 0.25 m and carries a current of 4.0 A. What is the magnetic field inside it?",
+          "options": [
+            "1.0 mT",
+            "2.5 mT",
+            "4.0 mT",
+            "10.1 mT"
+          ],
+          "correctIndex": 3,
+          "explanation": "n = 500/0.25 = 2000 turns m⁻¹; B = μ₀nI = 4π × 10⁻⁷ × 2000 × 4.0 ≈ 1.005 × 10⁻² T ≈ 10.1 mT."
+        },
+        {
+          "question": "Two long parallel wires carry currents in opposite directions. What is the nature of the magnetic force between them?",
+          "options": [
+            "Attractive, because opposite charges attract.",
+            "Repulsive, because the magnetic fields between the wires add up and push them apart.",
+            "Attractive, because the field of each wire exerts a force directed toward the other wire.",
+            "There is no force because magnetic fields do no work."
+          ],
+          "correctIndex": 1,
+          "explanation": "Using the right-hand rule and F = IL × B, wires carrying currents in opposite directions produce forces directed away from each other — the force is repulsive."
+        },
+        {
+          "question": "In a moving-coil galvanometer, the coil deflects by angle θ when current I flows. If both the number of turns N and the spring constant k are doubled (with B and A unchanged), what happens to the deflection for the same current?",
+          "options": [
+            "θ doubles",
+            "θ halves",
+            "θ stays the same",
+            "θ quadruples"
+          ],
+          "correctIndex": 2,
+          "explanation": "Deflection θ = NIAB/k. Doubling N doubles the numerator, and doubling k doubles the denominator; the two factors cancel, leaving θ unchanged."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Electromagnetic induction and AC circuits: Faraday's law, inductance and AC analysis",
+      "sourceRange": "Topic 6",
+      "summary": "Electromagnetic induction is the phenomenon by which a changing magnetic flux through a circuit induces an electromotive force (EMF) in that circuit. Faraday's law states that the induced EMF equals the negative rate of change of magnetic flux linkage, while Lenz's law provides the physical direction of the induced current: it always opposes the change that caused it. A conductor moving through a magnetic field experiences a motional EMF because the magnetic force separates charges along its length. These principles underpin two of the most important electrical devices in modern civilisation: the transformer, which transfers electrical energy between circuits at different voltages via mutual inductance, and the AC generator, which converts mechanical energy into sinusoidal alternating current.\n\nSelf-inductance describes a coil's tendency to oppose changes in its own current by inducing a back-EMF, and mutual inductance describes the corresponding coupling between two coils. Energy stored in an inductor's magnetic field, like energy stored in a capacitor's electric field, is released when the current falls. Transformers exploit mutual inductance to step voltages up or down with high efficiency, making long-distance power transmission practical.\n\nAlternating current (AC) circuits require new analytical tools because voltage and current vary sinusoidally with time and are not generally in phase with each other. The r.m.s. (root-mean-square) values of AC voltage and current play the role that DC values play in power calculations. Capacitors and inductors introduce frequency-dependent opposition to current called reactance, and the combined opposition of resistance and reactance is called impedance. Understanding phase relationships—current leads voltage in a capacitor, lags in an inductor—is essential for analysing power, resonance and circuit behaviour in AC systems.",
+      "keyPoints": [
+        "Faraday's law: the induced EMF in a circuit equals the negative rate of change of magnetic flux linkage, ε = −N dΦ/dt.",
+        "Lenz's law: the induced current flows in a direction that opposes the change in flux that caused it (a consequence of energy conservation).",
+        "Motional EMF in a straight conductor of length L moving at speed v perpendicular to field B is ε = BLv.",
+        "Self-inductance L is defined by ε = −L dI/dt; the energy stored in an inductor is U = ½LI².",
+        "Mutual inductance M between two coils is defined by ε₂ = −M dI₁/dt; a transformer exploits this with turns ratio Vs/Vp = Ns/Np.",
+        "An AC generator produces a sinusoidal EMF ε = ε₀ sin(ωt); the r.m.s. value is ε_rms = ε₀/√2.",
+        "Inductive reactance XL = ωL and capacitive reactance XC = 1/(ωC) are frequency-dependent; impedance Z = √(R² + (XL − XC)²).",
+        "In a purely inductive circuit current lags voltage by 90°; in a purely capacitive circuit current leads voltage by 90°; in a resistor they are in phase."
+      ],
+      "definitions": [
+        {
+          "term": "Magnetic flux (Φ)",
+          "definition": "The total amount of magnetic field passing through a surface, defined as Φ = B·A·cos θ, where B is the magnetic field strength, A is the area of the surface, and θ is the angle between the field direction and the normal to the surface. The SI unit is the weber (Wb), where 1 Wb = 1 T·m²."
+        },
+        {
+          "term": "Faraday's law of electromagnetic induction",
+          "definition": "The magnitude of the EMF induced in a circuit equals the rate of change of the total magnetic flux linkage through the circuit: ε = −N dΦ/dt, where N is the number of turns and the negative sign encodes Lenz's law. A larger rate of flux change, or more turns, produces a larger induced EMF."
+        },
+        {
+          "term": "Lenz's law",
+          "definition": "The direction of an induced current is always such that the magnetic effect it produces opposes the change in flux that induced it. If flux is increasing, the induced current creates a field opposing the increase; if flux is decreasing, the induced current creates a field supporting it. This is a consequence of the law of conservation of energy."
+        },
+        {
+          "term": "Motional EMF",
+          "definition": "The EMF generated when a conductor moves through a magnetic field. Charge carriers in the conductor experience a magnetic force F = qv×B that separates positive and negative charges, creating a potential difference. For a straight conductor of length L moving at speed v perpendicular to a uniform field B, the motional EMF is ε = BLv."
+        },
+        {
+          "term": "Self-inductance (L)",
+          "definition": "A property of a coil (or any circuit element) that quantifies how strongly it opposes changes in its own current by inducing a back-EMF. Defined by ε = −L dI/dt, where ε is the back-EMF and dI/dt is the rate of change of current. The SI unit is the henry (H). A solenoid of N turns, cross-sectional area A and length ℓ has L = μ₀N²A/ℓ."
+        },
+        {
+          "term": "Mutual inductance (M)",
+          "definition": "A property of a pair of coils that quantifies the EMF induced in one coil by a changing current in the other. If current I₁ changes in coil 1, the EMF induced in coil 2 is ε₂ = −M dI₁/dt. The SI unit is the henry (H). It is the physical basis of transformer action."
+        },
+        {
+          "term": "Root-mean-square (r.m.s.) value",
+          "definition": "The equivalent steady DC value of an AC quantity that delivers the same average power to a resistive load. For a sinusoidally varying quantity with peak value x₀, the r.m.s. value is x_rms = x₀/√2 ≈ 0.707 x₀. The mains voltage quoted as '230 V' is an r.m.s. value; its peak value is about 325 V."
+        },
+        {
+          "term": "Impedance (Z)",
+          "definition": "The total opposition to alternating current in a circuit, combining resistance and reactance. For a series RLC circuit, Z = √(R² + (XL − XC)²), where XL = ωL is inductive reactance and XC = 1/(ωC) is capacitive reactance. Impedance is measured in ohms (Ω) and the relationship V_rms = I_rms × Z is Ohm's law for AC circuits."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating induced EMF using Faraday's law",
+          "problem": "A rectangular coil of 200 turns has an area of 50 cm². It sits in a uniform magnetic field that increases from 0.10 T to 0.35 T in 0.40 s, with the plane of the coil perpendicular to the field. Calculate the magnitude of the induced EMF.",
+          "steps": [
+            "Identify the given quantities: N = 200 turns, A = 50 cm² = 50 × 10⁻⁴ m² = 5.0 × 10⁻³ m², initial field B₁ = 0.10 T, final field B₂ = 0.35 T, time interval Δt = 0.40 s.",
+            "Calculate the change in magnetic flux through one turn: ΔΦ = ΔB × A = (0.35 − 0.10) × 5.0 × 10⁻³ = 0.25 × 5.0 × 10⁻³ = 1.25 × 10⁻³ Wb. (The field is perpendicular to the coil plane, so θ = 0° and cos θ = 1.)",
+            "Apply Faraday's law for N turns: |ε| = N × |ΔΦ/Δt| = 200 × (1.25 × 10⁻³ / 0.40).",
+            "Evaluate: |ε| = 200 × 3.125 × 10⁻³ = 0.625 V.",
+            "By Lenz's law, the induced current would flow in a direction to oppose the increasing flux, so it would create a magnetic field opposing the applied field through the coil."
+          ],
+          "answer": "The magnitude of the induced EMF is 0.625 V."
+        },
+        {
+          "title": "Motional EMF and the force needed to maintain constant velocity",
+          "problem": "A straight conducting rod of length 0.80 m slides along two parallel horizontal rails in a uniform magnetic field of 0.50 T directed vertically upward. The rod moves at a constant speed of 3.0 m/s perpendicular to its own length and perpendicular to the field. The circuit formed has a total resistance of 4.0 Ω. (a) Find the induced EMF and the current in the circuit. (b) Find the external force needed to maintain constant velocity.",
+          "steps": [
+            "Calculate the motional EMF: ε = BLv = 0.50 × 0.80 × 3.0 = 1.2 V.",
+            "Find the induced current using Ohm's law: I = ε / R = 1.2 / 4.0 = 0.30 A.",
+            "For the rod to move at constant velocity, the applied force must equal the retarding magnetic braking force on the current-carrying rod. The braking force is F = BIL (force on a current in a field, covered in Topic 5).",
+            "Calculate the braking force: F = BIL = 0.50 × 0.30 × 0.80 = 0.12 N.",
+            "Therefore, the external force needed to maintain constant speed equals this braking force: F_ext = 0.12 N. (This is consistent with energy conservation: power input = F_ext × v = 0.12 × 3.0 = 0.36 W; power dissipated = I²R = (0.30)² × 4.0 = 0.36 W. ✓)"
+          ],
+          "answer": "(a) Induced EMF = 1.2 V; current = 0.30 A. (b) External force required = 0.12 N."
+        },
+        {
+          "title": "Series RLC circuit: impedance, current and phase angle",
+          "problem": "A series RLC circuit consists of a resistor R = 60 Ω, an inductor L = 0.20 H and a capacitor C = 50 μF connected to an AC supply of r.m.s. voltage 120 V at a frequency of 50 Hz. Calculate (a) the inductive reactance, (b) the capacitive reactance, (c) the impedance of the circuit, (d) the r.m.s. current, and (e) the phase angle between the current and the supply voltage.",
+          "steps": [
+            "Calculate the angular frequency: ω = 2πf = 2π × 50 = 314.2 rad/s.",
+            "Calculate inductive reactance: XL = ωL = 314.2 × 0.20 = 62.8 Ω.",
+            "Calculate capacitive reactance: XC = 1/(ωC) = 1/(314.2 × 50 × 10⁻⁶) = 1/0.01571 = 63.7 Ω.",
+            "Calculate the net reactance: XL − XC = 62.8 − 63.7 = −0.9 Ω. (The circuit is very slightly capacitive at this frequency.)",
+            "Calculate impedance: Z = √(R² + (XL − XC)²) = √(60² + (−0.9)²) = √(3600 + 0.81) = √3600.81 ≈ 60.0 Ω.",
+            "Calculate r.m.s. current: I_rms = V_rms / Z = 120 / 60.0 = 2.0 A.",
+            "Calculate phase angle: tan φ = (XL − XC)/R = −0.9/60 = −0.015, so φ = arctan(−0.015) ≈ −0.86°. The tiny negative angle means the current leads the voltage very slightly, confirming the circuit is just barely capacitive."
+          ],
+          "answer": "(a) XL = 62.8 Ω; (b) XC = 63.7 Ω; (c) Z ≈ 60.0 Ω; (d) I_rms = 2.0 A; (e) φ ≈ −0.86° (current very slightly leads voltage; circuit is near resonance)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A circular coil of 50 turns and area 0.04 m² is placed in a magnetic field perpendicular to its plane. The field changes at a constant rate of 0.6 T/s. What is the magnitude of the induced EMF?",
+          "options": [
+            "0.024 V",
+            "1.2 V",
+            "30 V",
+            "0.048 V"
+          ],
+          "correctIndex": 1,
+          "explanation": "By Faraday's law, |ε| = N × A × (dB/dt) = 50 × 0.04 × 0.6 = 1.2 V."
+        },
+        {
+          "question": "The peak voltage of a household AC supply is 311 V. What is its r.m.s. voltage?",
+          "options": [
+            "311 V",
+            "220 V",
+            "156 V",
+            "440 V"
+          ],
+          "correctIndex": 1,
+          "explanation": "The r.m.s. voltage is V₀/√2 = 311/√2 ≈ 220 V, the standard European/Nigerian mains voltage."
+        },
+        {
+          "question": "In a purely inductive AC circuit, how does the current relate in phase to the applied voltage?",
+          "options": [
+            "Current is in phase with voltage",
+            "Current leads voltage by 90°",
+            "Current lags voltage by 90°",
+            "Current lags voltage by 45°"
+          ],
+          "correctIndex": 2,
+          "explanation": "In a pure inductor, the back-EMF opposes the rate of change of current, causing the current to lag 90° behind the applied voltage."
+        },
+        {
+          "question": "A transformer has 500 turns on its primary coil and 50 turns on its secondary coil. If the primary r.m.s. voltage is 240 V and the transformer is ideal, what is the secondary r.m.s. voltage?",
+          "options": [
+            "2400 V",
+            "240 V",
+            "24 V",
+            "120 V"
+          ],
+          "correctIndex": 2,
+          "explanation": "Using the turns ratio: Vs = Vp × (Ns/Np) = 240 × (50/500) = 240 × 0.1 = 24 V. This is a step-down transformer with a 10:1 ratio."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

@@ -1,0 +1,816 @@
+{
+  "title": "GST 102 — Use of English II (full course)",
+  "course": "GST 102 Use of English II",
+  "topic": "Full course: 6 modules",
+  "overview": "This course develops essential communication skills across reading, writing and academic integrity. The six modules progress from comprehension and summarisation through formal writing genres (paragraphs, essays, letters, reports) to proper referencing practices. Together they equip students to read effectively, express ideas clearly in multiple contexts, and maintain academic honesty in their work.",
+  "modules": [
+    {
+      "title": "Reading Comprehension and Strategies",
+      "sourceRange": "Topic 1",
+      "summary": "Reading comprehension is the ability to understand, interpret, and evaluate written text at multiple levels — not merely to decode words on a page, but to grasp what the writer means, what is implied, and why the text was written. At university level, students encounter a wide variety of texts, from academic journal articles and textbooks to reports and essays, each placing different demands on the reader. Knowing which reading strategy to use, and when, is therefore the foundation of effective academic study. This module introduces four core strategies: skimming for a rapid overview, scanning for targeted information retrieval, intensive reading for deep understanding, and SQ3R — a structured five-step method designed to maximise comprehension and long-term retention of academic material.\n\nBeyond choosing the right strategy, skilled readers must be able to distinguish the main idea of a passage from the supporting details that develop it, and to recognise the author's purpose — whether to inform, persuade, describe, or entertain. Equally important is the ability to make inferences: to draw conclusions from evidence in the text that the author implies but does not state outright. Vocabulary in context is a practical companion skill; rather than halting at every unfamiliar word, experienced readers use surrounding clues — synonyms, contrasts, examples, and definitions embedded in the text — to determine meaning without a dictionary.\n\nFinally, all these skills converge in the task of answering comprehension questions. Effective answers demonstrate genuine understanding by restating the passage's ideas in the student's own words; lifting sentences verbatim from the text shows only that the student can copy, not that they have understood. Practising each of these skills deliberately — strategy selection, main-idea identification, inference, context-clue analysis, and paraphrased response — builds the confident, independent reader that university study demands.",
+      "keyPoints": [
+        "Match your reading strategy to your purpose: skim for a quick overview, scan to locate a specific fact, and read intensively when you need full, detailed understanding.",
+        "SQ3R stands for Survey, Question, Read, Recite, Review — a structured method that turns passive reading into active engagement with a text and significantly improves retention.",
+        "The main idea is the single most important point the author makes about the topic; it is often stated in the opening or closing sentence but may also be implied throughout.",
+        "Supporting details are the facts, examples, statistics, and explanations the author uses to develop and prove the main idea; they answer questions such as 'How?' 'Why?' and 'For example?'",
+        "An inference is a logical conclusion drawn from textual evidence combined with your own reasoning; it goes beyond what is directly stated without going beyond what the evidence supports.",
+        "Author's purpose falls into four broad categories — to inform (expository), to persuade (argumentative), to describe (descriptive), or to entertain (narrative) — and recognising it helps you read critically rather than passively.",
+        "Context clues — synonyms, antonyms, definitions, examples, and contrast phrases within the surrounding sentences — allow you to determine the meaning of unfamiliar words without stopping to consult a dictionary.",
+        "When answering comprehension questions, always paraphrase: restate the idea in your own words and sentence structure rather than copying phrases directly from the passage."
+      ],
+      "definitions": [
+        {
+          "term": "Skimming",
+          "definition": "A rapid reading technique in which the reader moves quickly over a text — reading headings, the first and last sentences of paragraphs, and key phrases — to gain a general sense of the content and organisation without reading every word."
+        },
+        {
+          "term": "Scanning",
+          "definition": "A targeted reading technique in which the reader moves quickly through a text looking for one specific piece of information, such as a name, date, or statistic, ignoring everything else until that item is found."
+        },
+        {
+          "term": "Intensive Reading",
+          "definition": "A slow, careful, and thorough reading of a text in which the reader attends to every word, sentence, and idea in order to achieve complete and detailed understanding; the strategy used when studying academic material closely."
+        },
+        {
+          "term": "SQ3R",
+          "definition": "A five-step structured study-reading method: Survey (preview the text), Question (turn headings into questions), Read (read to answer those questions), Recite (recall answers from memory), and Review (check and consolidate what was learned)."
+        },
+        {
+          "term": "Main Idea",
+          "definition": "The central claim, argument, or point that an author makes about the topic of a passage; it is the one statement that all other sentences in the passage support or develop, and it can often be expressed in a single sentence."
+        },
+        {
+          "term": "Supporting Detail",
+          "definition": "A specific fact, example, statistic, reason, or explanation that the author provides to develop, illustrate, or prove the main idea; supporting details answer questions such as 'Why is this true?' or 'What evidence supports this?'"
+        },
+        {
+          "term": "Inference",
+          "definition": "A conclusion that a reader draws by combining evidence explicitly stated in the text with their own background knowledge and reasoning; an inference goes beyond what the text says directly but remains anchored in what the text implies."
+        },
+        {
+          "term": "Context Clue",
+          "definition": "A word, phrase, or piece of information in the sentences surrounding an unfamiliar word that helps the reader deduce that word's meaning; common types include synonyms, antonyms, definitions, and illustrative examples provided by the author."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying the SQ3R Method to an Academic Text",
+          "problem": "A first-year student must study a four-page section of her sociology textbook. The section is titled 'Social Stratification' and contains three sub-sections: 'Definition and Types,' 'Theories of Stratification,' and 'Stratification in Nigeria.' She has one hour. Show, step by step, how she should apply SQ3R to this section.",
+          "steps": [
+            "Step 1 — Survey (about 3 minutes): The student glances at the main heading, the three sub-headings, any diagrams or tables, words printed in bold or italics, and the closing summary paragraph. She notes that the section will define stratification, explain major theories, and give a local Nigerian example. She now has a mental map of the text before reading a single full sentence.",
+            "Step 2 — Question (about 2 minutes): She converts each sub-heading into a question she will read to answer. 'Definition and Types' becomes 'What is social stratification and what forms does it take?' 'Theories of Stratification' becomes 'What are the main theories that explain why stratification exists?' 'Stratification in Nigeria' becomes 'How does stratification appear in the Nigerian context?' She writes these questions in her notebook.",
+            "Step 3 — Read (about 35 minutes): She reads the section carefully — this is intensive reading — with her questions in front of her. Every time she finds an answer, she pauses and notes it briefly. She does not highlight whole paragraphs; she targets answers to her questions.",
+            "Step 4 — Recite (about 10 minutes): She closes the book and, from memory, writes or says aloud the answers to each of her three questions. For example: 'Social stratification is the hierarchical ranking of individuals or groups in society based on factors such as wealth, power, or prestige. Main types include caste, class, and estate systems.' If she cannot recall an answer, she makes a mental note of that gap.",
+            "Step 5 — Review (about 10 minutes): She reopens the text, checks her recalled answers against the actual content, corrects any errors, and re-reads any sub-section she found difficult. She also reads the closing summary to confirm her overall understanding."
+          ],
+          "answer": "By following SQ3R, the student transforms a passive reading task into active learning at every stage. The Survey gives purpose to reading; the Questions focus attention; the Reading is targeted and efficient; the Recitation tests immediate retention; and the Review fixes gaps. Research in educational psychology consistently shows this method produces better long-term recall than simply reading through a text once."
+        },
+        {
+          "title": "Identifying the Main Idea, Supporting Details, and Author's Purpose",
+          "problem": "Read the following passage, then answer: (a) What is the main idea? (b) Identify two supporting details. (c) What is the author's purpose?\n\n'Regular physical exercise offers significant benefits for mental health. Studies show that aerobic activity triggers the release of endorphins — chemicals in the brain that act as natural mood elevators. Exercise also reduces levels of cortisol, the primary stress hormone, helping individuals feel calmer after a workout. Furthermore, research published in leading medical journals links a consistent exercise routine to lower rates of clinical depression and anxiety disorders. For these reasons, health professionals worldwide increasingly recommend physical activity as a valuable complement to conventional psychological therapy.'",
+          "steps": [
+            "Step 1 — Identify the topic: Ask, 'What is this passage about?' The passage is about physical exercise and its effects on mental health.",
+            "Step 2 — Find the main idea: Ask, 'What is the single most important point the author makes about this topic?' Check the first sentence: 'Regular physical exercise offers significant benefits for mental health.' This sentence makes a complete, broad claim about the topic. Every other sentence in the passage provides evidence for it, so this is the main idea.",
+            "Step 3 — Locate supporting detail 1: The second sentence explains how exercise improves mood — aerobic activity releases endorphins, which elevate mood. This is a specific mechanism that supports the main idea.",
+            "Step 4 — Locate supporting detail 2: The third sentence states that exercise reduces cortisol, lowering stress levels. This is a second, distinct mechanism supporting the same main idea.",
+            "Step 5 — Determine author's purpose: Notice the language — 'studies show,' 'research published in leading medical journals,' 'health professionals recommend.' The author uses scientific evidence and expert authority to convey factual information. There is no call to vote, no story being told, no attempt to describe a scene. The purpose is to inform the reader about the mental health benefits of exercise. This is expository writing."
+          ],
+          "answer": "(a) Main idea: Regular physical exercise offers significant benefits for mental health. (b) Supporting details: (1) Exercise releases endorphins that elevate mood; (2) Exercise reduces cortisol, lowering stress. (c) Author's purpose: To inform — the passage presents factual, evidence-based information in an objective tone with no persuasive agenda."
+        },
+        {
+          "title": "Using Context Clues to Determine Word Meaning and Making an Inference",
+          "problem": "Read the following passage, then answer: (a) Using context clues, determine the meaning of the word 'laconic' as it is used in the passage. Identify the type of clue used. (b) What can you infer about how students in this professor's class are likely to experience lectures? The passage does not state this directly — you must infer it.\n\n'Professor Adaeze was well known across the faculty for her laconic lecturing style. Unlike her colleagues, who filled entire hours with elaborate explanations, anecdotes, and lengthy examples, she delivered each key point in one or two precise sentences and then fell silent, expecting her students to pursue the implications themselves.'",
+          "steps": [
+            "Step 1 — Isolate the unfamiliar word: The word to investigate is 'laconic.' Its meaning is not given in a dictionary-style definition in the passage.",
+            "Step 2 — Identify the context clue type: Look at the sentence immediately following the one that contains 'laconic.' It begins with 'Unlike her colleagues, who filled entire hours with elaborate explanations…' The word 'unlike' signals a contrast. The professor's style is being contrasted with 'elaborate explanations' and 'lengthy examples.' This is a contrast clue (also called an antonym clue).",
+            "Step 3 — Deduce the meaning: If 'laconic' is the opposite of 'elaborate' and 'lengthy,' it must mean brief, using very few words. Confirm by substituting: 'Professor Adaeze was well known for her brief lecturing style' — this fits perfectly with the rest of the passage.",
+            "Step 4 — Form the inference: To make the inference, gather the relevant textual evidence: (i) the professor gives each point in one or two sentences; (ii) she then 'fell silent'; (iii) she expects students to 'pursue the implications themselves.' There is no statement about how students feel, so we must reason from this evidence.",
+            "Step 5 — Reason to the inference: A lecturer who gives minimal verbal explanation and expects students to work out implications independently places a heavy cognitive burden on those students. A reasonable, evidence-based inference is that students in this class find the lectures demanding and must do substantial independent reading and thinking outside class to understand the material fully. This inference is supported by the evidence and does not go beyond what the passage implies."
+          ],
+          "answer": "(a) 'Laconic' means using very few words; brief and concise in speech. The context clue is a contrast clue — the word 'unlike' signals that the professor's style is the opposite of her colleagues' 'elaborate' and 'lengthy' approach. (b) Inference: Students in Professor Adaeze's class likely find lectures challenging and intellectually demanding, since they receive minimal verbal explanation and must independently work out the full meaning of each brief point she makes."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student needs to find the date on which a particular law was enacted somewhere in a 40-page government report. Which reading strategy should she use?",
+          "options": [
+            "Skimming, to get a general sense of the report's argument",
+            "Scanning, to move quickly through the text searching only for the specific date",
+            "Intensive reading, to read every word of the report carefully",
+            "SQ3R, to survey, question, read, recite, and review the entire report"
+          ],
+          "correctIndex": 1,
+          "explanation": "Scanning is the strategy designed specifically for locating a single, targeted piece of information — such as a date — within a long text, without reading everything else."
+        },
+        {
+          "question": "In the SQ3R method, what is the student required to do during the 'Recite' step?",
+          "options": [
+            "Re-read the passage from the beginning to reinforce understanding",
+            "Highlight or underline every key term found during reading",
+            "Close the text and attempt to answer, from memory, the questions formed in the Question step",
+            "Write a paraphrased summary of the entire passage in their own words"
+          ],
+          "correctIndex": 2,
+          "explanation": "Recitation requires the student to close the book and retrieve answers from memory, which actively tests retention and reveals any gaps in understanding before the final Review step."
+        },
+        {
+          "question": "A passage states: 'Although Emeka spoke with perfect confidence at the podium, his notes were damp with sweat by the time he left the stage.' What is the most reasonable inference?",
+          "options": [
+            "Emeka had spilled water on his notes before the speech.",
+            "Emeka was physically ill on the day of the speech.",
+            "Emeka was inwardly nervous despite appearing outwardly calm and composed.",
+            "Emeka was an experienced speaker who felt completely relaxed throughout."
+          ],
+          "correctIndex": 2,
+          "explanation": "The contrast between 'perfect confidence' in appearance and the physiological sign of stress (sweat-damp notes) implies Emeka was concealing inner anxiety — a conclusion supported by the textual evidence even though it is never directly stated."
+        },
+        {
+          "question": "A student copies this sentence directly from a passage into her answer: 'The rapid urbanisation of Nigerian cities has placed enormous pressure on existing infrastructure.' Her teacher marks the answer wrong for poor technique. Why?",
+          "options": [
+            "The sentence contains a factual error that contradicts the passage.",
+            "Copying a sentence verbatim shows the student has not demonstrated understanding; she should have paraphrased the idea in her own words.",
+            "The sentence is too short to count as a complete answer to any comprehension question.",
+            "Using formal vocabulary like 'urbanisation' and 'infrastructure' is inappropriate in a comprehension answer."
+          ],
+          "correctIndex": 1,
+          "explanation": "Comprehension answers must be expressed in the student's own words and sentence structures; copying verbatim from the passage demonstrates only the ability to locate and transcribe text, not genuine understanding of its meaning."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Summary Writing",
+      "sourceRange": "Topic 2",
+      "summary": "Summary writing is the skill of reducing a longer text to its essential meaning in a significantly shorter form, using your own words as much as possible. A good summary captures every major idea from the original without distorting the author's meaning, while ruthlessly cutting away examples, anecdotes, repetitions, and decorative language that illustrate but do not add new information. The goal is not to copy fragments of the original but to demonstrate that you have understood it well enough to restate it concisely.\n\nThe process begins with careful reading to identify the main idea and the key supporting points — the claims or facts the author could not remove without the text collapsing. Everything else (illustrations, analogies, rhetorical questions, repeated restatements) is supporting detail that a summary discards. Once key points are identified, they must be paraphrased: reworded using different vocabulary and sentence structure while preserving the original meaning exactly. Paraphrase is not synonym-swapping word by word; it requires restructuring sentences and sometimes combining several original sentences into one.\n\nSummaries are often set to a specified length — for example, 'summarise in not more than 80 words' or 'in five sentences'. Meeting such a limit requires discipline: you must weigh each point, keep only the most important, and compress your language. A common error is padding — adding filler phrases such as 'The author goes on to say…' — which wastes words without adding content. Another error is lifting whole sentences unchanged from the original, which shows comprehension has not truly occurred. Practising the identify–paraphrase–compress cycle across a range of passages builds the precision that academic writing demands.",
+      "keyPoints": [
+        "A summary restates only the main idea and key supporting points of a passage, omitting examples, repetition, and decorative detail.",
+        "Always read the full passage at least once before writing, so you understand the overall argument before selecting what to keep.",
+        "Key points are ideas the passage cannot do without; supporting details (examples, statistics used only as illustration, anecdotes) are omitted.",
+        "Paraphrasing means rewriting the meaning in different words and sentence structures — not merely replacing individual words with synonyms.",
+        "When a word limit or sentence limit is given, count carefully and revise until you meet it exactly or stay within it.",
+        "Do not add your own opinions, interpretations, or outside information to a summary — report only what the original says.",
+        "Avoid padding phrases such as 'The passage is about…' or 'The author says that…' wherever they consume words without adding meaning.",
+        "A summary should read as a coherent, flowing piece of prose, not a disconnected list of lifted phrases."
+      ],
+      "definitions": [
+        {
+          "term": "Summary",
+          "definition": "A shortened restatement of a longer text that retains all the main ideas and essential supporting points but omits unnecessary detail, examples, and repetition, expressed as far as possible in the writer's own words."
+        },
+        {
+          "term": "Main idea",
+          "definition": "The central point or argument of a passage — the single most important message the author intends to communicate, often stated in the opening or closing paragraph and supported throughout the text."
+        },
+        {
+          "term": "Key supporting point",
+          "definition": "A piece of information, reason, or sub-claim that directly develops or proves the main idea and cannot be removed without weakening the author's argument."
+        },
+        {
+          "term": "Supporting detail",
+          "definition": "An example, anecdote, statistic, quotation, or descriptive phrase used to illustrate or expand a key point rather than to introduce a new idea; usually omitted from a summary."
+        },
+        {
+          "term": "Paraphrase",
+          "definition": "A restatement of a passage or sentence in different words and sentence structures that preserves the original meaning faithfully, demonstrating genuine understanding rather than mechanical copying."
+        },
+        {
+          "term": "Word limit",
+          "definition": "A maximum (and sometimes minimum) number of words specified for a summary task; the writer must count words carefully and revise the draft until it falls within the prescribed range."
+        },
+        {
+          "term": "Padding",
+          "definition": "The insertion of filler words or phrases — such as 'The author goes on to explain…' or 'It is important to note that…' — that occupy words in a summary without contributing any of the original passage's meaning."
+        },
+        {
+          "term": "Lifting",
+          "definition": "The practice of copying words, phrases, or whole sentences directly from the original passage into a summary without paraphrase; it indicates that comprehension has not been properly demonstrated and should be avoided."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Identifying key points and omitting supporting detail",
+          "problem": "Read the following passage (116 words) and list its key points before writing a summary of no more than 50 words.\n\n'Water pollution is one of the most serious environmental problems facing humanity today. Factories discharge untreated chemical waste into rivers, killing fish and making the water unsafe for human consumption. Farmers apply fertilisers and pesticides that are washed by rain into lakes and groundwater supplies. Households add to the problem by pouring cooking oil, detergents, and sewage into drains that lead to natural waterways. As a result, millions of people in developing countries lack access to clean drinking water. Governments must introduce strict regulations, heavily fine violators, and invest in affordable water-treatment technology if this crisis is to be reversed.'",
+          "steps": [
+            "Read the full passage once for overall meaning. The passage argues that water pollution is a grave problem caused by several sources and requiring government action.",
+            "Identify the main idea: water pollution is a serious global problem that must be addressed by governments.",
+            "List the key supporting points: (1) factories discharge chemical waste; (2) agricultural run-off carries fertilisers and pesticides; (3) household waste enters waterways; (4) millions lack clean water as a result; (5) governments must regulate, fine violators, and fund treatment technology.",
+            "Decide what is supporting detail that can be cut: the specific items listed as household waste (cooking oil, detergents) are illustrative examples of a single point and can be collapsed into 'household waste'.",
+            "Draft a summary combining the key points in your own words: 'Water pollution, caused by industrial chemical discharge, agricultural run-off, and household waste entering waterways, is a severe global crisis. Millions of people in developing countries cannot access safe drinking water. Governments must enact strict regulations, penalise offenders, and fund water-treatment facilities to solve the problem.'",
+            "Count the words: the draft is 47 words — within the 50-word limit. Check that no sentence is lifted verbatim from the original. ✓"
+          ],
+          "answer": "Water pollution, caused by industrial chemical discharge, agricultural run-off, and household waste entering waterways, is a severe global crisis. Millions of people in developing countries cannot access safe drinking water. Governments must enact strict regulations, penalise offenders, and fund water-treatment facilities to solve the problem. (47 words)"
+        },
+        {
+          "title": "Paraphrasing a passage correctly",
+          "problem": "Paraphrase the following two sentences, then explain why your version is an improvement over a simple synonym-swap.\n\nOriginal: 'The widespread adoption of smartphones has fundamentally transformed the way people communicate, enabling instant, text-based messaging to replace lengthy telephone conversations and handwritten letters.'",
+          "steps": [
+            "Read carefully and identify the core meaning: smartphones have changed communication by making short digital messages replace longer older forms such as calls and letters.",
+            "Attempt a word-by-word synonym swap (the wrong approach): 'The broad acceptance of mobile phones has basically altered the manner individuals interact, allowing immediate, written texting to substitute extended phone discussions and pen-written correspondence.' — This keeps the same grammatical structure and merely substitutes words; it is still very close to the original.",
+            "Now restructure the sentence: change the subject, alter the sentence pattern, and combine the ideas differently. Draft: 'Since smartphones became commonplace, people increasingly send quick digital messages rather than making phone calls or writing letters, a shift that has reshaped human communication at its core.'",
+            "Check meaning: does the paraphrase capture (a) smartphones are now common, (b) quick digital messaging is preferred, (c) calls and letters have declined, (d) communication has been fundamentally changed? Yes. ✓",
+            "Check that no string of four or more consecutive original words appears unchanged. ✓ The paraphrase is acceptable.",
+            "Explain the improvement: the restructured version changes sentence architecture (fronted time clause, active verb 'send', comparative structure 'rather than'), not just vocabulary, which proves genuine comprehension."
+          ],
+          "answer": "Paraphrased version: 'Since smartphones became commonplace, people increasingly send quick digital messages rather than making phone calls or writing letters, a shift that has reshaped human communication at its core.' This is a true paraphrase because the sentence structure, not just the individual words, has been changed while the meaning is fully preserved."
+        },
+        {
+          "title": "Condensing a passage to an exact sentence limit",
+          "problem": "The following passage contains 130 words. Summarise it in exactly three sentences.\n\n'Regular physical exercise offers a wide range of benefits for both the body and the mind. Aerobic activities such as jogging, cycling, and swimming strengthen the heart and lungs, reduce blood pressure, and lower the risk of developing type-2 diabetes and certain cancers. Resistance training builds and maintains muscle mass, which in turn supports healthy bone density and reduces the likelihood of injury in later life. Beyond the physical, exercise triggers the release of endorphins — chemicals in the brain that elevate mood and reduce symptoms of anxiety and depression. People who exercise consistently also report better sleep quality and higher levels of energy throughout the day. Health professionals therefore recommend at least 150 minutes of moderate exercise every week for adults.'",
+          "steps": [
+            "Read the passage and identify all key points: (1) exercise benefits body and mind; (2) aerobic exercise helps the heart, lungs, blood pressure, and reduces disease risk; (3) resistance training builds muscle and bone; (4) exercise releases endorphins, improving mood and mental health; (5) better sleep and energy; (6) 150-minute weekly recommendation.",
+            "Allocate three sentences to these points. Sentence 1 should cover the overall claim plus the physical benefits (points 1–3, which are closely related). Sentence 2 should cover the mental and energy benefits (points 4–5). Sentence 3 should deliver the recommendation (point 6).",
+            "Draft Sentence 1: 'Regular exercise benefits both body and mind: aerobic activity strengthens the cardiovascular system and lowers the risk of serious disease, while resistance training preserves muscle mass and bone density.'",
+            "Draft Sentence 2: 'Exercise also releases mood-enhancing brain chemicals that reduce anxiety and depression, and those who exercise consistently enjoy better sleep and sustained energy levels.'",
+            "Draft Sentence 3: 'For these reasons, health professionals advise adults to engage in at least 150 minutes of moderate physical activity each week.'",
+            "Count sentences: three. ✓ Verify no lifting. ✓ Verify all six original points are represented. ✓"
+          ],
+          "answer": "Regular exercise benefits both body and mind: aerobic activity strengthens the cardiovascular system and lowers the risk of serious disease, while resistance training preserves muscle mass and bone density. Exercise also releases mood-enhancing brain chemicals that reduce anxiety and depression, and those who exercise consistently enjoy better sleep and sustained energy levels. For these reasons, health professionals advise adults to engage in at least 150 minutes of moderate physical activity each week."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student summarising a 200-word passage on climate change copies the passage's opening sentence word for word, then writes the rest in her own words. What is the main problem with her approach?",
+          "options": [
+            "The summary is too short if only one sentence is copied.",
+            "Copying a sentence verbatim constitutes lifting and does not demonstrate comprehension of that idea.",
+            "Opening sentences never contain the main idea and should always be omitted.",
+            "Paraphrasing the rest of the passage is unnecessary once the opening is included."
+          ],
+          "correctIndex": 1,
+          "explanation": "Lifting — reproducing original wording unchanged — shows the student has not processed and restated the meaning independently, which is the core purpose of a summary."
+        },
+        {
+          "question": "A passage of 250 words contains a main argument, three supporting reasons, five statistical examples, and two extended anecdotes. Which elements should a 60-word summary include?",
+          "options": [
+            "The main argument, the three supporting reasons, and a selection of the most striking statistics.",
+            "The main argument and the three supporting reasons only, omitting the examples and anecdotes.",
+            "The five statistical examples and the two anecdotes, because they provide evidence.",
+            "The two anecdotes only, because they make the summary readable and engaging."
+          ],
+          "correctIndex": 1,
+          "explanation": "A summary keeps the main idea and key supporting points; statistics and anecdotes are supporting details that illustrate those points and are omitted when space is limited."
+        },
+        {
+          "question": "Which of the following is the best paraphrase of the sentence: 'Deforestation accelerates soil erosion because tree roots no longer bind the earth together'?",
+          "options": [
+            "Deforestation accelerates soil erosion because tree roots no longer bind the earth together.",
+            "The removal of forests speeds up the loss of topsoil, as there are no longer roots to hold the ground in place.",
+            "Deforestation, which is the cutting down of trees, causes soil erosion to become faster since the roots of trees are not there anymore to keep the soil together.",
+            "Trees stop soil erosion; without them, erosion gets worse after deforestation."
+          ],
+          "correctIndex": 1,
+          "explanation": "Option B restructures the sentence architecture and replaces vocabulary throughout while keeping the meaning precise; Option A is unchanged; Option C is verbose synonym-swapping; Option D loses the causal explanation."
+        },
+        {
+          "question": "A summary task specifies 'no more than 80 words'. A student's draft is 94 words and contains three phrases such as 'The writer further mentions that…'. What is the most effective first step to reduce the word count?",
+          "options": [
+            "Remove any sentence that contains a statistic, since statistics are always supporting detail.",
+            "Cut the padding phrases such as 'The writer further mentions that…' and integrate the content directly.",
+            "Replace all long words with shorter synonyms throughout the summary.",
+            "Add a new concluding sentence to rebalance the paragraph, then cut from the middle."
+          ],
+          "correctIndex": 1,
+          "explanation": "Padding phrases consume words without adding meaning from the original passage; removing them is the quickest and most principled way to reduce word count without losing content."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Paragraph and Essay Composition",
+      "sourceRange": "Topic 3",
+      "summary": "A paragraph is the fundamental unit of sustained writing. Every well-constructed paragraph is built around one controlling idea, stated in a topic sentence, and every other sentence either supports, explains, or illustrates that idea and nothing else. This property is called unity. The sentences must also flow logically from one to the next so that a reader never has to pause and work out the connection; this is coherence, and it is achieved through consistent pronoun reference, logical ordering of ideas, and the deliberate use of linking devices—transitional words and phrases that signal the relationship between ideas (addition, contrast, cause–effect, sequence, and so on).\n\nAn essay is a collection of paragraphs organised to achieve a single communicative purpose. The four main essay types taught at this level—narrative, descriptive, expository, and argumentative—differ in purpose and therefore in structure, but all share the same three-part frame: an introduction that orients the reader and states the essay's central point (the thesis), a body that develops that point in organised paragraphs, and a conclusion that rounds off the discussion. Narrative essays recount events in a meaningful sequence; descriptive essays paint a vivid picture of a person, place, or thing using sensory detail; expository essays explain or inform in a clear, objective manner; and argumentative essays take a position on a debatable issue and support it with evidence and reasoning.\n\nProducing a good essay is a process, not a single act. Planning involves understanding the question, brainstorming ideas, and producing an outline that maps each body paragraph to a specific point. Drafting turns the outline into full prose, prioritising the getting-down of ideas over perfection. Revision then improves content, organisation, and clarity, while editing corrects grammar, punctuation, and spelling. Treating writing as a recursive process—moving back and forth between these stages—consistently produces stronger work than attempting to write a polished final draft in one sitting.",
+      "keyPoints": [
+        "A topic sentence states the one controlling idea of a paragraph; all other sentences must support it (unity).",
+        "Coherence means ideas flow logically and smoothly, achieved through logical ordering, consistent reference, and linking devices.",
+        "Common linking device categories: addition (furthermore, in addition), contrast (however, nevertheless), cause–effect (therefore, consequently), sequence (first, subsequently, finally), illustration (for example, such as).",
+        "The three-part essay structure—introduction, body, conclusion—applies to all four essay types.",
+        "A thesis statement, placed in the introduction, tells the reader the essay's central argument or purpose.",
+        "Narrative essays focus on sequence and storytelling; descriptive essays on sensory detail and imagery; expository essays on clear explanation; argumentative essays on a defended position with evidence.",
+        "Planning (outline) → Drafting → Revising (content and organisation) → Editing (grammar and mechanics) is the recommended writing process.",
+        "Revision is not the same as editing: revision addresses ideas and structure; editing addresses surface errors."
+      ],
+      "definitions": [
+        {
+          "term": "Topic sentence",
+          "definition": "The sentence—usually the first—that states the single controlling idea of a paragraph. It tells the reader what the paragraph is about and limits the paragraph to one main point."
+        },
+        {
+          "term": "Unity",
+          "definition": "The quality of a paragraph or essay in which every sentence or paragraph relates directly to the central idea and nothing irrelevant is included."
+        },
+        {
+          "term": "Coherence",
+          "definition": "The quality of writing in which ideas are logically connected and flow smoothly from one sentence or paragraph to the next, making the text easy to follow."
+        },
+        {
+          "term": "Linking devices (transitional words and phrases)",
+          "definition": "Words or phrases used to signal the logical relationship between ideas—such as addition, contrast, sequence, cause–effect, or illustration—helping the reader follow the writer's train of thought."
+        },
+        {
+          "term": "Thesis statement",
+          "definition": "A sentence, typically at the end of the introduction, that states the central argument, claim, or purpose of an entire essay, giving the reader a roadmap for what follows."
+        },
+        {
+          "term": "Expository essay",
+          "definition": "An essay whose purpose is to explain, inform, or analyse a topic objectively and clearly, without taking a personal stance or trying to persuade."
+        },
+        {
+          "term": "Argumentative essay",
+          "definition": "An essay that takes a clear position on a debatable issue and supports it with evidence, reasoning, and the acknowledgement and rebuttal of opposing views."
+        },
+        {
+          "term": "Revision",
+          "definition": "The stage of the writing process in which the writer re-examines and improves the content, organisation, clarity, and development of ideas—distinct from editing, which deals with surface-level errors."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Building a unified and coherent paragraph",
+          "problem": "A student has been asked to write a paragraph on the importance of reading widely. Below is their draft. Identify the problem and rewrite the paragraph so that it has a clear topic sentence, unity, and coherence.\n\nDraft: 'Reading exposes you to new vocabulary. My cousin does not like reading. You can also learn about different cultures. Books are expensive in Nigeria. Reading improves your writing because you see how skilled authors structure their ideas.'",
+          "steps": [
+            "Step 1 – Identify the controlling idea. The intended subject is the importance of reading widely. A topic sentence should state this directly, e.g. 'Reading widely brings multiple intellectual and practical benefits.'",
+            "Step 2 – Check for unity. Remove any sentence that does not support the controlling idea. 'My cousin does not like reading' and 'Books are expensive in Nigeria' are off-topic distractions; both must be cut.",
+            "Step 3 – Order the remaining supporting points logically. Three points remain: vocabulary growth, cultural knowledge, and improved writing. A clear sequence works well here—moving from language-level benefit to knowledge benefit to skill benefit.",
+            "Step 4 – Add linking devices to create coherence. Use 'First,' to introduce vocabulary; 'In addition,' to introduce cultural knowledge; and 'Finally,' to introduce writing improvement. End with a closing sentence that reinforces the topic sentence.",
+            "Step 5 – Write the revised paragraph combining all of the above."
+          ],
+          "answer": "Reading widely brings multiple intellectual and practical benefits. First, it exposes readers to a rich variety of vocabulary, equipping them with precise words for thought and expression. In addition, engaging with books from different traditions broadens one's understanding of diverse cultures and perspectives. Finally, encountering the work of skilled authors teaches writers how to structure ideas and sustain an argument effectively. For these reasons, the habit of wide reading is one of the most valuable investments a student can make."
+        },
+        {
+          "title": "Planning and structuring an argumentative essay",
+          "problem": "You are given the essay title: 'Social media does more harm than good to university students. Discuss.' Show how to plan and outline this argumentative essay before drafting it.",
+          "steps": [
+            "Step 1 – Analyse the question. The key word 'Discuss' in an argumentative context means you should take a clear position and support it while acknowledging the other side. Decide on your stance: agree that social media does more harm than good.",
+            "Step 2 – Brainstorm points FOR the position (harm): distraction from studies, cyberbullying and mental health effects, spread of misinformation, time-wasting on entertainment.",
+            "Step 3 – Brainstorm points AGAINST the position (benefits): access to educational resources, networking and collaboration, rapid communication, awareness of events. Note: you will concede these briefly before rebutting them.",
+            "Step 4 – Draft a thesis statement: 'Although social media offers some educational advantages, its tendency to distract students, harm mental health, and propagate misinformation makes it, on balance, more harmful than helpful to university students.'",
+            "Step 5 – Build the outline:\n  • Introduction: hook (statistic on student screen time), background, thesis statement.\n  • Body paragraph 1: Social media causes academic distraction — topic sentence + evidence + explanation.\n  • Body paragraph 2: It contributes to anxiety, cyberbullying, and poor mental health — topic sentence + evidence + explanation.\n  • Body paragraph 3: It spreads misinformation, undermining critical thinking — topic sentence + evidence + explanation.\n  • Body paragraph 4 (concession + rebuttal): Admit networking and resource-access benefits, then argue these are outweighed by or available through safer alternatives.\n  • Conclusion: restate thesis in new words, summarise main points, call to action or closing thought.",
+            "Step 6 – Note the process: this outline is completed before drafting begins. Drafting then follows the outline, and revision checks that every paragraph has a clear topic sentence, evidence, and analysis."
+          ],
+          "answer": "A complete plan consists of a thesis statement ('Although social media offers some educational advantages, its tendency to distract students, harm mental health, and propagate misinformation makes it, on balance, more harmful than helpful to university students') and a five-part outline: introduction → three body paragraphs (distraction; mental health; misinformation) → concession-and-rebuttal paragraph → conclusion. This structure ensures the essay is unified, develops one clear argument, and addresses opposing views fairly."
+        },
+        {
+          "title": "Identifying and using the correct essay type",
+          "problem": "A lecturer gives three essay prompts. For each one, identify the correct essay type and explain the key structural or stylistic feature that defines it:\n(a) 'Describe the atmosphere of your first day at university.'\n(b) 'Explain how photosynthesis works.'\n(c) 'Narrate an experience that taught you an important lesson.'",
+          "steps": [
+            "Step 1 – Analyse prompt (a): 'Describe the atmosphere' calls for a vivid sensory picture of a place and an experience, not an argument or explanation. This is a DESCRIPTIVE essay.\n  Key feature: Use of sensory detail (sight, sound, smell, touch) and figurative language (metaphor, simile) to create a dominant impression. A thesis states the overall impression; body paragraphs each develop one aspect of that impression.",
+            "Step 2 – Analyse prompt (b): 'Explain how' signals that the purpose is to inform and clarify a process objectively. This is an EXPOSITORY essay.\n  Key feature: Logical, objective organisation—often using a process/sequential pattern (first, next, then, finally) or a cause-and-effect pattern. No personal opinion; facts and clear explanation dominate. A thesis states what will be explained.",
+            "Step 3 – Analyse prompt (c): 'Narrate an experience' signals storytelling of real or imagined events. This is a NARRATIVE essay.\n  Key feature: Events presented in a meaningful chronological (or sometimes flashback) sequence; use of vivid scene-setting, dialogue, and a clear narrative arc (situation → complication → climax → resolution). A thesis (or dominant impression) explains the significance of the events.",
+            "Step 4 – Contrast with argumentative: None of the three prompts is argumentative because none asks the writer to defend a debatable claim against opposition. An argumentative prompt typically uses words like 'Discuss,' 'Do you agree,' 'To what extent,' or 'Argue for or against.'"
+          ],
+          "answer": "(a) Descriptive essay — uses sensory detail and figurative language to create a dominant impression of the first day. (b) Expository essay — explains the process of photosynthesis objectively and sequentially without personal opinion. (c) Narrative essay — recounts events chronologically with a clear arc and a reflective point about the lesson learned. Recognising the essay type from the prompt's key verb is the first step of every planning stage."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following sentences best functions as a topic sentence for a paragraph about the effects of poor sleep on academic performance?",
+          "options": [
+            "Many university students sleep fewer than six hours per night.",
+            "Lack of adequate sleep significantly impairs students' concentration, memory, and examination results.",
+            "Sleep is a biological necessity for all human beings regardless of age.",
+            "Some students use caffeine to stay awake while studying late into the night."
+          ],
+          "correctIndex": 1,
+          "explanation": "A topic sentence must state the single controlling idea of the paragraph; option B directly identifies the effect (impaired concentration, memory, and exam results) that the rest of the paragraph will develop, whereas the other options are facts that could serve as supporting details."
+        },
+        {
+          "question": "A student writes a paragraph about climate change but includes a sentence about the history of the Industrial Revolution that is never linked back to climate change. Which paragraph quality does this sentence violate?",
+          "options": [
+            "Coherence",
+            "Unity",
+            "Development",
+            "Conciseness"
+          ],
+          "correctIndex": 1,
+          "explanation": "Unity requires that every sentence in a paragraph relate directly to the paragraph's controlling idea; an irrelevant historical sentence that is not connected to the main point breaks unity, not coherence (which is about flow and logical connection between relevant sentences)."
+        },
+        {
+          "question": "In an argumentative essay, what is the purpose of a concession paragraph?",
+          "options": [
+            "To summarise the writer's own main arguments before the conclusion",
+            "To acknowledge the strongest point of the opposing view before rebutting it",
+            "To provide background information that the reader needs to understand the topic",
+            "To list all the evidence that supports the writer's thesis"
+          ],
+          "correctIndex": 1,
+          "explanation": "A concession paragraph shows intellectual fairness by granting that the opposing side has a valid point, then immediately explaining why that point does not overturn the writer's overall argument—this actually strengthens, rather than weakens, the essay."
+        },
+        {
+          "question": "Which linking device most accurately signals a cause-and-effect relationship between two ideas?",
+          "options": [
+            "Furthermore",
+            "Nevertheless",
+            "Consequently",
+            "For instance"
+          ],
+          "correctIndex": 2,
+          "explanation": "'Consequently' signals that what follows is a result or effect of what was just stated; 'furthermore' signals addition, 'nevertheless' signals contrast, and 'for instance' signals illustration."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Letters and Formal Correspondence",
+      "sourceRange": "Topic 4",
+      "summary": "Written correspondence remains one of the most important communication tools in academic, professional and civic life. This module covers the full range of documents you are expected to produce at university and in the workplace: personal and formal letters, application letters, curricula vitae (CVs), memoranda (memos), notices, and minutes of meetings. Each document type has a recognised format, a characteristic tone, and a specific register—that is, a level of formality appropriate to the relationship between writer and reader. Mastering these conventions signals competence, earns respect, and ensures your message is taken seriously.\n\nThe central distinction running through the module is between formal and informal writing. Informal letters, written to friends or family, allow contractions, colloquial expressions and a relaxed structure. Formal letters—complaints, applications, official requests—demand precise layout, neutral or elevated vocabulary, complete sentences and a courteous but professional tone throughout. Business and official letters follow a fixed seven-part structure (sender's address, date, recipient's address, salutation, subject line, body, and complimentary close), and deviating from this structure can make a letter appear unprofessional or confuse the reader about its purpose.\n\nInternal workplace communication relies on shorter, faster formats. A memo replaces a formal letter when writing within an organisation; it omits postal addresses and salutations and gets straight to the point. A notice announces an event or instruction to a group. Minutes of meetings record what was discussed, decided and assigned during a formal meeting, providing an authoritative written record that holds participants accountable. Each of these formats has strict conventions that you must learn and apply consistently.",
+      "keyPoints": [
+        "Formal letters follow a seven-part layout: sender's address, date, recipient's address, salutation, subject line, body paragraphs, and complimentary close.",
+        "Register is the level of formality: formal letters use complete words (no contractions), precise vocabulary and an objective tone; informal letters may use contractions, slang and a personal tone.",
+        "The salutation and complimentary close must match: 'Dear Sir/Madam' pairs with 'Yours faithfully'; 'Dear Mr Okafor' (named recipient) pairs with 'Yours sincerely'.",
+        "An application letter should do three things: state the position applied for, demonstrate that your qualifications match the requirements, and request an interview.",
+        "A CV (curriculum vitae) is a structured personal document listing personal data, education, work experience, skills and referees, usually in reverse chronological order.",
+        "A memo (memorandum) is used for internal communication within an organisation; it has four header fields (TO, FROM, DATE, SUBJECT) and no postal address or salutation.",
+        "A notice is a brief public announcement giving essential information: what, who, when, where and any required action.",
+        "Minutes of meetings record attendance, agenda items, discussions, resolutions and action points in a formal, impersonal, past-tense style."
+      ],
+      "definitions": [
+        {
+          "term": "Register",
+          "definition": "The level of formality a piece of writing adopts, determined by the relationship between writer and reader, the purpose of the document, and the context. Formal register uses standard grammar, complete vocabulary and an objective tone; informal register permits contractions, colloquial words and personal expressions."
+        },
+        {
+          "term": "Tone",
+          "definition": "The attitude or feeling conveyed by the writer's choice of words and sentence structure. In formal correspondence tone should be courteous, neutral and professional; it should never be aggressive, sycophantic or overly casual."
+        },
+        {
+          "term": "Salutation",
+          "definition": "The greeting that opens a letter, such as 'Dear Sir', 'Dear Madam', or 'Dear Dr Adeyemi'. The choice of salutation reflects the writer's knowledge of and relationship with the recipient."
+        },
+        {
+          "term": "Complimentary close",
+          "definition": "The polite phrase that ends a letter before the signature, such as 'Yours faithfully' or 'Yours sincerely'. 'Yours faithfully' is used when the recipient's name is not known; 'Yours sincerely' is used when the recipient has been named in the salutation."
+        },
+        {
+          "term": "Curriculum Vitae (CV)",
+          "definition": "A formal personal document summarising a candidate's education, work experience, skills, achievements and referees, submitted alongside an application letter. A CV should be clear, accurate, well-organised and tailored to the position being applied for."
+        },
+        {
+          "term": "Memorandum (Memo)",
+          "definition": "A brief internal document used for communication within an organisation. It begins with four header fields—TO (recipient), FROM (sender), DATE and SUBJECT—and omits postal addresses, salutations and complimentary closes, allowing the writer to move directly to the message."
+        },
+        {
+          "term": "Notice",
+          "definition": "A short written announcement addressed to a defined group, informing them of an event, meeting, decision or instruction. A notice should be headed with the word NOTICE, state who it is from, and answer the key questions: what, who, when and where."
+        },
+        {
+          "term": "Minutes of a Meeting",
+          "definition": "The official written record of the proceedings of a formal meeting, including the names of those present, the agenda items discussed, decisions (resolutions) reached, and action points assigned to named individuals with deadlines. Minutes are written in the past tense and in an impersonal, objective style."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Writing a Formal Letter of Complaint",
+          "problem": "You are Chidi Eze, residing at 22 Awolowo Road, Ibadan. On 5 April 2025 you purchased a refrigerator from Regal Home Appliances Ltd, 10 Broad Street, Lagos. The appliance stopped working after two weeks. Write a formal letter of complaint to the Sales Manager, requesting a replacement or a full refund.",
+          "steps": [
+            "Step 1 – Identify the layout. A formal letter needs: (a) sender's address top-right, (b) date below it, (c) recipient's designation and address on the left, (d) salutation, (e) subject line in bold or underlined, (f) body paragraphs, and (g) complimentary close, signature and printed name.",
+            "Step 2 – Choose register and tone. Because this is addressed to a business, the register must be formal. The tone should be firm but courteous—state the problem clearly without being abusive, and specify the remedy you expect.",
+            "Step 3 – Draft the salutation. The recipient is 'The Sales Manager', a title rather than a personal name, so use 'Dear Sir/Madam' and close with 'Yours faithfully'.",
+            "Step 4 – Write the subject line. A concise subject line orients the reader immediately: 'Re: Faulty Refrigerator – Purchase Date 5 April 2025'.",
+            "Step 5 – Plan the body in three paragraphs. Paragraph 1: state what you bought, where, and when. Paragraph 2: describe the defect precisely (stopped functioning after two weeks despite correct installation and use), note any attempts to seek local resolution, and attach evidence such as a receipt. Paragraph 3: state the remedy you want—replacement or full refund—and give a reasonable response deadline.",
+            "Step 6 – Assemble the full letter and check that no contractions are used, that every sentence is complete, and that the complimentary close matches the salutation."
+          ],
+          "answer": "22 Awolowo Road, Ibadan.\n5 May 2025.\n\nThe Sales Manager,\nRegal Home Appliances Ltd,\n10 Broad Street,\nLagos.\n\nDear Sir/Madam,\n\nRe: Faulty Refrigerator – Purchase Date 5 April 2025\n\nOn 5 April 2025 I purchased a 200-litre refrigerator (Model RH-200, Serial No. 4471X) from your Lagos branch. A copy of the sales receipt is enclosed for your reference.\n\nI regret to inform you that the appliance ceased to function entirely on 19 April 2025, a mere two weeks after purchase, despite being installed and operated strictly in accordance with the manufacturer's instructions. I contacted your customer service line on that date but received no response.\n\nI therefore request that you replace the refrigerator with a fully functioning unit of the same model, or provide a complete refund of the purchase price of ₦185,000. I would be grateful for your response within fourteen days of the date of this letter. Should I not hear from you, I shall be compelled to seek redress through the appropriate consumer protection authority.\n\nYours faithfully,\n\nChidi Eze."
+        },
+        {
+          "title": "Writing an Application Letter and Structuring a CV",
+          "problem": "First Bank Nigeria Plc has advertised a vacancy for a Graduate Trainee Officer. You are Ngozi Obi, a recent graduate of Business Administration from the University of Lagos. Demonstrate how to write an application letter for this position and outline the correct structure of the CV that should accompany it.",
+          "steps": [
+            "Step 1 – Analyse the job. A Graduate Trainee Officer role requires academic qualifications, communication skills, and willingness to learn. The letter must show that you meet these requirements.",
+            "Step 2 – Structure the application letter in three purposeful paragraphs. Opening paragraph: state the exact position, where you saw the advertisement, and your intention to apply. Middle paragraph: present your strongest qualifications and attributes—degree class, relevant coursework or projects, skills—and link them explicitly to the role. Closing paragraph: express enthusiasm, confirm availability for an interview, and state that your CV is enclosed.",
+            "Step 3 – Maintain formal register throughout. Use 'I am writing to apply for…' not 'I want the job…'. Avoid contractions. Address the letter to a named official if given, or to 'The Recruitment Manager'.",
+            "Step 4 – Identify the correct complimentary close. If the advertisement names the contact person, use 'Yours sincerely'; if not, use 'Yours faithfully'.",
+            "Step 5 – Outline the CV. A standard CV for a Nigerian graduate includes the following sections in order: (1) Personal Information—full name, address, phone, email; (2) Personal Statement—two to three sentences summarising your profile; (3) Education—institutions, qualifications, dates, in reverse chronological order; (4) Work Experience or Internships—employer, role, dates, key duties; (5) Skills—e.g. Microsoft Office, data analysis, fluency in languages; (6) Awards and Achievements; (7) Referees—names, designations and contact details of two referees, at least one academic.",
+            "Step 6 – Review both documents for consistency: the CV and letter must agree on dates, grades and spellings of institutions."
+          ],
+          "answer": "Application Letter (key sections demonstrated):\n\n14 Palm Avenue, Surulere, Lagos. | 10 June 2025.\n\nThe Recruitment Manager, First Bank Nigeria Plc, Samuel Asabia House, 35 Marina, Lagos.\n\nDear Sir/Madam,\n\nRe: Application for the Position of Graduate Trainee Officer\n\nI write in response to the advertisement published in The Punch of 3 June 2025 inviting applications for the position of Graduate Trainee Officer. I am confident that my academic background and skills make me a strong candidate for this role.\n\nI graduated from the University of Lagos in July 2024 with a Bachelor of Science degree in Business Administration (Second Class Upper Division). During my studies I completed a three-month internship at Zenith Bank Plc, where I gained hands-on exposure to retail banking operations and customer relationship management. I am proficient in Microsoft Excel and possess strong analytical and written communication skills, which I am eager to apply in a dynamic banking environment.\n\nI enclose my curriculum vitae for your consideration and would welcome the opportunity to discuss my application further at your convenience. I am available for interview at any time.\n\nYours faithfully,\nNgozi Obi.\n\nCV Structure: (1) Personal Information (2) Personal Statement (3) Education – B.Sc. Business Administration, University of Lagos, 2020–2024, Second Class Upper; WAEC/NECO, 2019 (4) Work Experience – Banking Intern, Zenith Bank Plc, Jan–Mar 2024 (5) Skills (6) Awards (7) Referees – two named referees with full contact details."
+        },
+        {
+          "title": "Writing a Memo and a Set of Abbreviated Minutes",
+          "problem": "(a) You are the Dean of the Faculty of Sciences, Greenfield University. Write a memo to all Heads of Department reminding them that final-year project grades must be submitted to the Faculty Officer by 30 May 2025; late submission will result in students being omitted from the graduation list. (b) Show the essential structural elements that minutes of a short departmental meeting must contain, using a scenario where the meeting resolved to purchase new laboratory equipment.",
+          "steps": [
+            "Step 1 – Recall memo format. A memo does not use postal addresses or salutations. Its heading consists of exactly four fields: TO, FROM, DATE, and SUBJECT, followed by the message body. It ends with the sender's initials or signature—no complimentary close.",
+            "Step 2 – Keep the memo body brief and direct. State the deadline, the consequence of missing it, and any action required. One or two short paragraphs suffice.",
+            "Step 3 – Draft the memo, ensuring the SUBJECT line is specific enough to act as a title and that the tone, though formal, is direct—memos are action documents, not persuasive letters.",
+            "Step 4 – Recall minutes structure. Minutes must record: (a) name of organisation and type of meeting; (b) date, time and venue; (c) names of those present and apologies for absence; (d) confirmation that previous minutes were read and approved; (e) each agenda item with a summary of discussion and the resolution passed; (f) action points—who does what and by when; (g) date of next meeting; (h) signature of Chairperson once minutes are confirmed.",
+            "Step 5 – Draft the abbreviated minutes for the laboratory equipment resolution, showing how a resolution is recorded in past tense and reported speech (e.g. 'The Head of Chemistry reported that…'; 'It was resolved that…').",
+            "Step 6 – Check both documents: memo uses present or future tense for a current action; minutes use past tense throughout and are impersonal (no 'I said' or 'we decided')."
+          ],
+          "answer": "(a) MEMO\n\nTO: All Heads of Department, Faculty of Sciences\nFROM: The Dean, Faculty of Sciences\nDATE: 12 May 2025\nSUBJECT: Deadline for Submission of Final-Year Project Grades\n\nThis is to remind all Heads of Department that final-year project grades must be submitted to the Faculty Officer no later than Friday, 30 May 2025.\n\nPlease note that any student whose grade is not received by this date will be excluded from the 2025 graduation list. Heads of Department are advised to communicate this deadline to their supervisors immediately.\n\nYour prompt compliance will be appreciated.\n\n[Dean's initials/signature]\n\n(b) ABBREVIATED MINUTES\n\nMinutes of the Ordinary Meeting of the Department of Biochemistry, Greenfield University, held on Friday 9 May 2025 at 10:00 a.m. in Room 204, Science Block.\n\nPresent: Dr A. Musa (Chair), Dr B. Osei, Dr C. Nnaji, Mr D. Yusuf (Secretary). Apologies: Dr E. Bello.\n\nMinutes of Previous Meeting: The minutes of the meeting held on 11 April 2025 were read, confirmed as a correct record and signed by the Chair.\n\nAgenda Item 3 – Procurement of Laboratory Equipment: Dr Osei reported that three spectrophotometers had become irreparably faulty. After discussion, it was resolved that the Department would purchase four new spectrophotometers at a cost not exceeding ₦2,400,000, subject to approval by the Bursar. Dr Nnaji was directed to obtain three written quotations from approved vendors and present them at the next meeting.\n\nAny Other Business: Nil.\n\nDate of Next Meeting: Friday 6 June 2025 at 10:00 a.m.\n\n…………………………\nDr A. Musa, Chairperson. Date confirmed: ___________"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student begins her letter with 'Dear Dr Fashola' and ends it with 'Yours faithfully'. What error has she made?",
+          "options": [
+            "She should have used 'Best regards' instead of 'Yours faithfully'.",
+            "'Yours faithfully' must only be used when the recipient's name is unknown; since she has named Dr Fashola, she should close with 'Yours sincerely'.",
+            "She should have written 'Dear Sir' instead of using the recipient's name.",
+            "There is no error; 'Yours faithfully' is always correct in formal letters."
+          ],
+          "correctIndex": 1,
+          "explanation": "When the recipient is addressed by name in the salutation, the correct complimentary close is 'Yours sincerely'; 'Yours faithfully' is reserved for letters opening with 'Dear Sir' or 'Dear Madam', where the recipient's name is not used."
+        },
+        {
+          "question": "Which of the following is the most important distinction between a memo and a formal business letter?",
+          "options": [
+            "A memo is always shorter than a letter and must not exceed one page.",
+            "A memo is used for external communication while a letter is used internally.",
+            "A memo omits postal addresses and salutations and is used for internal organisational communication, whereas a formal letter is used for external correspondence.",
+            "A memo must be typed and signed by a director, while a letter can be written by any employee."
+          ],
+          "correctIndex": 2,
+          "explanation": "The defining feature of a memo is that it is an internal document using a TO/FROM/DATE/SUBJECT header, replacing the postal address blocks, salutation and complimentary close required in a formal external letter."
+        },
+        {
+          "question": "In an application letter, which paragraph is the correct place to mention the specific job title and where the advertisement was seen?",
+          "options": [
+            "The closing paragraph, so the reader ends with a clear sense of what you want.",
+            "The middle paragraph, alongside your qualifications.",
+            "The opening paragraph, to immediately establish the purpose of the letter.",
+            "The subject line only; the body should go straight to qualifications."
+          ],
+          "correctIndex": 2,
+          "explanation": "The opening paragraph of an application letter states the exact position being applied for, the source of the advertisement and the applicant's intent, orienting the reader from the outset."
+        },
+        {
+          "question": "Minutes of a meeting record that 'Dr Eze said he will buy the equipment.' Which of the following correctly rewrites this in proper minutes style?",
+          "options": [
+            "Dr Eze said he will buy the equipment.",
+            "It was resolved that Dr Eze would procure the equipment.",
+            "Dr Eze: I will buy the equipment.",
+            "We agreed that Dr Eze buys the equipment."
+          ],
+          "correctIndex": 1,
+          "explanation": "Minutes are written in the past tense, in impersonal reported speech, focusing on resolutions and actions rather than quoting individuals directly; 'It was resolved that Dr Eze would procure the equipment' follows this convention correctly."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Report and Technical Writing",
+      "sourceRange": "Topic 5",
+      "summary": "A report is a structured, factual document produced to communicate findings, analyses or recommendations to a defined audience, usually in a professional or academic context. Unlike an essay, which argues a position discursively, a report is organised into clearly labelled sections so that a busy reader can navigate straight to the information they need. Reports are used across virtually every field—engineering, science, business, public administration—and learning to write them correctly is one of the most transferable academic skills a first-year student can develop.\n\nThe standard report structure follows a logical sequence: a title page identifies the document and its author; an abstract gives a concise overview; an introduction establishes context and purpose; the body presents findings, data and analysis in organised sections; the conclusion draws together what the evidence shows; and recommendations state what should be done as a result. Two specialised forms—the laboratory report and the site report—follow this same skeleton but add discipline-specific conventions, such as a methods section in lab reports or observations from a physical location in site reports.\n\nTechnical writing, the broader craft within which report writing sits, prizes two qualities above all others: clarity and objectivity. Clarity means that every sentence communicates exactly one idea in plain, precise language, free of jargon that the audience would not know. Objectivity means that the writer presents evidence and lets it speak, avoiding personal bias, emotive language and unsupported opinion. Together, these qualities make a report trustworthy and useful to its readers.",
+      "keyPoints": [
+        "A report is a structured factual document that communicates findings, analyses and recommendations to a specific audience.",
+        "The standard sections of a formal report are: title page, abstract, introduction, body, conclusion and recommendations.",
+        "The abstract is a self-contained summary of the entire report (typically 100–250 words) written after the rest of the report is complete.",
+        "The introduction states the purpose, scope and background of the report; the conclusion interprets findings; recommendations propose action.",
+        "A laboratory report adds a Materials and Methods section and a Results section between the introduction and the discussion/conclusion.",
+        "A site report records observations made at a physical location and typically includes a description of the site, findings from inspection, and recommendations for action.",
+        "Technical writing must be clear (precise, plain language, logically organised) and objective (evidence-based, free of emotive or biased language).",
+        "Passive constructions ('the sample was heated') are often used in technical writing to keep focus on the process rather than the person performing it."
+      ],
+      "definitions": [
+        {
+          "term": "Report",
+          "definition": "A formal, structured document that presents factual information—such as research findings, investigative results or project progress—to a specific audience for a defined purpose, such as informing a decision or recording an event."
+        },
+        {
+          "term": "Abstract",
+          "definition": "A short, self-contained summary (typically 100–250 words) placed at the start of a report that tells the reader the report's purpose, the methods used, the key findings and the main conclusion or recommendation. It is written last but read first."
+        },
+        {
+          "term": "Introduction (of a report)",
+          "definition": "The opening section of a report that provides background context, states the purpose and objectives of the report, defines its scope (what is and is not covered) and, where relevant, explains the methods used to gather information."
+        },
+        {
+          "term": "Body",
+          "definition": "The central section of a report, divided into numbered or headed subsections, in which findings, data, analysis and discussion are presented in a logical order. In a laboratory report the body typically includes Materials and Methods, Results, and Discussion."
+        },
+        {
+          "term": "Conclusion",
+          "definition": "The section that draws together the main findings of the report and states what they mean, answering the question posed in the introduction. It does not introduce new information; it interprets what has already been presented."
+        },
+        {
+          "term": "Recommendations",
+          "definition": "A section, usually following the conclusion, that proposes specific, actionable steps based on the report's findings. Recommendations are written clearly and directly, often as a numbered list, so that decision-makers can act on them."
+        },
+        {
+          "term": "Laboratory Report",
+          "definition": "A specialised report documenting a scientific experiment. Its structure adds a Materials and Methods section (describing equipment and procedure) and a Results section (presenting data, often with tables or graphs) to the standard report framework."
+        },
+        {
+          "term": "Objectivity",
+          "definition": "The quality of presenting information based solely on evidence, without allowing personal feelings, preferences or bias to influence what is written or how it is expressed. Objective writing relies on facts, data and reasoned argument rather than emotive language."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Arranging the Sections of a Formal Report",
+          "problem": "A student has written the following sections for a report on water quality in a campus borehole: (A) she recommends the university install a filtration system; (B) she explains that the study tested samples from three points over four weeks; (C) the title page names the report and the author; (D) she summarises the whole report in 150 words; (E) she presents tables of bacteria counts and pH readings; (F) she concludes that the water is unsafe for drinking. Place these sections in the correct report order and name each section.",
+          "steps": [
+            "Step 1 — Identify each fragment by its function. (C) identifies the document → Title Page. (D) summarises the whole report briefly → Abstract. (B) sets context and explains what was done → Introduction. (E) presents the data collected → Body (Results/Findings). (F) interprets what the data mean → Conclusion. (A) proposes action based on the conclusion → Recommendations.",
+            "Step 2 — Apply the standard report sequence: Title Page → Abstract → Introduction → Body → Conclusion → Recommendations.",
+            "Step 3 — Map the fragments: C → D → B → E → F → A.",
+            "Step 4 — Verify the logic: the abstract (D) can only be written after everything else is known, even though it appears early; the recommendations (A) depend on the conclusion (F), so they follow it correctly."
+          ],
+          "answer": "The correct order is: (C) Title Page → (D) Abstract → (B) Introduction → (E) Body → (F) Conclusion → (A) Recommendations."
+        },
+        {
+          "title": "Writing a Concise Abstract",
+          "problem": "A site report investigates structural cracks in a university lecture hall. The key facts are: the inspection was carried out on 14 March 2024 by a team of two civil engineering students; cracks were found in three load-bearing columns and two external walls; the cause was identified as water infiltration due to blocked drainage channels; the team recommends urgent clearing of drainage channels and professional structural assessment within 30 days. Write an abstract of no more than 120 words.",
+          "steps": [
+            "Step 1 — Identify the four elements every abstract must contain: (i) purpose/context, (ii) method, (iii) key findings, (iv) conclusion/recommendation.",
+            "Step 2 — Draft element (i): 'This report presents the findings of a structural inspection of the main lecture hall conducted on 14 March 2024.'",
+            "Step 3 — Draft element (ii): 'The inspection was carried out by a two-person team using visual survey techniques.'",
+            "Step 4 — Draft element (iii): 'Cracks were identified in three load-bearing columns and two external walls, attributed to water infiltration caused by blocked drainage channels.'",
+            "Step 5 — Draft element (iv): 'The report recommends the immediate clearance of drainage channels and a professional structural assessment within 30 days to prevent further deterioration.'",
+            "Step 6 — Combine, edit for conciseness and count words. The combined draft is approximately 90 words, within the 120-word limit."
+          ],
+          "answer": "This report presents the findings of a structural inspection of the main lecture hall conducted on 14 March 2024. The inspection was carried out by a two-person team using visual survey techniques. Cracks were identified in three load-bearing columns and two external walls, attributed to water infiltration caused by blocked drainage channels. The report concludes that the building poses a safety risk if left unattended and recommends the immediate clearance of drainage channels and a professional structural assessment within 30 days to prevent further deterioration. (approx. 87 words)"
+        },
+        {
+          "title": "Revising for Clarity and Objectivity",
+          "problem": "A student has written the following passage in the body of a laboratory report. Identify every problem and produce a revised version: 'We think the horrible results were because someone messed up the titration. Loads of the readings were wrong and the experiment was a total disaster. Our conclusion is that acid-base reactions are really complicated.'",
+          "steps": [
+            "Step 1 — Check for subjective/emotive language. 'Horrible results', 'total disaster' and 'really complicated' are emotive; 'loads of' is informal and vague; 'someone messed up' is accusatory and unsubstantiated.",
+            "Step 2 — Check for vagueness. 'Loads of the readings were wrong' gives no quantity. A technical report must state how many or what percentage of readings fell outside acceptable limits.",
+            "Step 3 — Check for unsupported claims. 'We think … because someone messed up' attributes error to human fault without evidence. A report should describe what was observed (e.g., inconsistent titre values) and propose a methodological explanation (e.g., possible over-shooting of the end-point).",
+            "Step 4 — Check the conclusion. 'Acid-base reactions are really complicated' is too broad and informal; the conclusion should relate specifically to the findings of this experiment.",
+            "Step 5 — Rewrite applying the corrections: use precise quantities where possible, passive voice to depersonalise, formal register, and restrict conclusions to what the data support."
+          ],
+          "answer": "Revised version: 'Three of the five titre readings deviated from the mean by more than 0.5 cm³, suggesting possible over-shooting of the end-point during the titration procedure. These inconsistencies reduced the reliability of the calculated concentration. The results indicate that precise control of the burette delivery rate is critical to obtaining reproducible values in acid-base titrations.' This version is specific, impersonal, formally worded and draws only conclusions that the described data support."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In which order do the standard sections of a formal report appear?",
+          "options": [
+            "Introduction, Abstract, Body, Title Page, Conclusion, Recommendations",
+            "Title Page, Abstract, Introduction, Body, Conclusion, Recommendations",
+            "Abstract, Title Page, Introduction, Recommendations, Body, Conclusion",
+            "Title Page, Introduction, Abstract, Body, Recommendations, Conclusion"
+          ],
+          "correctIndex": 1,
+          "explanation": "The standard sequence is Title Page → Abstract → Introduction → Body → Conclusion → Recommendations; the abstract appears near the front but is written last because it summarises the entire report."
+        },
+        {
+          "question": "Which of the following best describes the purpose of the Recommendations section of a report?",
+          "options": [
+            "To summarise the methods used to gather data",
+            "To restate the findings already discussed in the body",
+            "To propose specific actions that should be taken based on the report's conclusions",
+            "To provide background context and define the scope of the report"
+          ],
+          "correctIndex": 2,
+          "explanation": "Recommendations follow the conclusion and propose concrete, actionable steps; they are forward-looking and based on the evidence analysed in the report."
+        },
+        {
+          "question": "A student writes in a laboratory report: 'The reaction was clearly a failure and the results are useless.' What is the main fault with this sentence?",
+          "options": [
+            "It is too short and should be expanded with more detail",
+            "It uses first-person voice, which is forbidden in all academic writing",
+            "It is subjective and emotive rather than objectively describing what the data showed",
+            "It is placed in the wrong section of the report"
+          ],
+          "correctIndex": 2,
+          "explanation": "Technical writing must be objective; 'clearly a failure' and 'useless' are emotive judgements rather than evidence-based descriptions of what the data actually showed."
+        },
+        {
+          "question": "What additional section does a laboratory report typically include that is not part of a standard formal report?",
+          "options": [
+            "An executive summary and a glossary of terms",
+            "A materials and methods section and a results section",
+            "A site description and an inspection checklist",
+            "A foreword written by a supervisor and a list of appendices"
+          ],
+          "correctIndex": 1,
+          "explanation": "Laboratory reports add a Materials and Methods section (detailing equipment and procedure) and a Results section (presenting raw data) to the standard report structure, reflecting the experimental nature of the work."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Referencing and Academic Integrity",
+      "sourceRange": "Topic 6",
+      "summary": "Every time you use another person's idea, data, or words in academic writing, you must acknowledge where that material came from. This acknowledgement is called referencing or citation, and it serves three purposes: it credits the original author, it allows your reader to locate the source, and it demonstrates that your argument rests on credible evidence. Failing to reference correctly—whether by accident or design—constitutes plagiarism, one of the most serious forms of academic dishonesty.\n\nThe American Psychological Association (APA) referencing style is widely used in Nigerian universities for first-year courses. It works on an author–date principle: a brief in-text citation (the author's surname and the year of publication) points the reader to a full entry in a reference list at the end of the document. Direct quotations also require a page number. The reference list itself is arranged alphabetically by the author's surname and follows strict formatting rules depending on the type of source—book, journal article, website, and so on.\n\nBeyond mechanics, academic integrity requires you to understand the difference between quoting, paraphrasing, and summarising, and to use each technique honestly. Paraphrasing and summarising must genuinely recast the original in your own words and sentence structure; simply swapping a few synonyms while keeping the original phrasing is still plagiarism. Internalising these conventions protects your academic reputation and trains you in the habits of honest scholarly inquiry that you will need throughout your university career and beyond.",
+      "keyPoints": [
+        "APA style uses an author–date system: every in-text citation contains the author's surname and the year of publication, e.g. (Adeyemi, 2021).",
+        "A direct quotation reproduces the source's exact words inside quotation marks and must include a page number: (Adeyemi, 2021, p. 45).",
+        "A paraphrase restates the source's idea entirely in your own words and sentence structure; it still requires an in-text citation but does not need a page number.",
+        "The reference list appears at the end of the document, is arranged alphabetically by the first author's surname, and uses a hanging indent for each entry.",
+        "Different source types have different APA formats: a book entry includes the publisher, while a journal article entry includes the journal name, volume, issue, page range, and DOI where available.",
+        "Plagiarism is the presentation of someone else's work or ideas as your own, whether by copying, paraphrasing without attribution, or submitting work done by another person.",
+        "Self-plagiarism—submitting your own previously assessed work as though it were new—is also a form of academic dishonesty.",
+        "Strategies for avoiding plagiarism include taking careful notes that distinguish your own ideas from source material, citing every borrowed idea even when paraphrased, and using plagiarism-detection tools before submission."
+      ],
+      "definitions": [
+        {
+          "term": "Citation",
+          "definition": "A formal acknowledgement, embedded within your text or placed at the end of your document, that identifies the source of an idea, fact, or quotation you have used. In APA style, an in-text citation takes the form (Surname, Year)."
+        },
+        {
+          "term": "In-text citation",
+          "definition": "A brief reference inserted in the body of your writing at the point where you use borrowed material. In APA style it gives the author's surname and publication year in parentheses—and a page number if you are quoting directly—so the reader can match it to the full entry in the reference list."
+        },
+        {
+          "term": "Reference list",
+          "definition": "A complete, alphabetically ordered list of all sources cited in a document, placed at the end of the work. Each entry provides enough information (author, year, title, publisher or journal details) for the reader to locate the original source. In APA style, entries use a hanging indent."
+        },
+        {
+          "term": "APA style",
+          "definition": "A referencing and formatting system published by the American Psychological Association. It uses an author–date citation method and prescribes exact formats for in-text citations and reference list entries depending on the source type (book, journal article, website, etc.)."
+        },
+        {
+          "term": "Direct quotation",
+          "definition": "The word-for-word reproduction of a source's exact language, enclosed in double quotation marks. In APA style, a direct quotation requires the author's surname, year, and page number: (Okafor, 2019, p. 78). Quotations of 40 words or more are formatted as indented block quotations without quotation marks."
+        },
+        {
+          "term": "Paraphrase",
+          "definition": "A restatement of a source's idea in your own words and sentence structure, roughly similar in length to the original. A paraphrase demonstrates your understanding of the material and still requires an in-text citation, though no page number is mandatory in APA style."
+        },
+        {
+          "term": "Plagiarism",
+          "definition": "The act of presenting another person's words, ideas, data, or creative work as your own without proper acknowledgement, whether intentional or accidental. It includes copying text, paraphrasing without citation, submitting purchased or ghostwritten work, and re-using your own previously submitted work without permission (self-plagiarism)."
+        },
+        {
+          "term": "Academic integrity",
+          "definition": "The commitment to honesty, fairness, and responsibility in all academic work. It requires that students produce their own original work, acknowledge all sources used, and neither give nor receive unauthorised assistance. Violations can result in penalties ranging from a zero grade to expulsion."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Writing APA in-text citations for a quotation and a paraphrase",
+          "problem": "You are writing an essay and wish to use material from the following source: a book titled 'Foundations of Academic Writing' by Ngozi Uche, published in 2020 by Lagos University Press. On page 34, Uche writes: 'Academic writing demands that every borrowed idea, however small, be traced to its origin.' You want to (a) quote this sentence directly, and (b) paraphrase the same idea. Write the correct APA in-text citation for each case.",
+          "steps": [
+            "Identify the citation elements needed. For any APA in-text citation you need at minimum: author's surname and year of publication. For a direct quotation you also need the page number.",
+            "Write the direct quotation. Copy the exact words and enclose them in double quotation marks. Place the citation—surname, year, page number—in parentheses immediately after the closing quotation mark and before the full stop: 'Academic writing demands that every borrowed idea, however small, be traced to its origin' (Uche, 2020, p. 34).",
+            "Write the paraphrase. Recast the idea completely in your own words without looking at the original sentence. For example: 'In academic writing, even the smallest idea taken from another source must be properly attributed.' Now add the in-text citation after the sentence, but without a page number, since APA style does not require one for paraphrases: (Uche, 2020).",
+            "Check both citations. Both use Surname, Year format. The quotation adds p. 34; the paraphrase does not. Neither citation begins with 'p.' for the year, and there is no comma between surname and year in the in-text form—only between year and page number."
+          ],
+          "answer": "(a) Direct quotation: 'Academic writing demands that every borrowed idea, however small, be traced to its origin' (Uche, 2020, p. 34). (b) Paraphrase: In academic writing, even the smallest idea taken from another source must be properly attributed (Uche, 2020)."
+        },
+        {
+          "title": "Constructing APA reference list entries for a book and a journal article",
+          "problem": "Compile correctly formatted APA 7th-edition reference list entries for the following two sources. Source 1 — Book: Author: Emeka Eze; Year: 2018; Title: Research Methods in the Social Sciences; Publisher: Ibadan Academic Press. Source 2 — Journal article: Authors: Fatima Bello and Samuel Adio; Year: 2022; Article title: 'Critical thinking skills in Nigerian higher education'; Journal: Journal of African Education; Volume: 15; Issue: 3; Pages: 102–119; DOI: 10.1000/jae.2022.153.",
+          "steps": [
+            "Recall the APA format for a book: Author, A. A. (Year). Title of work in italics: Subtitle if any. Publisher. Note: only the first word of the title and any proper nouns are capitalised (sentence case).",
+            "Apply this to Source 1: Eze, E. (2018). Research methods in the social sciences. Ibadan Academic Press. Explanation: 'Research methods in the social sciences' is in italics and sentence case; the author's initials follow the surname; the year is in parentheses; the entry ends with the publisher's name only (no 'Ltd' or location required in APA 7).",
+            "Recall the APA format for a journal article: Author, A. A., & Author, B. B. (Year). Title of article in sentence case. Title of Journal in Italics, Volume(Issue), page–page. https://doi.org/xxxxx",
+            "Apply this to Source 2: Bello, F., & Adio, S. (2022). Critical thinking skills in Nigerian higher education. Journal of African Education, 15(3), 102–119. https://doi.org/10.1000/jae.2022.153 Note: the journal name and volume number are italicised; the issue number in parentheses is not italicised; the article title is in sentence case (only the first word capitalised); the ampersand (&) is used between authors.",
+            "Arrange both entries in alphabetical order by the first author's surname. Bello comes before Eze, so Source 2 appears first. Apply a hanging indent (the first line is flush left; subsequent lines are indented by 0.5 inches/1.27 cm)."
+          ],
+          "answer": "Reference list (alphabetical order, hanging indent applied):\n\nBello, F., & Adio, S. (2022). Critical thinking skills in Nigerian higher education. Journal of African Education, 15(3), 102–119. https://doi.org/10.1000/jae.2022.153\n\nEze, E. (2018). Research methods in the social sciences. Ibadan Academic Press."
+        },
+        {
+          "title": "Identifying and correcting plagiarism in a student's paragraph",
+          "problem": "A student found the following sentence in a source (Akinola, 2019, p. 12): 'Corruption undermines institutional trust, weakens governance structures, and ultimately retards national development.' The student wrote this in their essay: 'Corruption undermines institutional trust, weakens governance structures, and ultimately slows down national development.' No citation was provided. Explain why this is plagiarism and rewrite the passage in two acceptable ways: (a) as a properly cited direct quotation, and (b) as a properly cited paraphrase.",
+          "steps": [
+            "Diagnose the problem. The student changed only one phrase ('retards national development' → 'slows down national development') and kept the rest of the sentence identical. This is a classic example of patchwriting—minimal word substitution without genuine restatement—and it lacks any citation. It is plagiarism because the structure, sequence of ideas, and most of the wording are still Akinola's, and the source is not acknowledged.",
+            "Write an acceptable direct quotation (Option a). Copy the original words exactly, enclose them in quotation marks, and add the full APA in-text citation including the page number: According to Akinola (2019), 'Corruption undermines institutional trust, weakens governance structures, and ultimately retards national development' (p. 12).",
+            "Write an acceptable paraphrase (Option b). Step away from the original, think about the core idea—corruption damages trust in institutions, makes governing harder, and holds back a country's progress—and write that idea in a completely different structure: When corruption takes hold, citizens lose faith in public institutions, the ability of governments to function is compromised, and the nation's prospects for development are significantly diminished (Akinola, 2019). Notice that the sentence structure, order of ideas, and vocabulary are genuinely different.",
+            "Confirm that both versions are free of plagiarism. Option (a) is legitimate because the quotation marks signal that the words are not the student's own, and the citation credits the source. Option (b) is legitimate because the wording is genuinely original and the citation still credits the idea to Akinola."
+          ],
+          "answer": "Plagiarism diagnosis: The student's version is patchwriting—only one word was changed, the sentence structure is identical to the original, and there is no citation. Acceptable rewrite (a) — Direct quotation: According to Akinola (2019), 'Corruption undermines institutional trust, weakens governance structures, and ultimately retards national development' (p. 12). Acceptable rewrite (b) — Paraphrase: When corruption takes hold, citizens lose faith in public institutions, the ability of governments to function is compromised, and the nation's prospects for development are significantly diminished (Akinola, 2019)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "A student quotes directly from page 56 of a 2017 book by an author with the surname Dada. Which in-text citation is correctly formatted in APA style?",
+          "options": [
+            "(Dada, 2017, pg. 56)",
+            "(Dada 2017 p. 56)",
+            "(Dada, 2017, p. 56)",
+            "(2017, Dada, p. 56)"
+          ],
+          "correctIndex": 2,
+          "explanation": "APA in-text citations for direct quotations use the format (Surname, Year, p. Page), with commas between each element and the lowercase abbreviation 'p.' for page—not 'pg.' and not reordered."
+        },
+        {
+          "question": "When constructing an APA reference list entry for a journal article, which element is written in italics?",
+          "options": [
+            "The article title",
+            "The authors' surnames",
+            "The journal name and volume number",
+            "The issue number and page range"
+          ],
+          "correctIndex": 2,
+          "explanation": "In APA style, the journal name and the volume number are italicised; the article title is in plain sentence case, and the issue number (in parentheses) and page range are not italicised."
+        },
+        {
+          "question": "A student rewrites a paragraph from a source, changes most of the words but keeps exactly the same sentence structure, and adds a citation. Which statement best describes this practice?",
+          "options": [
+            "It is fully acceptable because a citation has been provided.",
+            "It is a direct quotation and needs quotation marks.",
+            "It is patchwriting and may still constitute plagiarism because the sentence structure is not genuinely original.",
+            "It is self-plagiarism because the student reused their own earlier work."
+          ],
+          "correctIndex": 2,
+          "explanation": "Patchwriting—substituting words while retaining the original sentence structure—does not constitute a genuine paraphrase; even with a citation, it can be judged as plagiarism because the expression has not been made truly original."
+        },
+        {
+          "question": "Which of the following is an example of self-plagiarism?",
+          "options": [
+            "Copying a paragraph from a classmate's essay",
+            "Quoting a source without quotation marks",
+            "Submitting an essay you wrote for a different course as a new assignment without your lecturer's permission",
+            "Forgetting to include a reference list entry for a source you cited in the text"
+          ],
+          "correctIndex": 2,
+          "explanation": "Self-plagiarism occurs when a student presents their own previously submitted work as new original work; reusing an essay from another course without disclosure and permission is the clearest example of this violation."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

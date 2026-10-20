@@ -1,0 +1,810 @@
+{
+  "title": "PHY 108 — General Practical Physics II (full course)",
+  "course": "PHY 108 General Practical Physics II",
+  "topic": "Full course: 6 modules",
+  "overview": "This course develops practical laboratory skills across six interconnected areas of experimental physics. Students learn to measure electrical quantities accurately using standard instruments, apply Ohm's law to characterize resistive materials, use precision bridge and potentiometer methods to determine unknown resistances and cell properties, conduct optical experiments to measure refractive indices and focal lengths, investigate acoustic phenomena and oscillations, and perform thermal measurements to find heat capacities and latent heats. Each topic combines proper instrumentation technique, theoretical understanding, and data analysis.",
+  "modules": [
+    {
+      "title": "Electrical Measuring Instruments and Circuit Safety",
+      "sourceRange": "Topic 1",
+      "summary": "Electrical measuring instruments are the essential tools of any practical physics laboratory. An ammeter measures the current flowing through a branch of a circuit and must always be connected in series so that every charge carrier passes through it; because it must not disturb the current it measures, a good ammeter has a very low internal resistance. A voltmeter, by contrast, measures the potential difference between two points and is connected in parallel across the component of interest; to avoid drawing significant current away from the circuit, a good voltmeter has a very high internal resistance.\n\nThe sensitivity of a meter describes how large a deflection it produces per unit of the quantity being measured, while its range sets the maximum value it can safely indicate. A multimeter combines ammeter, voltmeter, and ohmmeter functions in one instrument, with a selector switch that reconfigures the internal circuitry. A rheostat is a variable resistor used to control current, while a potential divider uses two resistors (or a potentiometer) to supply any fraction of the supply voltage to a load — a far more flexible arrangement than a simple rheostat.\n\nSafe circuit practice underpins every experiment: always start with protective resistors or rheostats at maximum resistance, connect meters with correct polarity, choose a range larger than the expected reading before switching on, and never leave large currents flowing through low-resistance wires for longer than necessary. These habits protect both the equipment and the experimenter.",
+      "keyPoints": [
+        "An ammeter is connected in series; it must have very low resistance so it does not alter the circuit current.",
+        "A voltmeter is connected in parallel; it must have very high resistance so it draws negligible current.",
+        "Sensitivity of a meter is the deflection (or output) per unit input; a more sensitive meter gives a larger response to a smaller signal.",
+        "The range of a meter is the maximum value it can measure without damage; always select a range above the expected reading.",
+        "A multimeter can function as an ammeter, voltmeter, or ohmmeter depending on the position of its selector switch and choice of terminals.",
+        "A rheostat is a two-terminal variable resistor that controls current magnitude in a series circuit.",
+        "A potential divider uses two series resistors (or a potentiometer) across a supply to provide an output voltage that is a chosen fraction of the supply voltage; the output can be varied continuously from zero to nearly the full supply voltage.",
+        "Safe circuit practice includes: starting rheostats at maximum resistance, verifying polarity before switching on, using the highest meter range first, and avoiding prolonged high current through components."
+      ],
+      "definitions": [
+        {
+          "term": "Ammeter",
+          "definition": "An instrument that measures electric current. It is inserted in series in the circuit branch of interest and has a very low internal resistance (ideally zero) so that it does not change the current it is measuring."
+        },
+        {
+          "term": "Voltmeter",
+          "definition": "An instrument that measures the potential difference (voltage) between two points. It is connected in parallel across those points and has a very high internal resistance (ideally infinite) so that it draws negligible current and does not affect the circuit."
+        },
+        {
+          "term": "Sensitivity",
+          "definition": "The ratio of the meter's output deflection (or reading) to the input quantity it measures. For an analogue voltmeter it is commonly expressed in ohms per volt (Ω/V): a 20 kΩ/V meter is more sensitive than a 1 kΩ/V meter."
+        },
+        {
+          "term": "Range",
+          "definition": "The maximum value of the quantity a meter can indicate without being damaged or going off-scale. Most meters have multiple selectable ranges; the appropriate range is the lowest one that is still above the expected reading."
+        },
+        {
+          "term": "Multimeter",
+          "definition": "A versatile instrument that incorporates an ammeter, voltmeter, and ohmmeter in a single unit. A selector switch and choice of input terminals reconfigure the internal circuitry for the desired function and range."
+        },
+        {
+          "term": "Rheostat",
+          "definition": "A variable resistor connected using only two of its three terminals (one end and the sliding wiper) so that moving the slider changes the resistance in series with the circuit, thereby controlling the current."
+        },
+        {
+          "term": "Potential Divider",
+          "definition": "A circuit consisting of two resistors (R₁ and R₂) connected in series across a supply voltage V_s. The output voltage is taken across one of the resistors: V_out = V_s × R₂ / (R₁ + R₂). A potentiometer (three-terminal variable resistor) implements a continuously adjustable potential divider."
+        },
+        {
+          "term": "Potentiometer (as a circuit element)",
+          "definition": "A three-terminal variable resistor in which the output is taken between the sliding wiper and one end terminal. Because both end terminals are connected, it acts as a continuously variable potential divider rather than a simple series resistor."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Calculating the Output Voltage of a Potential Divider",
+          "problem": "A potential divider is made from a 1200 Ω resistor (R₁) and an 800 Ω resistor (R₂) connected in series across a 15 V supply. The output voltage is taken across R₂. Calculate (a) the output voltage and (b) the current drawn from the supply.",
+          "steps": [
+            "Identify the total resistance in the series chain: R_total = R₁ + R₂ = 1200 + 800 = 2000 Ω.",
+            "Apply the potential divider formula: V_out = V_s × R₂ / (R_total) = 15 × 800 / 2000.",
+            "Evaluate: V_out = 15 × 0.4 = 6.0 V.",
+            "Find the supply current using Ohm's law: I = V_s / R_total = 15 / 2000 = 0.0075 A = 7.5 mA."
+          ],
+          "answer": "The output voltage across R₂ is 6.0 V, and the current drawn from the supply is 7.5 mA."
+        },
+        {
+          "title": "Determining the Effect of Voltmeter Resistance on a Reading",
+          "problem": "A voltmeter with an internal resistance of 10 kΩ is connected across a 20 kΩ resistor that is in series with a 10 kΩ resistor across a 9 V supply. What voltage does the meter read, and how does this differ from the true open-circuit voltage across the 20 kΩ resistor?",
+          "steps": [
+            "Find the true (unloaded) voltage across the 20 kΩ resistor: V_true = 9 × 20 000 / (10 000 + 20 000) = 9 × (2/3) = 6.0 V.",
+            "When the voltmeter (10 kΩ) is connected in parallel with the 20 kΩ resistor, calculate the combined parallel resistance: R_parallel = (20 000 × 10 000) / (20 000 + 10 000) = 200 000 000 / 30 000 ≈ 6667 Ω.",
+            "Recalculate the voltage across the parallel combination: V_read = 9 × 6667 / (10 000 + 6667) = 9 × 6667 / 16 667 ≈ 9 × 0.400 = 3.60 V.",
+            "Calculate the error: True value − Measured value = 6.0 − 3.6 = 2.4 V, an error of 40%.",
+            "Conclusion: The voltmeter's resistance is comparable to the circuit resistance, causing severe loading. A voltmeter with much higher resistance (e.g. 10 MΩ) would give a reading much closer to 6.0 V."
+          ],
+          "answer": "The meter reads approximately 3.6 V, which is 2.4 V (40%) below the true value of 6.0 V — demonstrating why a voltmeter must have high internal resistance relative to the circuit it measures."
+        },
+        {
+          "title": "Selecting the Correct Meter Range and Verifying Safe Connection",
+          "problem": "In a laboratory experiment, a student plans to measure the current through and the voltage across a resistor of approximately 470 Ω connected to a 6 V supply. The available ammeter has ranges 0–100 mA and 0–1 A; the voltmeter has ranges 0–5 V and 0–15 V. (a) Estimate the current and voltage. (b) Select the appropriate range for each meter. (c) State how each meter should be connected.",
+          "steps": [
+            "Estimate the current: I ≈ V / R = 6 / 470 ≈ 0.0128 A = 12.8 mA.",
+            "Estimate the voltage across the resistor: approximately 6 V (the full supply, ignoring meter and wire resistance).",
+            "Select the ammeter range: 12.8 mA is well below 100 mA but far below 1 A, so choose the 0–100 mA range for a usefully large deflection.",
+            "Select the voltmeter range: 6 V exceeds the 0–5 V range, so choose the 0–15 V range to avoid damaging the meter. (If supply were confirmed at exactly 5 V or below, the 0–5 V range would give better resolution.)",
+            "Connect the ammeter in series with the 470 Ω resistor so all circuit current flows through it; observe polarity (+ terminal toward the positive supply).",
+            "Connect the voltmeter in parallel across the 470 Ω resistor; observe polarity (+  terminal toward the higher-potential end).",
+            "Before switching on, set any protective rheostat to maximum resistance to limit the initial current."
+          ],
+          "answer": "Expected current ≈ 12.8 mA → use the 0–100 mA range. Expected voltage ≈ 6 V → use the 0–15 V range. The ammeter goes in series; the voltmeter goes in parallel across the resistor."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Why must an ammeter have a very low internal resistance?",
+          "options": [
+            "So that it deflects strongly and is easy to read",
+            "So that it does not significantly increase the total circuit resistance and reduce the current being measured",
+            "So that it can also function as a voltmeter when needed",
+            "So that it can withstand large potential differences across its terminals"
+          ],
+          "correctIndex": 1,
+          "explanation": "An ammeter is placed in series, so any resistance it adds reduces the very current it is trying to measure; keeping its resistance very small ensures the circuit is barely disturbed."
+        },
+        {
+          "question": "A potential divider has R₁ = 3 kΩ and R₂ = 1 kΩ in series across a 12 V supply. What is the output voltage taken across R₂?",
+          "options": [
+            "9 V",
+            "4 V",
+            "3 V",
+            "6 V"
+          ],
+          "correctIndex": 2,
+          "explanation": "V_out = 12 × 1000 / (3000 + 1000) = 12 × 0.25 = 3 V; the output is the fraction R₂/(R₁+R₂) of the supply voltage."
+        },
+        {
+          "question": "When using a multimeter to measure an unknown voltage, what is the safest procedure for selecting the range?",
+          "options": [
+            "Start on the lowest range and increase until a readable deflection appears",
+            "Start on the highest range and decrease to the lowest range that gives a readable deflection without going off-scale",
+            "Always use the middle range as a compromise",
+            "Select any range at random because the meter has internal protection"
+          ],
+          "correctIndex": 1,
+          "explanation": "Starting on the highest range prevents the meter from being damaged by an unexpectedly large quantity; you then reduce the range to improve resolution once the approximate magnitude is known."
+        },
+        {
+          "question": "What is the key difference between using a variable resistor as a rheostat versus using it as a potential divider?",
+          "options": [
+            "A rheostat uses all three terminals; a potential divider uses only two",
+            "A rheostat uses only two terminals (one end and the wiper) to vary series resistance; a potential divider uses all three terminals to tap off a fraction of the voltage",
+            "A rheostat is always used in parallel; a potential divider is always used in series",
+            "There is no practical difference; the terms are interchangeable"
+          ],
+          "correctIndex": 1,
+          "explanation": "In rheostat mode only one end and the wiper are connected, giving a variable series resistance; in potential divider mode both end terminals and the wiper are used so the output voltage can be varied from zero to nearly the full supply voltage."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Ohm's Law, Resistance Measurements, and Resistor Networks",
+      "sourceRange": "Topic 2",
+      "summary": "Ohm's law states that, for a metallic conductor at constant temperature, the current through it is directly proportional to the potential difference across it. In a practical experiment this is verified by building a simple circuit with a variable power supply (or rheostat), an ammeter in series, and a voltmeter in parallel across the component under test. Readings of voltage V and current I are recorded systematically, and a graph of V (y-axis) against I (x-axis) is plotted. A straight line through the origin confirms Ohm's law, and the gradient of the line equals the resistance R of the component. The unit of resistance is the ohm (Ω), and R = V/I.\n\nWhen resistors are combined in circuits, the rules for series and parallel networks allow the total (equivalent) resistance to be calculated. In series, resistances simply add: the same current flows through each element, and the voltages across them sum to the supply voltage. In parallel, the reciprocals of the individual resistances add to give the reciprocal of the equivalent resistance; each element shares the same voltage, and the currents through them sum to the total current drawn from the supply. These rules let you predict and check experimental readings systematically.\n\nThe resistance of a wire is not just a number—it depends on the material and geometry of the conductor. Resistivity ρ is a material property defined by R = ρL/A, where L is the wire's length and A is its cross-sectional area. In the laboratory, the resistivity of a wire is found by measuring resistance for several different lengths using the Ohm's law circuit (ammeter–voltmeter method), plotting R against L, and extracting ρ from the gradient once A has been calculated from the wire's diameter (measured with a micrometer).",
+      "keyPoints": [
+        "Ohm's law: V ∝ I at constant temperature; mathematically V = IR, or equivalently R = V/I.",
+        "Experimental verification uses a series ammeter, parallel voltmeter, and variable voltage; plot V vs I and check for a straight line through the origin.",
+        "The gradient of a V-I graph equals resistance R (in Ω); a curved graph indicates non-ohmic behaviour.",
+        "Series rule: R_total = R₁ + R₂ + … (currents equal, voltages add).",
+        "Parallel rule: 1/R_total = 1/R₁ + 1/R₂ + … (voltages equal, currents add).",
+        "Resistivity: R = ρL/A; ρ has SI unit Ω·m and is an intrinsic property of the material, independent of shape.",
+        "To find ρ experimentally, plot R against L for a wire of fixed cross-section; gradient = ρ/A, so ρ = gradient × A.",
+        "Cross-sectional area of a round wire: A = π(d/2)² = πd²/4, where d is the diameter measured with a micrometer."
+      ],
+      "definitions": [
+        {
+          "term": "Ohm's Law",
+          "definition": "A relationship stating that the potential difference V across a metallic conductor is directly proportional to the current I through it, provided temperature and other physical conditions remain constant: V = IR. A conductor obeying this law is called ohmic."
+        },
+        {
+          "term": "Resistance (R)",
+          "definition": "The ratio of potential difference to current, R = V/I, measured in ohms (Ω). It quantifies how strongly a component opposes the flow of electric current."
+        },
+        {
+          "term": "V-I Characteristic",
+          "definition": "A graph of potential difference (V) on the y-axis against current (I) on the x-axis for a component. For an ohmic conductor it is a straight line through the origin; the gradient of that line equals the resistance."
+        },
+        {
+          "term": "Equivalent (Total) Resistance",
+          "definition": "The single resistance value that could replace a network of resistors without changing the current drawn from the supply or the voltage across the network."
+        },
+        {
+          "term": "Series Connection",
+          "definition": "A configuration in which resistors are joined end-to-end so that the same current flows through every element. The equivalent resistance is R_total = R₁ + R₂ + … and the supply voltage is shared among the components."
+        },
+        {
+          "term": "Parallel Connection",
+          "definition": "A configuration in which the terminals of all resistors are connected together so that each element has the same potential difference across it. The equivalent resistance satisfies 1/R_total = 1/R₁ + 1/R₂ + …, and the total current is shared among the branches."
+        },
+        {
+          "term": "Resistivity (ρ)",
+          "definition": "An intrinsic material property that measures how strongly a substance resists current flow, defined by ρ = RA/L, where R is resistance, A is cross-sectional area, and L is length. SI unit: ohm-metre (Ω·m)."
+        },
+        {
+          "term": "Ammeter–Voltmeter Method",
+          "definition": "A standard laboratory technique for measuring resistance in which an ammeter is connected in series with the component (to measure current through it) and a voltmeter is connected in parallel across it (to measure voltage across it); R is then calculated as V/I."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Verifying Ohm's Law and Finding Resistance from a V-I Graph",
+          "problem": "A student records the following V-I data for a resistor: (0.5 V, 10 mA), (1.0 V, 20 mA), (1.5 V, 30 mA), (2.0 V, 40 mA), (2.5 V, 50 mA). Show that the resistor is ohmic and determine its resistance from the graph gradient.",
+          "steps": [
+            "Convert currents to amperes: 10 mA = 0.010 A, 20 mA = 0.020 A, 30 mA = 0.030 A, 40 mA = 0.040 A, 50 mA = 0.050 A.",
+            "Plot V (y-axis, 0–2.5 V) against I (x-axis, 0–0.050 A). Mark the five data points.",
+            "Observe that all five points lie on a straight line that passes through the origin. This confirms direct proportionality (V ∝ I), i.e. Ohm's law is obeyed.",
+            "Calculate the gradient using two well-separated points, e.g. (0.050 A, 2.5 V) and (0.010 A, 0.5 V): gradient = ΔV/ΔI = (2.5 − 0.5) V / (0.050 − 0.010) A = 2.0 V / 0.040 A = 50 Ω.",
+            "Confirm with a spot check: R = V/I = 1.5 V / 0.030 A = 50 Ω. ✓"
+          ],
+          "answer": "The V-I graph is a straight line through the origin, confirming ohmic behaviour. The resistance R = gradient = 50 Ω."
+        },
+        {
+          "title": "Series and Parallel Resistor Networks",
+          "problem": "Three resistors R₁ = 6 Ω, R₂ = 12 Ω, and R₃ = 4 Ω are available. (a) Find the equivalent resistance when all three are in series. (b) Find the equivalent resistance when all three are in parallel. (c) R₁ and R₂ are connected in parallel, and this combination is placed in series with R₃. Find the equivalent resistance and the current drawn from a 10 V supply.",
+          "steps": [
+            "(a) Series: R_s = R₁ + R₂ + R₃ = 6 + 12 + 4 = 22 Ω.",
+            "(b) Parallel: 1/R_p = 1/6 + 1/12 + 1/4. Find a common denominator of 12: 1/R_p = 2/12 + 1/12 + 3/12 = 6/12 = 1/2. Therefore R_p = 2 Ω.",
+            "(c) Step 1 — find the parallel combination of R₁ and R₂: 1/R₁₂ = 1/6 + 1/12 = 2/12 + 1/12 = 3/12 = 1/4, so R₁₂ = 4 Ω.",
+            "(c) Step 2 — place R₁₂ in series with R₃: R_total = R₁₂ + R₃ = 4 + 4 = 8 Ω.",
+            "(c) Step 3 — current from supply: I = V/R_total = 10 V / 8 Ω = 1.25 A."
+          ],
+          "answer": "(a) 22 Ω; (b) 2 Ω; (c) equivalent resistance = 8 Ω, current = 1.25 A."
+        },
+        {
+          "title": "Determining the Resistivity of a Wire",
+          "problem": "A student measures the resistance of a nichrome wire of diameter 0.40 mm at six different lengths and plots R against L. The graph is a straight line through the origin with gradient 3.18 Ω/m. Calculate the resistivity of nichrome.",
+          "steps": [
+            "Calculate the cross-sectional area of the wire. Diameter d = 0.40 mm = 0.40 × 10⁻³ m = 4.0 × 10⁻⁴ m. Radius r = d/2 = 2.0 × 10⁻⁴ m. Area A = πr² = π × (2.0 × 10⁻⁴)² = π × 4.0 × 10⁻⁸ = 1.257 × 10⁻⁷ m².",
+            "Relate the graph gradient to resistivity. From R = ρL/A, rearranging gives R/L = ρ/A. The gradient of the R vs L graph is ρ/A = 3.18 Ω/m.",
+            "Solve for ρ: ρ = gradient × A = 3.18 Ω/m × 1.257 × 10⁻⁷ m² = 3.997 × 10⁻⁷ Ω·m ≈ 4.0 × 10⁻⁷ Ω·m.",
+            "Check units: (Ω/m) × m² = Ω·m. ✓ This value is consistent with the accepted resistivity of nichrome (~1.0 × 10⁻⁶ Ω·m), and small discrepancies arise from wire impurities or measurement error."
+          ],
+          "answer": "ρ ≈ 4.0 × 10⁻⁷ Ω·m (the exact value depends on the measured gradient and wire diameter; the method is: ρ = gradient × πd²/4)."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In an experiment to verify Ohm's law, a student plots potential difference V on the y-axis against current I on the x-axis and obtains a straight line through the origin. What does the gradient of this line represent?",
+          "options": [
+            "The power dissipated by the resistor",
+            "The resistance of the component",
+            "The conductance of the component",
+            "The EMF of the power supply"
+          ],
+          "correctIndex": 1,
+          "explanation": "The gradient ΔV/ΔI equals R from V = IR, so the slope of a V vs I graph directly gives the resistance of the component."
+        },
+        {
+          "question": "Two resistors of 8 Ω and 24 Ω are connected in parallel. What is their equivalent resistance?",
+          "options": [
+            "32 Ω",
+            "16 Ω",
+            "6 Ω",
+            "4 Ω"
+          ],
+          "correctIndex": 2,
+          "explanation": "1/R = 1/8 + 1/24 = 3/24 + 1/24 = 4/24, giving R = 24/4 = 6 Ω."
+        },
+        {
+          "question": "A wire of length L, cross-sectional area A, and resistivity ρ has resistance R. If the wire is replaced by one of the same material but twice the length and half the cross-sectional area, how does the resistance change?",
+          "options": [
+            "It doubles",
+            "It halves",
+            "It quadruples",
+            "It remains the same"
+          ],
+          "correctIndex": 2,
+          "explanation": "R = ρL/A; doubling L multiplies R by 2 and halving A multiplies R by a further 2, giving a net factor of 4, so the new resistance is 4R."
+        },
+        {
+          "question": "In the ammeter–voltmeter method for measuring resistance, why is the ammeter placed in series with the component rather than in parallel?",
+          "options": [
+            "To ensure it reads the voltage across the component",
+            "To ensure it carries the same current as the component and has negligible effect on circuit current",
+            "To increase the voltage available to the component",
+            "To allow the voltmeter to read zero when no current flows"
+          ],
+          "correctIndex": 1,
+          "explanation": "An ammeter must be in series to measure the current through the component; its very low resistance means it barely alters the circuit current, giving an accurate reading."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Precision Resistance and EMF Measurement: Bridge and Potentiometer Methods",
+      "sourceRange": "Topic 3",
+      "summary": "The metre bridge and potentiometer are two classical null-deflection instruments that allow highly accurate electrical measurements without drawing significant current from the circuit under test. Their precision comes from the fact that at balance, no current flows through the galvanometer, so the reading is independent of the galvanometer's own resistance and the measurement does not disturb the quantity being measured.\n\nThe metre bridge is an application of the Wheatstone bridge principle. A uniform resistance wire one metre long acts as two of the four bridge resistors, while a known resistance box and the unknown resistor form the other two. The jockey is slid along the wire until the galvanometer reads zero; at that point, the ratio of the known to unknown resistance equals the ratio of the two lengths of wire. This single balance-length measurement gives the unknown resistance directly.\n\nThe potentiometer extends the null idea to voltage measurement. A long uniform wire carries a steady driving current, setting up a uniform potential gradient along its length. An unknown EMF is connected in opposition to a tapping point on the wire; when the tapping length is adjusted so that no current flows through the galvanometer, the unknown EMF exactly equals the potential drop across that length. Comparing two EMFs reduces to comparing two balance lengths, and the internal resistance of a cell can be found by measuring how the balance length changes when the cell drives a known external load.",
+      "keyPoints": [
+        "At balance in a Wheatstone bridge, P/Q = R/S, so no current flows through the galvanometer and the measurement is independent of galvanometer resistance.",
+        "In a metre bridge, the wire lengths replace two arms: X/R = (100 − l)/l, where l is the balance length from the side of the known resistance R and X is unknown.",
+        "The balance length should fall between 30 cm and 70 cm; adjust R to achieve this so that errors in reading l are minimised.",
+        "A potentiometer works by opposing an unknown EMF against a known potential gradient; at balance, E = ε × l, where ε is the potential gradient (V cm⁻¹) and l is the balance length.",
+        "To compare two EMFs: E₁/E₂ = l₁/l₂, where l₁ and l₂ are the respective balance lengths.",
+        "To find internal resistance r of a cell: r = R(l₁ − l₂)/l₂, where R is the external resistance and l₁, l₂ are the balance lengths without and with R connected.",
+        "Null methods are preferred because they draw no current at balance, cause no loading error, and do not require the instrument to be calibrated in absolute units.",
+        "Jockey contact must be tapped (not slid) gently to avoid wearing the wire and distorting its uniformity."
+      ],
+      "definitions": [
+        {
+          "term": "Wheatstone Bridge",
+          "definition": "A circuit of four resistors P, Q, R, S arranged in a diamond with a battery across one diagonal and a galvanometer across the other. At balance (galvanometer reads zero), P/Q = R/S. This relationship allows one unknown resistor to be found precisely from three known ones."
+        },
+        {
+          "term": "Metre Bridge",
+          "definition": "A practical Wheatstone bridge in which a uniform 100 cm resistance wire forms two of the four arms. A jockey slides along the wire to find the balance point; the ratio of the two wire lengths at balance replaces the ratio P/Q in the bridge equation."
+        },
+        {
+          "term": "Balance Condition (Metre Bridge)",
+          "definition": "The condition X/R = (100 − l)/l, where X is the unknown resistance, R is the resistance box value, and l (in cm) is the distance from the R-side end of the wire to the jockey at the null point."
+        },
+        {
+          "term": "Jockey",
+          "definition": "A sliding contact pressed gently onto the metre bridge wire to sample the potential at a chosen point. It must be tapped rather than dragged to preserve the uniformity of the wire."
+        },
+        {
+          "term": "Potentiometer",
+          "definition": "An instrument consisting of a long uniform wire connected to a steady driving cell. The potential falls uniformly along the wire, providing an adjustable standard voltage that can be balanced against an unknown EMF with no current drawn from the unknown source at balance."
+        },
+        {
+          "term": "Potential Gradient (ε)",
+          "definition": "The potential drop per unit length along the potentiometer wire, equal to the driving voltage divided by the total wire length. Its SI unit is V m⁻¹ (or V cm⁻¹ in practice). All EMF comparisons depend on ε remaining constant throughout the experiment."
+        },
+        {
+          "term": "EMF Comparison",
+          "definition": "A potentiometer measurement in which two cells are balanced in turn against the same wire. Because the potential gradient is the same for both, E₁/E₂ = l₁/l₂, where l₁ and l₂ are the respective balance lengths."
+        },
+        {
+          "term": "Internal Resistance (by potentiometer)",
+          "definition": "The internal resistance r of a cell found by measuring its balance length l₁ on open circuit and then its balance length l₂ when it drives a known external resistance R. The formula r = R(l₁ − l₂)/l₂ comes from the fact that l₁ is proportional to EMF and l₂ is proportional to terminal voltage."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding an Unknown Resistance with a Metre Bridge",
+          "problem": "In a metre bridge experiment, a resistance box is set to R = 12.0 Ω on the left gap and an unknown resistor X is placed in the right gap. The galvanometer shows zero deflection when the jockey is at l = 40.0 cm from the left end. Find X.",
+          "steps": [
+            "Write the metre bridge balance condition: X/R = (100 − l)/l.",
+            "Substitute the known values: X/12.0 = (100 − 40.0)/40.0 = 60.0/40.0 = 1.500.",
+            "Solve for X: X = 12.0 × 1.500 = 18.0 Ω.",
+            "Check that l = 40.0 cm lies in the 30–70 cm acceptable range — it does, so the result is reliable."
+          ],
+          "answer": "X = 18.0 Ω"
+        },
+        {
+          "title": "Comparing Two EMFs with a Potentiometer",
+          "problem": "A potentiometer wire is 100 cm long and connected to a driver cell. Cell E₁ balances at l₁ = 72.4 cm and cell E₂ balances at l₂ = 60.8 cm. Given that E₁ = 1.500 V, find E₂.",
+          "steps": [
+            "State the comparison formula: E₁/E₂ = l₁/l₂.",
+            "Rearrange to find E₂: E₂ = E₁ × (l₂/l₁).",
+            "Substitute values: E₂ = 1.500 × (60.8/72.4).",
+            "Calculate: 60.8/72.4 = 0.8398, so E₂ = 1.500 × 0.8398 = 1.260 V (to 4 s.f.)."
+          ],
+          "answer": "E₂ = 1.26 V"
+        },
+        {
+          "title": "Measuring Internal Resistance of a Cell",
+          "problem": "A cell is connected to a potentiometer. On open circuit (no external load) its balance length is l₁ = 84.0 cm. When an external resistance R = 5.0 Ω is connected across the cell, the balance length falls to l₂ = 70.0 cm. Calculate the internal resistance r of the cell.",
+          "steps": [
+            "Recall that the open-circuit balance length is proportional to EMF (E) and the loaded balance length is proportional to terminal voltage (V): E/V = l₁/l₂.",
+            "The terminal voltage when current I flows is V = E − Ir, and by Ohm's law V = IR, so E/V = (R + r)/R.",
+            "Therefore (R + r)/R = l₁/l₂, which rearranges to r = R(l₁/l₂ − 1) = R(l₁ − l₂)/l₂.",
+            "Substitute: r = 5.0 × (84.0 − 70.0)/70.0 = 5.0 × 14.0/70.0 = 5.0 × 0.2000 = 1.00 Ω."
+          ],
+          "answer": "r = 1.00 Ω"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In a metre bridge experiment the balance point is found at l = 25 cm when R = 10 Ω. Which action is most appropriate before recording a result?",
+          "options": [
+            "Accept the result because the galvanometer reads zero.",
+            "Increase R so that the balance length moves into the 30–70 cm range.",
+            "Decrease R so that the balance length moves closer to 10 cm.",
+            "Replace the galvanometer with a lower-resistance one."
+          ],
+          "correctIndex": 1,
+          "explanation": "A balance point below 30 cm (or above 70 cm) magnifies the error in reading l; the experimenter should adjust R until l falls in the central 30–70 cm range for minimum percentage error."
+        },
+        {
+          "question": "In a Wheatstone bridge, the four arms have resistances P = 100 Ω, Q = 100 Ω, R = 47 Ω and S = 47 Ω. What does the galvanometer read at this condition?",
+          "options": [
+            "A large deflection because P ≠ R.",
+            "Zero, because P/Q = R/S = 1.",
+            "A deflection proportional to P − R.",
+            "Zero only if all four resistors are equal."
+          ],
+          "correctIndex": 1,
+          "explanation": "The balance condition is P/Q = R/S; here both ratios equal 1, so the bridge is balanced and no current flows through the galvanometer regardless of the individual values."
+        },
+        {
+          "question": "A potentiometer measures EMF rather than terminal voltage because at balance the cell being tested supplies no current. Why does this matter?",
+          "options": [
+            "It prevents the driver cell from running flat.",
+            "It means there is no voltage drop across the cell's internal resistance, so the reading equals the true EMF.",
+            "It makes the potential gradient along the wire larger.",
+            "It allows a smaller wire resistance to be used."
+          ],
+          "correctIndex": 1,
+          "explanation": "When no current is drawn from the test cell, the voltage drop across its internal resistance (V = Ir) is zero, so the terminal voltage equals the EMF; this is the defining advantage of the null potentiometer method."
+        },
+        {
+          "question": "In an internal-resistance experiment using a potentiometer, the balance length decreases when an external resistor is connected across the cell. What is the correct interpretation?",
+          "options": [
+            "The potential gradient of the driver has increased.",
+            "The EMF of the cell has decreased due to loading.",
+            "The terminal voltage is now less than the EMF because current flows through the internal resistance.",
+            "The wire has become non-uniform due to heating."
+          ],
+          "correctIndex": 2,
+          "explanation": "The loaded balance length is proportional to terminal voltage V = E − Ir; because current now flows, Ir > 0, so V < E and the balance length is shorter than the open-circuit value."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Optics Experiments: Refraction, Prisms, Lenses, and Mirrors",
+      "sourceRange": "Topic 4",
+      "summary": "This module covers four classic first-year optics experiments, each designed to measure a fundamental optical quantity through direct, hands-on observation. The first experiment uses a ray-tracing technique to find the refractive index of a glass block: a ray of light is traced through the block on paper, the angles of incidence and refraction at the flat surface are measured, and Snell's law gives the refractive index directly. The second experiment places a triangular glass prism on a ray-trace sheet or uses a spectrometer to find the angle of minimum deviation D, at which the refracted ray travels symmetrically through the prism; combined with the prism angle A, this yields the refractive index via the formula n = sin[(A+D)/2] / sin[A/2].\n\nThe third experiment measures the focal length of a converging (convex) lens. An illuminated object is placed at several distances u from the lens and the image distance v is found each time; applying the thin-lens formula 1/v − 1/u = 1/f (using the real-is-positive sign convention) gives f for each pair. A superior graphical method plots 1/v on the y-axis against 1/u on the x-axis: the result is a straight line of slope −1, and both intercepts equal 1/f, so f is read off directly. The fourth experiment measures the focal length of a concave mirror using the mirror formula 1/v + 1/u = 1/f; again a graphical plot of 1/v against 1/u gives a straight line whose intercepts both equal 1/f. Together these experiments build a coherent picture of how geometry and wave-optics combine to describe image formation.",
+      "keyPoints": [
+        "Snell's law: n₁ sin θ₁ = n₂ sin θ₂; for a ray going from air into glass, n = sin i / sin r, where i is the angle of incidence and r is the angle of refraction, both measured from the normal.",
+        "In the glass-block ray-tracing experiment, the incident ray, the emergent ray, and the normal to the surface must all be accurately marked on paper; the block outline is traced so that measurements can be made after the block is removed.",
+        "At minimum deviation D in a prism of apex angle A, the ray inside the prism travels parallel to the base; the refractive index is n = sin[(A+D)/2] / sin(A/2).",
+        "The thin-lens formula (real-is-positive convention) is 1/v − 1/u = 1/f, where u is negative for a real object and v is positive for a real image; equivalently written as 1/f = 1/v + 1/|u|.",
+        "Plotting 1/v (y-axis) against 1/u (x-axis) for a converging lens gives a straight line of gradient −1; both intercepts on the axes equal 1/f, providing a robust graphical determination of focal length.",
+        "The concave mirror formula is 1/v + 1/u = 1/f = 2/r, where r is the radius of curvature; all distances are positive for real objects and real images in front of the mirror.",
+        "A quick estimate of the focal length of a converging lens or concave mirror is obtained by focusing a distant object (effectively u = ∞) so that 1/u ≈ 0 and f ≈ v.",
+        "Accurate experiments require: a clean, flat glass surface for ray-tracing; a precisely cut prism with a known apex angle; a well-aligned optical bench with a sharp, bright object for lens and mirror work."
+      ],
+      "definitions": [
+        {
+          "term": "Refractive index (n)",
+          "definition": "A dimensionless ratio that measures how much a medium slows light relative to a vacuum. For light passing from medium 1 (angle of incidence θ₁) into medium 2 (angle of refraction θ₂), n₂/n₁ = sin θ₁ / sin θ₂. For glass relative to air, n = sin i / sin r, where i and r are measured from the surface normal."
+        },
+        {
+          "term": "Angle of incidence (i) and angle of refraction (r)",
+          "definition": "Both angles are measured from the normal (a line perpendicular to the surface at the point of contact). The angle of incidence is in the first medium; the angle of refraction is in the second medium. Confusing these with angles measured from the surface is a common source of error."
+        },
+        {
+          "term": "Angle of deviation (δ)",
+          "definition": "The angle between the direction of the original incident ray and the direction of the emergent ray after passing through a prism. It depends on the angle of incidence and reaches a minimum value D (minimum deviation) when the ray passes symmetrically through the prism."
+        },
+        {
+          "term": "Minimum deviation (D)",
+          "definition": "The smallest possible angle of deviation for a given prism and wavelength of light. It occurs when the ray inside the prism is parallel to the base, i.e., the ray strikes both faces at equal angles. At this condition, n = sin[(A+D)/2] / sin(A/2), where A is the apex angle."
+        },
+        {
+          "term": "Principal focus and focal length (f)",
+          "definition": "The principal focus of a lens or mirror is the point on the principal axis where rays parallel to that axis converge (converging lens or concave mirror) or appear to diverge from (diverging elements) after refraction or reflection. The focal length f is the distance from the optical centre (lens) or pole (mirror) to the principal focus."
+        },
+        {
+          "term": "Thin-lens formula",
+          "definition": "Relates object distance u, image distance v, and focal length f for a thin lens: 1/v − 1/u = 1/f (Cartesian real-is-positive convention, with u negative for a real object on the left). An equivalent and commonly used form is 1/f = 1/v + 1/|u|. The lens is converging when f > 0."
+        },
+        {
+          "term": "Mirror formula",
+          "definition": "For a spherical mirror, 1/v + 1/u = 1/f = 2/r, where r is the radius of curvature. Using the convention that distances measured in the direction of the incident light are positive, both u and v are positive for real objects and real images in front of a concave mirror."
+        },
+        {
+          "term": "Optical bench",
+          "definition": "A rigid, graduated track on which the light source, lens or mirror, and screen can be slid and their positions read off to determine object and image distances accurately. Correct alignment along the principal axis is essential to obtain sharp, undistorted images."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding the refractive index of glass by ray tracing",
+          "problem": "In a glass-block experiment, a student marks the incident ray and the emergent ray, then draws normals to the glass surface. She measures the angle of incidence as i = 40° and the angle of refraction inside the glass as r = 25°. Calculate the refractive index of the glass.",
+          "steps": [
+            "Write Snell's law for the air–glass interface: n_air × sin i = n_glass × sin r, with n_air = 1.00.",
+            "Substitute the measured angles: 1.00 × sin 40° = n_glass × sin 25°.",
+            "Evaluate the sines: sin 40° = 0.6428, sin 25° = 0.4226.",
+            "Solve for n_glass: n_glass = 0.6428 / 0.4226 = 1.521.",
+            "Check reasonableness: ordinary glass has n ≈ 1.5, so this is consistent."
+          ],
+          "answer": "The refractive index of the glass block is n ≈ 1.52."
+        },
+        {
+          "title": "Refractive index from minimum deviation in a prism",
+          "problem": "A glass prism has an apex angle A = 60°. When a ray of monochromatic light passes through it at minimum deviation, the angle of minimum deviation is measured as D = 40°. Calculate the refractive index of the glass.",
+          "steps": [
+            "Write the minimum-deviation formula: n = sin[(A + D)/2] / sin(A/2).",
+            "Substitute values: A = 60°, D = 40°, so (A + D)/2 = (60 + 40)/2 = 50°, and A/2 = 30°.",
+            "Evaluate: n = sin 50° / sin 30° = 0.7660 / 0.5000.",
+            "Calculate: n = 1.532.",
+            "Verify by checking that this lies in the typical range for crown glass (1.50–1.55). ✓"
+          ],
+          "answer": "The refractive index of the prism glass is n ≈ 1.53."
+        },
+        {
+          "title": "Focal length of a converging lens: graphical method",
+          "problem": "A student measures the following pairs of object distance |u| and image distance v for a converging lens:\n|u| (cm): 20, 25, 30, 40, 60\nv (cm):   60, 41.7, 30, 24, 20\n\n(i) Calculate 1/|u| and 1/v for each pair and find f from each. (ii) Explain what the graph of 1/v against 1/|u| would show and how f is read from it.",
+          "steps": [
+            "Convert each pair to reciprocals (cm⁻¹):\n  |u|=20 → 1/|u|=0.0500, v=60 → 1/v=0.0167; f = 1/(0.0500+0.0167)⁻¹ = 15.0 cm.\n  |u|=25 → 1/|u|=0.0400, v=41.7 → 1/v=0.0240; 1/f=0.0640, f=15.6 cm.\n  |u|=30 → 1/|u|=0.0333, v=30 → 1/v=0.0333; 1/f=0.0666, f=15.0 cm.\n  |u|=40 → 1/|u|=0.0250, v=24 → 1/v=0.0417; 1/f=0.0667, f=15.0 cm.\n  |u|=60 → 1/|u|=0.0167, v=20 → 1/v=0.0500; 1/f=0.0667, f=15.0 cm.",
+            "Average the individual f values: f_avg ≈ 15.1 cm ≈ 15 cm.",
+            "For the graph: plot 1/v (y-axis) against 1/|u| (x-axis). The thin-lens formula 1/v = −1/u + 1/f (Cartesian form) or equivalently 1/v = 1/f − 1/|u| means the graph is a straight line of gradient −1.",
+            "The y-intercept (where 1/|u| = 0, i.e., object at infinity) gives 1/v = 1/f, so the y-intercept = 1/f ≈ 0.0667 cm⁻¹, giving f = 15 cm.",
+            "Similarly the x-intercept (where 1/v = 0, i.e., image at infinity) also equals 1/f. Both intercepts should agree, providing an internal consistency check."
+          ],
+          "answer": "Each measurement gives f ≈ 15 cm. The graph of 1/v against 1/|u| is a straight line of slope −1 whose y- and x-intercepts both equal 1/f = 0.0667 cm⁻¹, confirming f = 15 cm."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In a glass-block ray-tracing experiment, the angle of incidence is 50° and the angle of refraction is 30°. What is the refractive index of the glass?",
+          "options": [
+            "0.60",
+            "0.77",
+            "1.53",
+            "1.73"
+          ],
+          "correctIndex": 2,
+          "explanation": "n = sin 50° / sin 30° = 0.7660 / 0.5000 = 1.53; angles are always measured from the normal, not the surface."
+        },
+        {
+          "question": "A prism with apex angle 60° produces a minimum deviation of 30°. Which expression correctly gives its refractive index?",
+          "options": [
+            "sin 30° / sin 60°",
+            "sin 45° / sin 30°",
+            "sin 60° / sin 30°",
+            "sin 30° / sin 45°"
+          ],
+          "correctIndex": 1,
+          "explanation": "The formula is n = sin[(A+D)/2] / sin(A/2) = sin[(60+30)/2] / sin[60/2] = sin 45° / sin 30°."
+        },
+        {
+          "question": "A student plots 1/v on the y-axis against 1/u on the x-axis for a converging lens and gets a straight line. Which statement correctly describes this line?",
+          "options": [
+            "It has a positive gradient and passes through the origin.",
+            "It has a gradient of −1 and both intercepts equal 1/f.",
+            "It has a gradient of +1 and both intercepts equal f.",
+            "It is a curve, not a straight line, because the lens formula is non-linear in u and v."
+          ],
+          "correctIndex": 1,
+          "explanation": "Rearranging the lens formula gives 1/v = −1/u + 1/f, a straight line with gradient −1 and y-intercept 1/f; the x-intercept is also 1/f."
+        },
+        {
+          "question": "When measuring the focal length of a concave mirror using the mirror formula 1/v + 1/u = 1/f, a student places an object 30 cm in front of the mirror and finds a real image 60 cm in front of the mirror. What is the focal length?",
+          "options": [
+            "10 cm",
+            "20 cm",
+            "45 cm",
+            "90 cm"
+          ],
+          "correctIndex": 1,
+          "explanation": "1/f = 1/30 + 1/60 = 2/60 + 1/60 = 3/60 = 1/20, so f = 20 cm."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Sound and Oscillatory Motion: Speed of Sound, Resonance, and Periodic Motion",
+      "sourceRange": "Topic 5",
+      "summary": "This module covers three classic first-year laboratory investigations that connect wave physics and oscillatory mechanics to measurable quantities. The first experiment uses a resonance tube — a cylindrical air column whose length can be varied — to detect the standing-wave condition at which the column resonates with a vibrating tuning fork. By measuring two successive resonance lengths, students can eliminate the end correction and calculate the speed of sound in air. The end correction, a small effective extension of the tube beyond its open end, is also extracted from the same data.\n\nThe second experiment uses a sonometer: a wire under adjustable tension stretched over a sounding board. By varying tension, vibrating length, and linear mass density, and comparing the wire's natural frequency with that of a tuning fork (judged by resonance or the disappearance of a paper rider), students verify Melde's laws — that frequency is proportional to the square root of tension and inversely proportional to both length and the square root of linear mass density. This gives a direct experimental route to an unknown frequency or to the tension in the wire.\n\nThe third investigation examines the simple harmonic motion of a mass hanging on a helical spring. When the mass is displaced and released it oscillates with a period that depends only on the mass and the spring constant, not on the amplitude. By plotting the square of the period against the hanging mass, students obtain a straight-line graph whose slope yields the spring constant. Together these three experiments build a coherent picture of periodic motion in mechanical and wave systems.",
+      "keyPoints": [
+        "In a resonance tube, resonance occurs when the air-column length equals an odd multiple of a quarter wavelength (λ/4, 3λ/4, …) plus the end correction e.",
+        "The speed of sound is found from v = 2f(L₂ − L₁), where L₁ and L₂ are the first and second resonance lengths and f is the tuning-fork frequency; this formula cancels the end correction automatically.",
+        "The end correction e = (L₂ − 3L₁) / 2, and is typically about 0.3 times the internal radius of the tube.",
+        "For a sonometer wire, the fundamental frequency f = (1/2L)√(T/μ), where L is the vibrating length, T is the tension, and μ is the linear mass density (mass per unit length) of the wire.",
+        "A paper rider placed at the centre of a sonometer wire falls off when the wire resonates with the tuning fork, providing a simple and sensitive resonance detector.",
+        "For a mass m on a spring of spring constant k, the period of simple harmonic oscillation is T = 2π√(m/k), independent of amplitude.",
+        "A graph of T² against m for a loaded spring is a straight line through the origin (or with a small intercept due to the spring's own mass) with slope 4π²/k, allowing k to be determined.",
+        "Systematic errors in the resonance tube include temperature dependence of the speed of sound and parallax in reading the ruler; the two-resonance method removes the end correction as a systematic error."
+      ],
+      "definitions": [
+        {
+          "term": "Resonance",
+          "definition": "The condition in which a system is driven at its natural frequency, causing the amplitude of oscillation to reach a maximum. In a resonance tube, the air column resonates when its effective length matches the standing-wave pattern set up by the tuning fork."
+        },
+        {
+          "term": "End correction (e)",
+          "definition": "A small length, added to the physical length of an open-ended air column, that accounts for the fact that the antinode of the standing wave forms slightly beyond the open end rather than exactly at it. For a tube of internal radius r, e ≈ 0.3r."
+        },
+        {
+          "term": "Fundamental frequency",
+          "definition": "The lowest frequency at which a system resonates, corresponding to the simplest standing-wave pattern. For a closed-end resonance tube it corresponds to a quarter-wavelength fitting in the effective column length."
+        },
+        {
+          "term": "Sonometer",
+          "definition": "A laboratory instrument consisting of a wire stretched over a hollow wooden box (acting as a sounding board), with movable bridges to define the vibrating length and a hanger to apply a known tension via calibrated masses."
+        },
+        {
+          "term": "Linear mass density (μ)",
+          "definition": "The mass of a wire per unit length, measured in kg m⁻¹. It determines how much inertia the wire has per unit length and therefore how slowly or quickly a disturbance travels along it; a heavier wire vibrates at a lower frequency for the same tension."
+        },
+        {
+          "term": "Melde's laws",
+          "definition": "Empirical relations for the frequency of a stretched string: (1) f ∝ 1/L at constant T and μ; (2) f ∝ √T at constant L and μ; (3) f ∝ 1/√μ at constant L and T. Together they are summarised by f = (1/2L)√(T/μ)."
+        },
+        {
+          "term": "Simple harmonic motion (SHM)",
+          "definition": "Oscillatory motion in which the restoring force is directly proportional to the displacement from equilibrium and directed towards it. The resulting motion is sinusoidal with a period that is independent of amplitude."
+        },
+        {
+          "term": "Spring constant (k)",
+          "definition": "The stiffness of a spring, defined by Hooke's law as k = F/x, where F is the restoring force and x is the extension from the natural length. Its SI unit is N m⁻¹, and it is determined experimentally from the slope of a T² vs m graph as k = 4π²/slope."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding the speed of sound and end correction from two resonance lengths",
+          "problem": "A resonance tube experiment is performed with a tuning fork of frequency 512 Hz. The first resonance is heard when the water level gives an air-column length of L₁ = 15.5 cm, and the second resonance occurs at L₂ = 48.5 cm. Calculate (a) the speed of sound in air and (b) the end correction of the tube.",
+          "steps": [
+            "Step 1 – Identify the resonance conditions. For a closed-end tube the effective lengths at first and second resonance are L₁ + e = λ/4 and L₂ + e = 3λ/4, where e is the end correction and λ is the wavelength.",
+            "Step 2 – Eliminate e by subtracting the first equation from the second: (L₂ + e) − (L₁ + e) = 3λ/4 − λ/4, so L₂ − L₁ = λ/2. Therefore λ = 2(L₂ − L₁).",
+            "Step 3 – Calculate λ: λ = 2 × (48.5 − 15.5) cm = 2 × 33.0 cm = 66.0 cm = 0.660 m.",
+            "Step 4 – Calculate v using v = fλ: v = 512 Hz × 0.660 m = 337.9 m s⁻¹ ≈ 338 m s⁻¹.",
+            "Step 5 – Find e. From L₁ + e = λ/4: e = λ/4 − L₁ = (0.660/4) m − 0.155 m = 0.165 m − 0.155 m = 0.010 m = 1.0 cm. Alternatively, e = (L₂ − 3L₁)/2 = (48.5 − 3×15.5)/2 = (48.5 − 46.5)/2 = 1.0 cm. Both routes agree."
+          ],
+          "answer": "Speed of sound v ≈ 338 m s⁻¹; end correction e = 1.0 cm."
+        },
+        {
+          "title": "Determining an unknown frequency with a sonometer",
+          "problem": "A sonometer wire of linear mass density μ = 4.0 × 10⁻³ kg m⁻¹ is placed under a tension of 36 N. The vibrating length is adjusted until a paper rider at the midpoint falls off, indicating resonance with an unknown tuning fork. The resonating length is found to be L = 45.0 cm. Calculate the frequency of the tuning fork.",
+          "steps": [
+            "Step 1 – Write down Melde's formula for the fundamental frequency of a stretched string: f = (1/2L)√(T/μ).",
+            "Step 2 – Substitute the known values. Convert L to metres: L = 0.450 m; T = 36 N; μ = 4.0 × 10⁻³ kg m⁻¹.",
+            "Step 3 – Calculate the term under the square root: T/μ = 36 / (4.0 × 10⁻³) = 9000 m² s⁻².",
+            "Step 4 – Take the square root: √9000 = 94.87 m s⁻¹.",
+            "Step 5 – Multiply by 1/(2L): f = 94.87 / (2 × 0.450) = 94.87 / 0.900 = 105.4 Hz ≈ 105 Hz."
+          ],
+          "answer": "The frequency of the tuning fork is approximately 105 Hz."
+        },
+        {
+          "title": "Finding the spring constant from a T² vs m graph",
+          "problem": "A student loads a helical spring with five different masses and measures the period of vertical oscillation each time. The results are: m = 100 g, T = 0.628 s; m = 200 g, T = 0.888 s; m = 300 g, T = 1.089 s; m = 400 g, T = 1.257 s; m = 500 g, T = 1.405 s. Plot the expected T² values and find the spring constant k from the slope.",
+          "steps": [
+            "Step 1 – Calculate T² for each mass. T²: 0.394, 0.789, 1.186, 1.580, 1.974 s² (for m = 0.100, 0.200, 0.300, 0.400, 0.500 kg respectively). Notice T² increases linearly with m, confirming SHM theory.",
+            "Step 2 – Write the theoretical relation. From T = 2π√(m/k), squaring gives T² = (4π²/k) × m. So a graph of T² (y-axis) against m (x-axis) is a straight line through the origin with slope = 4π²/k.",
+            "Step 3 – Calculate the slope from the data. Using the first and last points as a rough gradient: slope = (1.974 − 0.394) / (0.500 − 0.100) = 1.580 / 0.400 = 3.950 s² kg⁻¹. A best-fit line through all points gives the same value to three significant figures.",
+            "Step 4 – Solve for k: k = 4π² / slope = 4 × (3.1416)² / 3.950 = 39.478 / 3.950 = 9.994 N m⁻¹ ≈ 10.0 N m⁻¹.",
+            "Step 5 – Verify units and reasonableness: slope has units s² kg⁻¹, so k = 4π²/(s² kg⁻¹) = kg s⁻² = N m⁻¹. A spring constant of 10 N m⁻¹ is typical for a light laboratory spring."
+          ],
+          "answer": "The spring constant k ≈ 10.0 N m⁻¹, determined from the slope of the T² vs m graph."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In a resonance-tube experiment with a closed lower end, the first and second resonance lengths are L₁ and L₂. Which expression correctly gives the speed of sound?",
+          "options": [
+            "v = f(L₂ − L₁)",
+            "v = 2f(L₂ − L₁)",
+            "v = 4f(L₂ − L₁)",
+            "v = f(L₂ + L₁)"
+          ],
+          "correctIndex": 1,
+          "explanation": "The distance between successive resonances equals half a wavelength, so λ = 2(L₂ − L₁) and v = fλ = 2f(L₂ − L₁)."
+        },
+        {
+          "question": "In a sonometer experiment, the tension in the wire is increased by a factor of 4 while the length and wire material remain unchanged. What happens to the resonant frequency?",
+          "options": [
+            "It doubles",
+            "It quadruples",
+            "It is halved",
+            "It is unchanged"
+          ],
+          "correctIndex": 0,
+          "explanation": "Since f ∝ √T, multiplying T by 4 multiplies f by √4 = 2, so the frequency doubles."
+        },
+        {
+          "question": "A mass on a spring oscillates with period T₁. The mass is then replaced by a mass four times as large. What is the new period?",
+          "options": [
+            "T₁/4",
+            "T₁/2",
+            "2T₁",
+            "4T₁"
+          ],
+          "correctIndex": 2,
+          "explanation": "T = 2π√(m/k), so T ∝ √m; multiplying m by 4 multiplies T by √4 = 2, giving a new period of 2T₁."
+        },
+        {
+          "question": "What is the purpose of placing a small paper rider at the centre of a sonometer wire during a frequency measurement?",
+          "options": [
+            "To increase the tension in the wire",
+            "To add to the linear mass density of the wire so the formula can be applied",
+            "To act as a sensitive resonance detector: it flies off when the wire vibrates at its natural frequency",
+            "To prevent the wire from vibrating at overtones"
+          ],
+          "correctIndex": 2,
+          "explanation": "The paper rider is very light and is thrown off when the wire resonates and vibrates with maximum amplitude, giving a clear visual indication of the resonance condition."
+        }
+      ],
+      "theory": []
+    },
+    {
+      "title": "Thermal Properties: Heat Capacity and Latent Heat Measurements",
+      "sourceRange": "Topic 6",
+      "summary": "This module explores how heat energy is measured and how it produces temperature changes or phase transitions in matter. When a substance absorbs heat without changing phase, its temperature rises by an amount that depends on its mass and a material property called specific heat capacity. The method of mixtures exploits conservation of energy: a hot object is dropped into a known mass of cooler liquid inside an insulated calorimeter, and the heat lost by the hot object equals the heat gained by the liquid and calorimeter, allowing the unknown specific heat capacity to be calculated from measured masses and temperature changes.\n\nWhen a substance changes phase — for example, when ice melts into water — it absorbs or releases heat without any change in temperature. This energy per unit mass is the specific latent heat. The specific latent heat of fusion of ice is found by adding a known mass of ice at 0 °C to warm water in a calorimeter and measuring the drop in temperature: the heat given up by the warm water goes first into melting the ice and then into warming the resulting melt water to the final temperature.\n\nCooling curves provide a graphical record of temperature against time as a hot object loses heat to its surroundings. The shape of the curve reflects Newton's Law of Cooling — the rate of heat loss is proportional to the temperature excess above the surroundings — producing an exponential decay. A plateau on the cooling curve signals a phase change where temperature stays constant until the transition is complete. Reading cooling curves carefully allows the determination of melting points, rates of cooling, and thermal time constants.",
+      "keyPoints": [
+        "Heat lost by hot body = heat gained by cool body + calorimeter (conservation of energy, assuming no heat loss to surroundings).",
+        "Specific heat capacity c is defined as the heat needed per unit mass per degree of temperature change: Q = mcΔT.",
+        "The method of mixtures involves mixing a hot solid or liquid with cool water in a calorimeter and solving the heat-balance equation for the unknown c.",
+        "The water equivalent of the calorimeter (mass × specific heat of calorimeter material) must be included in the heat-balance equation.",
+        "Specific latent heat of fusion L_f is the heat absorbed per unit mass during melting at constant temperature: Q = mL_f.",
+        "To find L_f of ice, ice at exactly 0 °C is added to warm water; the heat balance includes a term for warming the melt water from 0 °C to the final temperature.",
+        "A cooling curve is a graph of temperature against time; the gradient at any point gives the instantaneous rate of cooling, which is proportional to the temperature excess over the surroundings (Newton's Law of Cooling).",
+        "A horizontal plateau on a cooling/heating curve indicates a phase change occurring at constant temperature."
+      ],
+      "definitions": [
+        {
+          "term": "Specific heat capacity (c)",
+          "definition": "The amount of heat energy required to raise the temperature of 1 kg of a substance by 1 °C (or 1 K). SI unit: J kg⁻¹ K⁻¹. Defined by Q = mcΔT, where Q is heat supplied, m is mass, and ΔT is the temperature change."
+        },
+        {
+          "term": "Method of mixtures",
+          "definition": "A calorimetry technique in which a hot object at a known temperature is mixed with a cooler liquid in an insulated calorimeter. The unknown specific heat capacity is found by setting heat lost by the hot object equal to heat gained by the liquid plus the calorimeter, using measured masses and temperatures."
+        },
+        {
+          "term": "Water equivalent of a calorimeter",
+          "definition": "The mass of water that would store the same amount of heat as the calorimeter vessel itself for the same temperature rise. Numerically equal to (mass of calorimeter × its specific heat capacity) / specific heat capacity of water; it is added to the mass of liquid when writing the heat-balance equation."
+        },
+        {
+          "term": "Specific latent heat of fusion (L_f)",
+          "definition": "The heat energy absorbed per unit mass of a substance when it melts completely at its melting point, with no change in temperature. SI unit: J kg⁻¹. Given by Q = mL_f."
+        },
+        {
+          "term": "Phase change",
+          "definition": "A transition between physical states of matter (solid ↔ liquid ↔ gas) that occurs at a fixed temperature and pressure and involves the absorption or release of latent heat without any change in temperature."
+        },
+        {
+          "term": "Cooling curve",
+          "definition": "A graph of temperature (y-axis) against time (x-axis) that shows how a hot substance cools towards the temperature of its surroundings. An exponential decay is observed when Newton's Law of Cooling applies; a horizontal plateau indicates a phase change."
+        },
+        {
+          "term": "Newton's Law of Cooling",
+          "definition": "The rate of loss of heat from a body is proportional to the excess of its temperature above that of the surroundings, provided that excess is not too large. Mathematically: dQ/dt = k(T − T₀), leading to an exponential temperature–time relationship."
+        },
+        {
+          "term": "Thermal equilibrium",
+          "definition": "The state reached when two or more objects in thermal contact have reached the same temperature and there is no net flow of heat between them. In a mixtures experiment, the final steady temperature read on the thermometer is the equilibrium temperature."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding the specific heat capacity of a metal by the method of mixtures",
+          "problem": "A copper calorimeter of mass 60 g contains 150 g of water at 20 °C. A metal block of mass 80 g is heated to 100 °C and quickly transferred into the calorimeter. The final steady temperature is 28 °C. The specific heat capacity of copper is 385 J kg⁻¹ K⁻¹ and of water is 4200 J kg⁻¹ K⁻¹. Find the specific heat capacity of the metal.",
+          "steps": [
+            "Identify the temperature changes. The metal cools from 100 °C to 28 °C: ΔT_metal = 100 − 28 = 72 °C. The water and calorimeter warm from 20 °C to 28 °C: ΔT_water = 28 − 20 = 8 °C.",
+            "Write the heat-balance equation (heat lost = heat gained): m_metal × c_metal × 72 = (m_water × c_water + m_cal × c_cal) × 8.",
+            "Substitute known values. Left side: 0.080 × c_metal × 72 = 5.76 c_metal. Right side: (0.150 × 4200 + 0.060 × 385) × 8 = (630 + 23.1) × 8 = 653.1 × 8 = 5224.8 J.",
+            "Solve for c_metal: c_metal = 5224.8 / 5.76 ≈ 907 J kg⁻¹ K⁻¹.",
+            "Check: this value is close to the accepted value for aluminium (900 J kg⁻¹ K⁻¹), which is physically reasonable."
+          ],
+          "answer": "The specific heat capacity of the metal is approximately 907 J kg⁻¹ K⁻¹."
+        },
+        {
+          "title": "Finding the specific latent heat of fusion of ice",
+          "problem": "A calorimeter of water equivalent 12 g contains 200 g of water at 35 °C. 30 g of dry ice at 0 °C is added and stirred until all ice melts. The final temperature is 17 °C. Take c_water = 4200 J kg⁻¹ K⁻¹. Calculate the specific latent heat of fusion of ice.",
+          "steps": [
+            "Identify the heat exchanges. Heat is lost by: (a) the warm water and calorimeter cooling from 35 °C to 17 °C. Heat is gained by: (b) melting the ice at 0 °C, and (c) warming the melt water from 0 °C to 17 °C.",
+            "Calculate heat lost by warm water + calorimeter. Effective mass = 200 g + 12 g = 212 g = 0.212 kg; ΔT = 35 − 17 = 18 °C. Q_lost = 0.212 × 4200 × 18 = 16,027.2 J.",
+            "Calculate heat gained by melt water warming from 0 °C to 17 °C. Mass of melt water = 30 g = 0.030 kg. Q_warm = 0.030 × 4200 × 17 = 2142 J.",
+            "Apply heat balance: Q_lost = m_ice × L_f + Q_warm. So: 16027.2 = 0.030 × L_f + 2142.",
+            "Solve for L_f: 0.030 × L_f = 16027.2 − 2142 = 13885.2 J. L_f = 13885.2 / 0.030 = 462,840 J kg⁻¹ ≈ 4.63 × 10⁵ J kg⁻¹.",
+            "Note: the accepted value is 3.34 × 10⁵ J kg⁻¹; the slight discrepancy reflects heat losses to the surroundings in a real experiment — using ice that is not perfectly dry or not exactly at 0 °C is a common systematic error."
+          ],
+          "answer": "The specific latent heat of fusion of ice is approximately 4.63 × 10⁵ J kg⁻¹ (experimental value; small deviations from the standard 3.34 × 10⁵ J kg⁻¹ arise from heat losses)."
+        },
+        {
+          "title": "Interpreting a cooling curve and applying Newton's Law of Cooling",
+          "problem": "A liquid cools from 80 °C in a room at 20 °C. Its temperature is recorded every minute: at t = 0 min it is 80 °C; at t = 2 min it is 65 °C; at t = 5 min it is 48 °C; at t = 10 min it is 32 °C. (a) What is the temperature excess at t = 0 and t = 10 min? (b) Estimate the rate of cooling (°C min⁻¹) over the first 2 minutes and over the interval 5–10 minutes, and show that the rate is roughly proportional to the temperature excess. (c) Sketch the shape of the cooling curve and describe what a plateau on such a curve would indicate.",
+          "steps": [
+            "(a) Temperature excess = T − T_room. At t = 0: excess = 80 − 20 = 60 °C. At t = 10 min: excess = 32 − 20 = 12 °C.",
+            "(b) Rate over first 2 minutes: ΔT/Δt = (80 − 65)/2 = 7.5 °C min⁻¹. Average temperature excess over this interval ≈ (60 + 45)/2 = 52.5 °C. Ratio rate/excess = 7.5/52.5 ≈ 0.143 min⁻¹.",
+            "Rate over 5–10 minutes: ΔT/Δt = (48 − 32)/5 = 3.2 °C min⁻¹. Average excess ≈ (28 + 12)/2 = 20 °C. Ratio = 3.2/20 = 0.160 min⁻¹.",
+            "The two ratios (0.143 and 0.160 min⁻¹) are approximately equal, consistent with Newton's Law of Cooling: rate of cooling ∝ temperature excess.",
+            "(c) The curve starts steeply and becomes progressively less steep, approaching T_room asymptotically — an exponential decay shape. A horizontal plateau on the curve would indicate that the liquid is undergoing a phase change (e.g. solidifying) at a fixed temperature, releasing latent heat at the same rate as heat is lost to the surroundings, so the temperature remains constant until the transition is complete."
+          ],
+          "answer": "(a) Excesses are 60 °C and 12 °C. (b) Cooling rates are approximately proportional to temperature excess (constant ratio ≈ 0.15 min⁻¹), confirming Newton's Law of Cooling. (c) The curve is an exponential decay; a plateau signals a phase change at constant temperature."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "In a method-of-mixtures experiment, a student heats a solid to 95 °C and drops it into cold water in a calorimeter at 22 °C, obtaining a final temperature of 30 °C. Which heat-balance equation correctly describes the experiment?",
+          "options": [
+            "m_solid × c_solid × (95 − 30) = (m_water × c_water) × (30 − 22)",
+            "m_solid × c_solid × (95 − 30) = (m_water × c_water + m_cal × c_cal) × (30 − 22)",
+            "m_solid × c_solid × (30 − 22) = (m_water × c_water + m_cal × c_cal) × (95 − 30)",
+            "m_solid × c_solid × (95 − 22) = m_water × c_water × (30 − 22)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Heat lost by the solid (temperature drop from 95 to 30 °C) must equal heat gained by both the water and the calorimeter vessel (temperature rise from 22 to 30 °C), so the calorimeter's heat capacity must be included on the right-hand side."
+        },
+        {
+          "question": "Why must ice added to warm water in a latent-heat-of-fusion experiment be dry and at exactly 0 °C?",
+          "options": [
+            "Ice below 0 °C would melt too quickly and cause a large temperature rise.",
+            "Ice above 0 °C carries extra sensible heat that would be wrongly attributed to latent heat, and wet ice already contains water that dilutes the sample without absorbing latent heat.",
+            "Dry ice at 0 °C has a higher specific heat capacity than wet ice, making the calculation easier.",
+            "Ice at 0 °C ensures the final temperature of the mixture is always 0 °C."
+          ],
+          "correctIndex": 1,
+          "explanation": "Ice warmer than 0 °C would release additional sensible heat that could not be separated from the latent heat term, and surface water on wet ice absorbs heat simply by warming rather than by melting, both of which introduce systematic errors into the calculation of L_f."
+        },
+        {
+          "question": "A cooling curve shows a horizontal plateau at 58 °C before the temperature continues to fall. What does this plateau indicate?",
+          "options": [
+            "The thermometer became faulty and stopped recording correctly.",
+            "The substance is gaining heat from the surroundings at that temperature.",
+            "The substance is undergoing a phase change at its melting/freezing point, releasing latent heat at the same rate as it is lost to the surroundings.",
+            "Newton's Law of Cooling breaks down when the temperature excess exceeds 40 °C."
+          ],
+          "correctIndex": 2,
+          "explanation": "A horizontal plateau means the temperature is not changing despite heat flow to the surroundings; this occurs because the substance is releasing latent heat during a phase change at its freezing point, maintaining a constant temperature until the transition is complete."
+        },
+        {
+          "question": "A 0.5 kg block of aluminium (c = 900 J kg⁻¹ K⁻¹) cools from 80 °C to 60 °C. How much heat does it release?",
+          "options": [
+            "4500 J",
+            "9000 J",
+            "18000 J",
+            "900 J"
+          ],
+          "correctIndex": 1,
+          "explanation": "Q = mcΔT = 0.5 × 900 × (80 − 60) = 0.5 × 900 × 20 = 9000 J."
+        }
+      ],
+      "theory": []
+    }
+  ]
+}

@@ -1,0 +1,1213 @@
+{
+  "title": "MTH 102 — Elementary Mathematics II: Calculus (full course)",
+  "course": "MTH 102 Elementary Mathematics II",
+  "topic": "Full course: 6 modules",
+  "overview": "This guide covers the full calculus curriculum: starting with functions and limits, then derivatives and their applications, followed by integration and differential equations. Together these modules build a complete foundation in single-variable calculus, moving from foundational concepts through computational techniques to real-world problem-solving.",
+  "modules": [
+    {
+      "title": "Functions, Limits and Continuity",
+      "sourceRange": "Topic 1",
+      "summary": "A function is a rule that assigns to every input value exactly one output value. Before doing any calculus, you must be comfortable identifying where a function is defined (its domain), what values it can produce (its range), and how two functions can be combined or reversed. Common families — polynomials, rationals, exponentials, logarithms and trigonometric functions — each have characteristic shapes that you should be able to sketch quickly and reason from.\n\nThe limit is the central idea of calculus. Writing lim x→a f(x) = L means that f(x) can be made arbitrarily close to L by taking x sufficiently close to (but not equal to) a. Most limits can be evaluated by direct substitution, but when substitution gives an indeterminate form such as 0/0 you must use algebraic manipulation — factoring, cancelling, or rationalising — to reveal the true behaviour. Limits at infinity describe long-run trends and are found by dividing through by the highest power of x. The special limit sin x / x → 1 as x → 0 is proved geometrically and underpins every derivative involving sine.\n\nContinuity formalises the intuitive idea of a graph with no breaks: f is continuous at x = a if the limit exists, the function is defined there, and the two values agree. When one of these conditions fails the function has a discontinuity, classified as removable (a single hole), jump (left and right limits exist but differ), or infinite (the function blows up). Recognising the type of discontinuity tells you whether and how it can be fixed, and it will matter later when you apply the Intermediate Value Theorem and the Fundamental Theorem of Calculus.",
+      "keyPoints": [
+        "The domain is the set of all valid inputs; the range is the set of all outputs actually produced.",
+        "The composite function (f ∘ g)(x) = f(g(x)) is evaluated from the inside out; its domain requires g(x) to lie in the domain of f.",
+        "An inverse function f⁻¹ exists only when f is one-to-one (passes the horizontal line test); it reverses input and output, so f(f⁻¹(x)) = x.",
+        "A limit describes the value f(x) approaches as x → a, independent of f(a) itself.",
+        "When direct substitution gives 0/0, factor and cancel, rationalise, or use another algebraic technique before re-substituting.",
+        "For limits at infinity of rational functions, divide numerator and denominator by the highest power of x present.",
+        "lim x→0 (sin x / x) = 1 (x in radians); this is proved by the squeeze theorem using a geometric area argument.",
+        "f is continuous at a if and only if lim x→a f(x) = f(a) (which implicitly requires both sides to exist and be equal).",
+        "Removable discontinuity: limit exists but either f(a) is undefined or f(a) ≠ limit. Jump discontinuity: one-sided limits exist but are unequal. Infinite discontinuity: at least one one-sided limit is ±∞.",
+        "Polynomials are continuous everywhere; rational functions are continuous everywhere except where the denominator is zero."
+      ],
+      "definitions": [
+        {
+          "term": "Function",
+          "definition": "A relation f from a set X (domain) to a set Y (codomain) such that every element x in X is assigned exactly one element f(x) in Y. Written f : X → Y."
+        },
+        {
+          "term": "Domain",
+          "definition": "The complete set of input values for which the function is defined. For algebraic functions, exclude values that cause division by zero or even-root of a negative number."
+        },
+        {
+          "term": "Range (Image)",
+          "definition": "The set of all output values actually produced by the function: {f(x) : x ∈ domain}. It is a subset of the codomain."
+        },
+        {
+          "term": "Composite Function",
+          "definition": "Given f and g, the composite (f ∘ g)(x) = f(g(x)). The output of g becomes the input of f. The domain of f ∘ g is the set of x in the domain of g for which g(x) lies in the domain of f."
+        },
+        {
+          "term": "Inverse Function",
+          "definition": "If f is one-to-one, its inverse f⁻¹ satisfies f⁻¹(f(x)) = x and f(f⁻¹(y)) = y. Graphically, y = f⁻¹(x) is the reflection of y = f(x) in the line y = x."
+        },
+        {
+          "term": "Limit",
+          "definition": "lim x→a f(x) = L means that for every ε > 0 there exists δ > 0 such that 0 < |x − a| < δ implies |f(x) − L| < ε. Informally, f(x) gets as close as desired to L when x is close enough to a, without x equalling a."
+        },
+        {
+          "term": "One-sided limits",
+          "definition": "lim x→a⁺ f(x) is the limit as x approaches a from the right; lim x→a⁻ f(x) from the left. The two-sided limit exists and equals L if and only if both one-sided limits exist and equal L."
+        },
+        {
+          "term": "Limit at Infinity",
+          "definition": "lim x→∞ f(x) = L means f(x) approaches L as x grows without bound. The line y = L is a horizontal asymptote of the graph."
+        },
+        {
+          "term": "Continuity at a Point",
+          "definition": "f is continuous at x = a if (i) f(a) is defined, (ii) lim x→a f(x) exists, and (iii) lim x→a f(x) = f(a). All three conditions must hold."
+        },
+        {
+          "term": "Removable Discontinuity",
+          "definition": "A discontinuity at x = a where lim x→a f(x) exists but either f(a) is not defined or f(a) ≠ the limit. It appears as a single hole in the graph and can be removed by redefining f(a) to equal the limit."
+        },
+        {
+          "term": "Jump Discontinuity",
+          "definition": "A discontinuity at x = a where both one-sided limits exist as finite numbers but lim x→a⁻ f(x) ≠ lim x→a⁺ f(x). The graph jumps abruptly; it cannot be removed by redefining a single point."
+        },
+        {
+          "term": "Infinite Discontinuity",
+          "definition": "A discontinuity at x = a where at least one one-sided limit is +∞ or −∞. The graph has a vertical asymptote at x = a. Common in rational functions where the denominator is zero but the numerator is not."
+        },
+        {
+          "term": "Vertical Asymptote",
+          "definition": "The line x = a is a vertical asymptote of f if lim x→a⁺ f(x) or lim x→a⁻ f(x) equals ±∞."
+        },
+        {
+          "term": "Horizontal Asymptote",
+          "definition": "The line y = L is a horizontal asymptote if lim x→∞ f(x) = L or lim x→−∞ f(x) = L."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Domain, range, composite and inverse of two functions",
+          "problem": "Let f(x) = √(x − 1) and g(x) = x² + 1. Find: (a) the domain and range of f; (b) (f ∘ g)(x) and its domain; (c) f⁻¹(x).",
+          "steps": [
+            "(a) Domain of f: the expression under the square root must be non-negative, so x − 1 ≥ 0, giving x ≥ 1. Domain = [1, ∞). As x ranges over [1, ∞), √(x−1) ranges over [0, ∞). Range = [0, ∞).",
+            "(b) (f ∘ g)(x) = f(g(x)) = f(x² + 1) = √((x² + 1) − 1) = √(x²) = |x|. For the domain: g(x) = x² + 1 is defined for all real x, and we need g(x) ≥ 1, i.e. x² + 1 ≥ 1, i.e. x² ≥ 0, which is true for all real x. Domain of f ∘ g = (−∞, ∞).",
+            "(c) To find f⁻¹: write y = √(x − 1). Square both sides: y² = x − 1, so x = y² + 1. Swap x and y to get the inverse: f⁻¹(x) = x² + 1. Restriction: since the range of f is [0, ∞), f⁻¹ is only valid for x ≥ 0. So f⁻¹(x) = x² + 1, x ≥ 0.",
+            "Verification: f(f⁻¹(x)) = √((x² + 1) − 1) = √(x²) = x for x ≥ 0. ✓"
+          ],
+          "answer": "Domain of f = [1, ∞), range = [0, ∞); (f ∘ g)(x) = |x| for all real x; f⁻¹(x) = x² + 1 for x ≥ 0."
+        },
+        {
+          "title": "Evaluating a limit algebraically (indeterminate form 0/0)",
+          "problem": "Evaluate lim x→3  (x² − x − 6) / (x − 3).",
+          "steps": [
+            "Step 1 — Try direct substitution: substitute x = 3: numerator = 9 − 3 − 6 = 0, denominator = 0. Result is 0/0, an indeterminate form; direct substitution fails.",
+            "Step 2 — Factor the numerator: x² − x − 6 = (x − 3)(x + 2). (Check: (3−3)(3+2) = 0 ✓)",
+            "Step 3 — Cancel the common factor (valid because x ≠ 3 in a limit): (x − 3)(x + 2) / (x − 3) = x + 2, for x ≠ 3.",
+            "Step 4 — Evaluate the simplified expression at x = 3: lim x→3 (x + 2) = 3 + 2 = 5."
+          ],
+          "answer": "lim x→3 (x² − x − 6)/(x − 3) = 5."
+        },
+        {
+          "title": "Limit at infinity of a rational function",
+          "problem": "Evaluate lim x→∞  (4x³ − 2x + 7) / (2x³ + 5x²).",
+          "steps": [
+            "Step 1 — Identify the highest power of x in the expression: it is x³.",
+            "Step 2 — Divide every term in numerator and denominator by x³: numerator becomes 4 − 2/x² + 7/x³; denominator becomes 2 + 5/x.",
+            "Step 3 — Take the limit as x → ∞. Each term with x in the denominator tends to 0: 2/x² → 0, 7/x³ → 0, 5/x → 0.",
+            "Step 4 — The expression becomes (4 − 0 + 0) / (2 + 0) = 4/2 = 2."
+          ],
+          "answer": "lim x→∞ (4x³ − 2x + 7)/(2x³ + 5x²) = 2. The horizontal asymptote is y = 2."
+        },
+        {
+          "title": "The fundamental limit lim x→0 (sin x / x) = 1",
+          "problem": "Show, using the squeeze theorem and a geometric argument, that lim x→0 (sin x / x) = 1, and then use it to evaluate lim x→0 (sin 5x) / (3x).",
+          "steps": [
+            "Geometric argument (x in radians, 0 < x < π/2): Consider a unit circle. The area of the small triangle with base cos x and height sin x is ½ sin x cos x. The sector area is ½ x. The large triangle with height tan x has area ½ tan x. Ordering areas gives ½ sin x cos x ≤ ½ x ≤ ½ tan x.",
+            "Divide through by ½ sin x (positive for 0 < x < π/2): cos x ≤ x/sin x ≤ 1/cos x. Taking reciprocals reverses inequalities: cos x ≤ sin x/x ≤ 1/cos x. (More precisely, from the area inequalities: sin x cos x ≤ x ≤ tan x = sin x/cos x; dividing by sin x gives cos x ≤ x/sin x ≤ 1/cos x, so cos x ≤ sin x/x ≤ 1/cos x.)",
+            "As x → 0⁺, cos x → 1 and 1/cos x → 1. By the Squeeze Theorem, sin x/x → 1. The function is even (sin(−x)/(−x) = sin x/x), so the left-hand limit also equals 1. Therefore lim x→0 (sin x / x) = 1.",
+            "Application to lim x→0 (sin 5x)/(3x): Rewrite as (5/3) · (sin 5x)/(5x). Let u = 5x; as x → 0, u → 0. So the limit becomes (5/3) · lim u→0 (sin u)/u = (5/3) · 1 = 5/3."
+          ],
+          "answer": "lim x→0 (sin x / x) = 1 (proved by squeeze theorem). lim x→0 (sin 5x)/(3x) = 5/3."
+        },
+        {
+          "title": "Classifying discontinuities of a piecewise function",
+          "problem": "The function h is defined by h(x) = (x² − 4)/(x − 2) for x ≠ 2, and h(2) = 1. Also consider k(x) = 1/x. Classify the discontinuities of h at x = 2 and k at x = 0.",
+          "steps": [
+            "Analysis of h at x = 2 — compute the limit: factor the numerator: x² − 4 = (x−2)(x+2), so for x ≠ 2, h(x) = x + 2. Thus lim x→2 h(x) = 2 + 2 = 4.",
+            "Check the three continuity conditions for h at x = 2: (i) h(2) = 1 is defined ✓; (ii) lim x→2 h(x) = 4 exists ✓; (iii) h(2) = 1 ≠ 4 = limit ✗. Condition (iii) fails.",
+            "Since the limit exists but h(2) ≠ limit, the discontinuity of h at x = 2 is removable. It can be fixed by redefining h(2) = 4.",
+            "Analysis of k(x) = 1/x at x = 0: compute one-sided limits. lim x→0⁺ 1/x = +∞ and lim x→0⁻ 1/x = −∞. Both one-sided limits are infinite.",
+            "Since at least one one-sided limit is infinite, the discontinuity of k at x = 0 is an infinite discontinuity (vertical asymptote at x = 0). It cannot be removed by redefining a value."
+          ],
+          "answer": "h has a removable discontinuity at x = 2 (the limit is 4 but h(2) = 1). k(x) = 1/x has an infinite discontinuity at x = 0."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "What is the domain of f(x) = √(9 − x²)?",
+          "options": [
+            "(−∞, ∞)",
+            "[−3, 3]",
+            "(−3, 3)",
+            "[0, 3]"
+          ],
+          "correctIndex": 1,
+          "explanation": "We need 9 − x² ≥ 0, i.e. x² ≤ 9, which gives −3 ≤ x ≤ 3, a closed interval including the endpoints where the expression equals zero."
+        },
+        {
+          "question": "What is lim x→5  (x² − 25) / (x − 5)?",
+          "options": [
+            "0",
+            "5",
+            "10",
+            "Undefined"
+          ],
+          "correctIndex": 2,
+          "explanation": "Factor the numerator as (x−5)(x+5), cancel (x−5), and substitute x = 5 to get 5 + 5 = 10; the limit exists even though direct substitution first gives 0/0."
+        },
+        {
+          "question": "lim x→∞ (3x² + 1)/(x³ − 2) equals:",
+          "options": [
+            "3",
+            "1",
+            "0",
+            "∞"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dividing numerator and denominator by x³ gives (3/x + 1/x³)/(1 − 2/x³) → 0/1 = 0; the denominator grows faster than the numerator."
+        },
+        {
+          "question": "A function f has lim x→4⁻ f(x) = 2 and lim x→4⁺ f(x) = 7, with f(4) = 2. What type of discontinuity does f have at x = 4?",
+          "options": [
+            "Removable discontinuity",
+            "Jump discontinuity",
+            "Infinite discontinuity",
+            "No discontinuity"
+          ],
+          "correctIndex": 1,
+          "explanation": "Both one-sided limits exist as finite values but they are unequal (2 ≠ 7), so the two-sided limit does not exist; this is the definition of a jump discontinuity."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) State the three conditions required for a function f to be continuous at a point x = a. (b) The function g is defined by g(x) = (x² − x − 12)/(x − 4) for x ≠ 4, and g(4) = k. Find the value of k that makes g continuous at x = 4, and state what type of discontinuity exists when k ≠ 7. (c) Determine all discontinuities of h(x) = (x + 1)/((x − 2)(x + 3)) and classify each one.",
+          "marks": 10,
+          "modelAnswer": "(a) f is continuous at x = a if and only if: (i) f(a) is defined; (ii) lim x→a f(x) exists (i.e. both one-sided limits are equal); (iii) lim x→a f(x) = f(a).\n\n(b) For x ≠ 4, factor the numerator: x² − x − 12 = (x − 4)(x + 3), so g(x) = x + 3 for x ≠ 4. Therefore lim x→4 g(x) = 4 + 3 = 7. For continuity we need g(4) = 7, so k = 7. If k ≠ 7, the limit (7) exists but g(4) ≠ 7, so there is a removable discontinuity at x = 4.\n\n(c) h(x) = (x + 1)/((x − 2)(x + 3)) is undefined where the denominator is zero: at x = 2 and x = −3. At each point check one-sided limits. At x = 2: numerator → 3 ≠ 0, denominator → 0, so |h(x)| → ∞; infinite discontinuity (vertical asymptote x = 2). At x = −3: numerator → −2 ≠ 0, denominator → 0, so |h(x)| → ∞; infinite discontinuity (vertical asymptote x = −3). Neither can be removed.",
+          "markingPoints": [
+            "Correctly stating all three continuity conditions",
+            "Factoring x² − x − 12 and finding lim x→4 g(x) = 7, hence k = 7",
+            "Correctly identifying k ≠ 7 gives a removable discontinuity",
+            "Finding both discontinuities of h at x = 2 and x = −3",
+            "Classifying both as infinite discontinuities with vertical asymptotes"
+          ]
+        },
+        {
+          "question": "(a) Using the squeeze theorem (geometric area) argument, prove that lim x→0 (sin x / x) = 1, where x is measured in radians. (b) Hence evaluate: (i) lim x→0 (sin 4x)/(7x); (ii) lim x→0 (1 − cos x)/x, given that 1 − cos x = 2 sin²(x/2).",
+          "marks": 12,
+          "modelAnswer": "(a) For 0 < x < π/2, compare areas in a unit circle: area of inner triangle = ½ sin x cos x; area of sector = ½ x; area of outer triangle = ½ tan x. So ½ sin x cos x ≤ ½ x ≤ ½ tan x. Dividing by ½ sin x > 0 gives cos x ≤ x/sin x ≤ 1/cos x, equivalently cos x ≤ (sin x)/x ≤ 1/cos x. As x → 0⁺, cos x → 1 and 1/cos x → 1, so by the Squeeze Theorem, (sin x)/x → 1. Since (sin x)/x is an even function, the result holds from the left as well, giving lim x→0 (sin x)/x = 1.\n\n(b)(i) Write (sin 4x)/(7x) = (4/7)·(sin 4x)/(4x). Let u = 4x → 0 as x → 0. The limit becomes (4/7)·lim u→0 (sin u)/u = (4/7)·1 = 4/7.\n\n(b)(ii) (1 − cos x)/x = 2 sin²(x/2) / x = 2 sin²(x/2) / x. Write this as sin(x/2)·[sin(x/2)/(x/2)]·(1/1). More carefully: 2 sin²(x/2)/x = [sin(x/2)/(x/2)]·sin(x/2). As x → 0, x/2 → 0, so sin(x/2)/(x/2) → 1, and sin(x/2) → 0. Therefore the limit is 1 · 0 = 0.",
+          "markingPoints": [
+            "Correct area inequalities for inner triangle, sector and outer triangle",
+            "Applying squeeze theorem with both bounds → 1 to conclude the limit",
+            "Using substitution u = 4x to reduce part (b)(i) to the standard limit, obtaining 4/7",
+            "Applying the identity 1 − cos x = 2 sin²(x/2) correctly in part (b)(ii)",
+            "Recognising that sin(x/2)/(x/2) → 1 and sin(x/2) → 0, giving overall limit 0"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Differentiation from First Principles and Rules",
+      "sourceRange": "Topic 2",
+      "summary": "Differentiation is the formal process of measuring how a function's output changes instantaneously as its input varies. The foundational definition is the derivative as a limit: f′(x) = lim[h→0] (f(x+h) − f(x))/h. This difference quotient computes the slope of a secant line and, in the limit, gives the slope of the tangent line at x. Every differentiation rule — power, sum, product, quotient, chain — can be proved rigorously from this single definition, so understanding it is essential before treating the rules as shortcuts.\n\nThe rules themselves allow systematic differentiation of arbitrarily complex combinations of functions. The power rule handles polynomials; the product and quotient rules handle products and ratios; the chain rule handles compositions. Alongside these, the derivatives of the standard transcendental functions — sin x, cos x, tan x, eˣ, aˣ, ln x, and log_a x — are fixed results that must be memorised, because they appear throughout calculus and its applications.\n\nNot every relationship between x and y is expressed in the explicit form y = f(x). Implicit differentiation handles equations such as x² + y² = 1 by differentiating both sides with respect to x and treating y as a function of x via the chain rule. Parametric differentiation handles curves defined by x = x(t) and y = y(t), using the chain rule to form dy/dx = (dy/dt)/(dx/dt). Repeating differentiation yields higher-order derivatives that describe concavity and acceleration, and forms the basis of many tests used in later topics.",
+      "keyPoints": [
+        "The derivative f′(x) = lim[h→0] (f(x+h) − f(x))/h is the instantaneous rate of change and the slope of the tangent at x.",
+        "Power rule: d/dx(xⁿ) = nxⁿ⁻¹ for any real n.",
+        "Sum/difference rule: differentiate term by term. Product rule: (uv)′ = u′v + uv′. Quotient rule: (u/v)′ = (u′v − uv′)/v².",
+        "Chain rule: if y = f(g(x)) then dy/dx = f′(g(x))·g′(x); equivalently, dy/dx = (dy/du)·(du/dx).",
+        "Standard derivatives: d/dx(sin x) = cos x; d/dx(cos x) = −sin x; d/dx(tan x) = sec²x; d/dx(eˣ) = eˣ; d/dx(aˣ) = aˣ ln a; d/dx(ln x) = 1/x; d/dx(log_a x) = 1/(x ln a).",
+        "For implicit differentiation, differentiate every term with respect to x, applying the chain rule to any term involving y (giving a factor dy/dx), then solve for dy/dx.",
+        "For parametric equations x = x(t), y = y(t): dy/dx = (dy/dt)/(dx/dt), and d²y/dx² = [d/dt(dy/dx)]/(dx/dt).",
+        "The second derivative f″(x) measures concavity; the nth derivative is found by differentiating n times in succession."
+      ],
+      "definitions": [
+        {
+          "term": "Derivative (first principles)",
+          "definition": "The derivative of f at x is f′(x) = lim[h→0] (f(x+h) − f(x))/h, provided this limit exists. Geometrically it is the slope of the tangent to the graph of f at the point (x, f(x)). Notation: f′(x), dy/dx, Df(x)."
+        },
+        {
+          "term": "Differentiability",
+          "definition": "A function is differentiable at x = a if the first-principles limit exists and is finite at that point. Differentiability implies continuity, but continuity does not imply differentiability (e.g. f(x) = |x| is continuous but not differentiable at x = 0)."
+        },
+        {
+          "term": "Power Rule",
+          "definition": "For any real constant n, d/dx(xⁿ) = nxⁿ⁻¹. This includes integer, fractional, and negative exponents, e.g. d/dx(x^(1/2)) = (1/2)x^(−1/2)."
+        },
+        {
+          "term": "Sum and Difference Rule",
+          "definition": "The derivative of a sum or difference is the sum or difference of the derivatives: d/dx[f(x) ± g(x)] = f′(x) ± g′(x). Constants factor out: d/dx[c·f(x)] = c·f′(x)."
+        },
+        {
+          "term": "Product Rule",
+          "definition": "If u and v are differentiable functions of x, then d/dx(uv) = u′v + uv′. The derivative of a product is NOT simply the product of derivatives."
+        },
+        {
+          "term": "Quotient Rule",
+          "definition": "If u and v are differentiable and v ≠ 0, then d/dx(u/v) = (u′v − uv′)/v². A useful mnemonic: 'low d-high minus high d-low, over low squared.'"
+        },
+        {
+          "term": "Chain Rule",
+          "definition": "If y = f(u) and u = g(x), then dy/dx = (dy/du)·(du/dx). In function notation: d/dx[f(g(x))] = f′(g(x))·g′(x). It is used whenever a function is composed of an 'outer' and an 'inner' function."
+        },
+        {
+          "term": "Derivatives of trigonometric functions",
+          "definition": "d/dx(sin x) = cos x; d/dx(cos x) = −sin x; d/dx(tan x) = sec²x; d/dx(cot x) = −cosec²x; d/dx(sec x) = sec x tan x; d/dx(cosec x) = −cosec x cot x. All angles are in radians."
+        },
+        {
+          "term": "Derivatives of exponential functions",
+          "definition": "d/dx(eˣ) = eˣ (the natural exponential is its own derivative). For a general base a > 0, a ≠ 1: d/dx(aˣ) = aˣ ln a. Combined with the chain rule: d/dx(e^(f(x))) = f′(x)·e^(f(x))."
+        },
+        {
+          "term": "Derivatives of logarithmic functions",
+          "definition": "d/dx(ln x) = 1/x for x > 0. For a general base: d/dx(log_a x) = 1/(x ln a). With chain rule: d/dx(ln f(x)) = f′(x)/f(x), the logarithmic derivative."
+        },
+        {
+          "term": "Implicit Differentiation",
+          "definition": "A technique for finding dy/dx when y is defined implicitly by an equation F(x, y) = 0. Differentiate every term on both sides with respect to x; whenever differentiating a term in y, apply the chain rule to introduce dy/dx; then collect all dy/dx terms and solve algebraically."
+        },
+        {
+          "term": "Parametric Differentiation",
+          "definition": "When a curve is defined by x = x(t) and y = y(t), the derivative is dy/dx = (dy/dt) ÷ (dx/dt). The second derivative is d²y/dx² = [d/dt(dy/dx)] ÷ (dx/dt), not simply (d²y/dt²)/(d²x/dt²)."
+        },
+        {
+          "term": "Higher-Order Derivatives",
+          "definition": "The second derivative f″(x) = d²y/dx² is obtained by differentiating f′(x); the nth derivative f^(n)(x) = dⁿy/dxⁿ is obtained by differentiating n times. f″(x) > 0 indicates concave up; f″(x) < 0 indicates concave down."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Differentiation from first principles: f(x) = x³",
+          "problem": "Using the limit definition of the derivative, find f′(x) for f(x) = x³.",
+          "steps": [
+            "Write the difference quotient: [f(x+h) − f(x)]/h = [(x+h)³ − x³]/h.",
+            "Expand (x+h)³ using the binomial theorem: (x+h)³ = x³ + 3x²h + 3xh² + h³.",
+            "Subtract x³: numerator = 3x²h + 3xh² + h³.",
+            "Divide by h (h ≠ 0): [3x²h + 3xh² + h³]/h = 3x² + 3xh + h².",
+            "Take the limit as h → 0: lim[h→0](3x² + 3xh + h²) = 3x².",
+            "Conclude f′(x) = 3x², confirming the power rule (n = 3, so nxⁿ⁻¹ = 3x²)."
+          ],
+          "answer": "f′(x) = 3x²"
+        },
+        {
+          "title": "Product rule and quotient rule",
+          "problem": "(a) Differentiate y = x²eˣ. (b) Differentiate y = sin x / x.",
+          "steps": [
+            "(a) Identify u = x² and v = eˣ, so u′ = 2x and v′ = eˣ.",
+            "Apply the product rule: dy/dx = u′v + uv′ = 2x·eˣ + x²·eˣ.",
+            "Factorise: dy/dx = xeˣ(2 + x).",
+            "(b) Identify u = sin x and v = x, so u′ = cos x and v′ = 1.",
+            "Apply the quotient rule: dy/dx = (u′v − uv′)/v² = (x cos x − sin x·1)/x².",
+            "The result cannot be simplified further."
+          ],
+          "answer": "(a) dy/dx = xeˣ(x + 2). (b) dy/dx = (x cos x − sin x)/x²."
+        },
+        {
+          "title": "Chain rule: composite functions",
+          "problem": "Differentiate (a) y = (3x² − 5)⁴ and (b) y = ln(cos x).",
+          "steps": [
+            "(a) Set the inner function u = 3x² − 5, so y = u⁴.",
+            "du/dx = 6x and dy/du = 4u³.",
+            "Chain rule: dy/dx = 4u³·6x = 24x(3x² − 5)³.",
+            "(b) Set the inner function u = cos x, so y = ln u.",
+            "du/dx = −sin x and dy/du = 1/u = 1/cos x.",
+            "Chain rule: dy/dx = (1/cos x)·(−sin x) = −sin x/cos x = −tan x."
+          ],
+          "answer": "(a) dy/dx = 24x(3x² − 5)³. (b) dy/dx = −tan x."
+        },
+        {
+          "title": "Combining product rule, chain rule, and standard transcendental derivatives",
+          "problem": "Differentiate y = e^(2x) · cos(3x).",
+          "steps": [
+            "Identify u = e^(2x) and v = cos(3x). This is a product, so use the product rule.",
+            "Find u′: by the chain rule, d/dx(e^(2x)) = 2e^(2x).",
+            "Find v′: by the chain rule, d/dx(cos(3x)) = −3 sin(3x).",
+            "Apply the product rule: dy/dx = u′v + uv′ = 2e^(2x)·cos(3x) + e^(2x)·(−3 sin(3x)).",
+            "Factorise the common factor e^(2x): dy/dx = e^(2x)[2 cos(3x) − 3 sin(3x)]."
+          ],
+          "answer": "dy/dx = e^(2x)[2 cos(3x) − 3 sin(3x)]"
+        },
+        {
+          "title": "Implicit and parametric differentiation with a second derivative",
+          "problem": "(a) Find dy/dx for the curve x² + xy + y² = 7. (b) A curve is given parametrically by x = cos t, y = sin²t. Find dy/dx and d²y/dx² in terms of t, and evaluate d²y/dx² at t = π/4.",
+          "steps": [
+            "(a) Differentiate both sides of x² + xy + y² = 7 with respect to x.",
+            "d/dx(x²) = 2x. For xy, use the product rule: d/dx(xy) = y + x(dy/dx). For y², use the chain rule: d/dx(y²) = 2y(dy/dx). The right side gives 0.",
+            "Equation: 2x + y + x(dy/dx) + 2y(dy/dx) = 0.",
+            "Collect dy/dx terms: (x + 2y)(dy/dx) = −(2x + y).",
+            "Solve: dy/dx = −(2x + y)/(x + 2y).",
+            "(b) Find derivatives with respect to t: dx/dt = −sin t; dy/dt = 2 sin t cos t = sin 2t.",
+            "dy/dx = (dy/dt)/(dx/dt) = sin 2t / (−sin t) = 2 sin t cos t / (−sin t) = −2 cos t.",
+            "For d²y/dx², first differentiate dy/dx = −2 cos t with respect to t: d/dt(−2 cos t) = 2 sin t.",
+            "d²y/dx² = [d/dt(dy/dx)] / (dx/dt) = 2 sin t / (−sin t) = −2.",
+            "At t = π/4: d²y/dx² = −2 (it is constant for all t where sin t ≠ 0)."
+          ],
+          "answer": "(a) dy/dx = −(2x + y)/(x + 2y). (b) dy/dx = −2 cos t; d²y/dx² = −2 for all valid t, including t = π/4."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Using first principles, the derivative of f(x) = 5x² is found by evaluating lim[h→0] of which expression?",
+          "options": [
+            "(5(x+h)² − 5x²) / h, giving 10x",
+            "(5(x+h) − 5x) / h², giving 10x",
+            "(5x² + h − 5x²) / h, giving 1",
+            "(5(x+h)² + 5x²) / h, giving 10x + 10h"
+          ],
+          "correctIndex": 0,
+          "explanation": "Substituting f(x+h) = 5(x+h)² and f(x) = 5x² into the difference quotient and expanding gives (10xh + 5h²)/h = 10x + 5h, which tends to 10x as h → 0."
+        },
+        {
+          "question": "What is dy/dx if y = x³ · ln x?",
+          "options": [
+            "3x² ln x",
+            "x²(3 ln x + 1)",
+            "x³/x + ln x",
+            "3x² / x"
+          ],
+          "correctIndex": 1,
+          "explanation": "Product rule with u = x³ (u′ = 3x²) and v = ln x (v′ = 1/x): dy/dx = 3x² ln x + x³·(1/x) = 3x² ln x + x² = x²(3 ln x + 1)."
+        },
+        {
+          "question": "The chain rule applied to y = sin(x²) gives dy/dx equal to:",
+          "options": [
+            "cos(x²)",
+            "x cos(x²)",
+            "2x cos(x²)",
+            "2 cos(2x)"
+          ],
+          "correctIndex": 2,
+          "explanation": "With inner function u = x², dy/du = cos u and du/dx = 2x, so dy/dx = cos(x²)·2x = 2x cos(x²)."
+        },
+        {
+          "question": "For the implicitly defined curve x² + y² = 25, implicit differentiation gives dy/dx equal to:",
+          "options": [
+            "x/y",
+            "y/x",
+            "−y/x",
+            "−x/y"
+          ],
+          "correctIndex": 3,
+          "explanation": "Differentiating both sides: 2x + 2y(dy/dx) = 0, so dy/dx = −2x/(2y) = −x/y."
+        }
+      ],
+      "theory": [
+        {
+          "question": "Using the definition of the derivative as a limit, differentiate f(x) = 1/x from first principles. Hence verify that the result is consistent with the power rule applied to f(x) = x⁻¹.",
+          "marks": 8,
+          "modelAnswer": "By definition, f′(x) = lim[h→0] (f(x+h) − f(x))/h.\n\nSubstitute f(x+h) = 1/(x+h) and f(x) = 1/x:\n\nf′(x) = lim[h→0] [1/(x+h) − 1/x] / h.\n\nCombine the fractions in the numerator over a common denominator x(x+h):\n\n1/(x+h) − 1/x = [x − (x+h)] / [x(x+h)] = −h / [x(x+h)].\n\nDivide by h (h ≠ 0):\n\n[−h / x(x+h)] / h = −1 / [x(x+h)].\n\nTake the limit as h → 0:\n\nf′(x) = lim[h→0] −1/[x(x+h)] = −1/[x·x] = −1/x².\n\nVerification using the power rule: write f(x) = x⁻¹. The power rule gives f′(x) = (−1)x⁻² = −1/x², which agrees exactly with the first-principles result.",
+          "markingPoints": [
+            "Correct setup of the difference quotient with f(x+h) = 1/(x+h)",
+            "Correct algebraic combination over common denominator to obtain −h/[x(x+h)]",
+            "Division by h to cancel and obtain −1/[x(x+h)]",
+            "Correct evaluation of the limit as h → 0 to give −1/x²",
+            "Explicit comparison with power rule result nxⁿ⁻¹ = −x⁻²"
+          ]
+        },
+        {
+          "question": "A curve is defined parametrically by x = t − sin t and y = 1 − cos t. Find dy/dx in terms of t. Find d²y/dx² and determine whether the curve is concave up or concave down at t = π/2.",
+          "marks": 10,
+          "modelAnswer": "Differentiate with respect to the parameter t:\n\ndx/dt = 1 − cos t,   dy/dt = sin t.\n\nFirst derivative:\n\ndy/dx = (dy/dt)/(dx/dt) = sin t / (1 − cos t).\n\nThis can optionally be simplified using the half-angle identities:\nsin t = 2 sin(t/2)cos(t/2) and 1 − cos t = 2 sin²(t/2),\ngiving dy/dx = cos(t/2)/sin(t/2) = cot(t/2), but the unsimplified form is equally valid.\n\nSecond derivative: differentiate dy/dx with respect to t, then divide by dx/dt.\n\nLet p = dy/dx = sin t / (1 − cos t). Differentiate p with respect to t using the quotient rule:\n\ndp/dt = [(cos t)(1 − cos t) − sin t·(sin t)] / (1 − cos t)²\n     = [cos t − cos²t − sin²t] / (1 − cos t)²\n     = [cos t − (cos²t + sin²t)] / (1 − cos t)²\n     = (cos t − 1) / (1 − cos t)²\n     = −(1 − cos t) / (1 − cos t)²\n     = −1/(1 − cos t).\n\nd²y/dx² = (dp/dt)/(dx/dt) = [−1/(1 − cos t)] / (1 − cos t) = −1/(1 − cos t)².\n\nAt t = π/2: 1 − cos(π/2) = 1 − 0 = 1, so d²y/dx² = −1/1² = −1.\n\nSince d²y/dx² = −1 < 0 at t = π/2, the curve is concave down at that point.",
+          "markingPoints": [
+            "Correct derivatives dx/dt = 1 − cos t and dy/dt = sin t",
+            "Correct first derivative dy/dx = sin t/(1 − cos t)",
+            "Correct differentiation of dy/dx with respect to t using quotient rule, simplifying via sin²t + cos²t = 1",
+            "Correct formula d²y/dx² = (dp/dt)/(dx/dt) giving −1/(1 − cos t)²",
+            "Correct evaluation at t = π/2 and correct conclusion that the curve is concave down"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Applications of Differentiation",
+      "sourceRange": "Topic 3",
+      "summary": "Differentiation becomes most powerful when we use it to answer concrete questions about curves and real-world quantities. This module develops six major applications, all built on the idea that the derivative dy/dx measures the instantaneous rate of change of y with respect to x.\n\nWe begin geometrically: the derivative at a point equals the gradient of the tangent to the curve there, which immediately gives us the equations of tangents and normals. We then treat x and y as time-varying quantities, differentiating with respect to time t to connect rates of change in related variables — for example, how fast a water level rises as a tank is filled. The heart of the module is the theory of stationary points, where dy/dx = 0: the first and second derivative tests let us classify these points as local maxima, local minima, or points of inflection, and this machinery drives optimisation problems in which we maximise profit, minimise surface area, or find the best dimensions for a container. Curve sketching pulls all these ideas together — intercepts, asymptotes, stationary points and the sign of the second derivative — to produce an accurate qualitative picture of a function without plotting many points. Finally, the linearisation formula δy ≈ (dy/dx)δx gives a quick, reliable way to estimate how a small change in the input affects the output, with applications ranging from error analysis to numerical approximation.",
+      "keyPoints": [
+        "The gradient of the tangent to y = f(x) at x = a is f′(a); the normal at that point has gradient −1/f′(a).",
+        "Equation of tangent: y − f(a) = f′(a)(x − a); equation of normal: y − f(a) = −(1/f′(a))(x − a).",
+        "Related rates: differentiate an equation connecting two variables with respect to time t and substitute known values.",
+        "A stationary point occurs where f′(x) = 0; classify it by the sign change of f′ (first derivative test) or the sign of f″ (second derivative test).",
+        "Second derivative test: f″(a) < 0 → local maximum; f″(a) > 0 → local minimum; f″(a) = 0 → test is inconclusive (check first derivative test).",
+        "For optimisation: express the quantity to be optimised as a function of one variable, find stationary points, and verify the nature using derivative tests.",
+        "Curve sketching checklist: domain, intercepts, symmetry, asymptotes, sign of f′ (increasing/decreasing), sign of f″ (concavity), stationary and inflection points.",
+        "Small-change formula: δy ≈ (dy/dx) δx, used to estimate errors and small perturbations.",
+        "Percentage error in y ≈ (dy/dx)(δx/y) × 100%."
+      ],
+      "definitions": [
+        {
+          "term": "Tangent line",
+          "definition": "The straight line that touches a curve y = f(x) at a point P and has the same gradient as the curve at P. Its equation at the point (a, f(a)) is y − f(a) = f′(a)(x − a)."
+        },
+        {
+          "term": "Normal line",
+          "definition": "The straight line perpendicular to the tangent at the point of contact. Because perpendicular gradients multiply to −1, its gradient is −1/f′(a) (provided f′(a) ≠ 0), giving equation y − f(a) = −(1/f′(a))(x − a)."
+        },
+        {
+          "term": "Rate of change",
+          "definition": "The derivative of a quantity with respect to time (or another variable). If Q depends on time t, then dQ/dt is the instantaneous rate at which Q is changing."
+        },
+        {
+          "term": "Related rates",
+          "definition": "Problems in which two or more quantities all change with time and are connected by an equation; differentiating that equation with respect to t (using the chain rule) links their rates of change."
+        },
+        {
+          "term": "Stationary point",
+          "definition": "A point on a curve where the derivative equals zero, f′(x) = 0, so the tangent is horizontal. The curve is neither increasing nor decreasing at that instant."
+        },
+        {
+          "term": "Local maximum",
+          "definition": "A stationary point x = a where f(a) ≥ f(x) for all x near a. The curve changes from increasing to decreasing, so f′ changes from positive to negative; equivalently f″(a) < 0."
+        },
+        {
+          "term": "Local minimum",
+          "definition": "A stationary point x = a where f(a) ≤ f(x) for all x near a. The curve changes from decreasing to increasing, so f′ changes from negative to positive; equivalently f″(a) > 0."
+        },
+        {
+          "term": "Point of inflection",
+          "definition": "A point where the concavity of the curve changes (f″ changes sign). If it also happens to be a stationary point it is called a stationary point of inflection; the first derivative test shows f′ does not change sign there."
+        },
+        {
+          "term": "First derivative test",
+          "definition": "To classify a stationary point at x = a, examine the sign of f′(x) just to the left and just to the right of a. (+,−) → local max; (−,+) → local min; (+,+) or (−,−) → stationary point of inflection."
+        },
+        {
+          "term": "Second derivative test",
+          "definition": "At a stationary point x = a: if f″(a) < 0 the point is a local maximum; if f″(a) > 0 it is a local minimum; if f″(a) = 0 the test is inconclusive and the first derivative test must be used."
+        },
+        {
+          "term": "Optimisation",
+          "definition": "The process of finding the value of a variable that maximises or minimises a given quantity (objective function), subject to any constraints, by setting the first derivative to zero and verifying the nature of the stationary point."
+        },
+        {
+          "term": "Concavity",
+          "definition": "A curve is concave up (bowl shape) on an interval where f″(x) > 0 and concave down (arch shape) where f″(x) < 0."
+        },
+        {
+          "term": "Small-change (linearisation) formula",
+          "definition": "For a small increment δx in x, the corresponding increment in y = f(x) is approximately δy ≈ f′(x) δx. This is the linear (first-order) approximation to the true change."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Finding the tangent and normal to a curve",
+          "problem": "Find the equations of the tangent and normal to the curve y = x³ − 4x + 1 at the point where x = 2.",
+          "steps": [
+            "Step 1 – Find the y-coordinate at x = 2: y = (2)³ − 4(2) + 1 = 8 − 8 + 1 = 1. The point is (2, 1).",
+            "Step 2 – Differentiate: dy/dx = 3x² − 4.",
+            "Step 3 – Gradient of tangent at x = 2: m_T = 3(4) − 4 = 12 − 4 = 8.",
+            "Step 4 – Equation of tangent (point–slope form): y − 1 = 8(x − 2) → y = 8x − 15.",
+            "Step 5 – Gradient of normal: m_N = −1/m_T = −1/8.",
+            "Step 6 – Equation of normal: y − 1 = −(1/8)(x − 2) → 8y − 8 = −x + 2 → x + 8y = 10."
+          ],
+          "answer": "Tangent: y = 8x − 15. Normal: x + 8y = 10."
+        },
+        {
+          "title": "Related rates — rising water level in a cone",
+          "problem": "Water flows into an inverted conical tank at 2 m³/min. The cone has height 6 m and base radius 3 m. How fast is the water level rising when the depth is 2 m?",
+          "steps": [
+            "Step 1 – Set up variables: let h = depth of water (m) and V = volume of water (m³) at time t (min).",
+            "Step 2 – Express V in terms of h. By similar triangles, the radius r of the water surface satisfies r/h = 3/6, so r = h/2. Volume of a cone: V = (1/3)πr²h = (1/3)π(h/2)²h = πh³/12.",
+            "Step 3 – Differentiate V with respect to t using the chain rule: dV/dt = (πh²/4)(dh/dt).",
+            "Step 4 – Substitute known values: dV/dt = 2, h = 2. Then 2 = (π × 4/4)(dh/dt) = π(dh/dt).",
+            "Step 5 – Solve: dh/dt = 2/π m/min."
+          ],
+          "answer": "The water level is rising at 2/π ≈ 0.637 m/min when the depth is 2 m."
+        },
+        {
+          "title": "Classifying stationary points and sketching",
+          "problem": "Find and classify all stationary points of f(x) = 2x³ − 9x² + 12x − 4, and hence sketch the curve.",
+          "steps": [
+            "Step 1 – First derivative: f′(x) = 6x² − 18x + 12 = 6(x² − 3x + 2) = 6(x − 1)(x − 2).",
+            "Step 2 – Set f′(x) = 0: x = 1 or x = 2.",
+            "Step 3 – Function values: f(1) = 2 − 9 + 12 − 4 = 1; f(2) = 16 − 36 + 24 − 4 = 0. Stationary points: (1, 1) and (2, 0).",
+            "Step 4 – Second derivative: f″(x) = 12x − 18.",
+            "Step 5 – At x = 1: f″(1) = 12 − 18 = −6 < 0 → local maximum at (1, 1).",
+            "Step 6 – At x = 2: f″(2) = 24 − 18 = 6 > 0 → local minimum at (2, 0).",
+            "Step 7 – Sketch features: y-intercept f(0) = −4; curve rises from bottom-left, reaches local max (1,1), falls to local min (2,0), then rises to top-right. The inflection point is where f″ = 0: 12x − 18 = 0 → x = 3/2, f(3/2) = 1/2; mark (3/2, 1/2)."
+          ],
+          "answer": "Local maximum at (1, 1); local minimum at (2, 0); inflection point at (3/2, 1/2)."
+        },
+        {
+          "title": "Optimisation — minimum surface area of a can",
+          "problem": "A cylindrical tin can must hold a volume of 500 cm³. Find the radius r and height h that minimise the total surface area (including both circular ends).",
+          "steps": [
+            "Step 1 – Write the constraint: V = πr²h = 500, so h = 500/(πr²).",
+            "Step 2 – Write the objective: total surface area A = 2πr² + 2πrh.",
+            "Step 3 – Express A in terms of r only by substituting h: A(r) = 2πr² + 2πr × 500/(πr²) = 2πr² + 1000/r.",
+            "Step 4 – Differentiate: dA/dr = 4πr − 1000/r².",
+            "Step 5 – Set dA/dr = 0: 4πr = 1000/r² → r³ = 1000/(4π) = 250/π → r = (250/π)^(1/3) ≈ 4.30 cm.",
+            "Step 6 – Find h: h = 500/(π × r²). Since r³ = 250/π, r² = (250/π)^(2/3). Numerically h ≈ 500/(π × 18.49) ≈ 8.60 cm. Note h = 2r, confirming the well-known result that the optimal can has height equal to its diameter.",
+            "Step 7 – Verify minimum: d²A/dr² = 4π + 2000/r³ > 0 for all r > 0, confirming a minimum."
+          ],
+          "answer": "Minimum surface area when r = (250/π)^(1/3) ≈ 4.30 cm and h = 2r ≈ 8.60 cm, giving A ≈ 348.7 cm²."
+        },
+        {
+          "title": "Small changes and percentage error",
+          "problem": "The radius of a sphere is measured as 5 cm with a possible error of ±0.04 cm. Use the small-change formula to estimate (a) the absolute error in the calculated volume, and (b) the percentage error.",
+          "steps": [
+            "Step 1 – Volume of a sphere: V = (4/3)πr³.",
+            "Step 2 – Differentiate: dV/dr = 4πr².",
+            "Step 3 – Apply the small-change formula with r = 5 and δr = ±0.04: δV ≈ (dV/dr) δr = 4π(5²)(0.04) = 4π(25)(0.04) = 4π cm³ ≈ 12.57 cm³.",
+            "Step 4 – Actual volume: V = (4/3)π(125) = 500π/3 cm³.",
+            "Step 5 – Percentage error: (δV/V) × 100% ≈ (4π)/(500π/3) × 100% = (4 × 3/500) × 100% = 12/500 × 100% = 2.4%. Alternatively, percentage error in V = 3 × percentage error in r = 3 × (0.04/5 × 100%) = 3 × 0.8% = 2.4%."
+          ],
+          "answer": "Absolute error ≈ ±4π ≈ ±12.57 cm³; percentage error ≈ ±2.4%."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "The curve y = x³ − 3x + 2 has a tangent at the point where x = 1. What is the gradient of the normal at that point?",
+          "options": [
+            "0",
+            "Undefined (vertical normal)",
+            "−1/3",
+            "3"
+          ],
+          "correctIndex": 1,
+          "explanation": "dy/dx = 3x² − 3; at x = 1 this equals 0, so the tangent is horizontal and the normal is vertical (undefined gradient)."
+        },
+        {
+          "question": "A spherical balloon is being inflated so that its radius increases at 0.5 cm/s. The rate of increase of its volume when the radius is 4 cm is:",
+          "options": [
+            "8π cm³/s",
+            "16π cm³/s",
+            "32π cm³/s",
+            "4π cm³/s"
+          ],
+          "correctIndex": 2,
+          "explanation": "dV/dt = 4πr² × (dr/dt) = 4π(16)(0.5) = 32π cm³/s."
+        },
+        {
+          "question": "For the function f(x) = x⁴ − 4x³, the second derivative test at x = 3 gives f″(3) = 36 > 0. What does this tell us?",
+          "options": [
+            "x = 3 is a local maximum",
+            "x = 3 is a point of inflection",
+            "x = 3 is a local minimum",
+            "The test is inconclusive because f″ > 0"
+          ],
+          "correctIndex": 2,
+          "explanation": "f″(3) > 0 confirms that x = 3 is a local minimum; the curve is concave up at that stationary point."
+        },
+        {
+          "question": "Using linear approximation, the estimated value of √(16.08) is closest to:",
+          "options": [
+            "4.01",
+            "4.02",
+            "4.1",
+            "4.004"
+          ],
+          "correctIndex": 0,
+          "explanation": "Let f(x) = √x, f′(x) = 1/(2√x). At x = 16, f′(16) = 1/8. So δy ≈ (1/8)(0.08) = 0.01, giving √16.08 ≈ 4.01."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) Find all stationary points of the function f(x) = x³ − 6x² + 9x + 2, classify each using an appropriate test, and identify any point of inflection. (b) Hence sketch the curve, indicating intercepts, stationary points and concavity. [10 marks]",
+          "marks": 10,
+          "modelAnswer": "(a) Differentiate: f′(x) = 3x² − 12x + 9 = 3(x² − 4x + 3) = 3(x − 1)(x − 3).\nSetting f′(x) = 0 gives x = 1 and x = 3.\nFunction values: f(1) = 1 − 6 + 9 + 2 = 6, so (1, 6) is a stationary point; f(3) = 27 − 54 + 27 + 2 = 2, so (3, 2) is a stationary point.\nSecond derivative: f″(x) = 6x − 12.\nAt x = 1: f″(1) = −6 < 0 → local maximum at (1, 6).\nAt x = 3: f″(3) = 6 > 0 → local minimum at (3, 2).\nPoint of inflection: f″(x) = 0 → 6x − 12 = 0 → x = 2; f(2) = 8 − 24 + 18 + 2 = 4. Inflection at (2, 4); f″ changes sign (negative to positive), confirming concavity change.\n(b) Sketch: y-intercept f(0) = 2; curve comes from −∞ (bottom-left), rises to local max (1, 6), falls to local min (3, 2), then rises to +∞ (top-right). Inflection at (2, 4). Concave down for x < 2, concave up for x > 2.",
+          "markingPoints": [
+            "Correct derivative and factorisation to find x = 1 and x = 3",
+            "Correct y-values at both stationary points",
+            "Correct application of second derivative test with correct classifications",
+            "Identification of inflection point at (2, 4) with sign-change justification",
+            "Sketch showing correct shape: local max left of local min, correct intercepts and inflection marked"
+          ]
+        },
+        {
+          "question": "A farmer has 120 m of fencing and wishes to enclose a rectangular plot, using a long straight wall as one side (so fencing is needed only on three sides). Find the dimensions that maximise the area of the plot and state the maximum area. Verify that your answer is indeed a maximum. [8 marks]",
+          "marks": 8,
+          "modelAnswer": "Let the side perpendicular to the wall have length x m; then the side parallel to the wall has length (120 − 2x) m, since only one length and two widths of fencing are needed.\nObjective: maximise A = x(120 − 2x) = 120x − 2x².\nDifferentiate: dA/dx = 120 − 4x.\nSet dA/dx = 0: 120 − 4x = 0 → x = 30.\nSide parallel to wall: 120 − 2(30) = 60 m.\nMaximum area: A = 30 × 60 = 1800 m².\nVerification: d²A/dx² = −4 < 0, confirming x = 30 gives a maximum.\nTherefore the optimal rectangle is 30 m × 60 m with area 1800 m².",
+          "markingPoints": [
+            "Correct formulation of constraint and expression for A in terms of one variable x",
+            "Correct derivative dA/dx = 120 − 4x",
+            "Setting derivative to zero and solving to obtain x = 30",
+            "Correct dimensions (30 m × 60 m) and maximum area 1800 m²",
+            "Verification using second derivative (d²A/dx² = −4 < 0) confirming maximum"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Integration as Anti-differentiation",
+      "sourceRange": "Topic 4",
+      "summary": "Integration is the reverse process of differentiation. Given a function f(x), an antiderivative F(x) is any function satisfying F′(x) = f(x). The indefinite integral ∫f(x) dx = F(x) + C collects the entire family of antiderivatives by including an arbitrary constant C, called the constant of integration, since any constant differentiates to zero. A table of standard integrals — built by reversing every familiar differentiation formula — covers power functions, the natural logarithm, exponentials, and basic trigonometric functions, and forms the starting point for all integration work.\n\nWhen the integrand is more complicated than a single standard form, four systematic techniques extend our reach. Integration by substitution replaces the variable to simplify a composite expression, effectively reversing the chain rule. Integration by parts, using the formula ∫u dv = uv − ∫v du, handles products of functions and reverses the product rule. Partial fraction decomposition breaks a proper rational function into a sum of simpler fractions, each integrable by a standard formula. Finally, trigonometric identities — especially the double-angle and half-angle formulas — reduce powers and products of sine and cosine to forms that can be integrated directly.\n\nMastering these techniques requires recognising the structure of the integrand: substitution suits composites whose derivative is present as a factor; integration by parts suits explicit products, guided by the LIATE priority ordering; partial fractions suit rational functions; and trig identities suit even or odd powers of sin x and cos x and their products. In every case the answer should be checked by differentiating the result to recover the original integrand.",
+      "keyPoints": [
+        "The indefinite integral ∫f(x) dx = F(x) + C, where F′(x) = f(x) and C is an arbitrary constant.",
+        "Power rule for integration: ∫xⁿ dx = xⁿ⁺¹/(n+1) + C for n ≠ −1; the special case n = −1 gives ∫(1/x) dx = ln|x| + C.",
+        "Standard results: ∫eˣ dx = eˣ + C; ∫sin x dx = −cos x + C; ∫cos x dx = sin x + C; ∫sec²x dx = tan x + C.",
+        "Substitution (reversing the chain rule): choose u to be an inner function whose derivative appears as a factor, replace all x-terms with u-terms, integrate, then back-substitute.",
+        "Integration by parts: ∫u dv = uv − ∫v du. Use LIATE to choose u: Logarithm, Inverse trig, Algebraic, Trigonometric, Exponential — the first applicable type becomes u.",
+        "For a proper rational function, factorise the denominator; assign A/(linear factor) for each distinct linear factor and (Bx+C)/(quadratic factor) for each irreducible quadratic; find constants by substituting roots or comparing coefficients.",
+        "Half-angle identities for even trig powers: sin²x = (1 − cos 2x)/2 and cos²x = (1 + cos 2x)/2.",
+        "For odd powers such as sin³x, split off one factor (e.g. sin³x = sin x · (1 − cos²x)) and use the substitution u = cos x.",
+        "Always verify an indefinite integral by differentiating the result; the derivative must equal the original integrand."
+      ],
+      "definitions": [
+        {
+          "term": "Antiderivative",
+          "definition": "A function F(x) is an antiderivative of f(x) on an interval if F′(x) = f(x) for every x in that interval. Antiderivatives are not unique: if F(x) is one, then F(x) + C is another for any constant C."
+        },
+        {
+          "term": "Indefinite integral",
+          "definition": "The indefinite integral of f(x), written ∫f(x) dx, denotes the complete family of antiderivatives F(x) + C, where C is an arbitrary constant. It is 'indefinite' because no specific numerical value is assigned to C."
+        },
+        {
+          "term": "Constant of integration",
+          "definition": "The arbitrary constant C added to every indefinite integral, reflecting the fact that differentiating a constant gives zero, so infinitely many functions share the same derivative. Its value is determined only when an initial or boundary condition is supplied."
+        },
+        {
+          "term": "Standard integral",
+          "definition": "A known antiderivative formula used as a building block, such as ∫xⁿ dx = xⁿ⁺¹/(n+1) + C or ∫eˣ dx = eˣ + C. Standard integrals are obtained by reading differentiation rules in reverse and must be memorised."
+        },
+        {
+          "term": "Integration by substitution",
+          "definition": "A technique that simplifies an integral by introducing a new variable u = g(x), replacing dx with du/g′(x), and transforming the entire integrand into a simpler function of u. After integrating in u, the result is converted back to x. It is the integral counterpart of the chain rule."
+        },
+        {
+          "term": "Integration by parts",
+          "definition": "A technique based on the product rule, giving the formula ∫u dv = uv − ∫v du. One factor of the integrand is labelled u (to be differentiated) and the other dv (to be integrated). The technique trades the original integral for a (hopefully simpler) one involving v du."
+        },
+        {
+          "term": "LIATE rule",
+          "definition": "A mnemonic for choosing u in integration by parts: Logarithmic functions, Inverse trigonometric functions, Algebraic (polynomial) functions, Trigonometric functions, Exponential functions. The first type present in the integrand is chosen as u, because it simplifies most when differentiated."
+        },
+        {
+          "term": "Proper rational function",
+          "definition": "A ratio of two polynomials P(x)/Q(x) in which the degree of the numerator P is strictly less than the degree of the denominator Q. If the function is improper (degree of P ≥ degree of Q), polynomial long division must first reduce it to a polynomial plus a proper rational part before applying partial fractions."
+        },
+        {
+          "term": "Partial fraction decomposition",
+          "definition": "The process of writing a proper rational function as a sum of simpler fractions: A/(x − a) for each distinct linear factor (x − a), A/(x − a)^k for each repeated linear factor of multiplicity k, and (Bx + C)/(ax² + bx + c) for each irreducible quadratic factor. The constants are found by multiplying out and equating coefficients or substituting convenient values of x."
+        },
+        {
+          "term": "Irreducible quadratic factor",
+          "definition": "A quadratic factor ax² + bx + c whose discriminant b² − 4ac is negative, meaning it has no real roots and cannot be factorised over the real numbers. Its corresponding partial fraction has the form (Bx + C)/(ax² + bx + c), and the integral of 1/(x² + k²) gives (1/k) arctan(x/k) + C."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Applying Standard Integration Rules",
+          "problem": "Find the indefinite integral ∫(4x³ − 3/x + 2eˣ + sin x) dx.",
+          "steps": [
+            "Recognise that integration is linear: the integral of a sum equals the sum of the integrals, so treat each term separately.",
+            "Term 1: ∫4x³ dx. Apply the power rule ∫xⁿ dx = xⁿ⁺¹/(n+1) with n = 3: ∫4x³ dx = 4 · x⁴/4 = x⁴.",
+            "Term 2: ∫(−3/x) dx = −3∫(1/x) dx. Use the standard result ∫(1/x) dx = ln|x|, so the result is −3 ln|x|.",
+            "Term 3: ∫2eˣ dx = 2eˣ, since the exponential function is its own antiderivative.",
+            "Term 4: ∫sin x dx = −cos x, reversing d/dx(cos x) = −sin x.",
+            "Combine all terms and add a single constant of integration C at the end."
+          ],
+          "answer": "x⁴ − 3 ln|x| + 2eˣ − cos x + C"
+        },
+        {
+          "title": "Integration by Substitution",
+          "problem": "Find ∫ x/(x² + 3)² dx.",
+          "steps": [
+            "Observe that the denominator is (x² + 3)² and the numerator contains x, which is (up to a constant factor) the derivative of x² + 3. This signals that substitution will work.",
+            "Let u = x² + 3. Differentiate: du/dx = 2x, so du = 2x dx, which gives x dx = du/2.",
+            "Rewrite the integral entirely in terms of u: ∫ x/(x²+3)² dx = ∫ (1/u²)(du/2) = (1/2)∫ u⁻² du.",
+            "Integrate using the power rule: (1/2)∫ u⁻² du = (1/2) · [u⁻¹/(−1)] = −1/(2u).",
+            "Back-substitute u = x² + 3 to return to the original variable.",
+            "Check by differentiating: d/dx[−1/(2(x²+3))] = (1/2) · 2x/(x²+3)² = x/(x²+3)². ✓"
+          ],
+          "answer": "−1/[2(x² + 3)] + C"
+        },
+        {
+          "title": "Integration by Parts",
+          "problem": "Find ∫ x cos x dx.",
+          "steps": [
+            "The integrand is a product of an algebraic function (x) and a trigonometric function (cos x). Apply integration by parts: ∫u dv = uv − ∫v du.",
+            "By LIATE, Algebraic comes before Trigonometric, so choose u = x. Then dv = cos x dx.",
+            "Differentiate u: du = dx. Integrate dv: v = ∫cos x dx = sin x.",
+            "Apply the formula: ∫x cos x dx = x · sin x − ∫sin x · dx = x sin x − ∫sin x dx.",
+            "Evaluate the remaining integral: ∫sin x dx = −cos x.",
+            "Substitute back: ∫x cos x dx = x sin x − (−cos x) + C = x sin x + cos x + C.",
+            "Verify: d/dx(x sin x + cos x) = sin x + x cos x − sin x = x cos x. ✓"
+          ],
+          "answer": "x sin x + cos x + C"
+        },
+        {
+          "title": "Integration Using Partial Fractions",
+          "problem": "Find ∫ (5x − 1)/((x − 2)(x + 1)) dx.",
+          "steps": [
+            "The integrand is a proper rational function (degree 1 numerator, degree 2 denominator) with two distinct linear factors. Write the partial fraction form: (5x − 1)/((x−2)(x+1)) = A/(x−2) + B/(x+1).",
+            "Multiply both sides by (x−2)(x+1): 5x − 1 = A(x+1) + B(x−2).",
+            "Find A by substituting x = 2 (which eliminates B): 5(2) − 1 = A(3) → 9 = 3A → A = 3.",
+            "Find B by substituting x = −1 (which eliminates A): 5(−1) − 1 = B(−3) → −6 = −3B → B = 2.",
+            "Check: 3(x+1) + 2(x−2) = 3x + 3 + 2x − 4 = 5x − 1. ✓",
+            "Rewrite and integrate: ∫[3/(x−2) + 2/(x+1)] dx = 3∫dx/(x−2) + 2∫dx/(x+1).",
+            "Use ∫1/(x−a) dx = ln|x−a| + C for each term."
+          ],
+          "answer": "3 ln|x − 2| + 2 ln|x + 1| + C"
+        },
+        {
+          "title": "Integrating Trigonometric Powers Using Identities",
+          "problem": "Find ∫ sin²x cos²x dx.",
+          "steps": [
+            "The integrand involves even powers of both sin x and cos x, so use the half-angle identities: sin²x = (1 − cos 2x)/2 and cos²x = (1 + cos 2x)/2.",
+            "Multiply them together: sin²x cos²x = [(1 − cos 2x)/2]·[(1 + cos 2x)/2] = (1 − cos²2x)/4.",
+            "Recognise that 1 − cos²2x = sin²2x by the Pythagorean identity, so sin²x cos²x = sin²2x / 4.",
+            "Apply the half-angle identity a second time with the argument 2x: sin²2x = (1 − cos 4x)/2.",
+            "Therefore sin²x cos²x = (1 − cos 4x)/8.",
+            "Integrate term by term: ∫(1 − cos 4x)/8 dx = (1/8)[x − sin 4x / 4] + C."
+          ],
+          "answer": "x/8 − (sin 4x)/32 + C"
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following is the correct antiderivative of f(x) = 1/x?",
+          "options": [
+            "ln(x) + C",
+            "−1/x² + C",
+            "ln|x| + C",
+            "x ln x + C"
+          ],
+          "correctIndex": 2,
+          "explanation": "The antiderivative of 1/x is ln|x| + C; the absolute value is essential because 1/x is defined for x < 0 as well, whereas ln x is not."
+        },
+        {
+          "question": "To evaluate ∫ 2x sin(x²) dx by substitution, which substitution is most appropriate?",
+          "options": [
+            "u = sin(x²)",
+            "u = x²",
+            "u = 2x",
+            "u = x² + 1"
+          ],
+          "correctIndex": 1,
+          "explanation": "Setting u = x² gives du = 2x dx, which exactly matches the factor 2x dx already present in the integrand, reducing the integral to the standard form ∫sin u du."
+        },
+        {
+          "question": "In applying integration by parts to ∫ x ln x dx, which choice of u is correct according to LIATE?",
+          "options": [
+            "u = x, dv = ln x dx",
+            "u = ln x, dv = x dx",
+            "u = 1, dv = x ln x dx",
+            "u = x ln x, dv = dx"
+          ],
+          "correctIndex": 1,
+          "explanation": "LIATE places Logarithmic functions before Algebraic, so u = ln x (differentiated to 1/x) and dv = x dx (integrated to x²/2), yielding the simple remaining integral ∫(x/2) dx."
+        },
+        {
+          "question": "Which identity correctly expresses cos²x in a form suitable for integration?",
+          "options": [
+            "cos²x = 1 − sin²x only",
+            "cos²x = (1 − cos 2x)/2",
+            "cos²x = (1 + cos 2x)/2",
+            "cos²x = (cos 2x)/2"
+          ],
+          "correctIndex": 2,
+          "explanation": "From the double-angle formula cos 2x = 2cos²x − 1, rearranging gives cos²x = (1 + cos 2x)/2, removing the square and producing a directly integrable expression."
+        }
+      ],
+      "theory": [
+        {
+          "question": "Use integration by parts, applied as many times as necessary, to evaluate ∫ x²eˣ dx. At each stage state your choice of u and dv clearly, and verify your final answer by differentiation.",
+          "marks": 8,
+          "modelAnswer": "Integration by parts states ∫u dv = uv − ∫v du. For ∫x²eˣ dx, choose u = x² (algebraic, so it reduces when differentiated) and dv = eˣ dx. Then du = 2x dx and v = eˣ. Applying the formula: ∫x²eˣ dx = x²eˣ − ∫2xeˣ dx. The remaining integral ∫2xeˣ dx requires a second application. Choose u = 2x and dv = eˣ dx, giving du = 2 dx and v = eˣ. Then ∫2xeˣ dx = 2xeˣ − ∫2eˣ dx = 2xeˣ − 2eˣ. Substituting back into the first result: ∫x²eˣ dx = x²eˣ − (2xeˣ − 2eˣ) + C = x²eˣ − 2xeˣ + 2eˣ + C = eˣ(x² − 2x + 2) + C. Verification: differentiate eˣ(x² − 2x + 2) using the product rule: d/dx = eˣ(x² − 2x + 2) + eˣ(2x − 2) = eˣ(x² − 2x + 2 + 2x − 2) = eˣ · x² = x²eˣ. This confirms the answer.",
+          "markingPoints": [
+            "Correct first application: u = x², dv = eˣ dx, leading to x²eˣ − ∫2xeˣ dx",
+            "Correct second application: u = 2x, dv = eˣ dx, leading to 2xeˣ − 2eˣ",
+            "Correct substitution back to obtain x²eˣ − 2xeˣ + 2eˣ + C",
+            "Answer written in factored form eˣ(x² − 2x + 2) + C with constant of integration",
+            "Verification by differentiation recovering x²eˣ"
+          ]
+        },
+        {
+          "question": "(a) Express (4x + 2) / ((x + 1)(x² + 1)) in partial fractions. (b) Hence find ∫ (4x + 2) / ((x + 1)(x² + 1)) dx.",
+          "marks": 10,
+          "modelAnswer": "(a) The denominator has one distinct linear factor (x + 1) and one irreducible quadratic factor (x² + 1, discriminant = −4 < 0). Write: (4x + 2)/((x+1)(x²+1)) = A/(x+1) + (Bx + C)/(x²+1). Multiply both sides by (x+1)(x²+1): 4x + 2 = A(x²+1) + (Bx+C)(x+1). Substitute x = −1: 4(−1)+2 = A(1+1) → −2 = 2A → A = −1. Expand the right side: (A+B)x² + (B+C)x + (A+C). Comparing coefficients — x²: A + B = 0 → B = 1; x: B + C = 4 → C = 3; constant: A + C = −1 + 3 = 2 ✓. Partial fraction form: −1/(x+1) + (x+3)/(x²+1). (b) Split (x+3)/(x²+1) = x/(x²+1) + 3/(x²+1). Now integrate each piece: ∫−1/(x+1) dx = −ln|x+1|; ∫x/(x²+1) dx = (1/2)ln(x²+1), using the substitution u = x²+1, du = 2x dx; ∫3/(x²+1) dx = 3 arctan x. Combining: ∫(4x+2)/((x+1)(x²+1)) dx = −ln|x+1| + (1/2)ln(x²+1) + 3 arctan x + C.",
+          "markingPoints": [
+            "Correct partial fraction form with A/(x+1) and (Bx+C)/(x²+1) for the irreducible quadratic",
+            "Correct constants A = −1, B = 1, C = 3 with supporting working",
+            "Splitting (x+3)/(x²+1) into x/(x²+1) + 3/(x²+1) before integrating",
+            "Correct integral (1/2)ln(x²+1) for the x/(x²+1) term",
+            "Correct term 3 arctan x + C for the 3/(x²+1) piece"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Definite Integrals and Their Applications",
+      "sourceRange": "Topic 5",
+      "summary": "A definite integral assigns a precise numerical value to the \"signed area\" swept out by a function over a closed interval. The Fundamental Theorem of Calculus (FTC) is the central result that ties differentiation and integration together: it tells us both that every continuous function has an antiderivative and that we can evaluate a definite integral simply by computing the difference of an antiderivative at the two endpoints, avoiding the laborious limit-of-a-sum process.\n\nWith the FTC as a tool, definite integrals become a powerful measuring instrument. The area enclosed between a curve and the x-axis, or between two curves, reduces to one or two integral evaluations. Rotating a plane region about a coordinate axis generates a solid of revolution whose volume is found by integrating the cross-sectional area — the disk/washer method for rotation about the x-axis, and the cylindrical shell method for rotation about the y-axis. Finally, the mean (average) value of a function over an interval is defined as the definite integral of the function divided by the length of the interval, giving a single representative value for a quantity that varies continuously.\n\nMastery of this topic requires careful attention to limits of integration, the sign of the integrand (which determines whether a region is above or below the axis), and the correct geometric set-up before any algebra begins. Every application follows the same logical chain: draw a diagram, identify the representative element (strip or shell), write down the integral, and evaluate.",
+      "keyPoints": [
+        "The Fundamental Theorem of Calculus Part 1 states that if F is any antiderivative of a continuous function f, then ∫[a to b] f(x) dx = F(b) − F(a).",
+        "The FTC Part 2 states that d/dx [∫[a to x] f(t) dt] = f(x), showing that differentiation and integration are inverse processes.",
+        "Area under a curve above the x-axis: A = ∫[a to b] f(x) dx; if f is negative on part of [a,b] the integral gives signed area, so split the integral at zeros for total (unsigned) area.",
+        "Area between two curves: A = ∫[a to b] [f(x) − g(x)] dx where f(x) ≥ g(x) on [a,b]; find intersection points to set the limits.",
+        "Volume of revolution about the x-axis (disk method): V = π ∫[a to b] [f(x)]² dx.",
+        "Volume of revolution about the x-axis with a hole (washer method): V = π ∫[a to b] {[f(x)]² − [g(x)]²} dx where f(x) ≥ g(x) ≥ 0.",
+        "Volume of revolution about the y-axis (shell method): V = 2π ∫[a to b] x f(x) dx for a region bounded by y = f(x) ≥ 0 and the x-axis.",
+        "Mean value of f over [a,b]: f̄ = (1/(b−a)) ∫[a to b] f(x) dx.",
+        "Always draw a diagram before setting up any area or volume integral — it prevents sign errors and wrong limits."
+      ],
+      "definitions": [
+        {
+          "term": "Definite integral",
+          "definition": "The definite integral ∫[a to b] f(x) dx is the limit of a Riemann sum (sum of areas of thin rectangles) as the number of rectangles tends to infinity. It gives the net signed area between the graph of f and the x-axis over the interval [a, b]."
+        },
+        {
+          "term": "Fundamental Theorem of Calculus (FTC)",
+          "definition": "A two-part theorem. Part 1 (Evaluation): if f is continuous on [a,b] and F is any antiderivative of f (i.e. F′ = f), then ∫[a to b] f(x) dx = F(b) − F(a). Part 2 (Differentiation of an integral): d/dx [∫[a to x] f(t) dt] = f(x)."
+        },
+        {
+          "term": "Signed area vs. total area",
+          "definition": "The definite integral returns signed area: regions where f(x) < 0 contribute negatively. Total (geometric) area is obtained by integrating |f(x)|, which in practice means splitting the interval at the zeros of f and adding the absolute values of each sub-integral."
+        },
+        {
+          "term": "Area between two curves",
+          "definition": "For two functions f and g continuous on [a,b] with f(x) ≥ g(x) throughout, the area of the region enclosed between them is A = ∫[a to b] [f(x) − g(x)] dx. The limits a and b are typically the x-coordinates of the intersection points."
+        },
+        {
+          "term": "Solid of revolution",
+          "definition": "The three-dimensional solid formed by rotating a plane region about a straight line (axis of revolution). Its volume is computed by integrating the area of its circular cross-sections (disk/washer method) or the surface area of thin cylindrical shells (shell method)."
+        },
+        {
+          "term": "Disk method",
+          "definition": "A technique for finding the volume of a solid of revolution about the x-axis. The solid is sliced into thin disks of radius f(x) and thickness dx, each with area π[f(x)]². Volume = π ∫[a to b] [f(x)]² dx."
+        },
+        {
+          "term": "Washer method",
+          "definition": "An extension of the disk method used when the region being rotated does not touch the axis (there is a hole). Each cross-section is an annulus (washer) with outer radius f(x) and inner radius g(x). Volume = π ∫[a to b] {[f(x)]² − [g(x)]²} dx."
+        },
+        {
+          "term": "Shell method",
+          "definition": "A technique for finding the volume of a solid of revolution about the y-axis. The region is sliced into thin vertical strips; each strip sweeps out a cylindrical shell of radius x, height f(x), and thickness dx. Volume = 2π ∫[a to b] x f(x) dx."
+        },
+        {
+          "term": "Mean value of a function",
+          "definition": "The mean (average) value of a continuous function f over the interval [a, b] is f̄ = (1/(b−a)) ∫[a to b] f(x) dx. Geometrically, it is the height of a rectangle with the same base and the same area as the region under the curve."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Evaluating a definite integral using the FTC",
+          "problem": "Evaluate ∫[1 to 3] (3x² − 4x + 1) dx.",
+          "steps": [
+            "Find an antiderivative F(x) of 3x² − 4x + 1. Integrating term by term: F(x) = x³ − 2x² + x (the constant of integration cancels in a definite integral).",
+            "Apply the FTC: the integral equals F(3) − F(1).",
+            "Compute F(3) = (3)³ − 2(3)² + 3 = 27 − 18 + 3 = 12.",
+            "Compute F(1) = (1)³ − 2(1)² + 1 = 1 − 2 + 1 = 0.",
+            "Subtract: F(3) − F(1) = 12 − 0 = 12."
+          ],
+          "answer": "∫[1 to 3] (3x² − 4x + 1) dx = 12."
+        },
+        {
+          "title": "Area between two curves",
+          "problem": "Find the area of the region enclosed between y = x + 2 and y = x² (the parabola and the line).",
+          "steps": [
+            "Find the intersection points by solving x² = x + 2, i.e. x² − x − 2 = 0, giving (x − 2)(x + 1) = 0, so x = −1 and x = 2.",
+            "Determine which curve is on top on (−1, 2). Test x = 0: line gives y = 2, parabola gives y = 0, so y = x + 2 ≥ y = x² on this interval.",
+            "Set up the area integral: A = ∫[−1 to 2] [(x + 2) − x²] dx.",
+            "Integrate: ∫ (x + 2 − x²) dx = x²/2 + 2x − x³/3 + C.",
+            "Evaluate at the limits: at x = 2: 4/2 + 4 − 8/3 = 2 + 4 − 8/3 = 6 − 8/3 = 10/3. At x = −1: 1/2 − 2 + 1/3 = 3/6 − 12/6 + 2/6 = −7/6.",
+            "A = 10/3 − (−7/6) = 20/6 + 7/6 = 27/6 = 9/2."
+          ],
+          "answer": "The enclosed area is 9/2 = 4.5 square units."
+        },
+        {
+          "title": "Volume of revolution about the x-axis (disk method)",
+          "problem": "The region bounded by y = √x, the x-axis, x = 0 and x = 4 is rotated 360° about the x-axis. Find the volume of the solid formed.",
+          "steps": [
+            "Sketch the region: y = √x from x = 0 to x = 4, above the x-axis.",
+            "Each cross-section perpendicular to the x-axis is a disk of radius r = √x.",
+            "Area of each disk: A(x) = π r² = π (√x)² = πx.",
+            "Volume = ∫[0 to 4] πx dx = π [x²/2] from 0 to 4.",
+            "Evaluate: π (16/2 − 0) = 8π."
+          ],
+          "answer": "V = 8π cubic units."
+        },
+        {
+          "title": "Volume of revolution about the y-axis (shell method)",
+          "problem": "The region bounded by y = x², y = 0, x = 0 and x = 2 is rotated about the y-axis. Find the volume.",
+          "steps": [
+            "The shell method is convenient since the region is described naturally as a function of x.",
+            "A thin vertical strip at position x has height f(x) = x² and width dx. When rotated about the y-axis it forms a cylindrical shell of radius x, height x², and thickness dx.",
+            "Volume of one shell ≈ 2π × radius × height × thickness = 2π x · x² dx = 2π x³ dx.",
+            "Total volume: V = 2π ∫[0 to 2] x³ dx = 2π [x⁴/4] from 0 to 2.",
+            "Evaluate: 2π (16/4 − 0) = 2π × 4 = 8π."
+          ],
+          "answer": "V = 8π cubic units."
+        },
+        {
+          "title": "Mean value of a function",
+          "problem": "Find the mean value of f(x) = sin x over the interval [0, π].",
+          "steps": [
+            "Apply the mean value formula: f̄ = (1/(b − a)) ∫[a to b] f(x) dx with a = 0, b = π.",
+            "f̄ = (1/π) ∫[0 to π] sin x dx.",
+            "Compute the integral: ∫ sin x dx = −cos x + C. So ∫[0 to π] sin x dx = [−cos x] from 0 to π = (−cos π) − (−cos 0) = (−(−1)) − (−1) = 1 + 1 = 2.",
+            "Therefore f̄ = (1/π) × 2 = 2/π."
+          ],
+          "answer": "The mean value of sin x over [0, π] is 2/π ≈ 0.637."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which expression correctly gives the volume when the region between y = f(x) ≥ 0 and the x-axis from x = a to x = b is rotated about the x-axis?",
+          "options": [
+            "2π ∫[a to b] x f(x) dx",
+            "π ∫[a to b] [f(x)]² dx",
+            "∫[a to b] [f(x)]² dx",
+            "π ∫[a to b] f(x) dx"
+          ],
+          "correctIndex": 1,
+          "explanation": "Rotation about the x-axis produces circular disk cross-sections of area π[f(x)]², so integrating these gives V = π ∫[a to b] [f(x)]² dx (the disk method)."
+        },
+        {
+          "question": "The area between y = x² and y = 2x is to be computed. What are the correct limits of integration?",
+          "options": [
+            "x = 0 and x = 2",
+            "x = 0 and x = 4",
+            "x = −2 and x = 2",
+            "x = 1 and x = 3"
+          ],
+          "correctIndex": 0,
+          "explanation": "Setting x² = 2x gives x(x − 2) = 0, so the curves intersect at x = 0 and x = 2, which are the correct limits."
+        },
+        {
+          "question": "A student evaluates ∫[0 to 2π] sin x dx and gets 0. They conclude the total area between y = sin x and the x-axis over [0, 2π] is 0. This is:",
+          "options": [
+            "Correct, because the integral and the area are the same thing.",
+            "Incorrect; the integral gives signed area, and the total area is 4.",
+            "Incorrect; the total area equals 2π.",
+            "Correct only if sin x is replaced by |sin x|."
+          ],
+          "correctIndex": 1,
+          "explanation": "The integral gives zero because positive and negative contributions cancel (signed area). The total geometric area requires integrating |sin x|, giving 2 + 2 = 4."
+        },
+        {
+          "question": "The mean value of f(x) = 3x² over [0, 2] is:",
+          "options": [
+            "4",
+            "6",
+            "8",
+            "12"
+          ],
+          "correctIndex": 0,
+          "explanation": "f̄ = (1/(2−0)) ∫[0 to 2] 3x² dx = (1/2)[x³] from 0 to 2 = (1/2)(8) = 4."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) State the Fundamental Theorem of Calculus (both parts). (b) Use Part 1 to evaluate ∫[0 to 2] (4x³ − 6x + 5) dx. (c) Use Part 2 to find d/dx [∫[1 to x²] cos(t²) dt].",
+          "marks": 10,
+          "modelAnswer": "(a) FTC Part 1: If f is continuous on [a, b] and F is any antiderivative of f (so F′ = f), then ∫[a to b] f(x) dx = F(b) − F(a). FTC Part 2: If f is continuous and G(x) = ∫[a to x] f(t) dt, then G′(x) = f(x).\n\n(b) Find F(x) = x⁴ − 3x² + 5x. Evaluate: F(2) = 16 − 12 + 10 = 14; F(0) = 0. Integral = 14 − 0 = 14.\n\n(c) Let u = x², so G(x) = ∫[1 to u] cos(t²) dt. By the chain rule combined with FTC Part 2: dG/dx = cos(u²) · du/dx = cos(x⁴) · 2x. Therefore d/dx [∫[1 to x²] cos(t²) dt] = 2x cos(x⁴).",
+          "markingPoints": [
+            "Correct statement of FTC Part 1 including continuity condition",
+            "Correct statement of FTC Part 2",
+            "Antiderivative F(x) = x⁴ − 3x² + 5x and correct evaluation giving 14",
+            "Recognition that the upper limit x² requires the chain rule in part (c)",
+            "Final answer 2x cos(x⁴) for part (c)"
+          ]
+        },
+        {
+          "question": "The region R is bounded by y = √x and y = x/2. (a) Find the x-coordinates of the points where the curves intersect. (b) Calculate the area of R. (c) Find the volume generated when R is rotated 360° about the x-axis.",
+          "marks": 12,
+          "modelAnswer": "(a) Set √x = x/2: square both sides or substitute u = √x to get u = u²/2, so 2u = u², giving u(u − 2) = 0, i.e. u = 0 or u = 2. Thus x = 0 or x = 4. Intersection points are (0, 0) and (4, 2).\n\n(b) On [0, 4]: test x = 1: √1 = 1 > 1/2, so y = √x is on top. Area = ∫[0 to 4] (√x − x/2) dx = [⅔x^(3/2) − x²/4] from 0 to 4 = (⅔ × 8 − 16/4) − 0 = 16/3 − 4 = 4/3.\n\n(c) Washer method: outer radius R(x) = √x, inner radius r(x) = x/2. V = π ∫[0 to 4] [(√x)² − (x/2)²] dx = π ∫[0 to 4] (x − x²/4) dx = π [x²/2 − x³/12] from 0 to 4 = π (8 − 64/12) = π (8 − 16/3) = π (24/3 − 16/3) = 8π/3.",
+          "markingPoints": [
+            "Correct intersection points x = 0 and x = 4",
+            "Correct integrand (√x − x/2) with √x identified as the upper curve",
+            "Area correctly evaluated as 4/3",
+            "Washer method correctly set up with outer radius √x and inner radius x/2",
+            "Volume correctly evaluated as 8π/3"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Introduction to Differential Equations",
+      "sourceRange": "Topic 6",
+      "summary": "A differential equation (DE) is any equation that contains an unknown function and one or more of its derivatives. Rather than asking \"what number satisfies this equation?\", a DE asks \"what function satisfies this equation?\". This module focuses on first-order ordinary differential equations — equations involving only the first derivative dy/dx — which arise naturally whenever the rate of change of a quantity depends on the quantity itself or on the independent variable.\n\nThe first skill is forming a differential equation from a verbal or physical description. For example, if a population grows at a rate proportional to its current size, that statement translates directly into dy/dt = ky. Once a DE is formed, the goal is to find the general solution — a family of functions — and, when initial conditions are given, the particular solution. For first-order separable equations, the method is to rearrange so that all y-terms are on one side and all t- (or x-) terms are on the other, then integrate both sides.\n\nExponential growth and decay are the most important applications at this level. Radioactive decay, cooling, population dynamics, and compound interest all obey the same underlying DE: dy/dt = ky, whose solution is y = Ae^(kt). When k > 0 the quantity grows; when k < 0 it decays. Understanding how to move fluently between the differential equation, its general solution, and a particular solution fitted to given data is the central competence this topic develops.",
+      "keyPoints": [
+        "A differential equation relates an unknown function to its derivatives; the order is the order of the highest derivative present.",
+        "To form a DE, translate a rate-of-change statement into mathematical notation: 'rate proportional to y' becomes dy/dt = ky.",
+        "A first-order DE is separable if it can be written as g(y) dy = f(x) dx; both sides are then integrated independently.",
+        "The general solution of dy/dx = ky is y = Ae^(kx), where A is an arbitrary constant determined by an initial condition.",
+        "For exponential growth k > 0; for exponential decay k < 0. Half-life T½ satisfies e^(kT½) = 1/2, giving T½ = −ln2 / k.",
+        "An initial condition y(x₀) = y₀ pins down the arbitrary constant A and converts the general solution into a particular solution.",
+        "Newton's Law of Cooling — dT/dt = −k(T − T_s) — is a separable DE whose solution is T(t) = T_s + (T₀ − T_s)e^(−kt).",
+        "Always include the constant of integration on one side only when separating variables, then exponentiate if the integral produces a logarithm."
+      ],
+      "definitions": [
+        {
+          "term": "Differential equation (DE)",
+          "definition": "An equation that contains an unknown function and at least one of its derivatives. It is called ordinary if there is only one independent variable, and partial if there are two or more."
+        },
+        {
+          "term": "Order of a differential equation",
+          "definition": "The order of the highest derivative appearing in the equation. For example, dy/dx + 2y = 5 is first-order; d²y/dx² − y = 0 is second-order."
+        },
+        {
+          "term": "General solution",
+          "definition": "The complete family of solutions to a DE, containing one arbitrary constant for each order of the equation. It represents all possible solutions."
+        },
+        {
+          "term": "Particular solution",
+          "definition": "A specific solution obtained from the general solution by substituting an initial (or boundary) condition to determine the arbitrary constant."
+        },
+        {
+          "term": "Initial condition",
+          "definition": "A known value of the unknown function (and possibly its derivatives) at a specific point, used to determine the arbitrary constant in the general solution. Written as y(x₀) = y₀."
+        },
+        {
+          "term": "Separable differential equation",
+          "definition": "A first-order DE that can be algebraically rearranged into the form g(y) dy = f(x) dx, so that the variables y and x appear on opposite sides and can be integrated independently."
+        },
+        {
+          "term": "Exponential growth",
+          "definition": "A process modelled by dy/dt = ky with k > 0, in which the rate of increase is proportional to the current size. The solution y = Ae^(kt) grows without bound as t increases."
+        },
+        {
+          "term": "Exponential decay",
+          "definition": "A process modelled by dy/dt = ky with k < 0, in which the quantity decreases at a rate proportional to its current value. The solution y = Ae^(kt) approaches zero as t → ∞."
+        },
+        {
+          "term": "Half-life",
+          "definition": "The time T½ for an exponentially decaying quantity to reduce to half its current value. Found by solving e^(kT½) = 1/2, giving T½ = (ln 2)/(−k)."
+        },
+        {
+          "term": "Newton's Law of Cooling",
+          "definition": "The empirical law stating that the rate of change of temperature of an object is proportional to the difference between the object's temperature and the surrounding (ambient) temperature: dT/dt = −k(T − T_s), where k > 0."
+        }
+      ],
+      "workedExamples": [
+        {
+          "title": "Solving a basic separable equation",
+          "problem": "Find the general solution of dy/dx = 3y, then find the particular solution satisfying y(0) = 5.",
+          "steps": [
+            "Separate variables: divide both sides by y (assuming y ≠ 0) and multiply both sides by dx to obtain (1/y) dy = 3 dx.",
+            "Integrate both sides: ∫(1/y) dy = ∫3 dx, giving ln|y| = 3x + C, where C is an arbitrary constant.",
+            "Exponentiate both sides: |y| = e^(3x + C) = e^C · e^(3x). Writing A = ±e^C (absorbing the sign into A), the general solution is y = Ae^(3x). (A ≠ 0; the solution y = 0 can be included by allowing A = 0.)",
+            "Apply the initial condition y(0) = 5: substitute x = 0 and y = 5 into y = Ae^(3x) to get 5 = A·e^0 = A, so A = 5.",
+            "Write the particular solution: y = 5e^(3x)."
+          ],
+          "answer": "General solution: y = Ae^(3x). Particular solution satisfying y(0) = 5: y = 5e^(3x)."
+        },
+        {
+          "title": "Exponential radioactive decay and half-life",
+          "problem": "A radioactive substance decays at a rate proportional to the amount present. Initially there are 200 g. After 10 years only 150 g remain. (a) Find the amount at time t years. (b) Find the half-life.",
+          "steps": [
+            "Form the DE: let Q(t) be the mass in grams. 'Rate of decay proportional to amount present' gives dQ/dt = −kQ, where k > 0.",
+            "Separate and integrate: (1/Q) dQ = −k dt → ln Q = −kt + C (taking Q > 0). Exponentiate: Q = Ae^(−kt).",
+            "Use Q(0) = 200: 200 = A·e^0, so A = 200. Thus Q(t) = 200e^(−kt).",
+            "Use Q(10) = 150: 150 = 200e^(−10k) → e^(−10k) = 150/200 = 0.75 → −10k = ln(0.75) → k = −ln(0.75)/10 = ln(4/3)/10 ≈ 0.02877 per year.",
+            "Write the model: Q(t) = 200e^(−0.02877t) grams.",
+            "Find the half-life T½: set Q = 100 (half of 200): 100 = 200e^(−kT½) → e^(−kT½) = 0.5 → −kT½ = −ln 2 → T½ = ln2 / k = 0.6931 / 0.02877 ≈ 24.09 years."
+          ],
+          "answer": "(a) Q(t) = 200e^(−0.02877t) g. (b) Half-life ≈ 24.1 years."
+        },
+        {
+          "title": "Newton's Law of Cooling",
+          "problem": "A cup of coffee at 90 °C is placed in a room at 20 °C. After 5 minutes the coffee has cooled to 70 °C. Find the temperature after 15 minutes.",
+          "steps": [
+            "Set up the DE using Newton's Law of Cooling: dT/dt = −k(T − 20), where T_s = 20 °C and k > 0.",
+            "Substitute u = T − 20, so du/dt = dT/dt. The DE becomes du/dt = −ku. This is separable: (1/u) du = −k dt.",
+            "Integrate: ln|u| = −kt + C → u = Ae^(−kt), i.e. T − 20 = Ae^(−kt).",
+            "Apply T(0) = 90: 90 − 20 = A → A = 70. So T(t) = 20 + 70e^(−kt).",
+            "Apply T(5) = 70: 70 = 20 + 70e^(−5k) → 50 = 70e^(−5k) → e^(−5k) = 5/7 → −5k = ln(5/7) → k = −(1/5)ln(5/7) = (1/5)ln(7/5) ≈ 0.06730 per minute.",
+            "Find T(15): T(15) = 20 + 70e^(−0.06730 × 15) = 20 + 70e^(−1.0095) = 20 + 70 × 0.3644 ≈ 20 + 25.51 ≈ 45.5 °C."
+          ],
+          "answer": "After 15 minutes the coffee is approximately 45.5 °C."
+        },
+        {
+          "title": "Population growth with a carrying capacity (logistic-style separable DE)",
+          "problem": "A colony of bacteria grows according to dP/dt = 0.4P. At t = 0 (hours) there are 500 bacteria. Find the population after 3 hours and the time for the population to reach 5000.",
+          "steps": [
+            "The DE dy/dt = 0.4P is separable. Separate: (1/P) dP = 0.4 dt.",
+            "Integrate both sides: ln P = 0.4t + C. Exponentiate: P = Ae^(0.4t).",
+            "Apply P(0) = 500: 500 = A, so P(t) = 500e^(0.4t).",
+            "Find P(3): P(3) = 500e^(0.4 × 3) = 500e^(1.2) = 500 × 3.3201 ≈ 1660 bacteria.",
+            "Find t when P = 5000: 5000 = 500e^(0.4t) → e^(0.4t) = 10 → 0.4t = ln10 → t = ln10 / 0.4 = 2.3026 / 0.4 ≈ 5.76 hours."
+          ],
+          "answer": "Population after 3 hours ≈ 1660. The population reaches 5000 after approximately 5.76 hours."
+        },
+        {
+          "title": "Forming and solving a DE from a geometric/physical description",
+          "problem": "The gradient of a curve at any point (x, y) equals twice the x-coordinate minus 3. The curve passes through (2, 1). Find the equation of the curve.",
+          "steps": [
+            "Translate the description into a DE: dy/dx = 2x − 3.",
+            "This is directly integrable (separable with g(y) = 1). Integrate both sides with respect to x: y = ∫(2x − 3) dx = x² − 3x + C.",
+            "Apply the initial condition (2, 1): substitute x = 2, y = 1 into y = x² − 3x + C: 1 = 4 − 6 + C = −2 + C → C = 3.",
+            "Write the particular solution: y = x² − 3x + 3.",
+            "Check: dy/dx = 2x − 3 ✓; at x = 2: y = 4 − 6 + 3 = 1 ✓."
+          ],
+          "answer": "The equation of the curve is y = x² − 3x + 3."
+        }
+      ],
+      "quiz": [
+        {
+          "question": "Which of the following differential equations is separable?",
+          "options": [
+            "dy/dx = x + y",
+            "dy/dx = x²y",
+            "dy/dx = x² + y²",
+            "d²y/dx² = xy"
+          ],
+          "correctIndex": 1,
+          "explanation": "dy/dx = x²y can be written as (1/y) dy = x² dx, with y-terms and x-terms on opposite sides; the other first-order options mix x and y in a way that prevents clean separation, and the last option is second-order."
+        },
+        {
+          "question": "The general solution of dy/dt = −4y is:",
+          "options": [
+            "y = A e^(4t)",
+            "y = −4t + A",
+            "y = A e^(−4t)",
+            "y = A cos(4t)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Separating gives (1/y) dy = −4 dt, so ln|y| = −4t + C, which exponentiates to y = Ae^(−4t); the negative exponent reflects decay."
+        },
+        {
+          "question": "A quantity obeys Q(t) = 80e^(−0.05t). What is its half-life?",
+          "options": [
+            "ln 2 years",
+            "20 ln 2 years",
+            "80 ln 2 years",
+            "0.05 ln 2 years"
+          ],
+          "correctIndex": 1,
+          "explanation": "Set Q = 40: 40 = 80e^(−0.05T½) → e^(−0.05T½) = 0.5 → T½ = ln2 / 0.05 = 20 ln 2 ≈ 13.86 units."
+        },
+        {
+          "question": "A body cools according to Newton's Law dT/dt = −k(T − 25). If the initial temperature is T₀, which expression gives T at time t?",
+          "options": [
+            "T(t) = T₀ e^(−kt)",
+            "T(t) = 25 + T₀ e^(−kt)",
+            "T(t) = 25 + (T₀ − 25)e^(−kt)",
+            "T(t) = 25(1 − e^(−kt)) + T₀"
+          ],
+          "correctIndex": 2,
+          "explanation": "Letting u = T − 25 gives u = (T₀ − 25)e^(−kt), so T = 25 + (T₀ − 25)e^(−kt); the temperature approaches the ambient value of 25 as t → ∞."
+        }
+      ],
+      "theory": [
+        {
+          "question": "(a) Explain what is meant by a separable first-order differential equation. (b) Solve the initial-value problem dy/dx = xy / (x² + 1), given that y = 3 when x = 0, expressing y explicitly in terms of x. [10 marks]",
+          "marks": 10,
+          "modelAnswer": "(a) A first-order DE is separable if it can be written in the form g(y) dy = f(x) dx, so that a function of y alone appears on one side and a function of x alone on the other, allowing each side to be integrated independently.\n\n(b) Rewrite the equation: dy/dx = x·y / (x²+1). Separate variables (assuming y ≠ 0): (1/y) dy = x/(x²+1) dx.\n\nIntegrate both sides:\n∫(1/y) dy = ∫x/(x²+1) dx.\n\nLeft side: ln|y|.\nRight side: use substitution u = x²+1, du = 2x dx, so ∫x/(x²+1) dx = (1/2)ln|x²+1| + C.\n\nThus ln|y| = (1/2)ln(x²+1) + C.\nExponentiate: |y| = e^C · √(x²+1). Write A = ±e^C: y = A√(x²+1).\n\nApply y(0) = 3: 3 = A√1 = A, so A = 3.\n\nParticular solution: y = 3√(x²+1).",
+          "markingPoints": [
+            "Correct definition of separable DE: variables can be completely separated",
+            "Correct separation: (1/y) dy = x/(x²+1) dx",
+            "Correct integration of right side using substitution: (1/2)ln(x²+1)",
+            "Correct exponentiation to obtain y = A√(x²+1)",
+            "Correct application of initial condition to obtain y = 3√(x²+1)"
+          ]
+        },
+        {
+          "question": "A researcher finds that a culture of 1000 cells grows exponentially and doubles in size every 2 hours. (a) Form and solve the differential equation governing the number of cells N(t) at time t hours. (b) How many cells are present after 5 hours? (c) After how many hours will the culture first exceed 50 000 cells? [12 marks]",
+          "marks": 12,
+          "modelAnswer": "(a) Exponential growth means dN/dt = kN for some constant k > 0. Separating: (1/N) dN = k dt. Integrating: ln N = kt + C (taking N > 0). Exponentiating: N = Ae^(kt). Applying N(0) = 1000 gives A = 1000, so N(t) = 1000e^(kt).\n\nTo find k, use the doubling condition N(2) = 2000:\n2000 = 1000e^(2k) → e^(2k) = 2 → 2k = ln 2 → k = (ln 2)/2 ≈ 0.3466 h⁻¹.\n\nModel: N(t) = 1000e^((ln2/2)t) = 1000 · 2^(t/2).\n\n(b) After 5 hours:\nN(5) = 1000 · 2^(5/2) = 1000 · 2^2.5 = 1000 × 5.6569 ≈ 5657 cells.\n\n(c) Set N = 50 000:\n50 000 = 1000 · 2^(t/2) → 2^(t/2) = 50 → (t/2)ln2 = ln50 → t = 2ln50/ln2 = 2 × 3.912/0.6931 ≈ 11.29 hours.\n\nThe culture exceeds 50 000 cells after approximately 11.3 hours.",
+          "markingPoints": [
+            "Correct DE formation dN/dt = kN and general solution N = Ae^(kt)",
+            "Correct use of N(0) = 1000 to find A = 1000",
+            "Correct use of doubling condition to find k = (ln2)/2",
+            "Correct calculation N(5) ≈ 5657",
+            "Correct solution of exponential equation to find t ≈ 11.3 hours"
+          ]
+        }
+      ]
+    }
+  ]
+}
