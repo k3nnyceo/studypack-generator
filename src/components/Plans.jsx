@@ -126,6 +126,9 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 )}
                 <Feature>Study guide, flashcards, quiz and timed exam mode</Feature>
                 {plan.theory && <Feature highlight>Theory questions with model answers</Feature>}
+                {plan.diagramPages > 0 && (
+                  <Feature highlight>Claude sees your diagrams and graphs (up to {plan.diagramPages} pages a pack)</Feature>
+                )}
                 {paid && <Feature>Never turned away on busy days</Feature>}
                 {plan.scans && <Feature highlight>Reads scanned, photographed and handwritten notes</Feature>}
                 {plan.paste && <Feature highlight>Paste notes from anywhere</Feature>}

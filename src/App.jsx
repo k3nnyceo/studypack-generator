@@ -36,6 +36,7 @@ import { useCardMemory } from './lib/cardMemory.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
+import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
 import { useOnline } from './lib/useOnline.js'
 import { WifiOff } from 'lucide-react'
 
@@ -128,6 +129,12 @@ export default function App() {
   // null, or { message, reason?, resetsAt? } (reason/resetsAt for plan limits)
   const [generateError, setGenerateError] = useState(null)
   const generateAbort = useRef(null)
+  // Diagram pages in the notes (found on the device), and how many the plan
+  // lets Claude see as pictures; the student can switch them off.
+  const diagramPages = useDiagramPages(result)
+  const currentPlan = billing.billing?.plans?.find((p) => p.id === billing.billing?.plan)
+  const diagramLimit = auth.user ? (currentPlan?.diagramPages ?? 0) : 0
+  const [sendDiagrams, setSendDiagrams] = useState(true)
   const [resumingJob, setResumingJob] = useState(pendingJobAtLoad)
   const resumeAbort = useRef(null)
 
@@ -327,10 +334,13 @@ export default function App() {
     setIsGenerating(true)
     generateAbort.current = new AbortController()
     try {
+      const signal = generateAbort.current.signal
+      const images = sendDiagrams ? await prepareDiagramPages(result, diagramPages, diagramLimit, { signal }) : []
       const { guide: generated } = await generateStudyGuide({
         text: result.fullText,
         fileName: result.fileName,
-        signal: generateAbort.current.signal,
+        images,
+        signal,
       })
       loadGuide(generated, result.fileName, result)
     } catch (err) {
@@ -397,7 +407,6 @@ export default function App() {
   const [pasting, setPasting] = useState(false)
   const [youtube, setYoutube] = useState(null) // null, or { busy, error } while the YouTube panel is open
   const scanAbort = useRef(null)
-  const currentPlan = billing.billing?.plans?.find((p) => p.id === billing.billing?.plan)
   const canScan = auth.user ? (currentPlan ? Boolean(currentPlan.scans) : null) : null
   const canPaste = auth.user ? (currentPlan ? Boolean(currentPlan.paste) : null) : null
 
@@ -670,6 +679,13 @@ export default function App() {
                     authReady={auth.ready}
                     billing={billing.billing}
                     onOpenPlans={() => navigate('plans')}
+                    diagrams={{
+                      pages: diagramPages,
+                      limit: diagramLimit,
+                      unit: result.type === 'pptx' ? 'slide' : 'page',
+                      send: sendDiagrams,
+                      onToggle: setSendDiagrams,
+                    }}
                   />
                   <Disclosure summary="Already have a study guide JSON? Paste or upload it instead">
                     <GuideImport

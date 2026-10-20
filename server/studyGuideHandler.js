@@ -1,7 +1,8 @@
 // /api/study-guide, shared by the Vercel function (api/study-guide.js) and the
 // local dev server (server/index.js).
 //
-//   POST   { text, fileName }  signed in? -> validate -> reserve the pack's
+//   POST   { text, fileName, images? }
+//                              signed in? -> validate -> reserve the pack's
 //                              expected cost on the account's plan -> start a
 //                              job -> 202 { jobId }
 //   GET    ?job=<id>           the job: { status, guide?, error? }
@@ -74,12 +75,14 @@ export async function handleStudyGuideRequest(
   const text = typeof body?.text === 'string' ? body.text.trim() : ''
   const fileName = typeof body?.fileName === 'string' ? body.fileName.slice(0, 200) : ''
   if (!text) return sendJson(res, 400, { error: 'No text was provided.' })
+  const images = readImages(body?.images)
+  if (images.error) return sendJson(res, 400, { error: images.error })
 
   let slot, plan
   try {
     const subscription = activeSubscription(await getSubscription(store, user.id))
     plan = plansFromEnv()[subscription?.plan ?? 'free']
-    slot = await meter.reserve(user.id, subscription, text.length)
+    slot = await meter.reserve(user.id, subscription, text.length, images.length)
   } catch (err) {
     console.error('[study-guide] Usage store failed:', err.message)
     return unavailable(res)
@@ -99,11 +102,14 @@ export async function handleStudyGuideRequest(
     return unavailable(res)
   }
 
-  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, slot, jobs, generate, theory: plan.theory }))
+  // Only as many diagram pages as the plan and allowance take (best first).
+  const pictures = images.slice(0, slot.pictures ?? 0).sort((a, b) => a.ref - b.ref)
+  if (pictures.length < images.length) console.log(`[study-guide] ${images.length - pictures.length} of ${images.length} diagram pages left out (plan or allowance)`)
+  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, images: pictures, slot, jobs, generate, theory: plan.theory }))
   sendJson(res, 202, { jobId })
 }
 
-async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, generate, theory }) {
+async function runJob({ jobId, startedAt, owner, text, fileName, images, slot, jobs, generate, theory }) {
   // The visitor's Cancel arrives as a separate request, recorded in the store.
   const abort = new AbortController()
   const cancelCheck = setInterval(async () => {
@@ -113,7 +119,7 @@ async function runJob({ jobId, startedAt, owner, text, fileName, slot, jobs, gen
 
   try {
     let cost = null
-    const guide = await generate({ text, fileName, theory, signal: abort.signal, onCost: (usd) => (cost = usd) })
+    const guide = await generate({ text, fileName, images, theory, signal: abort.signal, onCost: (usd) => (cost = usd) })
     await slot.settle(cost).catch((e) => console.error('[study-guide] Could not record usage:', e.message))
     await jobs.set(jobId, { status: 'done', startedAt, owner, guide })
   } catch (err) {
@@ -163,6 +169,38 @@ export async function handleJobRequest(req, res, { jobs = getDefaultJobs(), now 
   }
   const { owner: _owner, ...visible } = job
   sendJson(res, 200, job.status === 'cancelled' ? { status: 'cancelled' } : visible)
+}
+
+// Diagram pages from the device (src/lib/diagramPages.js), best first:
+// [{ ref, unit, mediaType, data }] with `data` in base64. Requests stay under
+// Vercel's 4.5 MB body limit, so a few large pages can't crowd out the notes.
+const MAX_IMAGES = 20
+const MAX_IMAGE_BYTES = 450 * 1024
+const MAX_IMAGES_BYTES = 3.5 * 1024 * 1024
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+
+export function readImages(value) {
+  if (value === undefined || value === null) return []
+  if (!Array.isArray(value) || value.length > MAX_IMAGES) return { error: `Send at most ${MAX_IMAGES} diagram pages.` }
+  let total = 0
+  const images = []
+  for (const img of value) {
+    const ok =
+      img &&
+      Number.isInteger(img.ref) &&
+      img.ref > 0 &&
+      (img.unit === 'Page' || img.unit === 'Slide') &&
+      IMAGE_TYPES.includes(img.mediaType) &&
+      typeof img.data === 'string' &&
+      /^[A-Za-z0-9+/]+={0,2}$/.test(img.data)
+    if (!ok) return { error: 'A diagram page was not in the expected format.' }
+    const bytes = (img.data.length * 3) / 4
+    if (bytes > MAX_IMAGE_BYTES) return { error: `${img.unit} ${img.ref} is too large to send.` }
+    total += bytes
+    if (total > MAX_IMAGES_BYTES) return { error: 'The diagram pages are too large to send together.' }
+    images.push({ ref: img.ref, unit: img.unit, mediaType: img.mediaType, data: img.data })
+  }
+  return images
 }
 
 // What a student sees when a pack doesn't fit their plan. The client adds when

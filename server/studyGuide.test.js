@@ -41,8 +41,7 @@ function fakeClient({ firstEventMs = () => 5, durationMs = 30, failBeforeStart =
     const call = { params, sentAt: Date.now() - t0, firstEventAt: null }
     calls.push(call)
     const emitter = new EventEmitter()
-    const notes = params.messages[0].content[0]
-    const key = notes.cache_control ? cacheKey(params) : null
+    const key = prefixOf(params).some((block) => block.cache_control) ? cacheKey(params) : null
     const hit = key !== null && readable.has(key)
     let aborted = false
     const done = (async () => {
@@ -55,7 +54,7 @@ function fakeClient({ firstEventMs = () => 5, durationMs = 30, failBeforeStart =
       await sleep(durationMs)
       if (aborted) throw new Error('Request was aborted.')
       const isPlan = 'modules' in params.output_config.format.schema.properties
-      const title = params.messages[0].content[1].text.match(/Module to write: (.*)/)?.[1]
+      const title = params.messages[0].content.at(-1).text.match(/Module to write: (.*)/)?.[1]
       return {
         model: params.model,
         stop_reason: 'end_turn',
@@ -78,11 +77,15 @@ function fakeClient({ firstEventMs = () => 5, durationMs = 30, failBeforeStart =
   return { calls, client: { messages, beta: { messages } } }
 }
 
+// The notes blocks (text, then any diagram pictures): everything before the
+// instruction, which comes last.
+const prefixOf = (params) => params.messages[0].content.slice(0, -1)
+
 // Everything that's part of the cached prefix: model, thinking and effort
-// settings, output schema, system prompt, and the notes block.
+// settings, output schema, system prompt, and the notes blocks.
 function cacheKey(params) {
-  const { model, thinking, output_config, system, messages } = params
-  return JSON.stringify({ model, thinking, output_config, system, notes: messages[0].content[0] })
+  const { model, thinking, output_config, system } = params
+  return JSON.stringify({ model, thinking, output_config, system, notes: prefixOf(params) })
 }
 
 const run = (fake, timing) =>
@@ -145,4 +148,31 @@ test('if module 1 fails before starting, the pack fails without sending the rest
   const fake = fakeClient({ firstEventMs: () => 5, failBeforeStart: (i) => i === 1 })
   await assert.rejects(run(fake, { cacheHedgeMs: 1000, cacheWaitMs: 2000 }), /400 bad request/)
   assert.equal(fake.calls.length, 2)
+})
+
+test('diagram pages go to the module writers inside the cached prefix, not to the plan', async () => {
+  const fake = fakeClient()
+  const images = [
+    { ref: 9, unit: 'Page', mediaType: 'image/jpeg', data: 'AAAA' },
+    { ref: 21, unit: 'Page', mediaType: 'image/jpeg', data: 'BBBB' },
+  ]
+  await generateStudyGuide({ text: '[[Page 9]] Block diagram.', fileName: 'eee207.pdf', images, client: fake.client })
+  const [plan, first, ...rest] = fake.calls
+
+  assert.ok(!plan.params.messages[0].content.some((b) => b.type === 'image'), 'the plan is made from the text alone')
+  for (const call of [first, ...rest]) {
+    const content = call.params.messages[0].content
+    const prefix = content.slice(0, -1)
+    assert.deepEqual(
+      prefix.filter((b) => b.type === 'image').map((b) => b.source.data),
+      ['AAAA', 'BBBB'],
+    )
+    // Each picture is labelled with its marker, right before it.
+    const labels = prefix.flatMap((b, i) => (b.type === 'image' ? [prefix[i - 1].text] : []))
+    assert.deepEqual(labels, ['[[Page 9]]', '[[Page 21]]'])
+    // One cache breakpoint, on the last picture, so the notes and pictures are cached together.
+    assert.deepEqual(prefix.map((b) => Boolean(b.cache_control)), prefix.map((_, i) => i === prefix.length - 1))
+    assert.match(content.at(-1).text, /^Stage 2 of 2/)
+    assert.equal(cacheKey(call.params), cacheKey(first.params))
+  }
 })

@@ -46,11 +46,12 @@ export async function parsePptx(file) {
     throw new Error('No slides found. Is this a valid PowerPoint file?')
   }
 
+  const slideArea = await readSlideArea(zip)
   const sections = []
   for (const [i, path] of slidePaths.entries()) {
     const slideXml = parseXml(await zip.file(path).async('string'))
     const rels = await readRels(zip, path)
-    const { title, blocks } = extractSlide(slideXml, rels)
+    const { title, blocks } = extractSlide(slideXml, rels, slideArea)
     const notes = await extractNotes(zip, rels)
 
     sections.push({
@@ -98,7 +99,7 @@ function placeholderType(shape) {
 
 // Walks the slide's shape tree in order. The title comes out separately; the
 // rest become blocks.
-function extractSlide(doc, rels) {
+function extractSlide(doc, rels, slideArea) {
   let title = ''
   const blocks = []
   const seenImages = new Set()
@@ -135,7 +136,7 @@ function extractSlide(doc, rels) {
           break
         }
         case 'pic': {
-          const image = imageBlock(node, rels)
+          const image = imageBlock(node, rels, slideArea)
           if (image && !seenImages.has(image.path)) {
             seenImages.add(image.path)
             blocks.push(image)
@@ -253,7 +254,7 @@ function tableBlock(tbl) {
 // A picture: its r:embed id resolved through the slide's .rels to a file in
 // ppt/media/. The aspect ratio comes from the shape's size on the slide, so
 // the viewer can reserve the space before the image loads.
-function imageBlock(pic, rels) {
+function imageBlock(pic, rels, slideArea) {
   const blip = first(pic, NS_A, 'blip')
   const id = blip?.getAttributeNS(NS_R, 'embed')
   const rel = id && rels.get(id)
@@ -271,7 +272,19 @@ function imageBlock(pic, rels) {
     .replace(/\s*Description automatically generated\s*/i, '')
     .replace(/^(AI-)?generated image$/i, '')
     .trim()
-  return { type: 'image', path: rel.path, mime, alt, aspect: cx > 0 && cy > 0 ? cx / cy : null }
+  // `area`: the share of the slide it covers (0-1), which tells a diagram from
+  // a logo when choosing pictures to show the AI (src/lib/diagramPages.js).
+  const area = cx > 0 && cy > 0 && slideArea ? Math.min(1, (cx * cy) / slideArea) : null
+  return { type: 'image', path: rel.path, mime, alt, aspect: cx > 0 && cy > 0 ? cx / cy : null, area }
+}
+
+// The slide size in EMU² (ppt/presentation.xml), or null if it isn't given.
+async function readSlideArea(zip) {
+  const file = zip.file('ppt/presentation.xml')
+  if (!file) return null
+  const size = first(parseXml(await file.async('string')), NS_P, 'sldSz')
+  const area = Number(size?.getAttribute('cx')) * Number(size?.getAttribute('cy'))
+  return area > 0 ? area : null
 }
 
 async function extractNotes(zip, rels) {

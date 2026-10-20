@@ -14,12 +14,13 @@ const POLL_MS = 3000
 const GIVE_UP_MS = 8 * 60 * 1000
 
 // Resolves to { guide }: a validated guide in the format defined in
-// studyGuideFormat.js.
-export async function generateStudyGuide({ text, fileName, signal }) {
+// studyGuideFormat.js. `images` are diagram pages (src/lib/diagramPages.js),
+// best first; the server keeps as many as the plan allows.
+export async function generateStudyGuide({ text, fileName, images = [], signal }) {
   const { jobId } = await callApi('/api/study-guide', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, fileName }),
+    body: JSON.stringify({ text, fileName, ...(images.length && { images }) }),
     signal,
   })
   savePendingJob({ jobId, fileName, startedAt: Date.now() })

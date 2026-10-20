@@ -66,10 +66,15 @@ export function plansFromEnv(env = process.env) {
   const theoryPlans = listed(env.THEORY_PLANS, 'pro,max')
   const scanPlans = listed(env.SCAN_PLANS, 'max')
   const pastePlans = listed(env.PASTE_PLANS, 'max')
+  // Diagram pages: pages that are mostly figures, sent to Claude as pictures
+  // (src/lib/diagramPages.js), up to diagramPages per pack.
+  const diagramPlans = listed(env.DIAGRAM_PLANS, 'pro,max')
+  const diagramPages = num(env.MAX_DIAGRAM_PAGES, 10)
   for (const plan of Object.values(plans)) {
     plan.theory = theoryPlans.includes(plan.id)
     plan.scans = scanPlans.includes(plan.id)
     plan.paste = pastePlans.includes(plan.id)
+    plan.diagramPages = diagramPlans.includes(plan.id) ? diagramPages : 0
   }
   // A plan can't accept notes whose expected cost wouldn't fit in one window
   // (or its whole period): they'd be refused however long the student waited.
@@ -95,10 +100,16 @@ const ESTIMATE = {
   plain: { base: 0.051, perChar: 0.0000147 },
   theory: { base: 0.242, perChar: 0.0000093 },
 }
-export function estimateCostUsd(chars, theory = false) {
+export function estimateCostUsd(chars, theory = false, pictures = 0, env = process.env) {
   const { base, perChar } = theory ? ESTIMATE.theory : ESTIMATE.plain
-  return base + chars * perChar
+  return base + chars * perChar + pictures * pictureCostUsd(env)
 }
+
+// One diagram page sent as a picture (about 1,400 input tokens at 1200 px):
+// written to the prompt cache once (1.25x) and read by each other module
+// (0.1x), plus what Claude writes about it. Measured on Sonnet 4.6 at medium
+// effort; refit if the model or effort changes.
+export const pictureCostUsd = (env = process.env) => num(env.DIAGRAM_PAGE_USD, 0.01)
 
 export const toNaira = (usd, env = process.env) => Math.ceil(usd * nairaPerUsd(env))
 

@@ -135,13 +135,26 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
 
     // Reserves a pack's expected cost. Resolves to { ok: true, settle, release }
     // or { ok: false, reason: 'too-long' | 'window' | 'period' | 'site', resetsAt? }.
-    async reserve(userId, subscription, chars) {
+    // `pictures` is how many diagram pages the student's device wants to send;
+    // the plan's limit applies, and pictures that would push the pack past an
+    // allowance are dropped rather than refusing the pack. The result's
+    // `pictures` says how many may be sent.
+    async reserve(userId, subscription, chars, pictures = 0) {
       const s = scope(userId, subscription)
-      const expected = toNaira(estimateCostUsd(chars, s.plan.theory), env)
-      if (chars > s.plan.maxChars || expected > s.plan.windowNaira || expected > s.plan.periodNaira) {
-        return { ok: false, reason: 'too-long' }
+      const fits = (n) => {
+        const expected = toNaira(estimateCostUsd(chars, s.plan.theory, n, env), env)
+        return expected <= s.plan.windowNaira && expected <= s.plan.periodNaira ? expected : null
       }
-      return reserveIn(s, expected, { countPack: true })
+      if (chars > s.plan.maxChars || fits(0) === null) return { ok: false, reason: 'too-long' }
+      let allowed = Math.min(pictures, s.plan.diagramPages ?? 0)
+      while (allowed > 0 && fits(allowed) === null) allowed--
+      let slot = await reserveIn(s, fits(allowed), { countPack: true })
+      // Nearly out of allowance: the pack without its pictures may still fit.
+      if (!slot.ok && allowed > 0 && slot.reason !== 'site') {
+        allowed = 0
+        slot = await reserveIn(s, fits(0), { countPack: true })
+      }
+      return slot.ok ? { ...slot, pictures: allowed } : slot
     },
 
     // Reserves a known expected cost in naira for other Claude work (reading

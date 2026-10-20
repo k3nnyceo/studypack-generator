@@ -134,6 +134,7 @@ function publicState(env) {
       theory: p.theory,
       scans: p.scans,
       paste: p.paste,
+      diagramPages: p.diagramPages,
     })),
   }
 }

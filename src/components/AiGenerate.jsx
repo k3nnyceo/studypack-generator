@@ -1,4 +1,4 @@
-import { BookOpen, Gauge, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
+import { BookOpen, ChartArea, Gauge, Layers, ListChecks, Lock, Sparkles, TriangleAlert, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SIGN_IN_ENABLED } from '../config.js'
 import { formatResetTime } from '../lib/billing.js'
@@ -15,8 +15,10 @@ const OUTPUTS = [
 // AI_GENERATION_ENABLED is on. Generating needs a Google sign-in, so signed-out
 // students get Google's button in place of Generate. `error` is null or
 // { message, reason?, resetsAt? }; a plan limit adds when it refills and a way
-// to upgrade.
-export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans }) {
+// to upgrade. `diagrams` is { pages, limit, unit, send, onToggle }: the diagram
+// pages found in the notes (null while looking), how many the plan lets Claude
+// see, and whether to send them.
+export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans, diagrams }) {
   const needsSignIn = SIGN_IN_ENABLED && !signedIn
   const usage = signedIn ? billing?.usage : null
   const canUpgrade = billing?.paymentsEnabled && billing?.plan !== 'max'
@@ -51,12 +53,15 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
             <div className="mt-4 min-h-10">{authReady && <GoogleButton text="continue_with" />}</div>
           </div>
         ) : (
+          <>
+          <DiagramOption diagrams={diagrams} canUpgrade={canUpgrade} onOpenPlans={onOpenPlans} />
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Button variant="primary" size="lg" icon={Sparkles} onClick={onGenerate}>
               Generate study pack
             </Button>
             <span className="text-sm text-stone-500">Takes 2–3 minutes</span>
           </div>
+          </>
         )}
 
         {usage && !isGenerating && (
@@ -95,10 +100,56 @@ export default function AiGenerate({ onGenerate, onCancel, isGenerating, error, 
 
         <p className="mt-6 flex items-start gap-2 border-t border-stone-100 pt-4 text-xs leading-relaxed text-stone-500">
           <Lock className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-          Your file is read on your device. To write your pack, its text is sent to Claude, Anthropic’s AI model.
+          Your file is read on your device. To write your pack, its text (and its diagram pages, if included) is sent to
+          Claude, Anthropic’s AI model.
         </p>
       </div>
     </section>
+  )
+}
+
+// Paid plans: which diagram pages Claude will see as pictures, with a switch.
+// Free: a note that Pro and Max include them. Nothing when there are none.
+function DiagramOption({ diagrams, canUpgrade, onOpenPlans }) {
+  const refs = [...new Set((diagrams?.pages ?? []).slice(0, diagrams?.limit || undefined).map((p) => p.ref))].sort((a, b) => a - b)
+  if (!diagrams || !refs.length) return null
+  const { unit, limit, send, onToggle } = diagrams
+  const found = new Set(diagrams.pages.map((p) => p.ref)).size
+  const label = `${refs.length} diagram ${unit}${refs.length === 1 ? '' : 's'}`
+
+  if (!limit) {
+    return (
+      <p className="mt-6 flex items-start gap-2.5 rounded-xl bg-stone-50 p-3.5 text-sm text-stone-600 ring-1 ring-stone-200">
+        <ChartArea className="mt-0.5 size-4 shrink-0 text-brand-600" strokeWidth={2.25} aria-hidden />
+        <span>
+          Your notes have {found} {unit}
+          {found === 1 ? '' : 's'} of diagrams or graphs. On Pro and Max, Claude sees them too, so your pack can explain them.{' '}
+          {canUpgrade && (
+            <button type="button" onClick={onOpenPlans} className="font-semibold text-brand-700 hover:underline">
+              See plans
+            </button>
+          )}
+        </span>
+      </p>
+    )
+  }
+
+  return (
+    <label className="mt-6 flex cursor-pointer items-start gap-3 rounded-xl bg-brand-50/60 p-3.5 text-sm ring-1 ring-brand-100 transition hover:bg-brand-50">
+      <input
+        type="checkbox"
+        checked={send}
+        onChange={(e) => onToggle(e.target.checked)}
+        className="mt-0.5 size-4 shrink-0 accent-brand-600"
+      />
+      <span className="min-w-0">
+        <span className="font-semibold text-stone-800">Let Claude see the {label}</span>
+        <span className="mt-0.5 block text-stone-600">
+          {unit === 'slide' ? 'Slides' : 'Pages'} {refs.join(', ')}, sent as pictures so your pack can explain the diagrams and graphs.
+          {found > refs.length && ` Your plan includes up to ${limit} per pack.`}
+        </span>
+      </span>
+    </label>
   )
 }
 

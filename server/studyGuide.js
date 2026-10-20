@@ -174,6 +174,9 @@ Page and slide numbers always come from those markers, never from numbers printe
 
 Stay faithful to the notes. You may add standard background knowledge to make an explanation or example clearer, but don't contradict the source or invent course-specific facts such as dates, names or exam details.`
 
+// Comes before the diagram pages (paid plans), which follow the notes.
+const PICTURES_INTRO = `Below are pictures of the pages or slides in these notes that are mostly diagrams, graphs, charts, tables or photos. Each is labelled with its [[Page N]] or [[Slide N]] marker. The text above only has whatever words were on those pages, so use the pictures: explain what a diagram or graph shows when it's part of the module you are writing, read values and labels from it for definitions, worked examples and questions (e.g. "In the block diagram on page 9, which element…"), and cite its page in sourcePages. Ignore pictures that are only decoration.`
+
 const PLAN_INSTRUCTION = `Stage 1 of 2: plan the study guide. Give its title, course, topic and overview, and divide the notes into modules that follow the lecture's own topic boundaries: usually 3-8, fewer for short notes, never more than ${MAX_MODULES}. Every substantive part of the notes must belong to exactly one module. For each module give its title, sourceRange, and focus: 2-4 sentences naming exactly which concepts, terms, formulas and examples from the notes it covers. Each module will be written by a separate writer who sees only this outline, so the focus must make the boundaries between modules unambiguous.`
 
 function moduleInstruction(plan, index) {
@@ -238,8 +241,10 @@ export function getClient() {
 // `onCost` receives the guide's estimated cost in USD (null if the model's
 // price isn't known), which the usage meter charges to the student's plan.
 // `theory` adds exam-style written questions to each module (paid plans).
+// `images` are diagram pages ({ ref, unit, mediaType, data }) shown to the
+// module writers as pictures (paid plans; src/lib/diagramPages.js).
 // `client` and `timing` are for tests.
-export async function generateStudyGuide({ text, fileName, signal, onCost, theory = false, client = getClient(), timing = {} }) {
+export async function generateStudyGuide({ text, fileName, images = [], signal, onCost, theory = false, client = getClient(), timing = {} }) {
   const { cacheHedgeMs = CACHE_HEDGE_MS, cacheWaitMs = CACHE_WAIT_MS } = timing
   const system = systemPrompt(theory)
   const started = Date.now()
@@ -253,8 +258,21 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
   // One call, retried once if its stream stalls or breaks, while there's still
   // time to finish inside the serverless limit. Bedrock occasionally stops
   // sending mid-response; without this, one stuck module failed the whole pack.
-  const ask = async ({ label, instruction, schema, maxTokens, effort, cache = false, onStart }) => {
-    const notes = { type: 'text', text: notesText, ...(cache && { cache_control: { type: 'ephemeral' } }) }
+  // Diagram pages follow the notes, each labelled with its marker. The plan
+  // is made from the text alone; the module writers see the pictures too.
+  const pictures = images.length
+    ? [
+        { type: 'text', text: PICTURES_INTRO },
+        ...images.flatMap((img) => [
+          { type: 'text', text: `[[${img.unit} ${img.ref}]]` },
+          { type: 'image', source: { type: 'base64', media_type: img.mediaType, data: img.data } },
+        ]),
+      ]
+    : []
+  const ask = async ({ label, instruction, schema, maxTokens, effort, cache = false, withPictures = false, onStart }) => {
+    const notes = [{ type: 'text', text: notesText }, ...(withPictures ? pictures : [])]
+    // The cache covers everything up to and including the last notes block.
+    if (cache) notes[notes.length - 1] = { ...notes.at(-1), cache_control: { type: 'ephemeral' } }
     for (let attempt = 1; ; attempt++) {
       const callStarted = Date.now()
       try {
@@ -289,7 +307,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     // module 1 goes first and writes it; the others start the moment it begins
     // replying, and read the notes from the cache (see CACHE_HEDGE_MS).
     const writeModule = (i, onStart) =>
-      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, onStart }).then(
+      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: theory ? MODULE_SCHEMA : MODULE_SCHEMA_PLAIN, maxTokens: 16000, effort: EFFORT, cache: true, withPictures: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
       )
     const count = plan.modules.length
@@ -329,7 +347,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
       timers.forEach(clearTimeout)
     }
 
-    const cost = logUsage(messages, text.length, Date.now() - started, planMs)
+    const cost = logUsage(messages, text.length, Date.now() - started, planMs, 'ok', images.length)
     const { title, course, topic, overview } = plan
     // The schemas guarantee each part's shape; this also checks what JSON Schema
     // can't express here, such as correctIndex being within the options.
@@ -341,7 +359,7 @@ export async function generateStudyGuide({ text, fileName, signal, onCost, theor
     onCost?.(cost)
     return result.guide
   } catch (err) {
-    if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed')
+    if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed', images.length)
     throw err
   } finally {
     signal?.removeEventListener('abort', onAbort)
@@ -366,7 +384,7 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
       output_config: { effort, format: { type: 'json_schema', schema } },
       ...fallback,
       system,
-      messages: [{ role: 'user', content: [notes, { type: 'text', text: instruction }] }],
+      messages: [{ role: 'user', content: [...notes, { type: 'text', text: instruction }] }],
     },
     { signal },
   )
@@ -422,7 +440,7 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
 // which is how the real cost per study guide is measured (Vercel → Logs, or
 // the local console). Cache writes cost 1.25x input, cache reads 0.1x.
 // Returns the cost in USD, or null if the model's price isn't known.
-function logUsage(messages, inputChars, ms, planMs, outcome = 'ok') {
+function logUsage(messages, inputChars, ms, planMs, outcome = 'ok', pictures = 0) {
   const sum = (k) => messages.reduce((n, m) => n + (m.usage?.[k] ?? 0), 0)
   const input = sum('input_tokens')
   const cacheWrite = sum('cache_creation_input_tokens')
@@ -434,7 +452,7 @@ function logUsage(messages, inputChars, ms, planMs, outcome = 'ok') {
     : null
   const fellBack = messages.some((m) => (m.usage?.iterations ?? []).some((i) => i.type === 'fallback_message'))
   console.log(
-    `[study-guide] ${outcome} via=${PROVIDER} model=${messages[0].model} effort=${EFFORT} calls=${messages.length} chars=${inputChars}` +
+    `[study-guide] ${outcome} via=${PROVIDER} model=${messages[0].model} effort=${EFFORT} calls=${messages.length} chars=${inputChars}${pictures ? ` pictures=${pictures}` : ''}` +
       ` in=${input} cache_write=${cacheWrite} cache_read=${cacheRead} out=${output}` +
       ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
       `${planMs ? ` (plan ${(planMs / 1000).toFixed(1)}s)` : ''}${fellBack ? ' (fallback ran)' : ''}`,

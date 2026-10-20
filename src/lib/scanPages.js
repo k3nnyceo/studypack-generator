@@ -66,7 +66,7 @@ export function photos(files) {
   }
 }
 
-async function toJpeg(canvas) {
+export async function toJpeg(canvas) {
   const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', QUALITY))
   canvas.width = canvas.height = 0 // free the memory now; phones run out quickly
   const bytes = new Uint8Array(await blob.arrayBuffer())
