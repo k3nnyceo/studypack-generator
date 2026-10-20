@@ -1,7 +1,7 @@
 import { BadgeCheck, BookMarked, Check, Loader2, Plus, Search, Sparkles, Trash2, TriangleAlert, Users } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { formatResetTime } from '../lib/billing.js'
-import { groupByCourse } from '../lib/library.js'
+import { departmentOf, groupByDepartment } from '../lib/departments.js'
 import GoogleButton from './GoogleButton.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
@@ -14,9 +14,9 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
   const groups = useMemo(() => {
     const q = query.trim().toLowerCase()
     const packs = (shared?.packs ?? []).filter(
-      (p) => !q || [p.title, p.course, p.topic].some((field) => field?.toLowerCase().includes(q)),
+      (p) => !q || [p.title, p.course, p.topic, departmentOf(p.course)].some((field) => field?.toLowerCase().includes(q)),
     )
-    return groupByCourse(packs.map((p) => ({ ...p, savedAt: p.sharedAt })))
+    return groupByDepartment(packs)
   }, [shared, query])
 
   const allowance = shared?.allowance
@@ -41,7 +41,7 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by course or topic"
+            placeholder="Search by department, course or topic"
             className="h-10 w-full rounded-xl border border-stone-300 bg-white pr-3 pl-9 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none"
           />
         </label>
@@ -90,9 +90,14 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
         </div>
       ) : (
         groups.map((group) => (
-          <section key={group.course} aria-label={group.course}>
+          <section key={group.department} aria-label={group.department}>
             <h2 className="mb-3 text-sm font-semibold text-stone-700">
-              {group.course} <span className="font-medium text-stone-500">· {group.items.length}</span>
+              {group.department}
+              {group.codes.length > 0 && <span className="font-medium text-stone-500"> ({group.codes.join(', ')})</span>}
+              <span className="font-medium text-stone-500">
+                {' '}
+                · {group.items.length} pack{group.items.length === 1 ? '' : 's'}
+              </span>
             </h2>
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((pack) => {
