@@ -64,7 +64,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
         </h1>
         <p className="mt-1 max-w-2xl text-stone-500">
           Each study pack uses part of your allowance according to how much work it takes, so longer lectures use more.
-          Allowances refill every 3 hours, and each month.
+          Allowances refill each month; on Pro and Max, part of it also refills every 3 hours.
         </p>
       </div>
 
@@ -84,6 +84,19 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
               )}
             </div>
           )}
+        </section>
+      )}
+
+      {user && billing.priceChange && (
+        <section className="card flex gap-3 border-l-4 border-amber-400 p-5 text-sm text-stone-700" role="status">
+          <RefreshCw className="mt-0.5 size-4 shrink-0 text-amber-600" aria-hidden />
+          <p>
+            {billing.plans.find((p) => p.id === billing.priceChange.plan)?.name} is now {formatNaira(billing.priceChange.newPrice)}{' '}
+            a month, so your card subscription at {formatNaira(billing.priceChange.oldPrice)} has been stopped and won’t be
+            charged again.
+            {billing.periodEnd && current === billing.priceChange.plan && <> You keep your plan until {formatDate(billing.periodEnd)}.</>}{' '}
+            To carry on, choose it again below.
+          </p>
         </section>
       )}
 
@@ -113,8 +126,15 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 <span className="text-stone-500"> / month</span>
               </p>
               <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-700">
-                <Feature>About {plan.packsPerWindow} study pack{plan.packsPerWindow === 1 ? '' : 's'} every 3 hours</Feature>
                 <Feature>About {plan.packsPerMonth} study packs a month</Feature>
+                {plan.packsPerWindow < plan.packsPerMonth && (
+                  <Feature>Up to about {plan.packsPerWindow} every 3 hours</Feature>
+                )}
+                {plan.fastModel ? (
+                  <Feature>Written by Claude Haiku: quick, with simpler explanations</Feature>
+                ) : (
+                  <Feature highlight>Written by Claude Sonnet: deeper explanations and examples</Feature>
+                )}
                 <Feature>Lectures up to about {plan.maxPages} pages</Feature>
                 <Feature>
                   Add {plan.libraryPerDay} ready-made pack{plan.libraryPerDay === 1 ? '' : 's'} a day from the Pack library
@@ -130,7 +150,10 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                   <Feature highlight>Claude sees your diagrams and graphs (up to {plan.diagramPages} pages a pack)</Feature>
                 )}
                 {paid && <Feature>Never turned away on busy days</Feature>}
-                {plan.scans && <Feature highlight>Reads scanned, photographed and handwritten notes</Feature>}
+                {plan.scans && (
+                  <Feature highlight>Reads scanned, photographed and handwritten notes (up to {plan.scanPages} pages a pack)</Feature>
+                )}
+                {plan.batchParts && <Feature>Makes every part of a long lecture at once</Feature>}
                 {plan.paste && <Feature highlight>Paste notes from anywhere</Feature>}
                 <Feature>Library synced across your devices</Feature>
               </ul>

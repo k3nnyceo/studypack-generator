@@ -105,11 +105,11 @@ export async function handleStudyGuideRequest(
   // Only as many diagram pages as the plan and allowance take (best first).
   const pictures = images.slice(0, slot.pictures ?? 0).sort((a, b) => a.ref - b.ref)
   if (pictures.length < images.length) console.log(`[study-guide] ${images.length - pictures.length} of ${images.length} diagram pages left out (plan or allowance)`)
-  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, images: pictures, slot, jobs, generate, theory: plan.theory }))
+  runInBackground(runJob({ jobId, startedAt, owner: user.id, text, fileName, images: pictures, slot, jobs, generate, theory: plan.theory, fast: plan.fastModel }))
   sendJson(res, 202, { jobId })
 }
 
-async function runJob({ jobId, startedAt, owner, text, fileName, images, slot, jobs, generate, theory }) {
+async function runJob({ jobId, startedAt, owner, text, fileName, images, slot, jobs, generate, theory, fast }) {
   // The visitor's Cancel arrives as a separate request, recorded in the store.
   const abort = new AbortController()
   const cancelCheck = setInterval(async () => {
@@ -119,7 +119,7 @@ async function runJob({ jobId, startedAt, owner, text, fileName, images, slot, j
 
   try {
     let cost = null
-    const guide = await generate({ text, fileName, images, theory, signal: abort.signal, onCost: (usd) => (cost = usd) })
+    const guide = await generate({ text, fileName, images, theory, fast, signal: abort.signal, onCost: (usd) => (cost = usd) })
     await slot.settle(cost).catch((e) => console.error('[study-guide] Could not record usage:', e.message))
     await jobs.set(jobId, { status: 'done', startedAt, owner, guide })
   } catch (err) {

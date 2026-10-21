@@ -24,7 +24,7 @@ import { fetchShared, listShared, removeShared, sharePack } from './lib/shared.j
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJobs, resumePendingJob } from './lib/generateStudyGuide.js'
 import { parseDocument, ScannedPdfError, validateFile } from './lib/parseDocument.js'
-import { isImageFile, pastedResult, photos, readScan, scannedPdf } from './lib/scanPages.js'
+import { isImageFile, MAX_SCAN_PAGES, pastedResult, photos, readScan, scannedPdf } from './lib/scanPages.js'
 import { buildQuiz } from './lib/quiz.js'
 import { clearPendingUpload, markPendingUpload, takeInterruptedUploadMessage } from './lib/pendingUpload.js'
 import { takeSharedFile } from './lib/sharedFile.js'
@@ -520,6 +520,8 @@ export default function App() {
   const [youtube, setYoutube] = useState(null) // null, or { busy, error } while the YouTube panel is open
   const scanAbort = useRef(null)
   const canScan = auth.user ? (currentPlan ? Boolean(currentPlan.scans) : null) : null
+  // Scanned pages read per pack: Pro 10, Max 40.
+  const scanPageLimit = currentPlan?.scanPages || MAX_SCAN_PAGES
   const canPaste = auth.user ? (currentPlan ? Boolean(currentPlan.paste) : null) : null
 
   function showScan(next) {
@@ -539,7 +541,11 @@ export default function App() {
     setScanError(null)
     setScanProgress({ done: 0, total: Math.min(scan.pageCount, 40) })
     try {
-      const notes = await readScan(scan, { onProgress: setScanProgress, signal: scanAbort.current.signal })
+      const notes = await readScan(scan, {
+        pageCount: Math.min(scan.pageCount, scanPageLimit),
+        onProgress: setScanProgress,
+        signal: scanAbort.current.signal,
+      })
       setScan(null)
       setFileName(notes.fileName)
       setResult(notes)
@@ -669,6 +675,7 @@ export default function App() {
                     progress={scanProgress}
                     error={scanError}
                     allowed={canScan}
+                    maxPages={scanPageLimit}
                     signedIn={Boolean(auth.user)}
                     onRead={readScanned}
                     onCancel={() => scanAbort.current?.abort()}
@@ -773,7 +780,9 @@ export default function App() {
                     generating: generatingPart,
                     onGenerate: handleGenerate,
                     batch: batch?.result === result ? batch : null,
-                    onGenerateAll: generateAllParts,
+                    // Making every part at once is for paid plans (batchParts).
+                    onGenerateAll: currentPlan?.batchParts ? generateAllParts : null,
+                    onOpenPlans: billing.billing?.paymentsEnabled ? () => navigate('plans') : null,
                     onCancelAll: () => batchAbort.current?.abort(),
                     onOpenLibrary: () => navigate('library'),
                   }}

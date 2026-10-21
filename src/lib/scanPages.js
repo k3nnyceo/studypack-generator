@@ -1,4 +1,4 @@
-// Scanned and photographed notes (a Max feature). Pages are turned into
+// Scanned and photographed notes (Pro and Max). Pages are turned into
 // compressed JPEGs in the browser, sent a few at a time to /api/transcribe
 // (server/transcribe.js), and the transcription becomes ordinary notes for the
 // Notes → Generate flow.

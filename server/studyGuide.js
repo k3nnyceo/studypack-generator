@@ -18,6 +18,9 @@ const EFFORT = process.env.STUDY_GUIDE_EFFORT || 'high'
 const PLAN_MODEL =
   process.env.STUDY_GUIDE_PLAN_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-haiku-4-5-20251001-v1:0' : 'claude-haiku-4-5')
 const PLAN_EFFORT = process.env.STUDY_GUIDE_PLAN_EFFORT || 'low'
+// Packs on plans with the fast model (Free) are written by it too: about a
+// third of Sonnet's cost, with simpler summaries and examples.
+const FAST_MODEL = process.env.STUDY_GUIDE_FAST_MODEL || PLAN_MODEL
 // Haiku 4.5 takes neither adaptive thinking nor the effort setting.
 const thinks = (model) => !/haiku/.test(model)
 
@@ -259,10 +262,12 @@ export function getClient() {
 // `theory` adds exam-style written questions to each module (paid plans).
 // `images` are diagram pages ({ ref, unit, mediaType, data }) shown to the
 // module writers as pictures (paid plans; src/lib/diagramPages.js).
+// `fast` has the modules written by the fast model (plans with fastModel).
 // `maxModules` overrides the cap from the notes' length (ready-made packs built
 // from a short course outline: one module per topic). `client` and `timing`
 // are for tests.
-export async function generateStudyGuide({ text, fileName, images = [], signal, onCost, theory = false, maxModules, client = getClient(), timing = {} }) {
+export async function generateStudyGuide({ text, fileName, images = [], signal, onCost, theory = false, fast = false, maxModules, client = getClient(), timing = {} }) {
+  const moduleModel = fast ? FAST_MODEL : MODEL
   const { cacheHedgeMs = CACHE_HEDGE_MS, cacheWaitMs = CACHE_WAIT_MS } = timing
   const system = systemPrompt(theory)
   const started = Date.now()
@@ -320,6 +325,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
   const cacheReady = new Promise((resolve) => (writerStarted = resolve))
   const warm = ask({
     label: 'cache warm-up',
+    model: moduleModel,
     instruction: WARM_UP_INSTRUCTION,
     schema: moduleSchema,
     maxTokens: 1,
@@ -348,7 +354,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
     // second writer; the others start the moment either begins (see
     // CACHE_HEDGE_MS).
     const writeModule = (i, onStart) =>
-      ask({ label: `module ${i + 1}`, instruction: moduleInstruction(plan, i), schema: moduleSchema, maxTokens: 16000, effort: EFFORT, cache: true, withPictures: true, onStart }).then(
+      ask({ label: `module ${i + 1}`, model: moduleModel, instruction: moduleInstruction(plan, i), schema: moduleSchema, maxTokens: 16000, effort: EFFORT, cache: true, withPictures: true, onStart }).then(
         (m) => ({ ...m, title: plan.modules[i].title, sourceRange: plan.modules[i].sourceRange }),
       )
     const count = plan.modules.length
@@ -387,7 +393,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
     }
 
     await warm // long finished by now; its usage is part of the cost
-    const cost = logUsage(messages, text.length, Date.now() - started, planMs, 'ok', images.length)
+    const cost = logUsage(messages, text.length, Date.now() - started, planMs, 'ok', images.length, moduleModel)
     const { title, course, topic, overview } = plan
     // The schemas guarantee each part's shape; this also checks what JSON Schema
     // can't express here, such as correctIndex being within the options.
@@ -400,7 +406,7 @@ export async function generateStudyGuide({ text, fileName, images = [], signal, 
     return result.guide
   } catch (err) {
     controller.abort() // e.g. the warm-up, if the plan failed
-    if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed', images.length)
+    if (messages.length) logUsage(messages, text.length, Date.now() - started, null, 'failed', images.length, moduleModel)
     throw err
   } finally {
     signal?.removeEventListener('abort', onAbort)
@@ -484,7 +490,7 @@ async function callClaude({ client, model = MODEL, system, notes, instruction, s
 // which is how the real cost per study guide is measured (Vercel → Logs, or
 // the local console). Cache writes cost 1.25x input, cache reads 0.1x.
 // Returns the cost in USD, or null if the model's price isn't known.
-function logUsage(messages, inputChars, ms, planMs, outcome = 'ok', pictures = 0) {
+function logUsage(messages, inputChars, ms, planMs, outcome = 'ok', pictures = 0, moduleModel = MODEL) {
   const sum = (k) => messages.reduce((n, m) => n + (m.usage?.[k] ?? 0), 0)
   const input = sum('input_tokens')
   const cacheWrite = sum('cache_creation_input_tokens')
@@ -506,7 +512,7 @@ function logUsage(messages, inputChars, ms, planMs, outcome = 'ok', pictures = 0
   }
   const fellBack = messages.some((m) => (m.usage?.iterations ?? []).some((i) => i.type === 'fallback_message'))
   console.log(
-    `[study-guide] ${outcome} via=${PROVIDER} model=${MODEL} plan_model=${PLAN_MODEL} effort=${EFFORT} calls=${messages.length} chars=${inputChars}${pictures ? ` pictures=${pictures}` : ''}` +
+    `[study-guide] ${outcome} via=${PROVIDER} model=${moduleModel} plan_model=${PLAN_MODEL} effort=${thinks(moduleModel) ? EFFORT : 'n/a'} calls=${messages.length} chars=${inputChars}${pictures ? ` pictures=${pictures}` : ''}` +
       ` in=${input} cache_write=${cacheWrite} cache_read=${cacheRead} out=${output}` +
       ` cost≈${cost === null ? 'unknown' : `$${cost.toFixed(3)}`} time=${(ms / 1000).toFixed(1)}s` +
       `${planMs ? ` (plan ${(planMs / 1000).toFixed(1)}s)` : ''}${fellBack ? ' (fallback ran)' : ''}`,

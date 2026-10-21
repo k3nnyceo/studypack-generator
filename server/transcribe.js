@@ -61,7 +61,7 @@ export async function handleTranscribeRequest(req, res, body, deps = {}) {
     const subscription = activeSubscription(await getSubscription(store, user.id))
     plan = plansFromEnv(env)[subscription?.plan ?? 'free']
     if (!plan.scans) {
-      return sendJson(res, 403, { error: 'Reading scanned and photographed notes is part of the Max plan.', reason: 'plan' })
+      return sendJson(res, 403, { error: 'Reading scanned and photographed notes is part of the Pro and Max plans.', reason: 'plan' })
     }
     const expected = Math.ceil(pages.length * ESTIMATE_USD_PER_PAGE * nairaPerUsd(env))
     slot = await meter.reserveCost(user.id, subscription, expected)

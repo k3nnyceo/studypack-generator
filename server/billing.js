@@ -58,7 +58,7 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
   if (!store || !meter) return sendJson(res, 503, { error: 'Plans aren’t available right now.' })
 
   try {
-    if (req.method === 'GET') return sendJson(res, 200, await billingState({ store, meter, user, env, now }))
+    if (req.method === 'GET') return sendJson(res, 200, await billingState({ store, meter, user, env, now, api }))
     if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' })
 
     const plans = plansFromEnv(env)
@@ -91,13 +91,13 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
       if (!/^[\w.=-]{1,100}$/.test(reference)) return sendJson(res, 400, { error: 'Invalid payment reference.' })
       const result = await applyTransaction({ store, reference, env, api, plans, now, expectUser: user.id })
       if (result.error) return sendJson(res, result.status, { error: result.error })
-      return sendJson(res, 200, await billingState({ store, meter, user, env, now }))
+      return sendJson(res, 200, await billingState({ store, meter, user, env, now, api }))
     }
 
     if (body?.action === 'redeem') {
       const result = await redeemGumroadKey({ store, user, key: body.key, env, gumroad, plans, now })
       if (result.error) return sendJson(res, result.status, { error: result.error })
-      return sendJson(res, 200, await billingState({ store, meter, user, env, now }))
+      return sendJson(res, 200, await billingState({ store, meter, user, env, now, api }))
     }
 
     if (body?.action === 'manage') {
@@ -114,7 +114,7 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
 }
 
 function publicState(env) {
-  const typicalFor = (p) => toNaira(estimateCostUsd(TYPICAL_PACK_CHARS, p.theory), env)
+  const typicalFor = (p) => toNaira(estimateCostUsd(TYPICAL_PACK_CHARS, p.theory, 0, env, p.fastModel), env)
   const gumroad = gumroadProducts(env)
   return {
     paymentsEnabled: Boolean(paystackKey(env)),
@@ -135,21 +135,30 @@ function publicState(env) {
       youtubePerMonth: p.youtubePerMonth,
       theory: p.theory,
       scans: p.scans,
+      scanPages: p.scanPages,
       paste: p.paste,
       diagramPages: p.diagramPages,
+      // Free packs are written by the fast model (Haiku); paid ones by Sonnet.
+      fastModel: p.fastModel,
+      // Making every part of a long lecture at once.
+      batchParts: p.batchParts,
     })),
   }
 }
 
-async function billingState({ store, meter, user, env, now }) {
+async function billingState({ store, meter, user, env, now, api = paystack }) {
   const subscription = activeSubscription(await getSubscription(store, user.id), now())
-  const [usage, renew] = await Promise.all([meter.status(user.id, subscription), getAutoRenew(store, user.id)])
+  const [usage, current] = await Promise.all([meter.status(user.id, subscription), getAutoRenew(store, user.id)])
+  const renew = await checkRenewalPrice({ store, userId: user.id, renew: current, env, api })
   const percent = ({ used, limit }) => (limit ? Math.min(100, Math.round((used / limit) * 100)) : 100)
   return {
     ...publicState(env),
     plan: usage.plan,
     periodEnd: subscription?.periodEnd ?? null,
     autoRenew: Boolean(subscription && renew?.active && renew.plan === subscription.plan),
+    // Set when the plan's price went up and the student's card subscription at
+    // the old price was stopped: { plan, oldPrice, newPrice } in naira.
+    priceChange: renew?.priceChange ?? null,
     // Shares, not naira: students see how much is left, not what it costs.
     usage: {
       window: { percent: percent(usage.window), resetsAt: usage.window.resetsAt },
@@ -175,9 +184,13 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   if (expectUser && userId !== expectUser) return { status: 403, error: 'This payment belongs to another account.' }
 
   const planCode = typeof tx.plan === 'string' ? tx.plan : tx.plan?.plan_code
-  const planId = meta?.plan ?? (await planIdForCode(planCode, plans, env, api))
+  const subscribed = planCode ? await paystackPlanInfo(planCode, plans, env, api) : null
+  const planId = meta?.plan ?? subscribed?.planId
   const plan = plans[planId]
-  if (!PAID_PLANS.includes(planId) || tx.currency !== 'NGN' || tx.amount < plan.price * 100) {
+  // A renewal of a card subscription made before a price change is charged at
+  // its old price: it's still honoured, then the subscription is stopped.
+  const due = subscribed?.planId === planId ? subscribed.amount : plan?.price * 100
+  if (!PAID_PLANS.includes(planId) || tx.currency !== 'NGN' || !(tx.amount >= due)) {
     console.error(`[billing] Payment ${reference} doesn't match a plan (plan=${planId} amount=${tx.amount} ${tx.currency}).`)
     return { status: 400, error: 'This payment doesn’t match a StudyPack plan.' }
   }
@@ -186,6 +199,12 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const autoRenew = Boolean(planCode)
   const { applied, record, previous } = await applyPayment(store, { userId, planId, reference, autoRenew }, plans, now())
   if (applied) {
+    if (subscribed && subscribed.amount !== plan.price * 100) {
+      await retireOldPrice({ store, userId, planId, oldAmount: subscribed.amount, plan, env, api })
+    } else if (meta?.plan) {
+      // Subscribed again (at the current price): the notice has done its job.
+      await setAutoRenew(store, userId, { priceChange: null })
+    }
     await recordPayment(store, userId, tx.amount / 100).catch((err) => console.error('[billing] Could not record referral:', err.message))
     console.log(`[billing] ${reference}: ${userId} on ${planId} until ${new Date(record.periodEnd).toISOString()}${autoRenew ? ' (auto-renew)' : ''}`)
     // A plan change ends the old plan's card subscription, so it isn't charged again.
@@ -239,12 +258,45 @@ async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, no
   return {}
 }
 
-async function planIdForCode(planCode, plans, env, api) {
+// A Paystack plan's StudyPack plan and price in kobo: { planId, amount }, or
+// null. Recognised by name ("StudyPack Pro"), so a card subscription made at
+// an older price is still recognised after the price changes.
+async function paystackPlanInfo(planCode, plans, env, api) {
   if (!planCode) return null
-  for (const id of PAID_PLANS) {
-    if ((await ensurePaystackPlan(plans[id], env, api).catch(() => null)) === planCode) return id
+  const p = await api(`/plan/${encodeURIComponent(planCode)}`, { env }).catch(() => null)
+  const planId = p && PAID_PLANS.find((id) => p.name === `StudyPack ${plans[id].name}`)
+  return planId ? { planId, amount: p.amount } : null
+}
+
+const planIdForCode = async (planCode, plans, env, api) => (await paystackPlanInfo(planCode, plans, env, api))?.planId ?? null
+
+// Stops a card subscription made at an old price, so it isn't charged again,
+// and leaves a notice for the student to subscribe at the new price. Their
+// current period runs to its end.
+async function retireOldPrice({ store, userId, planId, oldAmount, plan, env, api }) {
+  const renew = await getAutoRenew(store, userId)
+  if (renew?.active && renew.subscriptionCode) {
+    await api('/subscription/disable', { method: 'POST', env, body: { code: renew.subscriptionCode, token: renew.emailToken } }).catch((err) =>
+      console.error('[billing] Could not stop an old-price subscription:', err.message),
+    )
   }
-  return null
+  await setAutoRenew(store, userId, { active: false, priceChange: { plan: planId, oldPrice: oldAmount / 100, newPrice: plan.price } })
+  console.log(`[billing] ${userId}: ${planId} auto-renew at ₦${oldAmount / 100} stopped (now ₦${plan.price})`)
+}
+
+// Before the next renewal: if the student's card subscription is at an older
+// price than the plan's, stop it now (see retireOldPrice). Checked with
+// Paystack once per price, then remembered. Resolves to the auto-renew record.
+async function checkRenewalPrice({ store, userId, renew, env, api }) {
+  if (!renew?.active || !renew.subscriptionCode || !paystackKey(env)) return renew
+  const plan = plansFromEnv(env)[renew.plan]
+  if (!plan || renew.checkedPrice === plan.price) return renew
+  const sub = await api(`/subscription/${encodeURIComponent(renew.subscriptionCode)}`, { env }).catch(() => null)
+  const amount = sub?.amount ?? sub?.plan?.amount
+  if (!amount) return renew
+  if (amount !== plan.price * 100) await retireOldPrice({ store, userId, planId: renew.plan, oldAmount: amount, plan, env, api })
+  else await setAutoRenew(store, userId, { checkedPrice: plan.price })
+  return getAutoRenew(store, userId)
 }
 
 // Paystack's events. Payments are re-checked with the API; subscription events

@@ -19,7 +19,8 @@ const OUTPUTS = [
 // pages found in the notes (null while looking), how many the plan lets Claude
 // see, and whether to send them. `split` is set when the notes are too long
 // for one pack: { parts, unit, done, generating, onGenerate(part), batch,
-// onGenerateAll, onCancelAll, onOpenLibrary } (see PartsList).
+// onGenerateAll (null on plans without it), onCancelAll, onOpenLibrary,
+// onOpenPlans } (see PartsList).
 export default function AiGenerate({ onGenerate, split, onCancel, isGenerating, error, signedIn, authReady, billing, onOpenPlans, diagrams }) {
   const needsSignIn = SIGN_IN_ENABLED && !signedIn
   const usage = signedIn ? billing?.usage : null
@@ -176,7 +177,7 @@ function DiagramOption({ diagrams, perPart, canUpgrade, onOpenPlans }) {
 // from these notes are ticked; while making them all, each row shows how its
 // part is going.
 function PartsList({ split }) {
-  const { parts, unit, done, onGenerate, batch, onGenerateAll, onCancelAll, onOpenLibrary } = split
+  const { parts, unit, done, onGenerate, batch, onGenerateAll, onCancelAll, onOpenLibrary, onOpenPlans } = split
   const running = Boolean(batch?.running)
   const left = parts.filter((p) => !done.has(p.number))
   const next = left[0]
@@ -203,10 +204,19 @@ function PartsList({ split }) {
               Cancel
             </Button>
           </>
-        ) : left.length > 1 ? (
+        ) : left.length > 1 && onGenerateAll ? (
           <Button variant="primary" icon={Sparkles} onClick={onGenerateAll}>
             Generate all {left.length === parts.length ? parts.length : `${left.length} remaining`} parts
           </Button>
+        ) : left.length > 1 ? (
+          <p className="text-sm text-stone-600">
+            Make them one at a time below.{' '}
+            {onOpenPlans && (
+              <button type="button" onClick={onOpenPlans} className="font-semibold text-brand-700 hover:underline">
+                Pro and Max make every part at once
+              </button>
+            )}
+          </p>
         ) : null}
         {!running && done.size > 0 && (
           <Button size="sm" variant="ghost" icon={LibraryBig} onClick={onOpenLibrary}>

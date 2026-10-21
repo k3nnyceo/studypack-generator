@@ -30,9 +30,10 @@ export function plansFromEnv(env = process.env) {
       id: 'free',
       name: 'Free',
       price: 0,
-      windowNaira: num(env.FREE_WINDOW_NGN, 400),
-      periodNaira: num(env.FREE_MONTH_NGN, 1000),
-      maxChars: num(env.FREE_MAX_INPUT_CHARS, 13_000),
+      // No separate 3-hour limit: the month's allowance can be used at once.
+      windowNaira: num(env.FREE_WINDOW_NGN, 1500),
+      periodNaira: num(env.FREE_MONTH_NGN, 1500),
+      maxChars: num(env.FREE_MAX_INPUT_CHARS, 15_000),
       libraryPerDay: num(env.FREE_LIBRARY_PER_DAY, 5),
       youtubePerWindow: num(env.FREE_YOUTUBE_PER_WINDOW, 1),
       youtubePerMonth: num(env.FREE_YOUTUBE_PER_MONTH, 3),
@@ -40,9 +41,9 @@ export function plansFromEnv(env = process.env) {
     pro: {
       id: 'pro',
       name: 'Pro',
-      price: num(env.PRO_PRICE_NGN, 3500),
-      windowNaira: num(env.PRO_WINDOW_NGN, 1000),
-      periodNaira: num(env.PRO_MONTH_NGN, 2300),
+      price: num(env.PRO_PRICE_NGN, 5000),
+      windowNaira: num(env.PRO_WINDOW_NGN, 1500),
+      periodNaira: num(env.PRO_MONTH_NGN, 3500),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.PRO_LIBRARY_PER_DAY, 15),
       youtubePerWindow: num(env.PRO_YOUTUBE_PER_WINDOW, 5),
@@ -51,9 +52,9 @@ export function plansFromEnv(env = process.env) {
     max: {
       id: 'max',
       name: 'Max',
-      price: num(env.MAX_PRICE_NGN, 10500),
-      windowNaira: num(env.MAX_WINDOW_NGN, 2800),
-      periodNaira: num(env.MAX_MONTH_NGN, 7000),
+      price: num(env.MAX_PRICE_NGN, 12000),
+      windowNaira: num(env.MAX_WINDOW_NGN, 3000),
+      periodNaira: num(env.MAX_MONTH_NGN, 8500),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.MAX_LIBRARY_PER_DAY, 40),
       youtubePerWindow: num(env.MAX_YOUTUBE_PER_WINDOW, 10),
@@ -61,11 +62,18 @@ export function plansFromEnv(env = process.env) {
     },
   }
   // Features by plan. Theory questions add about ₦200 to a typical pack, so
-  // they're on paid plans; scanned notes and pasted text are Max-only.
+  // they're on paid plans. Scanned notes: Pro up to PRO_SCAN_PAGES pages a
+  // pack, Max up to MAX_SCAN_PAGES; pasted text is Max-only. Free packs are
+  // written by the fast model (Haiku), about a third of Sonnet's cost, so
+  // the same allowance makes about three times as many. Making every part
+  // of a long lecture at once is for paid plans.
   const listed = (value, fallback) => (value ?? fallback).split(',').map((p) => p.trim())
   const theoryPlans = listed(env.THEORY_PLANS, 'pro,max')
-  const scanPlans = listed(env.SCAN_PLANS, 'max')
+  const scanPlans = listed(env.SCAN_PLANS, 'pro,max')
+  const scanPages = { pro: num(env.PRO_SCAN_PAGES, 10), max: num(env.MAX_SCAN_PAGES, 40) }
   const pastePlans = listed(env.PASTE_PLANS, 'max')
+  const fastPlans = listed(env.FAST_MODEL_PLANS, 'free')
+  const batchPlans = listed(env.BATCH_PARTS_PLANS, 'pro,max')
   // Diagram pages: pages that are mostly figures, sent to Claude as pictures
   // (src/lib/diagramPages.js), up to diagramPages per pack.
   const diagramPlans = listed(env.DIAGRAM_PLANS, 'pro,max')
@@ -73,13 +81,16 @@ export function plansFromEnv(env = process.env) {
   for (const plan of Object.values(plans)) {
     plan.theory = theoryPlans.includes(plan.id)
     plan.scans = scanPlans.includes(plan.id)
+    plan.scanPages = plan.scans ? (scanPages[plan.id] ?? 40) : 0
     plan.paste = pastePlans.includes(plan.id)
+    plan.fastModel = fastPlans.includes(plan.id)
+    plan.batchParts = batchPlans.includes(plan.id)
     plan.diagramPages = diagramPlans.includes(plan.id) ? diagramPages : 0
   }
   // A plan can't accept notes whose expected cost wouldn't fit in one window
   // (or its whole period): they'd be refused however long the student waited.
   for (const plan of Object.values(plans)) {
-    plan.maxChars = Math.min(plan.maxChars, maxCharsWithin(Math.min(plan.windowNaira, plan.periodNaira), plan.theory, env))
+    plan.maxChars = Math.min(plan.maxChars, maxCharsWithin(Math.min(plan.windowNaira, plan.periodNaira), plan, env))
   }
   return plans
 }
@@ -100,10 +111,16 @@ const ESTIMATE = {
   plain: { base: 0.051, perChar: 0.0000147 },
   theory: { base: 0.242, perChar: 0.0000093 },
 }
-export function estimateCostUsd(chars, theory = false, pictures = 0, env = process.env) {
+// `fast`: written by the fast model (Haiku, on plans with fastModel), which
+// costs FAST_MODEL_COST_FACTOR of the above.
+export function estimateCostUsd(chars, theory = false, pictures = 0, env = process.env, fast = false) {
   const { base, perChar } = theory ? ESTIMATE.theory : ESTIMATE.plain
-  return base + chars * perChar + pictures * pictureCostUsd(env)
+  return (base + chars * perChar) * (fast ? fastCostFactor(env) : 1) + pictures * pictureCostUsd(env)
 }
+
+// Measured on the EEE 207 lecture (11K characters, no theory questions):
+// $0.086 on Haiku 4.5, against $0.214 estimated for Sonnet 4.6 at medium effort.
+const fastCostFactor = (env) => num(env.FAST_MODEL_COST_FACTOR, 0.4)
 
 // One diagram page sent as a picture (about 1,400 input tokens at 1200 px):
 // written to the prompt cache once (1.25x) and read by each other module
@@ -113,8 +130,10 @@ export const pictureCostUsd = (env = process.env) => num(env.DIAGRAM_PAGE_USD, 0
 
 export const toNaira = (usd, env = process.env) => Math.ceil(usd * nairaPerUsd(env))
 
-// The longest notes whose estimate is at most `naira` (the inverse of the above).
-function maxCharsWithin(naira, theory, env) {
-  const { base, perChar } = theory ? ESTIMATE.theory : ESTIMATE.plain
-  return Math.max(0, Math.floor((naira / nairaPerUsd(env) - base) / perChar))
+// The longest notes whose estimate for `plan` is at most `naira` (the
+// inverse of the above).
+function maxCharsWithin(naira, plan, env) {
+  const { base, perChar } = plan.theory ? ESTIMATE.theory : ESTIMATE.plain
+  const factor = plan.fastModel ? fastCostFactor(env) : 1
+  return Math.max(0, Math.floor((naira / nairaPerUsd(env) / factor - base) / perChar))
 }

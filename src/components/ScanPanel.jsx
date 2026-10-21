@@ -4,11 +4,12 @@ import { formatResetTime } from '../lib/billing.js'
 import { MAX_SCAN_PAGES } from '../lib/scanPages.js'
 import { Button } from './ui.jsx'
 
-// Shown under the upload box for the two Max inputs: a scanned or
-// photographed file to read, or text to paste. `allowed` is whether the
-// student's plan includes it (null while unknown or signed out).
-export function ScanPanel({ scan, progress, error, allowed, signedIn, onRead, onCancel, onClose, onOpenPlans }) {
-  const pages = Math.min(scan.pageCount, MAX_SCAN_PAGES)
+// Shown under the upload box for the two extra inputs: a scanned or
+// photographed file to read (Pro and Max), or text to paste (Max). `allowed`
+// is whether the student's plan includes it (null while unknown or signed
+// out); `maxPages` is how many scanned pages the plan reads per pack.
+export function ScanPanel({ scan, progress, error, allowed, maxPages = MAX_SCAN_PAGES, signedIn, onRead, onCancel, onClose, onOpenPlans }) {
+  const pages = Math.min(scan.pageCount, maxPages)
   return (
     <Panel icon={ScanText} title={`${scan.kind === 'photos' ? 'Photos' : 'A scanned file'}: ${scan.fileName}`} onClose={progress ? null : onClose}>
       {progress ? (
@@ -28,12 +29,12 @@ export function ScanPanel({ scan, progress, error, allowed, signedIn, onRead, on
       ) : !signedIn ? (
         <p className="text-sm text-stone-600">
           {scan.kind === 'photos' ? 'These are photos' : 'Its pages are pictures, with no text to copy'}. StudyPack can read scanned and
-          handwritten notes on the Max plan. Sign in to continue.
+          handwritten notes on the Pro and Max plans. Sign in to continue.
         </p>
       ) : allowed === false ? (
         <Upsell onOpenPlans={onOpenPlans}>
           {scan.kind === 'photos' ? 'Reading photos of notes' : 'This file is scanned, so its text can’t be copied. Reading scanned'} and
-          handwritten notes is part of the Max plan.
+          handwritten notes is part of the Pro and Max plans.
         </Upsell>
       ) : (
         <>
@@ -41,7 +42,10 @@ export function ScanPanel({ scan, progress, error, allowed, signedIn, onRead, on
             {scan.kind === 'photos' ? `${scan.pageCount} photo${scan.pageCount === 1 ? '' : 's'}` : `${scan.pageCount} scanned pages`}.
             StudyPack will read {scan.pageCount > pages ? `the first ${pages} pages` : 'them'}, handwriting included, then you can
             generate your study pack.
-            {scan.pageCount > pages && ` For the rest, split the file and read it in parts.`}
+            {scan.pageCount > pages &&
+              (maxPages < MAX_SCAN_PAGES
+                ? ` Your plan reads up to ${maxPages} pages a pack (Max reads ${MAX_SCAN_PAGES}); split the file to read the rest.`
+                : ` For the rest, split the file and read it in parts.`)}
           </p>
           <Button variant="primary" icon={ScanText} onClick={onRead} disabled={allowed === null} className="mt-4">
             Read {pages} page{pages === 1 ? '' : 's'}

@@ -142,7 +142,7 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
     async reserve(userId, subscription, chars, pictures = 0) {
       const s = scope(userId, subscription)
       const fits = (n) => {
-        const expected = toNaira(estimateCostUsd(chars, s.plan.theory, n, env), env)
+        const expected = toNaira(estimateCostUsd(chars, s.plan.theory, n, env, s.plan.fastModel), env)
         return expected <= s.plan.windowNaira && expected <= s.plan.periodNaira ? expected : null
       }
       if (chars > s.plan.maxChars || fits(0) === null) return { ok: false, reason: 'too-long' }
