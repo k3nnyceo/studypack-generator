@@ -11,6 +11,7 @@ import PackLibrary from './components/PackLibrary.jsx'
 import { PastePanel, ScanPanel, YoutubePanel } from './components/ScanPanel.jsx'
 import { youtubeNotes } from './lib/youtube.js'
 import Plans from './components/Plans.jsx'
+import Progress from './components/Progress.jsx'
 import ReferralStats from './components/ReferralStats.jsx'
 import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
@@ -33,6 +34,8 @@ import { takeSharedFile } from './lib/sharedFile.js'
 import { validateStudyGuide } from './lib/studyGuideFormat.js'
 import { useLibrary } from './lib/useLibrary.js'
 import { useCardMemory } from './lib/cardMemory.js'
+import { practiceQuestions, topicInsights } from './lib/insights.js'
+import { useQuizResults } from './lib/quizResults.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
@@ -67,8 +70,8 @@ captureReferral()
 // so the browser's Back and Forward buttons (and Android's back gesture) move
 // between screens. Study screens need a pack in memory, so after a reload
 // they fall back to the home page.
-const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz', 'theory']
-const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz', 'theory']
+const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz', 'theory', 'progress']
+const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz', 'theory', 'progress']
 const viewFromUrl = () => {
   const view = window.location.hash.replace(/^#\/?/, '')
   return VIEWS.includes(view) ? view : 'home'
@@ -174,6 +177,18 @@ export default function App() {
   const online = useOnline()
   const [askOpen, setAskOpen] = useState(false)
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
+  // Answers kept across visits, for weak topics on Progress.
+  const quizResults = useQuizResults(packKey)
+  const insight = useMemo(
+    () =>
+      guide && topicInsights({ modules: guide.modules, questions, cards, results: quizResults.results, cardRecords: cardMemory.records }),
+    [guide, questions, cards, quizResults.results, cardMemory.records],
+  )
+  // Requests from Progress: a quiz round on one topic, flashcards on one
+  // topic, or a question for the chat. Each carries a nonce so repeats count.
+  const [practice, setPractice] = useState(null)
+  const [cardFocus, setCardFocus] = useState(null)
+  const [askPrefill, setAskPrefill] = useState(null)
 
   // The lecture behind the open pack, for the source viewer: linked when the
   // pack is made from notes, or read back from this device (src/lib/sourceStore.js).
@@ -216,6 +231,7 @@ export default function App() {
   const [quizAnswers, setQuizAnswers] = useState(() => new Map())
   const recordAnswer = (id, answer) => {
     setQuizAnswers((prev) => new Map(prev).set(id, answer))
+    quizResults.record([{ id, correct: answer.correct }])
     streak.studied()
   }
   const clearAnswers = (ids) =>
@@ -235,7 +251,7 @@ export default function App() {
   const viewRef = useRef(view)
   viewRef.current = view
   const hasPack = useRef({})
-  hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide), theory: Boolean(guide) }
+  hasPack.current = { notes: Boolean(result), guide: Boolean(guide), flashcards: Boolean(guide), quiz: Boolean(guide), theory: Boolean(guide), progress: Boolean(guide) }
   useEffect(() => {
     function onPopState(e) {
       let next = VIEWS.includes(e.state?.view) ? e.state.view : viewFromUrl()
@@ -633,7 +649,26 @@ export default function App() {
   }
 
   const moduleTitles = guide?.modules.map((m) => m.title) ?? []
-  const isStudyView = guide && ['guide', 'flashcards', 'quiz', 'theory'].includes(view)
+  const isStudyView = guide && ['guide', 'flashcards', 'quiz', 'theory', 'progress'].includes(view)
+
+  function practiseTopic(moduleIndex) {
+    const ids = practiceQuestions(questions, moduleIndex, quizResults.results).map((q) => q.id)
+    // A fresh go at each question.
+    clearAnswers(ids)
+    setPractice({ moduleIndex, ids, title: guide.modules[moduleIndex]?.title, nonce: Date.now() })
+    navigate('quiz')
+  }
+  function reviewTopicCards(moduleIndex) {
+    setCardFocus({ moduleIndex, nonce: Date.now() })
+    navigate('flashcards')
+  }
+  function askAboutTopic(module) {
+    setAskPrefill({
+      text: `I keep getting “${module.title}” wrong. Explain it simply, then ask me one quick question to check I understand.`,
+      nonce: Date.now(),
+    })
+    setAskOpen(true)
+  }
 
   return (
     <div className="min-h-screen">
@@ -643,7 +678,7 @@ export default function App() {
         onReset={reset}
         hasNotes={Boolean(result)}
         guide={guide}
-        counts={{ flashcards: cards.length, quiz: questions.length, theory: theoryItems.length }}
+        counts={{ flashcards: cards.length, quiz: questions.length, theory: theoryItems.length, weak: insight?.weak ?? 0 }}
         libraryCount={library.entries.length}
         user={auth.user}
         showSignIn={SIGN_IN_ENABLED && auth.ready}
@@ -833,6 +868,8 @@ export default function App() {
                   memory={cardMemory}
                   streak={streak}
                   onStudied={streak.studied}
+                  focus={cardFocus}
+                  onFocused={() => setCardFocus(null)}
                 />
               )}
               {view === 'theory' && <Theory items={theoryItems} modules={moduleTitles} onStudied={streak.studied} />}
@@ -844,6 +881,18 @@ export default function App() {
                   onAnswer={recordAnswer}
                   onClearAnswers={clearAnswers}
                   onStudied={streak.studied}
+                  practice={practice}
+                  onPracticeStarted={() => setPractice(null)}
+                  onExamResults={quizResults.record}
+                />
+              )}
+              {view === 'progress' && (
+                <Progress
+                  insight={insight}
+                  canAsk={AI_GENERATION_ENABLED}
+                  onPractise={practiseTopic}
+                  onReviewCards={reviewTopicCards}
+                  onAsk={askAboutTopic}
                 />
               )}
             </div>
@@ -862,6 +911,7 @@ export default function App() {
                 guide={guide}
                 source={guideSource}
                 packKey={packKey}
+                initialQuestion={askPrefill}
                 signedIn={Boolean(auth.user)}
                 authReady={auth.ready}
                 online={online}

@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight, CircleCheck, CircleX, Clock, Flag, RotateCcw, Timer, X } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { shuffled } from '../lib/flashcards.js'
 import FilterChip from './FilterChip.jsx'
 import { Button, Eyebrow } from './ui.jsx'
@@ -27,11 +27,12 @@ const gradeFor = (percent) => GRADES.find(([min]) => percent >= min)[1]
 // until the end, answers can be changed and questions flagged, and it submits
 // itself when time runs out. The clock runs from a fixed end time, so it stays
 // right even if the phone locks mid-exam.
-export default function ExamMode({ questions, modules, onExit, onSubmitted }) {
+// `onResults([{ id, correct }])` gets the marked answers once (unanswered count as wrong).
+export default function ExamMode({ questions, modules, onExit, onSubmitted, onResults }) {
   const [exam, setExam] = useState(null) // { deck, endsAt, startedAt, answers: Map, flagged: Set, index, submittedAt }
 
   if (!exam) return <ExamSetup questions={questions} modules={modules} onStart={setExam} onExit={onExit} />
-  if (exam.submittedAt) return <ExamResults exam={exam} modules={modules} onRestart={() => setExam(null)} onExit={onExit} onShown={onSubmitted} />
+  if (exam.submittedAt) return <ExamResults exam={exam} modules={modules} onRestart={() => setExam(null)} onExit={onExit} onShown={onSubmitted} onResults={onResults} />
   return <ExamRunning exam={exam} setExam={setExam} />
 }
 
@@ -268,7 +269,7 @@ function ExamRunning({ exam, setExam }) {
   )
 }
 
-function ExamResults({ exam, modules, onRestart, onExit, onShown }) {
+function ExamResults({ exam, modules, onRestart, onExit, onShown, onResults }) {
   const { deck, answers, startedAt, submittedAt, timedOut } = exam
   // Finishing an exam counts toward the daily streak.
   useEffect(() => {
@@ -279,6 +280,13 @@ function ExamResults({ exam, modules, onRestart, onExit, onShown }) {
     () => deck.map((q) => ({ q, chosen: answers.get(q.id), correct: answers.get(q.id) === q.options[q.correctIndex] })),
     [deck, answers],
   )
+  // Saved for Progress once, when the results first show.
+  const reported = useRef(false)
+  useEffect(() => {
+    if (reported.current) return
+    reported.current = true
+    onResults?.(marked.map((m) => ({ id: m.q.id, correct: m.correct })))
+  }, [marked, onResults])
   const score = marked.filter((m) => m.correct).length
   const percent = Math.round((score / deck.length) * 100)
   const grade = gradeFor(percent)

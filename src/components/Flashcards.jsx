@@ -25,7 +25,8 @@ const FACE_LABELS = {
 // across visits: after flipping, "Got it" or "Still learning" schedules its
 // next review, and the deck starts with the cards that need it most. Marking
 // a card counts toward the daily `streak`.
-export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress, memory, streak, onStudied }) {
+// `focus` ({ moduleIndex, nonce }), from Progress, shows one topic's cards.
+export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress, memory, streak, onStudied, focus, onFocused }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [kindFilter, setKindFilter] = useState('all')
   const [shuffledIds, setShuffledIds] = useState(null)
@@ -77,6 +78,15 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
     setModuleFilter(value)
     restart()
   }
+
+  const focusNonce = focus?.nonce
+  useEffect(() => {
+    if (!focusNonce) return
+    changeModule(focus.moduleIndex)
+    onFocused?.()
+    // Only a new request from Progress changes the topic.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusNonce])
 
   function changeKind(value) {
     setKindFilter(value)

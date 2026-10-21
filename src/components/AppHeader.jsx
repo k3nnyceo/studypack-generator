@@ -1,4 +1,4 @@
-import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus } from 'lucide-react'
+import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus, TrendingUp } from 'lucide-react'
 import AccountMenu from './AccountMenu.jsx'
 import { Button, Logo } from './ui.jsx'
 
@@ -26,6 +26,8 @@ export default function AppHeader({
     { id: 'quiz', label: 'Quiz', short: 'Quiz', icon: ListChecks, count: counts.quiz },
     // Only packs generated with theory questions have this tab.
     counts.theory > 0 && { id: 'theory', label: 'Theory', short: 'Theory', icon: PenLine, count: counts.theory },
+    // The count is the number of weak topics, so it only shows when there are some.
+    { id: 'progress', label: 'Progress', short: 'Topics', icon: TrendingUp, count: counts.weak || undefined, alert: true },
   ].filter(Boolean)
 
   return (
@@ -45,7 +47,7 @@ export default function AppHeader({
             aria-label="Study views"
             className="order-last w-full md:order-none md:mx-auto md:w-auto"
           >
-            <div role="tablist" className="grid auto-cols-fr grid-flow-col gap-1 rounded-xl bg-stone-100 p-1 ring-1 ring-stone-200/60 md:inline-grid">
+            <div role="tablist" className="grid auto-cols-fr grid-flow-col gap-1 rounded-xl bg-stone-100 p-1 ring-1 ring-stone-200/60 md:inline-grid md:auto-cols-auto">
               {tabs.map((tab) => {
                 const locked = tab.id !== 'notes' && !guide
                 const active = view === tab.id
@@ -73,8 +75,9 @@ export default function AppHeader({
                     {guide && tab.count !== undefined && (
                       <span
                         className={`hidden rounded-md px-1.5 py-0.5 text-[11px] leading-none font-bold tabular-nums sm:inline ${
-                          active ? 'bg-brand-100 text-brand-700' : 'bg-stone-200/70 text-stone-600'
+                          tab.alert ? 'bg-rose-100 text-rose-700' : active ? 'bg-brand-100 text-brand-700' : 'bg-stone-200/70 text-stone-600'
                         }`}
+                        title={tab.alert ? `${tab.count} weak topic${tab.count === 1 ? '' : 's'}` : undefined}
                       >
                         {tab.count}
                       </span>

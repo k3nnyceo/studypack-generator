@@ -10,15 +10,19 @@ const LETTERS = 'ABCDEFGHIJ'
 // `answers` is a Map of question id -> { selected, correct }, owned by the
 // parent so results survive switching tabs. `selected` is the option text,
 // because generated questions reshuffle their options when the quiz is rebuilt.
-export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied }) {
+// `practice` ({ moduleIndex, ids, title, nonce }), from Progress, starts a
+// round on one topic with those questions, in that order (missed first).
+// Exam results go to `onExamResults([{ id, correct }])`.
+export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied, practice, onPracticeStarted, onExamResults }) {
   const [moduleFilter, setModuleFilter] = useState('all')
-  const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" round
+  const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" or practice round, in order
+  const [practiceTitle, setPracticeTitle] = useState(null)
   const [index, setIndex] = useState(0)
   const [showResults, setShowResults] = useState(false)
   const [examOpen, setExamOpen] = useState(false)
 
-  const deck = questions.filter(
-    (q) => (moduleFilter === 'all' || q.moduleIndex === moduleFilter) && (!retryIds || retryIds.has(q.id)),
+  const deck = (retryIds ? [...retryIds].map((id) => questions.find((q) => q.id === id)).filter(Boolean) : questions).filter(
+    (q) => moduleFilter === 'all' || q.moduleIndex === moduleFilter,
   )
   const question = deck[index]
   const answer = question && answers.get(question.id)
@@ -50,12 +54,24 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
     if (firstUnanswered >= 0) setIndex(firstUnanswered)
   }
 
-  function startRound({ filter = moduleFilter, retry = null } = {}) {
+  function startRound({ filter = moduleFilter, retry = null, title = null } = {}) {
     setModuleFilter(filter)
     setRetryIds(retry)
+    setPracticeTitle(title)
     setIndex(0)
     setShowResults(false)
   }
+
+  // A practice round from Progress.
+  const practiceNonce = practice?.nonce
+  useEffect(() => {
+    if (!practiceNonce) return
+    setExamOpen(false)
+    startRound({ filter: practice.moduleIndex, retry: new Set(practice.ids), title: practice.title })
+    onPracticeStarted?.()
+    // Only a new practice request starts a round.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [practiceNonce])
 
   function retryIncorrect() {
     const ids = incorrect.map((q) => q.id)
@@ -93,7 +109,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
     )
   }
 
-  if (examOpen) return <ExamMode questions={questions} modules={modules} onExit={() => setExamOpen(false)} onSubmitted={onStudied} />
+  if (examOpen) return <ExamMode questions={questions} modules={modules} onExit={() => setExamOpen(false)} onSubmitted={onStudied} onResults={onExamResults} />
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -139,8 +155,15 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
         <div className="animate-page-in flex items-center justify-between gap-3 rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-950 ring-1 ring-amber-200">
           <span>
             <RotateCcw className="mr-2 inline size-4 text-amber-700" aria-hidden />
-            <span className="font-semibold">Retry round:</span> {deck.length} question{deck.length === 1 ? '' : 's'} you
-            missed
+            {practiceTitle ? (
+              <>
+                <span className="font-semibold">Practising {practiceTitle}:</span> the questions you missed come first
+              </>
+            ) : (
+              <>
+                <span className="font-semibold">Retry round:</span> {deck.length} question{deck.length === 1 ? '' : 's'} you missed
+              </>
+            )}
           </span>
           <button onClick={() => startRound({ retry: null })} className="font-medium underline-offset-2 hover:underline">
             Back to all questions

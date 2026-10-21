@@ -16,9 +16,16 @@ const storageKey = (packKey) => `studypack.ask.v1.${packKey}`
 // which open in the source viewer; without the notes, from the pack itself.
 // A side panel on wide screens, a bottom sheet on phones. The conversation
 // is kept per pack on this device.
-export default function AskPanel({ guide, source, packKey, signedIn, authReady, online, canUpgrade, onOpenSource, onOpenPlans, onClose }) {
+// `initialQuestion` ({ text, nonce }), from Progress, fills in the box.
+export default function AskPanel({ guide, source, packKey, initialQuestion, signedIn, authReady, online, canUpgrade, onOpenSource, onOpenPlans, onClose }) {
   const [messages, setMessages] = useState(() => load(packKey))
-  const [draft, setDraft] = useState('')
+  const [draft, setDraft] = useState(initialQuestion?.text ?? '')
+  const [prefilled, setPrefilled] = useState(initialQuestion?.nonce)
+  // Already open when Progress asks: fill the box (during render, not in an effect).
+  if (initialQuestion && initialQuestion.nonce !== prefilled) {
+    setPrefilled(initialQuestion.nonce)
+    setDraft(initialQuestion.text)
+  }
   const [busy, setBusy] = useState(false)
   const abort = useRef(null)
   const list = useRef(null)
