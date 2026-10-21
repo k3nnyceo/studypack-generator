@@ -6,6 +6,7 @@ import Flashcards from './components/Flashcards.jsx'
 import GuideHero from './components/GuideHero.jsx'
 import Landing from './components/Landing.jsx'
 import Library from './components/Library.jsx'
+import LoadBoundary from './components/LoadBoundary.jsx'
 import PackLibrary from './components/PackLibrary.jsx'
 import { PastePanel, ScanPanel, YoutubePanel } from './components/ScanPanel.jsx'
 import { youtubeNotes } from './lib/youtube.js'
@@ -16,6 +17,7 @@ import StudyGuide from './components/StudyGuide.jsx'
 import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
 import { SourceContext } from './lib/sourceContext.js'
+import { friendlyError } from './lib/staleBuild.js'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
 import { takePaymentReturn, useBilling } from './lib/billing.js'
@@ -605,7 +607,7 @@ export default function App() {
           .catch(() => fail('This PDF is scanned, and it couldn’t be opened for reading.'))
       }
       console.error(err)
-      fail(err.message || 'Something went wrong reading that file.')
+      fail(friendlyError(err, 'Something went wrong reading that file.'))
     } finally {
       clearPendingUpload()
     }
@@ -848,9 +850,11 @@ export default function App() {
       </main>
 
       {viewer && (
-        <Suspense fallback={null}>
-          <SourceSheet key={viewer.target.nonce} source={viewer.source} target={viewer.target} onClose={() => setViewer(null)} />
-        </Suspense>
+        <LoadBoundary key={viewer.target.nonce} onClose={() => setViewer(null)}>
+          <Suspense fallback={null}>
+            <SourceSheet source={viewer.source} target={viewer.target} onClose={() => setViewer(null)} />
+          </Suspense>
+        </LoadBoundary>
       )}
 
       <Toast toast={toast} onDismiss={dismissToast} />

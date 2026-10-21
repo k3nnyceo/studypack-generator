@@ -50,7 +50,8 @@ export default function SourceSheet({ source, target, onClose }) {
   const [query, setQuery] = useState('')
   const q = useDebounced(query.trim(), 200)
   const [hitIndex, setHitIndex] = useState(0)
-  const [current, setCurrent] = useState(target?.refs?.[0] ?? null)
+  // Opened without a target ("Open viewer"), it starts at the first page.
+  const [current, setCurrent] = useState(target?.refs?.[0] ?? source.sections[0]?.index ?? 1)
   const [dragY, setDragY] = useState(0)
   const [width, setWidth] = useState(0)
   const scroller = useRef(null)
