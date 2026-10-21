@@ -39,10 +39,12 @@ import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } f
 import { splitIntoParts } from './lib/splitNotes.js'
 import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
 import { useOnline } from './lib/useOnline.js'
-import { WifiOff } from 'lucide-react'
+import { MessageCircleQuestion, WifiOff } from 'lucide-react'
 
 // The source viewer (pdf.js, KaTeX, JSZip) loads the first time it's opened.
 const SourceSheet = lazy(() => import('./components/source/SourceSheet.jsx'))
+// "Ask about this pack" loads the first time it's opened.
+const AskPanel = lazy(() => import('./components/AskPanel.jsx'))
 
 // How many parts of a long lecture are written at the same time when they're
 // all made at once. Each part is several Claude calls, so more would risk
@@ -170,6 +172,7 @@ export default function App() {
   const cardMemory = useCardMemory(packKey)
   const streak = useStreak()
   const online = useOnline()
+  const [askOpen, setAskOpen] = useState(false)
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
 
   // The lecture behind the open pack, for the source viewer: linked when the
@@ -848,6 +851,40 @@ export default function App() {
           )}
         </div>
       </main>
+
+      {isStudyView &&
+        AI_GENERATION_ENABLED &&
+        (askOpen ? (
+          <LoadBoundary onClose={() => setAskOpen(false)}>
+            <Suspense fallback={null}>
+              <AskPanel
+                key={packKey}
+                guide={guide}
+                source={guideSource}
+                packKey={packKey}
+                signedIn={Boolean(auth.user)}
+                authReady={auth.ready}
+                online={online}
+                canUpgrade={Boolean(billing.billing?.paymentsEnabled) && billing.billing?.plan !== 'max'}
+                onOpenSource={(refs) => openViewer(guideSource, refs)}
+                onOpenPlans={() => {
+                  setAskOpen(false)
+                  navigate('plans')
+                }}
+                onClose={() => setAskOpen(false)}
+              />
+            </Suspense>
+          </LoadBoundary>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setAskOpen(true)}
+            className="fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-brand-600 py-3 pr-5 pl-4 text-sm font-semibold text-white shadow-elevated ring-4 ring-white/70 transition hover:bg-brand-700 active:scale-95 sm:right-6 sm:bottom-6"
+          >
+            <MessageCircleQuestion className="size-5" strokeWidth={2.25} aria-hidden />
+            Ask about this pack
+          </button>
+        ))}
 
       {viewer && (
         <LoadBoundary key={viewer.target.nonce} onClose={() => setViewer(null)}>

@@ -145,6 +145,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                   </Feature>
                 )}
                 <Feature>Study guide, flashcards, quiz and timed exam mode</Feature>
+                <Feature>Ask questions about your lecture, with answers linked to the page</Feature>
                 {plan.theory && <Feature highlight>Theory questions with model answers</Feature>}
                 {plan.diagramPages > 0 && (
                   <Feature highlight>Claude sees your diagrams and graphs (up to {plan.diagramPages} pages a pack)</Feature>

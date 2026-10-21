@@ -11,7 +11,7 @@ const BEDROCK_REGION = process.env.BEDROCK_REGION || 'us-east-1'
 // Model and effort can be changed per deployment without a code change.
 // The Bedrock default is the most capable Claude model this account can use
 // (Opus 4.6 on Bedrock's InvokeModel endpoint; newer models aren't enabled).
-const MODEL = process.env.STUDY_GUIDE_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-opus-4-6-v1' : 'claude-opus-5')
+export const MODEL = process.env.STUDY_GUIDE_MODEL || (PROVIDER === 'bedrock' ? 'global.anthropic.claude-opus-4-6-v1' : 'claude-opus-5')
 const EFFORT = process.env.STUDY_GUIDE_EFFORT || 'high'
 // The planning call only writes a short outline, so it runs on a fast model:
 // on Bedrock, Sonnet often waits 25-30 s before it starts replying, Haiku 3-4 s.
@@ -20,7 +20,7 @@ const PLAN_MODEL =
 const PLAN_EFFORT = process.env.STUDY_GUIDE_PLAN_EFFORT || 'low'
 // Packs on plans with the fast model (Free) are written by it too: about a
 // third of Sonnet's cost, with simpler summaries and examples.
-const FAST_MODEL = process.env.STUDY_GUIDE_FAST_MODEL || PLAN_MODEL
+export const FAST_MODEL = process.env.STUDY_GUIDE_FAST_MODEL || PLAN_MODEL
 // Haiku 4.5 takes neither adaptive thinking nor the effort setting.
 const thinks = (model) => !/haiku/.test(model)
 
