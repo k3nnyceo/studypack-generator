@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 import { GOOGLE_CLIENT_ID, SIGN_IN_ENABLED } from '../config.js'
 import { storedReferral } from './referral.js'
 
-// Google sign-in. Google's button gives us an ID token, which /api/auth
-// verifies and turns into an HttpOnly session cookie (server/auth.js). The
+// Sign-in, with Google or with a code sent by email. Google's button gives
+// us an ID token, which /api/auth verifies and turns into an HttpOnly session
+// cookie (server/auth.js); an email code is checked the same way. The
 // browser never sees the session itself, so "who am I" is asked of the server.
 //
 // On Chrome (including Android) the button uses FedCM: a native account sheet
@@ -11,6 +12,35 @@ import { storedReferral } from './referral.js'
 
 let googleReady
 let onCredential = () => {}
+let onEmailUser = () => {}
+
+// Whether the server can send sign-in codes (it says so with the session).
+let emailEnabled = false
+const emailListeners = new Set()
+function setEmailEnabled(value) {
+  emailEnabled = value
+  emailListeners.forEach((listener) => listener())
+}
+export function useEmailSignIn() {
+  return useSyncExternalStore(
+    (listener) => {
+      emailListeners.add(listener)
+      return () => emailListeners.delete(listener)
+    },
+    () => emailEnabled,
+  )
+}
+
+// Emails a sign-in code; throws with a message to show.
+export async function requestEmailCode(email) {
+  await authFetch('POST', { action: 'email-code', email })
+}
+
+// Checks the code and signs in; throws with a message to show.
+export async function verifyEmailCode(email, code) {
+  const data = await authFetch('POST', { action: 'email-verify', email, code, ref: storedReferral() })
+  onEmailUser(data.user)
+}
 
 // Loads Google Identity Services once and resolves to `google.accounts.id`.
 export function loadGoogle() {
@@ -49,7 +79,10 @@ export function useAuth() {
   useEffect(() => {
     if (!SIGN_IN_ENABLED) return
     authFetch('GET')
-      .then((data) => setUser(data.user ?? null))
+      .then((data) => {
+        setUser(data.user ?? null)
+        setEmailEnabled(Boolean(data.emailSignIn))
+      })
       .catch(() => {}) // offline: stay signed out until the next load
       .finally(() => setReady(true))
   }, [])
@@ -68,6 +101,10 @@ export function useAuth() {
   // Google's button calls back here, wherever it's rendered.
   useEffect(() => {
     onCredential = signIn
+    onEmailUser = (signedIn) => {
+      setError('')
+      setUser(signedIn)
+    }
   }, [signIn])
 
   const signOut = useCallback(async () => {

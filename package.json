@@ -10,7 +10,7 @@
     "build": "vite build",
     "start": "node --env-file-if-exists=.env server/index.js",
     "lint": "oxlint",
-    "test": "node --test server/studyGuide.test.js server/diagrams.test.js server/billing.test.js server/ask.test.js src/lib/insights.test.js",
+    "test": "node --test server/studyGuide.test.js server/diagrams.test.js server/billing.test.js server/ask.test.js server/emailSignIn.test.js src/lib/insights.test.js",
     "preview": "vite preview"
   },
   "dependencies": {

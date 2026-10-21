@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from '../config.js'
+import { useEmailSignIn } from '../lib/auth.js'
 import { Badge, Button } from './ui.jsx'
 
 const STEPS = [
@@ -59,6 +60,7 @@ export default function Landing({
   onDeletePack,
   onViewLibrary,
 }) {
+  const emailSignIn = useEmailSignIn()
   // On a phone, messages under the dropzone are below the fold; bring a new
   // one into view, or it looks like nothing happened.
   const messageRef = useRef(null)
@@ -81,7 +83,7 @@ export default function Landing({
           <Lock className="size-3" strokeWidth={2.75} aria-hidden />
           {/* With AI on, extracted text goes to Claude, so only claim what stays true. */}
           {AI_GENERATION_ENABLED
-            ? `${SIGN_IN_ENABLED ? 'Free with Google sign-in' : 'No sign-up needed'} · your files are read on your device`
+            ? `${!SIGN_IN_ENABLED ? 'No sign-up needed' : emailSignIn ? 'Free with Google or email sign-in' : 'Free with Google sign-in'} · your files are read on your device`
             : 'Private by design: your files stay on your device'}
         </Badge>
         <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tight text-balance text-stone-900 sm:text-6xl">

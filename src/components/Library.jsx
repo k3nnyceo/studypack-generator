@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { buildFlashcards } from '../lib/flashcards.js'
 import { groupByCourse } from '../lib/library.js'
 import { buildQuiz } from '../lib/quiz.js'
-import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
 const savedDate = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' })
@@ -71,7 +71,7 @@ export default function Library({
                 <p className="mt-0.5 text-sm text-stone-500">Sign in and your packs sync between your phone and laptop.</p>
               </div>
             </div>
-            <GoogleButton text="signin_with" />
+            <SignIn text="signin_with" />
           </div>
         )
       )}

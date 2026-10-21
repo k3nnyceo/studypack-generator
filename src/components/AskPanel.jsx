@@ -4,7 +4,7 @@ import { askAboutPack } from '../lib/ask.js'
 import { buildAskContext } from '../lib/askContext.js'
 import { formatResetTime } from '../lib/billing.js'
 import { unitOf } from '../lib/sourceRefs.js'
-import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import { Rich } from './source/Blocks.jsx'
 import { Button } from './ui.jsx'
 
@@ -176,7 +176,7 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
         {!signedIn ? (
           <div className="space-y-2 px-1 pb-1">
             <p className="text-sm font-semibold text-stone-800">Sign in to ask about your pack</p>
-            <div className="min-h-10">{authReady && <GoogleButton text="continue_with" />}</div>
+            <div className="min-h-10">{authReady && <SignIn text="continue_with" />}</div>
           </div>
         ) : (
           <form

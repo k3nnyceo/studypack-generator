@@ -1,23 +1,27 @@
-import { BarChart3, Gauge, LogOut } from 'lucide-react'
+import { BarChart3, Gauge, LogIn, LogOut } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useEmailSignIn } from '../lib/auth.js'
 import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import UsageBars from './UsageBars.jsx'
 import { Badge } from './ui.jsx'
 
-// The top bar's account control: Google's sign-in button when signed out (just
-// the "G" on phones, where the bar is tight), or the student's avatar, which
+// The top bar's account control. Signed out: Google's sign-in button (just
+// the "G" on phones, where the bar is tight), or, when email codes are on, a
+// Sign in button opening both ways. Signed in: the student's avatar, which
 // opens a small menu with their plan, usage, and Sign out.
 export default function AccountMenu({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
   const wide = useMediaQuery('(min-width: 640px)')
+  const emailEnabled = useEmailSignIn()
+  if (!user && emailEnabled) return <SignInMenu />
   if (!user) return wide ? <GoogleButton size="medium" text="signin" /> : <GoogleButton size="medium" type="icon" />
   return <SignedIn user={user} onSignOut={onSignOut} billing={billing} onOpenPlans={onOpenPlans} onOpenStats={onOpenStats} />
 }
 
-function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
-  const planName = billing?.plans?.find((p) => p.id === billing.plan)?.name
+// Closes the menu on a click outside it or Escape.
+function usePopover() {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
-
   useEffect(() => {
     if (!open) return
     const onPointer = (e) => !ref.current?.contains(e.target) && setOpen(false)
@@ -29,6 +33,40 @@ function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
       document.removeEventListener('keydown', onKey)
     }
   }, [open])
+  return { open, setOpen, ref }
+}
+
+function SignInMenu() {
+  const { open, setOpen, ref } = usePopover()
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-800 ring-1 ring-stone-300 transition hover:bg-stone-50"
+      >
+        <LogIn className="size-4" strokeWidth={2.25} aria-hidden />
+        Sign in
+      </button>
+      {open && (
+        <div
+          role="dialog"
+          aria-label="Sign in"
+          className="animate-page-in absolute right-0 z-40 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-2xl bg-white p-5 shadow-elevated ring-1 ring-stone-200"
+        >
+          <p className="mb-1 font-semibold text-stone-900">Sign in to StudyPack</p>
+          <p className="mb-4 text-sm text-stone-500">It’s free. Your packs follow you to every device.</p>
+          <SignIn className="max-w-none" />
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
+  const planName = billing?.plans?.find((p) => p.id === billing.plan)?.name
+  const { open, setOpen, ref } = usePopover()
 
   return (
     <div ref={ref} className="relative">

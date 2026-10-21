@@ -1,7 +1,7 @@
 import { Check, CreditCard, ExternalLink, KeyRound, Loader2, RefreshCw, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { formatDate, formatNaira, manageAutoRenew, redeemGumroadKey, startCheckout } from '../lib/billing.js'
-import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import UsageBars from './UsageBars.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
@@ -103,7 +103,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
       {!user && showSignIn && (
         <div className="card flex flex-wrap items-center justify-between gap-4 p-5">
           <p className="font-semibold text-stone-900">Sign in to start free, or to choose a plan.</p>
-          <GoogleButton text="signin_with" />
+          <SignIn text="signin_with" />
         </div>
       )}
 

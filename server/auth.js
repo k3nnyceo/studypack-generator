@@ -1,22 +1,29 @@
-// Google sign-in, shared by the Vercel function (api/auth.js) and the local
-// dev server (server/index.js).
+// Sign-in, shared by the Vercel function (api/auth.js) and the local dev
+// server (server/index.js).
 //
 //   POST   { credential, ref? }  a Google ID token from the "Sign in with
 //                          Google" button -> verify it -> set the session cookie
 //                          -> { user }. `ref` is the link that brought a new
 //                          student (server/referrals.js).
-//   GET                    { user } for the current session, or { user: null }
+//   POST   { action: 'email-code', email }  email a sign-in code -> { sent }
+//   POST   { action: 'email-verify', email, code, ref? }  check it -> { user }
+//                          (server/emailSignIn.js)
+//   GET                    { user, emailSignIn } for the current session;
+//                          `emailSignIn` says whether codes can be sent
 //   DELETE                 sign out (clear the cookie)
 //
 // The session is a signed JWT in an HttpOnly cookie, so there's no session
-// store: the server just checks the signature. It holds only the Google
-// account id (`sub`), name, email and picture.
+// store: the server just checks the signature. It holds only the account id,
+// name, email and picture.
 import { createRemoteJWKSet, jwtVerify, SignJWT } from 'jose'
+import { emailProvider, sendEmail } from './email.js'
+import { accountForEmail, accountForGoogle, CODE_MINUTES, checkEmailCode, normalizeEmail, startEmailSignIn } from './emailSignIn.js'
 import { sendJson } from './http.js'
 import { isAdmin, recordSignup } from './referrals.js'
 import { isDeployed, storeFromEnv } from './usageLimits.js'
 
 const COOKIE = 'sp_session'
+const CHALLENGE_COOKIE = 'sp_email_code'
 const SESSION_DAYS = 30
 const GOOGLE_ISSUERS = ['accounts.google.com', 'https://accounts.google.com']
 const googleKeys = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs'))
@@ -67,9 +74,23 @@ export async function handleAuthRequest(
   req,
   res,
   body,
-  { env = process.env, verify = verifyGoogleCredential, onSignIn = (user, ref) => recordSignup(getStore(), user.id, ref) } = {},
+  {
+    env = process.env,
+    verify = verifyGoogleCredential,
+    store = getStore(),
+    send = (message) => sendEmail(message, { env }),
+    onSignIn = (user, ref) => recordSignup(store, user.id, ref),
+  } = {},
 ) {
-  if (req.method === 'GET') return sendJson(res, 200, { user: forClient(await getSessionUser(req, env), env) })
+  const key = sessionKey(env)
+  const emailSignIn = Boolean(key && store && emailProvider(env))
+
+  if (req.method === 'GET') {
+    const user = await getSessionUser(req, env)
+    // Sessions from before email sign-in: link their address to their account.
+    if (user?.email && store && !user.id.startsWith('em_')) await accountForGoogle(store, user).catch(() => {})
+    return sendJson(res, 200, { user: forClient(user, env), emailSignIn })
+  }
 
   if (req.method === 'DELETE') {
     res.setHeader('Set-Cookie', cookie('', 0, env))
@@ -78,7 +99,33 @@ export async function handleAuthRequest(
 
   if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' })
 
-  const key = sessionKey(env)
+  if (body?.action === 'email-code' || body?.action === 'email-verify') {
+    if (!emailSignIn) {
+      console.error('[auth] Email sign-in isn’t configured: set SESSION_SECRET, Upstash, EMAIL_FROM and RESEND_API_KEY or BREVO_API_KEY.')
+      return sendJson(res, 503, { error: 'Email sign-in isn’t available right now. Please sign in with Google.' })
+    }
+    const email = normalizeEmail(body.email)
+    if (!email) return sendJson(res, 400, { error: 'Enter a valid email address.' })
+
+    if (body.action === 'email-code') {
+      let result
+      try {
+        result = await startEmailSignIn({ req, email, store, key, send, env })
+      } catch (err) {
+        console.error('[auth] Could not send a sign-in code:', err.message)
+        return sendJson(res, 502, { error: 'We couldn’t send the email. Check the address, or sign in with Google.' })
+      }
+      if (result.error) return sendJson(res, result.status, { error: result.error })
+      res.setHeader('Set-Cookie', cookie(result.challenge, CODE_MINUTES * 60, env, CHALLENGE_COOKIE, '/api/auth'))
+      return sendJson(res, 200, { sent: true })
+    }
+
+    const checked = await checkEmailCode({ challenge: readCookie(req, CHALLENGE_COOKIE), email, code: body.code, store, key })
+    if (checked.error) return sendJson(res, checked.status, { error: checked.error })
+    const user = { id: await accountForEmail(store, email), email, name: '', picture: '' }
+    return startSession(res, user, body.ref, { key, env, onSignIn, clearChallenge: true })
+  }
+
   const clientId = googleClientId(env)
   if (!key || !clientId) {
     console.error('[auth] Sign-in isn’t configured: set VITE_GOOGLE_CLIENT_ID and SESSION_SECRET.')
@@ -95,24 +142,31 @@ export async function handleAuthRequest(
     return sendJson(res, 401, { error: 'Google sign-in didn’t work. Please try again.' })
   }
 
+  // Same address as an email account: the same account.
+  if (store) user = { ...user, id: await accountForGoogle(store, user).catch(() => user.id) }
+  return startSession(res, user, body?.ref, { key, env, onSignIn })
+}
+
+async function startSession(res, user, ref, { key, env, onSignIn, clearChallenge = false }) {
   const token = await new SignJWT({ email: user.email, name: user.name, picture: user.picture })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(user.id)
     .setIssuedAt()
     .setExpirationTime(`${SESSION_DAYS}d`)
     .sign(key)
-  res.setHeader('Set-Cookie', cookie(token, SESSION_DAYS * 24 * 60 * 60, env))
+  const session = cookie(token, SESSION_DAYS * 24 * 60 * 60, env)
+  res.setHeader('Set-Cookie', clearChallenge ? [session, cookie('', 0, env, CHALLENGE_COOKIE, '/api/auth')] : session)
   // Tracking never gets in the way of signing in.
-  await Promise.resolve(onSignIn(user, body?.ref)).catch((err) => console.error('[auth] Could not record sign-up:', err.message))
+  await Promise.resolve(onSignIn(user, ref)).catch((err) => console.error('[auth] Could not record sign-up:', err.message))
   sendJson(res, 200, { user: forClient(user, env) })
 }
 
 // SameSite=Lax: the cookie isn't sent on cross-site POSTs, which covers CSRF
 // for the API's state-changing requests.
-function cookie(value, maxAge, env) {
+function cookie(value, maxAge, env, name = COOKIE, path = '/') {
   return [
-    `${COOKIE}=${value}`,
-    'Path=/',
+    `${name}=${value}`,
+    `Path=${path}`,
     'HttpOnly',
     'SameSite=Lax',
     `Max-Age=${maxAge}`,

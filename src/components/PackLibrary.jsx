@@ -2,7 +2,7 @@ import { BadgeCheck, BookMarked, Check, Loader2, Plus, Search, Sparkles, Trash2,
 import { useMemo, useState } from 'react'
 import { formatResetTime } from '../lib/billing.js'
 import { departmentOf, groupByDepartment } from '../lib/departments.js'
-import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
 // The Pack library: ready-made packs from StudyPack (verified) and from
@@ -56,7 +56,7 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
       {!user && showSignIn && (
         <div className="card flex flex-wrap items-center justify-between gap-4 p-5">
           <p className="font-semibold text-stone-900">Sign in to add packs to your library. It’s free.</p>
-          <GoogleButton text="signin_with" />
+          <SignIn text="signin_with" />
         </div>
       )}
 

@@ -2,7 +2,7 @@ import { BookOpen, ChartArea, Check, Gauge, Layers, LibraryBig, ListChecks, Load
 import { useEffect, useState } from 'react'
 import { SIGN_IN_ENABLED } from '../config.js'
 import { formatResetTime } from '../lib/billing.js'
-import GoogleButton from './GoogleButton.jsx'
+import SignIn from './SignIn.jsx'
 import { Button, Eyebrow } from './ui.jsx'
 
 const OUTPUTS = [
@@ -12,8 +12,8 @@ const OUTPUTS = [
 ]
 
 // The main "Generate" step after an upload. Only rendered when
-// AI_GENERATION_ENABLED is on. Generating needs a Google sign-in, so signed-out
-// students get Google's button in place of Generate. `error` is null or
+// AI_GENERATION_ENABLED is on. Generating needs a sign-in, so signed-out
+// students get the sign-in options in place of Generate. `error` is null or
 // { message, reason?, resetsAt? }; a plan limit adds when it refills and a way
 // to upgrade. `diagrams` is { pages, limit, unit, send, onToggle }: the diagram
 // pages found in the notes (null while looking), how many the plan lets Claude
@@ -56,7 +56,7 @@ export default function AiGenerate({ onGenerate, split, onCancel, isGenerating, 
               It’s free. Your packs are saved to your account and appear on all your devices.
             </p>
             {/* Stays put while the session check finishes, so the page doesn't jump. */}
-            <div className="mt-4 min-h-10">{authReady && <GoogleButton text="continue_with" />}</div>
+            <div className="mt-4 min-h-10">{authReady && <SignIn text="continue_with" />}</div>
           </div>
         ) : (
           <>
