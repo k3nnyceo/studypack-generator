@@ -126,7 +126,10 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 <span className="text-stone-500"> / month</span>
               </p>
               <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-700">
-                <Feature>About {plan.packsPerMonth} study packs a month</Feature>
+                {/* Sonnet packs cost more each, so say why the count is lower than Plus's. */}
+                <Feature>
+                  About {plan.packsPerMonth} {plan.fastModel ? 'study packs' : 'in-depth study packs'} a month
+                </Feature>
                 {plan.packsPerWindow < plan.packsPerMonth && (
                   <Feature>Up to about {plan.packsPerWindow} every 3 hours</Feature>
                 )}
