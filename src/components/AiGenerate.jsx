@@ -101,7 +101,7 @@ export default function AiGenerate({ onGenerate, split, onCancel, isGenerating, 
               </p>
               {error.reason && (error.reason !== 'too-long' || billing.plan === 'free') && canUpgrade && (
                 <Button size="sm" variant="primary" icon={Sparkles} onClick={onOpenPlans} className="mt-3">
-                  {billing.plan === 'free' ? 'See Pro and Max' : 'Upgrade to Max'}
+                  {billing.plan === 'free' ? 'See paid plans' : 'Upgrade your plan'}
                 </Button>
               )}
             </div>
@@ -213,7 +213,7 @@ function PartsList({ split }) {
             Make them one at a time below.{' '}
             {onOpenPlans && (
               <button type="button" onClick={onOpenPlans} className="font-semibold text-brand-700 hover:underline">
-                Pro and Max make every part at once
+                Paid plans make every part at once
               </button>
             )}
           </p>

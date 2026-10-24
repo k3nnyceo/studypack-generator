@@ -73,7 +73,7 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
             </p>
             {error.reason && canUpgrade && (
               <Button size="sm" variant="primary" icon={Sparkles} onClick={onOpenPlans} className="mt-3">
-                Get more with Pro or Max
+                Get more with a paid plan
               </Button>
             )}
           </div>

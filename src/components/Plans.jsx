@@ -64,7 +64,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
         </h1>
         <p className="mt-1 max-w-2xl text-stone-500">
           Each study pack uses part of your allowance according to how much work it takes, so longer lectures use more.
-          Allowances refill each month; on Pro and Max, part of it also refills every 3 hours.
+          Allowances refill each month; on paid plans, part of it also refills every 3 hours.
         </p>
       </div>
 
@@ -107,7 +107,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
         </div>
       )}
 
-      <ul className="grid gap-5 md:grid-cols-3">
+      <ul className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {billing.plans.map((plan) => {
           const isCurrent = plan.id === current
           const paid = plan.price > 0
@@ -121,8 +121,8 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                 <h2 className="text-lg font-bold text-stone-900">{plan.name}</h2>
                 {isCurrent ? <Badge tone="emerald">Your plan</Badge> : featured && <Badge tone="brand">Most popular</Badge>}
               </div>
-              <p className="mt-3">
-                <span className="text-3xl font-extrabold tracking-tight text-stone-900">{paid ? formatNaira(plan.price) : '₦0'}</span>
+              <p className="mt-3 whitespace-nowrap">
+                <span className="text-3xl font-extrabold tracking-tight text-stone-900 xl:text-[1.75rem]">{paid ? formatNaira(plan.price) : '₦0'}</span>
                 <span className="text-stone-500"> / month</span>
               </p>
               <ul className="mt-5 flex-1 space-y-2.5 text-sm text-stone-700">

@@ -38,6 +38,19 @@ export function plansFromEnv(env = process.env) {
       youtubePerWindow: num(env.FREE_YOUTUBE_PER_WINDOW, 1),
       youtubePerMonth: num(env.FREE_YOUTUBE_PER_MONTH, 3),
     },
+    // The cheaper paid plan: packs written by the fast model (Haiku), like
+    // Free, but with theory questions, long lectures and a bigger allowance.
+    plus: {
+      id: 'plus',
+      name: 'Plus',
+      price: num(env.PLUS_PRICE_NGN, 2500),
+      windowNaira: num(env.PLUS_WINDOW_NGN, 700),
+      periodNaira: num(env.PLUS_MONTH_NGN, 1750),
+      maxChars: paidMaxChars,
+      libraryPerDay: num(env.PLUS_LIBRARY_PER_DAY, 10),
+      youtubePerWindow: num(env.PLUS_YOUTUBE_PER_WINDOW, 3),
+      youtubePerMonth: num(env.PLUS_YOUTUBE_PER_MONTH, 8),
+    },
     pro: {
       id: 'pro',
       name: 'Pro',
@@ -63,17 +76,17 @@ export function plansFromEnv(env = process.env) {
   }
   // Features by plan. Theory questions add about ₦200 to a typical pack, so
   // they're on paid plans. Scanned notes: Pro up to PRO_SCAN_PAGES pages a
-  // pack, Max up to MAX_SCAN_PAGES; pasted text is Max-only. Free packs are
-  // written by the fast model (Haiku), about a third of Sonnet's cost, so
-  // the same allowance makes about three times as many. Making every part
-  // of a long lecture at once is for paid plans.
+  // pack, Max up to MAX_SCAN_PAGES; pasted text is Max-only. Free and Plus
+  // packs are written by the fast model (Haiku), about a third of Sonnet's
+  // cost, so the same allowance makes about three times as many. Making
+  // every part of a long lecture at once is for paid plans.
   const listed = (value, fallback) => (value ?? fallback).split(',').map((p) => p.trim())
-  const theoryPlans = listed(env.THEORY_PLANS, 'pro,max')
+  const theoryPlans = listed(env.THEORY_PLANS, 'plus,pro,max')
   const scanPlans = listed(env.SCAN_PLANS, 'pro,max')
   const scanPages = { pro: num(env.PRO_SCAN_PAGES, 10), max: num(env.MAX_SCAN_PAGES, 40) }
   const pastePlans = listed(env.PASTE_PLANS, 'max')
-  const fastPlans = listed(env.FAST_MODEL_PLANS, 'free')
-  const batchPlans = listed(env.BATCH_PARTS_PLANS, 'pro,max')
+  const fastPlans = listed(env.FAST_MODEL_PLANS, 'free,plus')
+  const batchPlans = listed(env.BATCH_PARTS_PLANS, 'plus,pro,max')
   // Diagram pages: pages that are mostly figures, sent to Claude as pictures
   // (src/lib/diagramPages.js), up to diagramPages per pack.
   const diagramPlans = listed(env.DIAGRAM_PLANS, 'pro,max')
@@ -95,7 +108,7 @@ export function plansFromEnv(env = process.env) {
   return plans
 }
 
-export const PAID_PLANS = ['pro', 'max']
+export const PAID_PLANS = ['plus', 'pro', 'max']
 
 // A cautious rate, so a weaker naira doesn't quietly eat the margin. Update
 // USD_TO_NGN when the rate moves.
@@ -115,12 +128,14 @@ const ESTIMATE = {
 // costs FAST_MODEL_COST_FACTOR of the above.
 export function estimateCostUsd(chars, theory = false, pictures = 0, env = process.env, fast = false) {
   const { base, perChar } = theory ? ESTIMATE.theory : ESTIMATE.plain
-  return (base + chars * perChar) * (fast ? fastCostFactor(env) : 1) + pictures * pictureCostUsd(env)
+  return (base + chars * perChar) * (fast ? fastCostFactor(env, theory) : 1) + pictures * pictureCostUsd(env)
 }
 
-// Measured on the EEE 207 lecture (11K characters, no theory questions):
-// $0.086 on Haiku 4.5, against $0.214 estimated for Sonnet 4.6 at medium effort.
-const fastCostFactor = (env) => num(env.FAST_MODEL_COST_FACTOR, 0.4)
+// Measured on the EEE 207 lecture (11K characters) on Haiku 4.5, against the
+// Sonnet 4.6 estimate: $0.086 against $0.214 without theory questions (0.40),
+// and $0.089 against $0.344 with them (0.26, taken as 0.3 for some margin).
+const fastCostFactor = (env, theory = false) =>
+  theory ? num(env.FAST_MODEL_THEORY_COST_FACTOR, 0.3) : num(env.FAST_MODEL_COST_FACTOR, 0.4)
 
 // One diagram page sent as a picture (about 1,400 input tokens at 1200 px):
 // written to the prompt cache once (1.25x) and read by each other module
@@ -134,6 +149,6 @@ export const toNaira = (usd, env = process.env) => Math.ceil(usd * nairaPerUsd(e
 // inverse of the above).
 function maxCharsWithin(naira, plan, env) {
   const { base, perChar } = plan.theory ? ESTIMATE.theory : ESTIMATE.plain
-  const factor = plan.fastModel ? fastCostFactor(env) : 1
+  const factor = plan.fastModel ? fastCostFactor(env, plan.theory) : 1
   return Math.max(0, Math.floor((naira / nairaPerUsd(env) / factor - base) / perChar))
 }

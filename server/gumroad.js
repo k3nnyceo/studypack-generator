@@ -1,11 +1,11 @@
-// Pro and Max sold on Gumroad, for students paying in dollars from outside
+// Paid plans sold on Gumroad, for students paying in dollars from outside
 // Nigeria. Each Gumroad product ("30 days of StudyPack Pro") has license keys
 // turned on; the buyer gets a key in their receipt and redeems it on the plans
 // page, which grants 30 days of the plan. A key works for one account, once.
 //
 // Keys are checked with Gumroad's license API, which needs no secret: the
 // product id plus the key is the proof of purchase.
-import { nairaPerUsd } from './plans.js'
+import { nairaPerUsd, PAID_PLANS } from './plans.js'
 
 const VERIFY_URL = 'https://api.gumroad.com/v2/licenses/verify'
 const KEY = /^[A-Za-z0-9-]{8,64}$/
@@ -13,7 +13,7 @@ const KEY = /^[A-Za-z0-9-]{8,64}$/
 // { pro: { productId, url }, max: … } for the plans that are set up.
 export function gumroadProducts(env = process.env) {
   const products = {}
-  for (const plan of ['pro', 'max']) {
+  for (const plan of PAID_PLANS) {
     const productId = env[`GUMROAD_${plan.toUpperCase()}_PRODUCT_ID`]
     if (productId) products[plan] = { productId, url: env[`GUMROAD_${plan.toUpperCase()}_URL`] || '' }
   }
