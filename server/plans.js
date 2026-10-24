@@ -31,8 +31,8 @@ export function plansFromEnv(env = process.env) {
       name: 'Free',
       price: 0,
       // No separate 3-hour limit: the month's allowance can be used at once.
-      windowNaira: num(env.FREE_WINDOW_NGN, 1500),
-      periodNaira: num(env.FREE_MONTH_NGN, 1500),
+      windowNaira: num(env.FREE_WINDOW_NGN, 900),
+      periodNaira: num(env.FREE_MONTH_NGN, 900),
       maxChars: num(env.FREE_MAX_INPUT_CHARS, 15_000),
       libraryPerDay: num(env.FREE_LIBRARY_PER_DAY, 5),
       youtubePerWindow: num(env.FREE_YOUTUBE_PER_WINDOW, 1),
