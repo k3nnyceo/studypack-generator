@@ -1,9 +1,13 @@
 // Paid plans per account, stored with the usage meter's store (Upstash).
 //
-// Every successful payment grants a 30-day period of Pro or Max, whether it
+// Every successful payment grants a 30-day period of a paid plan, whether it
 // was a one-time payment (card, bank transfer, USSD) or a monthly card charge
 // by a Paystack subscription ("auto-renew"). A record looks like
-//   studypack:sub:<user>        { plan, periodStart, periodEnd, reference }
+//   studypack:sub:<user>        { plan, periodStart, periodEnd, reference,
+//                                 bonusMs?, allowanceNaira? }
+// `bonusMs` is free time earned by inviting friends (server/invites.js), kept
+// across card renewals; `allowanceNaira` replaces the plan's allowance for a
+// reward week of Plus.
 //   studypack:autorenew:<user>  { subscriptionCode, emailToken, plan, active }
 // and payments are applied once each, by Paystack reference.
 import { AUTO_RENEW_GRACE_DAYS, PERIOD_DAYS } from './plans.js'
@@ -16,6 +20,7 @@ const autoRenewKey = (userId) => `studypack:autorenew:${userId}`
 
 export const getSubscription = (store, userId) => store.getJson(subKey(userId))
 export const getAutoRenew = (store, userId) => store.getJson(autoRenewKey(userId))
+export const saveSubscription = (store, userId, record) => store.setJson(subKey(userId), record)
 
 // The record if its period hasn't ended, otherwise null (the account is on Free).
 export const activeSubscription = (record, now = Date.now()) => (record && record.periodEnd > now ? record : null)
@@ -49,9 +54,13 @@ export async function applyPayment(store, { userId, planId, reference, autoRenew
 
   const previous = activeSubscription(await getSubscription(store, userId), now)
   let carryMs = 0
-  if (previous && !autoRenew) {
+  let bonusMs = 0
+  if (previous) {
     const left = previous.periodEnd - now
-    carryMs = previous.plan === planId ? left : (left * plans[previous.plan].price) / plans[planId].price
+    // Earned free days are kept even when a card renewal starts a fresh period.
+    bonusMs = Math.min(previous.bonusMs ?? 0, left)
+    if (!autoRenew) carryMs = previous.plan === planId ? left : (left * plans[previous.plan].price) / plans[planId].price
+    else carryMs = bonusMs
   }
   const days = PERIOD_DAYS + (autoRenew ? AUTO_RENEW_GRACE_DAYS : 0)
   const record = {
@@ -59,6 +68,7 @@ export async function applyPayment(store, { userId, planId, reference, autoRenew
     periodStart: now,
     periodEnd: now + days * DAY_MS + Math.round(carryMs),
     reference,
+    ...(bonusMs > 0 && { bonusMs }),
   }
   await store.setJson(subKey(userId), record)
   return { applied: true, record, previous }

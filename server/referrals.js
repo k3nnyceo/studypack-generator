@@ -1,8 +1,11 @@
 // Where students come from: share links like /?ref=tiktok or /?ref=ada (an
-// ambassador), and see visits, sign-ups and payments per link.
+// ambassador), and see visits, sign-ups and payments per link. Students'
+// own invite links (/?ref=i-<code>, server/invites.js) count together as
+// "invites" here.
 //
 //   POST /api/referrals { ref }   a visit through a link (once per browser)
 //   GET  /api/referrals           the stats; only for ADMIN_EMAILS
+//   GET  /api/referrals?mine=1    the signed-in student's invite link and rewards
 //
 // Attribution is first-touch: the link a student first arrived through is
 // remembered in their browser, sent with their first sign-in, and kept on the
@@ -10,6 +13,7 @@
 // count as "direct".
 import { getSessionUser } from './auth.js'
 import { sendJson } from './http.js'
+import { inviteSummary, isInviteRef, recordInvitedSignup } from './invites.js'
 
 const REF = /^[a-z0-9_-]{1,32}$/
 const DIRECT = 'direct'
@@ -31,8 +35,9 @@ export const isAdmin = (user, env = process.env) =>
     .includes(user.email.toLowerCase())
 
 async function bump(store, ref, name, amount = 1) {
-  await store.add(counter(ref, name), amount, NO_EXPIRY)
-  if (ref !== DIRECT) await store.addMember(REFS_KEY, ref)
+  const row = isInviteRef(ref) ? 'invites' : ref
+  await store.add(counter(row, name), amount, NO_EXPIRY)
+  if (row !== DIRECT) await store.addMember(REFS_KEY, row)
 }
 
 // A student's first sign-in: remembers which link brought them, once.
@@ -41,14 +46,18 @@ export async function recordSignup(store, userId, ref) {
   const source = cleanRef(ref) ?? DIRECT
   await store.setJson(`studypack:account:${userId}:ref`, source)
   await bump(store, source, 'signups')
+  await recordInvitedSignup(store, userId, source)
 }
 
-// A payment that was just applied (server/billing.js).
+// A payment that was just applied (server/billing.js). Resolves to true if
+// it's the student's first.
 export async function recordPayment(store, userId, amountNaira) {
   const source = (await store.getJson(`studypack:account:${userId}:ref`)) ?? DIRECT
   await bump(store, source, 'payments')
   await bump(store, source, 'revenue', Math.round(amountNaira))
-  if (await store.claim(`studypack:account:${userId}:paid`, NO_EXPIRY)) await bump(store, source, 'payers')
+  const first = await store.claim(`studypack:account:${userId}:paid`, NO_EXPIRY)
+  if (first) await bump(store, source, 'payers')
+  return first
 }
 
 export async function referralStats(store) {
@@ -74,6 +83,10 @@ export async function handleReferralRequest(req, res, body, { store, getUser = g
     }
     if (req.method === 'GET') {
       const user = await getUser(req)
+      if (new URL(req.url ?? '/', 'http://x').searchParams.has('mine')) {
+        if (!user) return sendJson(res, 401, { error: 'Sign in to get your invite link.' })
+        return sendJson(res, 200, await inviteSummary(store, user.id))
+      }
       if (!isAdmin(user, env)) return sendJson(res, 403, { error: 'Only StudyPack’s admins can see this.' })
       return sendJson(res, 200, { rows: await referralStats(store) })
     }

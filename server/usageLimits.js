@@ -19,11 +19,13 @@ const LAGOS_OFFSET_MS = 60 * 60 * 1000 // WAT is UTC+1 all year
 
 // Upstash (production) if configured; an in-memory store for local
 // development; otherwise null, which means "don't generate" rather than
-// "generate without limits".
+// "generate without limits". The in-memory store is shared by every handler,
+// like Upstash is, so sign-in, billing and referrals see the same accounts.
+let devStore
 export function storeFromEnv(env = process.env) {
   const redis = redisFromEnv(env)
   if (redis) return upstashStore(redis)
-  return isDeployed(env) ? null : memoryStore()
+  return isDeployed(env) ? null : (devStore ??= memoryStore())
 }
 
 // Shared with the job, library and subscription stores.
@@ -105,7 +107,9 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
   // `subscription` is an active paid subscription (server/subscriptions.js) or null.
   function scope(userId, subscription) {
     const t = now()
-    const plan = plans[subscription?.plan] ?? plans.free
+    const base = plans[subscription?.plan] ?? plans.free
+    // A reward week of Plus (server/invites.js) has a week's share of the allowance.
+    const plan = subscription?.allowanceNaira !== undefined ? { ...base, periodNaira: subscription.allowanceNaira } : base
     const windowIndex = Math.floor(t / WINDOW_MS)
     const period = subscription ? { id: `p${subscription.periodStart}`, endsAt: subscription.periodEnd } : lagosMonth(t)
     return {

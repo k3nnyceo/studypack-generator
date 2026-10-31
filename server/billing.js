@@ -13,6 +13,7 @@
 // transaction with Paystack's API rather than trusting what they're told.
 import { getSessionUser } from './auth.js'
 import { cleanLicenseKey, gumroadProducts, purchaseNaira, purchaseProblem, verifyGumroadKey } from './gumroad.js'
+import { discountedPrice, FRIEND_DISCOUNT, friendDiscount, hadDiscount, rememberDiscount, rewardInviter } from './invites.js'
 import { recordPayment } from './referrals.js'
 import { sendJson } from './http.js'
 import { ensurePaystackPlan, paystack, paystackKey, validSignature } from './paystack.js'
@@ -69,13 +70,16 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
       if (!user.email) return sendJson(res, 400, { error: 'Your Google account has no email address for the receipt.' })
 
       const autoRenew = body.autoRenew === true
+      // A friend's invite: the first one-off payment is cheaper. (A card
+      // subscription is always charged its plan's full price by Paystack.)
+      const discount = autoRenew ? 0 : await friendDiscount(store, user.id)
       await rememberCustomer(store, { email: user.email }, user.id)
       const checkout = await api('/transaction/initialize', {
         method: 'POST',
         env,
         body: {
           email: user.email,
-          amount: plan.price * 100,
+          amount: discountedPrice(plan.price, discount) * 100,
           currency: 'NGN',
           callback_url: `${siteUrl(req, env)}/?billing=return`,
           metadata: { userId: user.id, plan: plan.id, autoRenew },
@@ -83,6 +87,7 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
           ...(autoRenew && { plan: await ensurePaystackPlan(plan, env, api) }),
         },
       })
+      if (discount && checkout.reference) await rememberDiscount(store, checkout.reference)
       return sendJson(res, 200, { url: checkout.authorization_url })
     }
 
@@ -146,9 +151,19 @@ function publicState(env) {
   }
 }
 
+// Counts the payment for its share link, and on a student's first payment
+// rewards the friend who invited them. Never gets in the way of the payment.
+async function creditReferral(store, userId, amountNaira, plans, now) {
+  try {
+    if (await recordPayment(store, userId, amountNaira)) await rewardInviter(store, userId, plans, now)
+  } catch (err) {
+    console.error('[billing] Could not record referral:', err.message)
+  }
+}
+
 async function billingState({ store, meter, user, env, now, api = paystack }) {
   const subscription = activeSubscription(await getSubscription(store, user.id), now())
-  const [usage, current] = await Promise.all([meter.status(user.id, subscription), getAutoRenew(store, user.id)])
+  const [usage, current, discount] = await Promise.all([meter.status(user.id, subscription), getAutoRenew(store, user.id), friendDiscount(store, user.id)])
   const renew = await checkRenewalPrice({ store, userId: user.id, renew: current, env, api })
   const percent = ({ used, limit }) => (limit ? Math.min(100, Math.round((used / limit) * 100)) : 100)
   return {
@@ -159,6 +174,10 @@ async function billingState({ store, meter, user, env, now, api = paystack }) {
     // Set when the plan's price went up and the student's card subscription at
     // the old price was stopped: { plan, oldPrice, newPrice } in naira.
     priceChange: renew?.priceChange ?? null,
+    // Off the first one-off payment, from a friend's invite (0 if none).
+    friendDiscount: discount,
+    // Free days from invites, when they're what this period is made of.
+    rewardWeek: subscription?.allowanceNaira !== undefined,
     // Shares, not naira: students see how much is left, not what it costs.
     usage: {
       window: { percent: percent(usage.window), resetsAt: usage.window.resetsAt },
@@ -189,7 +208,12 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const plan = plans[planId]
   // A renewal of a card subscription made before a price change is charged at
   // its old price: it's still honoured, then the subscription is stopped.
-  const due = subscribed?.planId === planId ? subscribed.amount : plan?.price * 100
+  const due =
+    subscribed?.planId === planId
+      ? subscribed.amount
+      : plan && (await hadDiscount(store, reference))
+        ? discountedPrice(plan.price, FRIEND_DISCOUNT) * 100
+        : plan?.price * 100
   if (!PAID_PLANS.includes(planId) || tx.currency !== 'NGN' || !(tx.amount >= due)) {
     console.error(`[billing] Payment ${reference} doesn't match a plan (plan=${planId} amount=${tx.amount} ${tx.currency}).`)
     return { status: 400, error: 'This payment doesn’t match a StudyPack plan.' }
@@ -205,7 +229,7 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
       // Subscribed again (at the current price): the notice has done its job.
       await setAutoRenew(store, userId, { priceChange: null })
     }
-    await recordPayment(store, userId, tx.amount / 100).catch((err) => console.error('[billing] Could not record referral:', err.message))
+    await creditReferral(store, userId, tx.amount / 100, plans, now())
     console.log(`[billing] ${reference}: ${userId} on ${planId} until ${new Date(record.periodEnd).toISOString()}${autoRenew ? ' (auto-renew)' : ''}`)
     // A plan change ends the old plan's card subscription, so it isn't charged again.
     const renew = await getAutoRenew(store, userId)
@@ -252,7 +276,7 @@ async function redeemGumroadKey({ store, user, key: raw, env, gumroad, plans, no
   const reference = `gumroad:${purchase.sale_id || key}`
   const { applied, record } = await applyPayment(store, { userId: user.id, planId, reference }, plans, now())
   if (applied) {
-    await recordPayment(store, user.id, purchaseNaira(purchase, env)).catch((err) => console.error('[billing] Could not record referral:', err.message))
+    await creditReferral(store, user.id, purchaseNaira(purchase, env), plans, now())
     console.log(`[billing] ${reference}: ${user.id} on ${planId} until ${new Date(record.periodEnd).toISOString()} (Gumroad)`)
   }
   return {}

@@ -1,4 +1,4 @@
-import { BarChart3, Gauge, LogIn, LogOut } from 'lucide-react'
+import { BarChart3, Gauge, Gift, LogIn, LogOut } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useEmailSignIn } from '../lib/auth.js'
 import GoogleButton from './GoogleButton.jsx'
@@ -108,6 +108,20 @@ function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
           >
             <Gauge className="size-4" strokeWidth={2.25} aria-hidden />
             {billing?.plan === 'free' ? 'Upgrade plan' : 'Plans & usage'}
+          </button>
+          <button
+            type="button"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false)
+              onOpenPlans()
+              // The invite card is on the plans page.
+              setTimeout(() => document.getElementById('invite')?.scrollIntoView({ behavior: 'smooth' }), 400)
+            }}
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-stone-700 transition hover:bg-stone-100"
+          >
+            <Gift className="size-4" strokeWidth={2.25} aria-hidden />
+            Invite friends, get free days
           </button>
           {user.isAdmin && (
             <button

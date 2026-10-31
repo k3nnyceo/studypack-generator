@@ -1,6 +1,8 @@
-import { Check, CreditCard, ExternalLink, KeyRound, Loader2, RefreshCw, Sparkles } from 'lucide-react'
+import { Check, CreditCard, ExternalLink, Gift, KeyRound, Loader2, RefreshCw, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { formatDate, formatNaira, manageAutoRenew, redeemGumroadKey, startCheckout } from '../lib/billing.js'
+import { storedReferral } from '../lib/referral.js'
+import InviteCard from './InviteCard.jsx'
 import SignIn from './SignIn.jsx'
 import UsageBars from './UsageBars.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
@@ -21,6 +23,10 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
 
   const current = user ? billing.plan : null
   const currentName = billing.plans.find((p) => p.id === current)?.name
+  // A friend's invite: off the first one-off payment (server/invites.js).
+  const discount = user ? (billing.friendDiscount ?? 0) : 0
+  const invitedSignedOut = !user && storedReferral()?.startsWith('i-')
+  const discounted = (price) => Math.round(price * (1 - discount))
 
   async function buy(planId, autoRenew) {
     setBusy(`${planId}:${autoRenew}`)
@@ -76,6 +82,7 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
               <p className="text-stone-600">
                 {billing.autoRenew ? 'Renews automatically on ' : 'Active until '}
                 <span className="font-semibold text-stone-900">{formatDate(billing.periodEnd)}</span>
+                {billing.rewardWeek && <span className="block text-stone-500">Free days from inviting friends</span>}
               </p>
               {billing.autoRenew && (
                 <Button size="sm" variant="ghost" icon={RefreshCw} onClick={manage} disabled={busy !== null} className="-ml-3">
@@ -84,6 +91,18 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
               )}
             </div>
           )}
+        </section>
+      )}
+
+      {(discount > 0 || invitedSignedOut) && (
+        <section className="card flex gap-3 border-l-4 border-brand-400 p-5 text-sm text-stone-700" role="status">
+          <Gift className="mt-0.5 size-4 shrink-0 text-brand-600" aria-hidden />
+          <p>
+            <span className="font-semibold text-stone-900">A friend invited you.</span>{' '}
+            {invitedSignedOut
+              ? 'Sign in, and your first month on any plan is 20% off.'
+              : `Your first month on any plan is ${Math.round(discount * 100)}% off when you pay for 30 days.`}
+          </p>
         </section>
       )}
 
@@ -175,11 +194,18 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                         disabled={busy !== null}
                         onClick={() => buy(plan.id, false)}
                       >
-                        {busy === `${plan.id}:false`
-                          ? 'Opening Paystack…'
-                          : isCurrent
-                            ? 'Add 30 days'
-                            : `Pay ${formatNaira(plan.price)} for 30 days`}
+                        {busy === `${plan.id}:false` ? (
+                          'Opening Paystack…'
+                        ) : discount > 0 ? (
+                          <>
+                            Pay {formatNaira(discounted(plan.price))}{' '}
+                            <s className="font-normal opacity-60">{formatNaira(plan.price)}</s> for 30 days
+                          </>
+                        ) : isCurrent ? (
+                          'Add 30 days'
+                        ) : (
+                          `Pay ${formatNaira(plan.price)} for 30 days`
+                        )}
                       </Button>
                       <Button
                         variant="ghost"
@@ -191,7 +217,9 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
                         {busy === `${plan.id}:true` ? 'Opening Paystack…' : 'Renew monthly by card'}
                       </Button>
                       <p className="text-center text-xs text-stone-500">
-                        {current !== 'free' && !isCurrent
+                        {discount > 0
+                          ? 'The discount is for paying for 30 days; monthly card renewals are the full price.'
+                          : current !== 'free' && !isCurrent
                           ? `Your unused ${currentName} days carry over, adjusted for the difference in price.`
                           : 'Card, bank transfer or USSD. Secured by Paystack.'}
                       </p>
@@ -203,6 +231,8 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
           )
         })}
       </ul>
+
+      {user && <InviteCard />}
 
       {user && !billing.paymentsEnabled && (
         <p className="text-sm text-stone-500">Paid plans are coming soon.</p>
