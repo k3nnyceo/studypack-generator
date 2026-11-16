@@ -190,6 +190,22 @@ Make a new key at the provider (AWS, Paystack, Brevo…) and delete the old
 one. Put the new value in Vercel's Environment Variables, then redeploy.
 Changing `SESSION_SECRET` signs everyone out (harmless; they sign in again).
 
+### The Android app (Google Play)
+
+The Play Store app (`com.studypack.app`) opens the live site full-screen, so
+website changes reach it without an app update. Its files are in
+`C:/Users/Administrator/Desktop/studypack-android` (back that folder up
+privately; never commit it). It contains:
+
+- `PLAY-STORE-STEPS.md`: publishing step by step
+- `store-listing/`: the listing text and images
+- `package/signing.keystore`: the signing key every future update needs, with
+  its passwords in `SIGNING-PASSWORDS.txt`
+
+`public/.well-known/assetlinks.json` tells Android the app and site belong
+together. If the app shows an address bar at the top, that file is wrong or
+missing Google Play's app-signing fingerprint (Play Console → App integrity).
+
 ## Common problems
 
 | What you see | Likely cause | What to do |
