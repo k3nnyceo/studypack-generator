@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.studypack.app",
+        "sha256_cert_fingerprints": ["97:1B:00:9E:C9:97:CB:DB:17:3A:6E:93:A4:E9:F9:98:8D:7B:1E:58:9F:0F:EA:80:97:49:EE:B5:4C:98:49:F1"]
+      }
+    }]

@@ -44,7 +44,7 @@ function SignInMenu() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-stone-800 ring-1 ring-stone-300 transition hover:bg-stone-50"
+        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold whitespace-nowrap text-stone-800 ring-1 ring-stone-300 transition hover:bg-stone-50"
       >
         <LogIn className="size-4" strokeWidth={2.25} aria-hidden />
         Sign in
