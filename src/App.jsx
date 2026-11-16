@@ -1,4 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
+import { analyticsPath, cleanAnalyticsEvent } from './lib/analytics.js'
 import AiGenerate from './components/AiGenerate.jsx'
 import AppHeader from './components/AppHeader.jsx'
 import ExtractedPreview from './components/ExtractedPreview.jsx'
@@ -672,6 +674,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      {/* Page views per screen (src/lib/analytics.js). */}
+      <Analytics route={analyticsPath(view)} path={analyticsPath(view)} beforeSend={cleanAnalyticsEvent} />
       <AppHeader
         view={view}
         onNavigate={navigate}

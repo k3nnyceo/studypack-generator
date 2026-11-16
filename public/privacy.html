@@ -31,7 +31,7 @@
           <li>When you ask StudyPack to write a pack, answer a question or read scanned pages, the text (and any pictures it needs) is sent to an AI model to do that job, then not kept.</li>
           <li>If you sign in, we keep your email, name and saved packs so they follow you to every device.</li>
           <li>Payments are handled by Paystack or Gumroad. We never see your card or bank details.</li>
-          <li>No ads, no tracking cookies, and we never sell your data.</li>
+          <li>No ads, no tracking cookies, and we never sell your data. We count page visits without cookies.</li>
           <li>Email us and we'll delete your account and data.</li>
         </ul>
       </div>
@@ -85,6 +85,7 @@
         <li><strong>Invites and share links:</strong> which link first brought you to StudyPack (for example a friend's invite link), and, for your own invite link, how many friends joined and paid, so rewards can be given.</li>
         <li><strong>Sign-in protection:</strong> to stop sign-in codes being abused, we count requests per email address and per IP address for an hour. The IP address is stored only as a scrambled (hashed) value.</li>
         <li><strong>Server logs:</strong> our hosting keeps short-lived technical logs (errors, timings, your account ID and costs of AI requests) to keep the service working.</li>
+        <li><strong>Visit counts:</strong> we count page visits with Vercel Web Analytics to see which screens are used and which links bring people (for example X or WhatsApp). It uses no cookies, doesn't record your name, email or what's in your notes, and can't follow you across other websites.</li>
       </ul>
 
       <h3>On your device</h3>
@@ -100,7 +101,7 @@
       <p>We don't sell your data or use it for advertising. We share it only with the services that run StudyPack, for the jobs above:</p>
       <ul>
         <li><strong>Amazon Web Services (Amazon Bedrock)</strong>: runs the Claude AI model on your notes. Amazon Bedrock doesn't use your content to train AI models and doesn't share it with the model's maker.</li>
-        <li><strong>Vercel</strong>: hosts the website and server.</li>
+        <li><strong>Vercel</strong>: hosts the website and server, and counts page visits (Vercel Web Analytics, without cookies).</li>
         <li><strong>Upstash</strong>: our database (accounts, saved packs, plans, usage counters).</li>
         <li><strong>Google</strong>: sign-in with Google.</li>
         <li><strong>Brevo or Resend</strong>: sends sign-in code emails.</li>
