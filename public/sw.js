@@ -72,19 +72,23 @@ self.addEventListener('fetch', (event) => {
 })
 
 // Fresh when online (so a new deploy shows up at once), the saved copy when not.
+// Every screen of the app is the same single page at /, which reads its #/hash;
+// the plain pages (privacy.html, terms.html) are kept under their own address,
+// so opening one never replaces the app's offline copy.
 async function networkFirstPage(request, event) {
   const cache = await caches.open(APP_CACHE)
+  const { pathname } = new URL(request.url)
+  const page = /^\/[\w-]+\.html$/.test(pathname) && pathname !== '/index.html' ? pathname : '/'
   try {
     const res = await fetch(request)
     if (res.ok) {
-      cache.put('/', res.clone())
+      cache.put(page, res.clone())
       // In the background: this version's on-demand files, before a deploy removes them.
-      event.waitUntil(res.clone().text().then(cacheVersion).catch(() => {}))
+      if (page === '/') event.waitUntil(res.clone().text().then(cacheVersion).catch(() => {}))
     }
     return res
   } catch {
-    // Every screen is the same single page; the app reads its #/hash.
-    return (await cache.match('/')) ?? Response.error()
+    return (await cache.match(page)) ?? (await cache.match('/')) ?? Response.error()
   }
 }
 

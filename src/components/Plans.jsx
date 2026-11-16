@@ -232,6 +232,18 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
         })}
       </ul>
 
+      <p className="text-sm text-stone-500">
+        By paying you agree to our{' '}
+        <a href="/terms.html" className="font-medium text-brand-700 underline underline-offset-2 hover:text-brand-800">
+          Terms
+        </a>
+        . Not happy? Get a full refund within 7 days if you haven’t used any paid features (
+        <a href="/terms.html#refunds" className="font-medium text-brand-700 underline underline-offset-2 hover:text-brand-800">
+          refund policy
+        </a>
+        ).
+      </p>
+
       {user && <InviteCard />}
 
       {user && !billing.paymentsEnabled && (

@@ -243,7 +243,18 @@ export default function Landing({
       </section>
 
       <footer className="border-t border-stone-200 pt-8 text-center text-sm text-stone-500">
-        StudyPack · Built for students who’d rather understand than cram.
+        <p>StudyPack · Built for students who’d rather understand than cram.</p>
+        <p className="mt-2 flex justify-center gap-4">
+          <a href="/privacy.html" className="font-medium text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline">
+            Privacy
+          </a>
+          <a href="/terms.html" className="font-medium text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline">
+            Terms
+          </a>
+          <a href="mailto:amulukyle1234@gmail.com" className="font-medium text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline">
+            Contact
+          </a>
+        </p>
       </footer>
     </div>
   )
