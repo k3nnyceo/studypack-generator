@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, ClipboardType, LibraryBig, MonitorPlay, Layers, ListChecks, Loader2, Lock, Sparkles, TriangleAlert, Upload, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
+import { InstallCard } from './InstallApp.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from '../config.js'
 import { useEmailSignIn } from '../lib/auth.js'
@@ -200,6 +201,8 @@ export default function Landing({
           </ul>
         </section>
       )}
+
+      <InstallCard />
 
       <section aria-labelledby="how-it-works">
         <h2 id="how-it-works" className="text-center text-sm font-semibold tracking-[0.08em] text-stone-500 uppercase">

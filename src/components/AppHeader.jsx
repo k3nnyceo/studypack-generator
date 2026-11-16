@@ -1,5 +1,6 @@
 import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus, TrendingUp } from 'lucide-react'
 import AccountMenu from './AccountMenu.jsx'
+import { InstallButton } from './InstallApp.jsx'
 import { Button, Logo } from './ui.jsx'
 
 // Sticky top bar. Once a file is loaded it carries the Notes / Study guide /
@@ -90,6 +91,7 @@ export default function AppHeader({
         )}
 
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          <InstallButton />
           <button
             type="button"
             onClick={() => onNavigate('library')}
