@@ -66,7 +66,7 @@ test('the study task takes turns between guide and quiz from day to day', () => 
 })
 
 test('saved plans are read safely and only today’s ticks are kept', () => {
-  assert.deepEqual(readPlan({ getItem: () => 'nope' }), { exams: [], done: {} })
-  assert.deepEqual(readPlan({ getItem: () => JSON.stringify({ exams: [{ id: 'a' }] }) }), { exams: [{ id: 'a' }], done: {} })
+  assert.deepEqual(readPlan({ getItem: () => 'nope' }), { exams: [], removed: [], done: {} })
+  assert.deepEqual(readPlan({ getItem: () => JSON.stringify({ exams: [{ id: 'a' }] }) }), { exams: [{ id: 'a' }], removed: [], done: {} })
   assert.deepEqual(withoutOldDays({ '2026-11-19': ['a'], [TODAY]: ['b'] }, TODAY), { [TODAY]: ['b'] })
 })

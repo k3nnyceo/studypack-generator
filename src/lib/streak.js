@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 // The daily study streak: consecutive days (Lagos time) with any studying,
 // such as marking a flashcard, answering a quiz question, finishing an exam or
@@ -36,6 +36,12 @@ export function afterStudying(s, today = lagosDay()) {
 // { count, best, studiedToday, studied() }
 export function useStreak() {
   const [state, setState] = useState(read)
+  // Another tab, or a streak synced from another device (src/lib/progressSync.js).
+  useEffect(() => {
+    const onStorage = (e) => e.key === KEY && setState(read())
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
   const studied = useCallback(() => {
     setState((prev) => {
       const next = afterStudying(prev)

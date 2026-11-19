@@ -48,6 +48,7 @@ import { useQuizResults } from './lib/quizResults.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
 import { useFocus } from './lib/focus.js'
+import { useProgressSync } from './lib/progressSync.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
 import { splitIntoParts } from './lib/splitNotes.js'
 import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
@@ -104,6 +105,9 @@ export default function App() {
   const [activeEntryId, setActiveEntryId] = useState(null) // library entry currently open
   const auth = useAuth()
   const library = useLibrary(auth.user, { onSessionExpired: auth.expire })
+  // XP, streak, exams, flashcard memory and quiz answers follow the account
+  // across devices (src/lib/progressSync.js).
+  useProgressSync(auth.user)
   const billing = useBilling(auth.user)
   const paymentChecked = useRef(false)
   // The Pack library: { packs, allowance, canModerate } once loaded.

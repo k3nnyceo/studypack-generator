@@ -50,10 +50,12 @@ export function studyOrder(cards, records, now = Date.now()) {
     .map((x) => x.card)
 }
 
+// `at` is when the card was marked, so the newest mark wins when progress from
+// two devices is combined (src/lib/progressMerge.js).
 export function nextRecord(record, knewIt, now = Date.now()) {
-  if (!knewIt) return { box: 0, due: now }
+  if (!knewIt) return { box: 0, due: now, at: now }
   const box = Math.min((record?.box ?? 0) + 1, INTERVAL_DAYS.length)
-  return { box, due: now + INTERVAL_DAYS[box - 1] * DAY }
+  return { box, due: now + INTERVAL_DAYS[box - 1] * DAY, at: now }
 }
 
 // { records, mark(cardId, knewIt) } for one pack (by its fingerprint).

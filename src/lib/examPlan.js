@@ -10,7 +10,9 @@ import { lagosDay } from './streak.js'
 //   - or "make a study pack" when the course has none yet.
 // Ticking a task off earns TASK_XP. Saved on this device:
 //   studypack.plan.v1 = { exams: [{ id, course, date: 'YYYY-MM-DD' }],
-//                         done: { 'YYYY-MM-DD': [task id] } }
+//                         removed: [exam id], done: { 'YYYY-MM-DD': [task id] } }
+// `removed` keeps an exam deleted here from coming back from another device
+// when progress syncs (src/lib/progressSync.js).
 
 const KEY = 'studypack.plan.v1'
 export const TASK_XP = 5
@@ -20,7 +22,8 @@ export const PLAN_WINDOW_DAYS = 45
 // The last days before an exam: a timed mock exam instead of guide or quiz.
 const MOCK_EXAM_DAYS = 3
 const MAX_REVIEW_TASKS = 4
-const EMPTY = { exams: [], done: {} }
+const EMPTY = { exams: [], removed: [], done: {} }
+export const PLAN_KEY = KEY
 
 const DAY_MS = 24 * 60 * 60 * 1000
 const dayNumber = (day) => Math.round(Date.parse(`${day}T00:00:00Z`) / DAY_MS)
@@ -84,7 +87,7 @@ export function dailyPlan({ exams, entries, due, today }) {
 export function readPlan(storage = globalThis.localStorage) {
   try {
     const plan = JSON.parse(storage?.getItem(KEY) ?? 'null')
-    return plan && Array.isArray(plan.exams) ? { exams: plan.exams, done: plan.done ?? {} } : EMPTY
+    return plan && Array.isArray(plan.exams) ? { exams: plan.exams, removed: plan.removed ?? [], done: plan.done ?? {} } : EMPTY
   } catch {
     return EMPTY
   }
@@ -122,7 +125,7 @@ export function useExamPlan(now) {
     today,
     addExam: (course, date) =>
       save({ ...plan, exams: [...plan.exams, { id: `e${Date.now().toString(36)}`, course: course.trim(), date }] }),
-    removeExam: (id) => save({ ...plan, exams: plan.exams.filter((exam) => exam.id !== id) }),
+    removeExam: (id) => save({ ...plan, exams: plan.exams.filter((exam) => exam.id !== id), removed: [...(plan.removed ?? []), id] }),
     toggle: (task) => {
       const ticked = done.includes(task.id)
       const ids = ticked ? done.filter((id) => id !== task.id) : [...done, task.id]

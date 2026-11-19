@@ -6,6 +6,7 @@
 //   GET    ?id=<id>   { entry }               one pack, with its guide
 //   PUT    { entry }  { entry: summary }      save a pack (new or re-saved)
 //   DELETE ?id=<id>   { ok: true }
+//   ?progress=1       study progress (XP, streak, exam plan, …): see below
 //
 // A summary is a library entry (src/lib/library.js) without `guide`:
 // { id, title, course, topic, sourceName, savedAt, fingerprint }. Listing
@@ -17,6 +18,7 @@ import { getSessionUser } from './auth.js'
 import { sendJson } from './http.js'
 import { isDeployed, redisFromEnv } from './usageLimits.js'
 import { describe } from '../src/lib/library.js'
+import { mergeProgress } from '../src/lib/progressMerge.js'
 import { validateStudyGuide } from '../src/lib/studyGuideFormat.js'
 
 export const MAX_PACKS = 300
@@ -51,11 +53,14 @@ export function upstashLibraryStore(redis) {
       await redis.hdel(index(user), id)
       await redis.del(pack(user, id))
     },
+    getProgress: (user) => redis.get(`studypack:progress:${user}`),
+    setProgress: (user, progress) => redis.set(`studypack:progress:${user}`, progress),
   }
 }
 
 export function memoryLibraryStore() {
   const users = new Map()
+  const progress = new Map()
   const packs = (user) => users.get(user) ?? users.set(user, new Map()).get(user)
   return {
     list: async (user) => [...packs(user).values()].map(({ guide: _guide, ...summary }) => summary),
@@ -64,6 +69,8 @@ export function memoryLibraryStore() {
     get: async (user, id) => packs(user).get(id) ?? null,
     put: async (user, entry) => void packs(user).set(entry.id, entry),
     remove: async (user, id) => void packs(user).delete(id),
+    getProgress: async (user) => progress.get(user) ?? null,
+    setProgress: async (user, value) => void progress.set(user, value),
   }
 }
 
@@ -81,7 +88,9 @@ export async function handleLibraryRequest(req, res, body, { store = getDefaultS
     return sendJson(res, 503, { error: 'Library sync isn’t available right now.' })
   }
 
-  const id = new URL(req.url, 'http://localhost').searchParams.get('id')
+  const params = new URL(req.url, 'http://localhost').searchParams
+  if (params.has('progress')) return handleProgress(req, res, user, body, store)
+  const id = params.get('id')
   if (id !== null && !ENTRY_ID.test(id)) return sendJson(res, 400, { error: 'Invalid pack id.' })
 
   try {
@@ -100,6 +109,36 @@ export async function handleLibraryRequest(req, res, body, { store = getDefaultS
     return sendJson(res, 503, { error: 'Library sync isn’t available right now.' })
   }
   sendJson(res, 405, { error: 'Method not allowed' })
+}
+
+// Study progress (XP, focus minutes, streak, exam plan, flashcard memory and
+// quiz answers), so it's the same on every device: src/lib/progressSync.js.
+//   GET ?progress=1               { progress } the account's, or null
+//   PUT ?progress=1 { upload }    merges this device's upload into it
+//                                 (src/lib/progressMerge.js) -> { progress }
+// Merged here rather than on the device, so two devices syncing at once
+// can't overwrite each other's progress.
+export const MAX_PROGRESS_BYTES = 900 * 1024
+const DEVICE_ID = /^[\w-]{8,64}$/
+
+async function handleProgress(req, res, user, body, store) {
+  try {
+    if (req.method === 'GET') return sendJson(res, 200, { progress: (await store.getProgress(user.id)) ?? null })
+    if (req.method !== 'PUT') return sendJson(res, 405, { error: 'Method not allowed' })
+    const upload = body?.upload
+    if (!upload || typeof upload !== 'object' || !DEVICE_ID.test(upload.device ?? '')) return sendJson(res, 400, { error: 'Invalid progress.' })
+    const merged = mergeProgress((await store.getProgress(user.id)) ?? {}, upload)
+    if (JSON.stringify(merged).length > MAX_PROGRESS_BYTES) {
+      // Quiz answers are the bulk and the least needed elsewhere: drop them first.
+      merged.results = {}
+      if (JSON.stringify(merged).length > MAX_PROGRESS_BYTES) return sendJson(res, 413, { error: 'Your progress is too large to sync.' })
+    }
+    await store.setProgress(user.id, merged)
+    return sendJson(res, 200, { progress: merged })
+  } catch (err) {
+    console.error('[library] Progress sync failed:', err.message)
+    return sendJson(res, 503, { error: 'Progress sync isn’t available right now.' })
+  }
 }
 
 async function savePack(res, user, entry, store) {

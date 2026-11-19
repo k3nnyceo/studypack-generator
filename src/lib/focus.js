@@ -136,6 +136,13 @@ export function useFocus({ onEnded } = {}) {
     setState(next)
   }, [])
 
+  // Another tab, or XP and minutes synced from another device (src/lib/progressSync.js).
+  useEffect(() => {
+    const onStorage = (e) => e.key === KEY && setState(readFocus())
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
+
   const end = useCallback(
     (from) => {
       const result = endTimer(from)
