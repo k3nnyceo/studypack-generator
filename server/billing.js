@@ -17,7 +17,7 @@ import { discountedPrice, FRIEND_DISCOUNT, friendDiscount, hadDiscount, remember
 import { recordPayment } from './referrals.js'
 import { sendJson } from './http.js'
 import { ensurePaystackPlan, paystack, paystackKey, validSignature } from './paystack.js'
-import { estimateCostUsd, PAID_PLANS, plansFromEnv, toNaira } from './plans.js'
+import { estimateCostUsd, PAID_PLANS, passesFromEnv, plansFromEnv, toNaira } from './plans.js'
 import {
   activeSubscription,
   applyPayment,
@@ -63,6 +63,28 @@ export async function handleBillingRequest(req, res, body, deps = {}) {
     if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' })
 
     const plans = plansFromEnv(env)
+    // A pass (the semester pass): several months for one payment, already
+    // cheaper than monthly, so no friend's discount and no auto-renew.
+    if (body?.action === 'checkout' && body.pass !== undefined) {
+      const pass = passesFromEnv(env)[body.pass]
+      if (!pass) return sendJson(res, 400, { error: 'Unknown pass.' })
+      if (!paystackKey(env)) return sendJson(res, 503, { error: 'Payments aren’t set up yet.' })
+      if (!user.email) return sendJson(res, 400, { error: 'Your Google account has no email address for the receipt.' })
+      await rememberCustomer(store, { email: user.email }, user.id)
+      const checkout = await api('/transaction/initialize', {
+        method: 'POST',
+        env,
+        body: {
+          email: user.email,
+          amount: pass.price * 100,
+          currency: 'NGN',
+          callback_url: `${siteUrl(req, env)}/?billing=return`,
+          metadata: { userId: user.id, plan: pass.plan, pass: pass.id, autoRenew: false },
+        },
+      })
+      return sendJson(res, 200, { url: checkout.authorization_url })
+    }
+
     if (body?.action === 'checkout') {
       const plan = plans[body.plan]
       if (!PAID_PLANS.includes(body.plan)) return sendJson(res, 400, { error: 'Unknown plan.' })
@@ -148,6 +170,12 @@ function publicState(env) {
       // Making every part of a long lecture at once.
       batchParts: p.batchParts,
     })),
+    // Passes: { id, name, plan, months, price, monthlyTotal } (monthlyTotal is
+    // what the same months cost paying monthly, for "save ₦…").
+    passes: Object.values(passesFromEnv(env)).map((pass) => ({
+      ...pass,
+      monthlyTotal: plansFromEnv(env)[pass.plan].price * pass.months,
+    })),
   }
 }
 
@@ -206,10 +234,17 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
   const subscribed = planCode ? await paystackPlanInfo(planCode, plans, env, api) : null
   const planId = meta?.plan ?? subscribed?.planId
   const plan = plans[planId]
+  // A pass (meta.pass) is its plan for several months, at the pass's price.
+  const pass = meta?.pass ? passesFromEnv(env)[meta.pass] : null
+  if (meta?.pass && pass?.plan !== planId) {
+    console.error(`[billing] Payment ${reference} is for an unknown pass (${meta.pass}).`)
+    return { status: 400, error: 'This payment doesn’t match a StudyPack plan.' }
+  }
   // A renewal of a card subscription made before a price change is charged at
   // its old price: it's still honoured, then the subscription is stopped.
-  const due =
-    subscribed?.planId === planId
+  const due = pass
+    ? pass.price * 100
+    : subscribed?.planId === planId
       ? subscribed.amount
       : plan && (await hadDiscount(store, reference))
         ? discountedPrice(plan.price, FRIEND_DISCOUNT) * 100
@@ -221,7 +256,8 @@ async function applyTransaction({ store, reference, env, api, plans, now, expect
 
   await rememberCustomer(store, { email, customerCode }, userId)
   const autoRenew = Boolean(planCode)
-  const { applied, record, previous } = await applyPayment(store, { userId, planId, reference, autoRenew }, plans, now())
+  const months = pass ? pass.months : 1
+  const { applied, record, previous } = await applyPayment(store, { userId, planId, reference, autoRenew, months }, plans, now())
   if (applied) {
     if (subscribed && subscribed.amount !== plan.price * 100) {
       await retireOldPrice({ store, userId, planId, oldAmount: subscribed.amount, plan, env, api })

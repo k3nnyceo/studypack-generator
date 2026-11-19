@@ -43,9 +43,9 @@ export function plansFromEnv(env = process.env) {
     plus: {
       id: 'plus',
       name: 'Plus',
-      price: num(env.PLUS_PRICE_NGN, 2500),
-      windowNaira: num(env.PLUS_WINDOW_NGN, 700),
-      periodNaira: num(env.PLUS_MONTH_NGN, 1750),
+      price: num(env.PLUS_PRICE_NGN, 3000),
+      windowNaira: num(env.PLUS_WINDOW_NGN, 840),
+      periodNaira: num(env.PLUS_MONTH_NGN, 2100),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.PLUS_LIBRARY_PER_DAY, 10),
       youtubePerWindow: num(env.PLUS_YOUTUBE_PER_WINDOW, 3),
@@ -54,9 +54,9 @@ export function plansFromEnv(env = process.env) {
     pro: {
       id: 'pro',
       name: 'Pro',
-      price: num(env.PRO_PRICE_NGN, 5000),
-      windowNaira: num(env.PRO_WINDOW_NGN, 1500),
-      periodNaira: num(env.PRO_MONTH_NGN, 3500),
+      price: num(env.PRO_PRICE_NGN, 7500),
+      windowNaira: num(env.PRO_WINDOW_NGN, 2250),
+      periodNaira: num(env.PRO_MONTH_NGN, 5250),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.PRO_LIBRARY_PER_DAY, 15),
       youtubePerWindow: num(env.PRO_YOUTUBE_PER_WINDOW, 5),
@@ -65,9 +65,9 @@ export function plansFromEnv(env = process.env) {
     max: {
       id: 'max',
       name: 'Max',
-      price: num(env.MAX_PRICE_NGN, 12000),
-      windowNaira: num(env.MAX_WINDOW_NGN, 3000),
-      periodNaira: num(env.MAX_MONTH_NGN, 8500),
+      price: num(env.MAX_PRICE_NGN, 15000),
+      windowNaira: num(env.MAX_WINDOW_NGN, 3750),
+      periodNaira: num(env.MAX_MONTH_NGN, 10500),
       maxChars: paidMaxChars,
       libraryPerDay: num(env.MAX_LIBRARY_PER_DAY, 40),
       youtubePerWindow: num(env.MAX_YOUTUBE_PER_WINDOW, 10),
@@ -109,6 +109,15 @@ export function plansFromEnv(env = process.env) {
 }
 
 export const PAID_PLANS = ['plus', 'pro', 'max']
+
+// Passes: several months of a plan for one payment, cheaper than paying
+// monthly (the semester pass: 4 months of Pro). The allowance refills every
+// 30 days of the pass, like a monthly plan (server/usageLimits.js).
+export function passesFromEnv(env = process.env) {
+  return {
+    semester: { id: 'semester', name: 'Semester pass', plan: 'pro', months: num(env.SEMESTER_MONTHS, 4), price: num(env.SEMESTER_PRICE_NGN, 25000) },
+  }
+}
 
 // A cautious rate, so a weaker naira doesn't quietly eat the margin. Update
 // USD_TO_NGN when the rate moves.

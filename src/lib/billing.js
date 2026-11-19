@@ -34,6 +34,12 @@ export async function startCheckout(plan, autoRenew) {
   window.location.assign(url)
 }
 
+// The same for a pass (several months for one payment, server/plans.js).
+export async function startPassCheckout(pass) {
+  const { url } = await billingApi('POST', { action: 'checkout', pass })
+  window.location.assign(url)
+}
+
 // Applies a Gumroad license key. Resolves to the new billing state.
 export const redeemGumroadKey = (key) => billingApi('POST', { action: 'redeem', key })
 

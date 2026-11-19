@@ -3,10 +3,15 @@ import { formatResetTime } from '../lib/billing.js'
 // How much of the plan's allowance is used: this 3-hour session and this
 // month, like Claude's own usage page. Shares only, never naira.
 export default function UsageBars({ billing, compact = false }) {
-  const { usage, plan } = billing
+  const { usage, plan, periodEnd } = billing
+  // A long paid period (a semester pass) refills every 30 days before it ends
+  // (server/usageLimits.js); a monthly one refills when it's renewed.
+  const refillsBeforeEnd = periodEnd && usage.period.resetsAt < periodEnd - 60 * 60 * 1000
+  const periodNote =
+    plan === 'free' ? 'Refills monthly' : refillsBeforeEnd ? `Refills ${formatResetTime(usage.period.resetsAt)}` : 'Refills when you renew'
   const rows = [
     { label: 'This session', ...usage.window, note: 'Refills every 3 hours' },
-    { label: plan === 'free' ? 'This month' : 'This plan period', ...usage.period, note: plan === 'free' ? 'Refills monthly' : 'Refills when you renew' },
+    { label: plan === 'free' ? 'This month' : refillsBeforeEnd ? 'This 30 days' : 'This plan period', ...usage.period, note: periodNote },
   ]
   return (
     <div className={compact ? 'space-y-3' : 'space-y-4'}>

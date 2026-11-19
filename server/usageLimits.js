@@ -12,7 +12,7 @@
 // real cost when the pack is done, or released if generation fails, so errors
 // don't use anyone's allowance.
 import { Redis } from '@upstash/redis'
-import { estimateCostUsd, plansFromEnv, toNaira, WINDOW_MS } from './plans.js'
+import { estimateCostUsd, PERIOD_DAYS, plansFromEnv, toNaira, WINDOW_MS } from './plans.js'
 
 const DAY_SECONDS = 24 * 60 * 60
 const LAGOS_OFFSET_MS = 60 * 60 * 1000 // WAT is UTC+1 all year
@@ -95,6 +95,31 @@ export function memoryStore() {
   }
 }
 
+// The 30-day block of a paid period that `t` falls in: { id, endsAt, share }.
+// A period of 30 days or so (a month, plus auto-renew's grace or a few earned
+// days) is one block. A longer one (a semester pass, or days carried over from
+// paying early) refills the allowance every 30 days; a last stretch shorter
+// than a week joins the block before it, and a longer one gets its `share` of
+// the allowance (e.g. 0.5 for 15 days). The first block's id is the period's
+// own, as before blocks existed, so usage already counted carries on.
+const BLOCK_MS = PERIOD_DAYS * DAY_SECONDS * 1000
+const MIN_LAST_BLOCK_MS = 7 * DAY_SECONDS * 1000
+export function paidBlock({ periodStart, periodEnd }, t) {
+  const length = periodEnd - periodStart
+  const full = Math.floor(length / BLOCK_MS)
+  const rest = length - full * BLOCK_MS
+  // How many blocks, and how long the last one is.
+  const [count, lastLength] = full === 0 ? [1, length] : rest < MIN_LAST_BLOCK_MS ? [full, BLOCK_MS + rest] : [full + 1, rest]
+  const index = Math.min(Math.max(0, Math.floor((t - periodStart) / BLOCK_MS)), count - 1)
+  const start = periodStart + index * BLOCK_MS
+  const last = index === count - 1
+  return {
+    id: index === 0 ? `p${periodStart}` : `p${periodStart}-${index}`,
+    endsAt: last ? periodEnd : start + BLOCK_MS,
+    share: last && full > 0 && lastLength < BLOCK_MS ? lastLength / BLOCK_MS : 1,
+  }
+}
+
 // The month a Free account's allowance belongs to: { id, endsAt }.
 function lagosMonth(t) {
   const local = new Date(t + LAGOS_OFFSET_MS)
@@ -109,9 +134,12 @@ export function createMeter(store, { plans = plansFromEnv(), siteDailyCap = 20, 
     const t = now()
     const base = plans[subscription?.plan] ?? plans.free
     // A reward week of Plus (server/invites.js) has a week's share of the allowance.
-    const plan = subscription?.allowanceNaira !== undefined ? { ...base, periodNaira: subscription.allowanceNaira } : base
+    const reward = subscription?.allowanceNaira !== undefined ? { ...base, periodNaira: subscription.allowanceNaira } : base
     const windowIndex = Math.floor(t / WINDOW_MS)
-    const period = subscription ? { id: `p${subscription.periodStart}`, endsAt: subscription.periodEnd } : lagosMonth(t)
+    const period = subscription ? paidBlock(subscription, t) : lagosMonth(t)
+    // The last, shorter block of a long paid period has its share of the allowance.
+    const share = period.share ?? 1
+    const plan = share === 1 ? reward : { ...reward, periodNaira: Math.round(reward.periodNaira * share) }
     return {
       t,
       plan,

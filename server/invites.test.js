@@ -74,11 +74,11 @@ test('a friend pays 20% less the first time, and their inviter on Free gets a we
   const bola = client(store, api, { id: 'bola', email: 'bola@example.test' })
   assert.equal((await bola.state()).friendDiscount, 0.2)
   const ref = await bola.pay('plus')
-  assert.equal(checkouts.get(ref).amount, 2000 * 100, 'Plus at ₦2,000 instead of ₦2,500')
+  assert.equal(checkouts.get(ref).amount, 2400 * 100, 'Plus at ₦2,400 instead of ₦3,000')
   assert.equal((await bola.state()).plan, 'plus')
   assert.equal((await bola.state()).friendDiscount, 0, 'only the first payment')
   const again = await bola.pay('plus')
-  assert.equal(checkouts.get(again).amount, 2500 * 100)
+  assert.equal(checkouts.get(again).amount, 3000 * 100)
 
   const reward = await getSubscription(store, 'ada')
   assert.equal(reward.plan, 'plus')
@@ -130,7 +130,7 @@ test('no reward for sign-ups alone, inviting yourself, auto-renew discounts, or 
   const { api: subsApi, checkouts: subs } = fakePaystack()
   const withPlan = async (path, opts) => (path.startsWith('/plan') ? (path === '/plan?perPage=100' ? [] : { plan_code: 'PLN_plus' }) : subsApi(path, opts))
   const ref = await client(store, withPlan, { id: 'bola', email: 'bola@example.test' }).pay('plus', true)
-  assert.equal(subs.get(ref).amount, 2500 * 100)
+  assert.equal(subs.get(ref).amount, 3000 * 100)
   assert.equal((await inviteSummary(store, 'ada')).paid, 1)
 
   // A second friend account paying again doesn't reward twice for the same friend.

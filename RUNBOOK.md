@@ -104,9 +104,15 @@ in `server/plans.js`):
 | Plan | Price (`*_PRICE_NGN`) | Per 3 hours (`*_WINDOW_NGN`) | Per 30 days (`*_MONTH_NGN`) | Packs written by |
 |---|---|---|---|---|
 | Free | ₦0 | ₦900 (`FREE_WINDOW_NGN`) | ₦900 (`FREE_MONTH_NGN`) | Haiku (fast, cheap) |
-| Plus | ₦2,500 (`PLUS_PRICE_NGN`) | ₦700 | ₦1,750 | Haiku |
-| Pro | ₦5,000 (`PRO_PRICE_NGN`) | ₦1,500 | ₦3,500 | `STUDY_GUIDE_MODEL` |
-| Max | ₦12,000 (`MAX_PRICE_NGN`) | ₦3,000 | ₦8,500 | `STUDY_GUIDE_MODEL` |
+| Plus | ₦3,000 (`PLUS_PRICE_NGN`) | ₦840 | ₦2,100 | Haiku |
+| Pro | ₦7,500 (`PRO_PRICE_NGN`) | ₦2,250 | ₦5,250 | `STUDY_GUIDE_MODEL` |
+| Max | ₦15,000 (`MAX_PRICE_NGN`) | ₦3,750 | ₦10,500 | `STUDY_GUIDE_MODEL` |
+| Semester pass | ₦25,000 for 4 months of Pro (`SEMESTER_PRICE_NGN`, `SEMESTER_MONTHS`) | Pro's | Pro's, refilled every 30 days | `STUDY_GUIDE_MODEL` |
+
+- **The semester pass** is one payment for several months of Pro, with no
+  auto-renew. Its allowance refills every 30 days. Keep its price above
+  months × Pro's monthly allowance, or a student who uses everything costs more
+  than they paid.
 
 - **Allowances are naira of real AI cost.** Each pack uses up what Claude
   actually cost. Keep each plan's 30-day allowance at about 70% of its price,

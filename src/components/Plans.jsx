@@ -1,6 +1,6 @@
 import { Check, CreditCard, ExternalLink, Gift, KeyRound, Loader2, RefreshCw, Sparkles } from 'lucide-react'
 import { useState } from 'react'
-import { formatDate, formatNaira, manageAutoRenew, redeemGumroadKey, startCheckout } from '../lib/billing.js'
+import { formatDate, formatNaira, manageAutoRenew, redeemGumroadKey, startCheckout, startPassCheckout } from '../lib/billing.js'
 import { storedReferral } from '../lib/referral.js'
 import InviteCard from './InviteCard.jsx'
 import SignIn from './SignIn.jsx'
@@ -32,6 +32,16 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
     setBusy(`${planId}:${autoRenew}`)
     try {
       await startCheckout(planId, autoRenew) // navigates away on success
+    } catch (err) {
+      setBusy(null)
+      onError(err.message)
+    }
+  }
+
+  async function buyPass(passId) {
+    setBusy(`pass:${passId}`)
+    try {
+      await startPassCheckout(passId) // navigates away on success
     } catch (err) {
       setBusy(null)
       onError(err.message)
@@ -231,6 +241,43 @@ export default function Plans({ billing, user, showSignIn, onError, onRedeemed }
           )
         })}
       </ul>
+
+      {(billing.passes ?? []).map((pass) => {
+        const planName = billing.plans.find((p) => p.id === pass.plan)?.name ?? pass.plan
+        const saving = pass.monthlyTotal - pass.price
+        return (
+          <section
+            key={pass.id}
+            aria-labelledby={`pass-${pass.id}`}
+            className="card flex flex-col gap-5 bg-gradient-to-br from-brand-50 to-white p-6 ring-2 ring-brand-300 md:flex-row md:items-center md:justify-between"
+          >
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 id={`pass-${pass.id}`} className="text-lg font-bold text-stone-900">
+                  {pass.name}
+                </h2>
+                {saving > 0 && <Badge tone="emerald">Save {formatNaira(saving)}</Badge>}
+              </div>
+              <p className="mt-1 text-stone-700">
+                <span className="text-2xl font-extrabold tracking-tight text-stone-900">{formatNaira(pass.price)}</span> for{' '}
+                <span className="font-semibold">
+                  {pass.months} months of {planName}
+                </span>
+                {saving > 0 && <span className="text-stone-500"> instead of {formatNaira(pass.monthlyTotal)} paying monthly</span>}
+              </p>
+              <p className="mt-1 text-sm text-stone-500">
+                One payment for the whole semester. Your {planName} allowance refills every 30 days
+                {current && current !== 'free' ? `, and the ${currentName} days you have left carry over.` : '.'}
+              </p>
+            </div>
+            {user && billing.paymentsEnabled ? (
+              <Button variant="primary" size="lg" icon={Sparkles} className="shrink-0" disabled={busy !== null} onClick={() => buyPass(pass.id)}>
+                {busy === `pass:${pass.id}` ? 'Opening Paystack…' : `Pay ${formatNaira(pass.price)}`}
+              </Button>
+            ) : null}
+          </section>
+        )
+      })}
 
       <p className="text-sm text-stone-500">
         By paying you agree to our{' '}

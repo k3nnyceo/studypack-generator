@@ -1,8 +1,10 @@
 // Paid plans per account, stored with the usage meter's store (Upstash).
 //
-// Every successful payment grants a 30-day period of a paid plan, whether it
-// was a one-time payment (card, bank transfer, USSD) or a monthly card charge
-// by a Paystack subscription ("auto-renew"). A record looks like
+// Every successful payment grants a 30-day period of a paid plan (several, for
+// a pass), whether it was a one-time payment (card, bank transfer, USSD) or a
+// monthly card charge by a Paystack subscription ("auto-renew"). The usage
+// meter refills the allowance every 30 days of a longer period
+// (server/usageLimits.js). A record looks like
 //   studypack:sub:<user>        { plan, periodStart, periodEnd, reference,
 //                                 bonusMs?, allowanceNaira? }
 // `bonusMs` is free time earned by inviting friends (server/invites.js), kept
@@ -49,7 +51,8 @@ export async function findUser(store, { customerCode, email }) {
 // left into the new plan's days by price, so nothing paid for is lost. A card
 // auto-renewal starts a fresh period with a couple of days' grace instead,
 // since Paystack bills by calendar month.
-export async function applyPayment(store, { userId, planId, reference, autoRenew = false }, plans, now = Date.now()) {
+// `months` is more than 1 for a pass (server/plans.js): that many 30-day periods.
+export async function applyPayment(store, { userId, planId, reference, autoRenew = false, months = 1 }, plans, now = Date.now()) {
   if (!(await store.claim(`studypack:paid:${reference}`, YEAR_SECONDS))) return { applied: false }
 
   const previous = activeSubscription(await getSubscription(store, userId), now)
@@ -62,7 +65,7 @@ export async function applyPayment(store, { userId, planId, reference, autoRenew
     if (!autoRenew) carryMs = previous.plan === planId ? left : (left * plans[previous.plan].price) / plans[planId].price
     else carryMs = bonusMs
   }
-  const days = PERIOD_DAYS + (autoRenew ? AUTO_RENEW_GRACE_DAYS : 0)
+  const days = PERIOD_DAYS * months + (autoRenew ? AUTO_RENEW_GRACE_DAYS : 0)
   const record = {
     plan: planId,
     periodStart: now,

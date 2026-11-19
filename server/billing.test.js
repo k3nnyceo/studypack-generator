@@ -123,7 +123,7 @@ test('Plus: Haiku packs with theory questions, between Free and Pro', async () =
   const plans = plansFromEnv({})
   assert.deepEqual(Object.keys(plans), ['free', 'plus', 'pro', 'max'])
   const plus = plans.plus
-  assert.equal(plus.price, 2500)
+  assert.equal(plus.price, 3000)
   assert.ok(plus.fastModel && plus.theory && plus.batchParts, 'Haiku, theory questions, every part at once')
   assert.ok(!plus.scans && !plus.diagramPages && !plus.paste, 'scans, diagrams and pasting stay on Pro and Max')
   assert.ok(plus.periodNaira <= plus.price * 0.7, 'the month costs at most 70% of the price')
@@ -135,12 +135,12 @@ test('Plus: Haiku packs with theory questions, between Free and Pro', async () =
   const shown = res.body.plans?.find((p) => p.id === 'plus')
   assert.ok(shown.packsPerMonth >= 10 && shown.packsPerMonth <= 12, `about ten a month (${shown.packsPerMonth})`)
 
-  // Moving up from Plus keeps the days left, by price: 20 Plus days are 10 Pro days.
+  // Moving up from Plus keeps the days left, by price: 20 Plus days (₦3,000) are 8 Pro days (₦7,500).
   const store = memoryStore()
   const day = 864e5
   const t0 = Date.UTC(2026, 9, 1)
   await applyPayment(store, { userId: 'u', planId: 'plus', reference: 'r1' }, plans, t0)
   const { record } = await applyPayment(store, { userId: 'u', planId: 'pro', reference: 'r2' }, plans, t0 + 10 * day)
   assert.equal(record.plan, 'pro')
-  assert.equal(Math.round((record.periodEnd - (t0 + 10 * day)) / day), 30 + 10)
+  assert.equal(Math.round((record.periodEnd - (t0 + 10 * day)) / day), 30 + 8)
 })
