@@ -4,7 +4,9 @@
 // app can open them in the source viewer. Packs without notes on the device
 // send the study pack itself instead.
 //
-//   POST { question, history?, context, kind: 'notes' | 'pack', title? }
+//   POST { question, history?, context, kind: 'notes' | 'pack' | 'library', title? }
+//     'library' is "Ask your library": parts of several packs, each starting
+//     with a [[Pack N]] marker (src/lib/askContext.js buildLibraryContext).
 //     -> a stream of JSON lines: { text } pieces of the answer as they're
 //        written, then { done: true }, or { error } if it fails partway.
 //     Refused before streaming with a JSON error (401, 400, 429 for a plan limit).
@@ -36,6 +38,11 @@ How to answer:
 - Write formulas and equations in LaTeX between dollar signs, e.g. $\\sigma = F/A$.
 - When asked to quiz the student, ask one question at a time and wait for their answer.
 - Don't invent course-specific facts such as lecturer names, exam dates or marks.`
+
+// Asking across the whole library: several packs instead of one lecture.
+const LIBRARY_SYSTEM = `${SYSTEM}
+
+This time the student is asking across their whole library: parts of several of their study packs come first, each pack starting with a marker such as [[Pack 2]] and its title. Cite the pack each point comes from with its marker exactly as it appears, e.g. [[Pack 2]], instead of page numbers; nothing else goes inside the brackets (name a module in plain words if it helps). When the question touches more than one pack, connect them. If none of the packs covers it, say so, and suggest making a pack for that topic.`
 
 export async function handleAskRequest(req, res, body, deps = {}) {
   const { store = getDefaults().store, meter = getDefaults().meter, getUser = getSessionUser, env = process.env, answer = streamAnswer } = deps
@@ -98,7 +105,7 @@ export function readInput(body) {
   const context = typeof body?.context === 'string' ? body.context.trim() : ''
   if (!context) return { error: 'There’s no lecture to ask about.' }
   if (context.length > MAX_CONTEXT_CHARS) return { error: 'This lecture is too long to ask about in one go.' }
-  const kind = body?.kind === 'pack' ? 'pack' : 'notes'
+  const kind = body?.kind === 'pack' || body?.kind === 'library' ? body.kind : 'notes'
   const title = typeof body?.title === 'string' ? body.title.slice(0, 200) : ''
   const raw = Array.isArray(body?.history) ? body.history.slice(-MAX_HISTORY_MESSAGES) : []
   const history = []
@@ -127,7 +134,7 @@ function estimateUsd(chars, fast) {
 export async function streamAnswer({ question, history, context, kind, title, fast, onText, signal, client = getClient() }) {
   const started = Date.now()
   const model = modelFor(fast)
-  const label = kind === 'pack' ? 'study_pack' : 'lecture_notes'
+  const label = { pack: 'study_pack', library: 'study_library' }[kind] ?? 'lecture_notes'
   const notes = {
     type: 'text',
     text: `<${label} title="${title.replace(/[<>&"]/g, '')}">\n${context}\n</${label}>`,
@@ -138,7 +145,7 @@ export async function streamAnswer({ question, history, context, kind, title, fa
     role: m.role,
     content: i === 0 ? [notes, { type: 'text', text: m.text }] : m.text,
   }))
-  const stream = client.messages.stream({ model, max_tokens: MAX_ANSWER_TOKENS, system: SYSTEM, messages }, { signal })
+  const stream = client.messages.stream({ model, max_tokens: MAX_ANSWER_TOKENS, system: kind === 'library' ? LIBRARY_SYSTEM : SYSTEM, messages }, { signal })
   let text = ''
   stream.on('text', (piece) => {
     text += piece

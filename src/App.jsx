@@ -222,6 +222,8 @@ export default function App() {
   const [reviewDue, setReviewDue] = useState(null)
   const online = useOnline()
   const [askOpen, setAskOpen] = useState(false)
+  // "Ask your library" (the Library screen): a chat across every pack.
+  const [libraryAskOpen, setLibraryAskOpen] = useState(false)
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
   // Answers kept across visits, for weak topics on Progress.
   const quizResults = useQuizResults(packKey)
@@ -927,6 +929,7 @@ export default function App() {
               sharedPrints={sharedPrints}
               onShare={shareToLibrary}
               streak={streak}
+              onAsk={AI_GENERATION_ENABLED ? () => setLibraryAskOpen(true) : undefined}
             />
           )}
 
@@ -1030,6 +1033,32 @@ export default function App() {
           )}
         </div>
       </main>
+
+      {view === 'library' && libraryAskOpen && AI_GENERATION_ENABLED && (
+        <LoadBoundary onClose={() => setLibraryAskOpen(false)}>
+          <Suspense fallback={null}>
+            <AskPanel
+              packKey="library"
+              library={{
+                entries: library.entries,
+                onOpenPack: (entry) => {
+                  setLibraryAskOpen(false)
+                  openFromLibrary(entry)
+                },
+              }}
+              signedIn={Boolean(auth.user)}
+              authReady={auth.ready}
+              online={online}
+              canUpgrade={Boolean(billing.billing?.paymentsEnabled) && billing.billing?.plan !== 'max'}
+              onOpenPlans={() => {
+                setLibraryAskOpen(false)
+                navigate('plans')
+              }}
+              onClose={() => setLibraryAskOpen(false)}
+            />
+          </Suspense>
+        </LoadBoundary>
+      )}
 
       {isStudyView &&
         AI_GENERATION_ENABLED &&

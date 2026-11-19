@@ -7,6 +7,17 @@
 // link isn't set up. `discordUrl` is DISCORD_URL from src/config.js.
 export const announcements = (discordUrl) => [
   {
+    id: '2026-11-ask-library',
+    title: 'Ask your whole library',
+    body: 'Ask one question across all your study packs: what to revise first, how topics connect, or a quick quiz. Answers show which pack they come from.',
+    cta: { label: 'Ask your library', view: 'library' },
+  },
+  {
+    id: '2026-11-progress-sync',
+    title: 'Your progress now follows you',
+    body: 'Sign in with the same account on your phone and laptop: your XP, streak, exam plan and flashcards stay in step on both.',
+  },
+  {
     id: '2026-11-exam-plan',
     title: 'Exam countdown and a daily plan',
     body: 'Add your exam dates on Today, and StudyPack plans what to study each day: cards to review, guides, quizzes and mock exams. +5 XP for every task done.',

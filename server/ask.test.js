@@ -129,3 +129,14 @@ test('a failed answer says so and charges nothing', async () => {
   const status = await deps.meter.status(user.id, null)
   assert.equal(status.period.used, 0)
 })
+
+test('asking across the library uses its own instructions and cites packs', async () => {
+  const deps = setup()
+  const fake = fakeClient({ pieces: ['See [[Pack 1]].'] })
+  const library = '[[Pack 1]] Measurement (EEE 207)\n\nModule 1: Standards\n\n[[Pack 2]] Atoms (CHM 101)\n\nModule 1: Structure'
+  const res = await ask(deps, { question: 'What is a standard?', context: library, kind: 'library', title: 'Your library' }, fake.client)
+  assert.equal(res.statusCode, 200)
+  assert.match(fake.calls[0].system, /across their whole library[\s\S]*\[\[Pack 2\]\]/)
+  assert.match(fake.calls[0].messages[0].content[0].text, /^<study_library title="Your library">/)
+  assert.equal(readInput({ question: 'Hi', context: 'x', kind: 'nonsense' }).kind, 'notes')
+})

@@ -1,7 +1,7 @@
-import { ArrowUp, BookOpenText, MessageCircleQuestion, Sparkles, Square, Trash2, X } from 'lucide-react'
+import { ArrowUp, BookMarked, BookOpenText, MessageCircleQuestion, Sparkles, Square, Trash2, X } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { askAboutPack } from '../lib/ask.js'
-import { buildAskContext } from '../lib/askContext.js'
+import { buildAskContext, buildLibraryContext, withPackNames } from '../lib/askContext.js'
 import { formatResetTime } from '../lib/billing.js'
 import { unitOf } from '../lib/sourceRefs.js'
 import SignIn from './SignIn.jsx'
@@ -17,7 +17,12 @@ const storageKey = (packKey) => `studypack.ask.v1.${packKey}`
 // A side panel on wide screens, a bottom sheet on phones. The conversation
 // is kept per pack on this device.
 // `initialQuestion` ({ text, nonce }), from Progress, fills in the box.
-export default function AskPanel({ guide, source, packKey, initialQuestion, signedIn, authReady, online, canUpgrade, onOpenSource, onOpenPlans, onClose }) {
+//
+// With `library` ({ entries, onOpenPack }) instead of a pack, it's "Ask your
+// library": answers come from the packs that best match each question and
+// cite them as [[Pack N]], shown as chips that open the pack. Each answer
+// keeps which pack each number meant (`packs`), since that changes per question.
+export default function AskPanel({ guide, source, packKey, library, initialQuestion, signedIn, authReady, online, canUpgrade, onOpenSource, onOpenPlans, onClose }) {
   const [messages, setMessages] = useState(() => load(packKey))
   const [draft, setDraft] = useState(initialQuestion?.text ?? '')
   const [prefilled, setPrefilled] = useState(initialQuestion?.nonce)
@@ -51,11 +56,14 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
   async function send(text) {
     const question = text.trim()
     if (!question || busy) return
-    const history = messages.filter((m) => !m.error && m.text).map(({ role, text }) => ({ role, text }))
-    const built = buildAskContext({ source, guide, question, history })
+    const history = messages
+      .filter((m) => !m.error && m.text)
+      .map(({ role, text, packs }) => ({ role, text: library ? withPackNames(text, packs, library.entries) : text }))
+    const built = library ? buildLibraryContext({ entries: library.entries, question, history }) : buildAskContext({ source, guide, question, history })
+    if (!built) return
     setDraft('')
     setBusy(true)
-    setMessages((m) => [...m, { role: 'user', text: question }, { role: 'assistant', text: '', pending: true }])
+    setMessages((m) => [...m, { role: 'user', text: question }, { role: 'assistant', text: '', pending: true, packs: built.packs }])
     const update = (fn) => setMessages((m) => [...m.slice(0, -1), fn(m.at(-1))])
     abort.current = new AbortController()
     try {
@@ -64,14 +72,14 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
         history,
         context: built.context,
         kind: built.kind,
-        title: guide.title,
+        title: library ? 'Your library' : guide.title,
         signal: abort.current.signal,
         onText: (piece) => update((last) => ({ ...last, text: last.text + piece })),
       })
-      update((last) => ({ role: 'assistant', text: last.text }))
+      update((last) => ({ role: 'assistant', text: last.text, packs: last.packs }))
     } catch (err) {
-      if (err.name === 'AbortError') update((last) => ({ role: 'assistant', text: last.text || '(Stopped.)' }))
-      else update((last) => ({ role: 'assistant', text: last.text, error: { message: err.message, reason: err.reason, resetsAt: err.resetsAt } }))
+      if (err.name === 'AbortError') update((last) => ({ role: 'assistant', text: last.text || '(Stopped.)', packs: last.packs }))
+      else update((last) => ({ role: 'assistant', text: last.text, packs: last.packs, error: { message: err.message, reason: err.reason, resetsAt: err.resetsAt } }))
     } finally {
       setBusy(false)
       abort.current = null
@@ -79,18 +87,26 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
     }
   }
 
-  const suggestions = [
-    `Explain “${guide.modules[0]?.title}” simply`,
-    'What’s most likely to come up in the exam?',
-    `Quiz me on ${guide.modules[1]?.title ?? guide.modules[0]?.title}`,
-    'Help me remember the key terms',
-  ]
+  const suggestions = library
+    ? [
+        'What should I revise first for my exams?',
+        'Which topics connect across my courses?',
+        `Quiz me on ${library.entries[0]?.title ?? 'my newest pack'}`,
+        'Make me a one-page summary of my key formulas',
+      ]
+    : [
+        `Explain “${guide.modules[0]?.title}” simply`,
+        'What’s most likely to come up in the exam?',
+        `Quiz me on ${guide.modules[1]?.title ?? guide.modules[0]?.title}`,
+        'Help me remember the key terms',
+      ]
+  const name = library ? 'Ask your library' : 'Ask about this pack'
   const fromNotes = Boolean(source?.sections?.length)
 
   return (
     <aside
       role="dialog"
-      aria-label="Ask about this pack"
+      aria-label={name}
       className="animate-sheet-up fixed inset-x-0 bottom-0 z-40 flex h-[82dvh] flex-col overflow-hidden rounded-t-3xl bg-white shadow-elevated ring-1 ring-stone-200 lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[26rem] lg:rounded-none lg:rounded-l-3xl"
     >
       <header className="flex shrink-0 items-center gap-3 border-b border-stone-100 px-4 py-3">
@@ -98,8 +114,10 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
           <MessageCircleQuestion className="size-5" strokeWidth={2.25} aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-bold text-stone-900">Ask about this pack</p>
-          <p className="truncate text-xs text-stone-500">{guide.title}</p>
+          <p className="text-sm font-bold text-stone-900">{name}</p>
+          <p className="truncate text-xs text-stone-500">
+            {library ? `${library.entries.length} study pack${library.entries.length === 1 ? '' : 's'}` : guide.title}
+          </p>
         </div>
         {messages.length > 0 && !busy && (
           <button
@@ -126,8 +144,10 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
         {messages.length === 0 && (
           <div className="space-y-4">
             <p className="text-sm leading-relaxed text-stone-600">
-              Ask anything about this lecture: a point you didn’t get, a worked example, what to revise.{' '}
-              {fromNotes
+              {library
+                ? 'Ask anything across all your study packs: what to revise, how topics connect, or a quick quiz. Answers name the pack they come from, and you can tap it to open it.'
+                : 'Ask anything about this lecture: a point you didn’t get, a worked example, what to revise. '}
+              {library ? null : fromNotes
                 ? `Answers come from your ${unitOf(source).toLowerCase()}s, with links to the exact ${unitOf(source).toLowerCase()}.`
                 : 'This pack’s lecture isn’t on this device, so answers come from the pack itself.'}
             </p>
@@ -153,7 +173,7 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
             </p>
           ) : (
             <div key={i} className="max-w-[95%] text-sm leading-relaxed text-stone-800">
-              {m.text ? <AnswerText text={m.text} source={source} onOpenSource={onOpenSource} /> : m.pending && <Thinking />}
+              {m.text ? <AnswerText text={m.text} source={source} onOpenSource={onOpenSource} packs={m.packs} library={library} /> : m.pending && <Thinking />}
               {m.error && (
                 <div className="mt-2 rounded-xl bg-amber-50 p-3 text-amber-900 ring-1 ring-amber-200" role="alert">
                   <p>
@@ -175,7 +195,7 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
       <div className="shrink-0 border-t border-stone-100 p-3">
         {!signedIn ? (
           <div className="space-y-2 px-1 pb-1">
-            <p className="text-sm font-semibold text-stone-800">Sign in to ask about your pack</p>
+            <p className="text-sm font-semibold text-stone-800">Sign in to ask about your {library ? 'library' : 'pack'}</p>
             <div className="min-h-10">{authReady && <SignIn text="continue_with" />}</div>
           </div>
         ) : (
@@ -202,7 +222,7 @@ export default function AskPanel({ guide, source, packKey, initialQuestion, sign
                   send(draft)
                 }
               }}
-              placeholder={online ? 'Ask about this lecture…' : 'You’re offline'}
+              placeholder={online ? (library ? 'Ask about any of your packs…' : 'Ask about this lecture…') : 'You’re offline'}
               disabled={!online}
               aria-label="Your question"
               className="max-h-36 min-h-10 flex-1 resize-none bg-transparent px-2.5 py-2 text-base outline-none placeholder:text-stone-400 sm:text-sm"
@@ -251,7 +271,7 @@ const HEADING = /^\s*#{1,6}\s+/
 const BULLET = /^\s*[-*•]\s+/
 const NUMBERED = /^\s*\d+[.)]\s+/
 
-function AnswerText({ text, source, onOpenSource }) {
+function AnswerText({ text, source, onOpenSource, packs, library }) {
   const groups = []
   for (const line of text.trim().split('\n')) {
     const kind = !line.trim() ? 'gap' : HEADING.test(line) ? 'heading' : BULLET.test(line) ? 'ul' : NUMBERED.test(line) ? 'ol' : 'p'
@@ -260,7 +280,7 @@ function AnswerText({ text, source, onOpenSource }) {
     else if (last?.kind === kind && kind !== 'heading') last.lines.push(line)
     else groups.push({ kind, lines: [line] })
   }
-  const inline = (line, strip) => <Inline text={line.replace(strip, '')} source={source} onOpenSource={onOpenSource} />
+  const inline = (line, strip) => <Inline text={line.replace(strip, '')} source={source} onOpenSource={onOpenSource} packs={packs} library={library} />
   return groups.map((g, i) => {
     if (g.kind === 'gap') return null
     if (g.kind === 'heading') {
@@ -294,9 +314,24 @@ function AnswerText({ text, source, onOpenSource }) {
   })
 }
 
-const CITATION = /\[\[(Page|Slide|Section) (\d+)\]\]/g
+// Also takes "[[Pack 1, Module 5]]", which answers sometimes write.
+const CITATION = /\[\[(Page|Slide|Section|Pack) (\d+)(?:,[^\]]{0,40})?\]\]/g
+const chip =
+  'mx-0.5 inline-flex translate-y-[-1px] items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 align-middle text-[11px] font-semibold text-brand-700 ring-1 ring-brand-200 transition hover:bg-brand-100'
 
-function Inline({ text, source, onOpenSource }) {
+// A [[Pack N]] citation: the pack's title, opening it.
+function PackChip({ n, packs, library }) {
+  const entry = library?.entries.find((e) => e.id === packs?.[n])
+  if (!entry) return null
+  return (
+    <button type="button" onClick={() => library.onOpenPack(entry)} className={`${chip} max-w-[14rem]`} aria-label={`Open ${entry.title}`} title={entry.title}>
+      <BookMarked className="size-3 shrink-0" strokeWidth={2.5} aria-hidden />
+      <span className="truncate">{entry.title}</span>
+    </button>
+  )
+}
+
+function Inline({ text, source, onOpenSource, packs, library }) {
   const parts = []
   let last = 0
   for (const m of text.matchAll(CITATION)) {
@@ -308,12 +343,14 @@ function Inline({ text, source, onOpenSource }) {
   return parts.map((part, i) =>
     typeof part === 'string' ? (
       <Bold key={i} text={part} />
+    ) : part.unit === 'Pack' ? (
+      <PackChip key={i} n={part.n} packs={packs} library={library} />
     ) : source ? (
       <button
         key={i}
         type="button"
         onClick={() => onOpenSource([part.n])}
-        className="mx-0.5 inline-flex translate-y-[-1px] items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 align-middle text-[11px] font-semibold text-brand-700 ring-1 ring-brand-200 transition hover:bg-brand-100"
+        className={chip}
         aria-label={`Open ${part.unit.toLowerCase()} ${part.n}`}
       >
         <BookOpenText className="size-3" strokeWidth={2.5} aria-hidden />

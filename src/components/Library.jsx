@@ -1,4 +1,4 @@
-import { BookMarked, Check, Cloud, CloudAlert, Flame, FolderOpen, Layers, Library as LibraryIcon, LibraryBig, ListChecks, Loader2, Plus, Share2, Trash2 } from 'lucide-react'
+import { BookMarked, Check, MessageCircleQuestion, Cloud, CloudAlert, Flame, FolderOpen, Layers, Library as LibraryIcon, LibraryBig, ListChecks, Loader2, Plus, Share2, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { buildFlashcards } from '../lib/flashcards.js'
 import { groupByCourse } from '../lib/library.js'
@@ -23,6 +23,7 @@ export default function Library({
   sharedPrints,
   onShare,
   streak,
+  onAsk,
 }) {
   const groups = groupByCourse(entries)
   const grouped = groups.length > 1
@@ -50,6 +51,11 @@ export default function Library({
           )}
         </div>
         <div className="flex flex-wrap gap-2">
+          {onAsk && entries.length > 0 && (
+            <Button icon={MessageCircleQuestion} onClick={onAsk}>
+              Ask your library
+            </Button>
+          )}
           <Button icon={LibraryBig} onClick={onBrowseShared}>
             Pack library
           </Button>
