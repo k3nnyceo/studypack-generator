@@ -20,6 +20,9 @@ import StudyGuide from './components/StudyGuide.jsx'
 import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
 import Today, { TodayStrip } from './components/Today.jsx'
+import BottomNav from './components/BottomNav.jsx'
+import WhatsNew from './components/WhatsNew.jsx'
+import { useDueCards } from './lib/dueCards.js'
 import { SourceContext } from './lib/sourceContext.js'
 import { friendlyError } from './lib/staleBuild.js'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
@@ -198,6 +201,11 @@ export default function App() {
       notify(`${finished ? 'Session done' : 'Session saved'}: ${minutes} minute${minutes === 1 ? '' : 's'}, +${xp} XP`)
     },
   })
+  // Flashcards due across the library (the Today screen and the tab bar's
+  // badge), re-read on each screen change so cards just marked count.
+  const due = useDueCards(library.entries, view)
+  // A request to start a round of due cards, from Today's "Review".
+  const [reviewDue, setReviewDue] = useState(null)
   const online = useOnline()
   const [askOpen, setAskOpen] = useState(false)
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
@@ -293,12 +301,12 @@ export default function App() {
   }, [])
 
   // Shows a guide in the study views, starting a fresh session.
-  function openGuide(newGuide, entryId) {
+  function openGuide(newGuide, entryId, startView = 'guide') {
     setGuide(newGuide)
     setActiveEntryId(entryId)
     setReviewedCards(new Set())
     setQuizAnswers(new Map())
-    navigate('guide')
+    navigate(startView)
   }
 
   // Every guide that's pasted, uploaded or generated arrives here already
@@ -395,10 +403,16 @@ export default function App() {
     }
   }
 
-  function openFromLibrary(entry) {
+  function openFromLibrary(entry, startView = 'guide') {
     setResult(null) // lecture notes from an earlier upload don't belong to this pack
     setFileName(entry.sourceName || entry.course)
-    openGuide(entry.guide, entry.id)
+    openGuide(entry.guide, entry.id, startView)
+  }
+
+  // "Review" in the Today screen's Due today list: the pack's due cards only.
+  function reviewDueCards(entry) {
+    openFromLibrary(entry, 'flashcards')
+    setReviewDue({ nonce: Date.now() })
   }
 
   function deleteFromLibrary(entry) {
@@ -740,6 +754,9 @@ export default function App() {
 
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
         <div key={view} className="animate-page-in">
+          {/* "New in StudyPack", for students who've been here before. */}
+          {view === 'home' && (auth.user || library.entries.length > 0) && <WhatsNew view={view} onNavigate={navigate} className="mb-6" />}
+
           {view === 'home' && (focus.xp > 0 || focus.timer || library.entries.length > 0) && (
             <TodayStrip focus={focus} streak={streak} onOpen={() => navigate('today')} />
           )}
@@ -752,6 +769,9 @@ export default function App() {
               openTopic={guide?.topic}
               onOpenPack={openFromLibrary}
               onNewPack={reset}
+              due={due}
+              onReviewDue={reviewDueCards}
+              announcement={<WhatsNew view={view} onNavigate={navigate} />}
             />
           )}
 
@@ -932,6 +952,7 @@ export default function App() {
                   onStudied={streak.studied}
                   focus={cardFocus}
                   onFocused={() => setCardFocus(null)}
+                  reviewDue={reviewDue}
                 />
               )}
               {view === 'theory' && <Theory items={theoryItems} modules={moduleTitles} onStudied={streak.studied} />}
@@ -993,7 +1014,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => setAskOpen(true)}
-            className="fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-brand-600 py-3 pr-5 pl-4 text-sm font-semibold text-white shadow-elevated ring-4 ring-white/70 transition hover:bg-brand-700 active:scale-95 sm:right-6 sm:bottom-6"
+            className="fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-30 inline-flex items-center gap-2 rounded-full bg-brand-600 py-3 pr-5 pl-4 text-sm font-semibold text-white shadow-elevated ring-4 ring-white/70 transition hover:bg-brand-700 active:scale-95 sm:right-6 md:bottom-6"
           >
             <MessageCircleQuestion className="size-5" strokeWidth={2.25} aria-hidden />
             Ask about this pack
@@ -1007,6 +1028,8 @@ export default function App() {
           </Suspense>
         </LoadBoundary>
       )}
+
+      <BottomNav view={view} onNavigate={navigate} focusTimer={focus.timerState} dueTotal={due.total} />
 
       <Toast toast={toast} onDismiss={dismissToast} />
     </div>

@@ -1,11 +1,14 @@
-import { ArrowRight, Flame, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
+import { ArrowRight, Flame, Layers, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
 import { useState } from 'react'
 import { clock, FINISH_BONUS, GOALS, LENGTHS } from '../lib/focus.js'
 import { Button, Eyebrow } from './ui.jsx'
 
 // The daily dashboard: today's focus minutes against the goal, the streak,
 // XP and level, the week, a focus timer, and the pack to pick up next.
-export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack }) {
+// `due` ({ packs, total }, src/lib/dueCards.js) lists flashcards due across the
+// library; `onReviewDue(entry)` opens that pack's due cards. `announcement` is
+// the "New in StudyPack" card, if there's one to show.
+export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement }) {
   const pct = Math.min(1, focus.todayMinutes / focus.goal)
   const reached = focus.todayMinutes >= focus.goal
   const date = new Date(focus.now).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
@@ -19,6 +22,10 @@ export default function Today({ focus, streak, entries, openTopic, onOpenPack, o
           {reached ? 'Goal reached. Nice work!' : focus.todayMinutes ? 'Keep going' : 'Ready to focus?'}
         </h1>
       </div>
+
+      {announcement}
+
+      {due?.total > 0 && <DueToday due={due} onReview={onReviewDue} />}
 
       <div className="grid gap-6 md:grid-cols-[1.1fr_1fr]">
         <section className="card flex flex-col items-center p-6 sm:p-8" aria-label="Today’s goal">
@@ -88,6 +95,49 @@ export default function Today({ focus, streak, entries, openTopic, onOpenPack, o
 
       <p className="text-center text-xs text-stone-500">Your focus minutes and XP are saved on this device.</p>
     </div>
+  )
+}
+
+// Flashcards due across every pack, with a Review button per pack.
+const DUE_SHOWN = 5
+function DueToday({ due, onReview }) {
+  const [all, setAll] = useState(false)
+  const shown = all ? due.packs : due.packs.slice(0, DUE_SHOWN)
+  return (
+    <section className="card overflow-hidden" aria-labelledby="due-today">
+      <div className="flex items-center gap-3 border-b border-amber-100 bg-amber-50/70 px-5 py-4 sm:px-6">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-400 text-white">
+          <Layers className="size-5" strokeWidth={2.25} aria-hidden />
+        </span>
+        <div>
+          <h2 id="due-today" className="font-bold text-stone-900">
+            {due.total} flashcard{due.total === 1 ? '' : 's'} due today
+          </h2>
+          <p className="text-sm text-stone-600">
+            {due.packs.length > 1 ? `Across ${due.packs.length} packs. ` : ''}Review them now, before you forget.
+          </p>
+        </div>
+      </div>
+      <ul className="divide-y divide-stone-100">
+        {shown.map(({ entry, due: count }) => (
+          <li key={entry.id} className="flex items-center gap-3 px-5 py-3 sm:px-6">
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-semibold text-stone-900">{entry.topic}</p>
+              {entry.course && <p className="truncate text-xs text-stone-500">{entry.course}</p>}
+            </div>
+            <span className="shrink-0 rounded-lg bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-800 tabular-nums">{count} due</span>
+            <Button size="sm" variant="primary" onClick={() => onReview(entry)}>
+              Review
+            </Button>
+          </li>
+        ))}
+      </ul>
+      {due.packs.length > DUE_SHOWN && (
+        <button type="button" onClick={() => setAll((a) => !a)} className="w-full border-t border-stone-100 py-2.5 text-sm font-semibold text-brand-700 hover:bg-stone-50">
+          {all ? 'Show fewer' : `Show all ${due.packs.length} packs`}
+        </button>
+      )}
+    </section>
   )
 }
 

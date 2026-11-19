@@ -14,7 +14,7 @@ export default function Toast({ toast, onDismiss }) {
   const Icon = toast.tone === 'error' ? TriangleAlert : CircleCheck
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4">
+    <div className="pointer-events-none fixed inset-x-0 bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-50 flex justify-center px-4 md:bottom-6">
       <div
         key={toast.id}
         role={toast.tone === 'error' ? 'alert' : 'status'}

@@ -94,12 +94,13 @@ export default function AppHeader({
 
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <InstallButton />
-          {/* Today, with the focus timer's countdown while a session runs. */}
+          {/* Today, with the focus timer's countdown while a session runs.
+              On phones it and Library are in the tab bar (BottomNav.jsx). */}
           <button
             type="button"
             onClick={() => onNavigate('today')}
             aria-current={view === 'today' ? 'page' : undefined}
-            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
+            className={`hidden h-8 md:inline-flex items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
               view === 'today'
                 ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
                 : focusTimer
@@ -114,7 +115,7 @@ export default function AppHeader({
             type="button"
             onClick={() => onNavigate('library')}
             aria-current={view === 'library' ? 'page' : undefined}
-            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
+            className={`hidden h-8 md:inline-flex items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
               view === 'library'
                 ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
                 : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'

@@ -10,7 +10,7 @@
     "build": "vite build && node scripts/sitemap.js",
     "start": "node --env-file-if-exists=.env server/index.js",
     "lint": "oxlint",
-    "test": "node --test server/semesterPass.test.js server/reviews.test.js server/packPage.test.js server/studyGuide.test.js server/diagrams.test.js server/billing.test.js server/ask.test.js server/emailSignIn.test.js server/invites.test.js src/lib/insights.test.js src/lib/install.test.js src/lib/analytics.test.js src/lib/shareLinks.test.js src/lib/focus.test.js",
+    "test": "node --test server/semesterPass.test.js server/reviews.test.js server/packPage.test.js server/studyGuide.test.js server/diagrams.test.js server/billing.test.js server/ask.test.js server/emailSignIn.test.js server/invites.test.js src/lib/insights.test.js src/lib/install.test.js src/lib/analytics.test.js src/lib/shareLinks.test.js src/lib/focus.test.js src/lib/dueCards.test.js src/lib/whatsNew.test.js",
     "preview": "vite preview"
   },
   "dependencies": {

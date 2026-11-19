@@ -11,6 +11,10 @@ const DAY = 24 * 60 * 60 * 1000
 // Days until the next review after each "Got it" in a row.
 export const INTERVAL_DAYS = [1, 3, 7, 16, 35]
 
+// Every pack's card memory, for counting what's due across the library
+// (src/lib/dueCards.js).
+export const readCardMemory = () => readAll()
+
 function readAll() {
   try {
     const data = JSON.parse(localStorage.getItem(KEY) ?? '{}')

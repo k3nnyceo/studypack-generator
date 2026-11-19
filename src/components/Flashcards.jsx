@@ -26,9 +26,13 @@ const FACE_LABELS = {
 // next review, and the deck starts with the cards that need it most. Marking
 // a card counts toward the daily `streak`.
 // `focus` ({ moduleIndex, nonce }), from Progress, shows one topic's cards.
-export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress, memory, streak, onStudied, focus, onFocused }) {
+// `reviewDue` ({ nonce }) starts a round of only the due cards, from the Today
+// screen's "Due today" list (src/lib/dueCards.js).
+export default function Flashcards({ cards, modules, reviewed, onReview, onResetProgress, memory, streak, onStudied, focus, onFocused, reviewDue }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [kindFilter, setKindFilter] = useState('all')
+  // Only cards to review now: missed last time, or due again.
+  const [dueOnly, setDueOnly] = useState(false)
   const [shuffledIds, setShuffledIds] = useState(null)
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
@@ -44,9 +48,13 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
     return ordered.filter(
       (c) =>
         (moduleFilter === 'all' || c.moduleIndex === moduleFilter) &&
-        (kindFilter === 'all' || c.kind === kindFilter),
+        (kindFilter === 'all' || c.kind === kindFilter) &&
+        // Judged from the memory at the round's start, so a card marked during
+        // the round stays in it.
+        (!dueOnly || isDue(orderFrom[c.id])),
     )
-  }, [cards, shuffledIds, orderFrom, moduleFilter, kindFilter])
+  }, [cards, shuffledIds, orderFrom, moduleFilter, kindFilter, dueOnly])
+  const dueCount = cards.filter((c) => isDue(memory.records[c.id])).length
 
   const card = deck[index]
   const reviewedInDeck = deck.filter((c) => reviewed.has(c.id)).length
@@ -92,6 +100,22 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
     setKindFilter(value)
     restart()
   }
+
+  function changeDueOnly(value) {
+    setDueOnly(value)
+    restart()
+  }
+
+  const reviewNonce = reviewDue?.nonce
+  useEffect(() => {
+    if (!reviewNonce) return
+    setModuleFilter('all')
+    setKindFilter('all')
+    setShuffledIds(null)
+    changeDueOnly(true)
+    // Only a new request from the Today screen starts a due round.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reviewNonce])
 
   function toggleShuffle() {
     setShuffledIds(shuffledIds ? null : shuffled(cards.map((c) => c.id)))
@@ -140,6 +164,12 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
       {/* Filters */}
       <div className="card space-y-4 overflow-hidden p-4 sm:p-5">
         <div className="-mr-4 flex gap-2 overflow-x-auto pr-10 pb-1 [scrollbar-width:none] [mask-image:linear-gradient(to_right,#000_calc(100%-3rem),transparent)] sm:-mr-5">
+          {(dueCount > 0 || dueOnly) && (
+            <FilterChip active={dueOnly} onClick={() => changeDueOnly(!dueOnly)} title="Cards to review now: missed last time, or due again">
+              Due today
+              <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[11px] leading-none font-bold text-amber-800 tabular-nums">{dueCount}</span>
+            </FilterChip>
+          )}
           <FilterChip active={moduleFilter === 'all'} onClick={() => changeModule('all')}>
             All modules
             <ChipCount reviewed={reviewed} cards={cards} />
@@ -268,7 +298,7 @@ export default function Flashcards({ cards, modules, reviewed, onReview, onReset
         </div>
       ) : (
         <p className="card p-10 text-center text-stone-500">
-          No cards match these filters.
+          {dueOnly ? 'All caught up: no cards are due in this pack right now. They come back just before you’d forget them.' : 'No cards match these filters.'}
         </p>
       )}
 
@@ -395,6 +425,12 @@ function textSize(text, emphasis) {
   if (text.length < 140) return 'text-xl font-medium sm:text-2xl'
   if (text.length < 320) return 'text-lg'
   return 'text-base'
+}
+
+// A card to review now: missed last time, or due again.
+function isDue(record) {
+  const status = cardStatus(record)
+  return status === 'due' || status === 'learning'
 }
 
 function ChipCount({ reviewed, cards }) {
