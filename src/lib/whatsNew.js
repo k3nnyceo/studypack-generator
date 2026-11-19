@@ -7,6 +7,11 @@
 // link isn't set up. `discordUrl` is DISCORD_URL from src/config.js.
 export const announcements = (discordUrl) => [
   {
+    id: '2026-11-dark-mode',
+    title: 'Dark mode for late-night revision',
+    body: 'StudyPack now follows your phone’s dark mode. To switch yourself, tap the moon or sun at the top of the screen.',
+  },
+  {
     id: '2026-11-ask-library',
     title: 'Ask your whole library',
     body: 'Ask one question across all your study packs: what to revise first, how topics connect, or a quick quiz. Answers show which pack they come from.',

@@ -80,12 +80,15 @@
   }
 }
 
+/* For `dark:` classes in components, should one ever need its own dark style. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* A white surface with a hairline border and soft shadow: the base of every panel. */
 @utility card {
   border-radius: var(--radius-2xl);
-  background-color: var(--color-white);
+  background-color: var(--surface, var(--color-white));
   box-shadow:
-    0 0 0 1px rgb(231 229 228 / 0.9),
+    0 0 0 1px var(--card-edge, rgb(231 229 228 / 0.9)),
     var(--shadow-card);
 }
 
@@ -108,6 +111,181 @@
   :focus-visible {
     outline: 2px solid var(--color-brand-500);
     outline-offset: 2px;
+  }
+}
+
+/*
+ * Dark mode (html.dark, set by src/lib/theme.js and index.html).
+ *
+ * Components use light-theme classes such as bg-white, text-stone-900 and
+ * bg-brand-50, so rather than a dark: twin on every one, the palette itself
+ * turns over:
+ *   - stone runs the other way: stone-50 is the page, stone-900 the text;
+ *   - the pale tints (50-200) of brand and the accent colours become dark
+ *     tints, so callouts and chips stay tinted but dark;
+ *   - the solid middles (300-600) stay, so buttons keep their colour and
+ *     white text;
+ *   - dark text colours (600-950) are swapped for light ones below, since
+ *     their variables also colour solid backgrounds (hover:bg-brand-700).
+ * White stays white for text on buttons; white surfaces use --surface.
+ */
+html.dark {
+  --surface: #1e1a18;
+  --card-edge: rgb(255 255 255 / 0.07);
+
+  --color-stone-50: #141110;
+  --color-stone-100: #29241f;
+  --color-stone-200: #38322d;
+  --color-stone-300: #4f4843;
+  --color-stone-400: #7c746e;
+  --color-stone-500: #a39b95;
+  --color-stone-600: #c2bbb5;
+  --color-stone-700: #d8d3cf;
+  --color-stone-800: #e8e4e1;
+  --color-stone-900: #f5f3f1;
+  --color-stone-950: #fbfaf9;
+
+  --color-brand-50: #221a36;
+  --color-brand-100: #2c2147;
+  --color-brand-200: #45337a;
+  --color-brand-300: #6a52b8;
+
+  --color-amber-50: #2a1f0e;
+  --color-amber-100: #3a2a10;
+  --color-amber-200: #5c4314;
+  --color-emerald-50: #0f2a20;
+  --color-emerald-100: #12372a;
+  --color-emerald-200: #1b5640;
+  --color-rose-50: #331419;
+  --color-rose-100: #451a21;
+  --color-rose-200: #6b2531;
+  --color-orange-50: #2e1a0c;
+  --color-orange-200: #5e3412;
+  --color-red-50: #331414;
+  --color-red-100: #451a1a;
+  --color-sky-50: #0e2433;
+  --color-sky-200: #174560;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px -6px rgb(0 0 0 / 0.5);
+  --shadow-card-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 12px 32px -12px rgb(0 0 0 / 0.6);
+  --shadow-elevated: 0 2px 6px rgb(0 0 0 / 0.3), 0 24px 48px -20px rgb(0 0 0 / 0.7);
+
+  & body {
+    background-image:
+      radial-gradient(60rem 28rem at 50% -10rem, rgb(116 64 223 / 0.18), transparent 70%),
+      radial-gradient(30rem 20rem at 90% 0rem, rgb(245 158 11 / 0.06), transparent 70%);
+  }
+  & ::selection {
+    background-color: #6a52b8;
+    color: #fff;
+  }
+
+  /* White surfaces (text-white stays white). */
+  & .bg-white {
+    background-color: var(--surface);
+  }
+  & .bg-white\/95,
+  & .bg-white\/90 {
+    background-color: rgb(30 26 24 / 0.92);
+  }
+  & .bg-white\/75,
+  & .bg-white\/70 {
+    background-color: rgb(30 26 24 / 0.75);
+  }
+  & .to-white {
+    --tw-gradient-to: var(--surface);
+  }
+  & .ring-white {
+    --tw-ring-color: var(--surface);
+  }
+  & .ring-white\/70 {
+    --tw-ring-color: rgb(20 17 16 / 0.7);
+  }
+
+  /* Dark chips, toasts and backdrops stay dark. */
+  & .bg-stone-900,
+  & .bg-stone-800 {
+    background-color: #3a3430;
+  }
+  & .hover\:bg-stone-700:hover {
+    background-color: #4a433e;
+  }
+  & .ring-stone-900 {
+    --tw-ring-color: #3a3430;
+  }
+  & :is(.bg-stone-900, .bg-stone-800) .text-stone-300,
+  & [aria-pressed="true"] .group-aria-pressed\:text-stone-300 {
+    color: #d6d3d1;
+  }
+  & .bg-stone-950\/40 {
+    background-color: rgb(0 0 0 / 0.6);
+  }
+  & .bg-stone-950\/25 {
+    background-color: rgb(0 0 0 / 0.45);
+  }
+
+  /* Dark text colours become light ones. */
+  & .text-brand-500,
+  & .text-brand-600 {
+    color: #a283f5;
+  }
+  & .text-brand-700,
+  & .hover\:text-brand-700:hover {
+    color: #c3aefa;
+  }
+  & .text-brand-800,
+  & .text-brand-900,
+  & .text-brand-950,
+  & .hover\:text-brand-800:hover {
+    color: #dcd0fd;
+  }
+  & .text-brand-800\/80 {
+    color: rgb(220 208 253 / 0.8);
+  }
+  & .text-brand-100,
+  & .text-brand-200 {
+    color: #ede7fe;
+  }
+  & .text-brand-300 {
+    color: #c3aefa;
+  }
+  & .text-amber-600,
+  & .text-amber-700 {
+    color: #fbbf24;
+  }
+  & .text-amber-800,
+  & .text-amber-900,
+  & .text-amber-950 {
+    color: #fcd34d;
+  }
+  & .text-emerald-600,
+  & .text-emerald-700 {
+    color: #34d399;
+  }
+  & .text-emerald-900,
+  & .text-emerald-950 {
+    color: #6ee7b7;
+  }
+  & .text-rose-600,
+  & .text-rose-700 {
+    color: #fb7185;
+  }
+  & .text-rose-900,
+  & .text-rose-950 {
+    color: #fda4af;
+  }
+  & .text-orange-600,
+  & .text-orange-700 {
+    color: #fb923c;
+  }
+  & .text-orange-600\/80 {
+    color: rgb(251 146 60 / 0.8);
+  }
+  & .text-red-600 {
+    color: #f87171;
+  }
+  & .text-sky-700 {
+    color: #38bdf8;
   }
 }
 

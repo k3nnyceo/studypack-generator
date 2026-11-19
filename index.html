@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#7440df" />
+    <!-- Dark mode before the first paint, so there's no white flash (src/lib/theme.js). -->
+    <script>
+      try {
+        var choice = localStorage.getItem('studypack.theme.v1')
+        if (choice === 'dark' || (choice !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+          document.documentElement.style.colorScheme = 'dark'
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141110')
+        }
+      } catch (e) {}
+    </script>
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <meta name="description" content="Turn lecture notes into study guides, flashcards and quizzes. Free to try, and your files stay on your device." />

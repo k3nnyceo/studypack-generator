@@ -39,7 +39,7 @@ test('a pack link gets the pack in its preview tags', () => {
 
 test('pack names from students are escaped', () => {
   const out = withPackPreview(html, { id: MTH101, topic: 'Tricky "quotes" <script>', title: 'x' }, origin)
-  assert.doesNotMatch(out, /<script>/)
+  assert.doesNotMatch(out, /"quotes" <script>/, "the student's text never becomes a tag")
   assert.match(out, /Tricky &quot;quotes&quot; &lt;script&gt;/)
 })
 

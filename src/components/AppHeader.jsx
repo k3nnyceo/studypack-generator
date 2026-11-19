@@ -1,5 +1,6 @@
-import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus, Timer, TrendingUp } from 'lucide-react'
+import { BookOpen, FileText, Layers, Library, ListChecks, Moon, PenLine, Plus, Sun, Timer, TrendingUp } from 'lucide-react'
 import { clock } from '../lib/focus.js'
+import { useTheme } from '../lib/theme.js'
 import AccountMenu from './AccountMenu.jsx'
 import { InstallButton } from './InstallApp.jsx'
 import { Button, Logo } from './ui.jsx'
@@ -136,9 +137,28 @@ export default function AppHeader({
               </Button>
             </>
           )}
+          <ThemeToggle />
           {showSignIn && <AccountMenu user={user} onSignOut={onSignOut} billing={billing} onOpenPlans={() => onNavigate('plans')} onOpenStats={() => onNavigate('stats')} />}
         </div>
       </div>
     </header>
+  )
+}
+
+// Light or dark (src/lib/theme.js).
+function ThemeToggle() {
+  const { dark, toggle } = useTheme()
+  const Icon = dark ? Sun : Moon
+  const label = dark ? 'Switch to light mode' : 'Switch to dark mode'
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={label}
+      title={label}
+      className="flex size-9 shrink-0 items-center justify-center rounded-lg text-stone-500 transition hover:bg-stone-100 hover:text-stone-900"
+    >
+      <Icon className="size-[18px]" strokeWidth={2.25} aria-hidden />
+    </button>
   )
 }
