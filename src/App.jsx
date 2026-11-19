@@ -19,6 +19,7 @@ import Quiz from './components/Quiz.jsx'
 import StudyGuide from './components/StudyGuide.jsx'
 import Theory from './components/Theory.jsx'
 import Toast from './components/Toast.jsx'
+import Today, { TodayStrip } from './components/Today.jsx'
 import { SourceContext } from './lib/sourceContext.js'
 import { friendlyError } from './lib/staleBuild.js'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
@@ -41,6 +42,7 @@ import { practiceQuestions, topicInsights } from './lib/insights.js'
 import { useQuizResults } from './lib/quizResults.js'
 import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
+import { useFocus } from './lib/focus.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
 import { splitIntoParts } from './lib/splitNotes.js'
 import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
@@ -75,7 +77,7 @@ const linkedPack = takePackParam()
 // so the browser's Back and Forward buttons (and Android's back gesture) move
 // between screens. Study screens need a pack in memory, so after a reload
 // they fall back to the home page.
-const VIEWS = ['home', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz', 'theory', 'progress']
+const VIEWS = ['home', 'today', 'library', 'explore', 'plans', 'stats', 'notes', 'guide', 'flashcards', 'quiz', 'theory', 'progress']
 const NEEDS_PACK = ['notes', 'guide', 'flashcards', 'quiz', 'theory', 'progress']
 const viewFromUrl = () => {
   const view = window.location.hash.replace(/^#\/?/, '')
@@ -86,7 +88,7 @@ const initialView = paymentReturn ? 'plans' : linkedPack ? 'explore' : NEEDS_PAC
 window.history.replaceState({ view: initialView }, '', urlFor(initialView))
 
 export default function App() {
-  // view: 'home' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz' | 'theory'
+  // view: 'home' | 'today' | 'library' | 'explore' | 'plans' | 'stats' | 'notes' | 'guide' | 'flashcards' | 'quiz' | 'theory'
   const [view, setView] = useState(initialView)
   const [status, setStatus] = useState(interruptedUploadMessage ? 'error' : 'idle') // for the home screen: 'idle' | 'parsing' | 'error'
   const [fileName, setFileName] = useState('')
@@ -187,6 +189,15 @@ export default function App() {
   const packKey = useMemo(() => (guide ? fingerprint(guide) : null), [guide])
   const cardMemory = useCardMemory(packKey)
   const streak = useStreak()
+  // Focus sessions, the daily goal and XP (the Today screen). The timer keeps
+  // running across screens; a credited session also counts for the streak.
+  const focus = useFocus({
+    onEnded: ({ minutes, xp, finished }) => {
+      if (!minutes) return
+      streak.studied()
+      notify(`${finished ? 'Session done' : 'Session saved'}: ${minutes} minute${minutes === 1 ? '' : 's'}, +${xp} XP`)
+    },
+  })
   const online = useOnline()
   const [askOpen, setAskOpen] = useState(false)
   const questions = useMemo(() => (guide ? buildQuiz(guide) : []), [guide])
@@ -717,6 +728,7 @@ export default function App() {
         showSignIn={SIGN_IN_ENABLED && auth.ready}
         onSignOut={signOut}
         billing={billing.billing}
+        focusTimer={focus.timerState}
       />
 
       {!online && (
@@ -728,6 +740,21 @@ export default function App() {
 
       <main className={`mx-auto px-4 pb-24 sm:px-6 ${view === 'home' ? 'max-w-5xl pt-12 sm:pt-20' : 'max-w-5xl pt-8 sm:pt-10'}`}>
         <div key={view} className="animate-page-in">
+          {view === 'home' && (focus.xp > 0 || focus.timer || library.entries.length > 0) && (
+            <TodayStrip focus={focus} streak={streak} onOpen={() => navigate('today')} />
+          )}
+
+          {view === 'today' && (
+            <Today
+              focus={focus}
+              streak={streak}
+              entries={library.entries}
+              openTopic={guide?.topic}
+              onOpenPack={openFromLibrary}
+              onNewPack={reset}
+            />
+          )}
+
           {view === 'home' && (
             <Landing
               onFile={handleFile}

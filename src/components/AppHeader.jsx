@@ -1,4 +1,5 @@
-import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus, TrendingUp } from 'lucide-react'
+import { BookOpen, FileText, Layers, Library, ListChecks, PenLine, Plus, Timer, TrendingUp } from 'lucide-react'
+import { clock } from '../lib/focus.js'
 import AccountMenu from './AccountMenu.jsx'
 import { InstallButton } from './InstallApp.jsx'
 import { Button, Logo } from './ui.jsx'
@@ -17,8 +18,9 @@ export default function AppHeader({
   showSignIn,
   onSignOut,
   billing,
+  focusTimer,
 }) {
-  const showTabs = !['home', 'library', 'explore', 'plans', 'stats'].includes(view) && (hasNotes || guide)
+  const showTabs = !['home', 'today', 'library', 'explore', 'plans', 'stats'].includes(view) && (hasNotes || guide)
 
   const tabs = [
     hasNotes && { id: 'notes', label: 'Notes', short: 'Notes', icon: FileText },
@@ -92,6 +94,22 @@ export default function AppHeader({
 
         <div className="ml-auto flex items-center gap-2 sm:gap-3">
           <InstallButton />
+          {/* Today, with the focus timer's countdown while a session runs. */}
+          <button
+            type="button"
+            onClick={() => onNavigate('today')}
+            aria-current={view === 'today' ? 'page' : undefined}
+            className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold transition ${
+              view === 'today'
+                ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
+                : focusTimer
+                  ? 'bg-brand-600 text-white hover:bg-brand-700'
+                  : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
+            }`}
+          >
+            <Timer className="size-4" strokeWidth={2.25} aria-hidden />
+            {focusTimer ? <span className="tabular-nums">{focusTimer.paused ? 'Paused' : clock(focusTimer.remainingMs)}</span> : 'Today'}
+          </button>
           <button
             type="button"
             onClick={() => onNavigate('library')}
@@ -110,7 +128,7 @@ export default function AppHeader({
               </span>
             )}
           </button>
-          {!['home', 'library', 'explore', 'plans', 'stats'].includes(view) && (
+          {!['home', 'today', 'library', 'explore', 'plans', 'stats'].includes(view) && (
             <>
               <Button size="sm" icon={Plus} onClick={onReset}>
                 New
