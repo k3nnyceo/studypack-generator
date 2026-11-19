@@ -64,6 +64,9 @@ const READY_MADE = new Map(
   }),
 )
 
+// The ready-made packs' public summaries (for the sitemap, scripts/sitemap.js).
+export const readyMadeSummaries = () => [...READY_MADE.values()].map((p) => forClient(p.summary, null))
+
 // A pack's public summary ({ id, title, course, topic, modules, verified, … }),
 // for link previews (server/packPage.js), or null if it isn't in the library.
 export async function packSummary(store, id) {

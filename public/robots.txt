@@ -1,0 +1,6 @@
+# Everything may be crawled, including /api/pack-page (the pictures X and
+# WhatsApp show for shared pack links; their bots follow this file).
+User-agent: *
+Allow: /
+
+Sitemap: https://studypack-generator.vercel.app/sitemap.xml
