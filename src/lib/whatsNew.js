@@ -7,6 +7,12 @@
 // link isn't set up. `discordUrl` is DISCORD_URL from src/config.js.
 export const announcements = (discordUrl) => [
   {
+    id: '2026-11-exam-plan',
+    title: 'Exam countdown and a daily plan',
+    body: 'Add your exam dates on Today, and StudyPack plans what to study each day: cards to review, guides, quizzes and mock exams. +5 XP for every task done.',
+    cta: { label: 'Add your exams', view: 'today' },
+  },
+  {
     id: '2026-11-due-today',
     title: 'Flashcards due today, from all your packs',
     body: 'The Today screen now lists the cards to review from every pack, so nothing slips before your exam.',

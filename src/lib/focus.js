@@ -175,6 +175,8 @@ export function useFocus({ onEnded } = {}) {
     resume: () => save(resumeTimer(state)),
     stop: () => end(state),
     setGoal: (goal) => save({ ...state, goal }),
+    // XP from elsewhere, e.g. ticking off a task in the daily plan (src/lib/examPlan.js).
+    addXp: (amount) => save({ ...state, xp: Math.max(0, state.xp + amount) }),
   }
 }
 

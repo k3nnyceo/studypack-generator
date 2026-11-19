@@ -1,5 +1,6 @@
-import { ArrowRight, Flame, Layers, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
+import { ArrowRight, CalendarClock, Flame, Layers, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
 import { useState } from 'react'
+import { examLabel } from '../lib/examPlan.js'
 import { clock, FINISH_BONUS, GOALS, LENGTHS } from '../lib/focus.js'
 import { Button, Eyebrow } from './ui.jsx'
 
@@ -7,8 +8,10 @@ import { Button, Eyebrow } from './ui.jsx'
 // XP and level, the week, a focus timer, and the pack to pick up next.
 // `due` ({ packs, total }, src/lib/dueCards.js) lists flashcards due across the
 // library; `onReviewDue(entry)` opens that pack's due cards. `announcement` is
-// the "New in StudyPack" card, if there's one to show.
-export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement }) {
+// the "New in StudyPack" card, if there's one to show. `plan` is the exam
+// countdown and daily plan (ExamPlan.jsx); with exams added, it lists the due
+// cards itself, so the separate list is left out (`hasExams`).
+export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement, plan, hasExams }) {
   const pct = Math.min(1, focus.todayMinutes / focus.goal)
   const reached = focus.todayMinutes >= focus.goal
   const date = new Date(focus.now).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
@@ -25,7 +28,9 @@ export default function Today({ focus, streak, entries, openTopic, onOpenPack, o
 
       {announcement}
 
-      {due?.total > 0 && <DueToday due={due} onReview={onReviewDue} />}
+      {due?.total > 0 && !hasExams && <DueToday due={due} onReview={onReviewDue} />}
+
+      {plan}
 
       <div className="grid gap-6 md:grid-cols-[1.1fr_1fr]">
         <section className="card flex flex-col items-center p-6 sm:p-8" aria-label="Today’s goal">
@@ -302,7 +307,8 @@ function Week({ week, goal }) {
 }
 
 // A one-line summary of today for the home page, which opens Today.
-export function TodayStrip({ focus, streak, onOpen }) {
+// `nextExam` ({ course, daysLeft }) adds the countdown to the soonest exam.
+export function TodayStrip({ focus, streak, onOpen, nextExam }) {
   const t = focus.timerState
   return (
     <button
@@ -322,6 +328,12 @@ export function TodayStrip({ focus, streak, onOpen }) {
         <Trophy className="size-4 text-brand-600" aria-hidden />
         Level {focus.level.level}
       </span>
+      {nextExam && (
+        <span className="flex items-center gap-1.5 font-semibold text-brand-800">
+          <CalendarClock className="size-4 text-brand-600" aria-hidden />
+          {examLabel(nextExam.course)} exam {nextExam.daysLeft === 0 ? 'today' : `in ${nextExam.daysLeft} day${nextExam.daysLeft === 1 ? '' : 's'}`}
+        </span>
+      )}
       <span className="ml-auto inline-flex items-center gap-1 font-semibold text-brand-600">
         {t ? 'Open timer' : 'Start focusing'}
         <ArrowRight className="size-4" aria-hidden />

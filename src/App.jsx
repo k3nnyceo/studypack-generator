@@ -23,6 +23,8 @@ import Today, { TodayStrip } from './components/Today.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import WhatsNew from './components/WhatsNew.jsx'
 import { useDueCards } from './lib/dueCards.js'
+import ExamPlan from './components/ExamPlan.jsx'
+import { dailyPlan, TASK_XP, upcomingExams, useExamPlan } from './lib/examPlan.js'
 import { SourceContext } from './lib/sourceContext.js'
 import { friendlyError } from './lib/staleBuild.js'
 import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
@@ -204,6 +206,14 @@ export default function App() {
   // Flashcards due across the library (the Today screen and the tab bar's
   // badge), re-read on each screen change so cards just marked count.
   const due = useDueCards(library.entries, view)
+  // Exam dates and today's plan (src/lib/examPlan.js), on the Today screen.
+  const examPlan = useExamPlan(focus.now)
+  const exams = useMemo(() => upcomingExams(examPlan.exams, examPlan.today), [examPlan.exams, examPlan.today])
+  const planTasks = useMemo(
+    () => dailyPlan({ exams: examPlan.exams, entries: library.entries, due, today: examPlan.today }),
+    [examPlan.exams, library.entries, due, examPlan.today],
+  )
+  const courses = useMemo(() => [...new Set(library.entries.map((e) => e.course).filter((c) => c && c !== 'Uncategorized'))], [library.entries])
   // A request to start a round of due cards, from Today's "Review".
   const [reviewDue, setReviewDue] = useState(null)
   const online = useOnline()
@@ -413,6 +423,23 @@ export default function App() {
   function reviewDueCards(entry) {
     openFromLibrary(entry, 'flashcards')
     setReviewDue({ nonce: Date.now() })
+  }
+
+  // A task in today's plan: open the right pack on the right screen.
+  function startPlanTask(task) {
+    if (task.kind === 'review') return reviewDueCards(task.entry)
+    if (task.kind === 'make') return reset()
+    // A timed mock exam starts from the Quiz screen's "Exam mode".
+    openFromLibrary(task.entry, task.kind === 'guide' ? 'guide' : 'quiz')
+  }
+
+  function togglePlanTask(task) {
+    const xp = examPlan.toggle(task)
+    focus.addXp(xp)
+    if (xp > 0) {
+      streak.studied()
+      notify(`Done: +${TASK_XP} XP`)
+    }
   }
 
   function deleteFromLibrary(entry) {
@@ -758,7 +785,7 @@ export default function App() {
           {view === 'home' && (auth.user || library.entries.length > 0) && <WhatsNew view={view} onNavigate={navigate} className="mb-6" />}
 
           {view === 'home' && (focus.xp > 0 || focus.timer || library.entries.length > 0) && (
-            <TodayStrip focus={focus} streak={streak} onOpen={() => navigate('today')} />
+            <TodayStrip focus={focus} streak={streak} onOpen={() => navigate('today')} nextExam={exams[0]} />
           )}
 
           {view === 'today' && (
@@ -772,6 +799,20 @@ export default function App() {
               due={due}
               onReviewDue={reviewDueCards}
               announcement={<WhatsNew view={view} onNavigate={navigate} />}
+              hasExams={exams.length > 0}
+              plan={
+                <ExamPlan
+                  exams={exams}
+                  tasks={planTasks}
+                  done={examPlan.done}
+                  courses={courses}
+                  today={examPlan.today}
+                  onAddExam={examPlan.addExam}
+                  onRemoveExam={examPlan.removeExam}
+                  onToggle={togglePlanTask}
+                  onStart={startPlanTask}
+                />
+              }
             />
           )}
 
