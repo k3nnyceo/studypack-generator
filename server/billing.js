@@ -358,8 +358,9 @@ export async function handlePaystackWebhook(req, res, rawBody, deps = {}) {
   sendJson(res, 200, { ok: true })
 }
 
-// Where Paystack sends the student back. SITE_URL if set, else this request's host.
-function siteUrl(req, env) {
+// Where Paystack sends the student back (and the address in link previews,
+// server/packPage.js). SITE_URL if set, else this request's host.
+export function siteUrl(req, env = process.env) {
   if (env.SITE_URL) return env.SITE_URL.replace(/\/+$/, '')
   const proto = req.headers['x-forwarded-proto']?.split(',')[0] || (req.socket?.encrypted ? 'https' : 'http')
   return `${proto}://${req.headers['x-forwarded-host'] || req.headers.host}`

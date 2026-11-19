@@ -64,6 +64,15 @@ const READY_MADE = new Map(
   }),
 )
 
+// A pack's public summary ({ id, title, course, topic, modules, verified, … }),
+// for link previews (server/packPage.js), or null if it isn't in the library.
+export async function packSummary(store, id) {
+  if (typeof id !== 'string' || !ID.test(id)) return null
+  if (READY_MADE.has(id)) return forClient(READY_MADE.get(id).summary, null)
+  const summary = store ? await store.hget(INDEX, id).catch(() => null) : null
+  return summary ? forClient(summary, null) : null
+}
+
 // What students see: no record of who shared it, just whether it's theirs.
 const forClient = (summary, user) => {
   const { sharedBy, ...rest } = summary
