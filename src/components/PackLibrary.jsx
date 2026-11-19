@@ -1,15 +1,34 @@
-import { BadgeCheck, BookMarked, Check, Loader2, Plus, Search, Sparkles, Trash2, TriangleAlert, Users } from 'lucide-react'
+import { BadgeCheck, BookMarked, Check, Loader2, Plus, Search, Share2, Sparkles, Trash2, TriangleAlert, Users } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { formatResetTime } from '../lib/billing.js'
 import { departmentOf, groupByDepartment } from '../lib/departments.js'
+import { packLabel, packMessage, shareUrl } from '../lib/shareLinks.js'
+import ShareMenu from './ShareMenu.jsx'
 import SignIn from './SignIn.jsx'
 import { Badge, Button, Eyebrow } from './ui.jsx'
 
 // The Pack library: ready-made packs from StudyPack (verified) and from
 // students who chose to share. Adding one copies it into the student's own
-// library, using one of the day's adds (Free 5, Pro 15, Max 40).
-export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyId, error, onAdd, onRemove, onOpenPlans, canUpgrade }) {
+// library, using one of the day's adds (Free 5, Pro 15, Max 40). Every pack
+// can be shared as a link (/?pack=<id>); `highlightId` is the pack a shared
+// link opened, shown here until the visitor signs in to open it.
+export default function PackLibrary({
+  shared,
+  user,
+  showSignIn,
+  ownPrints,
+  busyId,
+  error,
+  onAdd,
+  onRemove,
+  onOpenPlans,
+  canUpgrade,
+  highlightId = null,
+  inviteCode = null,
+}) {
   const [query, setQuery] = useState('')
+  const [sharingId, setSharingId] = useState(null)
+  const highlighted = highlightId ? shared?.packs?.find((p) => p.id === highlightId) : null
 
   const groups = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -55,7 +74,11 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
 
       {!user && showSignIn && (
         <div className="card flex flex-wrap items-center justify-between gap-4 p-5">
-          <p className="font-semibold text-stone-900">Sign in to add packs to your library. It’s free.</p>
+          <p className="font-semibold text-stone-900">
+            {highlighted
+              ? `Sign in to open ${packLabel({ course: highlighted.course, title: highlighted.topic })} · ${highlighted.topic}. It’s free.`
+              : 'Sign in to add packs to your library. It’s free.'}
+          </p>
           <SignIn text="signin_with" />
         </div>
       )}
@@ -102,8 +125,12 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {group.items.map((pack) => {
                 const owned = ownPrints.has(pack.fingerprint)
+                const label = packLabel({ course: pack.course, title: pack.topic })
                 return (
-                  <li key={pack.id} className="card flex flex-col p-5">
+                  <li
+                    key={pack.id}
+                    className={`card flex flex-col p-5 ${pack.id === highlightId ? 'ring-2 ring-brand-500' : ''}`}
+                  >
                     <span className="flex flex-wrap items-center gap-2">
                       {pack.verified ? (
                         <Badge tone="brand">
@@ -136,6 +163,18 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
                       >
                         {owned ? 'In your library · Open' : busyId === pack.id ? 'Adding…' : 'Add to my library'}
                       </Button>
+                      <button
+                        type="button"
+                        onClick={() => setSharingId((id) => (id === pack.id ? null : pack.id))}
+                        aria-expanded={sharingId === pack.id}
+                        aria-label={`Share ${pack.topic}`}
+                        title="Share this pack"
+                        className={`ml-auto flex size-9 items-center justify-center rounded-xl transition ${
+                          sharingId === pack.id ? 'bg-brand-50 text-brand-700' : 'text-stone-500 hover:bg-stone-100 hover:text-stone-800'
+                        }`}
+                      >
+                        <Share2 className="size-4" strokeWidth={2.25} aria-hidden />
+                      </button>
                       {(pack.mine || shared.canModerate) && !pack.readyMade && (
                         <button
                           type="button"
@@ -143,12 +182,20 @@ export default function PackLibrary({ shared, user, showSignIn, ownPrints, busyI
                           disabled={busyId !== null}
                           aria-label={`Remove ${pack.topic} from the Pack library`}
                           title="Remove from the Pack library"
-                          className="ml-auto flex size-9 items-center justify-center rounded-xl text-stone-500 transition hover:bg-rose-50 hover:text-rose-600"
+                          className="flex size-9 items-center justify-center rounded-xl text-stone-500 transition hover:bg-rose-50 hover:text-rose-600"
                         >
                           <Trash2 className="size-4" strokeWidth={2.25} aria-hidden />
                         </button>
                       )}
                     </div>
+                    {sharingId === pack.id && (
+                      <ShareMenu
+                        size="sm"
+                        className="mt-3"
+                        text={packMessage({ label })}
+                        url={shareUrl({ packId: pack.id, ref: inviteCode ?? 'share-pack' })}
+                      />
+                    )}
                   </li>
                 )
               })}

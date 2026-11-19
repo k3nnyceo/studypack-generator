@@ -2,7 +2,9 @@ import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sp
 import { useEffect, useState } from 'react'
 import ExamMode from './ExamMode.jsx'
 import FilterChip from './FilterChip.jsx'
+import ShareMenu from './ShareMenu.jsx'
 import SourceLink from './SourceLink.jsx'
+import { scoreMessage } from '../lib/shareLinks.js'
 import { Button } from './ui.jsx'
 
 const LETTERS = 'ABCDEFGHIJ'
@@ -13,7 +15,7 @@ const LETTERS = 'ABCDEFGHIJ'
 // `practice` ({ moduleIndex, ids, title, nonce }), from Progress, starts a
 // round on one topic with those questions, in that order (missed first).
 // Exam results go to `onExamResults([{ id, correct }])`.
-export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied, practice, onPracticeStarted, onExamResults }) {
+export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied, practice, onPracticeStarted, onExamResults, share }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" or practice round, in order
   const [practiceTitle, setPracticeTitle] = useState(null)
@@ -181,6 +183,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
           onRetryIncorrect={retryIncorrect}
           onRetakeAll={retakeAll}
           onReview={() => startRound({ retry: retryIds })}
+          share={share}
         />
       ) : (
         <>
@@ -330,7 +333,8 @@ function Feedback({ question, answer }) {
   )
 }
 
-function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorrect, onRetakeAll, onReview }) {
+// `share` ({ label, url }) adds "Share your score" (src/lib/shareLinks.js).
+function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorrect, onRetakeAll, onReview, share }) {
   const correct = deck.filter((q) => answers.get(q.id)?.correct).length
   const missed = deck.filter((q) => !answers.get(q.id)?.correct)
   const percent = Math.round((correct / deck.length) * 100)
@@ -370,6 +374,18 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
             Review answers
           </Button>
         </div>
+
+        {share && (
+          <div className="mt-8 border-t border-stone-100 pt-6">
+            <p className="text-sm font-semibold text-stone-800">{percent >= 60 ? 'Share your score' : 'Studying with friends? Share this pack'}</p>
+            <p className="mt-0.5 text-xs text-stone-500">Friends who join and pay through your link earn you free days.</p>
+            <ShareMenu
+              className="mt-3 justify-center"
+              text={scoreMessage({ correct, total: deck.length, label: share.label })}
+              url={share.url}
+            />
+          </div>
+        )}
       </div>
 
       {showBreakdown && byModule.length > 1 && (

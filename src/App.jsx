@@ -25,6 +25,7 @@ import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from './config.js'
 import { useAuth } from './lib/auth.js'
 import { takePaymentReturn, useBilling } from './lib/billing.js'
 import { captureReferral } from './lib/referral.js'
+import { packLabel, shareUrl, takePackParam, useInviteCode } from './lib/shareLinks.js'
 import { fetchShared, listShared, removeShared, sharePack } from './lib/shared.js'
 import { buildFlashcards } from './lib/flashcards.js'
 import { generateStudyGuide, getPendingJobs, resumePendingJob } from './lib/generateStudyGuide.js'
@@ -67,6 +68,8 @@ const pendingJobsAtLoad = AI_GENERATION_ENABLED ? getPendingJobs() : []
 const paymentReturn = takePaymentReturn()
 // A share link (?ref=…) this visit came through.
 captureReferral()
+// A shared link to a Pack library pack (/?pack=<id>, src/lib/shareLinks.js).
+const linkedPack = takePackParam()
 
 // Each screen has its own address (#/library, #/plans, …) and history entry,
 // so the browser's Back and Forward buttons (and Android's back gesture) move
@@ -79,7 +82,7 @@ const viewFromUrl = () => {
   return VIEWS.includes(view) ? view : 'home'
 }
 const urlFor = (view) => (view === 'home' ? window.location.pathname + window.location.search : `#/${view}`)
-const initialView = paymentReturn ? 'plans' : NEEDS_PACK.includes(viewFromUrl()) ? 'home' : viewFromUrl()
+const initialView = paymentReturn ? 'plans' : linkedPack ? 'explore' : NEEDS_PACK.includes(viewFromUrl()) ? 'home' : viewFromUrl()
 window.history.replaceState({ view: initialView }, '', urlFor(initialView))
 
 export default function App() {
@@ -102,6 +105,14 @@ export default function App() {
   const [sharedError, setSharedError] = useState(null)
   const ownPrints = useMemo(() => new Set(library.entries.map((e) => e.fingerprint)), [library.entries])
   const sharedPrints = useMemo(() => new Set((shared?.packs ?? []).map((p) => p.fingerprint)), [shared])
+  // A pack someone shared a link to, opened once the library (and, signed
+  // out, a sign-in) allows.
+  const [pendingPack, setPendingPack] = useState(linkedPack)
+  // Shares carry the student's invite code, so they can earn free days.
+  const inviteCode = useInviteCode(auth.user?.id)
+  // The open pack in the Pack library, if it's there: a score share links to it.
+  const guidePrint = useMemo(() => (guide ? fingerprint(guide) : null), [guide])
+  const sharedGuideId = shared?.packs?.find((p) => p.fingerprint === guidePrint)?.id ?? null
   const [toast, setToast] = useState(null)
   const dismissToast = useCallback(() => setToast(null), [])
   const notify = (message, extra = {}) => setToast({ id: Date.now(), message, ...extra })
@@ -308,9 +319,11 @@ export default function App() {
   }, [])
 
   // Fresh when the Pack library or the Library (for "In the Pack library") is
-  // shown, and when the account changes (allowance, "Shared by you").
+  // shown, and when the account changes (allowance, "Shared by you"). The
+  // quiz needs it to link a shared score to its pack.
   useEffect(() => {
-    if (view === 'explore' || view === 'library') loadShared()
+    if (view === 'explore' || view === 'library' || (view === 'quiz' && !shared)) loadShared()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, auth.user?.id, loadShared])
 
   async function addFromShared(pack) {
@@ -331,6 +344,22 @@ export default function App() {
       setSharedBusy(null)
     }
   }
+
+  // Opens a pack from a shared link: at once if signed in (or already in the
+  // library); signed out, the Pack library shows it and waits for sign-in.
+  useEffect(() => {
+    if (!pendingPack || !shared || !auth.ready) return
+    const pack = shared.packs.find((p) => p.id === pendingPack)
+    if (!pack) {
+      setPendingPack(null)
+      notify('That pack isn’t in the Pack library any more. Here are the others.')
+      return
+    }
+    if (!auth.user && !ownPrints.has(pack.fingerprint)) return
+    setPendingPack(null)
+    addFromShared(pack)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingPack, shared, auth.ready, auth.user])
 
   async function shareToLibrary(entry) {
     try {
@@ -782,6 +811,8 @@ export default function App() {
               error={sharedError}
               onAdd={addFromShared}
               onRemove={removeFromShared}
+              highlightId={pendingPack}
+              inviteCode={inviteCode}
               onOpenPlans={() => navigate('plans')}
               canUpgrade={Boolean(billing.billing?.paymentsEnabled) && billing.billing?.plan !== 'max'}
             />
@@ -888,6 +919,7 @@ export default function App() {
                   practice={practice}
                   onPracticeStarted={() => setPractice(null)}
                   onExamResults={quizResults.record}
+                  share={{ label: packLabel(guide), url: shareUrl({ packId: sharedGuideId, ref: inviteCode ?? 'share-score' }) }}
                 />
               )}
               {view === 'progress' && (
