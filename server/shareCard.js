@@ -1,5 +1,5 @@
 // The picture X, WhatsApp and others show for a shared pack link
-// (/api/og?pack=<id>, linked from server/packPage.js): 1200×630 PNG in
+// (/api/pack-page?image=1&pack=<id>, linked from server/packPage.js): 1200×630 PNG in
 // StudyPack's colours, drawn with @vercel/og. X shows only the picture (no
 // title) under a link, so the pack's name is in the picture itself.
 import { readFileSync } from 'node:fs'

@@ -29,8 +29,8 @@ test('a pack link gets the pack in its preview tags', () => {
   const pack = { id: MTH101, course: 'MTH 101 Elementary Mathematics I', topic: 'Full course: 6 modules', title: 'MTH 101 — Elementary Mathematics I' }
   const out = withPackPreview(html, pack, origin)
   assert.match(out, /<title>MTH 101: free study pack · Full course: 6 modules \| StudyPack<\/title>/)
-  assert.match(out, new RegExp(`<meta property="og:image" content="${origin}/api/og\\?pack=${MTH101}"`))
-  assert.match(out, new RegExp(`<meta name="twitter:image" content="${origin}/api/og\\?pack=${MTH101}"`))
+  assert.match(out, new RegExp(`<meta property="og:image" content="${origin}/api/pack-page\\?image=1&amp;pack=${MTH101}"`))
+  assert.match(out, new RegExp(`<meta name="twitter:image" content="${origin}/api/pack-page\\?image=1&amp;pack=${MTH101}"`))
   assert.match(out, new RegExp(`<meta property="og:url" content="${origin}/\\?pack=${MTH101}"`))
   assert.match(out, /<meta property="og:description" content="Study guide, worked examples, flashcards and a quiz for MTH 101 Elementary Mathematics I\. Free on StudyPack\."/)
   // The rest of the page (the app itself) is untouched.
@@ -48,7 +48,7 @@ test('the page handler serves the pack preview, or the normal page for an unknow
   const known = fakeRes()
   await handlePackPage(req(`/api/pack-page?pack=${MTH101}&ref=i-abc1234`), known, { store: memoryStore(), env: {}, load })
   assert.equal(known.status, 200)
-  assert.match(known.body, /og:image" content="https:\/\/studypack-generator\.vercel\.app\/api\/og\?pack=/)
+  assert.match(known.body, /og:image" content="https:\/\/studypack-generator\.vercel\.app\/api\/pack-page\?image=1&amp;pack=/)
   const unknown = fakeRes()
   await handlePackPage(req('/api/pack-page?pack=00000000-0000-0000-0000-000000000000'), unknown, { store: memoryStore(), env: {}, load })
   assert.equal(unknown.body, html)
@@ -60,7 +60,7 @@ test('the page handler serves the pack preview, or the normal page for an unknow
 test('the picture is drawn for a known pack; an unknown one gets the site picture', async () => {
   const drawn = fakeRes()
   let drew
-  await handleOgImage(req(`/api/og?pack=${MTH101}`), drawn, {
+  await handleOgImage(req(`/api/pack-page?image=1&pack=${MTH101}`), drawn, {
     store: memoryStore(),
     render: (pack) => ((drew = pack), new Response(new Uint8Array([137, 80, 78, 71]))),
   })
@@ -68,7 +68,7 @@ test('the picture is drawn for a known pack; an unknown one gets the site pictur
   assert.equal(drawn.headers['Content-Type'], 'image/png')
   assert.equal(drew.course, 'MTH 101 Elementary Mathematics I')
   const unknown = fakeRes()
-  await handleOgImage(req('/api/og?pack=nope'), unknown, { store: memoryStore() })
+  await handleOgImage(req('/api/pack-page?image=1&pack=nope'), unknown, { store: memoryStore() })
   assert.equal(unknown.status, 302)
   assert.equal(unknown.headers.Location, '/og-image.jpg')
 })

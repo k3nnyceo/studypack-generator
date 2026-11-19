@@ -1,9 +1,11 @@
 // Link previews for shared packs. A pack link (/?pack=<id>, src/lib/shareLinks.js)
 // is sent here by middleware.js on Vercel (and by server/index.js locally):
 //
-//   GET /api/pack-page?pack=<id>  the app's page with that pack's title,
-//                                 description and picture in its preview tags
-//   GET /api/og?pack=<id>         the picture: a 1200×630 PNG (server/shareCard.js)
+//   GET /api/pack-page?pack=<id>          the app's page with that pack's title,
+//                                         description and picture in its preview tags
+//   GET /api/pack-page?image=1&pack=<id>  the picture: a 1200×630 PNG (server/shareCard.js)
+//
+// Both are one Vercel function (api/pack-page.js): the Hobby plan allows 12.
 //
 // The page is the same app, so visitors get StudyPack as usual; only what
 // X, WhatsApp and others show under the link changes. An unknown pack gets
@@ -41,7 +43,7 @@ export function withPackPreview(html, pack, origin) {
   const title = `${label}: free study pack${topic && topic !== label ? ` · ${topic}` : ''} | StudyPack`
   const description = `Study guide, worked examples, flashcards and a quiz for ${pack.course || pack.title || label}. Free on StudyPack.`
   const url = `${origin}/?pack=${pack.id}`
-  const image = `${origin}/api/og?pack=${pack.id}`
+  const image = `${origin}/api/pack-page?image=1&pack=${pack.id}`
   const set = (pattern, value) => {
     html = html.replace(pattern, (_m, start, end) => `${start}${escapeAttr(value)}${end}`)
   }

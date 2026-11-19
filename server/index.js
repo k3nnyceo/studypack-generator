@@ -61,10 +61,10 @@ const server = http.createServer(async (req, res) => {
       const body = await readJson(req, res)
       if (body !== undefined) await handleTranscribeRequest(req, res, body)
     } else if (pathname === '/api/pack-page' || (pathname === '/' && req.method === 'GET' && new URL(req.url, 'http://localhost').searchParams.has('pack'))) {
-      // Shared pack links: on Vercel, middleware.js sends them to api/pack-page.js.
-      await handlePackPage(req, res, { store: getDefaults().store })
-    } else if (pathname === '/api/og') {
-      await handleOgImage(req, res, { store: getDefaults().store })
+      // Shared pack links and their pictures: on Vercel, middleware.js sends
+      // pack links to api/pack-page.js.
+      const wantsImage = new URL(req.url, 'http://localhost').searchParams.has('image')
+      await (wantsImage ? handleOgImage : handlePackPage)(req, res, { store: getDefaults().store })
     } else if (pathname === '/api/shared') {
       const body = req.method === 'POST' ? await readJson(req, res) : null
       if (body !== undefined) await handleSharedRequest(req, res, body, { store: getDefaults().store })
