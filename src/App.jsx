@@ -920,6 +920,7 @@ export default function App() {
                   onPracticeStarted={() => setPractice(null)}
                   onExamResults={quizResults.record}
                   share={{ label: packLabel(guide), url: shareUrl({ packId: sharedGuideId, ref: inviteCode ?? 'share-score' }) }}
+                  canRate={Boolean(auth.user)}
                 />
               )}
               {view === 'progress' && (

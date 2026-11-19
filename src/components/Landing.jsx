@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { PackCard } from './Library.jsx'
 import { InstallCard } from './InstallApp.jsx'
 import UploadDropzone from './UploadDropzone.jsx'
-import { AI_GENERATION_ENABLED, SIGN_IN_ENABLED } from '../config.js'
+import { AI_GENERATION_ENABLED, DISCORD_URL, SIGN_IN_ENABLED } from '../config.js'
 import { useEmailSignIn } from '../lib/auth.js'
 import { Badge, Button } from './ui.jsx'
 
@@ -254,6 +254,11 @@ export default function Landing({
           <a href="mailto:amulukyle1234@gmail.com" className="font-medium text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline">
             Contact
           </a>
+          {DISCORD_URL && (
+            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-stone-600 underline-offset-2 hover:text-stone-900 hover:underline">
+              Discord
+            </a>
+          )}
         </p>
       </footer>
     </div>

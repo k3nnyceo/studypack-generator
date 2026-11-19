@@ -10,3 +10,9 @@ export const AI_GENERATION_ENABLED = import.meta.env.VITE_ENABLE_AI_GENERATION =
 // generation) and to sync their library across devices.
 export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? ''
 export const SIGN_IN_ENABLED = Boolean(GOOGLE_CLIENT_ID)
+
+// StudyPack's Discord invite link (https://discord.gg/…). When set, "Join our
+// Discord" shows in the footer, the account menu and after a rating.
+export const DISCORD_URL = /^https:\/\/(discord\.gg|discord\.com\/invite)\//.test(import.meta.env.VITE_DISCORD_URL ?? '')
+  ? import.meta.env.VITE_DISCORD_URL
+  : ''

@@ -175,6 +175,17 @@ Keep the Paystack and Gumroad payment records: tax law needs them. Reply to
 the student when it's done. Packs they shared to the Pack library don't name
 them; remove one in the app if they ask.
 
+### Reviews and the Discord community
+
+- **Reviews:** after a quiz, signed-in students are asked to rate StudyPack
+  (1–5 stars, optional comment). Read them in the app: account menu →
+  **Referral stats & reviews** (admins only). "OK to show publicly" means the
+  student allowed their first name and comment on the website; never show
+  one without it. To delete a review, remove the student's account id from the
+  Upstash hash `studypack:reviews`.
+- **Discord link:** set `VITE_DISCORD_URL` in Vercel (an invite that never
+  expires), then redeploy. Without it the Discord links are hidden.
+
 ### Adding ready-made packs to the Pack library
 
 Sign in with an `ADMIN_EMAILS` account, generate the pack from the lecture

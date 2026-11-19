@@ -6,6 +6,8 @@
 //   POST /api/referrals { ref }   a visit through a link (once per browser)
 //   GET  /api/referrals           the stats; only for ADMIN_EMAILS
 //   GET  /api/referrals?mine=1    the signed-in student's invite link and rewards
+//   …and the ratings and reviews in server/reviews.js (?review=mine,
+//   POST { action: 'review' }, ?reviews=1 for admins), here to save a function.
 //
 // Attribution is first-touch: the link a student first arrived through is
 // remembered in their browser, sent with their first sign-in, and kept on the
@@ -14,6 +16,8 @@
 import { getSessionUser } from './auth.js'
 import { sendJson } from './http.js'
 import { inviteSummary, isInviteRef, recordInvitedSignup } from './invites.js'
+import { listReviews, myReview, saveReview } from './reviews.js'
+import { activeSubscription, getSubscription } from './subscriptions.js'
 
 const REF = /^[a-z0-9_-]{1,32}$/
 const DIRECT = 'direct'
@@ -76,6 +80,13 @@ export async function referralStats(store) {
 export async function handleReferralRequest(req, res, body, { store, getUser = getSessionUser, env = process.env } = {}) {
   if (!store) return sendJson(res, 503, { error: 'Not available right now.' })
   try {
+    if (req.method === 'POST' && body?.action === 'review') {
+      const user = await getUser(req)
+      if (!user) return sendJson(res, 401, { error: 'Sign in to leave a review.' })
+      const plan = activeSubscription(await getSubscription(store, user.id), Date.now())?.plan ?? 'free'
+      const result = await saveReview(store, user, body, { plan })
+      return result.error ? sendJson(res, result.status, { error: result.error }) : sendJson(res, 200, result)
+    }
     if (req.method === 'POST') {
       const ref = cleanRef(body?.ref)
       if (ref) await bump(store, ref, 'visits')
@@ -83,11 +94,17 @@ export async function handleReferralRequest(req, res, body, { store, getUser = g
     }
     if (req.method === 'GET') {
       const user = await getUser(req)
-      if (new URL(req.url ?? '/', 'http://x').searchParams.has('mine')) {
+      const params = new URL(req.url ?? '/', 'http://x').searchParams
+      if (params.has('mine')) {
         if (!user) return sendJson(res, 401, { error: 'Sign in to get your invite link.' })
         return sendJson(res, 200, await inviteSummary(store, user.id))
       }
+      if (params.get('review') === 'mine') {
+        if (!user) return sendJson(res, 401, { error: 'Sign in first.' })
+        return sendJson(res, 200, { review: await myReview(store, user.id) })
+      }
       if (!isAdmin(user, env)) return sendJson(res, 403, { error: 'Only StudyPack’s admins can see this.' })
+      if (params.has('reviews')) return sendJson(res, 200, await listReviews(store))
       return sendJson(res, 200, { rows: await referralStats(store) })
     }
   } catch (err) {

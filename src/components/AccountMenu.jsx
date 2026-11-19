@@ -1,5 +1,6 @@
-import { BarChart3, Gauge, Gift, LogIn, LogOut } from 'lucide-react'
+import { BarChart3, Gauge, Gift, LogIn, LogOut, MessagesSquare } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { DISCORD_URL } from '../config.js'
 import { useEmailSignIn } from '../lib/auth.js'
 import GoogleButton from './GoogleButton.jsx'
 import SignIn from './SignIn.jsx'
@@ -123,6 +124,19 @@ function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
             <Gift className="size-4" strokeWidth={2.25} aria-hidden />
             Invite friends, get free days
           </button>
+          {DISCORD_URL && (
+            <a
+              role="menuitem"
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-stone-700 transition hover:bg-stone-100"
+            >
+              <MessagesSquare className="size-4" strokeWidth={2.25} aria-hidden />
+              Join our Discord
+            </a>
+          )}
           {user.isAdmin && (
             <button
               type="button"
@@ -134,7 +148,7 @@ function SignedIn({ user, onSignOut, billing, onOpenPlans, onOpenStats }) {
               className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-stone-700 transition hover:bg-stone-100"
             >
               <BarChart3 className="size-4" strokeWidth={2.25} aria-hidden />
-              Referral stats
+              Referral stats & reviews
             </button>
           )}
           <button

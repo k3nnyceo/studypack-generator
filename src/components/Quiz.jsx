@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, Check, CircleCheck, CircleX, Info, RotateCcw, Sp
 import { useEffect, useState } from 'react'
 import ExamMode from './ExamMode.jsx'
 import FilterChip from './FilterChip.jsx'
+import RateCard from './RateCard.jsx'
 import ShareMenu from './ShareMenu.jsx'
 import SourceLink from './SourceLink.jsx'
 import { scoreMessage } from '../lib/shareLinks.js'
@@ -15,7 +16,7 @@ const LETTERS = 'ABCDEFGHIJ'
 // `practice` ({ moduleIndex, ids, title, nonce }), from Progress, starts a
 // round on one topic with those questions, in that order (missed first).
 // Exam results go to `onExamResults([{ id, correct }])`.
-export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied, practice, onPracticeStarted, onExamResults, share }) {
+export default function Quiz({ questions, modules, answers, onAnswer, onClearAnswers, onStudied, practice, onPracticeStarted, onExamResults, share, canRate }) {
   const [moduleFilter, setModuleFilter] = useState('all')
   const [retryIds, setRetryIds] = useState(null) // Set of ids during a "retry incorrect" or practice round, in order
   const [practiceTitle, setPracticeTitle] = useState(null)
@@ -184,6 +185,7 @@ export default function Quiz({ questions, modules, answers, onAnswer, onClearAns
           onRetakeAll={retakeAll}
           onReview={() => startRound({ retry: retryIds })}
           share={share}
+          canRate={canRate}
         />
       ) : (
         <>
@@ -333,8 +335,9 @@ function Feedback({ question, answer }) {
   )
 }
 
-// `share` ({ label, url }) adds "Share your score" (src/lib/shareLinks.js).
-function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorrect, onRetakeAll, onReview, share }) {
+// `share` ({ label, url }) adds "Share your score" (src/lib/shareLinks.js);
+// `canRate` (signed in) asks for a rating (RateCard.jsx).
+function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorrect, onRetakeAll, onReview, share, canRate }) {
   const correct = deck.filter((q) => answers.get(q.id)?.correct).length
   const missed = deck.filter((q) => !answers.get(q.id)?.correct)
   const percent = Math.round((correct / deck.length) * 100)
@@ -387,6 +390,8 @@ function Results({ deck, answers, modules, showBreakdown, isRetry, onRetryIncorr
           </div>
         )}
       </div>
+
+      {canRate && <RateCard />}
 
       {showBreakdown && byModule.length > 1 && (
         <section className="card p-6 sm:p-8">

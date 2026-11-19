@@ -1,8 +1,9 @@
 import { Link2, Loader2, RefreshCw } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { formatNaira } from '../lib/billing.js'
+import { fetchReviews } from '../lib/reviews.js'
 import CopyButton from './CopyButton.jsx'
-import { Button, Eyebrow } from './ui.jsx'
+import { Badge, Button, Eyebrow } from './ui.jsx'
 
 // For StudyPack's admins (ADMIN_EMAILS): which share links bring visits,
 // sign-ups and paying students, plus a builder for new links.
@@ -112,6 +113,53 @@ export default function ReferralStats() {
           </table>
         </div>
       )}
+
+      <Reviews />
     </div>
+  )
+}
+
+// Ratings and reviews from students (server/reviews.js), newest first.
+function Reviews() {
+  const [data, setData] = useState(null)
+  const [error, setError] = useState('')
+  useEffect(() => {
+    fetchReviews()
+      .then(setData)
+      .catch((err) => setError(err.message))
+  }, [])
+
+  return (
+    <section aria-labelledby="reviews-heading" className="space-y-3">
+      <h2 id="reviews-heading" className="flex flex-wrap items-baseline gap-x-3 text-xl font-bold text-stone-900">
+        Reviews
+        {data?.count > 0 && (
+          <span className="text-sm font-semibold text-stone-500">
+            ★ {data.average} average from {data.count} review{data.count === 1 ? '' : 's'}
+          </span>
+        )}
+      </h2>
+      {error && <p className="text-sm text-rose-700">{error}</p>}
+      {data?.count === 0 && <p className="text-sm text-stone-500">No reviews yet. Students are asked after finishing a quiz.</p>}
+      {data?.reviews?.length > 0 && (
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {data.reviews.map((r) => (
+            <li key={`${r.email}-${r.at}`} className="card space-y-2 p-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-amber-500" aria-label={`${r.rating} of 5 stars`}>
+                  {'★'.repeat(r.rating)}
+                  <span className="text-stone-300">{'★'.repeat(5 - r.rating)}</span>
+                </span>
+                {r.public ? <Badge tone="emerald">OK to show publicly</Badge> : <Badge>Private</Badge>}
+              </div>
+              {r.comment && <p className="text-sm whitespace-pre-wrap text-stone-800">{r.comment}</p>}
+              <p className="text-xs text-stone-500">
+                {r.name || 'No name'} · {r.email} · {r.plan} · {new Date(r.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   )
 }
