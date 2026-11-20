@@ -7,6 +7,8 @@
 //   PUT    { entry }  { entry: summary }      save a pack (new or re-saved)
 //   DELETE ?id=<id>   { ok: true }
 //   ?progress=1       study progress (XP, streak, exam plan, …): see below
+//   ?push=1           daily reminders on this device: see below
+//   ?cron=reminders   the daily reminder run (Vercel cron, server/reminders.js)
 //
 // A summary is a library entry (src/lib/library.js) without `guide`:
 // { id, title, course, topic, sourceName, savedAt, fingerprint }. Listing
@@ -19,6 +21,7 @@ import { sendJson } from './http.js'
 import { isDeployed, redisFromEnv } from './usageLimits.js'
 import { describe } from '../src/lib/library.js'
 import { mergeProgress } from '../src/lib/progressMerge.js'
+import { isSubscription, sendReminders, vapidFromEnv, withDevice } from './reminders.js'
 import { validateStudyGuide } from '../src/lib/studyGuideFormat.js'
 
 export const MAX_PACKS = 300
@@ -55,12 +58,28 @@ export function upstashLibraryStore(redis) {
     },
     getProgress: (user) => redis.get(`studypack:progress:${user}`),
     setProgress: (user, progress) => redis.set(`studypack:progress:${user}`, progress),
+    // Reminder subscriptions: per account, plus the set of accounts with any.
+    getPush: async (user) => (await redis.get(`studypack:push:${user}`)) ?? [],
+    async setPush(user, devices) {
+      if (devices.length) {
+        await redis.set(`studypack:push:${user}`, devices)
+        await redis.sadd('studypack:push:users', user)
+      } else {
+        await redis.del(`studypack:push:${user}`)
+        await redis.srem('studypack:push:users', user)
+      }
+    },
+    pushUsers: async () => (await redis.smembers('studypack:push:users')) ?? [],
+    // True the first time for a day, so a retried cron doesn't send twice.
+    markReminded: async (user, day) => (await redis.set(`studypack:push:sent:${user}:${day}`, 1, { nx: true, ex: 2 * 24 * 60 * 60 })) === 'OK',
   }
 }
 
 export function memoryLibraryStore() {
   const users = new Map()
   const progress = new Map()
+  const push = new Map()
+  const reminded = new Set()
   const packs = (user) => users.get(user) ?? users.set(user, new Map()).get(user)
   return {
     list: async (user) => [...packs(user).values()].map(({ guide: _guide, ...summary }) => summary),
@@ -71,6 +90,10 @@ export function memoryLibraryStore() {
     remove: async (user, id) => void packs(user).delete(id),
     getProgress: async (user) => progress.get(user) ?? null,
     setProgress: async (user, value) => void progress.set(user, value),
+    getPush: async (user) => push.get(user) ?? [],
+    setPush: async (user, devices) => void (devices.length ? push.set(user, devices) : push.delete(user)),
+    pushUsers: async () => [...push.keys()],
+    markReminded: async (user, day) => !reminded.has(`${user}:${day}`) && Boolean(reminded.add(`${user}:${day}`)),
   }
 }
 
@@ -80,7 +103,9 @@ function getDefaultStore() {
   return defaultStore
 }
 
-export async function handleLibraryRequest(req, res, body, { store = getDefaultStore(), getUser = getSessionUser } = {}) {
+export async function handleLibraryRequest(req, res, body, { store = getDefaultStore(), getUser = getSessionUser, env = process.env, send } = {}) {
+  const params = new URL(req.url, 'http://localhost').searchParams
+  if (params.get('cron') === 'reminders') return handleReminderRun(req, res, store, env, send)
   const user = await getUser(req)
   if (!user) return sendJson(res, 401, { error: 'Sign in to sync your library.' })
   if (!store) {
@@ -88,8 +113,8 @@ export async function handleLibraryRequest(req, res, body, { store = getDefaultS
     return sendJson(res, 503, { error: 'Library sync isn’t available right now.' })
   }
 
-  const params = new URL(req.url, 'http://localhost').searchParams
   if (params.has('progress')) return handleProgress(req, res, user, body, store)
+  if (params.has('push')) return handlePush(req, res, user, body, store, env)
   const id = params.get('id')
   if (id !== null && !ENTRY_ID.test(id)) return sendJson(res, 400, { error: 'Invalid pack id.' })
 
@@ -138,6 +163,45 @@ async function handleProgress(req, res, user, body, store) {
   } catch (err) {
     console.error('[library] Progress sync failed:', err.message)
     return sendJson(res, 503, { error: 'Progress sync isn’t available right now.' })
+  }
+}
+
+// Daily reminders (server/reminders.js, src/lib/reminders.js):
+//   GET ?push=1                     { key } the VAPID public key, or null when off
+//   PUT ?push=1 { subscription }    this device gets reminders
+//   PUT ?push=1 { remove: endpoint } it stops
+async function handlePush(req, res, user, body, store, env) {
+  const vapid = vapidFromEnv(env)
+  if (req.method === 'GET') return sendJson(res, 200, { key: vapid?.publicKey ?? null })
+  if (req.method !== 'PUT') return sendJson(res, 405, { error: 'Method not allowed' })
+  if (!vapid) return sendJson(res, 503, { error: 'Reminders aren’t available right now.' })
+  try {
+    const devices = await store.getPush(user.id)
+    if (typeof body?.remove === 'string') {
+      await store.setPush(user.id, devices.filter((d) => d.endpoint !== body.remove))
+      return sendJson(res, 200, { ok: true })
+    }
+    if (!isSubscription(body?.subscription)) return sendJson(res, 400, { error: 'Invalid subscription.' })
+    await store.setPush(user.id, withDevice(devices, body.subscription))
+    return sendJson(res, 200, { ok: true })
+  } catch (err) {
+    console.error('[library] Reminder settings failed:', err.message)
+    return sendJson(res, 503, { error: 'Reminders aren’t available right now.' })
+  }
+}
+
+// Vercel sends `Authorization: Bearer <CRON_SECRET>` with each cron request.
+async function handleReminderRun(req, res, store, env, send) {
+  if (!env.CRON_SECRET || req.headers?.authorization !== `Bearer ${env.CRON_SECRET}`) return sendJson(res, 401, { error: 'Not allowed.' })
+  const vapid = vapidFromEnv(env)
+  if (!vapid || !store) return sendJson(res, 503, { error: 'Reminders aren’t set up.' })
+  try {
+    const result = await sendReminders({ store, vapid, ...(send ? { send } : {}) })
+    console.log(`[reminders] students=${result.students} sent=${result.sent} removed=${result.removed}`)
+    return sendJson(res, 200, result)
+  } catch (err) {
+    console.error('[reminders] Run failed:', err.message)
+    return sendJson(res, 503, { error: 'The reminder run failed.' })
   }
 }
 

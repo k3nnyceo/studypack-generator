@@ -22,6 +22,7 @@ import Toast from './components/Toast.jsx'
 import Today, { TodayStrip } from './components/Today.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import WhatsNew from './components/WhatsNew.jsx'
+import Reminders from './components/Reminders.jsx'
 import { useDueCards } from './lib/dueCards.js'
 import ExamPlan from './components/ExamPlan.jsx'
 import { dailyPlan, TASK_XP, upcomingExams, useExamPlan } from './lib/examPlan.js'
@@ -806,6 +807,8 @@ export default function App() {
               onReviewDue={reviewDueCards}
               announcement={<WhatsNew view={view} onNavigate={navigate} />}
               hasExams={exams.length > 0}
+              signedIn={Boolean(auth.user)}
+              reminders={auth.user ? <Reminders user={auth.user} /> : null}
               plan={
                 <ExamPlan
                   exams={exams}

@@ -89,6 +89,8 @@ Variables** (values are hidden there; never paste them anywhere public):
 | `IP_HASH_SALT` | Scrambles IP addresses for the sign-in limits | Any random string |
 | `GUIDES_PER_DAY_TOTAL` | Most Free packs per day across the whole site (budget safety) | Your choice (default 20) |
 | `MAX_INPUT_CHARS` | An older limit on note length; plans now set their own | — |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | Daily study reminders (push notifications). **Changing them turns everyone's reminders off.** | `node scripts/vapid-keys.js` on your computer |
+| `CRON_SECRET` | Lets only Vercel's daily cron send the reminders | The same script |
 
 Paystack's webhook must point to
 `https://studypack-generator.vercel.app/api/paystack-webhook` (Paystack →
@@ -191,6 +193,20 @@ them; remove one in the app if they ask.
   Upstash hash `studypack:reviews`.
 - **Discord link:** set `VITE_DISCORD_URL` in Vercel (an invite that never
   expires), then redeploy. Without it the Discord links are hidden.
+
+### Daily study reminders
+
+- Students turn them on at the bottom of **Today** (signed in, on a phone or
+  browser that allows notifications; on iPhone only in the installed app).
+- Every day at 5pm Lagos time, Vercel's cron (`vercel.json`) calls
+  `/api/library?cron=reminders`. Each student gets at most one notification,
+  about an exam in the next two weeks, cards due, or a streak ending that
+  night, and none on a day they've already studied.
+- Check a run: Vercel → studypack-generator → **Settings → Cron Jobs** (you
+  can also press **Run** there), and the logs show
+  `[reminders] students=… sent=…`.
+- Without `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` and `CRON_SECRET`, the
+  switch is hidden and nothing is sent.
 
 ### Adding ready-made packs to the Pack library
 

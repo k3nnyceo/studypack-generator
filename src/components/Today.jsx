@@ -10,8 +10,9 @@ import { Button, Eyebrow } from './ui.jsx'
 // library; `onReviewDue(entry)` opens that pack's due cards. `announcement` is
 // the "New in StudyPack" card, if there's one to show. `plan` is the exam
 // countdown and daily plan (ExamPlan.jsx); with exams added, it lists the due
-// cards itself, so the separate list is left out (`hasExams`).
-export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement, plan, hasExams }) {
+// cards itself, so the separate list is left out (`hasExams`). `reminders` is
+// the daily reminders switch (Reminders.jsx), for signed-in students.
+export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement, plan, hasExams, reminders, signedIn }) {
   const pct = Math.min(1, focus.todayMinutes / focus.goal)
   const reached = focus.todayMinutes >= focus.goal
   const date = new Date(focus.now).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
@@ -98,7 +99,11 @@ export default function Today({ focus, streak, entries, openTopic, onOpenPack, o
         </section>
       </div>
 
-      <p className="text-center text-xs text-stone-500">Your focus minutes and XP are saved on this device.</p>
+      {reminders}
+
+      <p className="text-center text-xs text-stone-500">
+        {signedIn ? 'Your focus minutes, XP and streak sync to your account.' : 'Your focus minutes and XP are saved on this device. Sign in to keep them on every device.'}
+      </p>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-// StudyPack service worker. Two jobs:
+// StudyPack service worker. Three jobs:
 //
 // 1. Offline use. The app's code, styles and fonts are kept in the Cache API,
 //    so StudyPack opens without internet and saved packs can be studied
@@ -159,6 +159,38 @@ async function cacheFirst(request) {
 
 // A real file, not an error or the app's page sent back for a missing one.
 const isAsset = (res) => Boolean(res?.ok) && !(res.headers.get('content-type') ?? '').includes('text/html')
+
+// 3. Daily study reminders (server/reminders.js): show the notification, and
+//    open (or focus) StudyPack on Today when it's tapped.
+self.addEventListener('push', (event) => {
+  let data = {}
+  try {
+    data = event.data?.json() ?? {}
+  } catch {
+    data = { body: event.data?.text() }
+  }
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'Time to study', {
+      body: data.body || 'Open StudyPack for today’s plan.',
+      icon: '/icon-192.png',
+      badge: '/icon-192.png',
+      tag: 'studypack-daily',
+      data: { url: data.url || '/#/today' },
+    }),
+  )
+})
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const url = new URL(event.notification.data?.url || '/#/today', self.location.origin).href
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windows) => {
+      const open = windows.find((w) => new URL(w.url).origin === self.location.origin)
+      if (open) return open.focus().then(() => open.navigate?.(url)).catch(() => {})
+      return self.clients.openWindow(url)
+    }),
+  )
+})
 
 async function receiveShare(request) {
   const back = (status) => Response.redirect(new URL(`/?share=${status}`, self.location.origin).href, 303)
