@@ -50,6 +50,7 @@ import { fingerprint } from './lib/library.js'
 import { useStreak } from './lib/streak.js'
 import { useFocus } from './lib/focus.js'
 import { useProgressSync } from './lib/progressSync.js'
+import { useStudySound } from './lib/studySound.js'
 import { loadSource, restoreSource, saveSource, sourceFromResult, takeSource } from './lib/sourceStore.js'
 import { splitIntoParts } from './lib/splitNotes.js'
 import { prepareDiagramPages, useDiagramPages } from './lib/useDiagramPages.js'
@@ -212,6 +213,8 @@ export default function App() {
   // badge), re-read on each screen change so cards just marked count.
   const due = useDueCards(library.entries, view)
   // Exam dates and today's plan (src/lib/examPlan.js), on the Today screen.
+  // Rain, waves or brown noise while a focus session runs (src/lib/studySound.js).
+  const studySound = useStudySound(Boolean(focus.timerState && !focus.timerState.paused))
   const examPlan = useExamPlan(focus.now)
   const exams = useMemo(() => upcomingExams(examPlan.exams, examPlan.today), [examPlan.exams, examPlan.today])
   const planTasks = useMemo(
@@ -808,6 +811,7 @@ export default function App() {
               announcement={<WhatsNew view={view} onNavigate={navigate} />}
               hasExams={exams.length > 0}
               signedIn={Boolean(auth.user)}
+              sound={studySound}
               reminders={auth.user ? <Reminders user={auth.user} /> : null}
               plan={
                 <ExamPlan

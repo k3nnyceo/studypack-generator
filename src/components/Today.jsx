@@ -1,7 +1,8 @@
-import { ArrowRight, CalendarClock, Flame, Layers, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
+import { ArrowRight, CalendarClock, Flame, Headphones, Layers, Pause, Play, Plus, Square, Timer, Trophy } from 'lucide-react'
 import { useState } from 'react'
 import { examLabel } from '../lib/examPlan.js'
 import { clock, FINISH_BONUS, GOALS, LENGTHS } from '../lib/focus.js'
+import { SOUNDS } from '../lib/studySound.js'
 import { Button, Eyebrow } from './ui.jsx'
 
 // The daily dashboard: today's focus minutes against the goal, the streak,
@@ -11,8 +12,9 @@ import { Button, Eyebrow } from './ui.jsx'
 // the "New in StudyPack" card, if there's one to show. `plan` is the exam
 // countdown and daily plan (ExamPlan.jsx); with exams added, it lists the due
 // cards itself, so the separate list is left out (`hasExams`). `reminders` is
-// the daily reminders switch (Reminders.jsx), for signed-in students.
-export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement, plan, hasExams, reminders, signedIn }) {
+// the daily reminders switch (Reminders.jsx), for signed-in students. `sound`
+// is the focus timer's background sound (src/lib/studySound.js).
+export default function Today({ focus, streak, entries, openTopic, onOpenPack, onNewPack, due, onReviewDue, announcement, plan, hasExams, reminders, signedIn, sound }) {
   const pct = Math.min(1, focus.todayMinutes / focus.goal)
   const reached = focus.todayMinutes >= focus.goal
   const date = new Date(focus.now).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
@@ -70,7 +72,7 @@ export default function Today({ focus, streak, entries, openTopic, onOpenPack, o
           </label>
         </section>
 
-        <FocusTimer focus={focus} entries={entries} openTopic={openTopic} />
+        <FocusTimer focus={focus} entries={entries} openTopic={openTopic} sound={sound} />
       </div>
 
       <div className="grid gap-6 md:grid-cols-[1.1fr_1fr]">
@@ -187,7 +189,7 @@ function Stat({ icon: Icon, tone, children }) {
   )
 }
 
-function FocusTimer({ focus, entries, openTopic }) {
+function FocusTimer({ focus, entries, openTopic, sound }) {
   const [length, setLength] = useState(25)
   const topics = [...new Set([openTopic, ...entries.map((e) => e.topic)].filter(Boolean))].slice(0, 8)
   const [label, setLabel] = useState(topics[0] ?? '')
@@ -223,6 +225,7 @@ function FocusTimer({ focus, entries, openTopic }) {
               End and save
             </Button>
           </div>
+          {sound && <SoundPicker sound={sound} className="mt-6 w-full" />}
           <p className="mt-4 text-xs text-stone-500">The timer keeps running while you study in other screens.</p>
         </div>
       ) : (
@@ -261,6 +264,7 @@ function FocusTimer({ focus, entries, openTopic }) {
               </select>
             </label>
           )}
+          {sound && <SoundPicker sound={sound} className="mt-4" />}
           <Button variant="primary" size="lg" icon={Play} className="mt-6 w-full" onClick={() => focus.start(length, label)}>
             Start {length}-minute focus
           </Button>
@@ -344,5 +348,47 @@ export function TodayStrip({ focus, streak, onOpen, nextExam }) {
         <ArrowRight className="size-4" aria-hidden />
       </span>
     </button>
+  )
+}
+
+// Background sound while focusing, and its volume.
+function SoundPicker({ sound, className = '' }) {
+  return (
+    <div className={className}>
+      <p className="flex items-center gap-1.5 text-sm text-stone-600">
+        <Headphones className="size-4 text-stone-400" aria-hidden />
+        Background sound
+      </p>
+      <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label="Background sound">
+        {SOUNDS.map(({ id, label }) => (
+          <button
+            key={id}
+            type="button"
+            role="radio"
+            aria-checked={sound.sound === id}
+            onClick={() => sound.setSound(id)}
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold ring-1 transition ${
+              sound.sound === id ? 'bg-brand-50 text-brand-700 ring-brand-300' : 'bg-white text-stone-600 ring-stone-200 hover:bg-stone-50'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      {sound.sound !== 'off' && (
+        <label className="mt-3 flex items-center gap-3 text-sm text-stone-600">
+          Volume
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.05}
+            value={sound.volume}
+            onChange={(e) => sound.setVolume(Number(e.target.value))}
+            className="flex-1 accent-brand-600"
+          />
+        </label>
+      )}
+    </div>
   )
 }

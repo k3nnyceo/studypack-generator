@@ -7,6 +7,12 @@
 // link isn't set up. `discordUrl` is DISCORD_URL from src/config.js.
 export const announcements = (discordUrl) => [
   {
+    id: '2026-11-study-sound',
+    title: 'Rain, waves or brown noise while you focus',
+    body: 'Pick a background sound in the focus timer on Today. It plays while your session runs, on every screen.',
+    cta: { label: 'Open Today', view: 'today' },
+  },
+  {
     id: '2026-11-dark-mode',
     title: 'Dark mode for late-night revision',
     body: 'StudyPack now follows your phone’s dark mode. To switch yourself, tap the moon or sun at the top of the screen.',
